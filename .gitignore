@@ -1,0 +1,8 @@
+node_modules
+coverage
+secrets/*
+.env.development
+dist
+.DS_Store
+.idea
+build
