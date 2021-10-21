@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 export const Header = () => (
   <StyledHeader>
-    <StyledLogo to={'/oppgaver/1'}>KABAL</StyledLogo>
+    <StyledLogo to={'/oppgaver/1'}>KAKA</StyledLogo>
   </StyledHeader>
 );
 
