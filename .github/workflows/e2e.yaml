@@ -1,0 +1,27 @@
+name: E2E-tester
+
+on:
+  workflow_dispatch:
+
+env:
+  IMAGE: docker.pkg.github.com/${{ github.repository }}/kaka-frontend:${{ github.sha }}
+  LATEST: docker.pkg.github.com/${{ github.repository }}/kaka-frontend:latest
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: navikt/kaka
+      - name: Set UUID
+        id: generate-uuid
+        uses: filipstefansson/uuid-action@v1.1
+      - name: Run acceptance tests
+        uses: nais/deploy/actions/deploy@master
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          VAR: app=kaka,jobname=klage-job-${{ steps.generate-uuid.outputs.uuid }}
+          TEAM: klage
+          RESOURCE: deploy/e2ejob.yml
+        timeout-minutes: 5
