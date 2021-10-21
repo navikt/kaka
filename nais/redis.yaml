@@ -1,0 +1,30 @@
+---
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  labels:
+    team: klage
+  name: kaka-redis-fe
+  namespace: klage
+  annotations:
+    nais.io/restricted: "true"
+spec:
+  image: docker.pkg.github.com/navikt/kabal-redis/kabal-redis:a3431b0b2ae0f5902686086f1df7a1b6735b86ed
+  port: 6379
+  replicas: # A single Redis-app doesn't scale
+    min: 1
+    max: 1 # More replicas doesn't sync
+  resources: # you need to monitor the resource usage yourself
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  service:
+    port: 6379
+    protocol: redis
+  accessPolicy: # for GCP
+    inbound:
+      rules:
+        - application: kaka-frontend
