@@ -25,7 +25,7 @@ spec:
         - application: kaka-e2e
     outbound:
       rules:
-        - application: klage-redis-fe
+        - application: kaka-redis-fe
         - application: kaka-api
       external:
         - host: login.microsoftonline.com
