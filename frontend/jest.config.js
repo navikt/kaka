@@ -10,6 +10,7 @@ module.exports = {
     "node_modules/(?!(nav-frontend-typografi-style|nav-frontend-alertstriper-style|nav-frontend-spinner-style|nav-frontend-etiketter-style|nav-frontend-knapper-style)/)",
   ],
   testEnvironment: "node",
+  passWithNoTests: true,
   globals: {
     window: {
       location: {
