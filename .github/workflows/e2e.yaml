@@ -21,7 +21,7 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          VAR: app=kaka,jobname=klage-job-${{ steps.generate-uuid.outputs.uuid }}
+          VAR: app=kaka,jobname=kaka-job-${{ steps.generate-uuid.outputs.uuid }}
           TEAM: klage
           RESOURCE: deploy/e2ejob.yml
         timeout-minutes: 5
