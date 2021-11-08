@@ -9,8 +9,6 @@
   "type": "module",
   "snyk": true,
   "scripts": {
-    "dev": "env-cmd -f .env.development node --es-module-specifier-resolution=node --loader ts-node/esm src/server.ts",
-    "local": "env-cmd -f .env.development node --es-module-specifier-resolution=node dist/server.js",
     "start": "node -r dotenv-flow/config --es-module-specifier-resolution=node dist/server.js",
     "build": "tsc -p tsconfig.json",
     "test": "jest",
@@ -44,7 +42,6 @@
     "@types/redis": "^2.8.32",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
-    "env-cmd": "^10.1.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
