@@ -4,6 +4,13 @@ const isLocalhost = window.location.hostname === 'localhost';
 export const baseUrl = isLocalhost ? 'https://kaka.dev.nav.no/' : '/';
 const mode: RequestMode | undefined = isLocalhost ? 'cors' : undefined;
 
-export const staggeredBaseQuery = retry(fetchBaseQuery({ baseUrl, mode, credentials: 'include' }), {
-  maxRetries: 3,
-});
+export const baseQuery = retry(
+  fetchBaseQuery({
+    baseUrl: `${baseUrl}api/kaka-api`,
+    mode,
+    credentials: 'include',
+  }),
+  {
+    maxRetries: 3,
+  }
+);
