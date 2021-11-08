@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
@@ -11,10 +10,6 @@ module.exports = {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
-      },
-      {
-        test: /\.worker\.js$/,
-        use: { loader: 'worker-loader' },
       },
       {
         test: /\.less$/,
@@ -37,14 +32,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              publicPath: '/',
-            },
-          },
-        ],
+        type: 'asset/resource'
       },
     ],
   },
@@ -55,20 +43,18 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ],
   devtool: 'source-map',
   devServer: {
-    contentBase: path.resolve(__dirname, 'public'),
     hot: true,
     host: '0.0.0.0',
-    port: 8060,
+    port: 8062,
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: 'http://apimock:3000',
-        pathRewrite: { '^/api': '' },
+        target: 'https://kaka.dev.nav.no',
+        secure: false,
+        changeOrigin: true,
+        withCredentials: true,
       },
     },
   },
