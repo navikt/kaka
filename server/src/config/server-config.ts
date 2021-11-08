@@ -1,3 +1,4 @@
+import { APPLICATION_NAME } from './config';
 import { optionalEnvString, requiredEnvNumber, requiredEnvString } from './env-var';
 
 export const serverConfig = {
@@ -12,7 +13,7 @@ export const serverConfig = {
   // This is configured as a Kubernetes secret.
   sessionKey: requiredEnvString('SESS_KEY'),
   // Session cookie name.
-  cookieName: 'kaka-session',
+  cookieName: `${APPLICATION_NAME}-session`,
   // Session cookie lifespan in milliseconds.
   // Not the same as the "Max-Age" attribute, but milliseconds used to calculate the "Expires" attribute.
   sessionTime: 24 * 60 * 60 * 1000,

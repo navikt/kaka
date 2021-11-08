@@ -1,20 +1,15 @@
 import path from 'path';
-import { getEnvironmentVersion } from './env';
-import { requiredEnvString, requiredEnvUrl } from './env-var';
+import { requiredEnvUrl } from './env-var';
+
+export const APPLICATION_NAME = 'kaka';
 
 export const slack = {
   url: requiredEnvUrl('SLACK_URL'),
   channel: '#klage-notifications',
-  messagePrefix: 'KAKA frontend NodeJS - ',
+  messagePrefix: `${APPLICATION_NAME.toUpperCase()} frontend NodeJS - `,
 };
 
-export const KAKA_API_CLIENT_ID = requiredEnvString(
-  getEnvironmentVersion(
-    'DOWNSTREAM_API_CLIENT_ID_LOCAL',
-    'DOWNSTREAM_API_CLIENT_ID_DEV',
-    'DOWNSTREAM_API_CLIENT_ID_PROD'
-  )
-);
+export const API_CLIENT_IDS = ['kaka-api'];
 
 export const cwd = process.cwd(); // This will be the server folder, as long as the paths in the NPM scripts are not changed.
 export const serverDirectoryPath = cwd;

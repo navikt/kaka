@@ -1,3 +1,4 @@
+import { APPLICATION_NAME } from './config';
 import { serverConfig } from './server-config';
 
 export const getEnvironmentVersion = <T>(local: T, development: T, production: T): T => {
@@ -18,6 +19,6 @@ export const environmentName = getEnvironmentVersion('local', 'development', 'pr
 
 export const applicationDomain: string = getEnvironmentVersion(
   `http://localhost:${serverConfig.port}`,
-  'https://kaka.dev.nav.no',
-  'https://kaka.intern.nav.no'
+  `https://${APPLICATION_NAME}.dev.nav.no`,
+  `https://${APPLICATION_NAME}.intern.nav.no`
 );
