@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux';
-import { kvalitetsvurderingerApi } from '../redux-api/kvalitetsvurderinger';
+import { kvalitetsvurderingApi } from '../redux-api/kvalitetsvurdering';
+import { metadataApi } from '../redux-api/metadata';
+import { saksdataApi } from '../redux-api/saksdata';
 
 export const rootReducer = combineReducers({
-  [kvalitetsvurderingerApi.reducerPath]: kvalitetsvurderingerApi.reducer,
+  [kvalitetsvurderingApi.reducerPath]: kvalitetsvurderingApi.reducer,
+  [saksdataApi.reducerPath]: saksdataApi.reducer,
+  [metadataApi.reducerPath]: metadataApi.reducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

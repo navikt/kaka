@@ -13,7 +13,7 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 3em;
+  height: 48px;
   padding: 0 1.5rem;
   background: #3e3832;
   align-items: center;

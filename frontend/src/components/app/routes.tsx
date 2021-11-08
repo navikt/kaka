@@ -1,12 +1,16 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { MineKvalitetsvurderingerPage } from '../../pages/mine-kvalitetsvurderinger';
+import { KvalitetsregistreringPage } from '../../pages/kvalitetsregistrering';
+import { KvalitetsregistreringerPage } from '../../pages/kvalitetsvurderinger';
 
 export const Routes = () => (
   <Switch>
-    <Route exact path="/minekvalitetsvurderinger">
-      <MineKvalitetsvurderingerPage />
+    <Route exact path="/kvalitetsregistreringer">
+      <KvalitetsregistreringerPage />
     </Route>
-    <Redirect to="/minekvalitetsvurderinger" />
+    <Route exact path="/kvalitetsregistreringer/:saksdataId">
+      <KvalitetsregistreringPage />
+    </Route>
+    <Redirect to="/kvalitetsregistreringer" />
   </Switch>
 );
