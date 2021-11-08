@@ -1,7 +1,0 @@
-app: kaka-frontend
-namespace: klage
-team: klage
-image: docker.pkg.github.com/navikt/kaka-frontend/kaka-frontend:latest
-ingresses:
-  - https://kaka.dev.nav.no
-
