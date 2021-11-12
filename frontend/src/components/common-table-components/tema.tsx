@@ -11,7 +11,7 @@ export const Tema = ({ tema }: Props) => {
   const temaName = useKodeverkTema(tema ?? skipToken)?.navn;
 
   if (typeof temaName === 'undefined') {
-    return null;
+    return <span>Ikke satt</span>;
   }
 
   return <LabelTema tema={tema}>{temaName}</LabelTema>;
