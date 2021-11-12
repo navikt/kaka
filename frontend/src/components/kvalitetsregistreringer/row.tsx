@@ -1,5 +1,6 @@
 import React from 'react';
 import { isoDateTimeToPrettyDate } from '../../domain/date';
+import { formatSakenGjelder } from '../../functions/format-id';
 import { ISaksdataBase } from '../../types/saksdata';
 import { Hjemmel } from '../common-table-components/hjemmel';
 import { OpenKvalitetsregistrering } from '../common-table-components/open';
@@ -20,7 +21,7 @@ export const Row = ({ id, sakstype, tema, hjemler, sakenGjelder, created, utfall
         <Hjemmel key={hjemmel} hjemmel={hjemmel} />
       ))}
     </td>
-    <td>{sakenGjelder}</td>
+    <td>{formatSakenGjelder(sakenGjelder)}</td>
     <td>{isoDateTimeToPrettyDate(created)}</td>
     <td>
       <Utfall utfall={utfall} />
