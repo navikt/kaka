@@ -4,25 +4,27 @@ import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
+import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useSetUtfallMutation } from '../../../redux-api/saksdata';
 import { isUtfall } from '../../../types/utfall';
 import { EmptyOption } from './empty-option';
 import { StyledItem } from './styled-components';
 
 export const UtfallResultat = () => {
+  const { data: user } = useGetUserDataQuery();
   const id = useSaksdataId();
   const [saksdata] = useSaksdata();
   const [setUtfallResultat] = useSetUtfallMutation();
   const canEdit = useCanEdit();
   const utfall = useKodeverkValue('utfall');
 
-  if (typeof saksdata === 'undefined' || typeof utfall === 'undefined') {
+  if (typeof saksdata === 'undefined' || typeof utfall === 'undefined' || typeof user === 'undefined') {
     return null;
   }
 
   const onChange = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
     const utfallValue = isUtfall(target.value) ? target.value : null;
-    setUtfallResultat({ id, utfall: utfallValue });
+    setUtfallResultat({ id, utfall: utfallValue, saksbehandlerIdent: user.ident });
   };
 
   const options = utfall.map(({ id: utfallId, navn }) => (

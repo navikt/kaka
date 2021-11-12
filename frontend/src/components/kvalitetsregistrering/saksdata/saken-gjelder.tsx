@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
+import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useSetSakenGjelderMutation } from '../../../redux-api/saksdata';
 import { StyledItem } from './styled-components';
 
@@ -10,6 +11,7 @@ const correctLength = (value: string) => value.length === 9 || value.length === 
 const digitsOnly = (value: string) => /^\d+$/.test(value);
 
 export const SakenGjelder = () => {
+  const { data: user } = useGetUserDataQuery();
   const id = useSaksdataId();
   const [saksdata] = useSaksdata();
   const [updateSakenGjelder] = useSetSakenGjelderMutation();
@@ -19,7 +21,7 @@ export const SakenGjelder = () => {
 
   const save = useCallback(
     (inputValue: string | null) => {
-      if (inputValue === null) {
+      if (inputValue === null || typeof user === 'undefined') {
         return;
       }
 
@@ -37,9 +39,9 @@ export const SakenGjelder = () => {
       }
 
       setError(null);
-      updateSakenGjelder({ sakenGjelder: inputValue, id });
+      updateSakenGjelder({ sakenGjelder: inputValue, id, saksbehandlerIdent: user.ident });
     },
-    [setError, updateSakenGjelder, id]
+    [setError, updateSakenGjelder, id, user]
   );
 
   useEffect(() => {

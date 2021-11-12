@@ -4,18 +4,20 @@ import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
+import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useSetTemaMutation } from '../../../redux-api/saksdata';
 import { EmptyOption } from './empty-option';
 import { StyledItem } from './styled-components';
 
 export const Tema = () => {
+  const { data: user } = useGetUserDataQuery();
   const saksId = useSaksdataId();
   const [saksdata] = useSaksdata();
   const [setTema] = useSetTemaMutation();
   const canEdit = useCanEdit();
   const temaData = useKodeverkValue('temaer');
 
-  if (typeof saksdata === 'undefined' || typeof temaData === 'undefined') {
+  if (typeof saksdata === 'undefined' || typeof temaData === 'undefined' || typeof user === 'undefined') {
     return null;
   }
 
@@ -27,7 +29,7 @@ export const Tema = () => {
 
   const onChange = (selected: string) => {
     const tema = selected.length === 0 ? null : selected;
-    setTema({ id: saksId, tema });
+    setTema({ id: saksId, tema, saksbehandlerIdent: user.ident });
   };
 
   return (

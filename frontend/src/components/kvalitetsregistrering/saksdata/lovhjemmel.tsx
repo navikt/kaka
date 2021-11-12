@@ -4,12 +4,14 @@ import styled from 'styled-components';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useHjemlerForTema } from '../../../hooks/use-kodeverk-value';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
+import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useGetSaksdataQuery, useSetHjemlerMutation } from '../../../redux-api/saksdata';
 import { LabelLovhjemmel } from '../../../styled-components/labels';
 import { MultiSelect } from '../../multi-select/multi-select';
 import { StyledLabelText } from './styled-components';
 
 export const Lovhjemmel = () => {
+  const { data: user } = useGetUserDataQuery();
   const [updateHjemler] = useSetHjemlerMutation();
   const saksdataId = useSaksdataId();
   const { data: saksdata } = useGetSaksdataQuery(saksdataId);
@@ -42,8 +44,12 @@ export const Lovhjemmel = () => {
   const title = <StyledLovhjemmelLabels>{children}</StyledLovhjemmelLabels>;
 
   const onLovhjemmelChange = (hjemler: string[]) => {
+    if (typeof user === 'undefined') {
+      return;
+    }
+
     setLocalHjemler(hjemler);
-    updateHjemler({ id: saksdataId, hjemler });
+    updateHjemler({ id: saksdataId, hjemler, saksbehandlerIdent: user.ident });
   };
 
   return (
