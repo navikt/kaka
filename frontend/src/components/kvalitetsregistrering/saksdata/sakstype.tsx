@@ -3,6 +3,7 @@ import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
+import { useValidationError } from '../../../hooks/use-validation-error';
 import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useSetSakstypeMutation } from '../../../redux-api/saksdata';
 import { SakstypeEnum, isSakstype } from '../../../types/sakstype';
@@ -15,6 +16,8 @@ export const Sakstype = () => {
   const [updateSakstype] = useSetSakstypeMutation();
   const sakstyper = useKodeverkValue('sakstyper');
   const canEdit = useCanEdit();
+
+  const validationError = useValidationError('sakstype');
 
   if (typeof saksdata === 'undefined' || typeof sakstyper === 'undefined' || typeof user === 'undefined') {
     return null;
@@ -33,6 +36,7 @@ export const Sakstype = () => {
         bredde="m"
         disabled={!canEdit}
         defaultValue={saksdata.sakstype ?? SakstypeEnum.KLAGE}
+        feil={validationError}
       >
         <EmptyOption show={saksdata.sakstype === null} />
         {sakstyper.map(({ id, navn }) => (

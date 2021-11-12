@@ -93,7 +93,7 @@ export const saksdataApi = createApi({
     }),
     fullfoer: builder.mutation<ISaksdata, { saksdata: ISaksdata; saksbehandlerIdent: string }>({
       query: ({ saksdata }) => ({
-        url: `/saksdata/${saksdata.id}/fullfoer`,
+        url: `/saksdata/${saksdata.id}/fullfoer2`,
         method: 'POST',
       }),
       onQueryStarted: async ({ saksdata, saksbehandlerIdent }, { dispatch, queryFulfilled }) => {

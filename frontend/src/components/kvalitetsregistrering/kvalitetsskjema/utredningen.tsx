@@ -4,6 +4,7 @@ import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
+// import { useFullfoerMutation } from '../../../redux-api/saksdata';
 import { RadioValg } from '../../../types/kvalitetsvurdering';
 import { Reason, Reasons } from './reasons';
 import { FormSection, RadioButtonsRow, SubHeader } from './styled-components';
@@ -11,7 +12,10 @@ import { FormSection, RadioButtonsRow, SubHeader } from './styled-components';
 export const Utredningen = () => {
   const [kvalitetsvurdering, isLoading] = useKvalitetsvurdering();
   const [updateKvalitetsvurdering] = useUpdateKvalitetsvurderingMutation();
+  // const [, { isError, error, data }] = useFullfoerMutation();
   const canEdit = useCanEdit();
+
+  // error?.data
 
   if (isLoading || typeof kvalitetsvurdering === 'undefined') {
     return <NavFrontendSpinner />;

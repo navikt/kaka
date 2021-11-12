@@ -29,6 +29,9 @@ export const MottattVedtksinstans = () => {
         <Datepicker
           disabled={!canEdit}
           onChange={onChange}
+          limitations={{
+            maxDate: new Date().toISOString(),
+          }}
           value={saksdata.mottattVedtaksinstans ?? undefined}
           locale="nb"
           showYearSelector

@@ -29,6 +29,9 @@ export const MottattKlageinstans = () => {
         <Datepicker
           onChange={onChange}
           value={saksdata.mottattKlageinstans ?? undefined}
+          limitations={{
+            maxDate: new Date().toISOString(),
+          }}
           locale="nb"
           showYearSelector
           disabled={!canEdit}
