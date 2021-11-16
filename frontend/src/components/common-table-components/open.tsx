@@ -10,7 +10,7 @@ export const OpenKvalitetsregistrering = ({ id }: Props) => (
     className="knapp knapp--hoved"
     to={`/kvalitetsregistreringer/${id}`}
     data-testid="kvalitetsregistreringer-open-link"
-    data-klagebehandlingid={id}
+    data-saksdata-id={id}
   >
     Åpne
   </NavLink>

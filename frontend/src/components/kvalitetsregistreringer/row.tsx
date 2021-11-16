@@ -8,7 +8,7 @@ import { Type } from '../common-table-components/type';
 import { Utfall } from '../common-table-components/utfall';
 
 export const Row = ({ id, sakstype, tema, sakenGjelder, modified, utfall }: ISaksdataBase): JSX.Element => (
-  <tr data-testid="paabegynte-registreringer-row" data-klagebehandlingid={id}>
+  <tr data-testid="paabegynte-registreringer-row" data-saksdata-id={id}>
     <td>
       <Type type={sakstype} />
     </td>
