@@ -38,6 +38,7 @@ export const MottattVedtksinstans = () => {
         locale="nb"
         showYearSelector
         error={validationError}
+        data-testid="mottatt-vedtaksinstans"
       />
     </StyledItem>
   );

@@ -16,7 +16,7 @@ export const Kvalitetsskjema = () => {
   }
 
   return (
-    <StyledKvalitetsskjema>
+    <StyledKvalitetsskjema data-testid="kvalitetsskjema">
       <Klageforberedelsen />
       <Utredningen />
       <BrukAvRaadgivendeLegeDisplay tema={saksdata.tema} />

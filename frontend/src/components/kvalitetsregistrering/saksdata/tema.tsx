@@ -43,6 +43,7 @@ export const Tema = () => {
         disabled={!canEdit}
         bredde="m"
         value={saksdata.tema ?? ''}
+        data-testid="tema-select"
       >
         <EmptyOption show={saksdata.tema === null} />
         {options}

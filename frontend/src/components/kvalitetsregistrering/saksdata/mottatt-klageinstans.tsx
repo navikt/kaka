@@ -38,6 +38,7 @@ export const MottattKlageinstans = () => {
         locale="nb"
         showYearSelector
         error={validationError}
+        data-testid="mottatt-klageinstans"
       />
     </StyledItem>
   );

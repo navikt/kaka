@@ -36,6 +36,7 @@ export const FraVedtaksenhet = () => {
         disabled={!canEdit}
         bredde="m"
         value={saksdata.vedtaksinstansEnhet ?? ''}
+        data-testid="fra-vedtaksenhet-select"
       >
         <EmptyOption show={saksdata.vedtaksinstansEnhet === null} />
         {enheter.map(({ id, beskrivelse }) => (
