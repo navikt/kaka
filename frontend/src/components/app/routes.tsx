@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { KvalitetsregistreringPage } from '../../pages/kvalitetsregistrering';
-import { KvalitetsregistreringerPage } from '../../pages/kvalitetsvurderinger';
+import { KvalitetsregistreringerPage } from '../../pages/kvalitetsregistreringer';
 
 export const Routes = () => (
   <Switch>
