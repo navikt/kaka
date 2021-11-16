@@ -48,9 +48,8 @@ const useIsRelevantTema = (temaId: string | null): boolean => {
       return false;
     }
 
-    return ['GRU', 'SYK', 'HJE', 'AAP', 'UFO', 'YRK', 'FOR', 'OMS']
-      .map((n) => temaData.find(({ navn }) => navn === n)?.id)
-      .includes(temaId);
+    const temaNames = ['GRU', 'SYK', 'HJE', 'AAP', 'UFO', 'YRK', 'FOR', 'OMS'];
+    return temaData.some(({ id, navn }) => id === temaId && temaNames.includes(navn));
   }, [temaData, temaId]);
 };
 
