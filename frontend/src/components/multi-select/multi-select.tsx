@@ -12,9 +12,18 @@ interface MultiSelectProps {
   onChange: (selected: string[]) => void;
   disabled?: boolean;
   error?: string;
+  'data-testid'?: string;
 }
 
-export const MultiSelect = ({ title, onChange, options, selected, disabled, error }: MultiSelectProps) => {
+export const MultiSelect = ({
+  title,
+  onChange,
+  options,
+  selected,
+  disabled,
+  error,
+  'data-testid': testId,
+}: MultiSelectProps) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -35,7 +44,7 @@ export const MultiSelect = ({ title, onChange, options, selected, disabled, erro
 
   return (
     <>
-      <StyledMultiSelect ref={ref}>
+      <StyledMultiSelect ref={ref} data-testid={testId} data-selected={selected.join(',')}>
         <ToggleButton
           error={typeof error !== 'undefined'}
           onClick={toggleOpen}

@@ -66,6 +66,7 @@ export const SakenGjelder = () => {
         onChange={({ target }) => setValue(target.value)}
         placeholder="Personnr eller orgnr"
         maxLength={11}
+        data-testid="saken-gjelder"
       />
     </StyledItem>
   );

@@ -63,6 +63,7 @@ export const Lovhjemmel = () => {
         selected={localHjemler}
         onChange={onLovhjemmelChange}
         error={validationError}
+        data-testid="lovhjemmel"
       />
     </StyledLabel>
   );

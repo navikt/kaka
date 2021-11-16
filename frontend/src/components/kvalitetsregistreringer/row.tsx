@@ -7,8 +7,12 @@ import { Tema } from '../common-table-components/tema';
 import { Type } from '../common-table-components/type';
 import { Utfall } from '../common-table-components/utfall';
 
-export const Row = ({ id, sakstype, tema, sakenGjelder, modified, utfall }: ISaksdataBase): JSX.Element => (
-  <tr data-testid="paabegynte-registreringer-row" data-saksdata-id={id}>
+interface Props extends ISaksdataBase {
+  testId?: string;
+}
+
+export const Row = ({ id, sakstype, tema, sakenGjelder, modified, utfall, testId }: Props): JSX.Element => (
+  <tr data-testid={`${testId}-row`} data-saksdata-id={id}>
     <td>
       <Type type={sakstype} />
     </td>

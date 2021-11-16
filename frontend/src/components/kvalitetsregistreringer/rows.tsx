@@ -25,7 +25,7 @@ export const RegistreringRows = ({ registreringer, columnCount, testId }: Regist
 
   if (registreringer.length === 0) {
     return (
-      <tbody data-testid={`${testId}-table-none`}>
+      <tbody data-testid={`${testId}-table-loaded`}>
         <tr>
           <td colSpan={columnCount}>Ingen registreringer i liste</td>
         </tr>
@@ -34,9 +34,9 @@ export const RegistreringRows = ({ registreringer, columnCount, testId }: Regist
   }
 
   return (
-    <tbody data-testid={`${testId}-table-rows`}>
+    <tbody data-testid={`${testId}-table-loaded`}>
       {registreringer.map((k) => (
-        <Row {...k} key={k.id} />
+        <Row {...k} key={k.id} testId={testId} />
       ))}
     </tbody>
   );

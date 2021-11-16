@@ -44,6 +44,7 @@ export const UtfallResultat = () => {
         disabled={!canEdit}
         bredde="m"
         value={saksdata.utfall ?? ''}
+        data-testid="utfall-resultat-select"
       >
         <EmptyOption show={saksdata.utfall === null} />
         {options}

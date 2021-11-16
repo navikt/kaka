@@ -57,7 +57,10 @@ export const Klageforberedelsen = () => {
   return (
     <FormSection>
       <SubHeader>Klageforberedelsen</SubHeader>
-      <RadioGruppe feil={klageforberedelsenRadioValg === null ? validationError : undefined}>
+      <RadioGruppe
+        feil={klageforberedelsenRadioValg === null ? validationError : undefined}
+        data-testid="klageforberedelsen-radio-group"
+      >
         <RadioButtonsRow>
           <Radio
             name={'KlageforberedelsenBra'}
@@ -65,6 +68,7 @@ export const Klageforberedelsen = () => {
             onChange={() => updateKvalitetsvurdering({ id, klageforberedelsenRadioValg: RadioValg.BRA })}
             checked={klageforberedelsenRadioValg === RadioValg.BRA}
             disabled={!canEdit}
+            data-testid="klageforberedelsen-radio-good"
           />
           <Radio
             name={'KlageforberedelsenMangelfullt'}
@@ -72,6 +76,7 @@ export const Klageforberedelsen = () => {
             onChange={() => updateKvalitetsvurdering({ id, klageforberedelsenRadioValg: RadioValg.MANGELFULLT })}
             checked={klageforberedelsenRadioValg === RadioValg.MANGELFULLT}
             disabled={!canEdit}
+            data-testid="klageforberedelsen-radio-bad"
           />
         </RadioButtonsRow>
       </RadioGruppe>

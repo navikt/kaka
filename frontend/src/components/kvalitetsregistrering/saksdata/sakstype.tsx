@@ -36,6 +36,7 @@ export const Sakstype = () => {
         disabled={!canEdit}
         defaultValue={saksdata.sakstype ?? SakstypeEnum.KLAGE}
         feil={validationError}
+        data-testid="sakstype-select"
       >
         <EmptyOption show={saksdata.sakstype === null} />
         {sakstyper.map(({ id, navn }) => (
