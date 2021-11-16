@@ -23,34 +23,13 @@ export const saksdataApi = createApi({
         method: 'POST',
       }),
       onQueryStarted: async (query, { dispatch, queryFulfilled }) => {
-        const now = new Date().toISOString();
-        const patchResult = dispatch(
+        const { data } = await queryFulfilled;
+        dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', query, (draft) => {
-            draft.push({
-              avsluttetAvSaksbehandler: null,
-              created: now,
-              hjemler: [],
-              id: now,
-              modified: now,
-              sakstype: null,
-              tema: null,
-              utfall: null,
-              sakenGjelder: null,
-            });
+            draft.push(data);
           })
         );
-
-        try {
-          const { data: sak } = await queryFulfilled;
-          dispatch(
-            saksdataApi.util.updateQueryData('getIncompleteSaksdataList', query, (draft) =>
-              draft.map((s) => (s.id === now ? sak : s))
-            )
-          );
-          dispatch(saksdataApi.util.updateQueryData('getSaksdata', sak.id, () => sak));
-        } catch {
-          patchResult.undo();
-        }
+        dispatch(saksdataApi.util.updateQueryData('getSaksdata', data.id, () => data));
       },
     }),
     deleteSaksdata: builder.mutation<void, { saksId: string; saksbehandlerIdent: string }>({
