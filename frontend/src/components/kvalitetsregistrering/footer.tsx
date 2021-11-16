@@ -52,17 +52,33 @@ const DeleteOrSaveKvalitetsvurdering = () => {
 
   return (
     <StyledFooter>
-      <Fareknapp disabled={!canEdit} onClick={deleteSaksdata} spinner={isDeleting} autoDisableVedSpinner>
+      <Fareknapp
+        disabled={!canEdit}
+        onClick={deleteSaksdata}
+        spinner={isDeleting}
+        autoDisableVedSpinner
+        data-testid="delete-button"
+      >
         Slett vurdering
       </Fareknapp>
-      <Hovedknapp disabled={!canEdit || isDeleting} onClick={finish} spinner={isFinishing} autoDisableVedSpinner>
+      <Hovedknapp
+        disabled={!canEdit || isDeleting}
+        onClick={finish}
+        spinner={isFinishing}
+        autoDisableVedSpinner
+        data-testid="complete-button"
+      >
         Fullfør kvalitetsvurdering
       </Hovedknapp>
     </StyledFooter>
   );
 };
 
-const ChangeKvalitetsvurdering = () => <Knapp disabled>Endre kvalitetsvurdering</Knapp>;
+const ChangeKvalitetsvurdering = () => (
+  <Knapp disabled data-testid="edit-button">
+    Endre kvalitetsvurdering
+  </Knapp>
+);
 
 const StyledFooter = styled.div`
   display: flex;
