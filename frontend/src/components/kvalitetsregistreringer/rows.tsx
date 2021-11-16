@@ -7,12 +7,13 @@ import { Row } from './row';
 interface RegistreringRaderProps {
   registreringer?: ISaksdataBase[];
   columnCount: number;
+  testId: string;
 }
 
-export const RegistreringRader = ({ registreringer, columnCount }: RegistreringRaderProps): JSX.Element => {
+export const RegistreringRows = ({ registreringer, columnCount, testId }: RegistreringRaderProps): JSX.Element => {
   if (typeof registreringer === 'undefined') {
     return (
-      <tbody data-testid="paabegynte-registreringer-table-loading">
+      <tbody data-testid={`${testId}-table-loading`}>
         <tr>
           <td colSpan={columnCount}>
             <Loader>Laster kvalitetsregistreringer...</Loader>
@@ -24,7 +25,7 @@ export const RegistreringRader = ({ registreringer, columnCount }: RegistreringR
 
   if (registreringer.length === 0) {
     return (
-      <tbody data-testid="paabegynte-registreringer-table-none">
+      <tbody data-testid={`${testId}-table-none`}>
         <tr>
           <td colSpan={columnCount}>Ingen registreringer i liste</td>
         </tr>
@@ -33,7 +34,7 @@ export const RegistreringRader = ({ registreringer, columnCount }: RegistreringR
   }
 
   return (
-    <tbody data-testid="paabegynte-registreringer-table-rows">
+    <tbody data-testid={`${testId}-table-rows`}>
       {registreringer.map((k) => (
         <Row {...k} key={k.id} />
       ))}

@@ -29,7 +29,7 @@ export const Kvalitetsregistreringer = () => {
   return (
     <>
       <Header>Klageinstansen Kvalitetsvurdering</Header>
-      <Hovedknapp onClick={() => createNewSaksdata()} disabled={loading}>
+      <Hovedknapp onClick={() => createNewSaksdata()} disabled={loading} data-testid="new-kvalitetsvurdering-button">
         Ny kvalitetsvurdering
       </Hovedknapp>
 
