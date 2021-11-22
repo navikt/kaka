@@ -2,6 +2,7 @@ import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
+import { useFieldName } from '../../../hooks/use-field-name';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
@@ -14,6 +15,7 @@ export const Klageforberedelsen = () => {
   const [updateKvalitetsvurdering] = useUpdateKvalitetsvurderingMutation();
   const canEdit = useCanEdit();
   const validationError = useValidationError('klageforberedelsenRadioValg');
+  const header = useFieldName('klageforberedelsenRadioValg');
 
   if (isLoading || typeof kvalitetsvurdering === 'undefined') {
     return <NavFrontendSpinner />;
@@ -56,11 +58,8 @@ export const Klageforberedelsen = () => {
 
   return (
     <FormSection>
-      <SubHeader>Klageforberedelsen</SubHeader>
-      <RadioGruppe
-        feil={klageforberedelsenRadioValg === null ? validationError : undefined}
-        data-testid="klageforberedelsen-radio-group"
-      >
+      <SubHeader>{header}</SubHeader>
+      <RadioGruppe feil={klageforberedelsenRadioValg === null ? validationError : undefined}>
         <RadioButtonsRow>
           <Radio
             name={'KlageforberedelsenBra'}
@@ -68,7 +67,6 @@ export const Klageforberedelsen = () => {
             onChange={() => updateKvalitetsvurdering({ id, klageforberedelsenRadioValg: RadioValg.BRA })}
             checked={klageforberedelsenRadioValg === RadioValg.BRA}
             disabled={!canEdit}
-            data-testid="klageforberedelsen-radio-good"
           />
           <Radio
             name={'KlageforberedelsenMangelfullt'}
@@ -76,7 +74,6 @@ export const Klageforberedelsen = () => {
             onChange={() => updateKvalitetsvurdering({ id, klageforberedelsenRadioValg: RadioValg.MANGELFULLT })}
             checked={klageforberedelsenRadioValg === RadioValg.MANGELFULLT}
             disabled={!canEdit}
-            data-testid="klageforberedelsen-radio-bad"
           />
         </RadioButtonsRow>
       </RadioGruppe>
