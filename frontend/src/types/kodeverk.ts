@@ -10,7 +10,7 @@ export interface IKodeverkValue<T extends string = string> {
 
 export interface ITema extends IKodeverkValue {
   hjemler: IKodeverkValue[];
-  enheter: IKodeverkValue[];
+  vedtaksenheter: IKodeverkValue[];
 }
 
 export interface IKodeverk {

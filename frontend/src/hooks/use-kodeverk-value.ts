@@ -61,7 +61,7 @@ export const useKodeverkSakstype = (
 };
 
 export const useEnheterForTema = (temaId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
-  useKodeverkTema(temaId)?.enheter ?? [];
+  useKodeverkTema(temaId)?.vedtaksenheter ?? [];
 
 export const useHjemlerForTema = (temaId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
   useKodeverkTema(temaId)?.hjemler ?? [];
