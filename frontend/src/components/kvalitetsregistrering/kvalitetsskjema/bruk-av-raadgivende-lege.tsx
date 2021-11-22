@@ -1,6 +1,8 @@
 import { Radio } from 'nav-frontend-skjema';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import React from 'react';
+import { useCanEdit } from '../../../hooks/use-can-edit';
+import { useFieldName } from '../../../hooks/use-field-name';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
@@ -12,6 +14,8 @@ export const BrukAvRaadgivendeLege = () => {
   const [kvalitetsvurdering, isLoading] = useKvalitetsvurdering();
   const [updateKvalitetsvurdering] = useUpdateKvalitetsvurderingMutation();
   const validationError = useValidationError('brukAvRaadgivendeLegeRadioValg');
+  const canEdit = useCanEdit();
+  const header = useFieldName('brukAvRaadgivendeLegeRadioValg');
 
   if (isLoading || typeof kvalitetsvurdering === 'undefined') {
     return <NavFrontendSpinner />;
@@ -44,7 +48,7 @@ export const BrukAvRaadgivendeLege = () => {
 
   return (
     <FormSection>
-      <SubHeader>Bruk av rådgivende lege</SubHeader>
+      <SubHeader>{header}</SubHeader>
       <RadioButtonsColumn feil={brukAvRaadgivendeLegeRadioValg === null ? validationError : undefined}>
         <Radio
           name={'BrukAvRaadgivendeLegeIkkeAktuelt'}
@@ -53,12 +57,14 @@ export const BrukAvRaadgivendeLege = () => {
             updateKvalitetsvurdering({ id, brukAvRaadgivendeLegeRadioValg: RadioValgExtended.IKKE_AKTUELT })
           }
           checked={brukAvRaadgivendeLegeRadioValg === RadioValgExtended.IKKE_AKTUELT}
+          disabled={!canEdit}
         />
         <Radio
           name={'BrukAvRaadgivendeLegeBra'}
           label={'Bra/godt nok'}
           onChange={() => updateKvalitetsvurdering({ id, brukAvRaadgivendeLegeRadioValg: RadioValgExtended.BRA })}
           checked={brukAvRaadgivendeLegeRadioValg === RadioValgExtended.BRA}
+          disabled={!canEdit}
         />
         <Radio
           name={'BrukAvRaadgivendeLegeMangelfullt'}
@@ -67,6 +73,7 @@ export const BrukAvRaadgivendeLege = () => {
             updateKvalitetsvurdering({ id, brukAvRaadgivendeLegeRadioValg: RadioValgExtended.MANGELFULLT })
           }
           checked={brukAvRaadgivendeLegeRadioValg === RadioValgExtended.MANGELFULLT}
+          disabled={!canEdit}
         />
       </RadioButtonsColumn>
       <Reasons

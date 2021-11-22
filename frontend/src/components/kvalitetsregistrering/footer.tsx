@@ -1,13 +1,14 @@
 import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { ApiValidationError } from '../../functions/error-type-guard';
+import { isInvalidProperties } from '../../functions/error-type-guard';
 import { useCanEdit } from '../../hooks/use-can-edit';
 import { useKvalitetsvurderingIsFinished } from '../../hooks/use-kvalitetsvurdering-is-finished';
 import { useSaksdataId } from '../../hooks/use-saksdata-id';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { useDeleteSaksdataMutation, useFullfoerMutation, useGetSaksdataQuery } from '../../redux-api/saksdata';
+import { ValidationSummary } from './error-messages';
 import { ValidationErrorContext } from './validation-error-context';
 
 export const Footer = () => {
@@ -25,6 +26,13 @@ const DeleteOrSaveKvalitetsvurdering = () => {
   const [finishVurdering, { isLoading: isFinishing }] = useFullfoerMutation();
   const [deleteVurdering, { isLoading: isDeleting }] = useDeleteSaksdataMutation();
   const errorContext = useContext(ValidationErrorContext);
+  const [ref, setRef] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (ref !== null) {
+      ref.scrollIntoView();
+    }
+  }, [ref]);
 
   if (typeof userData === 'undefined' || typeof saksdata === 'undefined') {
     return null;
@@ -33,10 +41,14 @@ const DeleteOrSaveKvalitetsvurdering = () => {
   const finish = () => {
     finishVurdering({ saksbehandlerIdent: userData.ident, saksdata })
       .unwrap()
-      .then(() => errorContext?.setValidationErrors([]))
+      .then(() => {
+        errorContext?.setValidationSectionErrors([]);
+      })
       .catch((error) => {
-        if (typeof errorContext !== 'undefined' && ApiValidationError.is(error)) {
-          errorContext.setValidationErrors(error.data['invalid-properties']);
+        if (typeof errorContext !== 'undefined' && isInvalidProperties(error)) {
+          errorContext.setValidationSectionErrors([
+            { section: 'kvalitetsvurdering', properties: error.data['invalid-properties'] },
+          ]);
         }
       });
   };
@@ -51,25 +63,28 @@ const DeleteOrSaveKvalitetsvurdering = () => {
   };
 
   return (
-    <StyledFooter>
-      <Fareknapp
-        disabled={!canEdit}
-        onClick={deleteSaksdata}
-        spinner={isDeleting}
-        autoDisableVedSpinner
-        data-testid="delete-button"
-      >
-        Slett vurdering
-      </Fareknapp>
-      <Hovedknapp
-        disabled={!canEdit || isDeleting}
-        onClick={finish}
-        spinner={isFinishing}
-        autoDisableVedSpinner
-        data-testid="complete-button"
-      >
-        Fullfør kvalitetsvurdering
-      </Hovedknapp>
+    <StyledFooter ref={setRef}>
+      <ValidationSummary />
+      <StyledButtons>
+        <Fareknapp
+          disabled={!canEdit}
+          onClick={deleteSaksdata}
+          spinner={isDeleting}
+          autoDisableVedSpinner
+          data-testid="delete-button"
+        >
+          Slett vurdering
+        </Fareknapp>
+        <Hovedknapp
+          disabled={!canEdit || isDeleting}
+          onClick={finish}
+          spinner={isFinishing}
+          autoDisableVedSpinner
+          data-testid="complete-button"
+        >
+          Fullfør kvalitetsvurdering
+        </Hovedknapp>
+      </StyledButtons>
     </StyledFooter>
   );
 };
@@ -80,8 +95,14 @@ const ChangeKvalitetsvurdering = () => (
   </Knapp>
 );
 
-const StyledFooter = styled.div`
+const StyledButtons = styled.div`
+  margin-top: 1em;
   display: flex;
+  justify-content: space-between;
+`;
+
+const StyledFooter = styled.div`
+  width: 36em;
 
   button:first-child {
     margin-right: 1em;
