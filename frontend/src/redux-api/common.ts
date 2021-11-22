@@ -19,7 +19,10 @@ export const baseQuery = retry(
     const { status } = result.error;
 
     if (status === 401 || status === 403) {
-      window.location.reload();
+      if (!isLocalhost) {
+        window.location.reload();
+      }
+
       retry.fail(result.error);
     }
 
