@@ -8,13 +8,13 @@ export interface IKodeverkValue<T extends string = string> {
   beskrivelse: string;
 }
 
-export interface ITema extends IKodeverkValue {
+export interface IYtelse extends IKodeverkValue {
   hjemler: IKodeverkValue[];
-  vedtaksenheter: IKodeverkValue[];
+  enheter: IKodeverkValue[];
 }
 
 export interface IKodeverk {
-  temaer: ITema[];
+  ytelser: IYtelse[];
   utfall: IKodeverkValue<UtfallEnum>[];
   sakstyper: IKodeverkValue<SakstypeEnum>[];
   partIdTyper: IKodeverkValue<PartEnum>[];

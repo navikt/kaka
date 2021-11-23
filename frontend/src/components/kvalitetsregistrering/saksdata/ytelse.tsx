@@ -6,46 +6,46 @@ import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useGetUserDataQuery } from '../../../redux-api/metadata';
-import { useSetTemaMutation } from '../../../redux-api/saksdata';
+import { useSetYtelseMutation } from '../../../redux-api/saksdata';
 import { EmptyOption } from './empty-option';
 import { StyledItem } from './styled-components';
 
-export const Tema = () => {
+export const Ytelse = () => {
   const { data: user } = useGetUserDataQuery();
   const saksId = useSaksdataId();
   const [saksdata] = useSaksdata();
-  const [setTema] = useSetTemaMutation();
+  const [setYtelse] = useSetYtelseMutation();
   const canEdit = useCanEdit();
-  const temaData = useKodeverkValue('temaer');
-  const validationError = useValidationError('tema');
+  const ytelseData = useKodeverkValue('ytelser');
+  const validationError = useValidationError('ytelseId');
 
-  if (typeof saksdata === 'undefined' || typeof temaData === 'undefined' || typeof user === 'undefined') {
+  if (typeof saksdata === 'undefined' || typeof ytelseData === 'undefined' || typeof user === 'undefined') {
     return null;
   }
 
-  const options = temaData.map(({ id, beskrivelse }) => (
+  const options = ytelseData.map(({ id, beskrivelse }) => (
     <option value={id} key={id}>
       {beskrivelse}
     </option>
   ));
 
   const onChange = (selected: string) => {
-    const tema = selected.length === 0 ? null : selected;
-    setTema({ id: saksId, tema, saksbehandlerIdent: user.ident });
+    const ytelseId = selected.length === 0 ? null : selected;
+    setYtelse({ id: saksId, ytelseId, saksbehandlerIdent: user.ident });
   };
 
   return (
     <StyledItem>
       <Select
         feil={validationError}
-        label="Tema"
+        label="Ytelse"
         onChange={({ target }) => onChange(target.value)}
         disabled={!canEdit}
         bredde="m"
-        value={saksdata.tema ?? ''}
-        data-testid="tema-select"
+        value={saksdata.ytelseId ?? ''}
+        data-testid="ytelse-select"
       >
-        <EmptyOption show={saksdata.tema === null} />
+        <EmptyOption show={saksdata.ytelseId === null} />
         {options}
       </Select>
     </StyledItem>

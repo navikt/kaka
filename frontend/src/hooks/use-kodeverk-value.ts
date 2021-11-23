@@ -1,6 +1,6 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import { useGetKodeverkQuery } from '../redux-api/metadata';
-import { IKodeverk, IKodeverkValue, ITema } from '../types/kodeverk';
+import { IKodeverk, IKodeverkValue, IYtelse } from '../types/kodeverk';
 import { SakstypeEnum } from '../types/sakstype';
 import { UtfallEnum } from '../types/utfall';
 
@@ -16,14 +16,24 @@ export const useKodeverkValue = <K extends keyof IKodeverk>(
   return data[key];
 };
 
-export const useKodeverkTema = (temaId: string | typeof skipToken = skipToken): ITema | undefined => {
-  const data = useKodeverkValue(temaId === skipToken ? skipToken : 'temaer');
+export const useKodeverkYtelse = (ytelseId: string | typeof skipToken = skipToken): IYtelse | undefined => {
+  const data = useKodeverkValue(ytelseId === skipToken ? skipToken : 'ytelser');
 
-  if (temaId === skipToken || typeof data === 'undefined') {
+  if (ytelseId === skipToken || typeof data === 'undefined') {
     return undefined;
   }
 
-  return data.find(({ id }) => id === temaId);
+  return data.find(({ id }) => id === ytelseId);
+};
+
+export const useFullYtelseNameFromId = (ytelseId: string | null): string => {
+  const ytelse = useKodeverkYtelse(ytelseId ?? skipToken);
+
+  if (typeof ytelse === 'undefined') {
+    return 'Mangler';
+  }
+
+  return ytelse?.beskrivelse ?? ytelseId;
 };
 
 export const useKodeverkUtfall = (
@@ -60,8 +70,8 @@ export const useKodeverkSakstype = (
   return data.find(({ id }) => id === sakstypeId);
 };
 
-export const useEnheterForTema = (temaId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
-  useKodeverkTema(temaId)?.vedtaksenheter ?? [];
+export const useEnheterForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
+  useKodeverkYtelse(ytelseId)?.enheter ?? [];
 
-export const useHjemlerForTema = (temaId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
-  useKodeverkTema(temaId)?.hjemler ?? [];
+export const useHjemlerForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
+  useKodeverkYtelse(ytelseId)?.hjemler ?? [];

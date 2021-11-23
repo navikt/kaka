@@ -6,7 +6,7 @@ import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useSetSakstypeMutation } from '../../../redux-api/saksdata';
-import { SakstypeEnum, isSakstype } from '../../../types/sakstype';
+import { isSakstype } from '../../../types/sakstype';
 import { EmptyOption } from './empty-option';
 import { StyledItem } from './styled-components';
 
@@ -16,15 +16,15 @@ export const Sakstype = () => {
   const [updateSakstype] = useSetSakstypeMutation();
   const sakstyper = useKodeverkValue('sakstyper');
   const canEdit = useCanEdit();
-  const validationError = useValidationError('sakstype');
+  const validationError = useValidationError('sakstypeId');
 
   if (typeof saksdata === 'undefined' || typeof sakstyper === 'undefined' || typeof user === 'undefined') {
     return null;
   }
 
   const onChange = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
-    const sakstype = isSakstype(target.value) ? target.value : null;
-    updateSakstype({ id: saksdata.id, sakstype, saksbehandlerIdent: user.ident });
+    const sakstypeId = isSakstype(target.value) ? target.value : null;
+    updateSakstype({ id: saksdata.id, sakstypeId, saksbehandlerIdent: user.ident });
   };
 
   return (
@@ -34,11 +34,11 @@ export const Sakstype = () => {
         onChange={onChange}
         bredde="m"
         disabled={!canEdit}
-        defaultValue={saksdata.sakstype ?? SakstypeEnum.KLAGE}
         feil={validationError}
         data-testid="sakstype-select"
+        value={saksdata.sakstypeId ?? ''}
       >
-        <EmptyOption show={saksdata.sakstype === null} />
+        <EmptyOption show={saksdata.sakstypeId === null} />
         {sakstyper.map(({ id, navn }) => (
           <option key={id} value={id}>
             {navn}
