@@ -19,7 +19,7 @@ export const Kvalitetsskjema = () => {
     <StyledKvalitetsskjema data-testid="kvalitetsskjema">
       <Klageforberedelsen />
       <Utredningen />
-      <BrukAvRaadgivendeLegeDisplay tema={saksdata.tema} />
+      <BrukAvRaadgivendeLegeDisplay ytelseId={saksdata.ytelseId} />
       <Vedtaket />
       <Annet />
     </StyledKvalitetsskjema>
@@ -27,32 +27,56 @@ export const Kvalitetsskjema = () => {
 };
 
 interface BrukAvRaadgivendeLegeDisplayProps {
-  tema: string | null;
+  ytelseId: string | null;
 }
 
-const BrukAvRaadgivendeLegeDisplay = ({ tema }: BrukAvRaadgivendeLegeDisplayProps) => {
-  const hasRelevantTema = useIsRelevantTema(tema);
+const BrukAvRaadgivendeLegeDisplay = ({ ytelseId }: BrukAvRaadgivendeLegeDisplayProps) => {
+  const hasRelevantYtelse = useIsRelevantYtelse(ytelseId);
 
-  if (hasRelevantTema) {
+  if (hasRelevantYtelse) {
     return <BrukAvRaadgivendeLege />;
   }
 
   return null;
 };
 
-const useIsRelevantTema = (temaId: string | null): boolean => {
-  const temaData = useKodeverkValue('temaer');
-
-  return useMemo<boolean>(() => {
-    if (typeof temaData === 'undefined' || temaId === null) {
-      return false;
-    }
-
-    const temaNames = ['GRU', 'SYK', 'HJE', 'AAP', 'UFO', 'YRK', 'FOR', 'OMS'];
-    return temaData.some(({ id, navn }) => id === temaId && temaNames.includes(navn));
-  }, [temaData, temaId]);
-};
-
 const StyledKvalitetsskjema = styled.div`
   margin: 30px 0;
 `;
+
+enum Ytelser {
+  Omsorgspenger = '1',
+  Opplæringspenger = '2',
+  Pleiepenger_sykt_barn = '3',
+  Pleiepenger_i_livets_sluttfase = '4',
+  Sykepenger = '5',
+  Grunnstønad = '',
+  Hjelpestønad = '',
+  Hjelpemidler = '',
+  Arbeidsavklaringspenger = '',
+  Yrkesskade = '',
+  Tvungen_forvaltning = '',
+  Foreldrepenger = '',
+  Svangerskapspenger = '',
+  Uføretrygd = '',
+}
+
+const RELEVANTE_YTELSE_IDS: string[] = [
+  Ytelser.Omsorgspenger,
+  Ytelser.Opplæringspenger,
+  Ytelser.Pleiepenger_sykt_barn,
+  Ytelser.Pleiepenger_i_livets_sluttfase,
+  Ytelser.Sykepenger,
+];
+
+const useIsRelevantYtelse = (ytelseId: string | null): boolean => {
+  const ytelseData = useKodeverkValue('ytelser');
+
+  return useMemo<boolean>(() => {
+    if (typeof ytelseData === 'undefined' || ytelseId === null) {
+      return false;
+    }
+
+    return ytelseData.some(({ id }) => id === ytelseId && RELEVANTE_YTELSE_IDS.includes(ytelseId));
+  }, [ytelseData, ytelseId]);
+};

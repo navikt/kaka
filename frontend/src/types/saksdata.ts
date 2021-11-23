@@ -7,12 +7,12 @@ export interface ISaksdataBase {
   id: UUID;
   created: string; // LocalDateTime;
   modified: string; // LocalDateTime;
-  hjemler: string[];
+  hjemmelIdList: string[];
   avsluttetAvSaksbehandler: string | null; // LocalDateTime;
-  tema: string | null;
-  utfall: UtfallEnum | null;
+  ytelseId: string | null;
+  utfallId: UtfallEnum | null;
   sakenGjelder: string | null;
-  sakstype: SakstypeEnum | null;
+  sakstypeId: SakstypeEnum | null;
 }
 
 export interface ISaksdata extends ISaksdataBase {

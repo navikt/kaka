@@ -30,7 +30,7 @@ export const kvalitetsvurderingApi = createApi({
         const [[key, value], ...rest] = Object.entries(body);
 
         if (rest.length !== 0) {
-          throw new Error('Only one key allowed');
+          throw new Error('Only one value allowed');
         }
 
         return {

@@ -114,24 +114,24 @@ export const saksdataApi = createApi({
         }
       },
     }),
-    setHjemler: builder.mutation<ISaksdata, SaksdataAndListUpdate<'hjemler'>>({
+    setHjemler: builder.mutation<ISaksdata, SaksdataAndListUpdate<'hjemmelIdList'>>({
       query: ({ id, ...body }) => ({
         url: `/saksdata/${id}/hjemler`,
         method: 'PUT',
         body: {
-          value: body.hjemler,
+          value: body.hjemmelIdList,
         },
       }),
-      onQueryStarted: async ({ id, saksbehandlerIdent, hjemler }, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async ({ id, saksbehandlerIdent, hjemmelIdList }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
-            draft.hjemler = hjemler;
+            draft.hjemmelIdList = hjemmelIdList;
           })
         );
 
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, hjemler } : saksdata))
+            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, hjemmelIdList } : saksdata))
           )
         );
 
@@ -216,24 +216,24 @@ export const saksdataApi = createApi({
         }
       },
     }),
-    setSakstype: builder.mutation<ISaksdata, SaksdataAndListUpdate<'sakstype'>>({
+    setSakstype: builder.mutation<ISaksdata, SaksdataAndListUpdate<'sakstypeId'>>({
       query: ({ id, ...body }) => ({
         url: `/saksdata/${id}/sakstype`,
         method: 'PUT',
         body: {
-          value: body.sakstype,
+          value: body.sakstypeId,
         },
       }),
-      onQueryStarted: async ({ id, sakstype, saksbehandlerIdent }, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async ({ id, sakstypeId, saksbehandlerIdent }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
-            draft.sakstype = sakstype;
+            draft.sakstypeId = sakstypeId;
           })
         );
 
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, sakstype } : saksdata))
+            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, sakstypeId } : saksdata))
           )
         );
 
@@ -245,24 +245,24 @@ export const saksdataApi = createApi({
         }
       },
     }),
-    setTema: builder.mutation<ISaksdata, SaksdataAndListUpdate<'tema'>>({
+    setYtelse: builder.mutation<ISaksdata, SaksdataAndListUpdate<'ytelseId'>>({
       query: ({ id, ...body }) => ({
-        url: `/saksdata/${id}/tema`,
+        url: `/saksdata/${id}/ytelse`,
         method: 'PUT',
         body: {
-          value: body.tema,
+          value: body.ytelseId,
         },
       }),
-      onQueryStarted: async ({ id, tema, saksbehandlerIdent }, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async ({ id, ytelseId: ytelse, saksbehandlerIdent }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
-            draft.tema = tema;
+            draft.ytelseId = ytelse;
           })
         );
 
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, tema } : saksdata))
+            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, ytelseId: ytelse } : saksdata))
           )
         );
 
@@ -274,24 +274,24 @@ export const saksdataApi = createApi({
         }
       },
     }),
-    setUtfall: builder.mutation<ISaksdata, SaksdataAndListUpdate<'utfall'>>({
+    setUtfall: builder.mutation<ISaksdata, SaksdataAndListUpdate<'utfallId'>>({
       query: ({ id, ...body }) => ({
         url: `/saksdata/${id}/utfall`,
         method: 'PUT',
         body: {
-          value: body.utfall,
+          value: body.utfallId,
         },
       }),
-      onQueryStarted: async ({ id, saksbehandlerIdent, utfall }, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async ({ id, saksbehandlerIdent, utfallId }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
-            draft.utfall = utfall;
+            draft.utfallId = utfallId;
           })
         );
 
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, utfall } : saksdata))
+            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, utfallId } : saksdata))
           )
         );
 
@@ -339,7 +339,7 @@ export const {
   useSetMottattKlageinstansMutation,
   useSetMottattVedtaksinstansMutation,
   useSetSakstypeMutation,
-  useSetTemaMutation,
+  useSetYtelseMutation,
   useSetUtfallMutation,
   useSetVedtaksinstansenhetMutation,
   useDeleteSaksdataMutation,

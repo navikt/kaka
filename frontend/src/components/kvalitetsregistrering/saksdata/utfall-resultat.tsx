@@ -18,15 +18,15 @@ export const UtfallResultat = () => {
   const [setUtfallResultat] = useSetUtfallMutation();
   const canEdit = useCanEdit();
   const utfall = useKodeverkValue('utfall');
-  const validationError = useValidationError('utfall');
+  const validationError = useValidationError('utfallId');
 
   if (typeof saksdata === 'undefined' || typeof utfall === 'undefined' || typeof user === 'undefined') {
     return null;
   }
 
   const onChange = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
-    const utfallValue = isUtfall(target.value) ? target.value : null;
-    setUtfallResultat({ id, utfall: utfallValue, saksbehandlerIdent: user.ident });
+    const utfallId = isUtfall(target.value) ? target.value : null;
+    setUtfallResultat({ id, utfallId, saksbehandlerIdent: user.ident });
   };
 
   const options = utfall.map(({ id: utfallId, navn }) => (
@@ -43,10 +43,10 @@ export const UtfallResultat = () => {
         onChange={onChange}
         disabled={!canEdit}
         bredde="m"
-        value={saksdata.utfall ?? ''}
+        value={saksdata.utfallId ?? ''}
         data-testid="utfall-resultat-select"
       >
-        <EmptyOption show={saksdata.utfall === null} />
+        <EmptyOption show={saksdata.utfallId === null} />
         {options}
       </Select>
     </StyledItem>

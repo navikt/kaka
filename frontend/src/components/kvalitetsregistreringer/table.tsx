@@ -10,7 +10,14 @@ interface Props {
   testId: string;
 }
 
-const registreringerHeaderTitles: (string | null)[] = ['Type', 'Tema', 'Saken gjelder', 'Sist endret', 'Utfall', null];
+const registreringerHeaderTitles: (string | null)[] = [
+  'Type',
+  'Ytelse',
+  'Saken gjelder',
+  'Sist endret',
+  'Utfall',
+  null,
+];
 
 export const Table = ({ data, testId }: Props) => (
   <>
