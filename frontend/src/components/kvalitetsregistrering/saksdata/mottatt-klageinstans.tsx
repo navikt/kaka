@@ -34,7 +34,7 @@ export const MottattKlageinstans = () => {
         limitations={{
           maxDate: new Date().toISOString(),
         }}
-        value={saksdata.mottattVedtaksinstans ?? undefined}
+        value={saksdata.mottattKlageinstans ?? undefined}
         locale="nb"
         showYearSelector
         error={validationError}
