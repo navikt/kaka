@@ -13,7 +13,7 @@ export const Header = () => (
 );
 
 const StyledHeader = styled.header`
-  z-index: 1;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -21,6 +21,9 @@ const StyledHeader = styled.header`
   padding: 0 1.5rem;
   background: #3e3832;
   align-items: center;
+  position: sticky;
+  top: 0;
+  left: 0;
 `;
 
 const StyledLogo = styled(NavLink)`
