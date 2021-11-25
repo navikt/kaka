@@ -1,10 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { HomeIcon } from './home-icon';
 
 export const Header = () => (
   <StyledHeader>
-    <StyledLogo to={'/oppgaver/1'}>KAKA</StyledLogo>
+    <StyledLogo to={'/oppgaver/1'}>
+      <HomeIcon />
+      <StyledLabel>KAKA</StyledLabel>
+    </StyledLogo>
   </StyledHeader>
 );
 
@@ -24,4 +28,10 @@ const StyledLogo = styled(NavLink)`
   font-size: 18px;
   font-weight: 600;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+`;
+
+const StyledLabel = styled.span`
+  margin-left: 1em;
 `;
