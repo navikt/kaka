@@ -15,16 +15,21 @@ const styles = css`
   html,
   body,
   #app {
+    display: block;
+    position: relative;
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
+  }
+
+  html,
+  body {
     overflow: hidden;
   }
 
   #app {
-    display: flex;
-    flex-flow: column;
+    overflow-y: auto;
   }
 `;
 
