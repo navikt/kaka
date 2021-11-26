@@ -4,6 +4,7 @@ const styles = css`
   html {
     box-sizing: border-box;
     font-family: 'Source Sans Pro', Arial, sans-serif;
+    overflow-y: auto;
   }
 
   *,
@@ -21,15 +22,6 @@ const styles = css`
     width: 100%;
     margin: 0;
     padding: 0;
-  }
-
-  html,
-  body {
-    overflow: hidden;
-  }
-
-  #app {
-    overflow-y: auto;
   }
 `;
 
