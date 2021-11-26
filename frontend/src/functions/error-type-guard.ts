@@ -6,7 +6,7 @@ export interface IValidationError {
 }
 
 export interface IValidationSection {
-  section: 'kvalitetsvurdering' | 'klagebehandling';
+  section: 'kvalitetsvurdering' | 'saksdata';
   properties: IValidationError[];
 }
 
@@ -43,33 +43,3 @@ interface IReduxError<T = unknown> {
 
 const isReduxError = <T>(error: unknown): error is IReduxError<T> =>
   typeof error === 'object' && error !== null && typeof error['status'] === 'number';
-
-export interface IKakaApiValidationResponse {
-  status: number;
-  title: string;
-  'invalid-properties': IValidationError[];
-}
-
-
-
-
-
-export const isInvalidProperties = (error: unknown): error is IReduxError<IKakaApiValidationResponse> => {
-  if (!isReduxError<IKakaApiValidationResponse>(error)) {
-    return false;
-  }
-
-  const { data } = error;
-
-  if (typeof data !== 'object' || data === null) {
-    return false;
-  }
-
-  return Array.isArray(data['invalid-properties']) && data['invalid-properties'].every(isInvalidProperty);
-};
-
-const isInvalidProperty = (error: unknown): error is IValidationError =>
-  typeof error === 'object' &&
-  error !== null &&
-  typeof error['field'] === 'string' &&
-  typeof error['reason'] === 'string';

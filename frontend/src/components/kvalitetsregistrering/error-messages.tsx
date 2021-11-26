@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { IValidationError, IValidationSection } from '../../functions/error-type-guard';
 import { useFieldName } from '../../hooks/use-field-name';
+import { useSectionTitle } from '../../hooks/use-section-title';
 import { ValidationErrorContext } from './validation-error-context';
 
 export const ValidationSummary = () => {
@@ -24,14 +25,16 @@ export const ValidationSummary = () => {
 
   return (
     <StyledAlertStripe type="advarsel">
-      <StyledHeader>Feil i kvalitetsvurderingen</StyledHeader>
+      <StyledHeader>Kan ikke fullføre vurdering. Dette mangler:</StyledHeader>
       <ValidationSummaryContainer>{errorMessages}</ValidationSummaryContainer>
     </StyledAlertStripe>
   );
 };
 
-const Section = ({ properties }: IValidationSection) => (
+const Section = ({ properties, section }: IValidationSection) => (
   <StyledSection>
+    <SectionTitle>{useSectionTitle(section)}</SectionTitle>
+
     <StyledFieldList>
       {properties.map((p) => (
         <Field key={p.field} {...p} />
@@ -63,10 +66,16 @@ const StyledFieldList = styled.ul`
   padding-left: 1em;
 `;
 
+const SectionTitle = styled.h3`
+  font-size: 1rem;
+  margin: 0;
+`;
+
 const StyledSection = styled.section`
   margin-top: 10px;
 `;
 
-const StyledHeader = styled.h2`
+const StyledHeader = styled.h3`
   margin-top: 0;
+  font-size: 16px;
 `;

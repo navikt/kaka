@@ -2,7 +2,7 @@ import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { isInvalidProperties } from '../../functions/error-type-guard';
+import { isReduxValidationResponse } from '../../functions/error-type-guard';
 import { useCanEdit } from '../../hooks/use-can-edit';
 import { useKvalitetsvurderingIsFinished } from '../../hooks/use-kvalitetsvurdering-is-finished';
 import { useSaksdataId } from '../../hooks/use-saksdata-id';
@@ -45,10 +45,8 @@ const DeleteOrSaveKvalitetsvurdering = () => {
         errorContext?.setValidationSectionErrors([]);
       })
       .catch((error) => {
-        if (typeof errorContext !== 'undefined' && isInvalidProperties(error)) {
-          errorContext.setValidationSectionErrors([
-            { section: 'kvalitetsvurdering', properties: error.data['invalid-properties'] },
-          ]);
+        if (typeof errorContext !== 'undefined' && isReduxValidationResponse(error)) {
+          errorContext.setValidationSectionErrors(error.data.sections);
         }
       });
   };
