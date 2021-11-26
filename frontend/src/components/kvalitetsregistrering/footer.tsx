@@ -1,5 +1,6 @@
+import AlertStripe from 'nav-frontend-alertstriper';
 import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { isReduxValidationResponse } from '../../functions/error-type-guard';
@@ -14,10 +15,10 @@ import { ValidationErrorContext } from './validation-error-context';
 export const Footer = () => {
   const finished = useKvalitetsvurderingIsFinished();
 
-  return finished ? <ChangeKvalitetsvurdering /> : <DeleteOrSaveKvalitetsvurdering />;
+  return finished ? <FinishedKvalitetsvurdering /> : <UnfinishedKvalitetsvurdering />;
 };
 
-const DeleteOrSaveKvalitetsvurdering = () => {
+const UnfinishedKvalitetsvurdering = () => {
   const id = useSaksdataId();
   const canEdit = useCanEdit();
   const history = useHistory();
@@ -26,13 +27,6 @@ const DeleteOrSaveKvalitetsvurdering = () => {
   const [finishVurdering, { isLoading: isFinishing }] = useFullfoerMutation();
   const [deleteVurdering, { isLoading: isDeleting }] = useDeleteSaksdataMutation();
   const errorContext = useContext(ValidationErrorContext);
-  const [ref, setRef] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    if (ref !== null) {
-      ref.scrollIntoView();
-    }
-  }, [ref]);
 
   if (typeof userData === 'undefined' || typeof saksdata === 'undefined') {
     return null;
@@ -60,8 +54,14 @@ const DeleteOrSaveKvalitetsvurdering = () => {
     }
   };
 
+  const hasErrors = typeof errorContext !== 'undefined' && errorContext.validationSectionErrors.length !== 0;
+
+  const Wrapper = hasErrors ? StyledUnfinishedErrorFooter : StyledUnfinishedFooter;
+  const statusText = hasErrors ? 'Feil i utfyllingen' : 'Under utfylling';
+  const statusType = hasErrors ? 'advarsel' : 'info';
+
   return (
-    <StyledFooter ref={setRef}>
+    <Wrapper>
       <ValidationSummary />
       <StyledButtons>
         <Fareknapp
@@ -70,6 +70,7 @@ const DeleteOrSaveKvalitetsvurdering = () => {
           spinner={isDeleting}
           autoDisableVedSpinner
           data-testid="delete-button"
+          className="footer-button"
         >
           Slett vurdering
         </Fareknapp>
@@ -79,30 +80,72 @@ const DeleteOrSaveKvalitetsvurdering = () => {
           spinner={isFinishing}
           autoDisableVedSpinner
           data-testid="complete-button"
+          className="footer-button"
         >
           Fullfør kvalitetsvurdering
         </Hovedknapp>
       </StyledButtons>
-    </StyledFooter>
+      <AlertStripe type={statusType} form="inline">
+        {statusText}
+      </AlertStripe>
+    </Wrapper>
   );
 };
 
-const ChangeKvalitetsvurdering = () => (
-  <Knapp disabled data-testid="edit-button">
-    Endre kvalitetsvurdering
-  </Knapp>
-);
+const FinishedKvalitetsvurdering = () => {
+  const history = useHistory();
+
+  return (
+    <StyledFinishedFooter>
+      <StyledButtons>
+        <Knapp disabled data-testid="edit-button" className="footer-button">
+          Endre kvalitetsvurdering
+        </Knapp>
+        <Hovedknapp onClick={() => history.push('/kvalitetsregistreringer')} className="footer-button">
+          Tilbake til oppgaver
+        </Hovedknapp>
+      </StyledButtons>
+
+      <AlertStripe type="suksess" form="inline">
+        Fullført kvalitetsvurdering
+      </AlertStripe>
+    </StyledFinishedFooter>
+  );
+};
 
 const StyledButtons = styled.div`
-  margin-top: 1em;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+
+  .footer-button {
+    margin-right: 1em;
+  }
 `;
 
 const StyledFooter = styled.div`
-  width: 36em;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1em;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+`;
 
-  button:first-child {
-    margin-right: 1em;
-  }
+const StyledFinishedFooter = styled(StyledFooter)`
+  border-top: 1px solid #06893a;
+  background-color: #cde7d8;
+`;
+
+const StyledUnfinishedFooter = styled(StyledFooter)`
+  border-top: 1px solid #368da8;
+  background-color: #e0f5fb;
+`;
+
+const StyledUnfinishedErrorFooter = styled(StyledFooter)`
+  border-top: 1px solid #d47b00;
+  background-color: #ffe9cc;
 `;
