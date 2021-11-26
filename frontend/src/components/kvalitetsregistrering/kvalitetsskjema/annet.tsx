@@ -2,7 +2,8 @@ import NavFrontendSpinner from 'nav-frontend-spinner';
 import React from 'react';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { RadioValg } from '../../../types/kvalitetsvurdering';
-import { Reason, Reasons } from './reasons';
+import { Checkboxes } from './checkboxes';
+import { Reason } from './reasons';
 import { FormSection, SubHeader } from './styled-components';
 
 export const Annet = () => {
@@ -57,7 +58,7 @@ export const Annet = () => {
   return (
     <FormSection>
       <SubHeader>Annet</SubHeader>
-      <Reasons reasons={reasons} />
+      <Checkboxes reasons={reasons} />
     </FormSection>
   );
 };
