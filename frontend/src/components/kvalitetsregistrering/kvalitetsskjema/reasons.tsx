@@ -1,7 +1,7 @@
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import NavFrontendSpinner from 'nav-frontend-spinner';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
@@ -27,7 +27,14 @@ interface ReasonsProps {
 export const Reasons = ({ error, show = true, legendText = '', reasons }: ReasonsProps) => {
   const [kvalitetsvurdering, isLoading] = useKvalitetsvurdering();
   const [updateKvalitetsvurdering] = useUpdateKvalitetsvurderingMutation();
+  const ref = useRef<HTMLDivElement>(null);
   const canEdit = useCanEdit();
+
+  useEffect(() => {
+    if (show && ref.current !== null) {
+      ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [ref, show]);
 
   if (isLoading) {
     return <NavFrontendSpinner />;
@@ -40,7 +47,7 @@ export const Reasons = ({ error, show = true, legendText = '', reasons }: Reason
   const { id } = kvalitetsvurdering;
 
   return (
-    <ReasonsField>
+    <ReasonsField ref={ref}>
       <CheckboxGruppe legend={legendText} feil={error}>
         {reasons
           .filter((reason) => reason.show !== false)
