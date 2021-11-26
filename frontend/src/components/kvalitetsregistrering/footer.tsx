@@ -2,6 +2,7 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { isReduxValidationResponse } from '../../functions/error-type-guard';
 import { useCanEdit } from '../../hooks/use-can-edit';
@@ -85,9 +86,9 @@ const UnfinishedKvalitetsvurdering = () => {
           Fullfør
         </Hovedknapp>
 
-        <Knapp onClick={() => history.push('/kvalitetsregistreringer')} className="footer-button">
+        <NavLink to={'/kvalitetsregistreringer'} className="knapp footer-button">
           Tilbake
-        </Knapp>
+        </NavLink>
       </StyledButtons>
       <AlertStripe type={statusType} form="inline">
         {statusText}
@@ -96,26 +97,22 @@ const UnfinishedKvalitetsvurdering = () => {
   );
 };
 
-const FinishedKvalitetsvurdering = () => {
-  const history = useHistory();
+const FinishedKvalitetsvurdering = () => (
+  <StyledFinishedFooter>
+    <StyledButtons>
+      <Knapp disabled data-testid="edit-button" className="footer-button">
+        Endre
+      </Knapp>
+      <NavLink to={'/kvalitetsregistreringer'} className="knapp footer-button">
+        Tilbake
+      </NavLink>
+    </StyledButtons>
 
-  return (
-    <StyledFinishedFooter>
-      <StyledButtons>
-        <Knapp disabled data-testid="edit-button" className="footer-button">
-          Endre
-        </Knapp>
-        <Hovedknapp onClick={() => history.push('/kvalitetsregistreringer')} className="footer-button">
-          Tilbake
-        </Hovedknapp>
-      </StyledButtons>
-
-      <AlertStripe type="suksess" form="inline">
-        Fullført kvalitetsvurdering
-      </AlertStripe>
-    </StyledFinishedFooter>
-  );
-};
+    <AlertStripe type="suksess" form="inline">
+      Fullført kvalitetsvurdering
+    </AlertStripe>
+  </StyledFinishedFooter>
+);
 
 const StyledButtons = styled.div`
   display: flex;
