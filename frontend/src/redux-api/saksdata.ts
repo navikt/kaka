@@ -76,12 +76,6 @@ export const saksdataApi = createApi({
         method: 'POST',
       }),
       onQueryStarted: async ({ saksdata, saksbehandlerIdent }, { dispatch, queryFulfilled }) => {
-        const patchResult = dispatch(
-          saksdataApi.util.updateQueryData('getSaksdata', saksdata.id, (draft) => {
-            draft.avsluttetAvSaksbehandler = new Date().toISOString();
-          })
-        );
-
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
             draft.filter(({ id }) => saksdata.id !== id)
@@ -102,13 +96,13 @@ export const saksdataApi = createApi({
               draft.avsluttetAvSaksbehandler = data.avsluttetAvSaksbehandler;
             })
           );
+
           dispatch(
             saksdataApi.util.updateQueryData('getCompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
               draft.map((s) => (s.id === saksdata.id ? data : s))
             )
           );
         } catch {
-          patchResult.undo();
           completeListPatchResult.undo();
           incompleteListPatchResult.undo();
         }

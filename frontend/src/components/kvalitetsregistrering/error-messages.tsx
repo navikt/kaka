@@ -51,7 +51,9 @@ const Field = ({ field, reason }: IValidationError) => (
 );
 
 const StyledAlertStripe = styled(Alertstripe)`
-  margin-bottom: 1em;
+  position: absolute;
+  right: 1em;
+  bottom: calc(100% + 1em);
 `;
 
 const ValidationSummaryContainer = styled.article`
