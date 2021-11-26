@@ -72,7 +72,7 @@ const UnfinishedKvalitetsvurdering = () => {
           data-testid="delete-button"
           className="footer-button"
         >
-          Slett vurdering
+          Slett
         </Fareknapp>
         <Hovedknapp
           disabled={!canEdit || isDeleting}
@@ -82,8 +82,12 @@ const UnfinishedKvalitetsvurdering = () => {
           data-testid="complete-button"
           className="footer-button"
         >
-          Fullfør kvalitetsvurdering
+          Fullfør
         </Hovedknapp>
+
+        <Knapp onClick={() => history.push('/kvalitetsregistreringer')} className="footer-button">
+          Tilbake
+        </Knapp>
       </StyledButtons>
       <AlertStripe type={statusType} form="inline">
         {statusText}
@@ -99,10 +103,10 @@ const FinishedKvalitetsvurdering = () => {
     <StyledFinishedFooter>
       <StyledButtons>
         <Knapp disabled data-testid="edit-button" className="footer-button">
-          Endre kvalitetsvurdering
+          Endre
         </Knapp>
         <Hovedknapp onClick={() => history.push('/kvalitetsregistreringer')} className="footer-button">
-          Tilbake til oppgaver
+          Tilbake
         </Hovedknapp>
       </StyledButtons>
 
