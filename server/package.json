@@ -19,7 +19,7 @@
   "dependencies": {
     "@elastic/ecs-morgan-format": "^1.1.0",
     "@types/cors": "^2.8.12",
-    "cookie-parser": "^1.4.5",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv-flow": "^3.2.0",
     "express": "^4.17.1",
@@ -28,8 +28,8 @@
     "jose": "^2.0.5",
     "morgan": "^1.10.0",
     "morgan-body": "^2.6.6",
-    "node-fetch": "^3.0.0",
-    "openid-client": "^4.9.0",
+    "node-fetch": "^3.1.0",
+    "openid-client": "^4.9.1",
     "redis": "^3.1.2",
     "winston": "^3.3.3"
   },
