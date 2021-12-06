@@ -1,5 +1,4 @@
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
-import NavFrontendSpinner from 'nav-frontend-spinner';
 import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useFieldName } from '../../../hooks/use-field-name';
@@ -11,14 +10,14 @@ import { Reason, Reasons } from './reasons';
 import { FormSection, RadioButtonsRow, SubHeader } from './styled-components';
 
 export const Klageforberedelsen = () => {
-  const [kvalitetsvurdering, isLoading] = useKvalitetsvurdering();
+  const [kvalitetsvurdering] = useKvalitetsvurdering();
   const [updateKvalitetsvurdering] = useUpdateKvalitetsvurderingMutation();
   const canEdit = useCanEdit();
   const validationError = useValidationError('klageforberedelsenRadioValg');
   const header = useFieldName('klageforberedelsenRadioValg');
 
-  if (isLoading || typeof kvalitetsvurdering === 'undefined') {
-    return <NavFrontendSpinner />;
+  if (typeof kvalitetsvurdering === 'undefined') {
+    return null;
   }
 
   const { id, klageforberedelsenRadioValg } = kvalitetsvurdering;

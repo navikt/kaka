@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { StyledCheckbox } from '../../styled-components/checkbox';
 
@@ -7,17 +7,34 @@ interface FilterProps {
   active: boolean;
   filterId?: string | null;
   children: string;
-  whiteSpace?: string;
+  focused: boolean;
 }
 
-export const Filter = ({ active, filterId = null, children, onChange, whiteSpace }: FilterProps): JSX.Element => (
-  <StyledLabel whiteSpace={whiteSpace}>
-    <StyledCheckbox type="checkbox" checked={active} onChange={(event) => onChange(filterId, event.target.checked)} />
-    <StyledText>{children}</StyledText>
-  </StyledLabel>
-);
+export const Filter = ({ active, filterId = null, children, onChange, focused }: FilterProps): JSX.Element => {
+  const ref = React.useRef<HTMLLabelElement>(null);
 
-const StyledLabel = styled.label<{ whiteSpace?: string }>`
+  useEffect(() => {
+    if (focused && ref.current) {
+      ref.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }
+  }, [focused]);
+
+  return (
+    <StyledLabel ref={ref}>
+      <StyledCheckbox
+        type="checkbox"
+        checked={active}
+        onChange={(event) => onChange(filterId, event.target.checked)}
+        theme={{ focused }}
+      />
+      <StyledText>{children}</StyledText>
+    </StyledLabel>
+  );
+};
+
+Filter.displayName = 'Filter';
+
+const StyledLabel = styled.label`
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -26,7 +43,7 @@ const StyledLabel = styled.label<{ whiteSpace?: string }>`
   font-size: 1em;
   font-weight: 400;
   user-select: none;
-  white-space: ${({ whiteSpace }) => whiteSpace ?? 'nowrap'};
+  white-space: 'nowrap';
   word-break: keep-all;
   overflow: hidden;
 

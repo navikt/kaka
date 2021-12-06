@@ -1,7 +1,10 @@
+import NavFrontendSpinner from 'nav-frontend-spinner';
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
-import { useSaksdata } from '../../../hooks/use-saksdata';
+import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
+import { useSaksdataId } from '../../../hooks/use-saksdata-id';
+import { useGetSaksdataQuery } from '../../../redux-api/saksdata';
 import { Annet } from './annet';
 import { BrukAvRaadgivendeLege } from './bruk-av-raadgivende-lege';
 import { Klageforberedelsen } from './klageforberedelsen';
@@ -9,9 +12,15 @@ import { Utredningen } from './utredningen';
 import { Vedtaket } from './vedtaket';
 
 export const Kvalitetsskjema = () => {
-  const [saksdata] = useSaksdata();
+  const saksdataId = useSaksdataId();
+  const { data: saksdata, isLoading, isError } = useGetSaksdataQuery(saksdataId);
+  const [kvalitetsvurdering] = useKvalitetsvurdering();
 
-  if (typeof saksdata === 'undefined') {
+  if (isLoading) {
+    return <NavFrontendSpinner />;
+  }
+
+  if (typeof saksdata === 'undefined' || typeof kvalitetsvurdering === 'undefined' || isError) {
     return null;
   }
 

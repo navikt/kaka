@@ -1,4 +1,3 @@
-import NavFrontendSpinner from 'nav-frontend-spinner';
 import React from 'react';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { RadioValg } from '../../../types/kvalitetsvurdering';
@@ -7,10 +6,10 @@ import { Reason } from './reasons';
 import { FormSection, SubHeader } from './styled-components';
 
 export const Annet = () => {
-  const [kvalitetsvurdering, isLoading] = useKvalitetsvurdering();
+  const [kvalitetsvurdering] = useKvalitetsvurdering();
 
-  if (isLoading || typeof kvalitetsvurdering === 'undefined') {
-    return <NavFrontendSpinner />;
+  if (typeof kvalitetsvurdering === 'undefined') {
+    return null;
   }
 
   const showNyeOpplysningerMottattReason = kvalitetsvurdering.utredningenRadioValg === RadioValg.BRA;
