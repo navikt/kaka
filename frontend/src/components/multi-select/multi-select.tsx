@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { useOnClickOutside } from '../../hooks/use-on-click-outside';
 import { ErrorMessage } from '../error-message/error-message';
-import { Dropdown, Option } from '../filter-dropdown/dropdown';
+import { Dropdown, OptionGroup } from '../filter-dropdown/dropdown';
 import { ToggleButton } from '../toggle-button/toggle-button';
 import { StyledMultiSelect, StyledTitle } from './styled-components';
 
 interface MultiSelectProps {
   title: React.ReactNode;
-  options: Option[];
+  options: OptionGroup[];
   selected: string[];
   onChange: (selected: string[]) => void;
   disabled?: boolean;
@@ -41,6 +41,7 @@ export const MultiSelect = ({
   };
 
   const toggleOpen = () => setOpen(!open);
+  const close = () => setOpen(false);
 
   return (
     <>
@@ -54,7 +55,7 @@ export const MultiSelect = ({
           <StyledTitle>{title}</StyledTitle>
         </ToggleButton>
 
-        <Dropdown selected={selected} options={options} open={open} onChange={setSelected} />
+        <Dropdown selected={selected} options={options} open={open} onChange={setSelected} close={close} />
       </StyledMultiSelect>
       <ErrorMessage error={error} />
     </>

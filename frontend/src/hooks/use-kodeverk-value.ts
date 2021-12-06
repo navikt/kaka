@@ -1,6 +1,7 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import { useGetKodeverkQuery } from '../redux-api/metadata';
 import { IKodeverk, IKodeverkValue, IYtelse } from '../types/kodeverk';
+import { ILovKildeToRegistreringshjemmel } from '../types/registreringshjemmel';
 import { SakstypeEnum } from '../types/sakstype';
 import { UtfallEnum } from '../types/utfall';
 
@@ -75,3 +76,7 @@ export const useEnheterForYtelse = (ytelseId: string | typeof skipToken = skipTo
 
 export const useHjemlerForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
   useKodeverkYtelse(ytelseId)?.hjemler ?? [];
+
+export const useLovkildeToRegistreringshjemmelForYtelse = (
+  ytelseId: string | typeof skipToken = skipToken
+): ILovKildeToRegistreringshjemmel[] => useKodeverkYtelse(ytelseId)?.lovKildeToRegistreringshjemler ?? [];
