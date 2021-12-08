@@ -110,7 +110,7 @@ export const saksdataApi = createApi({
     }),
     setHjemler: builder.mutation<ISaksdata, SaksdataAndListUpdate<'hjemmelIdList'>>({
       query: ({ id, ...body }) => ({
-        url: `/saksdata/${id}/hjemler`,
+        url: `/saksdata/${id}/hjemmelidlist`,
         method: 'PUT',
         body: {
           value: body.hjemmelIdList,
