@@ -247,17 +247,23 @@ export const saksdataApi = createApi({
           value: body.ytelseId,
         },
       }),
-      onQueryStarted: async ({ id, ytelseId: ytelse, saksbehandlerIdent }, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async ({ id, ytelseId, saksbehandlerIdent }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
-            draft.ytelseId = ytelse;
+            draft.ytelseId = ytelseId;
           })
         );
 
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, ytelseId: ytelse } : saksdata))
+            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, ytelseId } : saksdata))
           )
+        );
+
+        const hjemmelIdListPatchResult = dispatch(
+          saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
+            draft.hjemmelIdList = [];
+          })
         );
 
         try {
@@ -265,6 +271,7 @@ export const saksdataApi = createApi({
         } catch {
           patchResult.undo();
           incompleteListPatchResult.undo();
+          hjemmelIdListPatchResult.undo();
         }
       },
     }),
