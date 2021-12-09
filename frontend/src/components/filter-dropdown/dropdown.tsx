@@ -199,6 +199,8 @@ const StyledTopListItem = styled(StyledListItem)`
   padding: 8px;
   display: flex;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
 `;
 
 const StyledKnapp = styled(Knapp)`
