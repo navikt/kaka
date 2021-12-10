@@ -1,16 +1,12 @@
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { KvalitetsregistreringPage } from '../../pages/kvalitetsregistrering';
 import { KvalitetsregistreringerPage } from '../../pages/kvalitetsregistreringer';
 
-export const Routes = () => (
-  <Switch>
-    <Route exact path="/kvalitetsregistreringer">
-      <KvalitetsregistreringerPage />
-    </Route>
-    <Route exact path="/kvalitetsregistreringer/:saksdataId">
-      <KvalitetsregistreringPage />
-    </Route>
-    <Redirect to="/kvalitetsregistreringer" />
-  </Switch>
+export const Router = () => (
+  <Routes>
+    <Route path="/" element={<Navigate to="kvalitetsregistreringer" />} />
+    <Route path="kvalitetsregistreringer" element={<KvalitetsregistreringerPage />}></Route>
+    <Route path="kvalitetsregistreringer/:saksdataId" element={<KvalitetsregistreringPage />} />
+  </Routes>
 );

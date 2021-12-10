@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Header } from '../../components/header/header';
 import { reduxStore } from '../../redux/configure-store';
 import { GlobalStyles } from './global-styles';
-import { Routes } from './routes';
+import { Router } from './routes';
 import { ScrollReset } from './scroll-reset';
 
 export const App = () => (
@@ -14,7 +14,7 @@ export const App = () => (
         <GlobalStyles />
         <ScrollReset />
         <Header />
-        <Routes />
+        <Router />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

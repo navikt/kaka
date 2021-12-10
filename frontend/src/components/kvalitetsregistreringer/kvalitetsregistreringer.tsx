@@ -1,6 +1,6 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import React from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { useCreateSaksdataMutation } from '../../redux-api/saksdata';
@@ -10,7 +10,7 @@ import { PaabegynteRegistreringerTable } from './paabegynte-registreringer-table
 export const Kvalitetsregistreringer = () => {
   const { data } = useGetUserDataQuery();
   const [createSaksdata] = useCreateSaksdataMutation();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const loading = typeof data === 'undefined';
 
@@ -23,7 +23,7 @@ export const Kvalitetsregistreringer = () => {
       saksbehandlerIdent: data.ident,
     })
       .unwrap()
-      .then(({ id }) => history.push(`/kvalitetsregistreringer/${id}`));
+      .then(({ id }) => navigate(`/kvalitetsregistreringer/${id}`));
   };
 
   return (
