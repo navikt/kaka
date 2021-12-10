@@ -1,7 +1,7 @@
 import AlertStripe from 'nav-frontend-alertstriper';
 import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { isReduxValidationResponse } from '../../functions/error-type-guard';
@@ -22,7 +22,7 @@ export const Footer = () => {
 const UnfinishedKvalitetsvurdering = () => {
   const id = useSaksdataId();
   const canEdit = useCanEdit();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { data: userData } = useGetUserDataQuery();
   const { data: saksdata } = useGetSaksdataQuery(id);
   const [finishVurdering, { isLoading: isFinishing }] = useFullfoerMutation();
@@ -49,7 +49,7 @@ const UnfinishedKvalitetsvurdering = () => {
   const deleteSaksdata = async () => {
     try {
       await deleteVurdering({ saksId: id, saksbehandlerIdent: userData.ident });
-      history.replace('/kvalitetsregistreringer');
+      navigate('/kvalitetsregistreringer', { replace: true });
     } catch {
       console.error('Kunne ikke slette kvalitetsvurdering');
     }
