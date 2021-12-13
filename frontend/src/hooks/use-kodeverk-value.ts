@@ -74,6 +74,9 @@ export const useKodeverkSakstype = (
 export const useEnheterForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
   useKodeverkYtelse(ytelseId)?.enheter ?? [];
 
+export const useKlageenheterForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
+  useKodeverkYtelse(ytelseId)?.klageenheter ?? [];
+
 export const useHjemlerForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
   useKodeverkYtelse(ytelseId)?.hjemler ?? [];
 

@@ -13,19 +13,26 @@ export interface ISaksdataListParams {
   sidenDager?: number;
 }
 
+export interface ICreateSaksdataParams extends ISaksdataListParams {
+  tilknyttetEnhet: string;
+}
+
 export const saksdataApi = createApi({
   reducerPath: 'saksdataApi',
   baseQuery,
   endpoints: (builder) => ({
-    createSaksdata: builder.mutation<ISaksdata, ISaksdataListParams>({
-      query: () => ({
+    createSaksdata: builder.mutation<ISaksdata, ICreateSaksdataParams>({
+      query: ({ tilknyttetEnhet }) => ({
         url: '/saksdata',
         method: 'POST',
+        body: {
+          tilknyttetEnhet,
+        },
       }),
-      onQueryStarted: async (query, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async ({ saksbehandlerIdent, sidenDager }, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
         dispatch(
-          saksdataApi.util.updateQueryData('getIncompleteSaksdataList', query, (draft) => {
+          saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent, sidenDager }, (draft) => {
             draft.push(data);
           })
         );
@@ -326,6 +333,28 @@ export const saksdataApi = createApi({
         }
       },
     }),
+    setTilknyttetEnhet: builder.mutation<ISaksdata, SaksdataUpdate<'tilknyttetEnhet'>>({
+      query: ({ id, tilknyttetEnhet }) => ({
+        url: `/saksdata/${id}/tilknyttetenhet`,
+        method: 'PUT',
+        body: {
+          value: tilknyttetEnhet,
+        },
+      }),
+      onQueryStarted: async ({ id, tilknyttetEnhet }, { dispatch, queryFulfilled }) => {
+        const patchResult = dispatch(
+          saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
+            draft.tilknyttetEnhet = tilknyttetEnhet;
+          })
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+    }),
   }),
 });
 
@@ -343,5 +372,6 @@ export const {
   useSetYtelseMutation,
   useSetUtfallMutation,
   useSetVedtaksinstansenhetMutation,
+  useSetTilknyttetEnhetMutation,
   useDeleteSaksdataMutation,
 } = saksdataApi;

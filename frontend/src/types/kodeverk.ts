@@ -12,6 +12,7 @@ export interface IKodeverkValue<T extends string = string> {
 export interface IYtelse extends IKodeverkValue {
   hjemler: IKodeverkValue[];
   enheter: IKodeverkValue[];
+  klageenheter: IKodeverkValue[];
   lovKildeToRegistreringshjemler: ILovKildeToRegistreringshjemmel[];
 }
 
@@ -21,4 +22,5 @@ export interface IKodeverk {
   sakstyper: IKodeverkValue<SakstypeEnum>[];
   partIdTyper: IKodeverkValue<PartEnum>[];
   hjemler: IKodeverkValue[];
+  enheter: IKodeverkValue[];
 }

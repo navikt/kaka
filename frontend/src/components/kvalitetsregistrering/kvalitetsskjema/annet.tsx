@@ -1,14 +1,17 @@
 import React from 'react';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
+import { useSaksdata } from '../../../hooks/use-saksdata';
 import { RadioValg } from '../../../types/kvalitetsvurdering';
+import { SakstypeEnum } from '../../../types/sakstype';
 import { Checkboxes } from './checkboxes';
 import { Reason } from './reasons';
 import { FormSection, SubHeader } from './styled-components';
 
 export const Annet = () => {
   const [kvalitetsvurdering] = useKvalitetsvurdering();
+  const [saksdata] = useSaksdata();
 
-  if (typeof kvalitetsvurdering === 'undefined') {
+  if (typeof kvalitetsvurdering === 'undefined' || typeof saksdata === 'undefined') {
     return null;
   }
 
@@ -27,7 +30,7 @@ export const Annet = () => {
     return null;
   }
 
-  const reasons: Reason[] = [
+  const baseReasons: Reason[] = [
     {
       id: 'nyeOpplysningerMottatt',
       label: 'Nye opplysninger mottatt etter oversendelse til klageinstansen',
@@ -43,6 +46,9 @@ export const Annet = () => {
       show: showBetydeligAvvikReason,
       helpText: 'Benyttes når førsteinstans bør varsles umiddelbart om resultatet av behandlingen',
     },
+  ];
+
+  const klageReasons: Reason[] = [
     {
       id: 'brukIOpplaering',
       label: 'Bruk gjerne dette som eksempel i opplæring',
@@ -52,6 +58,8 @@ export const Annet = () => {
       helpText: 'Benyttes på spesielt gode vedtak, til opplæring i førsteinstans.',
     },
   ];
+
+  const reasons = saksdata.sakstypeId === SakstypeEnum.KLAGE ? baseReasons : [...baseReasons, ...klageReasons];
 
   return (
     <FormSection>
