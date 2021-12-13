@@ -36,7 +36,7 @@ export const TilknyttetEnhet = () => {
 
     return (
       <StyledAlertStripe type="advarsel">
-        Saken er underutfylling av {saksdata.utfoerendeSaksbehandler}, tilknyttet {enhet}.
+        Saken er under utfylling av {saksdata.utfoerendeSaksbehandler}, tilknyttet {enhet}.
       </StyledAlertStripe>
     );
   }
