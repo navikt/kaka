@@ -5,6 +5,7 @@ import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useSetMottattVedtaksinstansMutation } from '../../../redux-api/saksdata';
+import { SakstypeEnum } from '../../../types/sakstype';
 import { DatepickerWithError } from '../../date-picker-with-error/date-picker-with-error';
 import { StyledItem } from './styled-components';
 
@@ -15,7 +16,7 @@ export const MottattVedtksinstans = () => {
   const [setMottattVedtaksinstans] = useSetMottattVedtaksinstansMutation();
   const validationError = useValidationError('mottattVedtaksinstans');
 
-  if (typeof saksdata === 'undefined') {
+  if (typeof saksdata === 'undefined' || saksdata.sakstypeId === SakstypeEnum.ANKE) {
     return null;
   }
 

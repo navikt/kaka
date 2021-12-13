@@ -2,11 +2,12 @@ import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import { Select } from 'nav-frontend-skjema';
 import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useEnheterForYtelse } from '../../../hooks/use-kodeverk-value';
+import { useEnheterForYtelse, useKlageenheterForYtelse } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useSetVedtaksinstansenhetMutation } from '../../../redux-api/saksdata';
+import { SakstypeEnum } from '../../../types/sakstype';
 import { EmptyOption } from './empty-option';
 import { StyledItem } from './styled-components';
 
@@ -15,7 +16,8 @@ export const FraVedtaksenhet = () => {
   const [saksdata] = useSaksdata();
   const [setVedtaksenhet] = useSetVedtaksinstansenhetMutation();
   const canEdit = useCanEdit();
-  const enheter = useEnheterForYtelse(saksdata?.ytelseId ?? skipToken);
+  const enheter = useEnheterForYtelse(saksdata?.ytelseId ?? skipToken); // Sakstype klage uses enheter
+  const ankeenheter = useKlageenheterForYtelse(saksdata?.ytelseId ?? skipToken); // Sakstype anke uses klageenheter
   const validationError = useValidationError('vedtaksinstansEnhet');
 
   if (typeof saksdata === 'undefined') {
@@ -27,7 +29,13 @@ export const FraVedtaksenhet = () => {
     setVedtaksenhet({ id: saksdataId, vedtaksinstansEnhet });
   };
 
-  const noEnheter = enheter.length === 0;
+  const options = (saksdata.sakstypeId === SakstypeEnum.ANKE ? ankeenheter : enheter).map(({ id, beskrivelse }) => (
+    <option key={id} value={id}>
+      {beskrivelse}
+    </option>
+  ));
+
+  const noEnheter = options.length === 0;
 
   return (
     <StyledItem>
@@ -41,11 +49,7 @@ export const FraVedtaksenhet = () => {
         data-testid="fra-vedtaksenhet-select"
       >
         <EmptyOption show={saksdata.vedtaksinstansEnhet === null} />
-        {enheter.map(({ id, beskrivelse }) => (
-          <option key={id} value={id}>
-            {beskrivelse}
-          </option>
-        ))}
+        {options}
       </Select>
     </StyledItem>
   );

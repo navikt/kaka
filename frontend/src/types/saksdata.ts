@@ -7,6 +7,7 @@ export interface ISaksdataBase {
   id: UUID;
   created: string; // LocalDateTime;
   modified: string; // LocalDateTime;
+  tilknyttetEnhet: string;
   hjemmelIdList: string[];
   avsluttetAvSaksbehandler: string | null; // LocalDateTime;
   ytelseId: string | null;

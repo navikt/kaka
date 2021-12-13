@@ -3,20 +3,27 @@ import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useFieldName } from '../../../hooks/use-field-name';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
+import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
 import { RadioValg } from '../../../types/kvalitetsvurdering';
+import { SakstypeEnum } from '../../../types/sakstype';
 import { Reason, Reasons } from './reasons';
 import { FormSection, RadioButtonsRow, SubHeader } from './styled-components';
 
 export const Klageforberedelsen = () => {
   const [kvalitetsvurdering] = useKvalitetsvurdering();
+  const [saksdata] = useSaksdata();
   const [updateKvalitetsvurdering] = useUpdateKvalitetsvurderingMutation();
   const canEdit = useCanEdit();
   const validationError = useValidationError('klageforberedelsenRadioValg');
   const header = useFieldName('klageforberedelsenRadioValg');
 
-  if (typeof kvalitetsvurdering === 'undefined') {
+  if (
+    typeof kvalitetsvurdering === 'undefined' ||
+    typeof saksdata === 'undefined' ||
+    saksdata.sakstypeId === SakstypeEnum.ANKE
+  ) {
     return null;
   }
 
