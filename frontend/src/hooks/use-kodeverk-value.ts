@@ -1,6 +1,6 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import { useGetKodeverkQuery } from '../redux-api/metadata';
-import { IKodeverk, IKodeverkValue, IYtelse } from '../types/kodeverk';
+import { IKlageenhet, IKodeverk, IKodeverkValue, IYtelse } from '../types/kodeverk';
 import { ILovKildeToRegistreringshjemmel } from '../types/registreringshjemmel';
 import { SakstypeEnum } from '../types/sakstype';
 import { UtfallEnum } from '../types/utfall';
@@ -80,6 +80,26 @@ export const useKlageenheterForYtelse = (ytelseId: string | typeof skipToken = s
 export const useHjemlerForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
   useKodeverkYtelse(ytelseId)?.hjemler ?? [];
 
+export const useKodeverkKlageenhet = (klageenhetId: string | typeof skipToken = skipToken): IKlageenhet | undefined => {
+  const data = useKodeverkValue(klageenhetId === skipToken ? skipToken : 'klageenheter');
+
+  if (klageenhetId === skipToken || typeof data === 'undefined') {
+    return undefined;
+  }
+
+  return data.find(({ id }) => id === klageenhetId);
+};
+
 export const useLovkildeToRegistreringshjemmelForYtelse = (
   ytelseId: string | typeof skipToken = skipToken
 ): ILovKildeToRegistreringshjemmel[] => useKodeverkYtelse(ytelseId)?.lovKildeToRegistreringshjemler ?? [];
+
+export const useYtelserPerEnhet = (klageenhetId: string | typeof skipToken = skipToken): IKodeverkValue[] => {
+  const klageenhet = useKodeverkKlageenhet(klageenhetId);
+
+  if (klageenhetId === skipToken || typeof klageenhet === 'undefined') {
+    return [];
+  }
+
+  return klageenhet.ytelser;
+};

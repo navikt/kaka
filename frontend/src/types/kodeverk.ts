@@ -15,6 +15,9 @@ export interface IYtelse extends IKodeverkValue {
   klageenheter: IKodeverkValue[];
   lovKildeToRegistreringshjemler: ILovKildeToRegistreringshjemmel[];
 }
+export interface IKlageenhet extends IKodeverkValue {
+  ytelser: IKodeverkValue[];
+}
 
 export interface IKodeverk {
   ytelser: IYtelse[];
@@ -23,4 +26,5 @@ export interface IKodeverk {
   partIdTyper: IKodeverkValue<PartEnum>[];
   hjemler: IKodeverkValue[];
   enheter: IKodeverkValue[];
+  klageenheter: IKlageenhet[];
 }

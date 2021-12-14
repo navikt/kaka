@@ -1,7 +1,8 @@
+import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import { Select } from 'nav-frontend-skjema';
 import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
+import { useYtelserPerEnhet } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
@@ -16,14 +17,14 @@ export const Ytelse = () => {
   const [saksdata] = useSaksdata();
   const [setYtelse] = useSetYtelseMutation();
   const canEdit = useCanEdit();
-  const ytelseData = useKodeverkValue('ytelser');
   const validationError = useValidationError('ytelseId');
+  const allowedYtelser = useYtelserPerEnhet(saksdata?.tilknyttetEnhet ?? skipToken);
 
-  if (typeof saksdata === 'undefined' || typeof ytelseData === 'undefined' || typeof user === 'undefined') {
+  if (typeof saksdata === 'undefined' || typeof user === 'undefined') {
     return null;
   }
 
-  const options = ytelseData.map(({ id, beskrivelse }) => (
+  const options = allowedYtelser.map(({ id, beskrivelse }) => (
     <option value={id} key={id}>
       {beskrivelse}
     </option>

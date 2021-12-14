@@ -4,7 +4,7 @@ import { useSaksdata } from '../../../hooks/use-saksdata';
 import { FraVedtaksenhet } from './fra-vedtaksenhet';
 import { Lovhjemmel } from './lovhjemmel/lovhjemmel';
 import { MottattKlageinstans } from './mottatt-klageinstans';
-import { MottattVedtksinstans } from './mottatt-vedtaksinstans';
+import { MottattVedtaksinstans } from './mottatt-vedtaksinstans';
 import { SakenGjelder } from './saken-gjelder';
 import { Sakstype } from './sakstype';
 import { TilknyttetEnhet } from './tilknyttet-enhet';
@@ -24,7 +24,7 @@ export const Saksdata = () => {
       <SakenGjelder />
       <Sakstype />
       <Ytelse />
-      <MottattVedtksinstans />
+      <MottattVedtaksinstans />
       <FraVedtaksenhet />
       <MottattKlageinstans />
       <UtfallResultat />
