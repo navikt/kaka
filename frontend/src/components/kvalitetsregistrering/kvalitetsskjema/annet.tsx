@@ -59,7 +59,7 @@ export const Annet = () => {
     },
   ];
 
-  const reasons = saksdata.sakstypeId === SakstypeEnum.KLAGE ? baseReasons : [...baseReasons, ...klageReasons];
+  const reasons = saksdata.sakstypeId === SakstypeEnum.ANKE ? baseReasons : [...baseReasons, ...klageReasons];
 
   return (
     <FormSection>
