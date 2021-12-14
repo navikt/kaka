@@ -1,6 +1,6 @@
 import AlertStripe from 'nav-frontend-alertstriper';
 import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
@@ -9,9 +9,13 @@ import { useCanEdit } from '../../hooks/use-can-edit';
 import { useKvalitetsvurderingIsFinished } from '../../hooks/use-kvalitetsvurdering-is-finished';
 import { useSaksdataId } from '../../hooks/use-saksdata-id';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
-import { useDeleteSaksdataMutation, useFullfoerMutation, useGetSaksdataQuery } from '../../redux-api/saksdata';
+import {
+  FULLFOER_FIXED_CACHE_KEY,
+  useDeleteSaksdataMutation,
+  useFullfoerMutation,
+  useGetSaksdataQuery,
+} from '../../redux-api/saksdata';
 import { ValidationSummary } from './error-messages';
-import { ValidationErrorContext } from './validation-error-context';
 
 export const Footer = () => {
   const finished = useKvalitetsvurderingIsFinished();
@@ -25,25 +29,17 @@ const UnfinishedKvalitetsvurdering = () => {
   const navigate = useNavigate();
   const { data: userData } = useGetUserDataQuery();
   const { data: saksdata } = useGetSaksdataQuery(id);
-  const [finishVurdering, { isLoading: isFinishing }] = useFullfoerMutation();
+  const [finishVurdering, { isLoading: isFinishing, error }] = useFullfoerMutation({
+    fixedCacheKey: FULLFOER_FIXED_CACHE_KEY,
+  });
   const [deleteVurdering, { isLoading: isDeleting }] = useDeleteSaksdataMutation();
-  const errorContext = useContext(ValidationErrorContext);
 
   if (typeof userData === 'undefined' || typeof saksdata === 'undefined') {
     return null;
   }
 
   const finish = () => {
-    finishVurdering({ saksbehandlerIdent: userData.ident, saksdata })
-      .unwrap()
-      .then(() => {
-        errorContext?.setValidationSectionErrors([]);
-      })
-      .catch((error) => {
-        if (typeof errorContext !== 'undefined' && isReduxValidationResponse(error)) {
-          errorContext.setValidationSectionErrors(error.data.sections);
-        }
-      });
+    finishVurdering({ saksbehandlerIdent: userData.ident, saksdata });
   };
 
   const deleteSaksdata = async () => {
@@ -55,7 +51,7 @@ const UnfinishedKvalitetsvurdering = () => {
     }
   };
 
-  const hasErrors = typeof errorContext !== 'undefined' && errorContext.validationSectionErrors.length !== 0;
+  const hasErrors = isReduxValidationResponse(error) && error.data.sections.length !== 0;
 
   const Wrapper = hasErrors ? StyledUnfinishedErrorFooter : StyledUnfinishedFooter;
   const statusText = hasErrors ? 'Feil i utfyllingen' : 'Under utfylling';
