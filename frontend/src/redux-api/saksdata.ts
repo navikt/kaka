@@ -258,6 +258,7 @@ export const saksdataApi = createApi({
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
             draft.ytelseId = ytelseId;
+            draft.hjemmelIdList = [];
           })
         );
 
@@ -267,18 +268,11 @@ export const saksdataApi = createApi({
           )
         );
 
-        const hjemmelIdListPatchResult = dispatch(
-          saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
-            draft.hjemmelIdList = [];
-          })
-        );
-
         try {
           await queryFulfilled;
         } catch {
           patchResult.undo();
           incompleteListPatchResult.undo();
-          hjemmelIdListPatchResult.undo();
         }
       },
     }),
@@ -345,6 +339,8 @@ export const saksdataApi = createApi({
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
             draft.tilknyttetEnhet = tilknyttetEnhet;
+            draft.ytelseId = null;
+            draft.hjemmelIdList = [];
           })
         );
 
