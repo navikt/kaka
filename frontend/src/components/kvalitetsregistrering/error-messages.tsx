@@ -1,19 +1,21 @@
 import Alertstripe from 'nav-frontend-alertstriper';
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { IValidationError, IValidationSection } from '../../functions/error-type-guard';
+import { IValidationError, IValidationSection, isReduxValidationResponse } from '../../functions/error-type-guard';
 import { useFieldName } from '../../hooks/use-field-name';
 import { useSectionTitle } from '../../hooks/use-section-title';
-import { ValidationErrorContext } from './validation-error-context';
+import { FULLFOER_FIXED_CACHE_KEY, useFullfoerMutation } from '../../redux-api/saksdata';
 
 export const ValidationSummary = () => {
-  const context = useContext(ValidationErrorContext);
+  const [, { error }] = useFullfoerMutation({
+    fixedCacheKey: FULLFOER_FIXED_CACHE_KEY,
+  });
 
-  if (typeof context === 'undefined') {
+  if (!isReduxValidationResponse(error)) {
     return null;
   }
 
-  const sections: IValidationSection[] = context.validationSectionErrors;
+  const { sections } = error.data;
 
   if (sections.length === 0) {
     return null;
