@@ -69,11 +69,13 @@ export const TilknyttetEnhet = () => {
         data-testid="tilknyttet-enhet-select"
         value={saksdata.tilknyttetEnhet}
       >
-        {enheter.map(({ id, beskrivelse }) => (
-          <option key={id} value={id}>
-            {beskrivelse}
-          </option>
-        ))}
+        {enheter
+          .filter(({ navn }) => navn.startsWith('42'))
+          .map(({ id, beskrivelse }) => (
+            <option key={id} value={id}>
+              {beskrivelse}
+            </option>
+          ))}
       </StyledSelect>
     </StyledAlertStripe>
   );
