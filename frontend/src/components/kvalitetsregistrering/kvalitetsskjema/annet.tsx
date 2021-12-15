@@ -21,8 +21,7 @@ export const Annet = () => {
     kvalitetsvurdering.vedtaketRadioValg === RadioValg.MANGELFULLT ||
     kvalitetsvurdering.utredningenRadioValg === RadioValg.MANGELFULLT;
 
-  const showBrukIOpplaeringReason =
-    kvalitetsvurdering.vedtaketRadioValg === RadioValg.BRA || kvalitetsvurdering.utredningenRadioValg === RadioValg.BRA;
+  const showBrukIOpplaeringReason = kvalitetsvurdering.vedtaketRadioValg === RadioValg.BRA;
 
   const showForm = showNyeOpplysningerMottattReason || showBetydeligAvvikReason || showBrukIOpplaeringReason;
 
