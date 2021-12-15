@@ -1,3 +1,5 @@
+import { IKodeverkValue } from './kodeverk';
+
 export interface Navn {
   fornavn?: string;
   etternavn?: string;
@@ -7,4 +9,5 @@ export interface Navn {
 export interface IUser {
   ident: string;
   navn: Navn;
+  klageenheter: IKodeverkValue[];
 }
