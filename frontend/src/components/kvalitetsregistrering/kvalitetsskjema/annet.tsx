@@ -51,7 +51,7 @@ export const Annet = () => {
   const klageReasons: Reason[] = [
     {
       id: 'brukIOpplaering',
-      label: 'Bruk gjerne dette som eksempel i opplæring',
+      label: 'Bruk gjerne vedtaket som eksempel i opplæring',
       checked: kvalitetsvurdering.brukIOpplaering,
       textareaId: 'brukIOpplaeringText',
       show: showBrukIOpplaeringReason,
