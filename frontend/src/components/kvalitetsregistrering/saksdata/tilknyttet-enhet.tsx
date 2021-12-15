@@ -64,7 +64,7 @@ export const TilknyttetEnhet = () => {
 
   return (
     <StyledAlertStripe type="info">
-      Du er logget inn som {name}, tilknyttet:{' '}
+      Du er logget inn som {name}, tilknyttet:
       <StyledSelect
         onChange={onChange}
         bredde="l"
@@ -87,6 +87,10 @@ const StyledAlertStripe = styled(AlertStripe)`
   display: inline-flex;
   align-items: center;
   margin-bottom: 2em;
+
+  .alertstripe__tekst {
+    max-width: none;
+  }
 `;
 
 const StyledSelect = styled(Select)`
