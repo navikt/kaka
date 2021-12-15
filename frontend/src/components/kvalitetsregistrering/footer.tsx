@@ -1,6 +1,6 @@
 import AlertStripe from 'nav-frontend-alertstriper';
 import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
@@ -9,18 +9,12 @@ import { useCanEdit } from '../../hooks/use-can-edit';
 import { useKvalitetsvurderingIsFinished } from '../../hooks/use-kvalitetsvurdering-is-finished';
 import { useSaksdataId } from '../../hooks/use-saksdata-id';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
-import {
-  FULLFOER_FIXED_CACHE_KEY,
-  useDeleteSaksdataMutation,
-  useFullfoerMutation,
-  useGetSaksdataQuery,
-} from '../../redux-api/saksdata';
+import { useDeleteSaksdataMutation, useFullfoerMutation, useGetSaksdataQuery } from '../../redux-api/saksdata';
 import { ValidationSummary } from './error-messages';
 
 export const Footer = () => {
   const finished = useKvalitetsvurderingIsFinished();
-
-  return finished ? <FinishedKvalitetsvurdering /> : <UnfinishedKvalitetsvurdering />;
+  return useMemo(() => (finished ? <FinishedKvalitetsvurdering /> : <UnfinishedKvalitetsvurdering />), [finished]);
 };
 
 const UnfinishedKvalitetsvurdering = () => {
@@ -30,7 +24,7 @@ const UnfinishedKvalitetsvurdering = () => {
   const { data: userData } = useGetUserDataQuery();
   const { data: saksdata } = useGetSaksdataQuery(id);
   const [finishVurdering, { isLoading: isFinishing, error }] = useFullfoerMutation({
-    fixedCacheKey: FULLFOER_FIXED_CACHE_KEY,
+    fixedCacheKey: id,
   });
   const [deleteVurdering, { isLoading: isDeleting }] = useDeleteSaksdataMutation();
 
