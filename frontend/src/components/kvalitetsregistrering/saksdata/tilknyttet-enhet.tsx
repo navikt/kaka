@@ -21,6 +21,8 @@ export const TilknyttetEnhet = () => {
     return <StyledAlertStripe type="info">Laster...</StyledAlertStripe>;
   }
 
+  const name = user.navn.sammensattNavn ?? user.ident;
+
   if (isFinished) {
     const enhet = enheter.find(({ id }) => id === saksdata.tilknyttetEnhet)?.beskrivelse ?? 'ingen enhet';
 
@@ -44,7 +46,7 @@ export const TilknyttetEnhet = () => {
   if (enheter.length === 0) {
     return (
       <StyledAlertStripe type="advarsel">
-        Du er logget inn som {user.ident}, men har ingen enheter tilgjengelige.
+        Du er logget inn som {name}, men har ingen enheter tilgjengelige.
       </StyledAlertStripe>
     );
   }
@@ -52,7 +54,7 @@ export const TilknyttetEnhet = () => {
   if (enheter.length === 1) {
     return (
       <StyledAlertStripe type="info">
-        Du er logget inn som {user.ident}, tilknyttet {enheter[0].beskrivelse}.
+        Du er logget inn som {name}, tilknyttet {enheter[0].beskrivelse}.
       </StyledAlertStripe>
     );
   }
@@ -62,7 +64,7 @@ export const TilknyttetEnhet = () => {
 
   return (
     <StyledAlertStripe type="info">
-      Du er logget inn som {user.ident}, tilknyttet:{' '}
+      Du er logget inn som {name}, tilknyttet:{' '}
       <StyledSelect
         onChange={onChange}
         bredde="l"
