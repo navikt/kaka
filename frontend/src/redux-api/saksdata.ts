@@ -375,5 +375,3 @@ export const {
   useSetTilknyttetEnhetMutation,
   useDeleteSaksdataMutation,
 } = saksdataApi;
-
-export const FULLFOER_FIXED_CACHE_KEY = 'shared-fullfoer-validation';

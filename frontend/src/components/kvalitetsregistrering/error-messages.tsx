@@ -3,12 +3,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { IValidationError, IValidationSection, isReduxValidationResponse } from '../../functions/error-type-guard';
 import { useFieldName } from '../../hooks/use-field-name';
+import { useSaksdataId } from '../../hooks/use-saksdata-id';
 import { useSectionTitle } from '../../hooks/use-section-title';
-import { FULLFOER_FIXED_CACHE_KEY, useFullfoerMutation } from '../../redux-api/saksdata';
+import { useFullfoerMutation } from '../../redux-api/saksdata';
 
 export const ValidationSummary = () => {
+  const id = useSaksdataId();
   const [, { error }] = useFullfoerMutation({
-    fixedCacheKey: FULLFOER_FIXED_CACHE_KEY,
+    fixedCacheKey: id,
   });
 
   if (!isReduxValidationResponse(error)) {
