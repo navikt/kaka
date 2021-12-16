@@ -2,7 +2,6 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import { useKodeverkValue } from '../../hooks/use-kodeverk-value';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { useCreateSaksdataMutation } from '../../redux-api/saksdata';
 import { FullfoerteRegistreringerTable } from './fullfoerte-registreringer-table';
@@ -11,10 +10,9 @@ import { PaabegynteRegistreringerTable } from './paabegynte-registreringer-table
 export const Kvalitetsregistreringer = () => {
   const { data: userData } = useGetUserDataQuery();
   const [createSaksdata] = useCreateSaksdataMutation();
-  const enheter = useKodeverkValue('enheter');
   const navigate = useNavigate();
 
-  const loading = typeof userData === 'undefined' || typeof enheter === 'undefined';
+  const loading = typeof userData === 'undefined';
 
   const createNewSaksdata = () => {
     if (loading) {
@@ -23,7 +21,7 @@ export const Kvalitetsregistreringer = () => {
 
     createSaksdata({
       saksbehandlerIdent: userData.ident,
-      tilknyttetEnhet: enheter[0].id,
+      tilknyttetEnhet: userData.klageenheter[0].id,
     })
       .unwrap()
       .then(({ id }) => navigate(`/kvalitetsregistreringer/${id}`));
