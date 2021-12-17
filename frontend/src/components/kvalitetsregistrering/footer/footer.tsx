@@ -1,23 +1,17 @@
-import AlertStripe from 'nav-frontend-alertstriper';
-import { Fareknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper';
-import React, { useMemo } from 'react';
+import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
+import React from 'react';
 import { useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { isReduxValidationResponse } from '../../functions/error-type-guard';
-import { useCanEdit } from '../../hooks/use-can-edit';
-import { useKvalitetsvurderingIsFinished } from '../../hooks/use-kvalitetsvurdering-is-finished';
-import { useSaksdataId } from '../../hooks/use-saksdata-id';
-import { useGetUserDataQuery } from '../../redux-api/metadata';
-import { useDeleteSaksdataMutation, useFullfoerMutation, useGetSaksdataQuery } from '../../redux-api/saksdata';
-import { ValidationSummary } from './error-messages';
+import { isReduxValidationResponse } from '../../../functions/error-type-guard';
+import { useCanEdit } from '../../../hooks/use-can-edit';
+import { useKvalitetsvurderingIsFinished } from '../../../hooks/use-kvalitetsvurdering-is-finished';
+import { useSaksdataId } from '../../../hooks/use-saksdata-id';
+import { useGetUserDataQuery } from '../../../redux-api/metadata';
+import { useDeleteSaksdataMutation, useFullfoerMutation, useGetSaksdataQuery } from '../../../redux-api/saksdata';
+import { ValidationSummaryPopup } from './validation-summary-popup';
 
 export const Footer = () => {
-  const finished = useKvalitetsvurderingIsFinished();
-  return useMemo(() => (finished ? <FinishedKvalitetsvurdering /> : <UnfinishedKvalitetsvurdering />), [finished]);
-};
-
-const UnfinishedKvalitetsvurdering = () => {
   const id = useSaksdataId();
   const canEdit = useCanEdit();
   const navigate = useNavigate();
@@ -27,6 +21,7 @@ const UnfinishedKvalitetsvurdering = () => {
     fixedCacheKey: id,
   });
   const [deleteVurdering, { isLoading: isDeleting }] = useDeleteSaksdataMutation();
+  const isFinished = useKvalitetsvurderingIsFinished();
 
   if (typeof userData === 'undefined' || typeof saksdata === 'undefined') {
     return null;
@@ -47,15 +42,11 @@ const UnfinishedKvalitetsvurdering = () => {
 
   const hasErrors = isReduxValidationResponse(error) && error.data.sections.length !== 0;
 
-  const Wrapper = hasErrors ? StyledUnfinishedErrorFooter : StyledUnfinishedFooter;
-  const statusText = hasErrors ? 'Feil i utfyllingen' : 'Under utfylling';
-  const statusType = hasErrors ? 'advarsel' : 'info';
-
-  return (
-    <Wrapper>
-      <ValidationSummary />
+  const children = (
+    <>
       <StyledButtons>
         <Fareknapp
+          mini
           disabled={!canEdit}
           onClick={deleteSaksdata}
           spinner={isDeleting}
@@ -66,6 +57,7 @@ const UnfinishedKvalitetsvurdering = () => {
           Slett
         </Fareknapp>
         <Hovedknapp
+          mini
           disabled={!canEdit || isDeleting}
           onClick={finish}
           spinner={isFinishing}
@@ -76,51 +68,48 @@ const UnfinishedKvalitetsvurdering = () => {
           Fullfør
         </Hovedknapp>
 
-        <NavLink to={'/kvalitetsregistreringer'} className="knapp footer-button">
+        <NavLink to={'/kvalitetsregistreringer'} className="knapp knapp--mini footer-button">
           Tilbake
         </NavLink>
       </StyledButtons>
-      <AlertStripe type={statusType} form="inline">
-        {statusText}
-      </AlertStripe>
-    </Wrapper>
+
+      <ValidationSummaryPopup hasErrors={hasErrors} />
+    </>
   );
+
+  if (isFinished) {
+    return <StyledFinishedFooter>{children}</StyledFinishedFooter>;
+  }
+
+  if (hasErrors) {
+    return <StyledUnfinishedErrorFooter>{children}</StyledUnfinishedErrorFooter>;
+  }
+
+  return <StyledUnfinishedFooter>{children}</StyledUnfinishedFooter>;
 };
-
-const FinishedKvalitetsvurdering = () => (
-  <StyledFinishedFooter>
-    <StyledButtons>
-      <Knapp disabled data-testid="edit-button" className="footer-button">
-        Endre
-      </Knapp>
-      <NavLink to={'/kvalitetsregistreringer'} className="knapp footer-button">
-        Tilbake
-      </NavLink>
-    </StyledButtons>
-
-    <AlertStripe type="suksess" form="inline">
-      Fullført kvalitetsvurdering
-    </AlertStripe>
-  </StyledFinishedFooter>
-);
 
 const StyledButtons = styled.div`
   display: flex;
   align-items: center;
   align-content: center;
+  justify-content: space-between;
 
   .footer-button {
+    width: 200px;
     margin-right: 1em;
   }
 `;
 
 const StyledFooter = styled.div`
   display: flex;
-  position: fixed;
-  bottom: 0;
+  position: sticky;
+  bottom: 0em;
   left: 0;
   width: 100%;
-  padding: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 0.5em;
+  padding-top: 0.5em;
   justify-content: space-between;
   align-items: center;
   align-content: center;

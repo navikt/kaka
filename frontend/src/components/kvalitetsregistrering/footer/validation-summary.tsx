@@ -1,24 +1,15 @@
 import Alertstripe from 'nav-frontend-alertstriper';
 import React from 'react';
 import styled from 'styled-components';
-import { IValidationError, IValidationSection, isReduxValidationResponse } from '../../functions/error-type-guard';
-import { useFieldName } from '../../hooks/use-field-name';
-import { useSaksdataId } from '../../hooks/use-saksdata-id';
-import { useSectionTitle } from '../../hooks/use-section-title';
-import { useFullfoerMutation } from '../../redux-api/saksdata';
+import { IValidationError, IValidationSection } from '../../../functions/error-type-guard';
+import { useFieldName } from '../../../hooks/use-field-name';
+import { useSectionTitle } from '../../../hooks/use-section-title';
 
-export const ValidationSummary = () => {
-  const id = useSaksdataId();
-  const [, { error }] = useFullfoerMutation({
-    fixedCacheKey: id,
-  });
+interface Props {
+  sections: IValidationSection[];
+}
 
-  if (!isReduxValidationResponse(error)) {
-    return null;
-  }
-
-  const { sections } = error.data;
-
+export const ValidationSummary = ({ sections }: Props) => {
   if (sections.length === 0) {
     return null;
   }
@@ -38,7 +29,6 @@ export const ValidationSummary = () => {
 const Section = ({ properties, section }: IValidationSection) => (
   <StyledSection>
     <SectionTitle>{useSectionTitle(section)}</SectionTitle>
-
     <StyledFieldList>
       {properties.map((p) => (
         <Field key={p.field} {...p} />
@@ -55,9 +45,7 @@ const Field = ({ field, reason }: IValidationError) => (
 );
 
 const StyledAlertStripe = styled(Alertstripe)`
-  position: absolute;
-  right: 1em;
-  bottom: calc(100% + 1em);
+  margin-bottom: 1em;
 `;
 
 const ValidationSummaryContainer = styled.article`
@@ -72,9 +60,9 @@ const StyledFieldList = styled.ul`
   padding-left: 1em;
 `;
 
-const SectionTitle = styled.h3`
-  font-size: 1rem;
+const SectionTitle = styled.h1`
   margin: 0;
+  font-size: 18px;
 `;
 
 const StyledSection = styled.section`
