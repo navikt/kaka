@@ -49,16 +49,6 @@ export const useKodeverkUtfall = (
   return data.find(({ id }) => id === utfallId);
 };
 
-export const useKodeverkHjemmel = (hjemmelId: string | typeof skipToken = skipToken): IKodeverkValue | undefined => {
-  const data = useKodeverkValue(hjemmelId === skipToken ? skipToken : 'hjemler');
-
-  if (hjemmelId === skipToken || typeof data === 'undefined') {
-    return undefined;
-  }
-
-  return data.find(({ id }) => id === hjemmelId);
-};
-
 export const useKodeverkSakstype = (
   sakstypeId: string | typeof skipToken = skipToken
 ): IKodeverkValue<SakstypeEnum> | undefined => {
@@ -76,9 +66,6 @@ export const useEnheterForYtelse = (ytelseId: string | typeof skipToken = skipTo
 
 export const useKlageenheterForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
   useKodeverkYtelse(ytelseId)?.klageenheter ?? [];
-
-export const useHjemlerForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
-  useKodeverkYtelse(ytelseId)?.hjemler ?? [];
 
 export const useKodeverkKlageenhet = (klageenhetId: string | typeof skipToken = skipToken): IKlageenhet | undefined => {
   const data = useKodeverkValue(klageenhetId === skipToken ? skipToken : 'klageenheter');
