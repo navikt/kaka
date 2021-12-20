@@ -25,8 +25,8 @@ export const Saksdata = () => {
       <Sakstype />
       <Ytelse />
       <MottattVedtaksinstans />
-      <FraVedtaksenhet />
       <MottattKlageinstans />
+      <FraVedtaksenhet />
       <UtfallResultat />
       <Lovhjemmel />
     </>

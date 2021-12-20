@@ -1,16 +1,19 @@
 import styled from 'styled-components';
 
-interface ToggleButtonTheme {
-  open: boolean;
-  minHeight: string | undefined;
+interface Props {
+  error?: boolean;
+  theme: {
+    open: boolean;
+  };
 }
 
-export const ToggleButton = styled.button<{ error?: boolean }>`
+export const ToggleButton = styled.button<Props>`
   border: 1px solid ${({ error }) => (error === true ? '#ba3a26' : '#78706a')};
   box-shadow: ${({ error }) => (error === true ? '0 0 0 1px #ba3a26' : 'none')};
-  padding: 0 1.75rem 0 0.5rem;
-  min-height: ${({ theme }: { theme: ToggleButtonTheme }) =>
-    typeof theme.minHeight === 'undefined' ? '2rem' : theme.minHeight};
+  padding: 0;
+  padding-right: 20px;
+  padding-left: 12px;
+  min-height: 40px;
   width: 100%;
   white-space: nowrap;
   border-radius: 0.25rem;
@@ -19,10 +22,11 @@ export const ToggleButton = styled.button<{ error?: boolean }>`
   background: none;
   user-select: none;
   position: relative;
-  font-size: 14px;
+  font-size: 16px;
   font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
-  font-weight: 600;
   color: #3e3832;
+  text-align: left;
+  color: black;
 
   ::before,
   ::after {
@@ -38,14 +42,14 @@ export const ToggleButton = styled.button<{ error?: boolean }>`
   }
 
   ::before {
-    transform: ${({ theme }: { theme: ToggleButtonTheme }) =>
+    transform: ${({ theme }: Props) =>
       theme.open
         ? 'translateX(-3px) translateY(-50%) rotate(-45deg)'
         : 'translateX(-3px) translateY(-50%) rotate(45deg)'};
   }
 
   ::after {
-    transform: ${({ theme }: { theme: ToggleButtonTheme }) =>
+    transform: ${({ theme }: Props) =>
       theme.open
         ? 'translateX(1.5px) translateY(-50%) rotate(45deg)'
         : 'translateX(1.5px) translateY(-50%) rotate(-45deg)'};
