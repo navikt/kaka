@@ -49,6 +49,15 @@ export const Lovhjemmel = () => {
     return null;
   }
 
+  if (!canEdit) {
+    return (
+      <>
+        <StyledHeader>Utfallet er basert på lovhjemmel:</StyledHeader>
+        <SelectedHjemlerList />
+      </>
+    );
+  }
+
   const noHjemler = options.length === 0;
 
   const onLovhjemmelChange = (hjemmelIdList: string[]) => {
