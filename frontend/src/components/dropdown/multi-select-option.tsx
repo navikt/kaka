@@ -1,17 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { StyledCheckbox } from '../../styled-components/checkbox';
 
-interface FilterProps {
-  onChange: (id: string | null, active: boolean) => void;
+interface MultiSelectOptionProps {
+  onChange: (id: string, active: boolean) => void;
   active: boolean;
-  filterId?: string | null;
+  filterId: string;
   children: string;
   focused: boolean;
 }
 
-export const Filter = ({ active, filterId = null, children, onChange, focused }: FilterProps): JSX.Element => {
-  const ref = React.useRef<HTMLLabelElement>(null);
+export const MultiSelectOption = ({
+  active,
+  filterId,
+  children,
+  onChange,
+  focused,
+}: MultiSelectOptionProps): JSX.Element => {
+  const ref = useRef<HTMLLabelElement>(null);
 
   useEffect(() => {
     if (focused && ref.current) {
@@ -22,7 +28,6 @@ export const Filter = ({ active, filterId = null, children, onChange, focused }:
   return (
     <StyledLabel ref={ref}>
       <StyledCheckbox
-        type="checkbox"
         checked={active}
         onChange={(event) => onChange(filterId, event.target.checked)}
         theme={{ focused }}
@@ -32,7 +37,7 @@ export const Filter = ({ active, filterId = null, children, onChange, focused }:
   );
 };
 
-Filter.displayName = 'Filter';
+MultiSelectOption.displayName = 'MultiSelectOption';
 
 const StyledLabel = styled.label`
   display: flex;

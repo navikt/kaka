@@ -1,8 +1,8 @@
 import { Søkeknapp } from 'nav-frontend-ikonknapper';
 import React, { useRef, useState } from 'react';
 import { useOnClickOutside } from '../../../../hooks/use-on-click-outside';
+import { GroupedDropdown, OptionGroup } from '../../../dropdown/grouped-dropdown';
 import { ErrorMessage } from '../../../error-message/error-message';
-import { Dropdown, OptionGroup } from '../../../filter-dropdown/dropdown';
 import { StyledHjemler, StyledLovhjemmelSelect } from './styled-components';
 
 interface LovhjemmelSelectProps {
@@ -58,13 +58,16 @@ export const LovhjemmelSelect = ({
           </Søkeknapp>
         </StyledHjemler>
 
-        <Dropdown
+        <GroupedDropdown
           selected={selected}
           options={options}
           open={open}
           onChange={setSelected}
           close={close}
           showFjernAlle={showFjernAlle}
+          top={0}
+          left="370px"
+          maxHeight="400px"
         />
       </StyledLovhjemmelSelect>
       <ErrorMessage error={error} />

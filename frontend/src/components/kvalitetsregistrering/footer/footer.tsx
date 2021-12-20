@@ -45,17 +45,6 @@ export const Footer = () => {
   const children = (
     <>
       <StyledButtons>
-        <Fareknapp
-          mini
-          disabled={!canEdit}
-          onClick={deleteSaksdata}
-          spinner={isDeleting}
-          autoDisableVedSpinner
-          data-testid="delete-button"
-          className="footer-button"
-        >
-          Slett
-        </Fareknapp>
         <Hovedknapp
           mini
           disabled={!canEdit || isDeleting}
@@ -71,6 +60,17 @@ export const Footer = () => {
         <NavLink to={'/kvalitetsregistreringer'} className="knapp knapp--mini footer-button">
           Tilbake
         </NavLink>
+        <Fareknapp
+          mini
+          disabled={!canEdit}
+          onClick={deleteSaksdata}
+          spinner={isDeleting}
+          autoDisableVedSpinner
+          data-testid="delete-button"
+          className="footer-button"
+        >
+          Slett
+        </Fareknapp>
       </StyledButtons>
 
       <ValidationSummaryPopup hasErrors={hasErrors} />
@@ -113,6 +113,7 @@ const StyledFooter = styled.div`
   justify-content: space-between;
   align-items: center;
   align-content: center;
+  z-index: 5;
 `;
 
 const StyledFinishedFooter = styled(StyledFooter)`
