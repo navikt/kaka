@@ -12,7 +12,7 @@ import { SakstypeEnum } from '../../../types/sakstype';
 import { SingleSelectDropdown } from '../../dropdown/single-select-dropdown';
 import { ErrorMessage } from '../../error-message/error-message';
 import { ToggleButton } from '../../toggle-button/toggle-button';
-import { StyledItem } from './styled-components';
+import { StyledHeader, StyledItem } from './styled-components';
 
 export const FraVedtaksenhet = () => {
   const saksdataId = useSaksdataId();
@@ -112,10 +112,4 @@ const Container = styled.section`
   z-index: 5;
   min-width: 210px;
   width: fit-content;
-`;
-
-const StyledHeader = styled.h3`
-  font-size: 16px;
-  margin: 0;
-  margin-bottom: 0.5em;
 `;

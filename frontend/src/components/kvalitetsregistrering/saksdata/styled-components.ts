@@ -10,3 +10,9 @@ export const StyledLabelText = styled.div`
   margin-bottom: 0.5em;
   line-height: 22px;
 `;
+
+export const StyledHeader = styled.h3`
+  font-size: 16px;
+  margin: 0;
+  margin-bottom: 0.5em;
+`;
