@@ -1,7 +1,6 @@
 import { Input } from 'nav-frontend-skjema';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
-import { usePrevious } from '../../../hooks/use-previous';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
@@ -18,18 +17,16 @@ export const SakenGjelder = () => {
   const [saksdata] = useSaksdata();
   const [updateSakenGjelder] = useSetSakenGjelderMutation();
   const canEdit = useCanEdit();
-  const [value, setValue] = useState<string | null>(saksdata?.sakenGjelder ?? null);
+  const [value, setValue] = useState<string>(saksdata?.sakenGjelder ?? '');
   const [error, setError] = useState<string | null>(null);
   const validationError = useValidationError('sakenGjelder');
-  const previousValue = usePrevious(value);
 
-  const save = useCallback(
-    (inputValue: string | null) => {
-      if (inputValue === null || typeof user === 'undefined') {
+  const validate = useCallback(
+    (inputValue: string) => {
+      if (typeof user === 'undefined') {
         return;
       }
 
-      const hasCorrectLength = correctLength(inputValue);
       const containsDigitsOnly = digitsOnly(inputValue);
 
       if (!containsDigitsOnly) {
@@ -37,23 +34,38 @@ export const SakenGjelder = () => {
         return;
       }
 
+      const hasCorrectLength = correctLength(inputValue);
+
       if (!hasCorrectLength) {
         setError('Personnr må bestå av 11 tegn. Orgnr må bestå av 9 tegn.');
         return;
       }
 
       setError(null);
-      updateSakenGjelder({ sakenGjelder: inputValue, id, saksbehandlerIdent: user.ident });
     },
-    [setError, updateSakenGjelder, id, user]
+    [setError, user]
+  );
+
+  const checkNoError = useCallback(
+    (inputValue: string) => {
+      if (digitsOnly(inputValue) && correctLength(inputValue)) {
+        setError(null);
+      }
+    },
+    [setError]
   );
 
   useEffect(() => {
-    if (previousValue !== value) {
-      const timer = setTimeout(() => save(value), 500);
-      return () => clearTimeout(timer);
+    if (typeof user === 'undefined' || typeof saksdata === 'undefined' || saksdata.sakenGjelder === value) {
+      return;
     }
-  }, [value, save, previousValue]);
+
+    const timer = setTimeout(
+      () => updateSakenGjelder({ sakenGjelder: value, id, saksbehandlerIdent: user.ident }),
+      500
+    );
+    return () => clearTimeout(timer);
+  }, [value, updateSakenGjelder, id, user, saksdata]);
 
   if (typeof saksdata === 'undefined') {
     return null;
@@ -67,7 +79,11 @@ export const SakenGjelder = () => {
         feil={error ?? validationError}
         label="Saken gjelder:"
         value={value ?? ''}
-        onChange={({ target }) => setValue(target.value)}
+        onChange={({ target }) => {
+          setValue(target.value);
+          checkNoError(target.value);
+        }}
+        onBlur={() => validate(value)}
         placeholder="Personnr eller orgnr"
         maxLength={11}
         data-testid="saken-gjelder"
