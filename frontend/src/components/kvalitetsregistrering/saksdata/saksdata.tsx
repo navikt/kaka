@@ -21,8 +21,8 @@ export const Saksdata = () => {
   return (
     <>
       <TilknyttetEnhet />
-      <SakenGjelder />
       <Sakstype />
+      <SakenGjelder />
       <Ytelse />
       <MottattVedtaksinstans />
       <MottattKlageinstans />
