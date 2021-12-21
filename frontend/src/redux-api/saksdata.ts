@@ -39,6 +39,39 @@ export const saksdataApi = createApi({
         dispatch(saksdataApi.util.updateQueryData('getSaksdata', data.id, () => data));
       },
     }),
+    reopenSaksdata: builder.mutation<null, { saksbehandlerIdent: string; saksdata: ISaksdata }>({
+      query: ({ saksdata }) => ({
+        url: `/saksdata/${saksdata.id}/reopen`,
+        method: 'POST',
+      }),
+      onQueryStarted: async ({ saksdata, saksbehandlerIdent }, { dispatch, queryFulfilled }) => {
+        const getSaksdataPatchResult = dispatch(
+          saksdataApi.util.updateQueryData('getSaksdata', saksdata.id, (draft) => {
+            draft.avsluttetAvSaksbehandler = null;
+          })
+        );
+
+        const incompleteListPatchResult = dispatch(
+          saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) => {
+            draft.push(saksdata);
+          })
+        );
+
+        const completeListPatchResult = dispatch(
+          saksdataApi.util.updateQueryData('getCompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
+            draft.filter(({ id }) => id !== saksdata.id)
+          )
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          getSaksdataPatchResult.undo();
+          incompleteListPatchResult.undo();
+          completeListPatchResult.undo();
+        }
+      },
+    }),
     deleteSaksdata: builder.mutation<void, { saksId: string; saksbehandlerIdent: string }>({
       query: ({ saksId }) => ({
         url: `/saksdata/${saksId}`,
@@ -370,4 +403,5 @@ export const {
   useSetVedtaksinstansenhetMutation,
   useSetTilknyttetEnhetMutation,
   useDeleteSaksdataMutation,
+  useReopenSaksdataMutation,
 } = saksdataApi;
