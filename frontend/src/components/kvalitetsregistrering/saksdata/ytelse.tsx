@@ -2,14 +2,15 @@ import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import { Select } from 'nav-frontend-skjema';
 import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useYtelserPerEnhet } from '../../../hooks/use-kodeverk-value';
+import { useKodeverkYtelser, useYtelserForKlageenhet } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useSetYtelseMutation } from '../../../redux-api/saksdata';
+import { SakstypeEnum } from '../../../types/sakstype';
 import { EmptyOption } from './empty-option';
-import { StyledItem } from './styled-components';
+import { StyledHeader, StyledItem } from './styled-components';
 
 export const Ytelse = () => {
   const { data: user } = useGetUserDataQuery();
@@ -18,13 +19,26 @@ export const Ytelse = () => {
   const [setYtelse] = useSetYtelseMutation();
   const canEdit = useCanEdit();
   const validationError = useValidationError('ytelseId');
-  const allowedYtelser = useYtelserPerEnhet(saksdata?.tilknyttetEnhet ?? skipToken);
+  const ankeYtelser = useYtelserForKlageenhet(saksdata?.tilknyttetEnhet ?? skipToken);
+  const klageYtelser = useKodeverkYtelser();
 
   if (typeof saksdata === 'undefined' || typeof user === 'undefined') {
     return null;
   }
 
-  const options = allowedYtelser.map(({ id, beskrivelse }) => (
+  const ytelser = saksdata.sakstypeId === SakstypeEnum.ANKE ? ankeYtelser : klageYtelser;
+
+  if (!canEdit) {
+    const ytelse = ytelser.find(({ id }) => id === saksdata.ytelseId);
+    return (
+      <StyledItem>
+        <StyledHeader>Ytelse</StyledHeader>
+        {ytelse?.navn ?? 'Ingen ytelse'}
+      </StyledItem>
+    );
+  }
+
+  const options = ankeYtelser.map(({ id, beskrivelse }) => (
     <option value={id} key={id}>
       {beskrivelse}
     </option>
