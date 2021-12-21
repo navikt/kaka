@@ -1,5 +1,6 @@
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import React from 'react';
+import styled from 'styled-components';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
@@ -7,7 +8,6 @@ import { useValidationError } from '../../../hooks/use-validation-error';
 import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useSetSakstypeMutation } from '../../../redux-api/saksdata';
 import { SakstypeEnum } from '../../../types/sakstype';
-import { StyledItem } from './styled-components';
 
 export const Sakstype = () => {
   const { data: user } = useGetUserDataQuery();
@@ -26,8 +26,8 @@ export const Sakstype = () => {
   };
 
   return (
-    <StyledItem>
-      <RadioGruppe legend="Sakstype" feil={validationError}>
+    <StyledRadioGruppe legend="Sakstype" feil={validationError}>
+      <StyledRadios>
         {sakstyper.map(({ id, navn }) => (
           <Radio
             id={id}
@@ -39,7 +39,19 @@ export const Sakstype = () => {
             onChange={() => setSakstype(id)}
           />
         ))}
-      </RadioGruppe>
-    </StyledItem>
+      </StyledRadios>
+    </StyledRadioGruppe>
   );
 };
+
+const StyledRadioGruppe = styled(RadioGruppe)`
+  &&& .skjemagruppe__legend {
+    margin-bottom: 0.5em;
+  }
+`;
+
+const StyledRadios = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 210px;
+`;
