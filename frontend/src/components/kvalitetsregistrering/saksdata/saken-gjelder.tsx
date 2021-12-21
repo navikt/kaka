@@ -1,6 +1,7 @@
 import { Input } from 'nav-frontend-skjema';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
+import { usePrevious } from '../../../hooks/use-previous';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
@@ -20,6 +21,7 @@ export const SakenGjelder = () => {
   const [value, setValue] = useState<string | null>(saksdata?.sakenGjelder ?? null);
   const [error, setError] = useState<string | null>(null);
   const validationError = useValidationError('sakenGjelder');
+  const previousValue = usePrevious(value);
 
   const save = useCallback(
     (inputValue: string | null) => {
@@ -47,9 +49,11 @@ export const SakenGjelder = () => {
   );
 
   useEffect(() => {
-    const timer = setTimeout(() => save(value), 500);
-    return () => clearTimeout(timer);
-  }, [value, save]);
+    if (previousValue !== value) {
+      const timer = setTimeout(() => save(value), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [value, save, previousValue]);
 
   if (typeof saksdata === 'undefined') {
     return null;
