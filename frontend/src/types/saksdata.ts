@@ -13,7 +13,7 @@ export interface ISaksdataBase {
   ytelseId: string | null;
   utfallId: UtfallEnum | null;
   sakenGjelder: string | null;
-  sakstypeId: SakstypeEnum | null;
+  sakstypeId: SakstypeEnum;
 }
 
 export interface ISaksdata extends ISaksdataBase {
