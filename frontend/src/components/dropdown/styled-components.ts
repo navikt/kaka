@@ -43,6 +43,7 @@ export const StyledDropdown = styled.div<StyledDropdownProps>`
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
   z-index: 1;
   max-height: ${({ maxHeight = '256px' }) => maxHeight};
+  min-width: 275px;
 `;
 
 export const StyledOptionList = styled.ul`
