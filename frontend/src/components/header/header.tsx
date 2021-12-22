@@ -5,7 +5,7 @@ import { HomeIcon } from './home-icon';
 
 export const Header = () => (
   <StyledHeader>
-    <StyledLogo to={'/kvalitetsregistreringer'}>
+    <StyledLogo to="/kvalitetsregistreringer">
       <HomeIcon />
       <StyledLabel>KAKA</StyledLabel>
     </StyledLogo>
