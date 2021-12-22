@@ -19,7 +19,7 @@ spec:
       tenant: {{tenant}}
       claims:
         groups:
-          - id: {{ROLE_KLAGEINSTANS_OEST}}
+          - id: {{ROLE_KLAGEINSTANS_ALLE}}
           - id: {{ROLE_KLAGE_SAKSBEHANDLER}}
           - id: {{ROLE_KLAGE_FAGANSVARLIG}}
           - id: {{ROLE_KLAGE_LEDER}}
