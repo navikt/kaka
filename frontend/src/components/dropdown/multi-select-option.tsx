@@ -48,7 +48,7 @@ const StyledLabel = styled.label`
   font-size: 1em;
   font-weight: 400;
   user-select: none;
-  white-space: 'nowrap';
+  white-space: nowrap;
   word-break: keep-all;
   overflow: hidden;
 
@@ -58,6 +58,5 @@ const StyledLabel = styled.label`
 `;
 
 const StyledText = styled.span`
-  width: 100%;
   margin-left: 8px;
 `;
