@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { useCreateSaksdataMutation } from '../../redux-api/saksdata';
+import { CsvExport } from '../csv-export/csv-export';
 import { FullfoerteRegistreringerTable } from './fullfoerte-registreringer-table';
 import { PaabegynteRegistreringerTable } from './paabegynte-registreringer-table';
 
@@ -33,6 +34,8 @@ export const Kvalitetsregistreringer = () => {
       <Hovedknapp onClick={() => createNewSaksdata()} disabled={loading} data-testid="new-kvalitetsvurdering-button">
         Ny kvalitetsvurdering
       </Hovedknapp>
+
+      <CsvExport />
 
       <SubHeader>Påbegynte vurderinger</SubHeader>
       <PaabegynteRegistreringerTable />

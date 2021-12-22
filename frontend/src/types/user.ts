@@ -10,4 +10,5 @@ export interface IUser {
   ident: string;
   navn: Navn;
   klageenheter: IKodeverkValue[];
+  roller: string[];
 }
