@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Download } from '../../icons/download';
+import { baseUrl } from '../../redux-api/common';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
 
 export const CsvExport = () => {
@@ -10,8 +11,10 @@ export const CsvExport = () => {
     return null;
   }
 
+  const url = `${baseUrl}api/kaka-api/export/excel`;
+
   return (
-    <StyledLink className="knapp knapp--mini" href="/some.csv" download="rapport">
+    <StyledLink className="knapp knapp--mini" href={url} download="rapport">
       <span>Eksporter</span> <Download />
     </StyledLink>
   );
