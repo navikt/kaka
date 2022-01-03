@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { useCreateSaksdataMutation } from '../../redux-api/saksdata';
-import { CsvExport } from '../csv-export/csv-export';
+import { ExcelExport } from '../excel-export/excel-export';
 import { FullfoerteRegistreringerTable } from './fullfoerte-registreringer-table';
 import { PaabegynteRegistreringerTable } from './paabegynte-registreringer-table';
 
@@ -35,7 +35,7 @@ export const Kvalitetsregistreringer = () => {
         Ny kvalitetsvurdering
       </Hovedknapp>
 
-      <CsvExport />
+      <ExcelExport />
 
       <SubHeader>Påbegynte vurderinger</SubHeader>
       <PaabegynteRegistreringerTable />
