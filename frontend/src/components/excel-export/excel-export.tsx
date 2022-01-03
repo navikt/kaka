@@ -4,7 +4,7 @@ import { Download } from '../../icons/download';
 import { baseUrl } from '../../redux-api/common';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
 
-export const CsvExport = () => {
+export const ExcelExport = () => {
   const { data } = useGetUserDataQuery();
 
   if (typeof data === 'undefined' || !data.roller.includes('ROLE_KLAGE_LEDER')) {
