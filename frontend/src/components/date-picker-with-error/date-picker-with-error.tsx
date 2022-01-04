@@ -1,6 +1,6 @@
 import { Datepicker } from 'nav-datovelger';
-import { DatepickerProps } from 'nav-datovelger/lib/Datepicker';
-import React from 'react';
+import { DatepickerChange, DatepickerProps } from 'nav-datovelger/lib/Datepicker';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ErrorMessage } from '../error-message/error-message';
 
@@ -33,21 +33,43 @@ const StyledErrorLabel = styled.label`
   }
 `;
 
-interface DateTimePickerProps extends DatepickerProps {
+export interface DateTimePickerProps extends DatepickerProps {
   label: string;
   error?: string;
+  onChange: (date: string | null) => void;
 }
 
-export const DatepickerWithError = ({ label, error, ...props }: DateTimePickerProps) => {
+export const DatepickerWithError = ({ label, error, onChange, ...props }: DateTimePickerProps) => {
+  const [inputError, setInputError] = useState<string>();
+  const [value, setValue] = useState(props.value);
+
+  const onChangeWithValidation: DatepickerChange = (newValue, isValidISODateString) => {
+    setValue(newValue);
+
+    if (newValue.length === 0) {
+      onChange(null);
+      setInputError(undefined);
+      return;
+    }
+
+    if (isValidISODateString) {
+      onChange(newValue);
+      setInputError(undefined);
+      return;
+    }
+
+    setInputError('Dato må være på formen DD.MM.ÅÅÅÅ');
+  };
+
   const children = (
     <>
       <StyledLabelText>{label}</StyledLabelText>
-      <Datepicker {...props} />
-      <ErrorMessage error={error} />
+      <Datepicker {...props} value={value} onChange={onChangeWithValidation} />
+      <ErrorMessage error={error ?? inputError} />
     </>
   );
 
-  if (typeof error !== 'undefined') {
+  if (typeof error !== 'undefined' || typeof inputError !== 'undefined') {
     return <StyledErrorLabel>{children}</StyledErrorLabel>;
   }
 

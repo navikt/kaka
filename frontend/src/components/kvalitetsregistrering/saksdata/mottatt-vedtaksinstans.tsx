@@ -1,4 +1,3 @@
-import { DatepickerChange } from 'nav-datovelger';
 import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useSaksdata } from '../../../hooks/use-saksdata';
@@ -6,7 +5,7 @@ import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useSetMottattVedtaksinstansMutation } from '../../../redux-api/saksdata';
 import { SakstypeEnum } from '../../../types/sakstype';
-import { DatepickerWithError } from '../../date-picker-with-error/date-picker-with-error';
+import { DateTimePickerProps, DatepickerWithError } from '../../date-picker-with-error/date-picker-with-error';
 import { StyledItem } from './styled-components';
 
 export const MottattVedtaksinstans = () => {
@@ -20,10 +19,8 @@ export const MottattVedtaksinstans = () => {
     return null;
   }
 
-  const onChange: DatepickerChange = (mottattVedtaksinstans) => {
-    if (mottattVedtaksinstans !== null && mottattVedtaksinstans.length > 0) {
-      setMottattVedtaksinstans({ id, mottattVedtaksinstans });
-    }
+  const onChange: DateTimePickerProps['onChange'] = (mottattVedtaksinstans) => {
+    setMottattVedtaksinstans({ id, mottattVedtaksinstans });
   };
 
   return (
