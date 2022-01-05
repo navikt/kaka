@@ -30,7 +30,6 @@ export const Kvalitetsregistreringer = () => {
 
   return (
     <>
-      <Header>Klageinstansen Kvalitetsvurdering</Header>
       <Hovedknapp onClick={() => createNewSaksdata()} disabled={loading} data-testid="new-kvalitetsvurdering-button">
         Ny kvalitetsvurdering
       </Hovedknapp>
@@ -45,13 +44,6 @@ export const Kvalitetsregistreringer = () => {
     </>
   );
 };
-
-const Header = styled.h1`
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 28px;
-  color: #54483f;
-`;
 
 const SubHeader = styled.h2`
   font-size: 20px;
