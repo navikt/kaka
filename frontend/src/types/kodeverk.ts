@@ -1,11 +1,18 @@
-import { ILovKildeToRegistreringshjemmel } from './registreringshjemmel';
 import { SakstypeEnum } from './sakstype';
 import { UtfallEnum } from './utfall';
 
-export interface IKodeverkValue<T extends string = string> {
+export interface IKodeverkSimpleValue<T extends string = string> {
   id: T;
   navn: string;
+}
+
+export interface IKodeverkValue<T extends string = string> extends IKodeverkSimpleValue<T> {
   beskrivelse: string;
+}
+
+export interface ILovKildeToRegistreringshjemmel {
+  lovkilde: IKodeverkValue;
+  registreringshjemler: IKodeverkSimpleValue[];
 }
 
 export interface IYtelse extends IKodeverkValue {
@@ -20,8 +27,9 @@ export interface IKlageenhet extends IKodeverkValue {
 
 export interface IKodeverk {
   ytelser: IYtelse[];
-  utfall: IKodeverkValue<UtfallEnum>[];
-  sakstyper: IKodeverkValue<SakstypeEnum>[];
-  enheter: IKodeverkValue[];
   klageenheter: IKlageenhet[];
+  enheter: IKodeverkValue[];
+  utfall: IKodeverkSimpleValue<UtfallEnum>[];
+  sakstyper: IKodeverkSimpleValue<SakstypeEnum>[];
+  sources: IKodeverkSimpleValue[];
 }

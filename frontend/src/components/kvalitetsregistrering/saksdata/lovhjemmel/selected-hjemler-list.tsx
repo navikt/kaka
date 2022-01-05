@@ -3,7 +3,7 @@ import NavFrontendSpinner from 'nav-frontend-spinner';
 import React, { useMemo } from 'react';
 import { useLovkildeToRegistreringshjemmelForYtelse } from '../../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../../hooks/use-saksdata';
-import { ILovKildeToRegistreringshjemmel } from '../../../../types/registreringshjemmel';
+import { ILovKildeToRegistreringshjemmel } from '../../../../types/kodeverk';
 import {
   StyledListItem,
   StyledNoneSelected,
