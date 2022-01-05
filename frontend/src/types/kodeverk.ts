@@ -1,6 +1,8 @@
 import { SakstypeEnum } from './sakstype';
 import { UtfallEnum } from './utfall';
 
+export const VIKAFOSSEN_ENHET = '2103';
+
 export interface IKodeverkSimpleValue<T extends string = string> {
   id: T;
   navn: string;
