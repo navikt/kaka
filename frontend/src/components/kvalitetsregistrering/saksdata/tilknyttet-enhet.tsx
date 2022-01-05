@@ -3,7 +3,7 @@ import { Select } from 'nav-frontend-skjema';
 import React from 'react';
 import styled from 'styled-components';
 import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
+import { useEnheter } from '../../../hooks/use-enheter';
 import { useKvalitetsvurderingIsFinished } from '../../../hooks/use-kvalitetsvurdering-is-finished';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useGetUserDataQuery } from '../../../redux-api/metadata';
@@ -13,7 +13,7 @@ export const TilknyttetEnhet = () => {
   const { data: user } = useGetUserDataQuery();
   const [saksdata] = useSaksdata();
   const [updateTilknyttetEnhet] = useSetTilknyttetEnhetMutation();
-  const enheter = useKodeverkValue('enheter');
+  const enheter = useEnheter();
   const canEdit = useCanEdit();
   const isFinished = useKvalitetsvurderingIsFinished();
 
