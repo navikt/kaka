@@ -10,8 +10,8 @@ export const Nav = () => (
       <NavItem to="/oversikt" testId="oversikt-nav-link" roles={[Role.ROLE_ADMIN]}>
         Oversikt
       </NavItem>
-      <NavItem to="/kvalitetsregistreringer" testId="klagebehandling-nav-link">
-        Klagebehandling
+      <NavItem to="/kvalitetsregistreringer" testId="kvalitetsvurdering-nav-link">
+        Kvalitetsvurdering
       </NavItem>
     </StyledNavLinkList>
   </StyledNav>
