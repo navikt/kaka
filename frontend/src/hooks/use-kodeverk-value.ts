@@ -1,7 +1,13 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import { useGetKodeverkQuery } from '../redux-api/metadata';
-import { IKlageenhet, IKodeverk, IKodeverkValue, IYtelse } from '../types/kodeverk';
-import { ILovKildeToRegistreringshjemmel } from '../types/registreringshjemmel';
+import {
+  IKlageenhet,
+  IKodeverk,
+  IKodeverkSimpleValue,
+  IKodeverkValue,
+  ILovKildeToRegistreringshjemmel,
+  IYtelse,
+} from '../types/kodeverk';
 import { SakstypeEnum } from '../types/sakstype';
 import { UtfallEnum } from '../types/utfall';
 
@@ -42,7 +48,7 @@ export const useFullYtelseNameFromId = (ytelseId: string | null): string => {
 
 export const useKodeverkUtfall = (
   utfallId: string | typeof skipToken = skipToken
-): IKodeverkValue<UtfallEnum> | undefined => {
+): IKodeverkSimpleValue<UtfallEnum> | undefined => {
   const data = useKodeverkValue(utfallId === skipToken ? skipToken : 'utfall');
 
   if (utfallId === skipToken || typeof data === 'undefined') {
@@ -54,7 +60,7 @@ export const useKodeverkUtfall = (
 
 export const useKodeverkSakstype = (
   sakstypeId: string | typeof skipToken = skipToken
-): IKodeverkValue<SakstypeEnum> | undefined => {
+): IKodeverkSimpleValue<SakstypeEnum> | undefined => {
   const data = useKodeverkValue(sakstypeId === skipToken ? skipToken : 'sakstyper');
 
   if (sakstypeId === skipToken || typeof data === 'undefined') {
