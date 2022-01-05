@@ -12,3 +12,9 @@ export interface IUser {
   klageenheter: IKodeverkValue[];
   roller: string[];
 }
+
+export enum Role {
+  ROLE_KLAGE_FAGANSVARLIG = 'ROLE_KLAGE_FAGANSVARLIG',
+  ROLE_KLAGE_LEDER = 'ROLE_KLAGE_LEDER',
+  ROLE_ADMIN = 'ROLE_ADMIN',
+}
