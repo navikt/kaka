@@ -11,7 +11,6 @@ Checkbox.displayName = 'Checkbox';
 export const StyledCheckbox = styled(Checkbox)`
   appearance: none;
   border-radius: 4px;
-  box-shadow: none;
   width: 24px;
   height: 24px;
   margin: 0;

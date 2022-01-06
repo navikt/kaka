@@ -30,7 +30,6 @@ SingleSelectOption.displayName = 'SingleSelectOption';
 
 const StyledButton = styled.button`
   width: 100%;
-  margin-left: 8px;
   border: none;
   text-align: left;
   margin: 0;

@@ -24,7 +24,6 @@ export const ToggleButton = styled.button<Props>`
   position: relative;
   font-size: 16px;
   font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
-  color: #3e3832;
   text-align: left;
   color: black;
 

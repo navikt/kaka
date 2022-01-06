@@ -22,7 +22,6 @@ export const ExcelExport = () => {
 
 const StyledLink = styled.a`
   margin-top: 2em;
-  display: block;
   border: 2px solid #262626;
   background: #f1f1f1;
   color: #262626;
