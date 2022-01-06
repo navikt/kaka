@@ -26,8 +26,6 @@ export const LabelMain = styled(Label)`
 `;
 
 export const LabelYtelse = styled(Label)`
-  background-color: #cce1f3;
-  border: 1px solid #0067c5;
   background-color: #f1d8d4;
   border: 1px solid #0067c5;
   overflow: hidden;
