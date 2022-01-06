@@ -8,5 +8,3 @@ export const rootReducer = combineReducers({
   [saksdataApi.reducerPath]: saksdataApi.reducer,
   [metadataApi.reducerPath]: metadataApi.reducer,
 });
-
-export type RootState = ReturnType<typeof rootReducer>;

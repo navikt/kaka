@@ -3,21 +3,6 @@ import { Input } from 'nav-frontend-skjema';
 import React, { KeyboardEventHandler, useRef } from 'react';
 import styled from 'styled-components';
 
-export interface Option {
-  label: string;
-  value: string;
-}
-
-export interface SectionHeader {
-  id: string;
-  name?: string;
-}
-
-export interface OptionGroup {
-  sectionHeader: SectionHeader;
-  sectionOptions: Option[];
-}
-
 interface HeaderProps {
   filter: string;
   focused: number;
