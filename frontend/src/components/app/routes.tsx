@@ -7,8 +7,8 @@ import { Oversikt } from '../../pages/oversikt';
 export const Router = () => (
   <Routes>
     <Route path="/" element={<Navigate to="kvalitetsregistreringer" />} />
-    <Route path="oversikt" element={<Oversikt />}></Route>
-    <Route path="kvalitetsregistreringer" element={<KvalitetsregistreringerPage />}></Route>
+    <Route path="oversikt" element={<Oversikt />} />
+    <Route path="kvalitetsregistreringer" element={<KvalitetsregistreringerPage />} />
     <Route path="kvalitetsregistreringer/:saksdataId" element={<KvalitetsregistreringPage />} />
   </Routes>
 );
