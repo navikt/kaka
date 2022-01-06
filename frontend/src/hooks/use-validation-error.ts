@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { IValidationSection, isReduxValidationResponse } from '../functions/error-type-guard';
+import { isReduxValidationResponse } from '../functions/error-type-guard';
 import { useFullfoerMutation } from '../redux-api/saksdata';
 import { IKvalitetsvurdering } from '../types/kvalitetsvurdering';
 import { ISaksdata } from '../types/saksdata';
@@ -19,13 +19,4 @@ export const useValidationError = (field: Field): string | undefined => {
   );
 
   return useMemo(() => allProperties?.find((p) => p.field === field)?.reason, [allProperties, field]);
-};
-
-export const useAllValidationErrors = (): IValidationSection[] => {
-  const id = useSaksdataId();
-  const [, { error }] = useFullfoerMutation({
-    fixedCacheKey: id,
-  });
-
-  return isReduxValidationResponse(error) ? error.data.sections : [];
 };

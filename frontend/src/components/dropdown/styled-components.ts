@@ -1,5 +1,3 @@
-import { Knapp } from 'nav-frontend-knapper';
-import { Input } from 'nav-frontend-skjema';
 import styled from 'styled-components';
 
 export const StyledList = styled.ul`
@@ -62,24 +60,6 @@ export const StyledSectionList = styled(StyledOptionList)`
 export const StyledListItem = styled.li`
   margin: 0;
   padding: 0;
-  width: 100%;
-`;
-
-export const StyledTopListItem = styled.div`
-  border-bottom: 1px solid #c6c2bf;
-  background-color: white;
-  padding: 8px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const StyledKnapp = styled(Knapp)`
-  &&& {
-    margin-left: 0.5em;
-  }
-`;
-
-export const StyledInput = styled(Input)`
   width: 100%;
 `;
 
