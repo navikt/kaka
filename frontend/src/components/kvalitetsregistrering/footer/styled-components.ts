@@ -15,7 +15,7 @@ export const StyledButtons = styled.div`
 export const StyledFooter = styled.div`
   display: flex;
   position: sticky;
-  bottom: 0em;
+  bottom: 0;
   left: 0;
   width: 100%;
   padding-left: 1em;

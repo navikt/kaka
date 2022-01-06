@@ -101,7 +101,7 @@ export const FraVedtaksenhet = () => {
   );
 };
 
-const useEnhetName = (options: IKodeverkValue<string>[], id: string | null) =>
+const useEnhetName = (options: IKodeverkValue[], id: string | null) =>
   useMemo<string | null>(
     () => (id !== null ? options.find((option) => option.id === id)?.beskrivelse ?? null : null),
     [options, id]
