@@ -37,7 +37,7 @@ export const Checkboxes = React.forwardRef<HTMLDivElement, CheckboxesProps>(({ r
         {reasons
           .filter((reason) => reason.show !== false)
           .map((reason) => {
-            const showTextArea = reason.checked === true && typeof reason.textareaId !== 'undefined';
+            const showTextArea = reason.checked && typeof reason.textareaId !== 'undefined';
             return (
               <Fragment key={String(reason.id)}>
                 <StyledCheckboxContainer>
