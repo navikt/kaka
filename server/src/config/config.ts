@@ -9,7 +9,7 @@ export const slack = {
   messagePrefix: `${APPLICATION_NAME.toUpperCase()} frontend NodeJS - `,
 };
 
-export const API_CLIENT_IDS = ['kaka-api'];
+export const API_CLIENT_IDS = ['kaka-api', 'klage-kodeverk-api'];
 
 export const cwd = process.cwd(); // This will be the server folder, as long as the paths in the NPM scripts are not changed.
 export const serverDirectoryPath = cwd;
