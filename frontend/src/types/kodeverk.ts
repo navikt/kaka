@@ -29,6 +29,8 @@ export interface IKlageenhet extends IKodeverkValue {
 
 export interface IKodeverk {
   ytelser: IYtelse[];
+  tema: IKodeverkValue[];
+  hjemler: IKodeverkValue[];
   klageenheter: IKlageenhet[];
   enheter: IKodeverkValue[];
   utfall: IKodeverkSimpleValue<UtfallEnum>[];

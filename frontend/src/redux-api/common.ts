@@ -7,7 +7,7 @@ const mode: RequestMode | undefined = isLocalhost ? 'cors' : undefined;
 export const baseQuery = retry(
   async (args: string | FetchArgs, api, extraOptions) => {
     const result = await fetchBaseQuery({
-      baseUrl: `${baseUrl}api/kaka-api`,
+      baseUrl: `${baseUrl}`,
       mode,
       credentials: 'include',
     })(args, api, extraOptions);
