@@ -20,7 +20,7 @@ export const kvalitetsvurderingApi = createApi({
   baseQuery,
   endpoints: (builder) => ({
     getKvalitetsvurdering: builder.query<IKvalitetsvurdering, string>({
-      query: (id) => `/kvalitetsvurdering/${id}`,
+      query: (id) => `/api/kaka-api/kvalitetsvurdering/${id}`,
     }),
     updateKvalitetsvurdering: builder.mutation<
       IKvalitetsvurdering,
@@ -34,7 +34,7 @@ export const kvalitetsvurderingApi = createApi({
         }
 
         return {
-          url: `/kvalitetsvurdering/${id}/${key.toLowerCase()}`,
+          url: `/api/kaka-api/kvalitetsvurdering/${id}/${key.toLowerCase()}`,
           method: 'PUT',
           body: {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

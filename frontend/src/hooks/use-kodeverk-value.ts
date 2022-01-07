@@ -1,5 +1,5 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import { useGetKodeverkQuery } from '../redux-api/metadata';
+import { useGetKodeverkQuery } from '../redux-api/kodeverk';
 import {
   IKlageenhet,
   IKodeverk,
