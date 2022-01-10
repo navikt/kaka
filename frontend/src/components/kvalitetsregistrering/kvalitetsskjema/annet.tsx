@@ -1,7 +1,7 @@
 import React from 'react';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { useSaksdata } from '../../../hooks/use-saksdata';
-import { RadioValg } from '../../../types/kvalitetsvurdering';
+import { RadioValg } from '../../../types/radio';
 import { SakstypeEnum } from '../../../types/sakstype';
 import { Checkboxes } from './checkboxes';
 import { Reason } from './reasons';

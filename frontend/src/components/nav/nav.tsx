@@ -2,20 +2,31 @@ import React from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import styled from 'styled-components';
 import { useHasAnyOfRoles } from '../../hooks/use-has-role';
+import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { Role } from '../../types/user';
 
-export const Nav = () => (
-  <StyledNav role="navigation" aria-label="Meny" data-testid="kaka-nav">
-    <StyledNavLinkList>
-      <NavItem to="/oversikt" testId="oversikt-nav-link" roles={[Role.ROLE_ADMIN]}>
-        Oversikt
-      </NavItem>
-      <NavItem to="/kvalitetsregistreringer" testId="kvalitetsvurdering-nav-link">
-        Kvalitetsvurdering
-      </NavItem>
-    </StyledNavLinkList>
-  </StyledNav>
-);
+export const Nav = () => {
+  const { data } = useGetUserDataQuery();
+
+  const enhetId: string = data?.klageenheter.map(({ id }) => id).join(',') ?? '';
+
+  return (
+    <StyledNav role="navigation" aria-label="Meny" data-testid="kaka-nav">
+      <StyledNavLinkList>
+        <NavItem to={`/oversikt?enheter=${enhetId}&year=${new Date().getFullYear()}`} testId="oversikt-nav-link">
+          Oversikt
+        </NavItem>
+        <NavItem
+          to="/kvalitetsregistreringer"
+          testId="kvalitetsvurdering-nav-link"
+          roles={[Role.ROLE_KLAGE_SAKSBEHANDLER]}
+        >
+          Kvalitetsvurdering
+        </NavItem>
+      </StyledNavLinkList>
+    </StyledNav>
+  );
+};
 
 interface NavItemProps extends NavLinkProps {
   testId?: string;
@@ -38,7 +49,6 @@ const NavItem = ({ testId, roles, ...props }: NavItemProps) => {
 
 const StyledNav = styled.nav`
   padding-top: 1em;
-  padding-bottom: 1em;
 `;
 
 const StyledNavLinkList = styled.ul`

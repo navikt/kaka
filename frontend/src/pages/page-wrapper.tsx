@@ -4,19 +4,25 @@ import { Nav } from '../components/nav/nav';
 
 interface Props {
   children: React.ReactNode;
-  nav?: boolean;
 }
 
-export const PageWrapper = ({ children, nav = false }: Props) => (
+export const PageWrapper = ({ children }: Props) => (
   <>
-    {nav && <Nav />}
-    <StyledPageWrapper>{children}</StyledPageWrapper>
+    <Nav />
+    <StyledPageWrapper>
+      <StyledPagePadding>{children}</StyledPagePadding>
+    </StyledPageWrapper>
   </>
 );
 
-export const StyledPageWrapper = styled.article`
-  padding-top: 2em;
-  padding-left: 3em;
-  min-height: 100%;
-  padding-bottom: 80px;
+const StyledPageWrapper = styled.article`
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledPagePadding = styled.div`
+  padding-left: 2em;
+  padding-right: 2em;
 `;

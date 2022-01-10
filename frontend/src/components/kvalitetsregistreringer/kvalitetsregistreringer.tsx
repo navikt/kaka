@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { useCreateSaksdataMutation } from '../../redux-api/saksdata';
-import { ExcelExport } from '../excel-export/excel-export';
 import { FullfoerteRegistreringerTable } from './fullfoerte-registreringer-table';
 import { PaabegynteRegistreringerTable } from './paabegynte-registreringer-table';
 
@@ -29,19 +28,17 @@ export const Kvalitetsregistreringer = () => {
   };
 
   return (
-    <>
+    <StyledKvalitetsregistreringer>
       <Hovedknapp onClick={() => createNewSaksdata()} disabled={loading} data-testid="new-kvalitetsvurdering-button">
         Ny kvalitetsvurdering
       </Hovedknapp>
-
-      <ExcelExport />
 
       <SubHeader>Påbegynte vurderinger</SubHeader>
       <PaabegynteRegistreringerTable />
 
       <SubHeader>Fullførte vurderinger siste 7 dager</SubHeader>
       <FullfoerteRegistreringerTable />
-    </>
+    </StyledKvalitetsregistreringer>
   );
 };
 
@@ -50,4 +47,8 @@ const SubHeader = styled.h2`
   font-weight: 600;
   margin-top: 3em;
   margin-bottom: 0;
+`;
+
+const StyledKvalitetsregistreringer = styled.section`
+  padding-top: 2em;
 `;

@@ -1,8 +1,9 @@
 import React from 'react';
+import { Oversikt } from '../components/oversikt/oversikt';
 import { PageWrapper } from './page-wrapper';
 
-export const Oversikt = () => (
-  <PageWrapper nav>
-    <h1>Oversikt</h1>
+export const OversiktPage = () => (
+  <PageWrapper>
+    <Oversikt />
   </PageWrapper>
 );

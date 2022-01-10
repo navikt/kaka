@@ -1,3 +1,5 @@
+import { RadioValg, RadioValgExtended } from './radio';
+
 export type IKvalitetsvurdering = IKvalitetsvurderingBase &
   IKvalitetsvurderingBooleans &
   IKvalitetsvurderingTexts &
@@ -60,15 +62,4 @@ export interface IKvalitetsvurderingRadio {
 
 export interface IKvalitetsvurderingRadioExtended {
   brukAvRaadgivendeLegeRadioValg: RadioValgExtended | null;
-}
-
-export enum RadioValg {
-  BRA = 'BRA',
-  MANGELFULLT = 'MANGELFULLT',
-}
-
-export enum RadioValgExtended {
-  IKKE_AKTUELT = 'IKKE_AKTUELT',
-  BRA = 'BRA',
-  MANGELFULLT = 'MANGELFULLT',
 }

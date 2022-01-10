@@ -11,6 +11,10 @@ import {
 import { SakstypeEnum } from '../types/sakstype';
 import { UtfallEnum } from '../types/utfall';
 
+export const useKodeverkValueDefault = <K extends keyof IKodeverk>(
+  key: K | typeof skipToken = skipToken
+): IKodeverk[K] => useKodeverkValue(key) ?? [];
+
 export const useKodeverkValue = <K extends keyof IKodeverk>(
   key: K | typeof skipToken = skipToken
 ): IKodeverk[K] | undefined => {
