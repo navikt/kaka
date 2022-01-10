@@ -3,7 +3,7 @@ export enum UtfallEnum {
   DELVIS_MEDHOLD = '5',
   MEDHOLD = '4',
   OPPHEVET = '3',
-  OPPRETTHOLDT = '6',
+  STADFESTELSE = '6',
   RETUR = '2',
   TRUKKET = '1',
   UGUNST = '7',

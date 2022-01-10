@@ -3,7 +3,7 @@ import { Kvalitetsregistreringer } from '../components/kvalitetsregistreringer/k
 import { PageWrapper } from './page-wrapper';
 
 export const KvalitetsregistreringerPage = () => (
-  <PageWrapper nav>
+  <PageWrapper>
     <Kvalitetsregistreringer />
   </PageWrapper>
 );

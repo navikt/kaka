@@ -6,7 +6,7 @@ import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
-import { RadioValg } from '../../../types/kvalitetsvurdering';
+import { RadioValg } from '../../../types/radio';
 import { SakstypeEnum } from '../../../types/sakstype';
 import { Reason, Reasons } from './reasons';
 import { FormSection, RadioButtonsRow, SubHeader } from './styled-components';

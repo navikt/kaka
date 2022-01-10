@@ -5,7 +5,7 @@ import { useFieldName } from '../../../hooks/use-field-name';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
-import { RadioValgExtended } from '../../../types/kvalitetsvurdering';
+import { RadioValgExtended } from '../../../types/radio';
 import { Reason, Reasons } from './reasons';
 import { FormSection, RadioButtonsColumn, SubHeader } from './styled-components';
 

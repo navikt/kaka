@@ -1,5 +1,6 @@
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import React from 'react';
+import styled from 'styled-components';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { FraVedtaksenhet } from './fra-vedtaksenhet';
 import { Lovhjemmel } from './lovhjemmel/lovhjemmel';
@@ -19,7 +20,7 @@ export const Saksdata = () => {
   }
 
   return (
-    <>
+    <StyledSaksdata>
       <TilknyttetEnhet />
       <Sakstype />
       <SakenGjelder />
@@ -29,6 +30,10 @@ export const Saksdata = () => {
       <FraVedtaksenhet />
       <UtfallResultat />
       <Lovhjemmel />
-    </>
+    </StyledSaksdata>
   );
 };
+
+const StyledSaksdata = styled.section`
+  padding-top: 2em;
+`;

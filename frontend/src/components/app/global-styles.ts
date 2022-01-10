@@ -16,9 +16,10 @@ const styles = css`
   html,
   body,
   #app {
-    display: block;
+    display: flex;
+    flex-direction: column;
     position: relative;
-    height: 100%;
+    min-height: 100vh;
     width: 100%;
     margin: 0;
     padding: 0;

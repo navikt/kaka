@@ -4,6 +4,7 @@ import { kodeverkApi } from '../redux-api/kodeverk';
 import { kvalitetsvurderingApi } from '../redux-api/kvalitetsvurdering';
 import { metadataApi } from '../redux-api/metadata';
 import { saksdataApi } from '../redux-api/saksdata';
+import { statisticsApi } from '../redux-api/statistics';
 import { rootReducer } from './root';
 
 export const reduxStore = configureStore({
@@ -25,6 +26,7 @@ export const reduxStore = configureStore({
       saksdataApi.middleware,
       metadataApi.middleware,
       kodeverkApi.middleware,
+      statisticsApi.middleware,
     ]),
 });
 
