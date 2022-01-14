@@ -1,16 +1,17 @@
 import React from 'react';
 import { useFilteredStatistics } from '../../../hooks/use-statistics';
+import { useBehandlingstidParam } from '../hooks/use-behandlingstid-param';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, KeyNumber, RedKeyNumber } from './styled-components';
 
 export const Gjennomsnittstid = () => {
   const stats = useFilteredStatistics();
 
+  const [field] = useBehandlingstidParam();
+
   const finished = stats?.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null) ?? [];
 
-  const averageDays = Math.round(
-    finished.reduce<number>((acc, { behandlingstidDays }) => acc + behandlingstidDays, 0) / finished.length
-  );
+  const averageDays = Math.round(finished.reduce<number>((acc, stat) => acc + stat[field], 0) / finished.length);
 
   const Wrapper = averageDays > 7 * 15 ? RedKeyNumber : KeyNumber;
 

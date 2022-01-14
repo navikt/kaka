@@ -5,8 +5,23 @@ import { isNotUndefined } from '../../../functions/is-not';
 import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
 import { useFilteredStatistics } from '../../../hooks/use-statistics';
 import { UtfallEnum } from '../../../types/utfall';
+import { ChartContainer } from './styled-components';
 
-const options: ChartOptions<'bar'> = {
+const percent = (value: number, total: number): string => {
+  const p = Math.round((value / total) * 1000) / 10;
+  return `${p} % (${value})`;
+};
+
+const tickCallback = (value: number | string, total: number): string => {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  const p = Math.round((value / total) * 100);
+  return `${p} %`;
+};
+
+const useOptions = (total = 1): ChartOptions<'bar'> => ({
   responsive: true,
   animation: {
     duration: 200,
@@ -16,7 +31,7 @@ const options: ChartOptions<'bar'> = {
   scales: {
     y: {
       ticks: {
-        callback: (value) => `${value} %`,
+        callback: (value) => tickCallback(value, total),
         font: {
           size: 14,
           family: '"Source Sans Pro", Arial, sans-serif',
@@ -64,11 +79,11 @@ const options: ChartOptions<'bar'> = {
     },
     tooltip: {
       callbacks: {
-        label: ({ parsed, label }) => `${label}: ${parsed.y} %`,
+        label: ({ parsed, label }) => `${label}: ${percent(parsed.y, total)}`,
       },
     },
   },
-};
+});
 
 export const UtfallGraph = () => {
   const statistics = useFilteredStatistics();
@@ -85,11 +100,12 @@ export const UtfallGraph = () => {
 
   const backgroundColor: string[] = keys.map((key) => COLOR_MAP[key]);
 
-  const values = Array.from(stats.values()).map((v) => Math.round((v * 100) / (statistics?.length ?? 1)));
+  const values = Array.from(stats.values());
+
+  const options = useOptions(statistics?.length);
 
   return (
-    <>
-      <h1>Utfall</h1>
+    <ChartContainer>
       <Bar
         options={options}
         data={{
@@ -105,7 +121,7 @@ export const UtfallGraph = () => {
           ],
         }}
       />
-    </>
+    </ChartContainer>
   );
 };
 

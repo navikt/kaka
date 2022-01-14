@@ -33,3 +33,8 @@ export const useFilteredStatistics = () => {
     );
   }, [data, params]);
 };
+
+export const useFilteredFinishedStatistics = () => {
+  const data = useFilteredStatistics();
+  return useMemo(() => data.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null), [data]);
+};
