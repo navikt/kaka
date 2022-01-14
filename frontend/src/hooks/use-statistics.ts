@@ -18,12 +18,12 @@ export const useAllStatistics = (): IStatisticVurdering[] => {
 
 export const useFilteredStatistics = () => {
   const data = useAllStatistics();
-  const [params] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   return useMemo(() => {
-    const types = params.get(QueryParams.TYPES)?.split(',') ?? [];
-    const ytelser = params.get(QueryParams.YTELSER)?.split(',') ?? [];
-    const enheter = params.get(QueryParams.ENHETER)?.split(',') ?? [];
+    const types = searchParams.get(QueryParams.TYPES)?.split(',') ?? [];
+    const ytelser = searchParams.get(QueryParams.YTELSER)?.split(',') ?? [];
+    const enheter = searchParams.get(QueryParams.ENHETER)?.split(',') ?? [];
 
     return data.filter(
       ({ ytelseId, sakstypeId, tilknyttetEnhet }) =>
@@ -31,7 +31,7 @@ export const useFilteredStatistics = () => {
         (types.length === 0 || types.includes(sakstypeId)) &&
         (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId))
     );
-  }, [data, params]);
+  }, [data, searchParams]);
 };
 
 export const useFilteredFinishedStatistics = () => {

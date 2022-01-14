@@ -1,9 +1,9 @@
 import { ChartOptions } from 'chart.js';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { isNotUndefined } from '../../../functions/is-not';
 import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
-import { useFilteredStatistics } from '../../../hooks/use-statistics';
+import { useFilteredFinishedStatistics, useFilteredStatistics } from '../../../hooks/use-statistics';
 import { UtfallEnum } from '../../../types/utfall';
 import { ChartContainer } from './styled-components';
 
@@ -72,10 +72,6 @@ const useOptions = (total = 1): ChartOptions<'bar'> => ({
     },
     title: {
       display: false,
-      font: {
-        size: 24,
-        family: '"Source Sans Pro", Arial, sans-serif',
-      },
     },
     tooltip: {
       callbacks: {
@@ -86,13 +82,16 @@ const useOptions = (total = 1): ChartOptions<'bar'> => ({
 });
 
 export const UtfallGraph = () => {
-  const statistics = useFilteredStatistics();
+  const allStats = useFilteredStatistics();
+  const finishedStats = useFilteredFinishedStatistics();
   const utfall = useKodeverkValue('utfall');
 
-  const completeStats = statistics.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null);
-
-  const stats = new Map<UtfallEnum, number>(
-    Object.values(UtfallEnum).map((id) => [id, completeStats.filter(({ utfallId }) => utfallId === id).length])
+  const stats = useMemo(
+    () =>
+      new Map<UtfallEnum, number>(
+        Object.values(UtfallEnum).map((id) => [id, finishedStats.filter(({ utfallId }) => utfallId === id).length])
+      ),
+    [finishedStats]
   );
 
   const keys = Array.from(stats.keys());
@@ -102,7 +101,7 @@ export const UtfallGraph = () => {
 
   const values = Array.from(stats.values());
 
-  const options = useOptions(statistics?.length);
+  const options = useOptions(allStats?.length);
 
   return (
     <ChartContainer>
