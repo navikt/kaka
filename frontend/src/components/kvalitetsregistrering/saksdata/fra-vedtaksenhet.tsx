@@ -11,7 +11,7 @@ import { IKodeverkValue } from '../../../types/kodeverk';
 import { SakstypeEnum } from '../../../types/sakstype';
 import { SingleSelectDropdown } from '../../dropdown/single-select-dropdown';
 import { ErrorMessage } from '../../error-message/error-message';
-import { ToggleButton } from '../../toggle-button/toggle-button';
+import { ToggleButton } from '../../toggle/toggle-button';
 import { StyledHeader, StyledItem } from './styled-components';
 
 export const FraVedtaksenhet = () => {

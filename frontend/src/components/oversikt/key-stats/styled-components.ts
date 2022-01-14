@@ -12,14 +12,3 @@ export const KeyNumber = styled(KeyContent)`
 export const RedKeyNumber = styled(KeyNumber)`
   color: #c30000;
 `;
-
-export const StatsSections = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 16px;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  width: 100%;
-  justify-content: space-around;
-`;

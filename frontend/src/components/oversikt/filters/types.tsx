@@ -2,6 +2,7 @@ import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import React, { useMemo } from 'react';
 import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
 import { useAllStatistics } from '../../../hooks/use-statistics';
+import { ToggleContent } from '../../toggle/toggle-content';
 import { FilterType } from '../types';
 
 interface SakstypeFilterProps {
@@ -20,19 +21,21 @@ export const SakstypeFilter = ({ selectedTypes, setSelectedTypes }: SakstypeFilt
   };
 
   return (
-    <CheckboxGruppe legend="Type">
-      {sakstypes.map((sakstype) => (
-        <Checkbox
-          key={sakstype.id}
-          label={`${sakstype.navn} (${sakstype.count})`}
-          value={sakstype.id}
-          onChange={({ target }) => {
-            updateTyper(target.value, target.checked);
-          }}
-          checked={selectedTypes.includes(sakstype.id)}
-        />
-      ))}
-    </CheckboxGruppe>
+    <ToggleContent label="Type">
+      <CheckboxGruppe>
+        {sakstypes.map((sakstype) => (
+          <Checkbox
+            key={sakstype.id}
+            label={`${sakstype.navn} (${sakstype.count})`}
+            value={sakstype.id}
+            onChange={({ target }) => {
+              updateTyper(target.value, target.checked);
+            }}
+            checked={selectedTypes.includes(sakstype.id)}
+          />
+        ))}
+      </CheckboxGruppe>
+    </ToggleContent>
   );
 };
 

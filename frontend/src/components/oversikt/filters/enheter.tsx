@@ -2,6 +2,7 @@ import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import React, { useMemo } from 'react';
 import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
 import { useAllStatistics } from '../../../hooks/use-statistics';
+import { ToggleContent } from '../../toggle/toggle-content';
 import { FilterType } from '../types';
 
 interface EnheterFilterProps {
@@ -12,7 +13,7 @@ interface EnheterFilterProps {
 export const EnheterFilter = ({ selectedEnheter, setSelectedEnheter }: EnheterFilterProps) => {
   const enheter = useFilterEnheter();
 
-  const updateTyper = (enhet: string, checked: boolean) => {
+  const updateEnheter = (enhet: string, checked: boolean) => {
     const newList = checked
       ? [...selectedEnheter, enhet]
       : selectedEnheter.filter((selectedValue) => selectedValue !== enhet);
@@ -20,19 +21,21 @@ export const EnheterFilter = ({ selectedEnheter, setSelectedEnheter }: EnheterFi
   };
 
   return (
-    <CheckboxGruppe legend="Enhet">
-      {enheter.map((enhet) => (
-        <Checkbox
-          key={enhet.id}
-          label={`${enhet.navn} (${enhet.count})`}
-          value={enhet.id}
-          onChange={({ target }) => {
-            updateTyper(target.value, target.checked);
-          }}
-          checked={selectedEnheter.includes(enhet.id)}
-        />
-      ))}
-    </CheckboxGruppe>
+    <ToggleContent label="Enheter">
+      <CheckboxGruppe>
+        {enheter.map((enhet) => (
+          <Checkbox
+            key={enhet.id}
+            label={`${enhet.navn} (${enhet.count})`}
+            value={enhet.id}
+            onChange={({ target }) => {
+              updateEnheter(target.value, target.checked);
+            }}
+            checked={selectedEnheter.includes(enhet.id)}
+          />
+        ))}
+      </CheckboxGruppe>
+    </ToggleContent>
   );
 };
 

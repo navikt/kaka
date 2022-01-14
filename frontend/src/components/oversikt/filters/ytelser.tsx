@@ -2,6 +2,7 @@ import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import React, { useMemo } from 'react';
 import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
 import { useAllStatistics } from '../../../hooks/use-statistics';
+import { ToggleContent } from '../../toggle/toggle-content';
 import { FilterType } from '../types';
 
 const useFilterYtelser = (): FilterType[] => {
@@ -52,18 +53,20 @@ export const YtelseFilter = ({ selectedYtelser, setSelectedYtelser }: YtelseFilt
   };
 
   return (
-    <CheckboxGruppe legend="Ytelse">
-      {ytelser.map((ytelse) => (
-        <Checkbox
-          key={ytelse.id}
-          label={`${ytelse.navn} (${ytelse.count})`}
-          value={ytelse.id}
-          onChange={({ target }) => {
-            updateYtelser(target.value, target.checked);
-          }}
-          checked={selectedYtelser.includes(ytelse.id)}
-        />
-      ))}
-    </CheckboxGruppe>
+    <ToggleContent label="Ytelse">
+      <CheckboxGruppe>
+        {ytelser.map((ytelse) => (
+          <Checkbox
+            key={ytelse.id}
+            label={`${ytelse.navn} (${ytelse.count})`}
+            value={ytelse.id}
+            onChange={({ target }) => {
+              updateYtelser(target.value, target.checked);
+            }}
+            checked={selectedYtelser.includes(ytelse.id)}
+          />
+        ))}
+      </CheckboxGruppe>
+    </ToggleContent>
   );
 };
