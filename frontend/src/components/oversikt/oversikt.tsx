@@ -1,7 +1,19 @@
-import { ArcElement, BarElement, CategoryScale, Chart, Legend, LinearScale, Title, Tooltip } from 'chart.js';
+import {
+  ArcElement,
+  BarElement,
+  CategoryScale,
+  Chart,
+  Legend,
+  LineElement,
+  LinearScale,
+  PointElement,
+  Title,
+  Tooltip,
+} from 'chart.js';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import React from 'react';
 import { useStatistics } from '../../hooks/use-statistics';
+import { BehandlingstidOverTime } from './charts/behandlingstid-over-time';
 import { Kvalitetsvurderinger } from './charts/kvalitetsvurderinger';
 import { RegistreringTimeDistribution } from './charts/registrering-time-distribution';
 import { UtfallGraph } from './charts/utfall-graph';
@@ -11,6 +23,7 @@ import { Finished } from './key-stats/finished';
 import { Omgjort } from './key-stats/omgjort';
 import { Processed } from './key-stats/processed';
 import {
+  ChartSectionRow,
   ChartSectionTitle,
   ContentArea,
   FilterSection,
@@ -21,7 +34,7 @@ import {
 } from './styled-components';
 import { ToggleTotalOrKA } from './toggle-ka-total';
 
-Chart.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
+Chart.register(CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Title, Tooltip, Legend);
 
 export const Oversikt = () => (
   <>
@@ -31,7 +44,7 @@ export const Oversikt = () => (
         <Filters />
       </FilterSection>
       <ContentArea>
-        <section>
+        <ChartSectionRow>
           <ChartSectionTitle>Utfall</ChartSectionTitle>
           <KeyStatsArea>
             <Finished />
@@ -40,8 +53,8 @@ export const Oversikt = () => (
           <StyledCharts>
             <UtfallGraph />
           </StyledCharts>
-        </section>
-        <section>
+        </ChartSectionRow>
+        <ChartSectionRow>
           <ChartSectionTitle>Behandlingstid</ChartSectionTitle>
           <ToggleTotalOrKA />
           <KeyStatsArea>
@@ -53,8 +66,8 @@ export const Oversikt = () => (
           <StyledCharts>
             <RegistreringTimeDistribution />
           </StyledCharts>
-        </section>
-        <section>
+        </ChartSectionRow>
+        <ChartSectionRow>
           <ChartSectionTitle>Kvalitetsvurderinger</ChartSectionTitle>
           <KeyStatsArea>
             <Finished />
@@ -62,7 +75,13 @@ export const Oversikt = () => (
           <StyledCharts>
             <Kvalitetsvurderinger />
           </StyledCharts>
-        </section>
+        </ChartSectionRow>
+        <ChartSectionRow>
+          <ChartSectionTitle>Behandlingstid over tid</ChartSectionTitle>
+          <StyledCharts>
+            <BehandlingstidOverTime />
+          </StyledCharts>
+        </ChartSectionRow>
       </ContentArea>
     </FiltersAndContentContainer>
   </>

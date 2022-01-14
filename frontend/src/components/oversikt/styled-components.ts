@@ -8,6 +8,10 @@ export const ContentArea = styled.div`
   width: 100%;
 `;
 
+export const ChartSectionRow = styled.section`
+  padding-bottom: 1em;
+`;
+
 export const KeyStatsArea = styled.div`
   display: flex;
   flex-direction: row;
