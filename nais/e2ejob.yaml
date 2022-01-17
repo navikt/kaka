@@ -21,9 +21,8 @@ spec:
         - image: ghcr.io/navikt/kaka-e2e-tests:latest
           name: kaka-e2e-tests
           envFrom:
-            - secretRef:
-                name: slack-e2e-secrets
-            - configMapRef:
-                name: slack-e2e-configmap
+            - secret: kaka-e2e-test-users
+            - secret: slack-e2e-secrets
+            - configmap: slack-e2e-configmap
       dnsPolicy: ClusterFirst
       restartPolicy: Never
