@@ -49,11 +49,11 @@ const StyledLabel = styled.button<StyledLabelProps>`
 
   ::before {
     transform: ${({ show }) =>
-      show ? 'translateX(-3px) translateY(-50%) rotate(45deg)' : 'translateX(-3px) translateY(-50%) rotate(-45deg)'};
+      show ? 'translateX(-3px) translateY(-50%) rotate(-45deg)' : 'translateX(-3px) translateY(-50%) rotate(45deg)'};
   }
 
   ::after {
     transform: ${({ show }) =>
-      show ? 'translateX(1.5px) translateY(-50%) rotate(-45deg)' : 'translateX(1.5px) translateY(-50%) rotate(45deg)'};
+      show ? 'translateX(1.5px) translateY(-50%) rotate(45deg)' : 'translateX(1.5px) translateY(-50%) rotate(-45deg)'};
   }
 `;
