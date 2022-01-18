@@ -68,18 +68,18 @@ export const Oversikt = () => (
           </StyledCharts>
         </ChartSectionRow>
         <ChartSectionRow>
+          <ChartSectionTitle>Behandlingstid over tid</ChartSectionTitle>
+          <StyledCharts>
+            <BehandlingstidOverTime />
+          </StyledCharts>
+        </ChartSectionRow>
+        <ChartSectionRow>
           <ChartSectionTitle>Kvalitetsvurderinger</ChartSectionTitle>
           <KeyStatsArea>
             <Finished />
           </KeyStatsArea>
           <StyledCharts>
             <Kvalitetsvurderinger />
-          </StyledCharts>
-        </ChartSectionRow>
-        <ChartSectionRow>
-          <ChartSectionTitle>Behandlingstid over tid</ChartSectionTitle>
-          <StyledCharts>
-            <BehandlingstidOverTime />
           </StyledCharts>
         </ChartSectionRow>
       </ContentArea>
