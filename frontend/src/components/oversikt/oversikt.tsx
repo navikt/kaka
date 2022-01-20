@@ -12,12 +12,13 @@ import {
 } from 'chart.js';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import React from 'react';
-import { useStatistics } from '../../hooks/use-statistics';
 import { BehandlingstidOverTime } from './charts/behandlingstid-over-time';
+import { Hjemler } from './charts/hjemler';
 import { Kvalitetsvurderinger } from './charts/kvalitetsvurderinger';
 import { RegistreringTimeDistribution } from './charts/registrering-time-distribution';
 import { UtfallGraph } from './charts/utfall-graph';
 import { Filters } from './filters';
+import { useStatisticsIsLoading } from './hooks/use-statistics';
 import { Gjennomsnittstid } from './key-stats/average-time';
 import { Finished } from './key-stats/finished';
 import { Omgjort } from './key-stats/omgjort';
@@ -28,11 +29,12 @@ import {
   ContentArea,
   FilterSection,
   FiltersAndContentContainer,
-  KeyStatsArea,
   Overlay,
+  StickyStats,
   StyledCharts,
 } from './styled-components';
 import { ToggleTotalOrKA } from './toggle-ka-total';
+import { ToggleKvalitetsvurdering } from './toggle-kvalitetsvurdering';
 
 Chart.register(CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Title, Tooltip, Legend);
 
@@ -44,40 +46,36 @@ export const Oversikt = () => (
         <Filters />
       </FilterSection>
       <ContentArea>
+        <StickyStats>
+          <Finished />
+          <Omgjort />
+          <Gjennomsnittstid />
+          <Processed weeks={12} />
+          <Processed weeks={15} />
+        </StickyStats>
         <ChartSectionRow>
           <ChartSectionTitle>Utfall</ChartSectionTitle>
-          <KeyStatsArea>
-            <Finished />
-            <Omgjort />
-          </KeyStatsArea>
           <StyledCharts>
             <UtfallGraph />
           </StyledCharts>
         </ChartSectionRow>
         <ChartSectionRow>
-          <ChartSectionTitle>Behandlingstid</ChartSectionTitle>
-          <ToggleTotalOrKA />
-          <KeyStatsArea>
-            <Finished />
-            <Gjennomsnittstid />
-            <Processed weeks={12} />
-            <Processed weeks={15} />
-          </KeyStatsArea>
+          <ChartSectionTitle>Hjemler</ChartSectionTitle>
           <StyledCharts>
-            <RegistreringTimeDistribution />
+            <Hjemler />
           </StyledCharts>
         </ChartSectionRow>
         <ChartSectionRow>
-          <ChartSectionTitle>Behandlingstid over tid</ChartSectionTitle>
+          <ChartSectionTitle>Behandlingstid</ChartSectionTitle>
+          <ToggleTotalOrKA />
           <StyledCharts>
+            <RegistreringTimeDistribution />
             <BehandlingstidOverTime />
           </StyledCharts>
         </ChartSectionRow>
         <ChartSectionRow>
           <ChartSectionTitle>Kvalitetsvurderinger</ChartSectionTitle>
-          <KeyStatsArea>
-            <Finished />
-          </KeyStatsArea>
+          <ToggleKvalitetsvurdering />
           <StyledCharts>
             <Kvalitetsvurderinger />
           </StyledCharts>
@@ -88,7 +86,7 @@ export const Oversikt = () => (
 );
 
 const LoadingOverlay = () => {
-  const { isLoading } = useStatistics();
+  const isLoading = useStatisticsIsLoading();
 
   if (isLoading) {
     return (

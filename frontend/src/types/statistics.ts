@@ -5,37 +5,35 @@ import { UtfallEnum } from './utfall';
 type UUID = string;
 
 interface Date {
-  weekNumber: number;
-  year: number;
-  month: number;
-  day: number;
-  iso: string;
-  epochDay: number;
+  readonly weekNumber: number;
+  readonly year: number;
+  readonly month: number;
+  readonly day: number;
+  readonly iso: string;
+  readonly epochDay: number;
 }
 
-export interface IStatisticVurdering {
-  // Saksdata
+export interface IBaseStatisticVurdering {
   readonly id: UUID; // Anonymized
-  readonly saksdataCreated: Date;
-  readonly saksdataModified: Date;
   readonly tilknyttetEnhet: string;
+  readonly createdDate: Date; // First of either: saksdataCreated or kvalitetsvurderingCreated.
+  readonly modifiedDate: Date; // Last of either: saksdataModified or kvalitetsvurderingModified.
+}
+
+export interface IStatisticVurdering extends IBaseStatisticVurdering {
+  // Saksdata
   readonly hjemmelIdList: string[];
-  readonly avsluttetAvSaksbehandler: Date | null;
-  readonly ytelseId: string | null;
-  readonly utfallId: UtfallEnum | null;
-  // sakenGjelder: string | null;
+  readonly avsluttetAvSaksbehandler: Date;
+  readonly ytelseId: string;
+  readonly utfallId: UtfallEnum;
   readonly sakstypeId: SakstypeEnum;
-  // kvalitetsvurderingId: string;
   readonly mottattVedtaksinstans: Date | null;
   readonly mottattKlageinstans: Date | null;
   readonly vedtaksinstansEnhet: string | null;
-  // utfoerendeSaksbehandler: string;
   readonly behandlingstidDays: number;
   readonly totalBehandlingstidDays: number;
 
   // Kvalitetsvurdering
-  readonly kvalitetsvurderingCreated: Date;
-  readonly kvalitetsvurderingModified: Date;
   readonly arbeidsrettetBrukeroppfoelging: boolean;
   readonly begrunnelseForHvorforAvslagOpprettholdes: boolean;
   readonly begrunnelsenErIkkeKonkretOgIndividuell: boolean;
@@ -77,11 +75,13 @@ export interface IStatisticVurdering {
   readonly vedtaketRadioValg: RadioValg | null;
   readonly brukAvRaadgivendeLegeRadioValg: RadioValgExtended | null;
 }
-
 export interface IStatistics {
-  anonymizedVurderingList: IStatisticVurdering[];
+  readonly anonymizedFinishedVurderingList: IStatisticVurdering[];
+  readonly anonymizedUnfinishedVurderingList: IBaseStatisticVurdering[];
 }
 
 export interface IStatisticsQuery {
   year?: string;
+  fromDate?: string;
+  toDate?: string;
 }

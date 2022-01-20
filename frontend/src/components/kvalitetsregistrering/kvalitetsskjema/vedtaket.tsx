@@ -7,6 +7,7 @@ import { useValidationError } from '../../../hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
 import { RadioValg } from '../../../types/radio';
 import { Reason, Reasons } from './reasons';
+import { vedtaketReasons } from './reasons-labels';
 import { FormSection, RadioButtonsRow, SubHeader } from './styled-components';
 
 export const Vedtaket = () => {
@@ -22,43 +23,10 @@ export const Vedtaket = () => {
 
   const { id, vedtaketRadioValg } = kvalitetsvurdering;
 
-  const reasons: Reason[] = [
-    {
-      id: 'detErIkkeBruktRiktigHjemmel',
-      label: 'Det er ikke brukt riktig hjemmel(er)',
-      checked: kvalitetsvurdering.detErIkkeBruktRiktigHjemmel,
-    },
-    {
-      id: 'innholdetIRettsregleneErIkkeTilstrekkeligBeskrevet',
-      label: 'Innholdet i rettsreglene er ikke tilstrekkelig beskrevet',
-      checked: kvalitetsvurdering.innholdetIRettsregleneErIkkeTilstrekkeligBeskrevet,
-    },
-    {
-      id: 'rettsregelenErBenyttetFeil',
-      label: 'Rettsregelen er benyttet eller tolket feil',
-      checked: kvalitetsvurdering.rettsregelenErBenyttetFeil,
-    },
-    {
-      id: 'vurderingAvFaktumErMangelfull',
-      label: 'Vurdering av faktum / bevisvurdering er mangelfull',
-      checked: kvalitetsvurdering.vurderingAvFaktumErMangelfull,
-    },
-    {
-      id: 'detErFeilIKonkretRettsanvendelse',
-      label: 'Det er feil i den konkrete rettsanvendelsen',
-      checked: kvalitetsvurdering.detErFeilIKonkretRettsanvendelse,
-    },
-    {
-      id: 'begrunnelsenErIkkeKonkretOgIndividuell',
-      label: 'Begrunnelsen er ikke konkret og individuell',
-      checked: kvalitetsvurdering.begrunnelsenErIkkeKonkretOgIndividuell,
-    },
-    {
-      id: 'spraaketErIkkeTydelig',
-      label: 'Språket/Formidlingen er ikke tydelig',
-      checked: kvalitetsvurdering.spraaketErIkkeTydelig,
-    },
-  ];
+  const reasons: Reason[] = vedtaketReasons.map((reason) => ({
+    ...reason,
+    checked: kvalitetsvurdering[reason.id],
+  }));
 
   return (
     <FormSection>

@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import styled from 'styled-components';
@@ -5,15 +6,21 @@ import { useHasAnyOfRoles } from '../../hooks/use-has-role';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { Role } from '../../types/user';
 
+const NOW = dayjs();
+const FORMAT = 'YYYY-MM-DD';
+
 export const Nav = () => {
   const { data } = useGetUserDataQuery();
 
   const enhetId: string = data?.klageenheter.map(({ id }) => id).join(',') ?? '';
 
+  const fromDate = NOW.subtract(30, 'day').format(FORMAT);
+  const toDate = NOW.format(FORMAT);
+
   return (
     <StyledNav role="navigation" aria-label="Meny" data-testid="kaka-nav">
       <StyledNavLinkList>
-        <NavItem to={`/oversikt?enheter=${enhetId}&year=${new Date().getFullYear()}`} testId="oversikt-nav-link">
+        <NavItem to={`/oversikt?enheter=${enhetId}&fromDate=${fromDate}&toDate=${toDate}`} testId="oversikt-nav-link">
           Oversikt
         </NavItem>
         <NavItem

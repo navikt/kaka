@@ -9,6 +9,7 @@ import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitet
 import { RadioValg } from '../../../types/radio';
 import { SakstypeEnum } from '../../../types/sakstype';
 import { Reason, Reasons } from './reasons';
+import { klageforberedelsenReasons } from './reasons-labels';
 import { FormSection, RadioButtonsRow, SubHeader } from './styled-components';
 
 export const Klageforberedelsen = () => {
@@ -29,38 +30,10 @@ export const Klageforberedelsen = () => {
 
   const { id, klageforberedelsenRadioValg } = kvalitetsvurdering;
 
-  const reasons: Reason[] = [
-    {
-      id: 'sakensDokumenter',
-      label: 'Sakens dokumenter',
-      checked: kvalitetsvurdering.sakensDokumenter,
-    },
-    {
-      id: 'oversittetKlagefristIkkeKommentert',
-      label: 'Oversittet klagefrist er ikke kommentert',
-      checked: kvalitetsvurdering.oversittetKlagefristIkkeKommentert,
-    },
-    {
-      id: 'klagerensRelevanteAnfoerslerIkkeKommentert',
-      label: 'Klagerens relevante anførseler er ikke tilstrekkelig kommentert/imøtegått',
-      checked: kvalitetsvurdering.klagerensRelevanteAnfoerslerIkkeKommentert,
-    },
-    {
-      id: 'begrunnelseForHvorforAvslagOpprettholdes',
-      label: 'Begrunnelse for hvorfor avslag opprettholdes / klager ikke oppfyller vilkår',
-      checked: kvalitetsvurdering.begrunnelseForHvorforAvslagOpprettholdes,
-    },
-    {
-      id: 'konklusjonen',
-      label: 'Konklusjonen',
-      checked: kvalitetsvurdering.konklusjonen,
-    },
-    {
-      id: 'oversendelsesbrevetsInnholdIkkeISamsvarMedTema',
-      label: 'Oversendelsesbrevets innhold er ikke i samsvar med sakens tema',
-      checked: kvalitetsvurdering.oversendelsesbrevetsInnholdIkkeISamsvarMedTema,
-    },
-  ];
+  const reasons: Reason[] = klageforberedelsenReasons.map((reason) => ({
+    ...reason,
+    checked: kvalitetsvurdering[reason.id],
+  }));
 
   return (
     <FormSection>

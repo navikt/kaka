@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFilteredStatistics } from '../../../hooks/use-statistics';
+import { useFilteredStatistics } from '../hooks/use-statistics';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, KeyNumber } from './styled-components';
 

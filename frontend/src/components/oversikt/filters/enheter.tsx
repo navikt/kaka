@@ -1,42 +1,17 @@
-import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
 import React, { useMemo } from 'react';
 import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
-import { useAllStatistics } from '../../../hooks/use-statistics';
-import { ToggleContent } from '../../toggle/toggle-content';
+import { useAllStatistics } from '../hooks/use-statistics';
 import { FilterType } from '../types';
+import { Filter } from './common/filter';
 
 interface EnheterFilterProps {
-  selectedEnheter: string[];
-  setSelectedEnheter: (enheter: string[]) => void;
+  selected: string[];
+  setSelected: (enheter: string[]) => void;
 }
 
-export const EnheterFilter = ({ selectedEnheter, setSelectedEnheter }: EnheterFilterProps) => {
+export const EnheterFilter = ({ selected, setSelected }: EnheterFilterProps) => {
   const enheter = useFilterEnheter();
-
-  const updateEnheter = (enhet: string, checked: boolean) => {
-    const newList = checked
-      ? [...selectedEnheter, enhet]
-      : selectedEnheter.filter((selectedValue) => selectedValue !== enhet);
-    setSelectedEnheter(newList);
-  };
-
-  return (
-    <ToggleContent label="Enheter">
-      <CheckboxGruppe>
-        {enheter.map((enhet) => (
-          <Checkbox
-            key={enhet.id}
-            label={`${enhet.navn} (${enhet.count})`}
-            value={enhet.id}
-            onChange={({ target }) => {
-              updateEnheter(target.value, target.checked);
-            }}
-            checked={selectedEnheter.includes(enhet.id)}
-          />
-        ))}
-      </CheckboxGruppe>
-    </ToggleContent>
-  );
+  return <Filter label="Klageinstans" selected={selected} filters={enheter} setSelected={setSelected} />;
 };
 
 const useFilterEnheter = (): FilterType[] => {
@@ -45,16 +20,18 @@ const useFilterEnheter = (): FilterType[] => {
 
   return useMemo<FilterType[]>(
     () =>
-      stats.reduce<FilterType[]>((acc, { tilknyttetEnhet }) => {
-        const enhet = acc.find(({ id }) => id === tilknyttetEnhet);
+      stats
+        .reduce<FilterType[]>((acc, { tilknyttetEnhet }) => {
+          const enhet = acc.find(({ id }) => id === tilknyttetEnhet);
 
-        if (typeof enhet === 'undefined') {
-          const navn: string = enheter.find(({ id }) => id === tilknyttetEnhet)?.beskrivelse ?? 'Mangler navn';
-          return [...acc, { id: tilknyttetEnhet, navn, count: 1 }];
-        }
+          if (typeof enhet === 'undefined') {
+            const navn: string = enheter.find(({ id }) => id === tilknyttetEnhet)?.beskrivelse ?? 'Mangler navn';
+            return [...acc, { id: tilknyttetEnhet, navn, count: 1 }];
+          }
 
-        return [...acc.filter(({ id }) => id !== tilknyttetEnhet), { ...enhet, count: enhet.count + 1 }];
-      }, []),
+          return [...acc.filter(({ id }) => id !== tilknyttetEnhet), { ...enhet, count: enhet.count + 1 }];
+        }, [])
+        .sort((a, b) => a.navn.localeCompare(b.navn)),
     [stats, enheter]
   );
 };

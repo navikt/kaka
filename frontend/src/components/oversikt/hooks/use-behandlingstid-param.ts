@@ -1,5 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { IStatisticVurdering } from '../../../types/statistics';
+import { QueryParams } from '../types';
 
 enum BehandlingsTidEnum {
   TOTAL,
@@ -17,11 +18,11 @@ export const useBehandlingstidParam = (): [FieldName, (behandlingstidType: Behan
   const [searchParams, setSearchParams] = useSearchParams();
 
   const setType = (behandlingstidType: BehandlingsTidEnum) => {
-    searchParams.set('bht', behandlingstidType.toString());
+    searchParams.set(QueryParams.BEHANDLINGSTID, behandlingstidType.toString());
     setSearchParams(searchParams);
   };
 
-  const fieldId = Number.parseInt(searchParams.get('bht') ?? BehandlingsTidEnum.KA.toString(), 10);
+  const fieldId = Number.parseInt(searchParams.get(QueryParams.BEHANDLINGSTID) ?? BehandlingsTidEnum.KA.toString(), 10);
 
   const field: FieldName = FIELD_MAP.get(fieldId) ?? 'behandlingstidDays';
 

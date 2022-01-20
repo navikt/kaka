@@ -1,6 +1,6 @@
 import React from 'react';
-import { useFilteredStatistics } from '../../../hooks/use-statistics';
 import { UtfallEnum } from '../../../types/utfall';
+import { useFilteredStatistics } from '../hooks/use-statistics';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, RedKeyNumber } from './styled-components';
 
