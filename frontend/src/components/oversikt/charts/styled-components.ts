@@ -2,14 +2,22 @@ import styled from 'styled-components';
 
 export const ChartContainer = styled.div`
   padding: 16px;
-  min-width: 484px;
-  max-width: 1000px;
-  flex-grow: 1;
+  width: 100%;
 `;
 
 export const QuarterChartContainer = styled.div`
   padding: 16px;
-  width: calc(25% - 12px);
+  width: 25%;
+`;
+
+export const ThreeQuarterChartContainer = styled.div`
+  padding: 16px;
+  width: 75%;
+`;
+
+export const HalfChartContainer = styled.div`
+  padding: 16px;
+  width: 50%;
 `;
 
 export const ChartTitle = styled.h2`

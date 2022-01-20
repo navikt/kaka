@@ -3,23 +3,10 @@ import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { isNotUndefined } from '../../../functions/is-not';
 import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
-import { useFilteredFinishedStatistics, useFilteredStatistics } from '../../../hooks/use-statistics';
 import { UtfallEnum } from '../../../types/utfall';
+import { useFilteredFinishedStatistics, useFilteredStatistics } from '../hooks/use-statistics';
+import { percent, tickCallback } from './formatting';
 import { ChartContainer } from './styled-components';
-
-const percent = (value: number, total: number): string => {
-  const p = Math.round((value / total) * 1000) / 10;
-  return `${p} % (${value})`;
-};
-
-const tickCallback = (value: number | string, total: number): string => {
-  if (typeof value === 'string') {
-    return value;
-  }
-
-  const p = Math.round((value / total) * 100);
-  return `${p} %`;
-};
 
 const useOptions = (total = 1): ChartOptions<'bar'> => ({
   responsive: true,
@@ -27,11 +14,10 @@ const useOptions = (total = 1): ChartOptions<'bar'> => ({
     duration: 200,
     easing: 'easeOutQuart',
   },
-  animations: {},
+  indexAxis: 'y',
   scales: {
     y: {
       ticks: {
-        callback: (value) => tickCallback(value, total),
         font: {
           size: 14,
           family: '"Source Sans Pro", Arial, sans-serif',
@@ -47,6 +33,7 @@ const useOptions = (total = 1): ChartOptions<'bar'> => ({
     },
     x: {
       ticks: {
+        callback: (value) => tickCallback(value, total),
         font: {
           size: 16,
           family: '"Source Sans Pro", Arial, sans-serif',
@@ -75,7 +62,7 @@ const useOptions = (total = 1): ChartOptions<'bar'> => ({
     },
     tooltip: {
       callbacks: {
-        label: ({ parsed, label }) => `${label}: ${percent(parsed.y, total)}`,
+        label: ({ parsed, label }) => `${label}: ${percent(parsed.x, total)}`,
       },
     },
   },

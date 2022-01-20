@@ -1,74 +1,44 @@
-import { ChartOptions } from 'chart.js';
 import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
-import { useFilteredFinishedStatistics } from '../../../hooks/use-statistics';
-import { RadioValg } from '../../../types/radio';
-import { IStatisticVurdering } from '../../../types/statistics';
-import { ChartTitle, QuarterChartContainer } from './styled-components';
+import {
+  KLAGEFORBEREDELSEN_REASON_NAMES,
+  RAADGIVENDE_LEGE_REASON_NAMES,
+  UTREDNINGEN_REASON_NAMES,
+  VEDTAKET_REASON_NAMES,
+} from '../../../hooks/use-reason-name';
+import { useKvalitetsvurderingParam } from '../hooks/use-kvalitetsvurdering-param';
+import { Kvalitetsvurdering, KvalitetsvurderingProps } from './kvalitetsvurdering';
 
-const useOptions = (): ChartOptions<'doughnut'> => ({
-  responsive: true,
-  animation: {
-    duration: 200,
-    easing: 'easeOutQuart',
-  },
-});
-
-export const Kvalitetsvurderinger = () => (
-  <>
-    <Kvalitetsvurdering field="klageforberedelsenRadioValg" title="Klageforberedelsen" />
-    <Kvalitetsvurdering field="utredningenRadioValg" title="Utredningen" />
-    <Kvalitetsvurdering field="brukAvRaadgivendeLegeRadioValg" title="Bruk av rådgivende lege" />
-    <Kvalitetsvurdering field="vedtaketRadioValg" title="Vedtaket" />
-  </>
-);
-
-interface Props {
-  field: keyof Pick<
-    IStatisticVurdering,
-    'utredningenRadioValg' | 'klageforberedelsenRadioValg' | 'vedtaketRadioValg' | 'brukAvRaadgivendeLegeRadioValg'
-  >;
+interface IOption {
   title: string;
+  relevantReasons: string[];
 }
 
-const Kvalitetsvurdering = ({ field, title }: Props) => {
-  const stats = useFilteredFinishedStatistics();
+const OPTIONS: { [key in KvalitetsvurderingProps['field']]: IOption } = {
+  klageforberedelsenRadioValg: {
+    title: 'Klageforberedelsen',
+    relevantReasons: Object.keys(KLAGEFORBEREDELSEN_REASON_NAMES),
+  },
 
-  const data = stats.reduce<[number, number]>(
-    (acc, stat) => {
-      if (stat[field] === RadioValg.BRA) {
-        return [acc[0] + 1, acc[1]];
-      }
+  brukAvRaadgivendeLegeRadioValg: {
+    title: 'Bruk av rådgivende lege',
+    relevantReasons: Object.keys(RAADGIVENDE_LEGE_REASON_NAMES),
+  },
 
-      if (stat[field] === RadioValg.MANGELFULLT) {
-        return [acc[0], acc[1] + 1];
-      }
+  utredningenRadioValg: {
+    title: 'Utredningen',
+    relevantReasons: Object.keys(UTREDNINGEN_REASON_NAMES),
+  },
 
-      return acc;
-    },
-    [0, 0]
-  );
+  vedtaketRadioValg: {
+    title: 'Vedtak',
+    relevantReasons: Object.keys(VEDTAKET_REASON_NAMES),
+  },
+};
 
-  const labels = ['Bra / godt nok', 'Mangelfullt'];
+export const Kvalitetsvurderinger = () => {
+  const [field] = useKvalitetsvurderingParam();
 
-  const options = useOptions();
+  const { title, relevantReasons } = OPTIONS[field];
 
-  return (
-    <QuarterChartContainer>
-      <ChartTitle>{title}</ChartTitle>
-      <Doughnut
-        options={options}
-        data={{
-          labels,
-          datasets: [
-            {
-              hoverOffset: 4,
-              data,
-              backgroundColor: ['#3386E0', '#D05C4A'],
-            },
-          ],
-        }}
-      />
-    </QuarterChartContainer>
-  );
+  return <Kvalitetsvurdering field={field} title={title} relevantReasons={relevantReasons} />;
 };

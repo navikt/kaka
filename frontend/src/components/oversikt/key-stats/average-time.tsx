@@ -1,6 +1,6 @@
 import React from 'react';
-import { useFilteredStatistics } from '../../../hooks/use-statistics';
 import { useBehandlingstidParam } from '../hooks/use-behandlingstid-param';
+import { useFilteredStatistics } from '../hooks/use-statistics';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, KeyNumber, RedKeyNumber } from './styled-components';
 

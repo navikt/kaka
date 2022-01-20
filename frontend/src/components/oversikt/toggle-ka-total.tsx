@@ -2,6 +2,7 @@ import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { QueryParams } from './types';
 
 enum BehandlingsTidEnum {
   TOTAL,
@@ -11,10 +12,10 @@ enum BehandlingsTidEnum {
 export const ToggleTotalOrKA = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const type = Number.parseInt(searchParams.get('bht') ?? BehandlingsTidEnum.KA.toString(), 10);
+  const type = Number.parseInt(searchParams.get(QueryParams.BEHANDLINGSTID) ?? BehandlingsTidEnum.KA.toString(), 10);
 
   const setType = (behandlingstidType: BehandlingsTidEnum) => {
-    searchParams.set('bht', behandlingstidType.toString());
+    searchParams.set(QueryParams.BEHANDLINGSTID, behandlingstidType.toString());
     setSearchParams(searchParams);
   };
 

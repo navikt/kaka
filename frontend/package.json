@@ -59,8 +59,10 @@
     "webpack-dev-server": "^4.7.0"
   },
   "dependencies": {
+    "@navikt/ds-icons": "^0.7.3",
     "@reduxjs/toolkit": "^1.7.1",
     "chart.js": "^3.7.0",
+    "dayjs": "^1.10.7",
     "nav-datovelger": "^12.1.2",
     "nav-frontend-alertstriper": "^4.0.1",
     "nav-frontend-alertstriper-style": "^3.0.1",

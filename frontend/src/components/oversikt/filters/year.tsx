@@ -1,6 +1,6 @@
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
-import React from 'react';
-import { ToggleContent } from '../../toggle/toggle-content';
+import React, { useState } from 'react';
+import { Dropdown } from './common/dropdown';
 
 interface YearFilterProps {
   selectedYear: number;
@@ -8,10 +8,11 @@ interface YearFilterProps {
 }
 
 export const YearFilter = ({ selectedYear, setSelectedYear }: YearFilterProps) => {
-  const years = [2021, 2022, 2023, 2024];
+  const [open, setOpen] = useState(false);
+  const years = [2021, 2022, 2023];
 
   return (
-    <ToggleContent label="År">
+    <Dropdown label="År" open={open} setOpen={setOpen} metadata={selectedYear}>
       <RadioGruppe>
         {years.map((year) => (
           <Radio
@@ -23,6 +24,6 @@ export const YearFilter = ({ selectedYear, setSelectedYear }: YearFilterProps) =
           />
         ))}
       </RadioGruppe>
-    </ToggleContent>
+    </Dropdown>
   );
 };

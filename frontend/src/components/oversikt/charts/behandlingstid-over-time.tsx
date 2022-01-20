@@ -1,7 +1,7 @@
 import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
-import { useFilteredFinishedStatistics } from '../../../hooks/use-statistics';
+import { useFilteredFinishedStatistics } from '../hooks/use-statistics';
 import { ChartContainer } from './styled-components';
 
 const useOptions = (): ChartOptions<'line'> => ({
@@ -28,22 +28,27 @@ export const BehandlingstidOverTime = () => {
       stats.reduce(
         (acc, stat) => {
           if (stat.avsluttetAvSaksbehandler !== null) {
-            const { weekNumber } = stat.avsluttetAvSaksbehandler;
-            const existing = acc.get(weekNumber);
+            const { weekNumber, year } = stat.avsluttetAvSaksbehandler;
+            const key = `${year}-${weekNumber}`;
+            const existing = acc.get(key);
 
             if (typeof existing === 'undefined') {
-              acc.set(weekNumber, {
+              acc.set(key, {
                 count: 1,
                 total: stat.totalBehandlingstidDays,
                 ka: stat.behandlingstidDays,
                 first: stat.totalBehandlingstidDays - stat.behandlingstidDays,
+                year,
+                weekNumber,
               });
             } else {
-              acc.set(weekNumber, {
+              acc.set(key, {
                 count: existing.count + 1,
                 total: existing.total + stat.totalBehandlingstidDays,
                 ka: existing.ka + stat.behandlingstidDays,
                 first: existing.first + stat.totalBehandlingstidDays - stat.behandlingstidDays,
+                year,
+                weekNumber,
               });
             }
           }
@@ -51,22 +56,37 @@ export const BehandlingstidOverTime = () => {
           return acc;
         },
         new Map<
-          number,
+          string,
           {
             count: number;
             total: number;
             ka: number;
             first: number;
+            year: number;
+            weekNumber: number;
           }
         >()
       ),
     [stats]
   );
 
-  const sortedEntries = useMemo(() => [...weekTotals.entries()].sort((a, b) => a[0] - b[0]), [weekTotals]);
+  const sortedEntries = useMemo(
+    () =>
+      [...weekTotals.entries()].sort((a, b) => {
+        const [, { year: aYear, weekNumber: aWeek }] = a;
+        const [, { year: bYear, weekNumber: bWeek }] = b;
+
+        if (aYear !== bYear) {
+          return aYear - bYear;
+        }
+
+        return aWeek - bWeek;
+      }),
+    [weekTotals]
+  );
 
   const data = useMemo(() => {
-    const labels = sortedEntries.map((entry) => `Uke ${entry[0]}`);
+    const labels = sortedEntries.map(([, { year, weekNumber }]) => `${year} uke ${weekNumber}`);
     const ka = sortedEntries.map((entry) => Math.round(entry[1].ka / entry[1].count));
     const first = sortedEntries.map((entry) => Math.round(entry[1].first / entry[1].count));
     const total = sortedEntries.map((entry) => Math.round(entry[1].total / entry[1].count));

@@ -1,9 +1,9 @@
 import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { useFilteredStatistics } from '../../../hooks/use-statistics';
 import { useBehandlingstidParam } from '../hooks/use-behandlingstid-param';
 import { useBuckets } from '../hooks/use-buckets';
+import { useFilteredStatistics } from '../hooks/use-statistics';
 import { ChartContainer } from './styled-components';
 
 const useOptions = (onClick?: ChartOptions<'bar'>['onClick']): ChartOptions<'bar'> => ({

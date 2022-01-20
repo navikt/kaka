@@ -43,6 +43,7 @@ export const GroupedDropdown = ({
   top,
   left,
   maxHeight,
+  minWidth,
   showFjernAlle = true,
 }: DropdownProps): JSX.Element | null => {
   const [filter, setFilter] = useState('');
@@ -93,7 +94,7 @@ export const GroupedDropdown = ({
   };
 
   return (
-    <StyledDropdown top={top} left={left} maxHeight={maxHeight}>
+    <StyledDropdown top={top} left={left} maxHeight={maxHeight} minWidth={minWidth}>
       <Header
         filter={filter}
         onFocusChange={setFocused}

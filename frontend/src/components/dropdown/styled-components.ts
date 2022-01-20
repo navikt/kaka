@@ -25,6 +25,7 @@ export interface StyledDropdownProps {
   top?: string | number;
   left?: string | number;
   maxHeight?: string | number;
+  minWidth?: string | number;
 }
 
 export const StyledDropdown = styled.div<StyledDropdownProps>`
@@ -41,7 +42,7 @@ export const StyledDropdown = styled.div<StyledDropdownProps>`
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
   z-index: 1;
   max-height: ${({ maxHeight = '256px' }) => maxHeight};
-  min-width: 275px;
+  min-width: ${({ minWidth = '275px' }) => minWidth};
 `;
 
 export const StyledOptionList = styled.ul`

@@ -7,6 +7,7 @@ import { useValidationError } from '../../../hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
 import { RadioValgExtended } from '../../../types/radio';
 import { Reason, Reasons } from './reasons';
+import { brukAvRaadgivendeLegeReasons } from './reasons-labels';
 import { FormSection, RadioButtonsColumn, SubHeader } from './styled-components';
 
 export const BrukAvRaadgivendeLege = () => {
@@ -22,28 +23,10 @@ export const BrukAvRaadgivendeLege = () => {
 
   const { id, brukAvRaadgivendeLegeRadioValg } = kvalitetsvurdering;
 
-  const reasons: Reason[] = [
-    {
-      id: 'raadgivendeLegeErIkkeBrukt',
-      label: 'Rådgivende lege er ikke brukt',
-      checked: kvalitetsvurdering.raadgivendeLegeErIkkeBrukt,
-    },
-    {
-      id: 'raadgivendeLegeErBruktFeilSpoersmaal',
-      label: 'Rådgivende lege er brukt, men saksbehandler har stilt feil spørsmål og får derfor feil svar',
-      checked: kvalitetsvurdering.raadgivendeLegeErBruktFeilSpoersmaal,
-    },
-    {
-      id: 'raadgivendeLegeHarUttaltSegUtoverTrygdemedisin',
-      label: 'Rådgivende lege har uttalt seg om tema utover trygdemedisin',
-      checked: kvalitetsvurdering.raadgivendeLegeHarUttaltSegUtoverTrygdemedisin,
-    },
-    {
-      id: 'raadgivendeLegeErBruktMangelfullDokumentasjon',
-      label: 'Rådgivende lege er brukt, men dokumentasjonen er mangelfull / ikke skriftliggjort',
-      checked: kvalitetsvurdering.raadgivendeLegeErBruktMangelfullDokumentasjon,
-    },
-  ];
+  const reasons: Reason[] = brukAvRaadgivendeLegeReasons.map((reason) => ({
+    ...reason,
+    checked: kvalitetsvurdering[reason.id],
+  }));
 
   return (
     <FormSection>
