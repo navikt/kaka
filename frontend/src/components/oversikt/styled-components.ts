@@ -10,7 +10,7 @@ export const ContentArea = styled.div`
   padding-left: 16px;
   padding-right: 0;
   padding-bottom: 40px;
-  width: 100%;
+  flex-grow: 1;
 `;
 
 export const StickyStats = styled.section`
