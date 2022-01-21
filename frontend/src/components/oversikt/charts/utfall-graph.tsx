@@ -35,7 +35,7 @@ const useOptions = (total = 1): ChartOptions<'bar'> => ({
       ticks: {
         callback: (value) => tickCallback(value, total),
         font: {
-          size: 16,
+          size: 14,
           family: '"Source Sans Pro", Arial, sans-serif',
         },
       },
@@ -52,7 +52,7 @@ const useOptions = (total = 1): ChartOptions<'bar'> => ({
       position: 'top' as const,
       labels: {
         font: {
-          size: 16,
+          size: 14,
           family: '"Source Sans Pro", Arial, sans-serif',
         },
       },

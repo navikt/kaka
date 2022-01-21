@@ -13,6 +13,8 @@ const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'bar'> => (
     duration: 200,
     easing: 'easeOutQuart',
   },
+  indexAxis: 'y',
+  aspectRatio: 1,
   scales: {
     y: {
       ticks: {

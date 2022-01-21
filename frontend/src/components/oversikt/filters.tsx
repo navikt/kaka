@@ -138,6 +138,7 @@ const Container = styled.div`
   flex-direction: column;
   position: sticky;
   top: 80px;
+  width: 100%;
 `;
 
 const StyledResetButton = styled(Knapp)`
