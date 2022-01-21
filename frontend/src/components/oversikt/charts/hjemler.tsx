@@ -6,7 +6,7 @@ import { useHjemmelTexts } from '../hooks/use-hjemmel-texts';
 import { useFilteredStatistics } from '../hooks/use-statistics';
 import { QueryParams } from '../types';
 
-type TooltipCallback = (args: { parsed: { y: number }; label: string }) => string;
+type TooltipCallback = (args: { parsed: { x: number }; label: string }) => string;
 
 const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'bar'> => ({
   animation: {
@@ -78,7 +78,7 @@ export const Hjemler = () => {
   const hjemmelTexts = useHjemmelTexts(filteredYtelser);
 
   const tooltipCallback: TooltipCallback = ({ parsed, label }) =>
-    `${hjemmelTexts.find((hjemmel) => hjemmel.label === label)?.tooltip ?? label}: ${parsed.y}`;
+    `${hjemmelTexts.find((hjemmel) => hjemmel.label === label)?.tooltip ?? label}: ${parsed.x}`;
 
   const options = useOptions(tooltipCallback);
 
