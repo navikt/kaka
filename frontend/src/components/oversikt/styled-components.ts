@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 
+const COLUMNS = 2;
+
 export const ContentArea = styled.div`
+  display: grid;
+  grid-template-columns: repeat(${COLUMNS}, 1fr);
+  grid-gap: 16px;
   padding-top: 0;
-  padding-left: 0;
+  padding-left: 16px;
   padding-right: 0;
   padding-bottom: 40px;
   width: 100%;
@@ -22,16 +27,26 @@ export const StickyStats = styled.section`
   padding-top: 0;
   padding-bottom: 16px;
   margin-top: 16px;
-  margin-bottom: 0;
-  margin-right: -32px;
+  margin-bottom: 16px;
+  border-radius: 4px;
   background-color: #fff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  grid-column-start: 1;
+  grid-column-end: ${COLUMNS + 1};
 `;
 
-export const ChartSectionRow = styled.section`
-  border-top: 1px solid #e8e8e8;
-  padding-left: 16px;
-  padding-right: 16px;
+export const FullWidthCard = styled.section`
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  grid-column-start: 1;
+  grid-column-end: ${COLUMNS + 1};
+`;
+
+export const HalfWidthCard = styled.section`
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
 `;
 
 export const KeyStatsArea = styled.div`
@@ -45,10 +60,10 @@ export const KeyStatsArea = styled.div`
   width: 100%;
 `;
 
-export const ChartSectionTitle = styled.h1`
+export const CardTitle = styled.h1`
   background-color: #fff;
-  padding-top: 16px;
-  padding-left: 8px;
+  padding-top: 0;
+  padding-left: 0;
   padding-right: 8px;
   padding-bottom: 8px;
   border-radius: 4px;
@@ -57,6 +72,7 @@ export const ChartSectionTitle = styled.h1`
   z-index: 2;
   font-size: 32px;
   line-height: 1;
+  text-align: center;
 `;
 
 export const FiltersAndContentContainer = styled.div`
@@ -66,12 +82,13 @@ export const FiltersAndContentContainer = styled.div`
   position: relative;
 `;
 
-export const FilterSection = styled(ContentArea)`
+export const FilterSection = styled.div`
+  display: block;
   border-right: 1px solid #c6c2bf;
   padding-top: 32px;
   padding-right: 16px;
   margin-right: 0;
-  max-width: 320px;
+  width: 320px;
 `;
 
 export const StyledCharts = styled.section`

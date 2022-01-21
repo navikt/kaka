@@ -24,11 +24,12 @@ import { Finished } from './key-stats/finished';
 import { Omgjort } from './key-stats/omgjort';
 import { Processed } from './key-stats/processed';
 import {
-  ChartSectionRow,
-  ChartSectionTitle,
+  CardTitle,
   ContentArea,
   FilterSection,
   FiltersAndContentContainer,
+  FullWidthCard,
+  HalfWidthCard,
   Overlay,
   StickyStats,
   StyledCharts,
@@ -53,33 +54,33 @@ export const Oversikt = () => (
           <Processed weeks={12} />
           <Processed weeks={15} />
         </StickyStats>
-        <ChartSectionRow>
-          <ChartSectionTitle>Utfall</ChartSectionTitle>
+        <HalfWidthCard>
+          <CardTitle>Utfall</CardTitle>
           <StyledCharts>
             <UtfallGraph />
           </StyledCharts>
-        </ChartSectionRow>
-        <ChartSectionRow>
-          <ChartSectionTitle>Hjemler</ChartSectionTitle>
+        </HalfWidthCard>
+        <HalfWidthCard>
+          <CardTitle>Hjemler</CardTitle>
           <StyledCharts>
             <Hjemler />
           </StyledCharts>
-        </ChartSectionRow>
-        <ChartSectionRow>
-          <ChartSectionTitle>Behandlingstid</ChartSectionTitle>
+        </HalfWidthCard>
+        <FullWidthCard>
+          <CardTitle>Behandlingstid</CardTitle>
           <ToggleTotalOrKA />
           <StyledCharts>
             <RegistreringTimeDistribution />
             <BehandlingstidOverTime />
           </StyledCharts>
-        </ChartSectionRow>
-        <ChartSectionRow>
-          <ChartSectionTitle>Kvalitetsvurderinger</ChartSectionTitle>
+        </FullWidthCard>
+        <FullWidthCard>
+          <CardTitle>Kvalitetsvurderinger</CardTitle>
           <ToggleKvalitetsvurdering />
           <StyledCharts>
             <Kvalitetsvurderinger />
           </StyledCharts>
-        </ChartSectionRow>
+        </FullWidthCard>
       </ContentArea>
     </FiltersAndContentContainer>
   </>
