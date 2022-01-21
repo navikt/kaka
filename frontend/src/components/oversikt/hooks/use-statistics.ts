@@ -10,7 +10,7 @@ const useStatistics = () => {
   return useGetStatisticsQuery({ fromDate, toDate }, { pollingInterval: 3 * 60 * 1000 });
 };
 
-export const useStatisticsIsLoading = (): boolean => useStatistics().isFetching;
+export const useStatisticsIsLoading = (): boolean => useStatistics().isLoading;
 
 export const useAllStatistics = (): IStatisticVurdering[] => {
   const { data } = useStatistics();
