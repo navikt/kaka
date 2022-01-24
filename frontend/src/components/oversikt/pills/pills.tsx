@@ -54,7 +54,7 @@ interface PillProps<Q extends QueryParams> extends CommonProps<Q> {
 export const Pill = <Q extends QueryParams>({ name, queryKey, setFilter, id, values }: PillProps<Q>) => (
   <StyledLi>
     <StyledPill title={`Fjern ${name}`} onClick={() => setFilter(queryKey, ...values.filter((v) => v !== id))}>
-      {name} {name} <PillIcon />
+      {name} <PillIcon />
     </StyledPill>
   </StyledLi>
 );

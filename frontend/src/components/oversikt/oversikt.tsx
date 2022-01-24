@@ -12,6 +12,7 @@ import {
 } from 'chart.js';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import React from 'react';
+import { CardSize, DynamicCard } from './card/card';
 import { BehandlingstidOverTime } from './charts/behandlingstid-over-time';
 import { Hjemler } from './charts/hjemler';
 import { Kvalitetsvurderinger } from './charts/kvalitetsvurderinger';
@@ -28,8 +29,6 @@ import {
   ContentArea,
   FilterSection,
   FiltersAndContentContainer,
-  FullWidthCard,
-  HalfWidthCard,
   Overlay,
   StickyStats,
   StyledCharts,
@@ -54,33 +53,38 @@ export const Oversikt = () => (
           <Processed weeks={12} />
           <Processed weeks={15} />
         </StickyStats>
-        <FullWidthCard>
+
+        <DynamicCard size={CardSize.LARGE}>
           <CardTitle>Behandlingstid</CardTitle>
           <ToggleTotalOrKA />
           <StyledCharts>
             <RegistreringTimeDistribution />
-            <BehandlingstidOverTime />
           </StyledCharts>
-        </FullWidthCard>
-        <HalfWidthCard>
+        </DynamicCard>
+
+        <BehandlingstidOverTime />
+
+        <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Utfall</CardTitle>
           <StyledCharts>
             <UtfallGraph />
           </StyledCharts>
-        </HalfWidthCard>
-        <HalfWidthCard>
+        </DynamicCard>
+
+        <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Hjemler</CardTitle>
           <StyledCharts>
             <Hjemler />
           </StyledCharts>
-        </HalfWidthCard>
-        <FullWidthCard>
+        </DynamicCard>
+
+        <DynamicCard size={CardSize.LARGE}>
           <CardTitle>Kvalitetsvurderinger</CardTitle>
           <ToggleKvalitetsvurdering />
           <StyledCharts>
             <Kvalitetsvurderinger />
           </StyledCharts>
-        </FullWidthCard>
+        </DynamicCard>
       </ContentArea>
     </FiltersAndContentContainer>
   </>
