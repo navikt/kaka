@@ -11,19 +11,21 @@ import { ChartTitle, QuarterChartContainer, ThreeQuarterChartContainer } from '.
 
 const useDoughnutOptions = (): ChartOptions<'doughnut'> => ({
   responsive: true,
+  aspectRatio: 1.5,
   animation: {
     duration: 200,
     easing: 'easeOutQuart',
   },
   plugins: {
     legend: {
-      align: 'start',
+      align: 'center',
     },
   },
 });
 
 const useBarOptions = (labels: string[], data: number[], total = 1): ChartOptions<'bar'> => ({
   responsive: true,
+  aspectRatio: 4,
   animation: {
     duration: 200,
     easing: 'easeOutQuart',
@@ -49,6 +51,7 @@ const useBarOptions = (labels: string[], data: number[], total = 1): ChartOption
     x: {
       ticks: {
         callback: (value) => tickCallback(value, total),
+        stepSize: total / 10,
         font: {
           size: 16,
           family: '"Source Sans Pro", Arial, sans-serif',

@@ -1,16 +1,37 @@
 import styled from 'styled-components';
 
-const COLUMNS = 2;
+const COLUMN_WIDTH = 400;
+const GAP = 16;
 
 export const ContentArea = styled.div`
-  display: grid;
-  grid-template-columns: repeat(${COLUMNS}, 1fr);
-  grid-gap: 16px;
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: ${GAP}px;
   padding-top: 0;
   padding-left: 16px;
   padding-right: 0;
   padding-bottom: 40px;
-  flex-grow: 1;
+`;
+
+const Card = styled.section`
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  max-width: 100%;
+`;
+
+export const CardLarge = styled(Card)`
+  width: ${COLUMN_WIDTH * 4 - GAP}px;
+`;
+
+export const CardMedium = styled(Card)`
+  width: ${COLUMN_WIDTH * 2 - GAP}px;
+`;
+
+export const CardSmall = styled(Card)`
+  width: ${COLUMN_WIDTH - GAP}px;
 `;
 
 export const StickyStats = styled.section`
@@ -18,42 +39,24 @@ export const StickyStats = styled.section`
   flex-direction: row;
   flex-wrap: nowrap;
   position: sticky;
-  gap: 16px;
-  justify-content: space-between;
+  gap: ${GAP * 2}px;
+  justify-content: center;
   z-index: 3;
   top: 48px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 16px;
+  padding: 16px;
   margin-top: 16px;
   margin-bottom: 16px;
   border-radius: 4px;
   background-color: #fff;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  grid-column-start: 1;
-  grid-column-end: ${COLUMNS + 1};
-`;
-
-export const FullWidthCard = styled.section`
-  padding: 16px;
-  border-radius: 4px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
-  grid-column-start: 1;
-  grid-column-end: ${COLUMNS + 1};
-`;
-
-export const HalfWidthCard = styled.section`
-  padding: 16px;
-  border-radius: 4px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  width: 100%;
 `;
 
 export const KeyStatsArea = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: ${GAP}px;
   justify-content: left;
   padding-top: 40px;
   padding-bottom: 40px;
@@ -94,8 +97,7 @@ export const FilterSection = styled.div`
 export const StyledCharts = styled.section`
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  max-width: 1000px;
+  gap: ${GAP}px;
 `;
 
 export const Overlay = styled.div`

@@ -1,8 +1,9 @@
 import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
+import { CardSize, DynamicCard } from '../card/card';
 import { useFilteredFinishedStatistics } from '../hooks/use-statistics';
-import { ChartContainer } from './styled-components';
+import { CardTitle, StyledCharts } from '../styled-components';
 
 const useOptions = (): ChartOptions<'line'> => ({
   responsive: true,
@@ -16,6 +17,18 @@ const useOptions = (): ChartOptions<'line'> => ({
           size: 14,
         },
       },
+    },
+    x: {
+      ticks: {
+        font: {
+          size: 11,
+        },
+      },
+    },
+  },
+  elements: {
+    line: {
+      tension: 0.3,
     },
   },
 });
@@ -121,9 +134,20 @@ export const BehandlingstidOverTime = () => {
 
   const options = useOptions();
 
+  const size = useMemo(() => {
+    if (data.labels.length > 15) {
+      return CardSize.LARGE;
+    }
+
+    return CardSize.MEDIUM;
+  }, [data.labels]);
+
   return (
-    <ChartContainer>
-      <Line options={options} data={data} />
-    </ChartContainer>
+    <DynamicCard size={size}>
+      <CardTitle>Behandlingstid</CardTitle>
+      <StyledCharts>
+        <Line options={options} data={data} />
+      </StyledCharts>
+    </DynamicCard>
   );
 };

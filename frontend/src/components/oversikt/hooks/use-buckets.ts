@@ -1,27 +1,23 @@
 import { useMemo } from 'react';
 
-export const useBuckets = (data: number[], bucketSize: number): [string[], number[]] =>
+export const useBuckets = (data: number[], bucketSize: number, restBucket?: number): [string[], number[]] =>
   useMemo<[string[], number[]]>(() => {
-    const buckets = data
-      .reduce((bucketMap, v) => {
-        const bucketKey = Math.ceil(v / bucketSize);
+    const realMax = Math.max(...data);
 
-        const existing = bucketMap.get(bucketKey);
+    const max = typeof restBucket === 'number' ? Math.min(restBucket * bucketSize, realMax) : realMax;
 
-        if (typeof existing === 'number') {
-          bucketMap.set(bucketKey, existing + 1);
-        } else {
-          bucketMap.set(bucketKey, 1);
-        }
+    const buckets: number[] = Array.from({ length: Math.ceil(max / bucketSize) }, (_, i) => i + 1);
 
-        return bucketMap;
-      }, new Map<number, number>())
-      .entries();
+    const labels = buckets.map((bucket) => `${bucket}`);
 
-    const sortedBuckets = Array.from(buckets).sort((a, b) => a[0] - b[0]);
+    const normalizedData = data.map((value) => Math.ceil(value / bucketSize));
 
-    const labels = sortedBuckets.map(([bucketKey]) => `${bucketKey}`);
-    const values = sortedBuckets.map((bucket) => bucket[1]);
+    const values = buckets.map((bucket) => normalizedData.filter((v) => v <= bucket && v > bucket - 1).length);
+
+    if (typeof restBucket === 'number' && realMax > max) {
+      labels[labels.length - 1] = `${labels[labels.length - 1]}+`;
+      values[values.length - 1] = normalizedData.filter((v) => v > buckets[buckets.length - 1]).length;
+    }
 
     return [labels, values];
-  }, [data, bucketSize]);
+  }, [data, bucketSize, restBucket]);

@@ -9,6 +9,7 @@ import { ChartContainer } from './styled-components';
 const useOptions = (onClick?: ChartOptions<'bar'>['onClick']): ChartOptions<'bar'> => ({
   onClick,
   responsive: true,
+  aspectRatio: 3,
   animation: {
     duration: 200,
     easing: 'easeOutQuart',
@@ -58,6 +59,23 @@ const useOptions = (onClick?: ChartOptions<'bar'>['onClick']): ChartOptions<'bar
       stacked: true,
     },
   },
+  backgroundColor: (ctx) => {
+    if (typeof ctx?.parsed === 'undefined') {
+      return '#3386E0';
+    }
+
+    const { x } = ctx.parsed;
+
+    if (x < 12) {
+      return '#3386E0';
+    }
+
+    if (x > 15) {
+      return '#D05C4A';
+    }
+
+    return '#FFAA33';
+  },
   plugins: {
     legend: {
       display: false,
@@ -83,7 +101,7 @@ export const RegistreringTimeDistribution = () => {
   const stats = useFilteredStatistics();
   const [field] = useBehandlingstidParam();
   const fieldStats = useMemo(() => stats.map((stat) => stat[field]), [stats, field]);
-  const [labels, data] = useBuckets(fieldStats, 7);
+  const [labels, data] = useBuckets(fieldStats, 7, 104);
 
   const options = useOptions();
 
@@ -98,7 +116,6 @@ export const RegistreringTimeDistribution = () => {
               data,
               barPercentage: 0.95,
               categoryPercentage: 0.95,
-              backgroundColor: '#3386E0',
             },
           ],
         }}
