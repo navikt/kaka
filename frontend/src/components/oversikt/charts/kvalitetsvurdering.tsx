@@ -94,6 +94,7 @@ export interface KvalitetsvurderingProps {
 
 export const Kvalitetsvurdering = ({ field, title, relevantReasons }: KvalitetsvurderingProps) => {
   const stats = useFilteredFinishedStatistics();
+  const amountMangelfullt = stats.filter((stat) => stat[field] === RadioValg.MANGELFULLT).length;
 
   const doughnutData = stats.reduce<[number, number]>(
     (acc, stat) => {
@@ -115,7 +116,7 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons }: Kvalitetsv
   const barData: number[] = [];
 
   const doughnutOptions = useDoughnutOptions();
-  const barOptions = useBarOptions(barLabels, barData, stats.length);
+  const barOptions = useBarOptions(barLabels, barData, amountMangelfullt);
 
   if (typeof relevantReasons !== 'undefined') {
     relevantReasons.forEach((reasonId) => {
