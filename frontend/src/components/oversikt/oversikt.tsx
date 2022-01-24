@@ -54,6 +54,14 @@ export const Oversikt = () => (
           <Processed weeks={12} />
           <Processed weeks={15} />
         </StickyStats>
+        <FullWidthCard>
+          <CardTitle>Behandlingstid</CardTitle>
+          <ToggleTotalOrKA />
+          <StyledCharts>
+            <RegistreringTimeDistribution />
+            <BehandlingstidOverTime />
+          </StyledCharts>
+        </FullWidthCard>
         <HalfWidthCard>
           <CardTitle>Utfall</CardTitle>
           <StyledCharts>
@@ -66,14 +74,6 @@ export const Oversikt = () => (
             <Hjemler />
           </StyledCharts>
         </HalfWidthCard>
-        <FullWidthCard>
-          <CardTitle>Behandlingstid</CardTitle>
-          <ToggleTotalOrKA />
-          <StyledCharts>
-            <RegistreringTimeDistribution />
-            <BehandlingstidOverTime />
-          </StyledCharts>
-        </FullWidthCard>
         <FullWidthCard>
           <CardTitle>Kvalitetsvurderinger</CardTitle>
           <ToggleKvalitetsvurdering />
