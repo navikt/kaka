@@ -1,5 +1,5 @@
 import { ChartOptions } from 'chart.js';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import styled from 'styled-components';
 import { REASON_NAMES } from '../../../hooks/use-reason-name';
@@ -94,35 +94,21 @@ export interface KvalitetsvurderingProps {
 
 export const Kvalitetsvurdering = ({ field, title, relevantReasons }: KvalitetsvurderingProps) => {
   const stats = useFilteredFinishedStatistics();
-  const amountMangelfullt = stats.filter((stat) => stat[field] === RadioValg.MANGELFULLT).length;
+  const mangelfulleSaker = useMemo(() => stats.filter((stat) => stat[field] === RadioValg.MANGELFULLT), [stats, field]);
+  const braNokSaker = useMemo(() => stats.filter((stat) => stat[field] === RadioValg.BRA), [stats, field]);
 
-  const doughnutData = stats.reduce<[number, number]>(
-    (acc, stat) => {
-      if (stat[field] === RadioValg.BRA) {
-        return [acc[0] + 1, acc[1]];
-      }
+  const numberOfMangelfulleSaker = mangelfulleSaker.length;
 
-      if (stat[field] === RadioValg.MANGELFULLT) {
-        return [acc[0], acc[1] + 1];
-      }
-
-      return acc;
-    },
-    [0, 0]
-  );
+  const doughnutData: [number, number] = [braNokSaker.length, numberOfMangelfulleSaker];
 
   const doughnutLabels = ['Bra / godt nok', 'Mangelfullt'];
-  const barLabels = relevantReasons?.map((reasonId) => REASON_NAMES[reasonId]) ?? [];
-  const barData: number[] = [];
+  const barLabels = relevantReasons.map((reasonId) => REASON_NAMES[reasonId]);
+  const barData: number[] = relevantReasons.map(
+    (reasonId) => mangelfulleSaker.filter((stat) => stat[reasonId] === true).length
+  );
 
   const doughnutOptions = useDoughnutOptions();
-  const barOptions = useBarOptions(barLabels, barData, amountMangelfullt);
-
-  if (typeof relevantReasons !== 'undefined') {
-    relevantReasons.forEach((reasonId) => {
-      barData.push(stats.filter((stat) => stat[reasonId] === true).length);
-    });
-  }
+  const barOptions = useBarOptions(barLabels, barData, numberOfMangelfulleSaker);
 
   return (
     <CategoryContainer>
