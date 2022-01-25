@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useGetKodeverkQuery } from '../../../redux-api/kodeverk';
-import { IKodeverkSimpleValue, ILovKildeToRegistreringshjemmel } from '../../../types/kodeverk';
+import { IKodeverkSimpleValue, IKodeverkValue, ILovKildeToRegistreringshjemmel } from '../../../types/kodeverk';
 
 export const useMergedLovKildeToRegistreringshjemler = (): ILovKildeToRegistreringshjemmel[] => {
   const { data } = useGetKodeverkQuery();
@@ -10,35 +10,50 @@ export const useMergedLovKildeToRegistreringshjemler = (): ILovKildeToRegistreri
       return [];
     }
 
-    const lovKildeToRegistreringshjemmelMerged = data.ytelser
+    const lovKilderToRegistreringshjemlerMap = data.ytelser
       .flatMap(({ lovKildeToRegistreringshjemler }) => lovKildeToRegistreringshjemler)
-      .reduce((lovKildeToRegistreringshjemmelAcc, { registreringshjemler, lovkilde }) => {
-        const existing = lovKildeToRegistreringshjemmelAcc.get(lovkilde.id);
+      .reduce(
+        (lovkildeToRegistreringshjemler, { lovkilde, registreringshjemler }) => {
+          const existingLovkildeToRegistreringshjemmel = lovkildeToRegistreringshjemler.get(lovkilde.id);
 
-        if (typeof existing === 'undefined') {
-          lovKildeToRegistreringshjemmelAcc.set(lovkilde.id, { registreringshjemler, lovkilde });
-        } else {
-          const lovkildeHjemlerMerged = existing.registreringshjemler.reduce((hjemler, hjemmel) => {
-            const existingHjemmel = hjemler.get(hjemmel.id);
+          const registreringshjemmelMap = new Map<string, IKodeverkSimpleValue>();
 
-            if (typeof existingHjemmel === 'undefined') {
-              hjemler.set(hjemmel.id, hjemmel);
-            } else {
-              hjemler.set(hjemmel.id, { ...existing, ...hjemmel });
-            }
+          if (typeof existingLovkildeToRegistreringshjemmel === 'undefined') {
+            registreringshjemler.forEach((registreringshjemmel) => {
+              registreringshjemmelMap.set(registreringshjemmel.id, registreringshjemmel);
+            });
 
-            return hjemler;
-          }, new Map<string, IKodeverkSimpleValue>());
+            lovkildeToRegistreringshjemler.set(lovkilde.id, {
+              lovkilde,
+              registreringshjemmelMap,
+            });
+          } else {
+            registreringshjemler.forEach((registreringshjemmel) => {
+              existingLovkildeToRegistreringshjemmel.registreringshjemmelMap.set(
+                registreringshjemmel.id,
+                registreringshjemmel
+              );
+            });
+          }
 
-          lovKildeToRegistreringshjemmelAcc.set(lovkilde.id, {
-            ...existing,
-            registreringshjemler: Array.from(lovkildeHjemlerMerged.values()),
-          });
-        }
+          return lovkildeToRegistreringshjemler;
+        },
+        new Map<
+          string,
+          {
+            lovkilde: IKodeverkValue;
+            registreringshjemmelMap: Map<string, IKodeverkSimpleValue>;
+          }
+        >()
+      );
 
-        return lovKildeToRegistreringshjemmelAcc;
-      }, new Map<string, ILovKildeToRegistreringshjemmel>());
-
-    return Array.from(lovKildeToRegistreringshjemmelMerged.values());
+    return Array.from(lovKilderToRegistreringshjemlerMap.values())
+      .map(({ lovkilde, registreringshjemmelMap }) => ({
+        lovkilde,
+        registreringshjemler: Array.from(registreringshjemmelMap.values()).sort(
+          (a, b) => Number.parseInt(a.id, 10) - Number.parseInt(b.id, 10)
+        ),
+      }))
+      .sort((a, b) => Number.parseInt(a.lovkilde.id, 10) - Number.parseInt(b.lovkilde.id, 10));
   }, [data]);
 };

@@ -1,23 +1,15 @@
-import dayjs from 'dayjs';
 import React from 'react';
 import styled from 'styled-components';
-import { QueryParams } from '../types';
-
-interface IOption {
-  label: string;
-  fromDate: string;
-  toDate: string;
-}
-
-const NOW = dayjs();
-const ONE_YEAR_AGO = NOW.subtract(12, 'month');
-const LAST_YEAR_START = ONE_YEAR_AGO.startOf('year');
-const LAST_YEAR_END = ONE_YEAR_AGO.endOf('year');
-const FORMAT = 'YYYY-MM-DD';
+import { isoDateToPretty } from '../../../../domain/date';
+import { QueryParams } from '../../types';
+import { FORMAT, LAST_YEAR_END, LAST_YEAR_START, NOW, ONE_YEAR_AGO } from './constants';
+import { getLastTertial } from './get-last-tertial';
+import { IOption } from './types';
 
 const OPTIONS: IOption[] = [
   { label: 'Siste 30 dager', fromDate: NOW.subtract(30, 'day').format(FORMAT), toDate: NOW.format(FORMAT) },
-  { label: 'Siste 3 mnd', fromDate: NOW.subtract(3, 'month').format(FORMAT), toDate: NOW.format(FORMAT) },
+  { label: 'Siste tertial', ...getLastTertial(NOW) },
+  { label: 'Nest siste tertial', ...getLastTertial(NOW.subtract(4, 'month')) },
   { label: 'Siste 12 mnd', fromDate: ONE_YEAR_AGO.format(FORMAT), toDate: NOW.format(FORMAT) },
   { label: 'I år', fromDate: NOW.startOf('year').format(FORMAT), toDate: NOW.format(FORMAT) },
   { label: 'I fjor', fromDate: LAST_YEAR_START.format(FORMAT), toDate: LAST_YEAR_END.format(FORMAT) },
@@ -36,9 +28,12 @@ export const DatePresets = ({ selectedFromDate, selectedToDate, setFilter }: Pro
 
       const Button = isSelected ? SelectedPresetButton : PresetButton;
 
+      const title = `${isoDateToPretty(fromDate)} - ${isoDateToPretty(toDate)}`;
+
       return (
         <StyledLi key={label}>
           <Button
+            title={title}
             onClick={() => {
               setFilter(QueryParams.FROM_DATE, fromDate);
               setFilter(QueryParams.TO_DATE, toDate);

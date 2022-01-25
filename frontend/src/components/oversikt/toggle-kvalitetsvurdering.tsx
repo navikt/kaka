@@ -1,43 +1,11 @@
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import React from 'react';
 import styled from 'styled-components';
-import {
-  KLAGEFORBEREDELSEN_REASON_NAMES,
-  RAADGIVENDE_LEGE_REASON_NAMES,
-  UTREDNINGEN_REASON_NAMES,
-  VEDTAKET_REASON_NAMES,
-} from '../../hooks/use-reason-name';
 import { KvalitetsvurderingProps } from './charts/kvalitetsvurdering';
+import { KVALITETSVURDERING_OPTIONS } from './charts/kvalitetsvurdering-options';
 import { useKvalitetsvurderingParam } from './hooks/use-kvalitetsvurdering-param';
 
-interface IOption {
-  title: string;
-  relevantReasons: string[];
-}
-
-export const OPTIONS: { [key in KvalitetsvurderingProps['field']]: IOption } = {
-  klageforberedelsenRadioValg: {
-    title: 'Klageforberedelsen',
-    relevantReasons: Object.keys(KLAGEFORBEREDELSEN_REASON_NAMES),
-  },
-
-  brukAvRaadgivendeLegeRadioValg: {
-    title: 'Bruk av rådgivende lege',
-    relevantReasons: Object.keys(RAADGIVENDE_LEGE_REASON_NAMES),
-  },
-
-  utredningenRadioValg: {
-    title: 'Utredningen',
-    relevantReasons: Object.keys(UTREDNINGEN_REASON_NAMES),
-  },
-
-  vedtaketRadioValg: {
-    title: 'Vedtak',
-    relevantReasons: Object.keys(VEDTAKET_REASON_NAMES),
-  },
-};
-
-const ALLOWED_KEYS = Object.keys(OPTIONS);
+const ALLOWED_KEYS = Object.keys(KVALITETSVURDERING_OPTIONS);
 
 export const ToggleKvalitetsvurdering = () => {
   const [field, setField] = useKvalitetsvurderingParam();
@@ -52,7 +20,7 @@ export const ToggleKvalitetsvurdering = () => {
 
   return (
     <StyledRadiogruppe>
-      {Object.entries(OPTIONS).map(([key, value]) => (
+      {Object.entries(KVALITETSVURDERING_OPTIONS).map(([key, value]) => (
         <Radio
           key={key}
           name={key}
