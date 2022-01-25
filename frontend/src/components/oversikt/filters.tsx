@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { ExcelExport } from '../excel-export/excel-export';
 import { DateFilter } from './filters/date';
-import { DatePresets } from './filters/date-presets';
+import { DatePresets } from './filters/date-presets/date-presets';
 import { EnheterFilter } from './filters/enheter';
 import { HjemmelFilter } from './filters/hjemler';
 import { ResetDateButton } from './filters/reset-date';

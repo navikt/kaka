@@ -15,13 +15,6 @@
     "lint-staged": "lint-staged",
     "prepare": "cd .. && husky install frontend/.husky"
   },
-  "jest": {
-    "collectCoverage": true,
-    "coverageReporters": [
-      "json",
-      "html"
-    ]
-  },
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^27.0.3",
