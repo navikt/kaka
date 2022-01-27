@@ -5,6 +5,7 @@ import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useGetSaksdataQuery } from '../../../redux-api/saksdata';
+import { UtfallEnum } from '../../../types/utfall';
 import { Annet } from './annet';
 import { BrukAvRaadgivendeLege } from './bruk-av-raadgivende-lege';
 import { Klageforberedelsen } from './klageforberedelsen';
@@ -20,7 +21,12 @@ export const Kvalitetsskjema = () => {
     return <NavFrontendSpinner />;
   }
 
-  if (typeof saksdata === 'undefined' || typeof kvalitetsvurdering === 'undefined' || isError) {
+  if (
+    typeof saksdata === 'undefined' ||
+    typeof kvalitetsvurdering === 'undefined' ||
+    saksdata.utfallId === UtfallEnum.TRUKKET ||
+    isError
+  ) {
     return null;
   }
 
