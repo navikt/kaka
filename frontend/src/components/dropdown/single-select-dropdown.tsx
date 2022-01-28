@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useOnClickOutside } from '../../hooks/use-on-click-outside';
 import { IKodeverkValue } from '../../types/kodeverk';
 import { Header } from './header';
@@ -7,18 +7,25 @@ import { StyledDropdown, StyledListItem, StyledSectionList } from './styled-comp
 
 interface DropdownProps {
   selected: string | null;
-  options: IKodeverkValue[];
+  kodeverk: IKodeverkValue[];
   open: boolean;
   onChange: (selected: string) => void;
   close: () => void;
+  labelFn: (kodeverkValue: IKodeverkValue) => string;
+}
+
+interface Option {
+  value: string;
+  label: string;
 }
 
 export const SingleSelectDropdown = ({
   selected,
-  options,
+  kodeverk,
   open,
   onChange,
   close,
+  labelFn,
 }: DropdownProps): JSX.Element | null => {
   const [filter, setFilter] = useState('');
   const [fuzzyFilter, setFuzzyFilter] = useState<RegExp | null>(null);
@@ -28,7 +35,15 @@ export const SingleSelectDropdown = ({
 
   useOnClickOutside(close, dropdownRef);
 
-  const filteredOptions = filterOptions(options, fuzzyFilter, simpleFilter);
+  const options = useMemo(
+    () => kodeverk.map((kodeverkValue) => ({ value: kodeverkValue.id, label: labelFn(kodeverkValue) })),
+    [kodeverk, labelFn]
+  );
+
+  const filteredOptions = useMemo(
+    () => filterOptions(options, fuzzyFilter, simpleFilter),
+    [fuzzyFilter, options, simpleFilter]
+  );
 
   useEffect(() => {
     if (!open && focused !== -1) {
@@ -40,7 +55,7 @@ export const SingleSelectDropdown = ({
     return null;
   }
 
-  const onSelectFocused = () => onChange(filteredOptions[focused].id);
+  const onSelectFocused = () => onChange(filteredOptions[focused].value);
 
   return (
     <StyledDropdown top={0} ref={dropdownRef}>
@@ -58,10 +73,15 @@ export const SingleSelectDropdown = ({
         close={close}
       />
       <StyledSectionList>
-        {filteredOptions.map(({ id, beskrivelse }, i) => (
-          <StyledListItem key={id}>
-            <SingleSelectOption active={selected === id} filterId={id} onSelect={onChange} focused={i === focused}>
-              {beskrivelse}
+        {filteredOptions.map(({ label, value }, i) => (
+          <StyledListItem key={value}>
+            <SingleSelectOption
+              active={selected === value}
+              filterId={value}
+              onSelect={onChange}
+              focused={i === focused}
+            >
+              {label}
             </SingleSelectOption>
           </StyledListItem>
         ))}
@@ -70,18 +90,13 @@ export const SingleSelectDropdown = ({
   );
 };
 
-const filterOptions = (
-  options: IKodeverkValue[],
-  fuzzyFilter: RegExp | null,
-  simpleFilter: RegExp | null
-): IKodeverkValue[] => {
+const filterOptions = (options: Option[], fuzzyFilter: RegExp | null, simpleFilter: RegExp | null): Option[] => {
   if (fuzzyFilter === null || simpleFilter === null) {
     return options;
   }
 
-  const simpleMatch = options.filter(({ beskrivelse }) => simpleFilter.test(beskrivelse));
-  const fuzzyMatch = options
-    .filter((o) => !simpleMatch.includes(o))
-    .filter(({ beskrivelse }) => fuzzyFilter.test(beskrivelse));
+  const simpleMatch = options.filter(({ label }) => simpleFilter.test(label));
+  const fuzzyMatch = options.filter((o) => !simpleMatch.includes(o)).filter(({ label }) => fuzzyFilter.test(label));
+
   return [...simpleMatch, ...fuzzyMatch];
 };
