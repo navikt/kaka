@@ -90,10 +90,11 @@ export const FraVedtaksenhet = () => {
         </ToggleButton>
         <SingleSelectDropdown
           selected={saksdata.vedtaksinstansEnhet}
-          options={options}
+          kodeverk={options}
           open={open}
           onChange={onChange}
           close={close}
+          labelFn={({ navn, beskrivelse }) => `${navn} - ${beskrivelse}`}
         />
       </Container>
       <ErrorMessage error={validationError} />
