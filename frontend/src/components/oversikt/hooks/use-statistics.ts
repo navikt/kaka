@@ -25,19 +25,21 @@ export const useFilteredStatistics = () => {
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const enheter = useQueryFilters(QueryParams.ENHETER);
+  const klageenheter = useQueryFilters(QueryParams.KLAGEENHETER);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
 
   return useMemo(
     () =>
       data.filter(
-        ({ ytelseId, sakstypeId, utfallId, tilknyttetEnhet, hjemmelIdList }) =>
-          (enheter.length === 0 || enheter.includes(tilknyttetEnhet)) &&
+        ({ ytelseId, sakstypeId, utfallId, tilknyttetEnhet, vedtaksinstansEnhet, hjemmelIdList }) =>
+          (klageenheter.length === 0 || klageenheter.includes(tilknyttetEnhet)) &&
+          (enheter.length === 0 || vedtaksinstansEnhet === null || enheter.includes(vedtaksinstansEnhet)) &&
           (utfall.length === 0 || utfall.includes(utfallId)) &&
           (types.length === 0 || types.includes(sakstypeId)) &&
           (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
           (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id)))
       ),
-    [data, types, ytelser, utfall, enheter, hjemler]
+    [data, types, ytelser, utfall, enheter, klageenheter, hjemler]
   );
 };
 

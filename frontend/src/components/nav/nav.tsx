@@ -20,7 +20,10 @@ export const Nav = () => {
   return (
     <StyledNav role="navigation" aria-label="Meny" data-testid="kaka-nav">
       <StyledNavLinkList>
-        <NavItem to={`/oversikt?enheter=${enhetId}&fromDate=${fromDate}&toDate=${toDate}`} testId="oversikt-nav-link">
+        <NavItem
+          to={`/oversikt?klageenheter=${enhetId}&fromDate=${fromDate}&toDate=${toDate}`}
+          testId="oversikt-nav-link"
+        >
           Oversikt
         </NavItem>
         <NavItem

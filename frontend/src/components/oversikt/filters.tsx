@@ -9,6 +9,7 @@ import { DateFilter } from './filters/date';
 import { DatePresets } from './filters/date-presets/date-presets';
 import { EnheterFilter } from './filters/enheter';
 import { HjemmelFilter } from './filters/hjemler';
+import { KlageenheterFilter } from './filters/klageenheter';
 import { ResetDateButton } from './filters/reset-date';
 import { SakstypeFilter } from './filters/sakstyper';
 import { UtfallFilter } from './filters/utfall';
@@ -27,6 +28,7 @@ export const Filters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedEnheter = useQueryFilters(QueryParams.ENHETER);
+  const selectedKlageenheter = useQueryFilters(QueryParams.KLAGEENHETER);
   const selectedTypes = useQueryFilters(QueryParams.TYPES);
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
@@ -50,7 +52,7 @@ export const Filters = () => {
 
     if (typeof query === 'string') {
       setSearchParams(
-        `?${QueryParams.ENHETER}=${query}&${QueryParams.FROM_DATE}=${FORMATTED_30_DAYS_AGO}&${QueryParams.TO_DATE}=${FORMATTED_NOW}`
+        `?${QueryParams.KLAGEENHETER}=${query}&${QueryParams.FROM_DATE}=${FORMATTED_30_DAYS_AGO}&${QueryParams.TO_DATE}=${FORMATTED_NOW}`
       );
     } else {
       setSearchParams('');
@@ -95,6 +97,10 @@ export const Filters = () => {
 
       <DatePresets selectedFromDate={fromDate} selectedToDate={toDate} setFilter={setFilter} />
 
+      <KlageenheterFilter
+        selected={selectedKlageenheter}
+        setSelected={(values) => setFilter(QueryParams.KLAGEENHETER, ...values)}
+      />
       <EnheterFilter selected={selectedEnheter} setSelected={(values) => setFilter(QueryParams.ENHETER, ...values)} />
       <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
       <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
@@ -106,24 +112,35 @@ export const Filters = () => {
           values={selectedEnheter}
           queryKey={QueryParams.ENHETER}
           kodeverkKey="enheter"
+          category="vedtaksinstans"
           setFilter={setFilter}
         />
         <SelectedFilters
           values={selectedUtfall}
           queryKey={QueryParams.UTFALL}
           kodeverkKey="utfall"
+          category="utfall"
           setFilter={setFilter}
         />
         <SelectedFilters
           values={selectedTypes}
           queryKey={QueryParams.TYPES}
           kodeverkKey="sakstyper"
+          category="sakstype"
           setFilter={setFilter}
         />
         <SelectedFilters
           values={selectedYtelser}
           queryKey={QueryParams.YTELSER}
           kodeverkKey="ytelser"
+          category="ytelse"
+          setFilter={setFilter}
+        />
+        <SelectedFilters
+          values={selectedKlageenheter}
+          queryKey={QueryParams.KLAGEENHETER}
+          kodeverkKey="klageenheter"
+          category="klageenhet"
           setFilter={setFilter}
         />
         <FilteredHjemlerPills setFilter={setFilter} />

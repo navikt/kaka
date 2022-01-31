@@ -8,6 +8,10 @@ export const tickCallback = (value: number | string, total: number): string => {
     return value;
   }
 
+  if (total === 0) {
+    return '0 %';
+  }
+
   const p = Math.round((value / total) * 100);
   return `${p} %`;
 };

@@ -6,8 +6,10 @@ import { REASON_NAMES } from '../../../hooks/use-reason-name';
 import { RadioValg } from '../../../types/radio';
 import { IStatisticVurdering } from '../../../types/statistics';
 import { useFilteredFinishedStatistics } from '../hooks/use-statistics';
-import { percent, tickCallback, truncateLabel } from './formatting';
-import { ChartTitle, QuarterChartContainer, ThreeQuarterChartContainer } from './styled-components';
+import { GRAPH_COLOR } from './colors';
+import { percent, tickCallback } from './formatting';
+import { MangelfulltOverTime } from './mangelfullt-over-time';
+import { ChartContainer, ChartTitle, QuarterChartContainer, ThreeQuarterChartContainer } from './styled-components';
 
 const useDoughnutOptions = (): ChartOptions<'doughnut'> => ({
   responsive: true,
@@ -19,11 +21,19 @@ const useDoughnutOptions = (): ChartOptions<'doughnut'> => ({
   plugins: {
     legend: {
       align: 'center',
+      labels: {
+        font: { size: 13 },
+      },
     },
   },
 });
 
 const useBarOptions = (labels: string[], data: number[], total = 1): ChartOptions<'bar'> => ({
+  elements: {
+    bar: {
+      borderRadius: 4,
+    },
+  },
   responsive: true,
   aspectRatio: 4,
   animation: {
@@ -34,7 +44,6 @@ const useBarOptions = (labels: string[], data: number[], total = 1): ChartOption
   scales: {
     y: {
       ticks: {
-        callback: (value) => truncateLabel(labels[value]),
         font: {
           size: 14,
           family: '"Source Sans Pro", Arial, sans-serif',
@@ -111,47 +120,89 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons }: Kvalitetsv
   );
 
   const doughnutOptions = useDoughnutOptions();
-  const barOptions = useBarOptions(barLabels, barData, numberOfMangelfulleSaker);
 
   return (
-    <CategoryContainer>
-      <QuarterChartContainer>
-        <ChartTitle>{title}</ChartTitle>
-        <Doughnut
-          options={doughnutOptions}
-          data={{
-            labels: doughnutLabels,
-            datasets: [
-              {
-                label: 'Kvalitetsavviket i vedtaket',
-                hoverOffset: 4,
-                data: doughnutData,
-                backgroundColor: ['#3386E0', '#D05C4A'],
-              },
-            ],
-          }}
-        />
-      </QuarterChartContainer>
-      <ThreeQuarterChartContainer>
-        <ChartTitle>Kvalitetsavviket i {title.toLowerCase()}</ChartTitle>
-        <Bar
-          options={barOptions}
-          data={{
-            labels: barLabels,
-            datasets: [
-              {
-                data: barData,
-                backgroundColor: '#D05C4A',
-                barPercentage: 0.95,
-                categoryPercentage: 0.95,
-              },
-            ],
-          }}
-        />
-      </ThreeQuarterChartContainer>
-    </CategoryContainer>
+    <Container>
+      <CategoryContainer>
+        <QuarterChartContainer>
+          <ChartTitle>{title}</ChartTitle>
+          <Doughnut
+            options={doughnutOptions}
+            data={{
+              labels: doughnutLabels,
+              datasets: [
+                {
+                  label: 'Kvalitetsavviket i vedtaket',
+                  hoverOffset: 4,
+                  data: doughnutData,
+                  backgroundColor: [GRAPH_COLOR.BLUE, GRAPH_COLOR.RED],
+                },
+              ],
+            }}
+          />
+        </QuarterChartContainer>
+        <ThreeQuarterChartContainer>
+          <ChartTitle>Kvalitetsavviket i {title.toLowerCase()}</ChartTitle>
+          <KvalitetsavvikChart
+            barLabels={barLabels}
+            barData={barData}
+            numberOfMangelfulleSaker={numberOfMangelfulleSaker}
+          />
+        </ThreeQuarterChartContainer>
+      </CategoryContainer>
+      <ChartContainer>
+        <ChartTitle>Kvalitetsavviket i {title.toLowerCase()} per måned</ChartTitle>
+        <MangelfulltOverTime />
+      </ChartContainer>
+    </Container>
   );
 };
+
+interface KvalitetsavvikChartProps {
+  barLabels: string[];
+  barData: number[];
+  numberOfMangelfulleSaker: number;
+}
+
+const KvalitetsavvikChart = ({ barLabels, barData, numberOfMangelfulleSaker }: KvalitetsavvikChartProps) => {
+  const barOptions = useBarOptions(barLabels, barData, numberOfMangelfulleSaker);
+
+  if (barData.length === 0 || barData.every((value) => value === 0)) {
+    return <TextChart>Ingen data</TextChart>;
+  }
+
+  return (
+    <Bar
+      options={barOptions}
+      data={{
+        labels: barLabels,
+        datasets: [
+          {
+            data: barData,
+            backgroundColor: GRAPH_COLOR.RED,
+            barPercentage: 0.95,
+            categoryPercentage: 0.95,
+          },
+        ],
+      }}
+    />
+  );
+};
+
+const TextChart = styled.span`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #e6e6e6;
+`;
+
+const Container = styled.section`
+  width: 100%;
+`;
 
 const CategoryContainer = styled.div`
   display: flex;

@@ -9,6 +9,11 @@ import { percent, tickCallback } from './formatting';
 import { ChartContainer } from './styled-components';
 
 const useOptions = (total = 1): ChartOptions<'bar'> => ({
+  elements: {
+    bar: {
+      borderRadius: 4,
+    },
+  },
   responsive: true,
   animation: {
     duration: 200,

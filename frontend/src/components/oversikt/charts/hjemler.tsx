@@ -5,10 +5,16 @@ import { useSearchParams } from 'react-router-dom';
 import { useHjemmelTexts } from '../hooks/use-hjemmel-texts';
 import { useFilteredStatistics } from '../hooks/use-statistics';
 import { QueryParams } from '../types';
+import { GRAPH_COLOR } from './colors';
 
 type TooltipCallback = (args: { parsed: { x: number }; label: string }) => string;
 
 const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'bar'> => ({
+  elements: {
+    bar: {
+      borderRadius: 4,
+    },
+  },
   animation: {
     duration: 200,
     easing: 'easeOutQuart',
@@ -33,6 +39,7 @@ const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'bar'> => (
     },
     x: {
       ticks: {
+        stepSize: 1,
         font: {
           size: 14,
           family: '"Source Sans Pro", Arial, sans-serif',
@@ -110,8 +117,8 @@ export const Hjemler = () => {
       datasets: [
         {
           data,
-          backgroundColor: '#3386E0',
-          borderColor: '#3386E0',
+          backgroundColor: GRAPH_COLOR.BLUE,
+          borderColor: GRAPH_COLOR.BLUE,
         },
       ],
     };

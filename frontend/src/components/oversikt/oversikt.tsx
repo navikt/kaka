@@ -13,10 +13,10 @@ import {
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import React from 'react';
 import { CardSize, DynamicCard } from './card/card';
+import { BehandlingstidHistogram } from './charts/behandlingstid-histogram';
 import { BehandlingstidOverTime } from './charts/behandlingstid-over-time';
 import { Hjemler } from './charts/hjemler';
 import { Kvalitetsvurderinger } from './charts/kvalitetsvurderinger';
-import { RegistreringTimeDistribution } from './charts/registrering-time-distribution';
 import { UtfallGraph } from './charts/utfall-graph';
 import { Filters } from './filters';
 import { useStatisticsIsLoading } from './hooks/use-statistics';
@@ -29,8 +29,9 @@ import {
   ContentArea,
   FilterSection,
   FiltersAndContentContainer,
+  FullWidthStickyContainer,
   Overlay,
-  StickyStats,
+  StatsContainer,
   StyledCharts,
 } from './styled-components';
 import { ToggleTotalOrKA } from './toggle-ka-total';
@@ -46,19 +47,21 @@ export const Oversikt = () => (
         <Filters />
       </FilterSection>
       <ContentArea>
-        <StickyStats>
-          <Finished />
-          <Omgjort />
-          <Gjennomsnittstid />
-          <Processed weeks={12} />
-          <Processed weeks={15} />
-        </StickyStats>
+        <FullWidthStickyContainer>
+          <StatsContainer>
+            <Finished />
+            <Omgjort />
+            <Gjennomsnittstid />
+            <Processed weeks={12} />
+            <Processed weeks={15} />
+          </StatsContainer>
+        </FullWidthStickyContainer>
 
         <DynamicCard size={CardSize.LARGE}>
           <CardTitle>Behandlingstid</CardTitle>
           <ToggleTotalOrKA />
           <StyledCharts>
-            <RegistreringTimeDistribution />
+            <BehandlingstidHistogram />
           </StyledCharts>
         </DynamicCard>
 

@@ -15,6 +15,7 @@ export const SelectedFilters = <Q extends QueryParams, K extends keyof IKodeverk
   queryKey,
   kodeverkKey,
   setFilter,
+  category,
 }: SelectedFiltersProps<Q, K>) => {
   const kodeverkValues = useKodeverkValueDefault(kodeverkKey);
 
@@ -35,7 +36,7 @@ export const SelectedFilters = <Q extends QueryParams, K extends keyof IKodeverk
   );
 
   const pills = mappedValues.map(({ id, name }) => (
-    <Pill key={id} id={id} queryKey={queryKey} setFilter={setFilter} name={name} values={values} />
+    <Pill key={id} id={id} queryKey={queryKey} setFilter={setFilter} name={name} values={values} category={category} />
   ));
   return <>{pills}</>;
 };
@@ -44,6 +45,7 @@ interface CommonProps<Q extends QueryParams> {
   queryKey: Q;
   setFilter: (filter: QueryParams, ...values: string[]) => void;
   values: string[];
+  category: string;
 }
 
 interface PillProps<Q extends QueryParams> extends CommonProps<Q> {
@@ -51,9 +53,12 @@ interface PillProps<Q extends QueryParams> extends CommonProps<Q> {
   name: string;
 }
 
-export const Pill = <Q extends QueryParams>({ name, queryKey, setFilter, id, values }: PillProps<Q>) => (
+export const Pill = <Q extends QueryParams>({ name, category, queryKey, setFilter, id, values }: PillProps<Q>) => (
   <StyledLi>
-    <StyledPill title={`Fjern ${name}`} onClick={() => setFilter(queryKey, ...values.filter((v) => v !== id))}>
+    <StyledPill
+      title={`Fjern ${name} fra filter for ${category}`}
+      onClick={() => setFilter(queryKey, ...values.filter((v) => v !== id))}
+    >
       {name} <PillIcon />
     </StyledPill>
   </StyledLi>

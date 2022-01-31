@@ -1,22 +1,23 @@
 import styled from 'styled-components';
 
-export const ChartContainer = styled.div`
+const Container = styled.div`
+  position: relative;
   padding: 16px;
+`;
+
+export const ChartContainer = styled(Container)`
   width: 100%;
 `;
 
-export const QuarterChartContainer = styled.div`
-  padding: 16px;
+export const QuarterChartContainer = styled(Container)`
   width: 25%;
 `;
 
-export const ThreeQuarterChartContainer = styled.div`
-  padding: 16px;
+export const ThreeQuarterChartContainer = styled(Container)`
   width: 75%;
 `;
 
-export const HalfChartContainer = styled.div`
-  padding: 16px;
+export const HalfChartContainer = styled(Container)`
   width: 50%;
 `;
 

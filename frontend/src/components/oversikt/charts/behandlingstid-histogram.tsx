@@ -4,11 +4,16 @@ import { Bar } from 'react-chartjs-2';
 import { useBehandlingstidParam } from '../hooks/use-behandlingstid-param';
 import { useBuckets } from '../hooks/use-buckets';
 import { useFilteredStatistics } from '../hooks/use-statistics';
+import { GRAPH_COLOR } from './colors';
 import { ChartContainer } from './styled-components';
 
-const useOptions = (onClick?: ChartOptions<'bar'>['onClick']): ChartOptions<'bar'> => ({
-  onClick,
+const useOptions = (): ChartOptions<'bar'> => ({
   responsive: true,
+  elements: {
+    bar: {
+      borderRadius: 4,
+    },
+  },
   aspectRatio: 3,
   animation: {
     duration: 200,
@@ -61,20 +66,20 @@ const useOptions = (onClick?: ChartOptions<'bar'>['onClick']): ChartOptions<'bar
   },
   backgroundColor: (ctx) => {
     if (typeof ctx?.parsed === 'undefined') {
-      return '#3386E0';
+      return GRAPH_COLOR.BLUE;
     }
 
     const { x } = ctx.parsed;
 
     if (x < 12) {
-      return '#3386E0';
+      return GRAPH_COLOR.BLUE;
     }
 
     if (x > 15) {
-      return '#D05C4A';
+      return GRAPH_COLOR.RED;
     }
 
-    return '#FFAA33';
+    return GRAPH_COLOR.YELLOW;
   },
   plugins: {
     legend: {
@@ -97,7 +102,7 @@ const useOptions = (onClick?: ChartOptions<'bar'>['onClick']): ChartOptions<'bar
   },
 });
 
-export const RegistreringTimeDistribution = () => {
+export const BehandlingstidHistogram = () => {
   const stats = useFilteredStatistics();
   const [field] = useBehandlingstidParam();
   const fieldStats = useMemo(() => stats.map((stat) => stat[field]), [stats, field]);

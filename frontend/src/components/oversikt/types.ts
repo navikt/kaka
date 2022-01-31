@@ -2,6 +2,7 @@ import { IKodeverkSimpleValue } from '../../types/kodeverk';
 
 export enum QueryParams {
   ENHETER = 'enheter',
+  KLAGEENHETER = 'klageenheter',
   TYPES = 'types',
   YTELSER = 'ytelser',
   UTFALL = 'utfall',
