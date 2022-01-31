@@ -32,7 +32,7 @@ export const FraVedtaksenhet = () => {
     return saksdata.sakstypeId === SakstypeEnum.ANKE ? ankeenheter : enheter;
   }, [saksdata, ankeenheter, enheter]);
 
-  const selectedEnhetName = useEnhetName(options, saksdata?.vedtaksinstansEnhet ?? null);
+  const selectedEnhetName = useEnhetName(options, saksdata?.vedtaksinstansEnhet);
 
   if (typeof saksdata === 'undefined') {
     return null;
@@ -102,11 +102,20 @@ export const FraVedtaksenhet = () => {
   );
 };
 
-const useEnhetName = (options: IKodeverkValue[], id: string | null) =>
-  useMemo<string | null>(
-    () => (id !== null ? options.find((option) => option.id === id)?.beskrivelse ?? null : null),
-    [options, id]
-  );
+const useEnhetName = (options: IKodeverkValue[], id: string | null | undefined) =>
+  useMemo(() => {
+    if (typeof id !== 'string') {
+      return 'Ingen enhet';
+    }
+
+    const enhet = options.find((option) => option.id === id);
+
+    if (typeof enhet === 'undefined') {
+      return 'Ingen enhet';
+    }
+
+    return `${enhet.navn} - ${enhet.beskrivelse}`;
+  }, [options, id]);
 
 const Container = styled.section`
   position: relative;
