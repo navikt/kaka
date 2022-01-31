@@ -8,7 +8,7 @@ import { Utfall } from '../common-table-components/utfall';
 import { Ytelse } from '../common-table-components/ytelse';
 
 interface Props extends ISaksdataBase {
-  testId?: string;
+  testId: string;
 }
 
 export const Row = ({ id, sakstypeId, ytelseId, sakenGjelder, modified, utfallId, testId }: Props): JSX.Element => (

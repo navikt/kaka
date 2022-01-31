@@ -1,7 +1,7 @@
 import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
-import { REASON_NAMES } from '../../../hooks/use-reason-name';
+import { REASON_NAMES, isReasonNameKey } from '../../../hooks/use-reason-name';
 import { RadioValg } from '../../../types/radio';
 import { useKvalitetsvurderingParam } from '../hooks/use-kvalitetsvurdering-param';
 import { useFilteredFinishedStatistics } from '../hooks/use-statistics';
@@ -89,7 +89,7 @@ export const MangelfulltOverTime = () => {
   const datasets = useMemo(
     () => [
       ...relevantReasons.map((reasonId, i) => ({
-        label: typeof REASON_NAMES[reasonId] === 'string' ? `${REASON_NAMES[reasonId]}` : reasonId,
+        label: isReasonNameKey(reasonId) ? REASON_NAMES[reasonId] : reasonId,
         data: Array.from(data.values()).map((dataValues) => dataValues.get(reasonId)),
         backgroundColor: getColor(i),
         borderColor: getColor(i),
