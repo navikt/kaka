@@ -23,6 +23,7 @@ export const FilteredHjemlerPills = ({ setFilter }: FilteredHjemlerPillsProps) =
         setFilter={setFilter}
         name={label}
         values={selectedHjemler}
+        category="hjemler"
       />
     );
   });

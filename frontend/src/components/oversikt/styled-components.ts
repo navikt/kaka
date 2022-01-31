@@ -2,65 +2,96 @@ import styled from 'styled-components';
 
 const COLUMN_WIDTH = 400;
 const GAP = 16;
+const BREAK_POINT = 1100;
+
+export const FiltersAndContentContainer = styled.div`
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  gap: ${GAP}px;
+  width: 100%;
+
+  @media (max-width: ${BREAK_POINT}px) {
+    flex-direction: column;
+  }
+`;
+
+export const FilterSection = styled.div`
+  display: block;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border-right: 1px solid #c6c2bf;
+  padding-top: 32px;
+  padding-right: 16px;
+  margin-right: 0;
+  width: 320px;
+
+  @media (max-width: ${BREAK_POINT}px) {
+    width: 100%;
+  }
+`;
 
 export const ContentArea = styled.div`
   display: flex;
-  flex-grow: 1;
   flex-wrap: wrap;
   flex-direction: row;
   gap: ${GAP}px;
-  padding-top: 0;
-  padding-left: 16px;
-  padding-right: 0;
   padding-bottom: 40px;
+  padding-top: ${GAP}px;
 `;
 
-const Card = styled.section`
+const BaseCard = styled.section`
   padding: 16px;
   border-radius: 4px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
-  max-width: 100%;
+`;
+
+const Card = styled(BaseCard)`
+  width: 100%;
+  flex-grow: 0;
 `;
 
 export const CardLarge = styled(Card)`
-  width: ${COLUMN_WIDTH * 4 - GAP}px;
+  max-width: ${COLUMN_WIDTH * 4}px;
 `;
 
 export const CardMedium = styled(Card)`
-  width: ${COLUMN_WIDTH * 2 - GAP}px;
+  max-width: ${COLUMN_WIDTH * 2 - GAP / 2}px;
 `;
 
 export const CardSmall = styled(Card)`
-  width: ${COLUMN_WIDTH - GAP}px;
+  max-width: ${COLUMN_WIDTH + COLUMN_WIDTH / 3 - (GAP * 2) / 3}px;
 `;
 
-export const StickyStats = styled.section`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+export const CardExtraSmall = styled(Card)`
+  max-width: ${COLUMN_WIDTH - (GAP * 3) / 4}px;
+`;
+
+export const StickyContainer = styled.div`
   position: sticky;
-  gap: ${GAP * 2}px;
-  justify-content: center;
-  z-index: 3;
   top: 48px;
-  padding: 16px;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  border-radius: 4px;
-  background-color: #fff;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+`;
+
+export const FullWidthStickyContainer = styled(StickyContainer)`
   width: 100%;
 `;
 
-export const KeyStatsArea = styled.div`
+export const StatsContainer = styled(BaseCard)`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: ${GAP}px;
-  justify-content: left;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  width: 100%;
+  gap: ${GAP * 2}px;
+  justify-content: center;
+  background-color: #fff;
+  height: fit-content;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (max-width: ${BREAK_POINT}px) {
+    position: static;
+  }
 `;
 
 export const CardTitle = styled.h1`
@@ -76,22 +107,6 @@ export const CardTitle = styled.h1`
   font-size: 32px;
   line-height: 1;
   text-align: center;
-`;
-
-export const FiltersAndContentContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  position: relative;
-`;
-
-export const FilterSection = styled.div`
-  display: block;
-  border-right: 1px solid #c6c2bf;
-  padding-top: 32px;
-  padding-right: 16px;
-  margin-right: 0;
-  width: 320px;
 `;
 
 export const StyledCharts = styled.section`
