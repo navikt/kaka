@@ -48,4 +48,7 @@ export const REASON_NAMES = {
   nyeOpplysningerMottatt: 'Nye opplysninger mottatt etter oversendelse til klageinstansen',
 };
 
+export const isReasonNameKey = (key: string): key is keyof typeof REASON_NAMES =>
+  Object.keys(REASON_NAMES).includes(key);
+
 export const useReasonName = (field: keyof typeof REASON_NAMES): string => REASON_NAMES[field] ?? field;
