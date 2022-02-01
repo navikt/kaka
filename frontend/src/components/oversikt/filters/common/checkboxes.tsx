@@ -11,10 +11,10 @@ export interface CheckboxesProps {
 
 export const Checkboxes = ({ selected, filters, onCheck }: CheckboxesProps): JSX.Element => (
   <CheckboxGruppe>
-    {filters.map(({ id, navn, count }) => (
+    {filters.map(({ id, label, count }) => (
       <StyledCheckbox
         key={id}
-        label={`${navn} (${count})`}
+        label={`${label}${typeof count === 'undefined' ? '' : ` (${count})`}`}
         value={id}
         onChange={({ target }) => onCheck(target.value, target.checked)}
         checked={selected.includes(id)}

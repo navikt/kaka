@@ -3,28 +3,60 @@ import React from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import styled from 'styled-components';
 import { useHasAnyOfRoles } from '../../hooks/use-has-role';
+import { useKodeverkValue } from '../../hooks/use-kodeverk-value';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { Role } from '../../types/user';
+import { QueryParams } from '../oversikt/types';
 
 const NOW = dayjs();
 const FORMAT = 'YYYY-MM-DD';
 
-export const Nav = () => {
+const useEnhetQueryParam = () => {
   const { data } = useGetUserDataQuery();
+  const vedtaksinstansenheter = useKodeverkValue('enheter') ?? [];
+  const klageenheter = useKodeverkValue('klageenheter') ?? [];
 
-  const enhetId: string = data?.klageenheter.map(({ id }) => id).join(',') ?? '';
+  const ansattEnhetId: string | undefined = data?.ansattEnhet?.navn;
+
+  if (typeof ansattEnhetId === 'undefined') {
+    return '';
+  }
+
+  if (klageenheter.some(({ navn }) => navn === ansattEnhetId)) {
+    return `${QueryParams.KLAGEENHETER}=${ansattEnhetId}`;
+  }
+
+  if (vedtaksinstansenheter.some(({ navn }) => navn === ansattEnhetId)) {
+    return `${QueryParams.ENHETER}=${ansattEnhetId}`;
+  }
+
+  return '';
+};
+
+export const Nav = () => {
+  const enhetQueryParam = useEnhetQueryParam();
 
   const fromDate = NOW.subtract(30, 'day').format(FORMAT);
   const toDate = NOW.format(FORMAT);
+
+  const fromMonth = NOW.subtract(1, 'month').format('YYYY-MM');
+  const toMonth = NOW.subtract(1, 'month').format('YYYY-MM');
 
   return (
     <StyledNav role="navigation" aria-label="Meny" data-testid="kaka-nav">
       <StyledNavLinkList>
         <NavItem
-          to={`/oversikt?klageenheter=${enhetId}&fromDate=${fromDate}&toDate=${toDate}`}
-          testId="oversikt-nav-link"
+          to={`/oversikt/total?${enhetQueryParam}&${QueryParams.FROM_DATE}=${fromDate}&${QueryParams.TO_DATE}=${toDate}`}
+          testId="oversikt-total-nav-link"
         >
-          Oversikt
+          Totaloversikt
+        </NavItem>
+        <NavItem
+          to={`/oversikt/leder?${QueryParams.FROM_MONTH}=${fromMonth}&${QueryParams.TO_MONTH}=${toMonth}`}
+          testId="oversikt-leder-nav-link"
+          roles={[Role.ROLE_KLAGE_LEDER]}
+        >
+          Lederoversikt
         </NavItem>
         <NavItem
           to="/kvalitetsregistreringer"
@@ -59,6 +91,10 @@ const NavItem = ({ testId, roles, ...props }: NavItemProps) => {
 
 const StyledNav = styled.nav`
   padding-top: 1em;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 5;
 `;
 
 const StyledNavLinkList = styled.ul`

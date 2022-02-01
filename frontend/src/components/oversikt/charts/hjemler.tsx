@@ -3,8 +3,7 @@ import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useSearchParams } from 'react-router-dom';
 import { useHjemmelTexts } from '../hooks/use-hjemmel-texts';
-import { useFilteredStatistics } from '../hooks/use-statistics';
-import { QueryParams } from '../types';
+import { QueryParams, StatisticsProps } from '../types';
 import { GRAPH_COLOR } from './colors';
 
 type TooltipCallback = (args: { parsed: { x: number }; label: string }) => string;
@@ -79,8 +78,7 @@ const useFilteredYtelser = () => {
   return searchParams.get(QueryParams.YTELSER)?.split(',') ?? [];
 };
 
-export const Hjemler = () => {
-  const stats = useFilteredStatistics();
+export const Hjemler = ({ stats }: StatisticsProps) => {
   const filteredYtelser = useFilteredYtelser();
   const hjemmelTexts = useHjemmelTexts(filteredYtelser);
 

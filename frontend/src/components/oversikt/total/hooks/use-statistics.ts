@@ -1,25 +1,25 @@
 import { useMemo } from 'react';
-import { useGetStatisticsQuery } from '../../../redux-api/statistics';
-import { IStatisticVurdering } from '../../../types/statistics';
-import { QueryParams } from '../types';
-import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from './use-query-filter';
+import { useGetTotalStatisticsQuery } from '../../../../redux-api/statistics';
+import { IStatisticVurdering } from '../../../../types/statistics';
+import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../hooks/use-query-filter';
+import { QueryParams } from '../../types';
 
-const useStatistics = () => {
+const useTotalStatistics = () => {
   const fromDate = useFromDateQueryFilter();
   const toDate = useToDateQueryFilter();
-  return useGetStatisticsQuery({ fromDate, toDate }, { pollingInterval: 3 * 60 * 1000 });
+  return useGetTotalStatisticsQuery({ fromDate, toDate }, { pollingInterval: 3 * 60 * 1000 });
 };
 
-export const useStatisticsIsLoading = (): boolean => useStatistics().isLoading;
+export const useTotalStatisticsIsLoading = (): boolean => useTotalStatistics().isLoading;
 
-export const useAllStatistics = (): IStatisticVurdering[] => {
-  const { data } = useStatistics();
+export const useAllTotalStatistics = (): IStatisticVurdering[] => {
+  const { data } = useTotalStatistics();
 
   return data?.anonymizedFinishedVurderingList ?? [];
 };
 
-export const useFilteredStatistics = () => {
-  const data = useAllStatistics();
+export const useFilteredTotalStatistics = () => {
+  const data = useAllTotalStatistics();
 
   const types = useQueryFilters(QueryParams.TYPES);
   const ytelser = useQueryFilters(QueryParams.YTELSER);
@@ -41,9 +41,4 @@ export const useFilteredStatistics = () => {
       ),
     [data, types, ytelser, utfall, enheter, klageenheter, hjemler]
   );
-};
-
-export const useFilteredFinishedStatistics = () => {
-  const data = useFilteredStatistics();
-  return useMemo(() => data.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null), [data]);
 };

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { REASON_NAMES } from '../../../hooks/use-reason-name';
 import { RadioValg } from '../../../types/radio';
 import { IStatisticVurdering } from '../../../types/statistics';
-import { useFilteredFinishedStatistics } from '../hooks/use-statistics';
+import { StatisticsProps } from '../types';
 import { GRAPH_COLOR } from './colors';
 import { percent, tickCallback } from './formatting';
 import { MangelfulltOverTime } from './mangelfullt-over-time';
@@ -95,7 +95,7 @@ const useBarOptions = (labels: string[], data: number[], total = 1): ChartOption
   },
 });
 
-export interface KvalitetsvurderingProps {
+export interface KvalitetsvurderingProps extends StatisticsProps {
   field: keyof Pick<
     IStatisticVurdering,
     'utredningenRadioValg' | 'klageforberedelsenRadioValg' | 'vedtaketRadioValg' | 'brukAvRaadgivendeLegeRadioValg'
@@ -104,8 +104,7 @@ export interface KvalitetsvurderingProps {
   relevantReasons: string[];
 }
 
-export const Kvalitetsvurdering = ({ field, title, relevantReasons }: KvalitetsvurderingProps) => {
-  const stats = useFilteredFinishedStatistics();
+export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: KvalitetsvurderingProps) => {
   const mangelfulleSaker = useMemo(() => stats.filter((stat) => stat[field] === RadioValg.MANGELFULLT), [stats, field]);
   const braNokSaker = useMemo(() => stats.filter((stat) => stat[field] === RadioValg.BRA), [stats, field]);
 
@@ -152,7 +151,7 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons }: Kvalitetsv
       </CategoryContainer>
       <ChartContainer>
         <ChartTitle>Kvalitetsavviket i {title.toLowerCase()} per måned</ChartTitle>
-        <MangelfulltOverTime />
+        <MangelfulltOverTime stats={stats} />
       </ChartContainer>
     </Container>
   );

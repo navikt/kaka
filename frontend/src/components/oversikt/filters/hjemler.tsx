@@ -2,16 +2,17 @@ import React, { useMemo, useRef, useState } from 'react';
 import { useOnClickOutside } from '../../../hooks/use-on-click-outside';
 import { GroupedDropdown, OptionGroup } from '../../dropdown/grouped-dropdown';
 import { useMergedLovKildeToRegistreringshjemler } from '../hooks/use-merged-lovkilde-to-registreingshjemler';
+import { StatisticsProps } from '../types';
 import { formatMetadata } from './common/dropdown';
 import { Container, StyledLabel } from './common/styled-components';
 
-interface Props {
+interface Props extends StatisticsProps {
   selected: string[];
   setSelected: (hjemmelIds: string[]) => void;
 }
 
-export const HjemmelFilter = ({ selected, setSelected }: Props) => {
-  const lovKildeToRegistreringshjemler = useMergedLovKildeToRegistreringshjemler();
+export const HjemmelFilter = ({ selected, setSelected, stats }: Props) => {
+  const lovKildeToRegistreringshjemler = useMergedLovKildeToRegistreringshjemler(stats);
 
   const options = useMemo(
     () =>
@@ -20,9 +21,9 @@ export const HjemmelFilter = ({ selected, setSelected }: Props) => {
           id: lovkilde.id,
           name: lovkilde.navn,
         },
-        sectionOptions: registreringshjemler.map(({ id, navn }) => ({
+        sectionOptions: registreringshjemler.map(({ id, label, count }) => ({
           value: id,
-          label: navn,
+          label: `${label}${typeof count === 'undefined' ? '' : ` (${count})`}`,
         })),
       })),
     [lovKildeToRegistreringshjemler]

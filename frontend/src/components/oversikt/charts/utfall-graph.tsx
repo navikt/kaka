@@ -4,7 +4,7 @@ import { Bar } from 'react-chartjs-2';
 import { isNotUndefined } from '../../../functions/is-not';
 import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
 import { UtfallEnum } from '../../../types/utfall';
-import { useFilteredFinishedStatistics, useFilteredStatistics } from '../hooks/use-statistics';
+import { StatisticsProps } from '../types';
 import { percent, tickCallback } from './formatting';
 import { ChartContainer } from './styled-components';
 
@@ -73,9 +73,12 @@ const useOptions = (total = 1): ChartOptions<'bar'> => ({
   },
 });
 
-export const UtfallGraph = () => {
-  const allStats = useFilteredStatistics();
-  const finishedStats = useFilteredFinishedStatistics();
+export const UtfallGraph = ({ stats: allStats }: StatisticsProps) => {
+  const finishedStats = useMemo(
+    () => allStats.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null),
+    [allStats]
+  );
+
   const utfall = useKodeverkValue('utfall');
 
   const stats = useMemo(

@@ -1,15 +1,13 @@
 import React, { useMemo } from 'react';
-import { useFilteredStatistics } from '../hooks/use-statistics';
+import { StatisticsProps } from '../types';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, KeyNumber } from './styled-components';
 
-interface Props {
+interface Props extends StatisticsProps {
   weeks: number;
 }
 
-export const Processed = ({ weeks }: Props) => {
-  const stats = useFilteredStatistics();
-
+export const Processed = ({ stats, weeks }: Props) => {
   const finished = useMemo(
     () => stats?.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null) ?? [],
     [stats]

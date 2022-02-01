@@ -1,10 +1,9 @@
 import React from 'react';
-import { useFilteredStatistics } from '../hooks/use-statistics';
+import { StatisticsProps } from '../types';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, KeyNumber } from './styled-components';
 
-export const Finished = () => {
-  const stats = useFilteredStatistics();
+export const Finished = ({ stats }: StatisticsProps) => {
   const count = stats?.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null).length;
 
   return (

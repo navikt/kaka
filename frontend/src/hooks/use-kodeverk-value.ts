@@ -87,7 +87,7 @@ export const useKodeverkKlageenhet = (klageenhetId: string | typeof skipToken = 
     return undefined;
   }
 
-  return data.find(({ id }) => id === klageenhetId);
+  return data.find(({ navn }) => navn === klageenhetId);
 };
 
 export const useLovkildeToRegistreringshjemmelForYtelse = (

@@ -1,8 +1,16 @@
 import { useMemo } from 'react';
 import { useGetKodeverkQuery } from '../../../redux-api/kodeverk';
 import { IKodeverkSimpleValue, IKodeverkValue, ILovKildeToRegistreringshjemmel } from '../../../types/kodeverk';
+import { FilterType, StatisticsProps } from '../types';
 
-export const useMergedLovKildeToRegistreringshjemler = (): ILovKildeToRegistreringshjemmel[] => {
+interface ILovKildeToRegistreringshjemmelWithCount
+  extends Omit<ILovKildeToRegistreringshjemmel, 'registreringshjemler'> {
+  registreringshjemler: FilterType[];
+}
+
+export const useMergedLovKildeToRegistreringshjemler = (
+  stats: StatisticsProps['stats']
+): ILovKildeToRegistreringshjemmelWithCount[] => {
   const { data } = useGetKodeverkQuery();
 
   return useMemo(() => {
@@ -50,10 +58,14 @@ export const useMergedLovKildeToRegistreringshjemler = (): ILovKildeToRegistreri
     return Array.from(lovKilderToRegistreringshjemlerMap.values())
       .map(({ lovkilde, registreringshjemmelMap }) => ({
         lovkilde,
-        registreringshjemler: Array.from(registreringshjemmelMap.values()).sort(
-          (a, b) => Number.parseInt(a.id, 10) - Number.parseInt(b.id, 10)
-        ),
+        registreringshjemler: Array.from(registreringshjemmelMap.values())
+          .map(({ id, navn }) => ({
+            id,
+            label: navn,
+            count: stats.filter(({ hjemmelIdList }) => hjemmelIdList.includes(id)).length,
+          }))
+          .sort((a, b) => Number.parseInt(a.id, 10) - Number.parseInt(b.id, 10)),
       }))
       .sort((a, b) => Number.parseInt(a.lovkilde.id, 10) - Number.parseInt(b.lovkilde.id, 10));
-  }, [data]);
+  }, [data, stats]);
 };

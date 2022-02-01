@@ -1,4 +1,4 @@
-import { IKodeverkSimpleValue } from '../../types/kodeverk';
+import { IStatisticVurdering } from '../../types/statistics';
 
 export enum QueryParams {
   ENHETER = 'enheter',
@@ -7,13 +7,22 @@ export enum QueryParams {
   YTELSER = 'ytelser',
   UTFALL = 'utfall',
   YEAR = 'year',
+  FROM_MONTH = 'fromMonth',
+  TO_MONTH = 'toMonth',
   FROM_DATE = 'fromDate',
   TO_DATE = 'toDate',
   HJEMLER = 'hjemler',
   BEHANDLINGSTID = 'bht',
   KVALITETSVURDERING = 'kvt',
+  SAKSBEHANDLERE = 'saksbehandlere',
 }
 
-export interface FilterType extends IKodeverkSimpleValue {
-  count: number;
+export interface FilterType {
+  id: string;
+  label: string;
+  count?: number;
+}
+
+export interface StatisticsProps {
+  stats: IStatisticVurdering[];
 }

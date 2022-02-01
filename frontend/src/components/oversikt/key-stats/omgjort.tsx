@@ -1,12 +1,10 @@
 import React from 'react';
 import { UtfallEnum } from '../../../types/utfall';
-import { useFilteredStatistics } from '../hooks/use-statistics';
+import { StatisticsProps } from '../types';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, RedKeyNumber } from './styled-components';
 
-export const Omgjort = () => {
-  const stats = useFilteredStatistics();
-
+export const Omgjort = ({ stats }: StatisticsProps) => {
   const numOmgjort = stats?.filter(
     ({ utfallId }) =>
       utfallId === UtfallEnum.MEDHOLD || utfallId === UtfallEnum.DELVIS_MEDHOLD || utfallId === UtfallEnum.OPPHEVET
