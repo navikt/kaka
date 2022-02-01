@@ -9,6 +9,7 @@ interface DropdownProps {
   selected: string | null;
   kodeverk: IKodeverkValue[];
   open: boolean;
+  valueKey?: keyof IKodeverkValue;
   onChange: (selected: string) => void;
   close: () => void;
   labelFn: (kodeverkValue: IKodeverkValue) => string;
@@ -23,6 +24,7 @@ export const SingleSelectDropdown = ({
   selected,
   kodeverk,
   open,
+  valueKey = 'id',
   onChange,
   close,
   labelFn,
@@ -36,8 +38,8 @@ export const SingleSelectDropdown = ({
   useOnClickOutside(close, dropdownRef);
 
   const options = useMemo(
-    () => kodeverk.map((kodeverkValue) => ({ value: kodeverkValue.id, label: labelFn(kodeverkValue) })),
-    [kodeverk, labelFn]
+    () => kodeverk.map((kodeverkValue) => ({ value: kodeverkValue[valueKey], label: labelFn(kodeverkValue) })),
+    [kodeverk, labelFn, valueKey]
   );
 
   const filteredOptions = useMemo(

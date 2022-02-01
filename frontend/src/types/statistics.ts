@@ -81,7 +81,18 @@ export interface IStatistics {
 }
 
 export interface IStatisticsQuery {
-  year?: string;
   fromDate?: string;
   toDate?: string;
+}
+
+export interface IManagerStatisticsQuery {
+  enhetId: string;
+  fromMonth?: string;
+  toMonth?: string;
+  saksbehandlere?: string[];
+}
+
+export interface ISaksbehandler {
+  navIdent: string;
+  navn: string;
 }

@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2';
 import { REASON_NAMES, isReasonNameKey } from '../../../hooks/use-reason-name';
 import { RadioValg } from '../../../types/radio';
 import { useKvalitetsvurderingParam } from '../hooks/use-kvalitetsvurdering-param';
-import { useFilteredFinishedStatistics } from '../hooks/use-statistics';
+import { StatisticsProps } from '../types';
 import { KVALITETSVURDERING_OPTIONS } from './kvalitetsvurdering-options';
 
 const useOptions = (): ChartOptions<'line'> => ({
@@ -12,6 +12,14 @@ const useOptions = (): ChartOptions<'line'> => ({
   aspectRatio: 5,
   scales: {
     y: {
+      title: {
+        display: true,
+        text: 'Antall',
+        font: {
+          weight: 'bold',
+          size: 14,
+        },
+      },
       ticks: {
         stepSize: 1,
         font: {
@@ -43,9 +51,13 @@ const useOptions = (): ChartOptions<'line'> => ({
   },
 });
 
-export const MangelfulltOverTime = () => {
+export const MangelfulltOverTime = ({ stats: allStats }: StatisticsProps) => {
   const [field] = useKvalitetsvurderingParam();
-  const stats = useFilteredFinishedStatistics();
+  const stats = useMemo(
+    () => allStats.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null),
+    [allStats]
+  );
+
   const mangelfulleSaker = useMemo(() => stats.filter((stat) => stat[field] === RadioValg.MANGELFULLT), [stats, field]);
   const options = useOptions();
   const { relevantReasons } = KVALITETSVURDERING_OPTIONS[field];

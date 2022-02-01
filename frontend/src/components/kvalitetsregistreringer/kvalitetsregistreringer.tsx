@@ -21,7 +21,7 @@ export const Kvalitetsregistreringer = () => {
 
     createSaksdata({
       saksbehandlerIdent: userData.ident,
-      tilknyttetEnhet: userData.klageenheter[0].id,
+      tilknyttetEnhet: userData.klageenheter[0].navn,
     })
       .unwrap()
       .then(({ id }) => navigate(`/kvalitetsregistreringer/${id}`));

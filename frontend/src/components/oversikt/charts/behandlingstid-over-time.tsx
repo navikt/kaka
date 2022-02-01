@@ -2,8 +2,8 @@ import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
 import { CardSize, DynamicCard } from '../card/card';
-import { useFilteredFinishedStatistics } from '../hooks/use-statistics';
 import { CardTitle, StyledCharts } from '../styled-components';
+import { StatisticsProps } from '../types';
 
 const useOptions = (): ChartOptions<'line'> => ({
   responsive: true,
@@ -33,8 +33,11 @@ const useOptions = (): ChartOptions<'line'> => ({
   },
 });
 
-export const BehandlingstidOverTime = () => {
-  const stats = useFilteredFinishedStatistics();
+export const BehandlingstidOverTime = ({ stats: allStats }: StatisticsProps) => {
+  const stats = useMemo(
+    () => allStats.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null),
+    [allStats]
+  );
 
   const weekTotals = useMemo(
     () =>

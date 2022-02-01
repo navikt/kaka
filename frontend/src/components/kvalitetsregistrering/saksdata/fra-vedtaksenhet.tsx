@@ -94,6 +94,7 @@ export const FraVedtaksenhet = () => {
           open={open}
           onChange={onChange}
           close={close}
+          valueKey="navn"
           labelFn={({ navn, beskrivelse }) => `${navn} - ${beskrivelse}`}
         />
       </Container>
@@ -102,20 +103,20 @@ export const FraVedtaksenhet = () => {
   );
 };
 
-const useEnhetName = (options: IKodeverkValue[], id: string | null | undefined) =>
+const useEnhetName = (options: IKodeverkValue[], enhetsNummer: string | null | undefined) =>
   useMemo(() => {
-    if (typeof id !== 'string') {
+    if (typeof enhetsNummer !== 'string') {
       return 'Ingen enhet';
     }
 
-    const enhet = options.find((option) => option.id === id);
+    const enhet = options.find((option) => option.navn === enhetsNummer);
 
     if (typeof enhet === 'undefined') {
       return 'Ingen enhet';
     }
 
     return `${enhet.navn} - ${enhet.beskrivelse}`;
-  }, [options, id]);
+  }, [options, enhetsNummer]);
 
 const Container = styled.section`
   position: relative;

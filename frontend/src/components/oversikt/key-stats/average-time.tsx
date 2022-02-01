@@ -1,12 +1,10 @@
 import React from 'react';
 import { useBehandlingstidParam } from '../hooks/use-behandlingstid-param';
-import { useFilteredStatistics } from '../hooks/use-statistics';
+import { StatisticsProps } from '../types';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, KeyNumber, RedKeyNumber } from './styled-components';
 
-export const Gjennomsnittstid = () => {
-  const stats = useFilteredStatistics();
-
+export const Gjennomsnittstid = ({ stats }: StatisticsProps) => {
   const [field] = useBehandlingstidParam();
 
   const finished = stats?.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null) ?? [];

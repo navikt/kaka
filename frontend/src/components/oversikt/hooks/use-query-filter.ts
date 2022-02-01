@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { useSearchParams } from 'react-router-dom';
+import { FORMAT, MONTH_FORMAT } from '../filters/date-presets/constants';
 import { QueryParams } from '../types';
 
 export const useQueryFilter = (filter: QueryParams): string | null => {
@@ -27,7 +28,7 @@ export const useFromDateQueryFilter = (): string => {
   const queryValue = useQueryFilter(QueryParams.FROM_DATE);
 
   if (queryValue === null || queryValue.length === 0) {
-    return NOW.subtract(3, 'month').format('YYYY-MM-DD');
+    return NOW.subtract(3, 'month').format(FORMAT);
   }
 
   return queryValue;
@@ -38,6 +39,26 @@ export const useToDateQueryFilter = (): string => {
 
   if (queryValue === null || queryValue.length === 0) {
     return NOW.format('YYYY-MM-DD');
+  }
+
+  return queryValue;
+};
+
+export const useFromMonthQueryFilter = (): string => {
+  const queryValue = useQueryFilter(QueryParams.FROM_MONTH);
+
+  if (queryValue === null || queryValue.length === 0) {
+    return NOW.subtract(1, 'month').format(MONTH_FORMAT);
+  }
+
+  return queryValue;
+};
+
+export const useToMonthQueryFilter = (): string => {
+  const queryValue = useQueryFilter(QueryParams.TO_MONTH);
+
+  if (queryValue === null || queryValue.length === 0) {
+    return NOW.subtract(1, 'month').format(MONTH_FORMAT);
   }
 
   return queryValue;

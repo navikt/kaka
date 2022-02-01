@@ -26,7 +26,7 @@ export const TilknyttetEnhet = () => {
   const name = navn.sammensattNavn ?? ident;
 
   if (isFinished) {
-    const enhet = enheter.find(({ id }) => id === saksdata.tilknyttetEnhet)?.beskrivelse ?? 'ingen enhet';
+    const enhet = enheter.find((e) => e.navn === saksdata.tilknyttetEnhet)?.beskrivelse ?? 'ingen enhet';
 
     return (
       <StyledAlertStripe type="suksess">
@@ -36,7 +36,7 @@ export const TilknyttetEnhet = () => {
   }
 
   if (!canEdit) {
-    const enhet = enheter.find(({ id }) => id === saksdata.tilknyttetEnhet)?.beskrivelse ?? 'ingen enhet';
+    const enhet = enheter.find((e) => e.navn === saksdata.tilknyttetEnhet)?.beskrivelse ?? 'ingen enhet';
 
     return (
       <StyledAlertStripe type="advarsel">
@@ -73,9 +73,9 @@ export const TilknyttetEnhet = () => {
         data-testid="tilknyttet-enhet-select"
         value={saksdata.tilknyttetEnhet}
       >
-        {klageenheter.map(({ id, beskrivelse }) => (
-          <option key={id} value={id}>
-            {beskrivelse}
+        {klageenheter.map((k) => (
+          <option key={k.id} value={k.navn}>
+            {k.beskrivelse}
           </option>
         ))}
       </StyledSelect>

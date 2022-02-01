@@ -11,6 +11,7 @@ export interface IUser {
   navn: Navn;
   klageenheter: IKodeverkValue[];
   roller: string[];
+  ansattEnhet: IKodeverkValue;
 }
 
 export enum Role {

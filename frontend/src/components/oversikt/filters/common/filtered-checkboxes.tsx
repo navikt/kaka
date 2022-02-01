@@ -11,7 +11,7 @@ export const FilteredCheckboxes = ({ selected, filters, onCheck, onKeyDown }: Pr
   const [filter, setFilter] = useState('');
 
   const filteredFilters = useMemo(
-    () => filters.filter(({ navn }) => navn.toLowerCase().includes(filter.toLowerCase())),
+    () => filters.filter(({ label }) => label.toLowerCase().includes(filter.toLowerCase())),
     [filter, filters]
   );
 
