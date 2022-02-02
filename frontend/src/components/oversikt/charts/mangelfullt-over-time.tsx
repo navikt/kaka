@@ -51,20 +51,20 @@ const useOptions = (): ChartOptions<'line'> => ({
   },
 });
 
-export const MangelfulltOverTime = ({ stats: allStats }: StatisticsProps) => {
-  const [field] = useKvalitetsvurderingParam();
-  const stats = useMemo(
-    () => allStats.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null),
-    [allStats]
-  );
+const COLLATOR = new Intl.Collator(undefined, { numeric: true });
 
-  const mangelfulleSaker = useMemo(() => stats.filter((stat) => stat[field] === RadioValg.MANGELFULLT), [stats, field]);
-  const options = useOptions();
+export const MangelfulltOverTime = ({ stats }: StatisticsProps) => {
+  const [field] = useKvalitetsvurderingParam();
+
   const { relevantReasons } = KVALITETSVURDERING_OPTIONS[field];
 
-  const data = useMemo(
-    () =>
-      mangelfulleSaker.reduce((acc, sak) => {
+  const mangelfulleSaker = useMemo(() => {
+    const unsorted = stats
+      .filter(
+        ({ avsluttetAvSaksbehandler, ...stat }) =>
+          avsluttetAvSaksbehandler !== null && stat[field] === RadioValg.MANGELFULLT
+      )
+      .reduce((acc, sak) => {
         const { month, year } = sak.avsluttetAvSaksbehandler;
         const key = `${year}-${month}`;
         const existing = acc.get(key);
@@ -93,23 +93,26 @@ export const MangelfulltOverTime = ({ stats: allStats }: StatisticsProps) => {
         }
 
         return acc;
-      }, new Map<string, Map<typeof relevantReasons[number], number>>()),
-    [mangelfulleSaker, relevantReasons]
-  );
+      }, new Map<string, Map<typeof relevantReasons[number], number>>());
 
-  const labels = Array.from(data.keys());
+    return new Map([...unsorted.entries()].sort(([aKey], [bKey]) => COLLATOR.compare(aKey, bKey)));
+  }, [stats, field, relevantReasons]);
+
+  const options = useOptions();
+
+  const labels = Array.from(mangelfulleSaker.keys());
   const datasets = useMemo(
     () => [
       ...relevantReasons.map((reasonId, i) => ({
         label: isReasonNameKey(reasonId) ? REASON_NAMES[reasonId] : reasonId,
-        data: Array.from(data.values()).map((dataValues) => dataValues.get(reasonId)),
+        data: Array.from(mangelfulleSaker.values()).map((dataValues) => dataValues.get(reasonId)),
         backgroundColor: getColor(i),
         borderColor: getColor(i),
         borderWidth: 2,
       })),
       {
         label: 'Totalt',
-        data: Array.from(data.values()).map((singleStats) =>
+        data: Array.from(mangelfulleSaker.values()).map((singleStats) =>
           Array.from(singleStats.values()).reduce((acc, stat) => acc + stat, 0)
         ),
         backgroundColor: '#D05C4A',
@@ -117,7 +120,7 @@ export const MangelfulltOverTime = ({ stats: allStats }: StatisticsProps) => {
         borderWidth: 2,
       },
     ],
-    [relevantReasons, data]
+    [relevantReasons, mangelfulleSaker]
   );
 
   return <Line options={options} data={{ datasets, labels }} />;

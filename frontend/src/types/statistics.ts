@@ -4,7 +4,7 @@ import { UtfallEnum } from './utfall';
 
 type UUID = string;
 
-interface Date {
+export interface Date {
   readonly weekNumber: number;
   readonly year: number;
   readonly month: number;
