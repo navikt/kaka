@@ -62,40 +62,65 @@ export const MangelfulltOverTime = ({ stats: allStats }: StatisticsProps) => {
   const options = useOptions();
   const { relevantReasons } = KVALITETSVURDERING_OPTIONS[field];
 
-  const data = useMemo(
-    () =>
-      mangelfulleSaker.reduce((acc, sak) => {
-        const { month, year } = sak.avsluttetAvSaksbehandler;
-        const key = `${year}-${month}`;
-        const existing = acc.get(key);
+  const yearMonthSort = (yearAndMonth1: string, yearAndMonth2: string) => {
+    const [year1, month1] = yearAndMonth1.split('-').map((n) => parseInt(n, 10));
+    const [year2, month2] = yearAndMonth2.split('-').map((n) => parseInt(n, 10));
 
-        if (typeof existing === 'undefined') {
-          const reasonStats = relevantReasons.reduce((singleStat, reasonId) => {
-            const value = sak[reasonId] === true ? 1 : 0;
+    if (year1 < year2) {
+      return -1;
+    }
 
-            singleStat.set(reasonId, value);
+    if (year1 > year2) {
+      return 1;
+    }
 
-            return singleStat;
-          }, new Map<typeof relevantReasons[number], number>());
+    if (month1 < month2) {
+      return -1;
+    }
 
-          acc.set(key, reasonStats);
-        } else {
-          const reasonStats = relevantReasons.reduce((singleStat, reasonId) => {
-            const increment = sak[reasonId] === true ? 1 : 0;
-            const oldValue = singleStat.get(reasonId) ?? 0;
+    if (month1 > month2) {
+      return 1;
+    }
 
-            singleStat.set(reasonId, oldValue + increment);
+    return 0;
+  };
 
-            return singleStat;
-          }, existing);
+  const data = useMemo(() => {
+    const unsortedData = mangelfulleSaker.reduce((acc, sak) => {
+      const { month, year } = sak.avsluttetAvSaksbehandler;
+      const key = `${year}-${month}`;
+      const existing = acc.get(key);
 
-          acc.set(key, reasonStats);
-        }
+      if (typeof existing === 'undefined') {
+        const reasonStats = relevantReasons.reduce((singleStat, reasonId) => {
+          const value = sak[reasonId] === true ? 1 : 0;
 
-        return acc;
-      }, new Map<string, Map<typeof relevantReasons[number], number>>()),
-    [mangelfulleSaker, relevantReasons]
-  );
+          singleStat.set(reasonId, value);
+
+          return singleStat;
+        }, new Map<typeof relevantReasons[number], number>());
+
+        acc.set(key, reasonStats);
+      } else {
+        const reasonStats = relevantReasons.reduce((singleStat, reasonId) => {
+          const increment = sak[reasonId] === true ? 1 : 0;
+          const oldValue = singleStat.get(reasonId) ?? 0;
+
+          singleStat.set(reasonId, oldValue + increment);
+
+          return singleStat;
+        }, existing);
+
+        acc.set(key, reasonStats);
+      }
+
+      return acc;
+    }, new Map<string, Map<typeof relevantReasons[number], number>>());
+
+    return new Map(
+      [...unsortedData].sort((yearAndMonth1, yearAndMonth2) => yearMonthSort(yearAndMonth1[0], yearAndMonth2[0]))
+    );
+  }, [mangelfulleSaker, relevantReasons]);
 
   const labels = Array.from(data.keys());
   const datasets = useMemo(
