@@ -19,23 +19,9 @@ spec:
       tenant: {{tenant}}
       claims:
         groups:
-          - id: {{ROLE_KLAGEINSTANS_ALLE}}
-          - id: {{ROLE_KLAGEINSTANS_OEST}}
-          - id: {{ROLE_KLAGEINSTANS_NORD}}
-          - id: {{ROLE_KLAGEINSTANS_SOER}}
-          - id: {{ROLE_KLAGEINSTANS_VEST}}
-          - id: {{ROLE_KLAGEINSTANS_OSLO}}
-          - id: {{ROLE_KLAGEINSTANS_MIDT}}
-          - id: {{ROLE_KLAGE_SAKSBEHANDLER}}
-          - id: {{ROLE_KLAGE_FAGANSVARLIG}}
-          - id: {{ROLE_KLAGE_LEDER}}
-          - id: {{ROLE_KLAGE_MERKANTIL}}
-          - id: {{ROLE_KLAGE_FORTROLIG}}
-          - id: {{ROLE_KLAGE_STRENGT_FORTROLIG}}
-          - id: {{ROLE_KLAGE_EGEN_ANSATT}}
-          {{#if ROLE_ADMIN}}
-          - id: {{ROLE_ADMIN}}
-          {{/if}}
+          {{#each roles as |role|}}
+          - id: {{role}}
+          {{/each}}
         extra:
           - NAVident
   accessPolicy:
