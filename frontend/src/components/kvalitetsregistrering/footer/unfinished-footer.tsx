@@ -3,9 +3,10 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { isReduxValidationResponse } from '../../../functions/error-type-guard';
 import { useCanEdit } from '../../../hooks/use-can-edit';
+import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useGetUserDataQuery } from '../../../redux-api/metadata';
-import { useDeleteSaksdataMutation, useFullfoerMutation, useGetSaksdataQuery } from '../../../redux-api/saksdata';
+import { useDeleteSaksdataMutation, useFullfoerMutation } from '../../../redux-api/saksdata';
 import { BackLink } from './back-link';
 import { StyledButtons, StyledUnfinishedErrorFooter, StyledUnfinishedFooter } from './styled-components';
 import { ValidationSummaryPopup } from './validation-summary-popup';
@@ -15,7 +16,7 @@ export const UnfinishedFooter = () => {
   const canEdit = useCanEdit();
   const navigate = useNavigate();
   const { data: userData } = useGetUserDataQuery();
-  const { data: saksdata } = useGetSaksdataQuery(id);
+  const [saksdata] = useSaksdata();
   const [finishVurdering, { isLoading: isFinishing, error }] = useFullfoerMutation({
     fixedCacheKey: id,
   });
@@ -25,7 +26,11 @@ export const UnfinishedFooter = () => {
     return null;
   }
 
-  const finish = () => finishVurdering({ saksbehandlerIdent: userData.ident, saksdata });
+  const finish = () => {
+    if (saksdata.avsluttetAvSaksbehandler === null) {
+      finishVurdering({ saksbehandlerIdent: userData.ident, saksdata });
+    }
+  };
 
   const deleteSaksdata = async () => {
     try {

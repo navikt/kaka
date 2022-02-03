@@ -1,12 +1,12 @@
 import React from 'react';
-import { ISaksdataBase } from '../../types/saksdata';
+import { ISaksdataCompleteSearchHit, ISaksdataIncompleteSearchHit } from '../../types/saksdata';
 import { TableHeader } from './header';
 import { RegistreringRows } from './rows';
 import { SakCounter } from './sak-counter';
 import { StyledTable, StyledTableContainer } from './styled-components';
 
 interface Props {
-  data?: ISaksdataBase[];
+  data?: (ISaksdataIncompleteSearchHit | ISaksdataCompleteSearchHit)[];
   testId: string;
 }
 

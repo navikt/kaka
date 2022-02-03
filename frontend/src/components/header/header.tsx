@@ -1,16 +1,21 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { useIndexPath } from '../../hooks/use-index-path';
 import { HomeIcon } from './home-icon';
 
-export const Header = () => (
-  <StyledHeader>
-    <StyledLogo to="/kvalitetsregistreringer">
-      <HomeIcon />
-      <StyledLabel>KAKA</StyledLabel>
-    </StyledLogo>
-  </StyledHeader>
-);
+export const Header = () => {
+  const path = useIndexPath();
+
+  return (
+    <StyledHeader>
+      <StyledLogo to={path}>
+        <HomeIcon />
+        <StyledLabel>KAKA</StyledLabel>
+      </StyledLogo>
+    </StyledHeader>
+  );
+};
 
 const StyledHeader = styled.header`
   z-index: 10;

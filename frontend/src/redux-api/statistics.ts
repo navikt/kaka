@@ -1,5 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import qs from 'qs';
+import { ISaksdatalisteLederFoersteinstans, ISaksdatalisteLederFoersteinstansParams } from '../types/saksdata';
 import { IManagerStatisticsQuery, ISaksbehandler, IStatistics, IStatisticsQuery } from '../types/statistics';
 import { baseQuery } from './common';
 
@@ -23,7 +24,21 @@ export const statisticsApi = createApi({
     getSaksbehandlere: builder.query<ISaksbehandler[], string>({
       query: (enhetId) => `/api/kaka-api/enheter/${enhetId}/saksbehandlere`,
     }),
+    getSaksdatalisteLederFoersteinstans: builder.query<
+      ISaksdatalisteLederFoersteinstans,
+      ISaksdatalisteLederFoersteinstansParams
+    >({
+      query: (params) => {
+        const query = qs.stringify(params, { arrayFormat: 'comma', skipNulls: true, encode: false });
+        return `/api/kaka-api/saksdatalistelederfoersteinstans?${query}`;
+      },
+    }),
   }),
 });
 
-export const { useGetTotalStatisticsQuery, useGetManagerStatisticsQuery, useGetSaksbehandlereQuery } = statisticsApi;
+export const {
+  useGetSaksdatalisteLederFoersteinstansQuery,
+  useGetTotalStatisticsQuery,
+  useGetManagerStatisticsQuery,
+  useGetSaksbehandlereQuery,
+} = statisticsApi;
