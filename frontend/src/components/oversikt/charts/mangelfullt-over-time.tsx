@@ -51,90 +51,68 @@ const useOptions = (): ChartOptions<'line'> => ({
   },
 });
 
-export const MangelfulltOverTime = ({ stats: allStats }: StatisticsProps) => {
-  const [field] = useKvalitetsvurderingParam();
-  const stats = useMemo(
-    () => allStats.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null),
-    [allStats]
-  );
+const COLLATOR = new Intl.Collator(undefined, { numeric: true });
 
-  const mangelfulleSaker = useMemo(() => stats.filter((stat) => stat[field] === RadioValg.MANGELFULLT), [stats, field]);
-  const options = useOptions();
+export const MangelfulltOverTime = ({ stats }: StatisticsProps) => {
+  const [field] = useKvalitetsvurderingParam();
+
   const { relevantReasons } = KVALITETSVURDERING_OPTIONS[field];
 
-  const yearMonthSort = (yearAndMonth1: string, yearAndMonth2: string) => {
-    const [year1, month1] = yearAndMonth1.split('-').map((n) => parseInt(n, 10));
-    const [year2, month2] = yearAndMonth2.split('-').map((n) => parseInt(n, 10));
+  const mangelfulleSaker = useMemo(() => {
+    const unsorted = stats
+      .filter(
+        ({ avsluttetAvSaksbehandler, ...stat }) =>
+          avsluttetAvSaksbehandler !== null && stat[field] === RadioValg.MANGELFULLT
+      )
+      .reduce((acc, sak) => {
+        const { month, year } = sak.avsluttetAvSaksbehandler;
+        const key = `${year}-${month}`;
+        const existing = acc.get(key);
 
-    if (year1 < year2) {
-      return -1;
-    }
+        if (typeof existing === 'undefined') {
+          const reasonStats = relevantReasons.reduce((singleStat, reasonId) => {
+            const value = sak[reasonId] === true ? 1 : 0;
 
-    if (year1 > year2) {
-      return 1;
-    }
+            singleStat.set(reasonId, value);
 
-    if (month1 < month2) {
-      return -1;
-    }
+            return singleStat;
+          }, new Map<typeof relevantReasons[number], number>());
 
-    if (month1 > month2) {
-      return 1;
-    }
+          acc.set(key, reasonStats);
+        } else {
+          const reasonStats = relevantReasons.reduce((singleStat, reasonId) => {
+            const increment = sak[reasonId] === true ? 1 : 0;
+            const oldValue = singleStat.get(reasonId) ?? 0;
 
-    return 0;
-  };
+            singleStat.set(reasonId, oldValue + increment);
 
-  const data = useMemo(() => {
-    const unsortedData = mangelfulleSaker.reduce((acc, sak) => {
-      const { month, year } = sak.avsluttetAvSaksbehandler;
-      const key = `${year}-${month}`;
-      const existing = acc.get(key);
+            return singleStat;
+          }, existing);
 
-      if (typeof existing === 'undefined') {
-        const reasonStats = relevantReasons.reduce((singleStat, reasonId) => {
-          const value = sak[reasonId] === true ? 1 : 0;
+          acc.set(key, reasonStats);
+        }
 
-          singleStat.set(reasonId, value);
+        return acc;
+      }, new Map<string, Map<typeof relevantReasons[number], number>>());
 
-          return singleStat;
-        }, new Map<typeof relevantReasons[number], number>());
+    return new Map([...unsorted.entries()].sort(([aKey], [bKey]) => COLLATOR.compare(aKey, bKey)));
+  }, [stats, field, relevantReasons]);
 
-        acc.set(key, reasonStats);
-      } else {
-        const reasonStats = relevantReasons.reduce((singleStat, reasonId) => {
-          const increment = sak[reasonId] === true ? 1 : 0;
-          const oldValue = singleStat.get(reasonId) ?? 0;
+  const options = useOptions();
 
-          singleStat.set(reasonId, oldValue + increment);
-
-          return singleStat;
-        }, existing);
-
-        acc.set(key, reasonStats);
-      }
-
-      return acc;
-    }, new Map<string, Map<typeof relevantReasons[number], number>>());
-
-    return new Map(
-      [...unsortedData].sort((yearAndMonth1, yearAndMonth2) => yearMonthSort(yearAndMonth1[0], yearAndMonth2[0]))
-    );
-  }, [mangelfulleSaker, relevantReasons]);
-
-  const labels = Array.from(data.keys());
+  const labels = Array.from(mangelfulleSaker.keys());
   const datasets = useMemo(
     () => [
       ...relevantReasons.map((reasonId, i) => ({
         label: isReasonNameKey(reasonId) ? REASON_NAMES[reasonId] : reasonId,
-        data: Array.from(data.values()).map((dataValues) => dataValues.get(reasonId)),
+        data: Array.from(mangelfulleSaker.values()).map((dataValues) => dataValues.get(reasonId)),
         backgroundColor: getColor(i),
         borderColor: getColor(i),
         borderWidth: 2,
       })),
       {
         label: 'Totalt',
-        data: Array.from(data.values()).map((singleStats) =>
+        data: Array.from(mangelfulleSaker.values()).map((singleStats) =>
           Array.from(singleStats.values()).reduce((acc, stat) => acc + stat, 0)
         ),
         backgroundColor: '#D05C4A',
@@ -142,7 +120,7 @@ export const MangelfulltOverTime = ({ stats: allStats }: StatisticsProps) => {
         borderWidth: 2,
       },
     ],
-    [relevantReasons, data]
+    [relevantReasons, mangelfulleSaker]
   );
 
   return <Line options={options} data={{ datasets, labels }} />;
