@@ -8,7 +8,8 @@ interface Props {
 export const OpenKvalitetsregistrering = ({ id }: Props) => (
   <NavLink
     className="knapp knapp--hoved"
-    to={`/kvalitetsregistreringer/${id}`}
+    to={id}
+    state={`${window.location.pathname}${window.location.search}`}
     data-testid="kvalitetsregistreringer-open-link"
     data-saksdata-id={id}
   >

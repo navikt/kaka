@@ -1,9 +1,9 @@
 import React from 'react';
 import 'nav-frontend-tabell-style';
-import { ISaksdataBase } from '../../types/saksdata';
+import { ISaksdataSearchHitBase } from '../../types/saksdata';
 
 interface SaksCounterProps {
-  list?: ISaksdataBase[];
+  list?: ISaksdataSearchHitBase[];
 }
 
 export const SakCounter = ({ list }: SaksCounterProps) => {

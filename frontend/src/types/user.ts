@@ -10,7 +10,7 @@ export interface IUser {
   ident: string;
   navn: Navn;
   klageenheter: IKodeverkValue[];
-  roller: string[];
+  roller: Role[];
   ansattEnhet: IKodeverkValue;
 }
 
@@ -20,4 +20,5 @@ export enum Role {
   ROLE_ADMIN = 'ROLE_ADMIN',
   ROLE_KLAGE_STRENGT_FORTROLIG = 'ROLE_KLAGE_STRENGT_FORTROLIG',
   ROLE_KLAGE_SAKSBEHANDLER = 'ROLE_KLAGE_SAKSBEHANDLER',
+  ROLE_VEDTAKSINSTANS_LEDER = 'ROLE_VEDTAKSINSTANS_LEDER',
 }

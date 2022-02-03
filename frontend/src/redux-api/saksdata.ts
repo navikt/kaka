@@ -1,10 +1,16 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import qs from 'qs';
-import { ISaksdata, ISaksdataBase } from '../types/saksdata';
+import {
+  ISaksdataComplete,
+  ISaksdataCompleteSearchHit,
+  ISaksdataIncomplete,
+  ISaksdataIncompleteSearchHit,
+  ISaksdataSearchHitBase,
+} from '../types/saksdata';
 import { baseQuery } from './common';
 
-type WithId = Pick<ISaksdata, 'id'>;
-type Updatable = Omit<ISaksdata, 'id' | 'created' | 'modified'>;
+type WithId = Pick<ISaksdataSearchHitBase, 'id'>;
+type Updatable = Omit<ISaksdataIncomplete, 'id' | 'created' | 'modified'>;
 type SaksdataUpdate<K extends keyof Updatable> = Pick<Updatable, K> & WithId;
 type SaksdataAndListUpdate<K extends keyof Updatable> = SaksdataUpdate<K> & { saksbehandlerIdent: string };
 
@@ -21,7 +27,7 @@ export const saksdataApi = createApi({
   reducerPath: 'saksdataApi',
   baseQuery,
   endpoints: (builder) => ({
-    createSaksdata: builder.mutation<ISaksdata, ICreateSaksdataParams>({
+    createSaksdata: builder.mutation<ISaksdataIncomplete, ICreateSaksdataParams>({
       query: ({ tilknyttetEnhet }) => ({
         url: '/api/kaka-api/saksdata',
         method: 'POST',
@@ -39,7 +45,7 @@ export const saksdataApi = createApi({
         dispatch(saksdataApi.util.updateQueryData('getSaksdata', data.id, () => data));
       },
     }),
-    reopenSaksdata: builder.mutation<null, { saksbehandlerIdent: string; saksdata: ISaksdata }>({
+    reopenSaksdata: builder.mutation<null, { saksbehandlerIdent: string; saksdata: ISaksdataCompleteSearchHit }>({
       query: ({ saksdata }) => ({
         url: `/api/kaka-api/saksdata/${saksdata.id}/reopen`,
         method: 'POST',
@@ -53,7 +59,7 @@ export const saksdataApi = createApi({
 
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) => {
-            draft.push(saksdata);
+            draft.push({ ...saksdata, avsluttetAvSaksbehandler: null });
           })
         );
 
@@ -93,24 +99,24 @@ export const saksdataApi = createApi({
         }
       },
     }),
-    getSaksdata: builder.query<ISaksdata, string>({
+    getSaksdata: builder.query<ISaksdataComplete | ISaksdataIncomplete, string>({
       query: (id) => `/api/kaka-api/saksdata/${id}`,
     }),
-    getIncompleteSaksdataList: builder.query<ISaksdataBase[], ISaksdataListParams>({
+    getIncompleteSaksdataList: builder.query<ISaksdataIncompleteSearchHit[], ISaksdataListParams>({
       query: (params) => {
         const query = qs.stringify(params);
         return `/api/kaka-api/saksdataliste/?fullfoert=false&${query}`;
       },
       transformResponse: ({ searchHits }) => searchHits,
     }),
-    getCompleteSaksdataList: builder.query<ISaksdataBase[], ISaksdataListParams>({
+    getCompleteSaksdataList: builder.query<ISaksdataCompleteSearchHit[], ISaksdataListParams>({
       query: (params) => {
         const query = qs.stringify(params);
         return `/api/kaka-api/saksdataliste/?fullfoert=true&${query}`;
       },
       transformResponse: ({ searchHits }) => searchHits,
     }),
-    fullfoer: builder.mutation<ISaksdata, { saksdata: ISaksdata; saksbehandlerIdent: string }>({
+    fullfoer: builder.mutation<ISaksdataComplete, { saksdata: ISaksdataIncomplete; saksbehandlerIdent: string }>({
       query: ({ saksdata }) => ({
         url: `/api/kaka-api/saksdata/${saksdata.id}/fullfoer`,
         method: 'POST',
@@ -120,12 +126,6 @@ export const saksdataApi = createApi({
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
             draft.filter(({ id }) => saksdata.id !== id)
           )
-        );
-
-        const completeListPatchResult = dispatch(
-          saksdataApi.util.updateQueryData('getCompleteSaksdataList', { saksbehandlerIdent }, (draft) => {
-            draft.push(saksdata);
-          })
         );
 
         try {
@@ -143,12 +143,11 @@ export const saksdataApi = createApi({
             )
           );
         } catch {
-          completeListPatchResult.undo();
           incompleteListPatchResult.undo();
         }
       },
     }),
-    setHjemler: builder.mutation<ISaksdata, SaksdataAndListUpdate<'hjemmelIdList'>>({
+    setHjemler: builder.mutation<ISaksdataIncomplete, SaksdataAndListUpdate<'hjemmelIdList'>>({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/hjemmelidlist`,
         method: 'PUT',
@@ -177,7 +176,7 @@ export const saksdataApi = createApi({
         }
       },
     }),
-    setSakenGjelder: builder.mutation<ISaksdata, SaksdataAndListUpdate<'sakenGjelder'>>({
+    setSakenGjelder: builder.mutation<ISaksdataIncomplete, SaksdataAndListUpdate<'sakenGjelder'>>({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/sakengjelder`,
         method: 'PUT',
@@ -206,7 +205,7 @@ export const saksdataApi = createApi({
         }
       },
     }),
-    setMottattKlageinstans: builder.mutation<ISaksdata, SaksdataUpdate<'mottattKlageinstans'>>({
+    setMottattKlageinstans: builder.mutation<ISaksdataIncomplete, SaksdataUpdate<'mottattKlageinstans'>>({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/mottattklageinstans`,
         method: 'PUT',
@@ -228,7 +227,7 @@ export const saksdataApi = createApi({
         }
       },
     }),
-    setMottattVedtaksinstans: builder.mutation<ISaksdata, SaksdataUpdate<'mottattVedtaksinstans'>>({
+    setMottattVedtaksinstans: builder.mutation<ISaksdataIncomplete, SaksdataUpdate<'mottattVedtaksinstans'>>({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/mottattvedtaksinstans`,
         method: 'PUT',
@@ -250,7 +249,7 @@ export const saksdataApi = createApi({
         }
       },
     }),
-    setSakstype: builder.mutation<ISaksdata, SaksdataAndListUpdate<'sakstypeId'>>({
+    setSakstype: builder.mutation<ISaksdataIncomplete, SaksdataAndListUpdate<'sakstypeId'>>({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/sakstype`,
         method: 'PUT',
@@ -279,7 +278,7 @@ export const saksdataApi = createApi({
         }
       },
     }),
-    setYtelse: builder.mutation<ISaksdata, SaksdataAndListUpdate<'ytelseId'>>({
+    setYtelse: builder.mutation<ISaksdataIncomplete, SaksdataAndListUpdate<'ytelseId'>>({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/ytelse`,
         method: 'PUT',
@@ -309,7 +308,7 @@ export const saksdataApi = createApi({
         }
       },
     }),
-    setUtfall: builder.mutation<ISaksdata, SaksdataAndListUpdate<'utfallId'>>({
+    setUtfall: builder.mutation<ISaksdataIncomplete, SaksdataAndListUpdate<'utfallId'>>({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/utfall`,
         method: 'PUT',
@@ -338,7 +337,7 @@ export const saksdataApi = createApi({
         }
       },
     }),
-    setVedtaksinstansenhet: builder.mutation<ISaksdata, SaksdataUpdate<'vedtaksinstansEnhet'>>({
+    setVedtaksinstansenhet: builder.mutation<ISaksdataIncomplete, SaksdataUpdate<'vedtaksinstansEnhet'>>({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/vedtaksinstansenhet`,
         method: 'PUT',
@@ -360,7 +359,7 @@ export const saksdataApi = createApi({
         }
       },
     }),
-    setTilknyttetEnhet: builder.mutation<ISaksdata, SaksdataUpdate<'tilknyttetEnhet'>>({
+    setTilknyttetEnhet: builder.mutation<ISaksdataIncomplete, SaksdataUpdate<'tilknyttetEnhet'>>({
       query: ({ id, tilknyttetEnhet }) => ({
         url: `/api/kaka-api/saksdata/${id}/tilknyttetenhet`,
         method: 'PUT',

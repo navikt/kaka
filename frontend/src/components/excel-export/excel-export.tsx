@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHasRole } from '../../hooks/use-has-role';
 import { Download } from '../../icons/download';
 import { baseUrl } from '../../redux-api/common';
-import { useGetUserDataQuery } from '../../redux-api/metadata';
+import { Role } from '../../types/user';
 
 export const ExcelExport = () => {
-  const { data } = useGetUserDataQuery();
+  const isLeder = useHasRole(Role.ROLE_KLAGE_LEDER);
 
-  if (typeof data === 'undefined' || !data.roller.includes('ROLE_KLAGE_LEDER')) {
+  if (!isLeder) {
     return null;
   }
 

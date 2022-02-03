@@ -1,11 +1,11 @@
 import React from 'react';
 import 'nav-frontend-tabell-style';
-import { ISaksdataBase } from '../../types/saksdata';
-import { Loader } from '../loader/loader';
+import { ISaksdataCompleteSearchHit, ISaksdataIncompleteSearchHit } from '../../types/saksdata';
+import { RowLoader } from '../loader/row-loader';
 import { Row } from './row';
 
 interface RegistreringRaderProps {
-  registreringer?: ISaksdataBase[];
+  registreringer?: (ISaksdataIncompleteSearchHit | ISaksdataCompleteSearchHit)[];
   columnCount: number;
   testId: string;
 }
@@ -16,7 +16,7 @@ export const RegistreringRows = ({ registreringer, columnCount, testId }: Regist
       <tbody data-testid={`${testId}-table-loading`}>
         <tr>
           <td colSpan={columnCount}>
-            <Loader>Laster kvalitetsregistreringer...</Loader>
+            <RowLoader>Laster kvalitetsregistreringer...</RowLoader>
           </td>
         </tr>
       </tbody>

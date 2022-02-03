@@ -14,8 +14,10 @@ export const Kvalitetsregistreringer = () => {
 
   const loading = typeof userData === 'undefined';
 
+  const disabled = loading || userData.klageenheter.length === 0;
+
   const createNewSaksdata = () => {
-    if (loading) {
+    if (disabled) {
       return;
     }
 
@@ -29,7 +31,7 @@ export const Kvalitetsregistreringer = () => {
 
   return (
     <StyledKvalitetsregistreringer>
-      <Hovedknapp onClick={() => createNewSaksdata()} disabled={loading} data-testid="new-kvalitetsvurdering-button">
+      <Hovedknapp onClick={() => createNewSaksdata()} disabled={disabled} data-testid="new-kvalitetsvurdering-button">
         Ny kvalitetsvurdering
       </Hovedknapp>
 
@@ -51,4 +53,5 @@ const SubHeader = styled.h2`
 
 const StyledKvalitetsregistreringer = styled.section`
   padding-top: 2em;
+  width: 100%;
 `;
