@@ -25,6 +25,11 @@ const useDoughnutOptions = (): ChartOptions<'doughnut'> => ({
         font: { size: 13 },
       },
     },
+    tooltip: {
+      callbacks: {
+        label: ({ label }) => label,
+      },
+    },
   },
 });
 
@@ -110,9 +115,14 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: Kva
 
   const numberOfMangelfulleSaker = mangelfulleSaker.length;
 
+  const totalAmountSaker = numberOfMangelfulleSaker + braNokSaker.length;
+
   const doughnutData: [number, number] = [braNokSaker.length, numberOfMangelfulleSaker];
 
-  const doughnutLabels = ['Bra / godt nok', 'Mangelfullt'];
+  const doughnutLabels = [
+    `Bra / godt nok: ${percent(braNokSaker.length, totalAmountSaker)}`,
+    `Mangelfullt: ${percent(numberOfMangelfulleSaker, totalAmountSaker)}`,
+  ];
   const barLabels = relevantReasons.map((reasonId) => REASON_NAMES[reasonId]);
   const barData: number[] = relevantReasons.map(
     (reasonId) => mangelfulleSaker.filter((stat) => stat[reasonId] === true).length
