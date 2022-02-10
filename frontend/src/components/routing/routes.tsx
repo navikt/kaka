@@ -2,8 +2,8 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useHasAccess } from '../../hooks/use-has-access';
 import { useIndexPath } from '../../hooks/use-index-path';
-import { KvalitetsregistreringPage } from '../../pages/kvalitetsregistrering';
-import { KvalitetsregistreringerPage } from '../../pages/kvalitetsregistreringer';
+import { KvalitetsvurderingPage } from '../../pages/kvalitetsvurdering';
+import { KvalitetsvurderingerPage } from '../../pages/kvalitetsvurderinger';
 import { StatistikkLederPage } from '../../pages/statistikk/leder';
 import { StatistikkOpenPage } from '../../pages/statistikk/open';
 import { StatistikkTotalPage } from '../../pages/statistikk/total';
@@ -44,18 +44,18 @@ export const Router = () => {
         />
       </Route>
       <Route
-        path="kvalitetsregistreringer"
+        path="kvalitetsvurderinger"
         element={
-          <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.KVALITETSREGISTRERINGER}>
-            <KvalitetsregistreringerPage />
+          <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.KVALITETSVURDERINGER}>
+            <KvalitetsvurderingerPage />
           </HasAccess>
         }
       />
       <Route
-        path="kvalitetsregistreringer/:saksdataId"
+        path="kvalitetsvurderinger/:saksdataId"
         element={
-          <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.KVALITETSREGISTRERINGER}>
-            <KvalitetsregistreringPage />
+          <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.KVALITETSVURDERINGER}>
+            <KvalitetsvurderingPage />
           </HasAccess>
         }
       />
@@ -71,7 +71,7 @@ export const Router = () => {
         path="tilbakemeldinger/:saksdataId"
         element={
           <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.TILBAKEMELDINGER}>
-            <KvalitetsregistreringPage />
+            <KvalitetsvurderingPage />
           </HasAccess>
         }
       />

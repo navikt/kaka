@@ -4,30 +4,30 @@ import { ISaksdataCompleteSearchHit, ISaksdataIncompleteSearchHit } from '../../
 import { RowLoader } from '../loader/row-loader';
 import { Row } from './row';
 
-interface RegistreringRaderProps {
-  registreringer?: (ISaksdataIncompleteSearchHit | ISaksdataCompleteSearchHit)[];
+interface Props {
+  vurderinger?: (ISaksdataIncompleteSearchHit | ISaksdataCompleteSearchHit)[];
   columnCount: number;
   testId: string;
 }
 
-export const RegistreringRows = ({ registreringer, columnCount, testId }: RegistreringRaderProps): JSX.Element => {
-  if (typeof registreringer === 'undefined') {
+export const VurderingRows = ({ vurderinger, columnCount, testId }: Props): JSX.Element => {
+  if (typeof vurderinger === 'undefined') {
     return (
       <tbody data-testid={`${testId}-table-loading`}>
         <tr>
           <td colSpan={columnCount}>
-            <RowLoader>Laster kvalitetsregistreringer...</RowLoader>
+            <RowLoader>Laster kvalitetsvurderinger...</RowLoader>
           </td>
         </tr>
       </tbody>
     );
   }
 
-  if (registreringer.length === 0) {
+  if (vurderinger.length === 0) {
     return (
       <tbody data-testid={`${testId}-table-loaded`}>
         <tr>
-          <td colSpan={columnCount}>Ingen registreringer i liste</td>
+          <td colSpan={columnCount}>Ingen kvalitetsvurderinger</td>
         </tr>
       </tbody>
     );
@@ -35,7 +35,7 @@ export const RegistreringRows = ({ registreringer, columnCount, testId }: Regist
 
   return (
     <tbody data-testid={`${testId}-table-loaded`}>
-      {registreringer.map((k) => (
+      {vurderinger.map((k) => (
         <Row {...k} key={k.id} testId={testId} />
       ))}
     </tbody>

@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { useCreateSaksdataMutation } from '../../redux-api/saksdata';
-import { FullfoerteRegistreringerTable } from './fullfoerte-registreringer-table';
-import { PaabegynteRegistreringerTable } from './paabegynte-registreringer-table';
+import { FullfoerteVurderingerTable } from './fullfoerte-vurderinger-table';
+import { PaabegynteVurderingerTable } from './paabegynte-vurderinger-table';
 
-export const Kvalitetsregistreringer = () => {
+export const Kvalitetsvurderinger = () => {
   const { data: userData } = useGetUserDataQuery();
   const [createSaksdata] = useCreateSaksdataMutation();
   const navigate = useNavigate();
@@ -26,21 +26,21 @@ export const Kvalitetsregistreringer = () => {
       tilknyttetEnhet: userData.klageenheter[0].navn,
     })
       .unwrap()
-      .then(({ id }) => navigate(`/kvalitetsregistreringer/${id}`));
+      .then(({ id }) => navigate(`/kvalitetsvurderinger/${id}`));
   };
 
   return (
-    <StyledKvalitetsregistreringer>
+    <StyledKvalitetsvurderinger>
       <Hovedknapp onClick={() => createNewSaksdata()} disabled={disabled} data-testid="new-kvalitetsvurdering-button">
         Ny kvalitetsvurdering
       </Hovedknapp>
 
       <SubHeader>Påbegynte vurderinger</SubHeader>
-      <PaabegynteRegistreringerTable />
+      <PaabegynteVurderingerTable />
 
       <SubHeader>Fullførte vurderinger siste 7 dager</SubHeader>
-      <FullfoerteRegistreringerTable />
-    </StyledKvalitetsregistreringer>
+      <FullfoerteVurderingerTable />
+    </StyledKvalitetsvurderinger>
   );
 };
 
@@ -51,7 +51,7 @@ const SubHeader = styled.h2`
   margin-bottom: 0;
 `;
 
-const StyledKvalitetsregistreringer = styled.section`
+const StyledKvalitetsvurderinger = styled.section`
   padding-top: 2em;
   width: 100%;
 `;

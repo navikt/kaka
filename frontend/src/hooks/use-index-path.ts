@@ -21,7 +21,7 @@ export const useIndexPath = () => {
   }
 
   if (user.roller.includes(Role.ROLE_KLAGE_SAKSBEHANDLER)) {
-    return 'kvalitetsregistreringer';
+    return 'kvalitetsvurderinger';
   }
 
   if (user.roller.includes(Role.ROLE_KLAGE_LEDER) && klageenheter.some(({ navn }) => navn === user.ansattEnhet.navn)) {

@@ -2,7 +2,7 @@ import React from 'react';
 import { isoDateTimeToPrettyDate } from '../../domain/date';
 import { formatSakenGjelder } from '../../functions/format-id';
 import { ISaksdataCompleteSearchHit, ISaksdataIncompleteSearchHit } from '../../types/saksdata';
-import { OpenKvalitetsregistrering } from '../common-table-components/open';
+import { OpenKvalitetsvurdering } from '../common-table-components/open';
 import { Type } from '../common-table-components/type';
 import { Utfall } from '../common-table-components/utfall';
 import { Ytelse } from '../common-table-components/ytelse';
@@ -34,7 +34,7 @@ export const Row = ({
       <Utfall utfall={utfallId} />
     </td>
     <td>
-      <OpenKvalitetsregistrering id={id} />
+      <OpenKvalitetsvurdering id={id} />
     </td>
   </tr>
 );

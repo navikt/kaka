@@ -41,9 +41,9 @@ export const Nav = () => {
         </NavItem>
 
         <NavItem
-          to="/kvalitetsregistreringer"
+          to="/kvalitetsvurderinger"
           testId="kvalitetsvurdering-nav-link"
-          roles={ACCESS_ROLES.KVALITETSREGISTRERINGER}
+          roles={ACCESS_ROLES.KVALITETSVURDERINGER}
         >
           Kvalitetsvurderinger
         </NavItem>

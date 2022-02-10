@@ -4,15 +4,15 @@ import { PageWrapper } from '../../pages/page-wrapper';
 import { Kvalitetsskjema } from './kvalitetsskjema/kvalitetsskjema';
 import { Saksdata } from './saksdata/saksdata';
 
-export const Kvalitetsregistrering = () => (
+export const Kvalitetsvurdering = () => (
   <PageWrapper>
-    <StyledKvalitetsregistrering>
+    <StyledKvalitetsvurdering>
       <Saksdata />
       <Kvalitetsskjema />
-    </StyledKvalitetsregistrering>
+    </StyledKvalitetsvurdering>
   </PageWrapper>
 );
 
-const StyledKvalitetsregistrering = styled.section`
+const StyledKvalitetsvurdering = styled.section`
   padding-left: 1em;
 `;

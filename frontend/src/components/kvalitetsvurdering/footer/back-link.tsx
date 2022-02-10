@@ -28,7 +28,7 @@ export const BackLink = () => {
   }
 
   return (
-    <NavLink to="/kvalitetsregistreringer" className="knapp knapp--mini footer-button">
+    <NavLink to="/kvalitetsvurderinger" className="knapp knapp--mini footer-button">
       Tilbake
     </NavLink>
   );
