@@ -35,7 +35,7 @@ export const UnfinishedFooter = () => {
   const deleteSaksdata = async () => {
     try {
       await deleteVurdering({ saksId: id, saksbehandlerIdent: userData.ident });
-      navigate('/kvalitetsregistreringer', { replace: true });
+      navigate('/kvalitetsvurderinger', { replace: true });
     } catch {
       console.error('Kunne ikke slette kvalitetsvurdering');
     }

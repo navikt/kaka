@@ -2,20 +2,20 @@ import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import React from 'react';
 import 'nav-frontend-tabell-style';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
-import { ISaksdataListParams, useGetIncompleteSaksdataListQuery } from '../../redux-api/saksdata';
+import { ISaksdataListParams, useGetCompleteSaksdataListQuery } from '../../redux-api/saksdata';
 import { Table } from './table';
 
-export const PaabegynteRegistreringerTable = () => {
+export const FullfoerteVurderingerTable = () => {
   const { data: userData } = useGetUserDataQuery();
 
-  const query: ISaksdataListParams | typeof skipToken =
+  const options: ISaksdataListParams | typeof skipToken =
     typeof userData === 'undefined'
       ? skipToken
       : {
           saksbehandlerIdent: userData.ident,
         };
 
-  const { data } = useGetIncompleteSaksdataListQuery(query);
+  const { data } = useGetCompleteSaksdataListQuery(options);
 
-  return <Table data={data} testId="paabegynte-registreringer" />;
+  return <Table data={data} testId="fullfoerte-vurderinger" />;
 };

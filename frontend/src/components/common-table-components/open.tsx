@@ -5,12 +5,12 @@ interface Props {
   id: string;
 }
 
-export const OpenKvalitetsregistrering = ({ id }: Props) => (
+export const OpenKvalitetsvurdering = ({ id }: Props) => (
   <NavLink
     className="knapp knapp--hoved"
     to={id}
     state={`${window.location.pathname}${window.location.search}`}
-    data-testid="kvalitetsregistreringer-open-link"
+    data-testid="kvalitetsvurderinger-open-link"
     data-saksdata-id={id}
   >
     Åpne
