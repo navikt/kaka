@@ -1,23 +1,21 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { useHasAccess } from '../../hooks/use-has-access';
 import { useIndexPath } from '../../hooks/use-index-path';
+import { useUserAccess } from '../../hooks/use-user-access';
 import { KvalitetsvurderingPage } from '../../pages/kvalitetsvurdering';
 import { KvalitetsvurderingerPage } from '../../pages/kvalitetsvurderinger';
 import { StatistikkLederPage } from '../../pages/statistikk/leder';
 import { StatistikkOpenPage } from '../../pages/statistikk/open';
 import { StatistikkTotalPage } from '../../pages/statistikk/total';
 import { TilbakemeldingerPage } from '../../pages/tilbakemeldinger';
-import { useGetUserDataQuery } from '../../redux-api/metadata';
-import { Role } from '../../types/user';
 import { Overlay } from '../loader/overlay';
-import { ACCESS_ROLES } from './access-roles';
+import { Page, hasPageAccess } from './access-roles';
 
 export const Router = () => {
-  const { data, isLoading } = useGetUserDataQuery();
+  const { isLoading, access } = useUserAccess();
   const indexPath = useIndexPath();
 
-  if (isLoading || typeof data === 'undefined') {
+  if (isLoading || typeof access === 'undefined') {
     return <Overlay />;
   }
 
@@ -29,7 +27,7 @@ export const Router = () => {
         <Route
           path="total"
           element={
-            <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.TOTALSTATISTIKK}>
+            <HasAccess hasAccess={hasPageAccess(Page.TOTALSTATISTIKK, access)}>
               <StatistikkTotalPage />
             </HasAccess>
           }
@@ -37,7 +35,7 @@ export const Router = () => {
         <Route
           path="leder"
           element={
-            <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.LEDERSTATISTIKK}>
+            <HasAccess hasAccess={hasPageAccess(Page.LEDERSTATISTIKK, access)}>
               <StatistikkLederPage />
             </HasAccess>
           }
@@ -46,7 +44,7 @@ export const Router = () => {
       <Route
         path="kvalitetsvurderinger"
         element={
-          <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.KVALITETSVURDERINGER}>
+          <HasAccess hasAccess={hasPageAccess(Page.KVALITETSVURDERINGER, access)}>
             <KvalitetsvurderingerPage />
           </HasAccess>
         }
@@ -54,7 +52,7 @@ export const Router = () => {
       <Route
         path="kvalitetsvurderinger/:saksdataId"
         element={
-          <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.KVALITETSVURDERINGER}>
+          <HasAccess hasAccess={hasPageAccess(Page.KVALITETSVURDERINGER, access)}>
             <KvalitetsvurderingPage />
           </HasAccess>
         }
@@ -62,7 +60,7 @@ export const Router = () => {
       <Route
         path="tilbakemeldinger"
         element={
-          <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.TILBAKEMELDINGER}>
+          <HasAccess hasAccess={hasPageAccess(Page.TILBAKEMELDINGER, access)}>
             <TilbakemeldingerPage />
           </HasAccess>
         }
@@ -70,7 +68,7 @@ export const Router = () => {
       <Route
         path="tilbakemeldinger/:saksdataId"
         element={
-          <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.TILBAKEMELDINGER}>
+          <HasAccess hasAccess={hasPageAccess(Page.TILBAKEMELDINGER, access)}>
             <KvalitetsvurderingPage />
           </HasAccess>
         }
@@ -81,16 +79,15 @@ export const Router = () => {
 };
 
 interface Props {
-  roles: Role[];
-  notAuthPath: string;
+  hasAccess: boolean;
   children: JSX.Element;
 }
 
-const HasAccess = ({ roles, notAuthPath, children }: Props) => {
-  const hasAccess = useHasAccess(roles);
+const HasAccess = ({ hasAccess, children }: Props) => {
+  const indexPath = useIndexPath();
 
   if (!hasAccess) {
-    return <Navigate to={notAuthPath} replace />;
+    return <Navigate to={indexPath} replace />;
   }
 
   return children;
