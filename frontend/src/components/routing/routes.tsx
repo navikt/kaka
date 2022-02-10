@@ -29,7 +29,7 @@ export const Router = () => {
         <Route
           path="total"
           element={
-            <HasAccess roles={ACCESS_ROLES.TOTALSTATISTIKK}>
+            <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.TOTALSTATISTIKK}>
               <StatistikkTotalPage />
             </HasAccess>
           }
@@ -37,7 +37,7 @@ export const Router = () => {
         <Route
           path="leder"
           element={
-            <HasAccess roles={ACCESS_ROLES.LEDERSTATISTIKK}>
+            <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.LEDERSTATISTIKK}>
               <StatistikkLederPage />
             </HasAccess>
           }
@@ -46,7 +46,7 @@ export const Router = () => {
       <Route
         path="kvalitetsregistreringer"
         element={
-          <HasAccess roles={ACCESS_ROLES.KVALITETSREGISTRERINGER}>
+          <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.KVALITETSREGISTRERINGER}>
             <KvalitetsregistreringerPage />
           </HasAccess>
         }
@@ -54,7 +54,7 @@ export const Router = () => {
       <Route
         path="kvalitetsregistreringer/:saksdataId"
         element={
-          <HasAccess roles={ACCESS_ROLES.KVALITETSREGISTRERINGER}>
+          <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.KVALITETSREGISTRERINGER}>
             <KvalitetsregistreringPage />
           </HasAccess>
         }
@@ -62,7 +62,7 @@ export const Router = () => {
       <Route
         path="tilbakemeldinger"
         element={
-          <HasAccess roles={ACCESS_ROLES.TILBAKEMELDINGER}>
+          <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.TILBAKEMELDINGER}>
             <TilbakemeldingerPage />
           </HasAccess>
         }
@@ -70,7 +70,7 @@ export const Router = () => {
       <Route
         path="tilbakemeldinger/:saksdataId"
         element={
-          <HasAccess roles={ACCESS_ROLES.TILBAKEMELDINGER}>
+          <HasAccess notAuthPath={indexPath} roles={ACCESS_ROLES.TILBAKEMELDINGER}>
             <KvalitetsregistreringPage />
           </HasAccess>
         }
@@ -82,14 +82,15 @@ export const Router = () => {
 
 interface Props {
   roles: Role[];
+  notAuthPath: string;
   children: JSX.Element;
 }
 
-const HasAccess = ({ roles, children }: Props) => {
+const HasAccess = ({ roles, notAuthPath, children }: Props) => {
   const hasAccess = useHasAccess(roles);
 
   if (!hasAccess) {
-    return <Navigate to="/" replace />;
+    return <Navigate to={notAuthPath} replace />;
   }
 
   return children;
