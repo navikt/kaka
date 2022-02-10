@@ -28,5 +28,5 @@ export const useIndexPath = () => {
     return `statistikk/leder?${lederQuery}`;
   }
 
-  return `statistikk/open?${openQuery}`;
+  return `statistikk/aapen?${openQuery}`;
 };
