@@ -63,7 +63,6 @@ jobs:
           VARS: nais/dev.yaml
   e2etest:
     name: E2E-test av deploy
-    if: ${{ false }}
     needs: deploytodev
     runs-on: ubuntu-latest
     steps:
