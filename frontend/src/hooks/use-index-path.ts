@@ -20,7 +20,7 @@ export const useIndexPath = () => {
     return `tilbakemeldinger?${tilbakemeldingerQuery}`;
   }
 
-  if (user.roller.includes(Role.ROLE_KLAGE_SAKSBEHANDLER)) {
+  if (user.roller.includes(Role.ROLE_KLAGEINSTANS_ALLE) || user.roller.includes(Role.ROLE_KLAGE_SAKSBEHANDLER)) {
     return 'kvalitetsvurderinger';
   }
 
