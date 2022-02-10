@@ -48,8 +48,6 @@ const StyledLabel = styled.label`
   font-size: 1em;
   font-weight: 400;
   user-select: none;
-  white-space: nowrap;
-  word-break: keep-all;
   overflow: hidden;
 
   &:hover {
