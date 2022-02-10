@@ -75,6 +75,7 @@ export const Router = () => {
           </HasAccess>
         }
       />
+      <Route path="*" element={<Navigate to={indexPath} />} />
     </Routes>
   );
 };
