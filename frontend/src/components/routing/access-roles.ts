@@ -1,10 +1,31 @@
-import { Role } from '../../types/user';
+import { UserAccess } from '../../hooks/use-user-access';
 
-export const ACCESS_ROLES = {
+export enum Page {
+  AAPEN_STATISTIKK = 'AAPEN_STATISTIKK',
+  TOTALSTATISTIKK = 'TOTALSTATISTIKK',
+  LEDERSTATISTIKK = 'LEDERSTATISTIKK',
+  KVALITETSVURDERINGER = 'KVALITETSVURDERINGER',
+  TILBAKEMELDINGER = 'TILBAKEMELDINGER',
+  MIN_STATISTIKK = 'MIN_STATISTIKK',
+}
+
+type PageAccessMap = Record<Page, (keyof UserAccess)[]>;
+
+const ACCESS_ROLES: PageAccessMap = {
   AAPEN_STATISTIKK: [],
-  TOTALSTATISTIKK: [Role.ROLE_KLAGEINSTANS_ALLE, Role.ROLE_KLAGE_SAKSBEHANDLER, Role.ROLE_KLAGE_LEDER],
-  LEDERSTATISTIKK: [Role.ROLE_KLAGE_LEDER],
-  KVALITETSVURDERINGER: [Role.ROLE_KLAGEINSTANS_ALLE, Role.ROLE_KLAGE_SAKSBEHANDLER],
-  TILBAKEMELDINGER: [Role.ROLE_VEDTAKSINSTANS_LEDER],
-  MIN_STATISTIKK: [Role.ROLE_KLAGEINSTANS_ALLE, Role.ROLE_KLAGE_SAKSBEHANDLER],
+  TOTALSTATISTIKK: ['isSaksbehandler', 'isStyringsenhetleder', 'isKlageinstansleder'],
+  LEDERSTATISTIKK: ['isKlageinstansleder'],
+  KVALITETSVURDERINGER: ['isSaksbehandler'],
+  TILBAKEMELDINGER: ['isVedtaksinstansleder'],
+  MIN_STATISTIKK: ['isSaksbehandler'],
+};
+
+export const hasPageAccess = (page: Page, access: UserAccess): boolean => {
+  const requiredRoles = ACCESS_ROLES[page];
+
+  if (requiredRoles.length === 0) {
+    return true;
+  }
+
+  return requiredRoles.some((role) => access[role]);
 };

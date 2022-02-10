@@ -7,27 +7,31 @@ import {
   useDefaultQueryTilbakemeldinger,
   useDefaultQueryTotal,
 } from '../../hooks/use-default-query-params';
-import { useHasAccess } from '../../hooks/use-has-access';
-import { Role } from '../../types/user';
-import { ACCESS_ROLES } from './access-roles';
+import { useUserAccess } from '../../hooks/use-user-access';
+import { Page, hasPageAccess } from '../routing/access-roles';
 
 export const Nav = () => {
   const openQuery = useDefaultQueryOpen();
   const totalQuery = useDefaultQueryTotal();
   const lederQuery = useDefaultQueryLeder();
   const queryTilbakemeldinger = useDefaultQueryTilbakemeldinger();
+  const { isLoading, access } = useUserAccess();
+
+  if (isLoading || typeof access === 'undefined') {
+    return null;
+  }
 
   return (
     <StyledNav role="navigation" aria-label="Meny" data-testid="kaka-nav">
       <StyledNavLinkList>
-        <NavItem to={`/statistikk/aapen?${openQuery}`} testId="statistikk-open-nav-link">
+        <NavItem to={`/statistikk/aapen?${openQuery}`} testId="statistikk-aapen-nav-link" hasAccess>
           Åpen statistikk
         </NavItem>
 
         <NavItem
           to={`/statistikk/total?${totalQuery}`}
           testId="statistikk-total-nav-link"
-          roles={ACCESS_ROLES.TOTALSTATISTIKK}
+          hasAccess={hasPageAccess(Page.TOTALSTATISTIKK, access)}
         >
           Totalstatistikk
         </NavItem>
@@ -35,7 +39,7 @@ export const Nav = () => {
         <NavItem
           to={`/statistikk/leder?${lederQuery}`}
           testId="statistikk-leder-nav-link"
-          roles={ACCESS_ROLES.LEDERSTATISTIKK}
+          hasAccess={hasPageAccess(Page.LEDERSTATISTIKK, access)}
         >
           Lederstatistikk
         </NavItem>
@@ -43,15 +47,15 @@ export const Nav = () => {
         <NavItem
           to="/kvalitetsvurderinger"
           testId="kvalitetsvurdering-nav-link"
-          roles={ACCESS_ROLES.KVALITETSVURDERINGER}
+          hasAccess={hasPageAccess(Page.KVALITETSVURDERINGER, access)}
         >
           Kvalitetsvurderinger
         </NavItem>
 
         <NavItem
           to={`/tilbakemeldinger?${queryTilbakemeldinger}`}
-          testId="enhet-nav-link"
-          roles={ACCESS_ROLES.TILBAKEMELDINGER}
+          testId="tilbakemeldinger-nav-link"
+          hasAccess={hasPageAccess(Page.TILBAKEMELDINGER, access)}
         >
           Tilbakemeldinger
         </NavItem>
@@ -61,13 +65,11 @@ export const Nav = () => {
 };
 
 interface NavItemProps extends NavLinkProps {
+  hasAccess: boolean;
   testId?: string;
-  roles?: Role[];
 }
 
-const NavItem = ({ testId, roles = [], ...props }: NavItemProps) => {
-  const hasAccess = useHasAccess(roles);
-
+const NavItem = ({ hasAccess, testId, ...props }: NavItemProps) => {
   if (!hasAccess) {
     return null;
   }
