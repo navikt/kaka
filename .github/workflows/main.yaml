@@ -46,6 +46,7 @@ jobs:
       - name: Build and publish Docker image
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ github.sha }}
         run: |
           cat Dockerfile
           docker build --tag ${IMAGE} .
