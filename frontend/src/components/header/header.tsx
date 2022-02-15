@@ -2,6 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { useIndexPath } from '../../hooks/use-index-path';
+import { UserMenu } from '../user-menu/user-menu';
+import { VersionCheckerStatus } from '../version-checker/version-checker-status';
 import { HomeIcon } from './home-icon';
 
 export const Header = () => {
@@ -13,6 +15,8 @@ export const Header = () => {
         <HomeIcon />
         <StyledLabel>KAKA</StyledLabel>
       </StyledLogo>
+      <VersionCheckerStatus />
+      <UserMenu />
     </StyledHeader>
   );
 };

@@ -1,9 +1,13 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
     main: './src/index.tsx',
   },
+  plugins: [
+    new webpack.EnvironmentPlugin({'VERSION': 'dev'}),
+  ],
   module: {
     rules: [
       {
