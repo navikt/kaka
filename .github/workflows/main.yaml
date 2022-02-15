@@ -24,6 +24,8 @@ jobs:
           cd frontend
           npm ci
       - name: Build frontend
+        env:
+          VERSION: ${{ github.sha }}
         run: |
           cd frontend
           npm run build
