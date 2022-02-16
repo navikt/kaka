@@ -8,7 +8,6 @@ import { MottattKlageinstans } from './mottatt-klageinstans';
 import { MottattVedtaksinstans } from './mottatt-vedtaksinstans';
 import { SakenGjelder } from './saken-gjelder';
 import { Sakstype } from './sakstype';
-import { TilknyttetEnhet } from './tilknyttet-enhet';
 import { UtfallResultat } from './utfall-resultat';
 import { Ytelse } from './ytelse';
 
@@ -21,7 +20,6 @@ export const Saksdata = () => {
 
   return (
     <StyledSaksdata>
-      <TilknyttetEnhet />
       <Sakstype />
       <SakenGjelder />
       <Ytelse />
