@@ -94,6 +94,7 @@ const iconText = css`
 `;
 
 const Container = styled.div`
+  position: relative;
   height: 100%;
 `;
 
@@ -156,6 +157,7 @@ const StyledButton = styled.button`
   ${iconText}
   border: none;
   padding: 0;
+  padding-right: 16px;
   margin: 0;
   background: transparent;
   color: white;
