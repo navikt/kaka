@@ -13,7 +13,7 @@ export const Header = () => {
     <StyledHeader>
       <StyledLogo to={path}>
         <HomeIcon />
-        <StyledLabel>KAKA</StyledLabel>
+        KAKA
       </StyledLogo>
       <VersionCheckerStatus />
       <UserMenu />
@@ -27,7 +27,7 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   width: 100%;
   height: 48px;
-  padding: 0 1.5rem;
+  padding: 0;
   background: #3e3832;
   align-items: center;
   position: sticky;
@@ -36,14 +36,13 @@ const StyledHeader = styled.header`
 `;
 
 const StyledLogo = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 16px;
+  height: 100%;
   color: white;
   font-size: 18px;
   font-weight: 600;
   text-decoration: none;
-  display: flex;
-  align-items: center;
-`;
-
-const StyledLabel = styled.span`
-  margin-left: 1em;
 `;
