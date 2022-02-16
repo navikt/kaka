@@ -40,7 +40,7 @@ const Version = () => {
 
   return (
     <IconText>
-      <Success /> KAKA er oppdatert!
+      <Success /> KAKA er klar til bruk!
     </IconText>
   );
 };
