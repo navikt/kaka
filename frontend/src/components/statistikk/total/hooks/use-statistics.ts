@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useGetTotalStatisticsQuery } from '../../../../redux-api/statistics';
-import { IStatisticVurdering } from '../../../../types/statistics';
+import { ITotalStatisticVurdering } from '../../../../types/statistics';
 import { QueryParams } from '../../../filters/filter-query-params';
 import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../../filters/hooks/use-query-filter';
 
@@ -12,7 +12,7 @@ const useTotalStatistics = () => {
 
 export const useTotalStatisticsIsLoading = (): boolean => useTotalStatistics().isLoading;
 
-export const useAllTotalStatistics = (): IStatisticVurdering[] => {
+export const useAllTotalStatistics = (): ITotalStatisticVurdering[] => {
   const { data } = useTotalStatistics();
 
   return data?.anonymizedFinishedVurderingList ?? [];

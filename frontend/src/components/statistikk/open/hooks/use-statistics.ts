@@ -1,25 +1,25 @@
 import { useMemo } from 'react';
 import { useGetTotalStatisticsQuery } from '../../../../redux-api/statistics';
-import { IStatisticVurdering } from '../../../../types/statistics';
+import { ITotalStatisticVurdering } from '../../../../types/statistics';
 import { QueryParams } from '../../../filters/filter-query-params';
 import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../../filters/hooks/use-query-filter';
 
-const useTotalStatistics = () => {
+const useStatistics = () => {
   const fromDate = useFromDateQueryFilter();
   const toDate = useToDateQueryFilter();
   return useGetTotalStatisticsQuery({ fromDate, toDate }, { pollingInterval: 3 * 60 * 1000 });
 };
 
-export const useTotalStatisticsIsLoading = (): boolean => useTotalStatistics().isLoading;
+export const useTotalStatisticsIsLoading = (): boolean => useStatistics().isLoading;
 
-export const useAllTotalStatistics = (): IStatisticVurdering[] => {
-  const { data } = useTotalStatistics();
+export const useAllStatistics = (): ITotalStatisticVurdering[] => {
+  const { data } = useStatistics();
 
   return data?.anonymizedFinishedVurderingList ?? [];
 };
 
-export const useFilteredTotalStatistics = () => {
-  const data = useAllTotalStatistics();
+export const useFilteredStatistics = () => {
+  const data = useAllStatistics();
 
   const types = useQueryFilters(QueryParams.TYPES);
   const ytelser = useQueryFilters(QueryParams.YTELSER);

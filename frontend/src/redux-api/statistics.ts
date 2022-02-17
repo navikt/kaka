@@ -1,24 +1,37 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import qs from 'qs';
 import { ISaksdatalisteLederFoersteinstans, ISaksdatalisteLederFoersteinstansParams } from '../types/saksdata';
-import { IManagerStatisticsQuery, ISaksbehandler, IStatistics, IStatisticsQuery } from '../types/statistics';
+import {
+  IManagerStatisticsQuery,
+  ISaksbehandler,
+  IStatistics,
+  IStatisticsQuery,
+  ITotalStatistics,
+  IVedtaksinstanslederQuery,
+} from '../types/statistics';
 import { baseQuery } from './common';
 
 export const statisticsApi = createApi({
   reducerPath: 'statisticsApi',
   baseQuery,
   endpoints: (builder) => ({
-    getTotalStatistics: builder.query<IStatistics, IStatisticsQuery>({
+    getTotalStatistics: builder.query<ITotalStatistics, IStatisticsQuery>({
       query: (params) => {
-        const query = qs.stringify(params);
+        const query = qs.stringify(params, { arrayFormat: 'comma', skipNulls: true });
 
         return `/api/kaka-api/statistics/total?${query}`;
       },
     }),
-    getManagerStatistics: builder.query<IStatistics, IManagerStatisticsQuery>({
+    getManagerStatistics: builder.query<ITotalStatistics, IManagerStatisticsQuery>({
       query: ({ enhetId, ...params }) => {
-        const query = qs.stringify(params, { arrayFormat: 'comma' });
+        const query = qs.stringify(params, { arrayFormat: 'comma', skipNulls: true });
         return `/api/kaka-api/statistics/enheter/${enhetId}/manager?${query}`;
+      },
+    }),
+    getVedtaksinstanslederStatistics: builder.query<IStatistics, IVedtaksinstanslederQuery>({
+      query: (params) => {
+        const query = qs.stringify(params, { arrayFormat: 'comma', skipNulls: true });
+        return `/api/kaka-api/statistics/vedtaksinstansleder?${query}`;
       },
     }),
     getSaksbehandlere: builder.query<ISaksbehandler[], string>({
@@ -37,8 +50,9 @@ export const statisticsApi = createApi({
 });
 
 export const {
-  useGetSaksdatalisteLederFoersteinstansQuery,
-  useGetTotalStatisticsQuery,
   useGetManagerStatisticsQuery,
   useGetSaksbehandlereQuery,
+  useGetSaksdatalisteLederFoersteinstansQuery,
+  useGetTotalStatisticsQuery,
+  useGetVedtaksinstanslederStatisticsQuery,
 } = statisticsApi;
