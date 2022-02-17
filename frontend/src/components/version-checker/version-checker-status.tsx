@@ -21,7 +21,12 @@ export const VersionCheckerStatus = () => {
   }
 
   return (
-    <UpdateButton title={process.env.VERSION} onClick={() => window.location.reload()} kompakt mini>
+    <UpdateButton
+      title="Det finnes en ny versjon av KAKA. Versjonen du ser på nå er ikke siste versjon. Trykk her for å laste siste versjon."
+      onClick={() => window.location.reload()}
+      kompakt
+      mini
+    >
       <AutomaticSystem /> Oppdater til siste versjon
     </UpdateButton>
   );
