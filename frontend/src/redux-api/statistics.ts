@@ -15,6 +15,13 @@ export const statisticsApi = createApi({
   reducerPath: 'statisticsApi',
   baseQuery,
   endpoints: (builder) => ({
+    getOpenStatistics: builder.query<IStatistics, IStatisticsQuery>({
+      query: (params) => {
+        const query = qs.stringify(params, { arrayFormat: 'comma', skipNulls: true });
+
+        return `/api/kaka-api/statistics/open?${query}`;
+      },
+    }),
     getTotalStatistics: builder.query<ITotalStatistics, IStatisticsQuery>({
       query: (params) => {
         const query = qs.stringify(params, { arrayFormat: 'comma', skipNulls: true });
@@ -51,6 +58,7 @@ export const statisticsApi = createApi({
 
 export const {
   useGetManagerStatisticsQuery,
+  useGetOpenStatisticsQuery,
   useGetSaksbehandlereQuery,
   useGetSaksdatalisteLederFoersteinstansQuery,
   useGetTotalStatisticsQuery,
