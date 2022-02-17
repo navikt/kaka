@@ -87,7 +87,7 @@ const StyledNav = styled.nav`
   position: sticky;
   top: 48px;
   background-color: white;
-  z-index: 5;
+  z-index: 10;
 `;
 
 const StyledNavLinkList = styled.ul`
