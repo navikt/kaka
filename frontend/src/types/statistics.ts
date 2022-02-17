@@ -13,35 +13,36 @@ export interface Date {
   readonly epochDay: number;
 }
 
-export interface IBaseStatisticVurdering {
+export interface IStatisticVurdering {
   readonly id: UUID; // Anonymized
-  readonly tilknyttetEnhet: string;
   readonly createdDate: Date; // First of either: saksdataCreated or kvalitetsvurderingCreated.
   readonly modifiedDate: Date; // Last of either: saksdataModified or kvalitetsvurderingModified.
-}
 
-export interface IStatisticVurdering extends IBaseStatisticVurdering {
   // Saksdata
-  readonly hjemmelIdList: string[];
   readonly avsluttetAvSaksbehandler: Date;
-  readonly ytelseId: string;
-  readonly utfallId: UtfallEnum;
-  readonly sakstypeId: SakstypeEnum;
-  readonly mottattVedtaksinstans: Date | null;
-  readonly mottattKlageinstans: Date | null;
-  readonly vedtaksinstansEnhet: string | null;
   readonly behandlingstidDays: number;
+  readonly hjemmelIdList: string[];
+  readonly mottattKlageinstans: Date | null;
+  readonly mottattVedtaksinstans: Date | null;
+  readonly sakstypeId: SakstypeEnum;
   readonly totalBehandlingstidDays: number;
+  readonly utfallId: UtfallEnum;
+  readonly ytelseId: string;
 
   // Kvalitetsvurdering
   readonly arbeidsrettetBrukeroppfoelging: boolean;
+  readonly arbeidsrettetBrukeroppfoelgingText: string | null;
   readonly begrunnelseForHvorforAvslagOpprettholdes: boolean;
   readonly begrunnelsenErIkkeKonkretOgIndividuell: boolean;
   readonly betydeligAvvik: boolean;
+  readonly betydeligAvvikText: string | null;
+  readonly brukAvRaadgivendeLegeRadioValg: RadioValgExtended | null;
   readonly brukIOpplaering: boolean;
+  readonly brukIOpplaeringText: string | null;
   readonly detErFeilIKonkretRettsanvendelse: boolean;
   readonly detErIkkeBruktRiktigHjemmel: boolean;
   readonly innholdetIRettsregleneErIkkeTilstrekkeligBeskrevet: boolean;
+  readonly klageforberedelsenRadioValg: RadioValg | null;
   readonly klagerensRelevanteAnfoerslerIkkeKommentert: boolean;
   readonly konklusjonen: boolean;
   readonly nyeOpplysningerMottatt: boolean;
@@ -55,34 +56,43 @@ export interface IStatisticVurdering extends IBaseStatisticVurdering {
   readonly sakensDokumenter: boolean;
   readonly spraaketErIkkeTydelig: boolean;
   readonly utredningenAvAndreAktuelleForholdISaken: boolean;
-  readonly utredningenAvArbeid: boolean;
-  readonly utredningenAvEoesProblematikk: boolean;
-  readonly utredningenAvInntektsforhold: boolean;
-  readonly utredningenAvMedisinskeForhold: boolean;
-  readonly veiledningFraNav: boolean;
-  readonly vurderingAvFaktumErMangelfull: boolean;
-  readonly arbeidsrettetBrukeroppfoelgingText: string | null;
-  readonly betydeligAvvikText: string | null;
-  readonly brukIOpplaeringText: string | null;
   readonly utredningenAvAndreAktuelleForholdISakenText: string | null;
+  readonly utredningenAvArbeid: boolean;
   readonly utredningenAvArbeidText: string | null;
+  readonly utredningenAvEoesProblematikk: boolean;
   readonly utredningenAvEoesProblematikkText: string | null;
+  readonly utredningenAvInntektsforhold: boolean;
   readonly utredningenAvInntektsforholdText: string | null;
+  readonly utredningenAvMedisinskeForhold: boolean;
   readonly utredningenAvMedisinskeForholdText: string | null;
-  readonly veiledningFraNavText: string | null;
-  readonly klageforberedelsenRadioValg: RadioValg | null;
   readonly utredningenRadioValg: RadioValg | null;
   readonly vedtaketRadioValg: RadioValg | null;
-  readonly brukAvRaadgivendeLegeRadioValg: RadioValgExtended | null;
+  readonly veiledningFraNav: boolean;
+  readonly veiledningFraNavText: string | null;
+  readonly vurderingAvFaktumErMangelfull: boolean;
 }
+
+export interface ITotalStatisticVurdering extends IStatisticVurdering {
+  // Saksdata
+  readonly tilknyttetEnhet: string;
+  readonly vedtaksinstansEnhet: string | null;
+}
+export interface ITotalStatistics {
+  readonly anonymizedFinishedVurderingList: ITotalStatisticVurdering[];
+}
+
 export interface IStatistics {
   readonly anonymizedFinishedVurderingList: IStatisticVurdering[];
-  readonly anonymizedUnfinishedVurderingList: IBaseStatisticVurdering[];
 }
 
 export interface IStatisticsQuery {
   fromDate?: string;
   toDate?: string;
+}
+
+export interface IVedtaksinstanslederQuery extends IStatisticsQuery {
+  mangelfullt: string[];
+  kommentarer: string[];
 }
 
 export interface IManagerStatisticsQuery {

@@ -22,7 +22,7 @@ import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
-import { useAllTotalStatistics } from './hooks/use-statistics';
+import { useAllStatistics } from './hooks/use-statistics';
 
 const FORMATTED_NOW = NOW.format('YYYY-MM-DD');
 const FORMATTED_30_DAYS_AGO = NOW.subtract(30, 'day').format('YYYY-MM-DD');
@@ -42,7 +42,7 @@ const datePresets: IOption[] = [
 
 export const Filters = () => {
   const { data: userData } = useGetUserDataQuery();
-  const stats = useAllTotalStatistics();
+  const stats = useAllStatistics();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedTypes = useQueryFilters(QueryParams.TYPES);

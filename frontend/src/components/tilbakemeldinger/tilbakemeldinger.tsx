@@ -13,11 +13,11 @@ import { StyledCharts } from '../statistikk/styled-components';
 import { ToggleKvalitetsvurdering } from '../statistikk/toggle-kvalitetsvurdering';
 import { Filters } from './filters';
 import { useFilteredSaksdata, useSaksdataIsLoading } from './hooks/use-filtered-saksdata';
-import { useFilteredTotalStatistics } from './hooks/use-filtered-statistics';
+import { useFilteredStatistics } from './hooks/use-filtered-statistics';
 
 export const Tilbakemeldinger = () => {
   const saksdata = useFilteredSaksdata();
-  const stats = useFilteredTotalStatistics();
+  const stats = useFilteredStatistics();
 
   const isLoading = useSaksdataIsLoading();
 

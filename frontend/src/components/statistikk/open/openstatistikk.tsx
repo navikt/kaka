@@ -28,12 +28,12 @@ import { StyledCharts } from '../styled-components';
 import { ToggleTotalOrKA } from '../toggle-ka-total';
 import { ToggleKvalitetsvurdering } from '../toggle-kvalitetsvurdering';
 import { Filters } from './filters';
-import { useFilteredTotalStatistics, useTotalStatisticsIsLoading } from './hooks/use-statistics';
+import { useFilteredStatistics, useTotalStatisticsIsLoading } from './hooks/use-statistics';
 
 Chart.register(CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Title, Tooltip, Legend);
 
 export const OpenStatistikk = () => {
-  const stats = useFilteredTotalStatistics();
+  const stats = useFilteredStatistics();
 
   return (
     <>

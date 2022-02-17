@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { IStatisticVurdering } from '../../../types/statistics';
+import { ITotalStatisticVurdering } from '../../../types/statistics';
 import { QueryParams } from '../../filters/filter-query-params';
 
 enum BehandlingsTidEnum {
@@ -7,7 +7,7 @@ enum BehandlingsTidEnum {
   KA,
 }
 
-type FieldName = keyof Pick<IStatisticVurdering, 'behandlingstidDays' | 'totalBehandlingstidDays'>;
+type FieldName = keyof Pick<ITotalStatisticVurdering, 'behandlingstidDays' | 'totalBehandlingstidDays'>;
 
 const FIELD_MAP = new Map<BehandlingsTidEnum, FieldName>([
   [BehandlingsTidEnum.TOTAL, 'totalBehandlingstidDays'],
