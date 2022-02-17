@@ -8,7 +8,7 @@ export class VersionChecker {
   constructor(onVersion: OnVersionFn) {
     this.onVersion = onVersion;
 
-    console.log('CURRENT VERSION', this.version ?? 'UNKNOWN');
+    console.info('CURRENT VERSION', this.version ?? 'UNKNOWN');
 
     this.getEventSource();
   }
@@ -35,7 +35,7 @@ export class VersionChecker {
     });
 
     events.addEventListener('message', ({ data }) => {
-      console.log('VERSION', data);
+      console.info('VERSION', data);
       this.onVersion(data !== this.version);
     });
 
