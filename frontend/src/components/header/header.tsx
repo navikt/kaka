@@ -22,7 +22,7 @@ export const Header = () => {
 };
 
 const StyledHeader = styled.header`
-  z-index: 10;
+  z-index: 15;
   display: flex;
   justify-content: space-between;
   width: 100%;
