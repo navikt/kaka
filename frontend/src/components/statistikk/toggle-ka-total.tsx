@@ -3,11 +3,7 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { QueryParams } from '../filters/filter-query-params';
-
-enum BehandlingsTidEnum {
-  TOTAL,
-  KA,
-}
+import { BehandlingsTidEnum } from './types';
 
 export const ToggleTotalOrKA = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,18 +18,25 @@ export const ToggleTotalOrKA = () => {
   return (
     <StyledRadiogruppe>
       <Radio
-        label="Total behandlingstid"
-        value={BehandlingsTidEnum.TOTAL}
-        name="totalBehandlingstidDays"
-        onChange={() => setType(BehandlingsTidEnum.TOTAL)}
-        checked={type === BehandlingsTidEnum.TOTAL}
+        label="Vedtaksinstans"
+        value={BehandlingsTidEnum.VEDTAKSINSTANS}
+        name="vedtaksinstansBehandlingstidDays"
+        onChange={() => setType(BehandlingsTidEnum.VEDTAKSINSTANS)}
+        checked={type === BehandlingsTidEnum.VEDTAKSINSTANS}
       />
       <Radio
-        label="KA-behandlingstid"
+        label="Klageinstans"
         value={BehandlingsTidEnum.KA}
         name="behandlingstidDays"
         onChange={() => setType(BehandlingsTidEnum.KA)}
         checked={type === BehandlingsTidEnum.KA}
+      />
+      <Radio
+        label="Total"
+        value={BehandlingsTidEnum.TOTAL}
+        name="totalBehandlingstidDays"
+        onChange={() => setType(BehandlingsTidEnum.TOTAL)}
+        checked={type === BehandlingsTidEnum.TOTAL}
       />
     </StyledRadiogruppe>
   );
