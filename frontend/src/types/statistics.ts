@@ -73,13 +73,13 @@ export interface IStatisticVurdering {
   readonly vurderingAvFaktumErMangelfull: boolean;
 }
 
-export interface ITotalStatisticVurdering extends IStatisticVurdering {
+export interface IFullStatisticVurdering extends IStatisticVurdering {
   // Saksdata
   readonly tilknyttetEnhet: string;
   readonly vedtaksinstansEnhet: string | null;
 }
-export interface ITotalStatistics {
-  readonly anonymizedFinishedVurderingList: ITotalStatisticVurdering[];
+export interface IFullStatistics {
+  readonly anonymizedFinishedVurderingList: IFullStatisticVurdering[];
 }
 
 export interface IStatistics {

@@ -2,7 +2,7 @@ import { skipToken } from '@reduxjs/toolkit/query/react';
 import { useMemo } from 'react';
 import { useGetUserDataQuery } from '../../../../redux-api/metadata';
 import { useGetManagerStatisticsQuery } from '../../../../redux-api/statistics';
-import { IManagerStatisticsQuery, ITotalStatisticVurdering } from '../../../../types/statistics';
+import { IFullStatisticVurdering, IManagerStatisticsQuery } from '../../../../types/statistics';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
   useFromMonthQueryFilter,
@@ -27,7 +27,7 @@ const useStatistics = () => {
 
 export const useManagerStatisticsIsLoading = (): boolean => useStatistics().isLoading;
 
-const useAllManagerStatistics = (): ITotalStatisticVurdering[] => {
+const useAllManagerStatistics = (): IFullStatisticVurdering[] => {
   const { data } = useStatistics();
 
   return data?.anonymizedFinishedVurderingList ?? [];

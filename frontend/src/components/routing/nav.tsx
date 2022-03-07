@@ -1,4 +1,4 @@
-import { Data, DataFilled, DivideFilled, List, Task } from '@navikt/ds-icons';
+import { Data, DataFilled, Divide, DivideFilled, List, Task } from '@navikt/ds-icons';
 import React from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import styled from 'styled-components';
@@ -43,6 +43,14 @@ export const Nav = () => {
           hasAccess={hasPageAccess(Page.LEDERSTATISTIKK, access)}
         >
           <DivideFilled /> Lederstatistikk
+        </NavItem>
+
+        <NavItem
+          to={`/statistikk/min?${openQuery}`}
+          testId="statistikk-min-nav-link"
+          hasAccess={hasPageAccess(Page.MIN_STATISTIKK, access)}
+        >
+          <Divide /> Min statistikk
         </NavItem>
 
         <NavItem

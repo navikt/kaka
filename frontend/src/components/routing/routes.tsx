@@ -5,6 +5,7 @@ import { useUserAccess } from '../../hooks/use-user-access';
 import { KvalitetsvurderingPage } from '../../pages/kvalitetsvurdering';
 import { KvalitetsvurderingerPage } from '../../pages/kvalitetsvurderinger';
 import { StatistikkLederPage } from '../../pages/statistikk/leder';
+import { StatistikkMinPage } from '../../pages/statistikk/min';
 import { StatistikkOpenPage } from '../../pages/statistikk/open';
 import { StatistikkTotalPage } from '../../pages/statistikk/total';
 import { TilbakemeldingerPage } from '../../pages/tilbakemeldinger';
@@ -37,6 +38,14 @@ export const Router = () => {
           element={
             <HasAccess hasAccess={hasPageAccess(Page.LEDERSTATISTIKK, access)}>
               <StatistikkLederPage />
+            </HasAccess>
+          }
+        />
+        <Route
+          path="min"
+          element={
+            <HasAccess hasAccess={hasPageAccess(Page.MIN_STATISTIKK, access)}>
+              <StatistikkMinPage />
             </HasAccess>
           }
         />
