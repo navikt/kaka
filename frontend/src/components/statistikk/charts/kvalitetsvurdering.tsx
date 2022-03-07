@@ -4,7 +4,7 @@ import { Bar, Doughnut } from 'react-chartjs-2';
 import styled from 'styled-components';
 import { REASON_NAMES } from '../../../hooks/use-reason-name';
 import { RadioValg } from '../../../types/radio';
-import { ITotalStatisticVurdering } from '../../../types/statistics';
+import { IFullStatisticVurdering } from '../../../types/statistics';
 import { StatisticsProps } from '../types';
 import { GRAPH_COLOR } from './colors';
 import { percent, tickCallback } from './formatting';
@@ -102,7 +102,7 @@ const useBarOptions = (labels: string[], data: number[], total = 1): ChartOption
 
 export interface KvalitetsvurderingProps extends StatisticsProps {
   field: keyof Pick<
-    ITotalStatisticVurdering,
+    IFullStatisticVurdering,
     'utredningenRadioValg' | 'klageforberedelsenRadioValg' | 'vedtaketRadioValg' | 'brukAvRaadgivendeLegeRadioValg'
   >;
   title: string;

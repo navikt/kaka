@@ -1,10 +1,10 @@
 import { useSearchParams } from 'react-router-dom';
-import { ITotalStatisticVurdering } from '../../../types/statistics';
+import { IFullStatisticVurdering } from '../../../types/statistics';
 import { QueryParams } from '../../filters/filter-query-params';
 import { BehandlingsTidEnum } from '../types';
 
 type FieldName = keyof Pick<
-  ITotalStatisticVurdering,
+  IFullStatisticVurdering,
   'kaBehandlingstidDays' | 'totalBehandlingstidDays' | 'vedtaksinstansBehandlingstidDays'
 >;
 
