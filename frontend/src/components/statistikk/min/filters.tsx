@@ -3,30 +3,43 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { ReadOnlySelect } from '../../../styled-components/filters-and-content';
-import { FilterPanelContainer, StyledResetButton } from '../../filters/common/styled-components';
-import { MONTH_FORMAT, NOW, PRETTY_FORMAT } from '../../filters/date-presets/constants';
+import { DateContainer, FilterPanelContainer, StyledResetButton } from '../../filters/common/styled-components';
+import { DateFilter } from '../../filters/date';
+import {
+  FORMAT,
+  LAST_YEAR_END,
+  LAST_YEAR_START,
+  NOW,
+  ONE_YEAR_AGO,
+  PRETTY_FORMAT,
+} from '../../filters/date-presets/constants';
 import { DatePresets } from '../../filters/date-presets/date-presets';
 import { getLastTertial } from '../../filters/date-presets/get-last-tertial';
 import { IOption } from '../../filters/date-presets/types';
 import { QueryParams } from '../../filters/filter-query-params';
 import { HjemmelFilter } from '../../filters/hjemler';
-import { useFromMonthQueryFilter, useQueryFilters, useToMonthQueryFilter } from '../../filters/hooks/use-query-filter';
-import { MonthFilter } from '../../filters/month';
+import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../filters/hooks/use-query-filter';
 import { FilteredHjemlerPills } from '../../filters/pills/hjemler';
 import { PillContainer, SelectedFilters } from '../../filters/pills/pills';
+import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
 
-const LAST_MONTH = NOW.subtract(1, 'month').format('YYYY-MM');
+const FORMATTED_NOW = NOW.format('YYYY-MM-DD');
+const FORMATTED_30_DAYS_AGO = NOW.subtract(30, 'day').format('YYYY-MM-DD');
 
 const datePresets: IOption[] = [
   {
-    label: 'Siste måned',
-    fromDate: NOW.subtract(1, 'month').startOf('month'),
-    toDate: NOW.subtract(1, 'month').endOf('month'),
+    label: 'Siste 30 dager',
+    fromDate: NOW.subtract(30, 'day'),
+    toDate: NOW,
   },
   { label: 'Siste tertial', ...getLastTertial(NOW) },
+  { label: 'Nest siste tertial', ...getLastTertial(NOW.subtract(4, 'month')) },
+  { label: 'Siste 12 mnd', fromDate: ONE_YEAR_AGO, toDate: NOW },
+  { label: 'I år', fromDate: NOW.startOf('year'), toDate: NOW },
+  { label: 'I fjor', fromDate: LAST_YEAR_START, toDate: LAST_YEAR_END },
 ];
 
 export const Filters = () => {
@@ -39,8 +52,8 @@ export const Filters = () => {
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   // Dates
-  const fromMonth = useFromMonthQueryFilter();
-  const toMonth = useToMonthQueryFilter();
+  const fromDate = useFromDateQueryFilter();
+  const toDate = useToDateQueryFilter();
 
   const setFilter = (filter: QueryParams, ...values: (string | number)[]) => {
     if (values.length === 0) {
@@ -53,11 +66,14 @@ export const Filters = () => {
   };
 
   const resetFilters = () =>
-    setSearchParams(`?${QueryParams.FROM_MONTH}=${LAST_MONTH}&${QueryParams.TO_MONTH}=${LAST_MONTH}`);
+    setSearchParams({
+      [QueryParams.FROM_DATE]: FORMATTED_30_DAYS_AGO,
+      [QueryParams.TO_DATE]: FORMATTED_NOW,
+    });
 
-  const setPreset = (fromDate: dayjs.Dayjs, toDate: dayjs.Dayjs) => {
-    setFilter(QueryParams.FROM_MONTH, fromDate.format(MONTH_FORMAT));
-    setFilter(QueryParams.TO_MONTH, toDate.format(MONTH_FORMAT));
+  const setPreset = (from: dayjs.Dayjs, to: dayjs.Dayjs) => {
+    setFilter(QueryParams.FROM_DATE, from.format(FORMAT));
+    setFilter(QueryParams.TO_DATE, to.format(FORMAT));
   };
 
   return (
@@ -66,15 +82,42 @@ export const Filters = () => {
         Nullstill filter
       </StyledResetButton>
 
-      <MonthFilter label="Fra" value={fromMonth} onChange={(value) => setFilter(QueryParams.FROM_MONTH, value)} />
-      <MonthFilter label="Til" value={toMonth} onChange={(value) => setFilter(QueryParams.TO_MONTH, value)} />
+      <DateContainer>
+        <DateFilter
+          label="Fra og med"
+          date={fromDate}
+          maxDate={toDate}
+          onChange={(value) => setFilter(QueryParams.FROM_DATE, value)}
+        />
+        <ResetDateButton
+          date={FORMATTED_30_DAYS_AGO}
+          selectedDate={fromDate}
+          onClick={(date) => setFilter(QueryParams.FROM_DATE, date)}
+          title="30 dager siden"
+        />
+      </DateContainer>
+
+      <DateContainer>
+        <DateFilter
+          label="Til og med"
+          date={toDate}
+          minDate={fromDate}
+          onChange={(value) => setFilter(QueryParams.TO_DATE, value)}
+        />
+        <ResetDateButton
+          date={FORMATTED_NOW}
+          selectedDate={toDate}
+          onClick={(date) => setFilter(QueryParams.TO_DATE, date)}
+          title="Nå"
+        />
+      </DateContainer>
 
       <DatePresets
-        selectedFromDate={fromMonth}
-        selectedToDate={toMonth}
+        selectedFromDate={fromDate}
+        selectedToDate={toDate}
         options={datePresets}
         setPreset={setPreset}
-        queryFormat={MONTH_FORMAT}
+        queryFormat={FORMAT}
         prettyFormat={PRETTY_FORMAT}
       />
 
