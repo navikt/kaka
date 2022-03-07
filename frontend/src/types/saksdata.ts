@@ -47,7 +47,7 @@ export interface ISaksdataIncomplete extends ISaksdataBase, ISaksdataIncompleteS
 }
 
 // API IO types.
-export interface ISaksdatalisteLederFoersteinstansParams {
+export interface ISaksdatalisteLederVedtaksinstansParams {
   navIdent: string;
   fromDate: string;
   toDate: string;
@@ -55,6 +55,6 @@ export interface ISaksdatalisteLederFoersteinstansParams {
   kommentarer: string[];
 }
 
-export interface ISaksdatalisteLederFoersteinstans {
+export interface ISaksdatalisteLederVedtaksinstans {
   searchHits: ISaksdataCompleteSearchHit[];
 }

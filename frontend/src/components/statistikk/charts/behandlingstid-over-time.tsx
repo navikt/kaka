@@ -119,7 +119,7 @@ export const BehandlingstidOverTime = ({ stats: allStats }: StatisticsProps) => 
           borderWidth: 2,
         },
         {
-          label: 'Førsteinstans',
+          label: 'Vedtaksinstans',
           data: first,
           backgroundColor: '#7CDAF8',
           borderColor: '#7CDAF8',

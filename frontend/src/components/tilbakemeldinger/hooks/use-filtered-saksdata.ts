@@ -1,7 +1,7 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import { useGetUserDataQuery } from '../../../redux-api/metadata';
-import { useGetSaksdatalisteLederFoersteinstansQuery } from '../../../redux-api/statistics';
-import { ISaksdatalisteLederFoersteinstansParams } from '../../../types/saksdata';
+import { useGetSaksdatalisteLederVedtaksinstansQuery } from '../../../redux-api/statistics';
+import { ISaksdatalisteLederVedtaksinstansParams } from '../../../types/saksdata';
 import { QueryParams } from '../../filters/filter-query-params';
 import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../filters/hooks/use-query-filter';
 
@@ -14,11 +14,11 @@ const useSaksdata = () => {
   const mangelfullt = useQueryFilters(QueryParams.MANGELFULLT);
   const kommentarer = useQueryFilters(QueryParams.KOMMENTARER);
 
-  const query: ISaksdatalisteLederFoersteinstansParams | typeof skipToken =
+  const query: ISaksdatalisteLederVedtaksinstansParams | typeof skipToken =
     typeof userData === 'undefined'
       ? skipToken
       : { navIdent: userData.ident, fromDate, toDate, mangelfullt, kommentarer };
-  return useGetSaksdatalisteLederFoersteinstansQuery(query, { pollingInterval: 3 * 60 * 1000 });
+  return useGetSaksdatalisteLederVedtaksinstansQuery(query, { pollingInterval: 3 * 60 * 1000 });
 };
 
 export const useFilteredSaksdata = () => {

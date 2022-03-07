@@ -49,7 +49,7 @@ export const getUserAccess = (user: IUser, klageenheter: IKodeverkValue[], enhet
 };
 
 const KLAGEENHET_ROLES: Role[] = [Role.ROLE_KLAGE_LEDER, Role.ROLE_KAKA_SAKSBEHANDLER];
-const FOERSTEINSTANS_ROLES: Role[] = [Role.ROLE_VEDTAKSINSTANS_LEDER];
+const VEDTAKSINSTANS_ROLES: Role[] = [Role.ROLE_VEDTAKSINSTANS_LEDER];
 
 const hasAccess = (klageenheter: IKodeverkValue[], enheter: IKodeverkValue[], requiredRoles: Role[], user: IUser) => {
   if (requiredRoles.length === 0) {
@@ -63,9 +63,9 @@ const hasAccess = (klageenheter: IKodeverkValue[], enheter: IKodeverkValue[], re
   }
 
   const hasRequiredKlageenhetAcess = hasRequiredEnhetAccess(klageenheter, KLAGEENHET_ROLES, requiredRoles, user);
-  const hasRequiredFoersteinstansAccess = hasRequiredEnhetAccess(enheter, FOERSTEINSTANS_ROLES, requiredRoles, user);
+  const hasRequiredVedtaksinstansAccess = hasRequiredEnhetAccess(enheter, VEDTAKSINSTANS_ROLES, requiredRoles, user);
 
-  return hasRequiredKlageenhetAcess && hasRequiredFoersteinstansAccess;
+  return hasRequiredKlageenhetAcess && hasRequiredVedtaksinstansAccess;
 };
 
 const hasRequiredEnhetAccess = (
