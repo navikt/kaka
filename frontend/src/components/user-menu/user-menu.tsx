@@ -1,9 +1,9 @@
-import { AutomaticSystem, Collapse, Copy, Expand, Logout, People } from '@navikt/ds-icons';
-import Popover, { PopoverOrientering } from 'nav-frontend-popover';
+import { AutomaticSystem, Collapse, Expand, Logout, People } from '@navikt/ds-icons';
 import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useOnClickOutside } from '../../hooks/use-on-click-outside';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
+import { CopyButton } from '../copy-button/copy-button';
 
 export const UserMenu = () => {
   const { data: user } = useGetUserDataQuery();
@@ -32,12 +32,11 @@ interface MenuProps {
 }
 
 const Menu = ({ isOpen }: MenuProps) => {
-  const [popoverText, setPopoverText] = useState<string | null>(null);
-  const [ref, setRef] = useState<HTMLLIElement | null>(null);
-
   if (!isOpen) {
     return null;
   }
+
+  const version = process.env.VERSION ?? 'UKJENT';
 
   return (
     <StyledList>
@@ -47,42 +46,14 @@ const Menu = ({ isOpen }: MenuProps) => {
           Logg ut
         </StyledLink>
       </StyledLi>
-      <StyledLi ref={setRef}>
-        <CopyButton
-          title="Klikk for å kopiere versjonsnummeret"
-          onClick={async () => {
-            const copied = await copyVersion();
-            setPopoverText(copied ? 'Kopiert!' : 'Kunne ikke kopiere!');
-          }}
-        >
+      <StyledLi>
+        <CopyButton title="Klikk for å kopiere versjonsnummeret" text={version}>
           <AutomaticSystem />
-          KAKA Versjon: <VersionNumber>{process.env.VERSION ?? 'UKJENT'}</VersionNumber>
-          <Copy />
-          <Popover
-            ankerEl={popoverText !== null ? ref ?? undefined : undefined}
-            orientering={PopoverOrientering.Under}
-            autoFokus={false}
-            onRequestClose={() => setPopoverText(null)}
-          >
-            <StyledKopiert>{popoverText}</StyledKopiert>
-          </Popover>
+          KAKA Versjon: <VersionNumber>{version}</VersionNumber>
         </CopyButton>
       </StyledLi>
     </StyledList>
   );
-};
-
-const copyVersion = async () => {
-  if (typeof process.env.VERSION !== 'string' || process.env.VERSION.length === 0) {
-    return false;
-  }
-
-  try {
-    await navigator.clipboard.writeText(process.env.VERSION);
-    return true;
-  } catch {
-    return false;
-  }
 };
 
 const iconText = css`
@@ -102,20 +73,6 @@ const VersionNumber = styled.code`
   max-width: 80px;
   overflow: hidden;
   text-overflow: ellipsis;
-`;
-
-const CopyButton = styled.button`
-  ${iconText}
-  border: none;
-  background: transparent;
-  color: #fff;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 12px;
-  padding-bottom: 12px;
 `;
 
 const StyledLink = styled.a`
@@ -163,10 +120,4 @@ const StyledButton = styled.button`
   color: white;
   cursor: pointer;
   height: 100%;
-`;
-
-const StyledKopiert = styled.span`
-  display: block;
-  padding: 8px;
-  color: #000;
 `;
