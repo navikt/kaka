@@ -6,7 +6,7 @@ import { Role } from '../../../types/user';
 
 export const BackLink = () => {
   const location = useLocation();
-  const isFoersteinstansleder = useHasRole(Role.ROLE_VEDTAKSINSTANS_LEDER);
+  const isVedtaksinstansleder = useHasRole(Role.ROLE_VEDTAKSINSTANS_LEDER);
   const tilbakemeldingerQuery = useDefaultQueryTilbakemeldinger();
 
   const previousPage = location.state;
@@ -19,7 +19,7 @@ export const BackLink = () => {
     );
   }
 
-  if (isFoersteinstansleder) {
+  if (isVedtaksinstansleder) {
     return (
       <NavLink to={`/tilbakemeldinger?${tilbakemeldingerQuery}`} className="knapp knapp--mini footer-button">
         Tilbake
