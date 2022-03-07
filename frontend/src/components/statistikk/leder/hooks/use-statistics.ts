@@ -27,7 +27,7 @@ const useStatistics = () => {
 
 export const useManagerStatisticsIsLoading = (): boolean => useStatistics().isLoading;
 
-export const useAllManagerStatistics = (): ITotalStatisticVurdering[] => {
+const useAllManagerStatistics = (): ITotalStatisticVurdering[] => {
   const { data } = useStatistics();
 
   return data?.anonymizedFinishedVurderingList ?? [];

@@ -22,7 +22,6 @@ import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
-import { useAllStatistics } from './hooks/use-statistics';
 
 const FORMATTED_NOW = NOW.format('YYYY-MM-DD');
 const FORMATTED_30_DAYS_AGO = NOW.subtract(30, 'day').format('YYYY-MM-DD');
@@ -42,7 +41,6 @@ const datePresets: IOption[] = [
 
 export const Filters = () => {
   const { data: userData } = useGetUserDataQuery();
-  const stats = useAllStatistics();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedTypes = useQueryFilters(QueryParams.TYPES);
@@ -118,21 +116,9 @@ export const Filters = () => {
         prettyFormat={PRETTY_FORMAT}
       />
 
-      <UtfallFilter
-        utfallList={stats}
-        selected={selectedUtfall}
-        setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)}
-      />
-      <SakstypeFilter
-        sakstypeList={stats}
-        selected={selectedTypes}
-        setSelected={(values) => setFilter(QueryParams.TYPES, ...values)}
-      />
-      <YtelseFilter
-        ytelseList={stats}
-        selected={selectedYtelser}
-        setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)}
-      />
+      <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
+      <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
+      <YtelseFilter selected={selectedYtelser} setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)} />
 
       <PillContainer>
         <SelectedFilters

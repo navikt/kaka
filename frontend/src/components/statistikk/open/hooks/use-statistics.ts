@@ -12,7 +12,7 @@ const useStatistics = () => {
 
 export const useTotalStatisticsIsLoading = (): boolean => useStatistics().isLoading;
 
-export const useAllStatistics = (): IStatisticVurdering[] => {
+const useAllStatistics = (): IStatisticVurdering[] => {
   const { data } = useStatistics();
 
   return data?.anonymizedFinishedVurderingList ?? [];
