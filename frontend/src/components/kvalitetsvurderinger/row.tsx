@@ -1,11 +1,12 @@
 import React from 'react';
 import { isoDateTimeToPrettyDate } from '../../domain/date';
-import { formatSakenGjelder } from '../../functions/format-id';
+import { formatId } from '../../functions/format-id';
 import { ISaksdataCompleteSearchHit, ISaksdataIncompleteSearchHit } from '../../types/saksdata';
 import { OpenKvalitetsvurdering } from '../common-table-components/open';
 import { Type } from '../common-table-components/type';
 import { Utfall } from '../common-table-components/utfall';
 import { Ytelse } from '../common-table-components/ytelse';
+import { CopyButton } from '../copy-button/copy-button';
 
 // ISaksdataComplete | ISaksdataIncomplete
 interface Props {
@@ -28,7 +29,9 @@ export const Row = ({
     <td>
       <Ytelse ytelseId={ytelseId} />
     </td>
-    <td>{formatSakenGjelder(sakenGjelder)}</td>
+    <td>
+      <CopyButton text={sakenGjelder}>{formatId(sakenGjelder)}</CopyButton>
+    </td>
     <td>{isoDateTimeToPrettyDate(modified)}</td>
     <td>
       <Utfall utfall={utfallId} />

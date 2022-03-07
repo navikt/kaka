@@ -1,14 +1,16 @@
-export const formatSakenGjelder = (id: string | null): string | null => {
+const NUMERIC_REGEX = /^\d+$/;
+
+export const formatId = (id: string | null): string | null => {
   if (id === null) {
     return null;
   }
 
-  if (id.length === 9) {
-    return formatOrgNum(id);
+  if (id.length === 11 && id.match(NUMERIC_REGEX)) {
+    return formatPersonNum(id);
   }
 
-  if (id.length === 11) {
-    return formatPersonNum(id);
+  if (id.length === 9 && id.match(NUMERIC_REGEX)) {
+    return formatOrgNum(id);
   }
 
   return id;
