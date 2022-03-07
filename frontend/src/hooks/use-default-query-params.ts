@@ -4,14 +4,12 @@ import { QueryParams } from '../components/filters/filter-query-params';
 import { useGetUserDataQuery } from '../redux-api/metadata';
 import { useKodeverkValue } from './use-kodeverk-value';
 
-export const useDefaultQueryOpen = () =>
+export const useDefaultQuery = () =>
   useMemo(() => {
     const fromDate = NOW.subtract(30, 'day').format(FORMAT);
     const toDate = NOW.format(FORMAT);
 
-    const query = `${QueryParams.FROM_DATE}=${fromDate}&${QueryParams.TO_DATE}=${toDate}`;
-
-    return query;
+    return `${QueryParams.FROM_DATE}=${fromDate}&${QueryParams.TO_DATE}=${toDate}`;
   }, []);
 
 export const useDefaultQueryTotal = () => {
@@ -47,12 +45,4 @@ export const useDefaultQueryLeder = () =>
     const toMonth = NOW.subtract(1, 'month').format(MONTH_FORMAT);
 
     return `${QueryParams.FROM_MONTH}=${fromMonth}&${QueryParams.TO_MONTH}=${toMonth}`;
-  }, []);
-
-export const useDefaultQueryTilbakemeldinger = () =>
-  useMemo(() => {
-    const fromDate = NOW.subtract(30, 'day').format(FORMAT);
-    const toDate = NOW.format(FORMAT);
-
-    return `${QueryParams.FROM_DATE}=${fromDate}&${QueryParams.TO_DATE}=${toDate}`;
   }, []);

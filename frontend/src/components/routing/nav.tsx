@@ -2,20 +2,14 @@ import { Data, DataFilled, Divide, DivideFilled, List, Task } from '@navikt/ds-i
 import React from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  useDefaultQueryLeder,
-  useDefaultQueryOpen,
-  useDefaultQueryTilbakemeldinger,
-  useDefaultQueryTotal,
-} from '../../hooks/use-default-query-params';
+import { useDefaultQuery, useDefaultQueryLeder, useDefaultQueryTotal } from '../../hooks/use-default-query-params';
 import { useUserAccess } from '../../hooks/use-user-access';
 import { Page, hasPageAccess } from '../routing/access-roles';
 
 export const Nav = () => {
-  const openQuery = useDefaultQueryOpen();
+  const defaultQuery = useDefaultQuery();
   const totalQuery = useDefaultQueryTotal();
   const lederQuery = useDefaultQueryLeder();
-  const queryTilbakemeldinger = useDefaultQueryTilbakemeldinger();
   const { isLoading, access } = useUserAccess();
 
   if (isLoading || typeof access === 'undefined') {
@@ -25,7 +19,7 @@ export const Nav = () => {
   return (
     <StyledNav role="navigation" aria-label="Meny" data-testid="kaka-nav">
       <StyledNavLinkList>
-        <NavItem to={`/statistikk/aapen?${openQuery}`} testId="statistikk-aapen-nav-link" hasAccess>
+        <NavItem to={`/statistikk/aapen?${defaultQuery}`} testId="statistikk-aapen-nav-link" hasAccess>
           <Data /> Åpen statistikk
         </NavItem>
 
@@ -46,7 +40,7 @@ export const Nav = () => {
         </NavItem>
 
         <NavItem
-          to={`/statistikk/min?${openQuery}`}
+          to={`/statistikk/min?${defaultQuery}`}
           testId="statistikk-min-nav-link"
           hasAccess={hasPageAccess(Page.MIN_STATISTIKK, access)}
         >
@@ -62,7 +56,7 @@ export const Nav = () => {
         </NavItem>
 
         <NavItem
-          to={`/tilbakemeldinger?${queryTilbakemeldinger}`}
+          to={`/tilbakemeldinger?${defaultQuery}`}
           testId="tilbakemeldinger-nav-link"
           hasAccess={hasPageAccess(Page.TILBAKEMELDINGER, access)}
         >

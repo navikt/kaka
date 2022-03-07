@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 import { Page, hasPageAccess } from '../components/routing/access-roles';
-import { useDefaultQueryLeder, useDefaultQueryOpen, useDefaultQueryTilbakemeldinger } from './use-default-query-params';
+import { useDefaultQuery, useDefaultQueryLeder } from './use-default-query-params';
 import { useUserAccess } from './use-user-access';
 
 export const useIndexPath = () => {
   const lederQuery = useDefaultQueryLeder();
-  const openQuery = useDefaultQueryOpen();
-  const tilbakemeldingerQuery = useDefaultQueryTilbakemeldinger();
+  const openQuery = useDefaultQuery();
+  const defaultQuery = useDefaultQuery();
 
   const { isLoading, access } = useUserAccess();
 
@@ -16,7 +16,7 @@ export const useIndexPath = () => {
     }
 
     if (hasPageAccess(Page.TILBAKEMELDINGER, access)) {
-      return `/tilbakemeldinger?${tilbakemeldingerQuery}`;
+      return `/tilbakemeldinger?${defaultQuery}`;
     }
 
     if (hasPageAccess(Page.LEDERSTATISTIKK, access)) {
@@ -32,5 +32,5 @@ export const useIndexPath = () => {
     }
 
     return `/statistikk/aapen?${openQuery}`;
-  }, [isLoading, access, lederQuery, openQuery, tilbakemeldingerQuery]);
+  }, [isLoading, access, lederQuery, openQuery, defaultQuery]);
 };
