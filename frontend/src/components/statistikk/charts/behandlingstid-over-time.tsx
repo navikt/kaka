@@ -53,8 +53,8 @@ export const BehandlingstidOverTime = ({ stats: allStats }: StatisticsProps) => 
               acc.set(key, {
                 count: 1,
                 total: stat.totalBehandlingstidDays,
-                ka: stat.behandlingstidDays,
-                first: stat.totalBehandlingstidDays - stat.behandlingstidDays,
+                ka: stat.kaBehandlingstidDays,
+                vedtak: stat.vedtaksinstansBehandlingstidDays,
                 year,
                 weekNumber,
               });
@@ -62,8 +62,8 @@ export const BehandlingstidOverTime = ({ stats: allStats }: StatisticsProps) => 
               acc.set(key, {
                 count: existing.count + 1,
                 total: existing.total + stat.totalBehandlingstidDays,
-                ka: existing.ka + stat.behandlingstidDays,
-                first: existing.first + stat.totalBehandlingstidDays - stat.behandlingstidDays,
+                ka: existing.ka + stat.kaBehandlingstidDays,
+                vedtak: existing.vedtak + stat.vedtaksinstansBehandlingstidDays,
                 year,
                 weekNumber,
               });
@@ -78,7 +78,7 @@ export const BehandlingstidOverTime = ({ stats: allStats }: StatisticsProps) => 
             count: number;
             total: number;
             ka: number;
-            first: number;
+            vedtak: number;
             year: number;
             weekNumber: number;
           }
@@ -104,25 +104,25 @@ export const BehandlingstidOverTime = ({ stats: allStats }: StatisticsProps) => 
 
   const data = useMemo(() => {
     const labels = sortedEntries.map(([, { year, weekNumber }]) => `${year} uke ${weekNumber}`);
+    const vedtak = sortedEntries.map((entry) => Math.round(entry[1].vedtak / entry[1].count));
     const ka = sortedEntries.map((entry) => Math.round(entry[1].ka / entry[1].count));
-    const first = sortedEntries.map((entry) => Math.round(entry[1].first / entry[1].count));
     const total = sortedEntries.map((entry) => Math.round(entry[1].total / entry[1].count));
 
     return {
       labels,
       datasets: [
         {
+          label: 'Vedtaksinstans',
+          data: vedtak,
+          backgroundColor: '#7CDAF8',
+          borderColor: '#7CDAF8',
+          borderWidth: 2,
+        },
+        {
           label: 'Klageinstans',
           data: ka,
           backgroundColor: '#8269A2',
           borderColor: '#8269A2',
-          borderWidth: 2,
-        },
-        {
-          label: 'Vedtaksinstans',
-          data: first,
-          backgroundColor: '#7CDAF8',
-          borderColor: '#7CDAF8',
           borderWidth: 2,
         },
         {

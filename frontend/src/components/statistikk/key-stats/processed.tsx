@@ -14,7 +14,7 @@ export const Processed = ({ stats, weeks }: Props) => {
   );
 
   const behandlet = useMemo(
-    () => finished.reduce((acc, { behandlingstidDays }) => (behandlingstidDays < weeks * 7 ? acc + 1 : acc), 0),
+    () => finished.reduce((acc, { kaBehandlingstidDays }) => (kaBehandlingstidDays < weeks * 7 ? acc + 1 : acc), 0),
     [finished, weeks]
   );
 

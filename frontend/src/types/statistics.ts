@@ -20,12 +20,13 @@ export interface IStatisticVurdering {
 
   // Saksdata
   readonly avsluttetAvSaksbehandler: Date;
-  readonly behandlingstidDays: number;
+  readonly kaBehandlingstidDays: number;
+  readonly vedtaksinstansBehandlingstidDays: number;
+  readonly totalBehandlingstidDays: number;
   readonly hjemmelIdList: string[];
   readonly mottattKlageinstans: Date | null;
   readonly mottattVedtaksinstans: Date | null;
   readonly sakstypeId: SakstypeEnum;
-  readonly totalBehandlingstidDays: number;
   readonly utfallId: UtfallEnum;
   readonly ytelseId: string;
 
