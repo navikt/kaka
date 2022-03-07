@@ -103,3 +103,13 @@ export const useYtelserForKlageenhet = (klageenhetId: string | typeof skipToken 
 
   return klageenhet.ytelser;
 };
+
+export const useYtelserForEnhet = (enhetId: string | typeof skipToken = skipToken) => {
+  const ytelser = useKodeverkYtelser();
+
+  if (enhetId === skipToken) {
+    return ytelser;
+  }
+
+  return ytelser.filter(({ enheter }) => enheter.some(({ navn }) => navn === enhetId));
+};

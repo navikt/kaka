@@ -8,11 +8,7 @@ interface ILovKildeToRegistreringshjemmelWithCount
   registreringshjemler: FilterType[];
 }
 
-interface Stat {
-  hjemmelIdList: string[];
-}
-
-export const useMergedLovKildeToRegistreringshjemler = (stats: Stat[]): ILovKildeToRegistreringshjemmelWithCount[] => {
+export const useMergedLovKildeToRegistreringshjemler = (): ILovKildeToRegistreringshjemmelWithCount[] => {
   const { data } = useGetKodeverkQuery();
 
   return useMemo(() => {
@@ -64,10 +60,9 @@ export const useMergedLovKildeToRegistreringshjemler = (stats: Stat[]): ILovKild
           .map(({ id, navn }) => ({
             id,
             label: navn,
-            count: stats.filter(({ hjemmelIdList }) => hjemmelIdList.includes(id)).length,
           }))
           .sort((a, b) => Number.parseInt(a.id, 10) - Number.parseInt(b.id, 10)),
       }))
       .sort((a, b) => Number.parseInt(a.lovkilde.id, 10) - Number.parseInt(b.lovkilde.id, 10));
-  }, [data, stats]);
+  }, [data]);
 };

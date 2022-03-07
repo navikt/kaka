@@ -28,7 +28,6 @@ import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
-import { useAllTotalStatistics } from './hooks/use-statistics';
 
 const FORMATTED_NOW = NOW.format('YYYY-MM-DD');
 const FORMATTED_30_DAYS_AGO = NOW.subtract(30, 'day').format('YYYY-MM-DD');
@@ -48,7 +47,6 @@ const datePresets: IOption[] = [
 
 export const Filters = () => {
   const { data: userData } = useGetUserDataQuery();
-  const stats = useAllTotalStatistics();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedEnheter = useQueryFilters(QueryParams.ENHETER);
@@ -129,35 +127,14 @@ export const Filters = () => {
       />
 
       <KlageenheterFilter
-        klageenhetList={stats}
         selected={selectedKlageenheter}
         setSelected={(values) => setFilter(QueryParams.KLAGEENHETER, ...values)}
       />
-      <EnheterFilter
-        vedtaksinstansEnhetList={stats}
-        selected={selectedEnheter}
-        setSelected={(values) => setFilter(QueryParams.ENHETER, ...values)}
-      />
-      <UtfallFilter
-        utfallList={stats}
-        selected={selectedUtfall}
-        setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)}
-      />
-      <SakstypeFilter
-        sakstypeList={stats}
-        selected={selectedTypes}
-        setSelected={(values) => setFilter(QueryParams.TYPES, ...values)}
-      />
-      <YtelseFilter
-        ytelseList={stats}
-        selected={selectedYtelser}
-        setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)}
-      />
-      <HjemmelFilter
-        stats={stats}
-        selected={selectedHjemler}
-        setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)}
-      />
+      <EnheterFilter selected={selectedEnheter} setSelected={(values) => setFilter(QueryParams.ENHETER, ...values)} />
+      <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
+      <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
+      <YtelseFilter selected={selectedYtelser} setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)} />
+      <HjemmelFilter selected={selectedHjemler} setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)} />
 
       <PillContainer>
         <SelectedEnheterFilters

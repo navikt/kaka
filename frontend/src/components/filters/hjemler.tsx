@@ -5,18 +5,13 @@ import { formatMetadata } from './common/dropdown';
 import { Container, StyledLabel } from './common/styled-components';
 import { useMergedLovKildeToRegistreringshjemler } from './hooks/use-merged-lovkilde-to-registreringshjemler';
 
-interface Stat {
-  hjemmelIdList: string[];
-}
-
 interface Props {
   selected: string[];
   setSelected: (hjemmelIds: string[]) => void;
-  stats: Stat[];
 }
 
-export const HjemmelFilter = ({ selected, setSelected, stats }: Props) => {
-  const lovKildeToRegistreringshjemler = useMergedLovKildeToRegistreringshjemler(stats);
+export const HjemmelFilter = ({ selected, setSelected }: Props) => {
+  const lovKildeToRegistreringshjemler = useMergedLovKildeToRegistreringshjemler();
 
   const options = useMemo(
     () =>
@@ -25,9 +20,9 @@ export const HjemmelFilter = ({ selected, setSelected, stats }: Props) => {
           id: lovkilde.id,
           name: lovkilde.navn,
         },
-        sectionOptions: registreringshjemler.map(({ id, label, count }) => ({
+        sectionOptions: registreringshjemler.map(({ id, label }) => ({
           value: id,
-          label: `${label}${typeof count === 'undefined' ? '' : ` (${count})`}`,
+          label,
         })),
       })),
     [lovKildeToRegistreringshjemler]

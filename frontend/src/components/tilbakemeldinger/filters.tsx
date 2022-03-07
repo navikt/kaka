@@ -3,9 +3,9 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
-import { useGetSaksdatalisteLederFoersteinstansQuery } from '../../redux-api/statistics';
+import { useGetSaksdatalisteLederVedtaksinstansQuery } from '../../redux-api/statistics';
 import { ReadOnlySelect } from '../../styled-components/filters-and-content';
-import { ISaksdatalisteLederFoersteinstansParams } from '../../types/saksdata';
+import { ISaksdatalisteLederVedtaksinstansParams } from '../../types/saksdata';
 import { ExcelExport } from '../excel-export/excel-export';
 import { DateContainer, FilterPanelContainer, StyledResetButton } from '../filters/common/styled-components';
 import { DateFilter } from '../filters/date';
@@ -62,7 +62,7 @@ export const Filters = () => {
   const fromDate = useFromDateQueryFilter();
   const toDate = useToDateQueryFilter();
 
-  const query: ISaksdatalisteLederFoersteinstansParams | typeof skipToken =
+  const query: ISaksdatalisteLederVedtaksinstansParams | typeof skipToken =
     typeof userData === 'undefined'
       ? skipToken
       : {
@@ -72,13 +72,11 @@ export const Filters = () => {
           mangelfullt: selectedMangelfullt,
           kommentarer: selectedKommentarer,
         };
-  const { data } = useGetSaksdatalisteLederFoersteinstansQuery(query);
+  const { data } = useGetSaksdatalisteLederVedtaksinstansQuery(query);
 
   if (typeof data === 'undefined') {
     return null;
   }
-
-  const stats = data.searchHits;
 
   const setFilter = (filter: QueryParams, ...values: (string | number)[]) => {
     if (values.length === 0) {
@@ -150,23 +148,15 @@ export const Filters = () => {
         <option>{userData?.ansattEnhet.beskrivelse}</option>
       </ReadOnlySelect>
 
-      <UtfallFilter
-        utfallList={stats}
-        selected={selectedUtfall}
-        setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)}
-      />
+      <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
 
       <YtelseFilter
-        ytelseList={stats}
         selected={selectedYtelser}
         setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)}
+        enhetId={userData?.ansattEnhet.navn}
       />
 
-      <HjemmelFilter
-        stats={stats}
-        selected={selectedHjemler}
-        setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)}
-      />
+      <HjemmelFilter selected={selectedHjemler} setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)} />
 
       <MangelfulltFilter
         selected={selectedMangelfullt}

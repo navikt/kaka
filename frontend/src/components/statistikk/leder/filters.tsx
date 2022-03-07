@@ -19,7 +19,6 @@ import { SaksbehandlerFilter } from '../../filters/saksbehandler';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
-import { useAllManagerStatistics } from './hooks/use-statistics';
 
 const LAST_MONTH = NOW.subtract(1, 'month').format('YYYY-MM');
 
@@ -34,7 +33,6 @@ const datePresets: IOption[] = [
 
 export const Filters = () => {
   const { data: userData } = useGetUserDataQuery();
-  const stats = useAllManagerStatistics();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedEnheter = useQueryFilters(QueryParams.ENHETER);
@@ -92,26 +90,10 @@ export const Filters = () => {
         setSelected={(values) => setFilter(QueryParams.SAKSBEHANDLERE, ...values)}
       />
 
-      <UtfallFilter
-        utfallList={stats}
-        selected={selectedUtfall}
-        setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)}
-      />
-      <SakstypeFilter
-        sakstypeList={stats}
-        selected={selectedTypes}
-        setSelected={(values) => setFilter(QueryParams.TYPES, ...values)}
-      />
-      <YtelseFilter
-        ytelseList={stats}
-        selected={selectedYtelser}
-        setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)}
-      />
-      <HjemmelFilter
-        stats={stats}
-        selected={selectedHjemler}
-        setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)}
-      />
+      <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
+      <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
+      <YtelseFilter selected={selectedYtelser} setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)} />
+      <HjemmelFilter selected={selectedHjemler} setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)} />
 
       <PillContainer>
         <SelectedFilters
