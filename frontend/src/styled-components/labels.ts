@@ -15,14 +15,16 @@ const Label = styled.div<LabelProps>`
   width: ${({ fixedWidth }) => (fixedWidth === true ? '13em' : 'auto')};
 `;
 
-export const LabelMain = styled(Label)`
-  background-color: #e0dae7;
-  border: 1px solid #634689;
-  margin-right: 5px;
+export const LabelAnke = styled(Label)`
+  color: white;
+  background-color: black;
+  border: 1px solid #ba3a26;
+`;
 
-  &:last-child {
-    margin-right: 0;
-  }
+export const LabelKlage = styled(Label)`
+  color: #262626;
+  background-color: white;
+  border: 1px solid #ba3a26;
 `;
 
 export const LabelYtelse = styled(Label)`
