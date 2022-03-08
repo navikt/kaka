@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useKodeverkYtelser } from '../../../hooks/use-kodeverk-value';
 import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { ReadOnlySelect } from '../../../styled-components/filters-and-content';
 import { FilterPanelContainer, StyledResetButton } from '../../filters/common/styled-components';
@@ -44,6 +45,8 @@ export const Filters = () => {
   // Dates
   const fromMonth = useFromMonthQueryFilter();
   const toMonth = useToMonthQueryFilter();
+
+  const ytelser = useKodeverkYtelser();
 
   const setFilter = (filter: QueryParams, ...values: (string | number)[]) => {
     if (values.length === 0) {
@@ -92,8 +95,16 @@ export const Filters = () => {
 
       <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
       <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
-      <YtelseFilter selected={selectedYtelser} setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)} />
-      <HjemmelFilter selected={selectedHjemler} setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)} />
+      <YtelseFilter
+        selected={selectedYtelser}
+        setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)}
+        ytelser={ytelser}
+      />
+      <HjemmelFilter
+        selected={selectedHjemler}
+        setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)}
+        ytelser={ytelser}
+      />
 
       <PillContainer>
         <SelectedFilters

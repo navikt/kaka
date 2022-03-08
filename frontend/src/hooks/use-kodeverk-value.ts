@@ -94,7 +94,9 @@ export const useLovkildeToRegistreringshjemmelForYtelse = (
   ytelseId: string | typeof skipToken = skipToken
 ): ILovKildeToRegistreringshjemmel[] => useKodeverkYtelse(ytelseId)?.lovKildeToRegistreringshjemler ?? [];
 
-export const useYtelserForKlageenhet = (klageenhetId: string | typeof skipToken = skipToken): IKodeverkValue[] => {
+export const useSimpleYtelserForKlageenhet = (
+  klageenhetId: string | typeof skipToken = skipToken
+): IKodeverkValue[] => {
   const klageenhet = useKodeverkKlageenhet(klageenhetId);
 
   if (klageenhetId === skipToken || typeof klageenhet === 'undefined') {
@@ -104,7 +106,7 @@ export const useYtelserForKlageenhet = (klageenhetId: string | typeof skipToken 
   return klageenhet.ytelser;
 };
 
-export const useYtelserForEnhet = (enhetId: string | typeof skipToken = skipToken) => {
+export const useYtelserForVedtaksinstansenhet = (enhetId: string | typeof skipToken = skipToken): IYtelse[] => {
   const ytelser = useKodeverkYtelser();
 
   if (enhetId === skipToken) {
@@ -112,4 +114,14 @@ export const useYtelserForEnhet = (enhetId: string | typeof skipToken = skipToke
   }
 
   return ytelser.filter(({ enheter }) => enheter.some(({ navn }) => navn === enhetId));
+};
+
+export const useYtelserForKlageenhet = (enhetId: string | typeof skipToken = skipToken): IYtelse[] => {
+  const ytelser = useKodeverkYtelser();
+
+  if (enhetId === skipToken) {
+    return ytelser;
+  }
+
+  return ytelser.filter(({ klageenheter }) => klageenheter.some(({ navn }) => navn === enhetId));
 };
