@@ -1,8 +1,6 @@
 import dayjs from 'dayjs';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useGetUserDataQuery } from '../../../redux-api/metadata';
-import { ReadOnlySelect } from '../../../styled-components/filters-and-content';
 import { DateContainer, FilterPanelContainer, StyledResetButton } from '../../filters/common/styled-components';
 import { DateFilter } from '../../filters/date';
 import {
@@ -43,7 +41,6 @@ const datePresets: IOption[] = [
 ];
 
 export const Filters = () => {
-  const { data: userData } = useGetUserDataQuery();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedEnheter = useQueryFilters(QueryParams.ENHETER);
@@ -120,10 +117,6 @@ export const Filters = () => {
         queryFormat={FORMAT}
         prettyFormat={PRETTY_FORMAT}
       />
-
-      <ReadOnlySelect disabled>
-        <option>{userData?.ansattEnhet.beskrivelse}</option>
-      </ReadOnlySelect>
 
       <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
       <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
