@@ -2,6 +2,7 @@ import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useYtelserForVedtaksinstansenhet } from '../../hooks/use-kodeverk-value';
 import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { useGetSaksdatalisteLederVedtaksinstansQuery } from '../../redux-api/statistics';
 import { ReadOnlySelect } from '../../styled-components/filters-and-content';
@@ -61,6 +62,8 @@ export const Filters = () => {
   // Dates
   const fromDate = useFromDateQueryFilter();
   const toDate = useToDateQueryFilter();
+
+  const ytelser = useYtelserForVedtaksinstansenhet(userData?.ansattEnhet.navn ?? skipToken);
 
   const query: ISaksdatalisteLederVedtaksinstansParams | typeof skipToken =
     typeof userData === 'undefined'
@@ -153,10 +156,14 @@ export const Filters = () => {
       <YtelseFilter
         selected={selectedYtelser}
         setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)}
-        enhetId={userData?.ansattEnhet.navn}
+        ytelser={ytelser}
       />
 
-      <HjemmelFilter selected={selectedHjemler} setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)} />
+      <HjemmelFilter
+        selected={selectedHjemler}
+        setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)}
+        ytelser={ytelser}
+      />
 
       <MangelfulltFilter
         selected={selectedMangelfullt}

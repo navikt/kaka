@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { useOnClickOutside } from '../../hooks/use-on-click-outside';
+import { IYtelse } from '../../types/kodeverk';
 import { GroupedDropdown, OptionGroup } from '../dropdown/grouped-dropdown';
 import { formatMetadata } from './common/dropdown';
 import { Container, StyledLabel } from './common/styled-components';
@@ -8,10 +9,11 @@ import { useMergedLovKildeToRegistreringshjemler } from './hooks/use-merged-lovk
 interface Props {
   selected: string[];
   setSelected: (hjemmelIds: string[]) => void;
+  ytelser: IYtelse[];
 }
 
-export const HjemmelFilter = ({ selected, setSelected }: Props) => {
-  const lovKildeToRegistreringshjemler = useMergedLovKildeToRegistreringshjemler();
+export const HjemmelFilter = ({ selected, setSelected, ytelser }: Props) => {
+  const lovKildeToRegistreringshjemler = useMergedLovKildeToRegistreringshjemler(ytelser);
 
   const options = useMemo(
     () =>

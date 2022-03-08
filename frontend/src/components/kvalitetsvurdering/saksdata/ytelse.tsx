@@ -2,7 +2,7 @@ import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import { Select } from 'nav-frontend-skjema';
 import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useKodeverkYtelser, useYtelserForKlageenhet } from '../../../hooks/use-kodeverk-value';
+import { useKodeverkYtelser, useSimpleYtelserForKlageenhet } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
@@ -19,7 +19,7 @@ export const Ytelse = () => {
   const [setYtelse] = useSetYtelseMutation();
   const canEdit = useCanEdit();
   const validationError = useValidationError('ytelseId');
-  const ankeYtelser = useYtelserForKlageenhet(saksdata?.tilknyttetEnhet ?? skipToken);
+  const ankeYtelser = useSimpleYtelserForKlageenhet(saksdata?.tilknyttetEnhet ?? skipToken);
   const klageYtelser = useKodeverkYtelser();
 
   if (typeof saksdata === 'undefined' || typeof user === 'undefined') {
