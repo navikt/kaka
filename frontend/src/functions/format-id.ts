@@ -6,7 +6,7 @@ export const formatId = (id: string | null): string | null => {
   }
 
   if (id.length === 11 && id.match(NUMERIC_REGEX)) {
-    return formatPersonNum(id);
+    return formatFnr(id);
   }
 
   if (id.length === 9 && id.match(NUMERIC_REGEX)) {
@@ -21,7 +21,7 @@ export const formatOrgNum = (n: string): string => {
   return `${a}${b}${c} ${d}${e}${f} ${g}${h}${i}`;
 };
 
-export const formatPersonNum = (n: string | undefined): string | null => {
+export const formatFnr = (n: string | undefined): string | null => {
   if (typeof n === 'undefined') {
     return null;
   }
