@@ -153,7 +153,6 @@ const getTestUser = (ansattEnhetId: string, roles: Role[]): IUser => ({
     etternavn: '',
     sammensattNavn: '',
   },
-  klageenheter: [],
 });
 
 const getTestEnhet = (id: string): IKodeverkValue => ({

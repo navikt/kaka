@@ -9,7 +9,6 @@ export interface Navn {
 export interface IUser {
   ident: string;
   navn: Navn;
-  klageenheter: IKodeverkValue[];
   roller: Role[];
   ansattEnhet: IKodeverkValue;
 }
