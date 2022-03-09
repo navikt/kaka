@@ -19,21 +19,14 @@ export interface ISaksdataListParams {
   sidenDager?: number;
 }
 
-export interface ICreateSaksdataParams extends ISaksdataListParams {
-  tilknyttetEnhet: string;
-}
-
 export const saksdataApi = createApi({
   reducerPath: 'saksdataApi',
   baseQuery,
   endpoints: (builder) => ({
-    createSaksdata: builder.mutation<ISaksdataIncomplete, ICreateSaksdataParams>({
-      query: ({ tilknyttetEnhet }) => ({
+    createSaksdata: builder.mutation<ISaksdataIncomplete, ISaksdataListParams>({
+      query: () => ({
         url: '/api/kaka-api/saksdata',
         method: 'POST',
-        body: {
-          tilknyttetEnhet,
-        },
       }),
       onQueryStarted: async ({ saksbehandlerIdent, sidenDager }, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;

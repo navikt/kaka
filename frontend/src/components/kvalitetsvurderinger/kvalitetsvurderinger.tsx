@@ -9,13 +9,11 @@ import { FullfoerteVurderingerTable } from './fullfoerte-vurderinger-table';
 import { PaabegynteVurderingerTable } from './paabegynte-vurderinger-table';
 
 export const Kvalitetsvurderinger = () => {
-  const { data: userData } = useGetUserDataQuery();
+  const { data: userData, isLoading } = useGetUserDataQuery();
   const [createSaksdata] = useCreateSaksdataMutation();
   const navigate = useNavigate();
 
-  const loading = typeof userData === 'undefined';
-
-  const disabled = loading || userData.klageenheter.length === 0;
+  const disabled = isLoading || typeof userData === 'undefined';
 
   const createNewSaksdata = () => {
     if (disabled) {
@@ -24,7 +22,6 @@ export const Kvalitetsvurderinger = () => {
 
     createSaksdata({
       saksbehandlerIdent: userData.ident,
-      tilknyttetEnhet: userData.klageenheter[0].navn,
     })
       .unwrap()
       .then(({ id }) => navigate(`/kvalitetsvurderinger/${id}`));
