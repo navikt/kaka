@@ -19,10 +19,6 @@ spec:
       tenant: {{tenant}}
       allowAllUsers: true
       claims:
-        groups:
-          {{#each roles as |role|}}
-          - id: {{role}}
-          {{/each}}
         extra:
           - NAVident
   accessPolicy:
