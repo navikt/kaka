@@ -9,7 +9,7 @@ interface EnheterFilterProps {
 }
 
 export const KlageenheterFilter = ({ selected, setSelected }: EnheterFilterProps) => {
-  const enheter = useKodeverkValueDefault('enheter');
+  const enheter = useKodeverkValueDefault('klageenheter');
   const filters = useMemo<FilterType[]>(
     () => enheter.map(({ id, navn, beskrivelse }) => ({ label: `${navn} - ${beskrivelse}`, id })),
     [enheter]
