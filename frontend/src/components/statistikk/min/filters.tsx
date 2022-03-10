@@ -56,7 +56,7 @@ export const Filters = () => {
   const fromDate = useFromDateQueryFilter();
   const toDate = useToDateQueryFilter();
 
-  const ytelser = useYtelserForKlageenhet(userData?.ansattEnhet.navn ?? skipToken);
+  const ytelser = useYtelserForKlageenhet(userData?.ansattEnhet.id ?? skipToken);
 
   const setFilter = (filter: QueryParams, ...values: (string | number)[]) => {
     if (values.length === 0) {

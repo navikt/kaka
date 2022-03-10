@@ -20,7 +20,7 @@ export const useDefaultQueryTotal = () => {
   const fromDate = NOW.subtract(30, 'day').format(FORMAT);
   const toDate = NOW.format(FORMAT);
 
-  const ansattEnhetId: string | undefined = data?.ansattEnhet?.navn;
+  const ansattEnhetId: string | undefined = data?.ansattEnhet?.id;
 
   const query = `${QueryParams.FROM_DATE}=${fromDate}&${QueryParams.TO_DATE}=${toDate}`;
 

@@ -63,7 +63,7 @@ export const Filters = () => {
   const fromDate = useFromDateQueryFilter();
   const toDate = useToDateQueryFilter();
 
-  const ytelser = useYtelserForVedtaksinstansenhet(userData?.ansattEnhet.navn ?? skipToken);
+  const ytelser = useYtelserForVedtaksinstansenhet(userData?.ansattEnhet.id ?? skipToken);
 
   const query: ISaksdatalisteLederVedtaksinstansParams | typeof skipToken =
     typeof userData === 'undefined'

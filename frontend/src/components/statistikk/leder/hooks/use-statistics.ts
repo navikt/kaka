@@ -20,7 +20,7 @@ const useStatistics = () => {
   const query: IManagerStatisticsQuery | typeof skipToken =
     typeof userData === 'undefined'
       ? skipToken
-      : { fromMonth, toMonth, saksbehandlere, enhetId: userData.ansattEnhet.navn };
+      : { fromMonth, toMonth, saksbehandlere, enhetId: userData.ansattEnhet.id };
 
   return useGetManagerStatisticsQuery(query, { pollingInterval: 3 * 60 * 1000 });
 };
