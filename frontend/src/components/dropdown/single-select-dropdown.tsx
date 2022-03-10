@@ -1,18 +1,18 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useOnClickOutside } from '../../hooks/use-on-click-outside';
-import { IKodeverkValue } from '../../types/kodeverk';
+import { IKodeverkSimpleValue } from '../../types/kodeverk';
 import { Header } from './header';
 import { SingleSelectOption } from './single-select-option';
 import { StyledDropdown, StyledListItem, StyledSectionList } from './styled-components';
 
 interface DropdownProps {
   selected: string | null;
-  kodeverk: IKodeverkValue[];
+  kodeverk: IKodeverkSimpleValue[];
   open: boolean;
-  valueKey?: keyof IKodeverkValue;
+  valueKey?: keyof IKodeverkSimpleValue;
   onChange: (selected: string) => void;
   close: () => void;
-  labelFn: (kodeverkValue: IKodeverkValue) => string;
+  labelFn: (kodeverkValue: IKodeverkSimpleValue) => string;
 }
 
 interface Option {

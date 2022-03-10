@@ -1,4 +1,4 @@
-import { IKodeverkValue } from './kodeverk';
+import { IKodeverkSimpleValue } from './kodeverk';
 
 export interface Navn {
   fornavn?: string;
@@ -10,7 +10,7 @@ export interface IUser {
   ident: string;
   navn: Navn;
   roller: Role[];
-  ansattEnhet: IKodeverkValue;
+  ansattEnhet: IKodeverkSimpleValue;
 }
 
 export enum Role {

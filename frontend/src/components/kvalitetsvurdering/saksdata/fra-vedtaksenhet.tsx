@@ -7,7 +7,7 @@ import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useSetVedtaksinstansenhetMutation } from '../../../redux-api/saksdata';
-import { IKodeverkValue } from '../../../types/kodeverk';
+import { IKodeverkSimpleValue } from '../../../types/kodeverk';
 import { SakstypeEnum } from '../../../types/sakstype';
 import { SingleSelectDropdown } from '../../dropdown/single-select-dropdown';
 import { ErrorMessage } from '../../error-message/error-message';
@@ -94,7 +94,7 @@ export const FraVedtaksenhet = () => {
           open={open}
           onChange={onChange}
           close={close}
-          labelFn={({ id, beskrivelse }) => `${id} - ${beskrivelse}`}
+          labelFn={({ id, navn }) => `${id} - ${navn}`}
         />
       </Container>
       <ErrorMessage error={validationError} />
@@ -102,7 +102,7 @@ export const FraVedtaksenhet = () => {
   );
 };
 
-const useEnhetName = (options: IKodeverkValue[], enhetsNummer: string | null | undefined) =>
+const useEnhetName = (options: IKodeverkSimpleValue[], enhetsNummer: string | null | undefined) =>
   useMemo(() => {
     if (typeof enhetsNummer !== 'string') {
       return 'Ingen enhet';
@@ -114,7 +114,7 @@ const useEnhetName = (options: IKodeverkValue[], enhetsNummer: string | null | u
       return 'Ingen enhet';
     }
 
-    return `${enhet.id} - ${enhet.beskrivelse}`;
+    return `${enhet.id} - ${enhet.navn}`;
   }, [options, enhetsNummer]);
 
 const Container = styled.section`

@@ -4,7 +4,6 @@ import {
   IKlageenhet,
   IKodeverk,
   IKodeverkSimpleValue,
-  IKodeverkValue,
   ILovKildeToRegistreringshjemmel,
   IYtelse,
 } from '../types/kodeverk';
@@ -74,10 +73,10 @@ export const useKodeverkSakstype = (
   return data.find(({ id }) => id === sakstypeId);
 };
 
-export const useEnheterForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
+export const useEnheterForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkSimpleValue[] =>
   useKodeverkYtelse(ytelseId)?.enheter ?? [];
 
-export const useKlageenheterForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkValue[] =>
+export const useKlageenheterForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkSimpleValue[] =>
   useKodeverkYtelse(ytelseId)?.klageenheter ?? [];
 
 export const useKodeverkKlageenhet = (klageenhetId: string | typeof skipToken = skipToken): IKlageenhet | undefined => {

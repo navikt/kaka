@@ -11,7 +11,7 @@ interface Props {
 export const VedtaksenheterFilter = ({ selected, setSelected }: Props) => {
   const klageenheter = useKodeverkValueDefault('vedtaksenheter');
   const filters = useMemo<FilterType[]>(
-    () => klageenheter.map(({ id, beskrivelse }) => ({ label: `${id} - ${beskrivelse}`, id })),
+    () => klageenheter.map(({ id, navn }) => ({ label: `${id} - ${navn}`, id })),
     [klageenheter]
   );
 

@@ -19,13 +19,13 @@ export const SelectedEnheterFilters = ({ setFilter, type, values, category }: Pr
 
   const mappedValues = useMemo(() => kodeverk.filter(({ id }) => values.includes(id)), [kodeverk, values]);
 
-  const pills = mappedValues.map(({ id, beskrivelse }) => (
+  const pills = mappedValues.map(({ id, navn }) => (
     <Pill
       key={id}
       id={id}
       queryKey={type === 'enheter' ? QueryParams.ENHETER : QueryParams.KLAGEENHETER}
       setFilter={setFilter}
-      name={beskrivelse}
+      name={navn}
       values={values}
       category={category}
     />

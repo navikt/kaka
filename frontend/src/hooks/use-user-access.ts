@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useGetUserDataQuery } from '../redux-api/metadata';
-import { IKodeverkValue } from '../types/kodeverk';
+import { IKodeverkSimpleValue } from '../types/kodeverk';
 import { IUser, Role } from '../types/user';
 import { useEnheter } from './use-enheter';
 import { useKlageEnheter } from './use-klageenheter';
@@ -37,7 +37,11 @@ export const useUserAccess = (): ReturnValue => {
   }, [isLoading, user, klageenheter, enheter]);
 };
 
-export const getUserAccess = (user: IUser, klageenheter: IKodeverkValue[], enheter: IKodeverkValue[]): UserAccess => {
+export const getUserAccess = (
+  user: IUser,
+  klageenheter: IKodeverkSimpleValue[],
+  enheter: IKodeverkSimpleValue[]
+): UserAccess => {
   const isKlageinstansleder = hasAccess(klageenheter, enheter, [Role.ROLE_KLAGE_LEDER], user);
 
   return {
@@ -51,7 +55,12 @@ export const getUserAccess = (user: IUser, klageenheter: IKodeverkValue[], enhet
 const KLAGEENHET_ROLES: Role[] = [Role.ROLE_KLAGE_LEDER, Role.ROLE_KAKA_SAKSBEHANDLER];
 const VEDTAKSINSTANS_ROLES: Role[] = [Role.ROLE_VEDTAKSINSTANS_LEDER];
 
-const hasAccess = (klageenheter: IKodeverkValue[], enheter: IKodeverkValue[], requiredRoles: Role[], user: IUser) => {
+const hasAccess = (
+  klageenheter: IKodeverkSimpleValue[],
+  enheter: IKodeverkSimpleValue[],
+  requiredRoles: Role[],
+  user: IUser
+) => {
   if (requiredRoles.length === 0) {
     return true;
   }
@@ -69,7 +78,7 @@ const hasAccess = (klageenheter: IKodeverkValue[], enheter: IKodeverkValue[], re
 };
 
 const hasRequiredEnhetAccess = (
-  enheter: IKodeverkValue[],
+  enheter: IKodeverkSimpleValue[],
   enhetRoles: Role[],
   requiredRoles: Role[],
   user: IUser

@@ -18,12 +18,12 @@ export interface ILovKildeToRegistreringshjemmel {
 }
 
 export interface IYtelse extends IKodeverkSimpleValue {
-  enheter: IKodeverkValue[];
-  klageenheter: IKodeverkValue[];
+  enheter: IKodeverkSimpleValue[];
+  klageenheter: IKodeverkSimpleValue[];
   lovKildeToRegistreringshjemler: ILovKildeToRegistreringshjemmel[];
 }
 
-export interface IKlageenhet extends IKodeverkValue {
+export interface IKlageenhet extends IKodeverkSimpleValue {
   ytelser: IKodeverkSimpleValue[];
 }
 
@@ -32,9 +32,9 @@ export interface IKodeverk {
   tema: IKodeverkValue[];
   hjemler: IKodeverkValue[];
   klageenheter: IKlageenhet[];
-  styringsenheter: IKodeverkValue[];
-  vedtaksenheter: IKodeverkValue[];
-  enheter: IKodeverkValue[];
+  styringsenheter: IKodeverkSimpleValue[];
+  vedtaksenheter: IKodeverkSimpleValue[];
+  enheter: IKodeverkSimpleValue[];
   utfall: IKodeverkSimpleValue<UtfallEnum>[];
   sakstyper: IKodeverkSimpleValue<SakstypeEnum>[];
   sources: IKodeverkSimpleValue[];
