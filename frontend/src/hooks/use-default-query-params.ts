@@ -14,7 +14,7 @@ export const useDefaultQuery = () =>
 
 export const useDefaultQueryTotal = () => {
   const { data } = useGetUserDataQuery();
-  const vedtaksinstansenheter = useKodeverkValue('enheter') ?? [];
+  const vedtaksinstansenheter = useKodeverkValue('vedtaksenheter') ?? [];
   const klageenheter = useKodeverkValue('klageenheter') ?? [];
 
   const fromDate = NOW.subtract(30, 'day').format(FORMAT);
@@ -28,11 +28,11 @@ export const useDefaultQueryTotal = () => {
     return query;
   }
 
-  if (klageenheter.some(({ navn }) => navn === ansattEnhetId)) {
+  if (klageenheter.some(({ id }) => id === ansattEnhetId)) {
     return `${query}&${QueryParams.KLAGEENHETER}=${ansattEnhetId}`;
   }
 
-  if (vedtaksinstansenheter.some(({ navn }) => navn === ansattEnhetId)) {
+  if (vedtaksinstansenheter.some(({ id }) => id === ansattEnhetId)) {
     return `${query}&${QueryParams.ENHETER}=${ansattEnhetId}`;
   }
 

@@ -3,15 +3,15 @@ import { useKodeverkValueDefault } from '../../hooks/use-kodeverk-value';
 import { Filter } from './common/filter';
 import { FilterType } from './types';
 
-interface EnheterFilterProps {
+interface Props {
   selected: string[];
   setSelected: (enheter: string[]) => void;
 }
 
-export const EnheterFilter = ({ selected, setSelected }: EnheterFilterProps) => {
-  const klageenheter = useKodeverkValueDefault('enheter');
+export const VedtaksenheterFilter = ({ selected, setSelected }: Props) => {
+  const klageenheter = useKodeverkValueDefault('vedtaksenheter');
   const filters = useMemo<FilterType[]>(
-    () => klageenheter.map(({ navn, beskrivelse }) => ({ label: `${navn} - ${beskrivelse}`, id: navn })),
+    () => klageenheter.map(({ id, beskrivelse }) => ({ label: `${id} - ${beskrivelse}`, id })),
     [klageenheter]
   );
 

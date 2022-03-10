@@ -11,9 +11,9 @@ export const useVikafossenFilter = <T extends IKodeverkSimpleValue>(enheter?: T[
 
   if (hasVikafossenAccess) {
     // Only Vikafossen.
-    return enheter.filter(({ navn }) => navn === VIKAFOSSEN_ENHET);
+    return enheter.filter(({ id }) => id === VIKAFOSSEN_ENHET);
   }
 
   // Every enhet except Vikafossen.
-  return enheter.filter(({ navn }) => navn !== VIKAFOSSEN_ENHET);
+  return enheter.filter(({ id }) => id !== VIKAFOSSEN_ENHET);
 };

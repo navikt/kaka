@@ -87,7 +87,7 @@ export const useKodeverkKlageenhet = (klageenhetId: string | typeof skipToken = 
     return undefined;
   }
 
-  return data.find(({ navn }) => navn === klageenhetId);
+  return data.find(({ id }) => id === klageenhetId);
 };
 
 export const useLovkildeToRegistreringshjemmelForYtelse = (
@@ -113,7 +113,7 @@ export const useYtelserForVedtaksinstansenhet = (enhetId: string | typeof skipTo
     return ytelser;
   }
 
-  return ytelser.filter(({ enheter }) => enheter.some(({ navn }) => navn === enhetId));
+  return ytelser.filter(({ enheter }) => enheter.some(({ id }) => id === enhetId));
 };
 
 export const useYtelserForKlageenhet = (enhetId: string | typeof skipToken = skipToken): IYtelse[] => {
@@ -123,5 +123,5 @@ export const useYtelserForKlageenhet = (enhetId: string | typeof skipToken = ski
     return ytelser;
   }
 
-  return ytelser.filter(({ klageenheter }) => klageenheter.some(({ navn }) => navn === enhetId));
+  return ytelser.filter(({ klageenheter }) => klageenheter.some(({ id }) => id === enhetId));
 };

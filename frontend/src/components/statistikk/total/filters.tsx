@@ -17,7 +17,6 @@ import {
 import { DatePresets } from '../../filters/date-presets/date-presets';
 import { getLastTertial } from '../../filters/date-presets/get-last-tertial';
 import { IOption } from '../../filters/date-presets/types';
-import { EnheterFilter } from '../../filters/enheter';
 import { QueryParams } from '../../filters/filter-query-params';
 import { HjemmelFilter } from '../../filters/hjemler';
 import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../filters/hooks/use-query-filter';
@@ -28,6 +27,7 @@ import { PillContainer, SelectedFilters } from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { UtfallFilter } from '../../filters/utfall';
+import { VedtaksenheterFilter } from '../../filters/vedtaksenheter';
 import { YtelseFilter } from '../../filters/ytelser';
 
 const FORMATTED_NOW = NOW.format('YYYY-MM-DD');
@@ -133,7 +133,10 @@ export const Filters = () => {
         selected={selectedKlageenheter}
         setSelected={(values) => setFilter(QueryParams.KLAGEENHETER, ...values)}
       />
-      <EnheterFilter selected={selectedEnheter} setSelected={(values) => setFilter(QueryParams.ENHETER, ...values)} />
+      <VedtaksenheterFilter
+        selected={selectedEnheter}
+        setSelected={(values) => setFilter(QueryParams.ENHETER, ...values)}
+      />
       <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
       <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
       <YtelseFilter
