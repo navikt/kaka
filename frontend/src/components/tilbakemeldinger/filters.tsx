@@ -148,7 +148,7 @@ export const Filters = () => {
       />
 
       <ReadOnlySelect disabled>
-        <option>{userData?.ansattEnhet.beskrivelse}</option>
+        <option>{userData?.ansattEnhet.navn}</option>
       </ReadOnlySelect>
 
       <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />

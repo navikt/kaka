@@ -85,7 +85,7 @@ export const Filters = () => {
       />
 
       <ReadOnlySelect disabled>
-        <option>{userData?.ansattEnhet.beskrivelse}</option>
+        <option>{userData?.ansattEnhet.navn}</option>
       </ReadOnlySelect>
 
       <SaksbehandlerFilter
