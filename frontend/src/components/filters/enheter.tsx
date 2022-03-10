@@ -11,7 +11,7 @@ interface EnheterFilterProps {
 export const EnheterFilter = ({ selected, setSelected }: EnheterFilterProps) => {
   const klageenheter = useKodeverkValueDefault('enheter');
   const filters = useMemo<FilterType[]>(
-    () => klageenheter.map(({ id, navn, beskrivelse }) => ({ label: `${navn} - ${beskrivelse}`, id })),
+    () => klageenheter.map(({ navn, beskrivelse }) => ({ label: `${navn} - ${beskrivelse}`, id: navn })),
     [klageenheter]
   );
 

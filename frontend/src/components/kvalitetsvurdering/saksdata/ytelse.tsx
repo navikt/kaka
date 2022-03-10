@@ -19,14 +19,14 @@ export const Ytelse = () => {
   const [setYtelse] = useSetYtelseMutation();
   const canEdit = useCanEdit();
   const validationError = useValidationError('ytelseId');
-  const ankeYtelser = useSimpleYtelserForKlageenhet(saksdata?.tilknyttetEnhet ?? skipToken);
-  const klageYtelser = useKodeverkYtelser();
+  const ankeytelser = useSimpleYtelserForKlageenhet(saksdata?.tilknyttetEnhet ?? skipToken);
+  const klageytelser = useKodeverkYtelser();
 
   if (typeof saksdata === 'undefined' || typeof user === 'undefined') {
     return null;
   }
 
-  const ytelser = saksdata.sakstypeId === SakstypeEnum.ANKE ? ankeYtelser : klageYtelser;
+  const ytelser = saksdata.sakstypeId === SakstypeEnum.ANKE ? ankeytelser : klageytelser;
 
   if (!canEdit) {
     const ytelse = ytelser.find(({ id }) => id === saksdata.ytelseId);
@@ -38,9 +38,9 @@ export const Ytelse = () => {
     );
   }
 
-  const options = ankeYtelser.map(({ id, beskrivelse }) => (
+  const options = ankeytelser.map(({ id, navn }) => (
     <option value={id} key={id}>
-      {beskrivelse}
+      {navn}
     </option>
   ));
 
