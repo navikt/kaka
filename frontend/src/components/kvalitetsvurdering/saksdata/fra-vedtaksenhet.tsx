@@ -94,8 +94,7 @@ export const FraVedtaksenhet = () => {
           open={open}
           onChange={onChange}
           close={close}
-          valueKey="navn"
-          labelFn={({ navn, beskrivelse }) => `${navn} - ${beskrivelse}`}
+          labelFn={({ id, beskrivelse }) => `${id} - ${beskrivelse}`}
         />
       </Container>
       <ErrorMessage error={validationError} />
@@ -109,13 +108,13 @@ const useEnhetName = (options: IKodeverkValue[], enhetsNummer: string | null | u
       return 'Ingen enhet';
     }
 
-    const enhet = options.find((option) => option.navn === enhetsNummer);
+    const enhet = options.find((option) => option.id === enhetsNummer);
 
     if (typeof enhet === 'undefined') {
       return 'Ingen enhet';
     }
 
-    return `${enhet.navn} - ${enhet.beskrivelse}`;
+    return `${enhet.id} - ${enhet.beskrivelse}`;
   }, [options, enhetsNummer]);
 
 const Container = styled.section`

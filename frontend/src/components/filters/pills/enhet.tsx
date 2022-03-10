@@ -17,18 +17,15 @@ interface Props {
 export const SelectedEnheterFilters = ({ setFilter, type, values, category }: Props) => {
   const kodeverk = useKodeverkValueDefault(type);
 
-  const mappedValues = useMemo(
-    () => kodeverk.filter(({ navn }) => values.includes(navn)).map((v) => ({ id: v.navn, name: v.beskrivelse })),
-    [kodeverk, values]
-  );
+  const mappedValues = useMemo(() => kodeverk.filter(({ id }) => values.includes(id)), [kodeverk, values]);
 
-  const pills = mappedValues.map(({ id, name }) => (
+  const pills = mappedValues.map(({ id, beskrivelse }) => (
     <Pill
       key={id}
       id={id}
       queryKey={type === 'enheter' ? QueryParams.ENHETER : QueryParams.KLAGEENHETER}
       setFilter={setFilter}
-      name={name}
+      name={beskrivelse}
       values={values}
       category={category}
     />
