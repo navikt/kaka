@@ -12,7 +12,7 @@ interface Props {
 
 export const SaksbehandlerFilter = ({ selected, setSelected }: Props) => {
   const { data: user } = useGetUserDataQuery();
-  const { data } = useGetSaksbehandlereQuery(typeof user === 'undefined' ? skipToken : user.ansattEnhet.navn);
+  const { data } = useGetSaksbehandlereQuery(typeof user === 'undefined' ? skipToken : user.ansattEnhet.id);
 
   const saksbehandlere: FilterType[] = data?.map(({ navIdent, navn }) => ({ id: navIdent, label: navn })) ?? [];
 

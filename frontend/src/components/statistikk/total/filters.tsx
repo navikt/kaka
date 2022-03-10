@@ -74,7 +74,7 @@ export const Filters = () => {
 
   const resetFilters = () =>
     setSearchParams({
-      [QueryParams.KLAGEENHETER]: userData?.ansattEnhet.navn ?? '',
+      [QueryParams.KLAGEENHETER]: userData?.ansattEnhet.id ?? '',
       [QueryParams.FROM_DATE]: FORMATTED_30_DAYS_AGO,
       [QueryParams.TO_DATE]: FORMATTED_NOW,
     });
