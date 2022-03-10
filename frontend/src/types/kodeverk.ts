@@ -32,6 +32,8 @@ export interface IKodeverk {
   tema: IKodeverkValue[];
   hjemler: IKodeverkValue[];
   klageenheter: IKlageenhet[];
+  styringsenheter: IKodeverkValue[];
+  vedtaksenheter: IKodeverkValue[];
   enheter: IKodeverkValue[];
   utfall: IKodeverkSimpleValue<UtfallEnum>[];
   sakstyper: IKodeverkSimpleValue<SakstypeEnum>[];
