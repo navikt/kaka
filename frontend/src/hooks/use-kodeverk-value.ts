@@ -47,7 +47,7 @@ export const useFullYtelseNameFromId = (ytelseId: string | null): string => {
     return 'Mangler';
   }
 
-  return ytelse?.beskrivelse ?? ytelseId;
+  return ytelse?.navn ?? ytelseId;
 };
 
 export const useKodeverkUtfall = (
@@ -96,7 +96,7 @@ export const useLovkildeToRegistreringshjemmelForYtelse = (
 
 export const useSimpleYtelserForKlageenhet = (
   klageenhetId: string | typeof skipToken = skipToken
-): IKodeverkValue[] => {
+): IKodeverkSimpleValue[] => {
   const klageenhet = useKodeverkKlageenhet(klageenhetId);
 
   if (klageenhetId === skipToken || typeof klageenhet === 'undefined') {

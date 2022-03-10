@@ -17,14 +17,14 @@ export interface ILovKildeToRegistreringshjemmel {
   registreringshjemler: IKodeverkSimpleValue[];
 }
 
-export interface IYtelse extends IKodeverkValue {
+export interface IYtelse extends IKodeverkSimpleValue {
   enheter: IKodeverkValue[];
   klageenheter: IKodeverkValue[];
   lovKildeToRegistreringshjemler: ILovKildeToRegistreringshjemmel[];
 }
 
 export interface IKlageenhet extends IKodeverkValue {
-  ytelser: IKodeverkValue[];
+  ytelser: IKodeverkSimpleValue[];
 }
 
 export interface IKodeverk {
