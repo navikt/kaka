@@ -1,4 +1,4 @@
-import { ChartOptions } from 'chart.js';
+import { ChartOptions, TooltipItem, TooltipModel } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useSearchParams } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { useHjemmelTexts } from '../../filters/hooks/use-hjemmel-texts';
 import { StatisticsProps } from '../types';
 import { GRAPH_COLOR } from './colors';
 
-type TooltipCallback = (args: { parsed: { x: number }; label: string }) => string;
+type TooltipCallback = ((this: TooltipModel<'bar'>, tooltipItem: TooltipItem<'bar'>) => string | string[]) | undefined;
 
 const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'bar'> => ({
   elements: {
