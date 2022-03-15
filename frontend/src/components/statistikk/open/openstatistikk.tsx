@@ -54,14 +54,12 @@ export const OpenStatistikk = () => {
           </FullWidthStickyContainer>
 
           <DynamicCard size={CardSize.LARGE}>
-            <CardTitle>Behandlingstid</CardTitle>
-            <ToggleTotalOrKA />
+            <CardTitle>Kvalitetsvurderinger</CardTitle>
+            <ToggleKvalitetsvurdering />
             <StyledCharts>
-              <BehandlingstidHistogram stats={stats} />
+              <Kvalitetsvurderinger stats={stats} />
             </StyledCharts>
           </DynamicCard>
-
-          <BehandlingstidOverTime stats={stats} />
 
           <DynamicCard size={CardSize.MEDIUM}>
             <CardTitle>Utfall</CardTitle>
@@ -78,12 +76,14 @@ export const OpenStatistikk = () => {
           </DynamicCard>
 
           <DynamicCard size={CardSize.LARGE}>
-            <CardTitle>Kvalitetsvurderinger</CardTitle>
-            <ToggleKvalitetsvurdering />
+            <CardTitle>Behandlingstid</CardTitle>
+            <ToggleTotalOrKA />
             <StyledCharts>
-              <Kvalitetsvurderinger stats={stats} />
+              <BehandlingstidHistogram stats={stats} />
             </StyledCharts>
           </DynamicCard>
+
+          <BehandlingstidOverTime stats={stats} />
         </ContentArea>
       </FiltersAndContentContainer>
     </>

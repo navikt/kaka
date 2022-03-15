@@ -36,6 +36,18 @@ export const Tilbakemeldinger = () => {
             </StatsContainer>
           </FullWidthStickyContainer>
 
+          <DynamicCard size={CardSize.LARGE}>
+            <CardTitle>Kvalitetsvurderinger</CardTitle>
+            <ToggleKvalitetsvurdering />
+            <StyledCharts>
+              <Kvalitetsvurderinger stats={stats} />
+            </StyledCharts>
+          </DynamicCard>
+
+          <DynamicCard size={CardSize.LARGE}>
+            <Table data={saksdata} testId="fullfoerte-vurderinger" />
+          </DynamicCard>
+
           <DynamicCard size={CardSize.MEDIUM}>
             <CardTitle>Utfall</CardTitle>
             <StyledCharts>
@@ -48,18 +60,6 @@ export const Tilbakemeldinger = () => {
             <StyledCharts>
               <Hjemler stats={stats} />
             </StyledCharts>
-          </DynamicCard>
-
-          <DynamicCard size={CardSize.LARGE}>
-            <CardTitle>Kvalitetsvurderinger</CardTitle>
-            <ToggleKvalitetsvurdering />
-            <StyledCharts>
-              <Kvalitetsvurderinger stats={stats} />
-            </StyledCharts>
-          </DynamicCard>
-
-          <DynamicCard size={CardSize.LARGE}>
-            <Table data={saksdata} testId="fullfoerte-vurderinger" />
           </DynamicCard>
         </ContentArea>
       </FiltersAndContentContainer>
