@@ -10,7 +10,9 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import React from 'react';
+import styled from 'styled-components';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '../../../styled-components/cards';
 import { ContentArea, FilterSection, FiltersAndContentContainer } from '../../../styled-components/filters-and-content';
 import { LoadingOverlay } from '../../loader/overlay';
@@ -40,6 +42,11 @@ export const OpenStatistikk = () => {
       <LoadingOverlay isLoading={useTotalStatisticsIsLoading()} />
       <FiltersAndContentContainer>
         <FilterSection>
+          <Disclaimer>
+            Denne statistikken baserer seg på resultater av klage- og ankebehandlinger som er fullført i NAV
+            Klageinstans. Statistikken kan derfor avvike fra offisiell statistikk på området.
+          </Disclaimer>
+          <Filters />
           <Filters />
         </FilterSection>
         <ContentArea>
@@ -89,3 +96,9 @@ export const OpenStatistikk = () => {
     </>
   );
 };
+
+const Disclaimer = styled(AlertStripeInfo)`
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 16px;
+`;
