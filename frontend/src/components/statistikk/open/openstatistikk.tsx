@@ -47,7 +47,6 @@ export const OpenStatistikk = () => {
             Klageinstans. Statistikken kan derfor avvike fra offisiell statistikk på området.
           </Disclaimer>
           <Filters />
-          <Filters />
         </FilterSection>
         <ContentArea>
           <FullWidthStickyContainer>
