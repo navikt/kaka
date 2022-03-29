@@ -3,16 +3,15 @@ import React from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDefaultQuery, useDefaultQueryLeder, useDefaultQueryTotal } from '../../hooks/use-default-query-params';
-import { useUserAccess } from '../../hooks/use-user-access';
-import { Page, hasPageAccess } from '../routing/access-roles';
+import { useUserHasRole } from '../../hooks/use-user-access';
 
 export const Nav = () => {
   const defaultQuery = useDefaultQuery();
   const totalQuery = useDefaultQueryTotal();
   const lederQuery = useDefaultQueryLeder();
-  const { isLoading, access } = useUserAccess();
+  const { isLoading, roles } = useUserHasRole();
 
-  if (isLoading || typeof access === 'undefined') {
+  if (isLoading) {
     return null;
   }
 
@@ -26,7 +25,7 @@ export const Nav = () => {
         <NavItem
           to={`/statistikk/total?${totalQuery}`}
           testId="statistikk-total-nav-link"
-          hasAccess={hasPageAccess(Page.TOTALSTATISTIKK, access)}
+          hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}
         >
           <DataFilled /> Totalstatistikk
         </NavItem>
@@ -34,7 +33,7 @@ export const Nav = () => {
         <NavItem
           to={`/statistikk/leder?${lederQuery}`}
           testId="statistikk-leder-nav-link"
-          hasAccess={hasPageAccess(Page.LEDERSTATISTIKK, access)}
+          hasAccess={roles.ROLE_KAKA_LEDERSTATISTIKK}
         >
           <DivideFilled /> Lederstatistikk
         </NavItem>
@@ -42,7 +41,7 @@ export const Nav = () => {
         <NavItem
           to={`/statistikk/min?${defaultQuery}`}
           testId="statistikk-min-nav-link"
-          hasAccess={hasPageAccess(Page.MIN_STATISTIKK, access)}
+          hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}
         >
           <Divide /> Min statistikk
         </NavItem>
@@ -50,7 +49,7 @@ export const Nav = () => {
         <NavItem
           to="/kvalitetsvurderinger"
           testId="kvalitetsvurdering-nav-link"
-          hasAccess={hasPageAccess(Page.KVALITETSVURDERINGER, access)}
+          hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}
         >
           <List /> Kvalitetsvurderinger
         </NavItem>
@@ -58,7 +57,7 @@ export const Nav = () => {
         <NavItem
           to={`/tilbakemeldinger?${defaultQuery}`}
           testId="tilbakemeldinger-nav-link"
-          hasAccess={hasPageAccess(Page.TILBAKEMELDINGER, access)}
+          hasAccess={roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER}
         >
           <Task /> Tilbakemeldinger
         </NavItem>

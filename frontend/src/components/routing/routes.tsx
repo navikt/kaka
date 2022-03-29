@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useIndexPath } from '../../hooks/use-index-path';
-import { useUserAccess } from '../../hooks/use-user-access';
+import { useUserHasRole } from '../../hooks/use-user-access';
 import { KvalitetsvurderingPage } from '../../pages/kvalitetsvurdering';
 import { KvalitetsvurderingerPage } from '../../pages/kvalitetsvurderinger';
 import { StatistikkLederPage } from '../../pages/statistikk/leder';
@@ -10,13 +10,12 @@ import { StatistikkOpenPage } from '../../pages/statistikk/open';
 import { StatistikkTotalPage } from '../../pages/statistikk/total';
 import { TilbakemeldingerPage } from '../../pages/tilbakemeldinger';
 import { Overlay } from '../loader/overlay';
-import { Page, hasPageAccess } from './access-roles';
 
 export const Router = () => {
-  const { isLoading, access } = useUserAccess();
+  const { isLoading, roles } = useUserHasRole();
   const indexPath = useIndexPath();
 
-  if (isLoading || typeof access === 'undefined') {
+  if (isLoading) {
     return <Overlay />;
   }
 
@@ -28,7 +27,7 @@ export const Router = () => {
         <Route
           path="total"
           element={
-            <HasAccess hasAccess={hasPageAccess(Page.TOTALSTATISTIKK, access)}>
+            <HasAccess hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}>
               <StatistikkTotalPage />
             </HasAccess>
           }
@@ -36,7 +35,7 @@ export const Router = () => {
         <Route
           path="leder"
           element={
-            <HasAccess hasAccess={hasPageAccess(Page.LEDERSTATISTIKK, access)}>
+            <HasAccess hasAccess={roles.ROLE_KAKA_LEDERSTATISTIKK}>
               <StatistikkLederPage />
             </HasAccess>
           }
@@ -44,7 +43,7 @@ export const Router = () => {
         <Route
           path="min"
           element={
-            <HasAccess hasAccess={hasPageAccess(Page.MIN_STATISTIKK, access)}>
+            <HasAccess hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}>
               <StatistikkMinPage />
             </HasAccess>
           }
@@ -53,7 +52,7 @@ export const Router = () => {
       <Route
         path="kvalitetsvurderinger"
         element={
-          <HasAccess hasAccess={hasPageAccess(Page.KVALITETSVURDERINGER, access)}>
+          <HasAccess hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}>
             <KvalitetsvurderingerPage />
           </HasAccess>
         }
@@ -61,7 +60,7 @@ export const Router = () => {
       <Route
         path="kvalitetsvurderinger/:saksdataId"
         element={
-          <HasAccess hasAccess={hasPageAccess(Page.KVALITETSVURDERINGER, access)}>
+          <HasAccess hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}>
             <KvalitetsvurderingPage />
           </HasAccess>
         }
@@ -69,7 +68,7 @@ export const Router = () => {
       <Route
         path="tilbakemeldinger"
         element={
-          <HasAccess hasAccess={hasPageAccess(Page.TILBAKEMELDINGER, access)}>
+          <HasAccess hasAccess={roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER}>
             <TilbakemeldingerPage />
           </HasAccess>
         }
@@ -77,7 +76,7 @@ export const Router = () => {
       <Route
         path="tilbakemeldinger/:saksdataId"
         element={
-          <HasAccess hasAccess={hasPageAccess(Page.TILBAKEMELDINGER, access)}>
+          <HasAccess hasAccess={roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER}>
             <KvalitetsvurderingPage />
           </HasAccess>
         }

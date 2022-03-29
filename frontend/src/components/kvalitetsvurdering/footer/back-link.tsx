@@ -1,13 +1,16 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useDefaultQuery } from '../../../hooks/use-default-query-params';
-import { useHasRole } from '../../../hooks/use-has-role';
-import { Role } from '../../../types/user';
+import { useUserHasRole } from '../../../hooks/use-user-access';
 
 export const BackLink = () => {
   const location = useLocation();
-  const isVedtaksinstansleder = useHasRole(Role.ROLE_VEDTAKSINSTANS_LEDER);
+  const { isLoading, roles } = useUserHasRole();
   const defaultQuery = useDefaultQuery();
+
+  if (isLoading) {
+    return null;
+  }
 
   const previousPage = location.state;
 
@@ -19,7 +22,7 @@ export const BackLink = () => {
     );
   }
 
-  if (isVedtaksinstansleder) {
+  if (roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER) {
     return (
       <NavLink to={`/tilbakemeldinger?${defaultQuery}`} className="knapp knapp--mini footer-button">
         Tilbake
