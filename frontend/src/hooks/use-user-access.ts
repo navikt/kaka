@@ -1,99 +1,38 @@
 import { useMemo } from 'react';
 import { useGetUserDataQuery } from '../redux-api/metadata';
-import { IKodeverkSimpleValue } from '../types/kodeverk';
-import { IUser, Role } from '../types/user';
-import { useEnheter } from './use-enheter';
-import { useKlageEnheter } from './use-klageenheter';
+import { Role } from '../types/user';
 
-export interface UserAccess {
-  isSaksbehandler: boolean;
-  isKlageinstansleder: boolean;
-  isStyringsenhetleder: boolean;
-  isVedtaksinstansleder: boolean;
-}
+type Access = {
+  [key in Role]: boolean;
+};
 
 interface ReturnValue {
   isLoading: boolean;
-  access: UserAccess | undefined;
+  roles: Access;
 }
 
-export const useUserAccess = (): ReturnValue => {
+const INITIAL_ACCESS: Access = {
+  [Role.ROLE_KAKA_KVALITETSVURDERING]: false,
+  [Role.ROLE_KAKA_TOTALSTATISTIKK]: false,
+  [Role.ROLE_KAKA_LEDERSTATISTIKK]: false,
+  [Role.ROLE_KAKA_KVALITETSTILBAKEMELDINGER]: false,
+  [Role.ROLE_ADMIN]: false,
+  [Role.ROLE_KLAGE_STRENGT_FORTROLIG]: false,
+};
+
+export const useUserHasRole = (): ReturnValue => {
   const { data: user, isLoading } = useGetUserDataQuery();
 
-  const klageenheter = useKlageEnheter();
-  const enheter = useEnheter();
-
   return useMemo(() => {
-    if (
-      isLoading ||
-      typeof user === 'undefined' ||
-      typeof klageenheter === 'undefined' ||
-      typeof enheter === 'undefined'
-    ) {
-      return { isLoading: true, access: undefined };
+    if (isLoading || typeof user === 'undefined') {
+      return { isLoading: true, roles: INITIAL_ACCESS };
     }
 
-    return { isLoading: false, access: getUserAccess(user, klageenheter, enheter) };
-  }, [isLoading, user, klageenheter, enheter]);
-};
+    const roles: Access = user.roller.reduce<Access>((acc, role) => {
+      acc[role] = true;
+      return acc;
+    }, INITIAL_ACCESS);
 
-export const getUserAccess = (
-  user: IUser,
-  klageenheter: IKodeverkSimpleValue[],
-  enheter: IKodeverkSimpleValue[]
-): UserAccess => {
-  const isKlageinstansleder = hasAccess(klageenheter, enheter, [Role.ROLE_KLAGE_LEDER], user);
-
-  return {
-    isKlageinstansleder,
-    isStyringsenhetleder: !isKlageinstansleder && user?.roller.includes(Role.ROLE_KLAGE_LEDER),
-    isSaksbehandler: hasAccess(klageenheter, enheter, [Role.ROLE_KAKA_SAKSBEHANDLER], user),
-    isVedtaksinstansleder: hasAccess(klageenheter, enheter, [Role.ROLE_VEDTAKSINSTANS_LEDER], user),
-  };
-};
-
-const KLAGEENHET_ROLES: Role[] = [Role.ROLE_KLAGE_LEDER, Role.ROLE_KAKA_SAKSBEHANDLER];
-const VEDTAKSINSTANS_ROLES: Role[] = [Role.ROLE_VEDTAKSINSTANS_LEDER];
-
-const hasAccess = (
-  klageenheter: IKodeverkSimpleValue[],
-  enheter: IKodeverkSimpleValue[],
-  requiredRoles: Role[],
-  user: IUser
-) => {
-  if (requiredRoles.length === 0) {
-    return true;
-  }
-
-  const hasRequiredRole = requiredRoles.some((role) => user?.roller.includes(role));
-
-  if (!hasRequiredRole) {
-    return false;
-  }
-
-  const hasRequiredKlageenhetAcess = hasRequiredEnhetAccess(klageenheter, KLAGEENHET_ROLES, requiredRoles, user);
-  const hasRequiredVedtaksinstansAccess = hasRequiredEnhetAccess(enheter, VEDTAKSINSTANS_ROLES, requiredRoles, user);
-
-  return hasRequiredKlageenhetAcess && hasRequiredVedtaksinstansAccess;
-};
-
-const hasRequiredEnhetAccess = (
-  enheter: IKodeverkSimpleValue[],
-  enhetRoles: Role[],
-  requiredRoles: Role[],
-  user: IUser
-): boolean => {
-  const requiredEnhetRoles = enhetRoles.filter((role) => requiredRoles.includes(role));
-
-  if (requiredEnhetRoles.length === 0) {
-    return true;
-  }
-
-  const hasEnhetRole = requiredEnhetRoles.some((role) => user?.roller.includes(role));
-
-  if (!hasEnhetRole) {
-    return false;
-  }
-
-  return enheter.some(({ id }) => id === user.ansattEnhet.id);
+    return { isLoading: false, roles };
+  }, [isLoading, user]);
 };
