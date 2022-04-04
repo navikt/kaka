@@ -1,7 +1,7 @@
+import { Download } from '@navikt/ds-icons';
 import React from 'react';
 import styled from 'styled-components';
 import { useHasRole } from '../../hooks/use-has-role';
-import { Download } from '../../icons/download';
 import { baseUrl } from '../../redux-api/common';
 import { Role } from '../../types/user';
 
