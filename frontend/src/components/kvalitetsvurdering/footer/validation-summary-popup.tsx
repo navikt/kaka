@@ -1,11 +1,10 @@
+import { Collapse, Expand } from '@navikt/ds-icons';
 import AlertStripe from 'nav-frontend-alertstriper';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { isReduxValidationResponse } from '../../../functions/error-type-guard';
 import { useKvalitetsvurderingIsFinished } from '../../../hooks/use-kvalitetsvurdering-is-finished';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
-import { ArrowDown } from '../../../icons/arrow-down';
-import { ArrowUp } from '../../../icons/arrow-up';
 import { useFullfoerMutation } from '../../../redux-api/saksdata';
 import { ValidationSummary } from './validation-summary';
 
@@ -43,7 +42,7 @@ export const ValidationSummaryPopup = ({ hasErrors }: Props) => {
 
   const toggleOpen = () => setOpen(!open);
 
-  const icon = open ? <ArrowDown fill="#262626" /> : <ArrowUp fill="#262626" />;
+  const Icon = open ? Expand : Collapse;
 
   const statusText = hasErrors ? 'Feil i utfyllingen' : 'Under utfylling';
   const statusType = hasErrors ? 'advarsel' : 'info';
@@ -52,19 +51,28 @@ export const ValidationSummaryPopup = ({ hasErrors }: Props) => {
     <>
       <StyledButton onClick={toggleOpen}>
         <AlertStripe type={statusType} form="inline">
-          <StyledStatusText>{statusText}</StyledStatusText>
-          {icon}
+          <StyledAlertStripeText>
+            <StyledStatusText>{statusText}</StyledStatusText>
+            <Icon />
+          </StyledAlertStripeText>
         </AlertStripe>
       </StyledButton>
       {open && (
         <StyledPopup>
-          <StyledIconButton onClick={toggleOpen}>{icon}</StyledIconButton>
+          <StyledIconButton onClick={toggleOpen}>
+            <Icon />
+          </StyledIconButton>
           <ValidationSummary sections={error.data.sections} />
         </StyledPopup>
       )}
     </>
   );
 };
+
+const StyledAlertStripeText = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const StyledPopup = styled.div`
   position: absolute;
