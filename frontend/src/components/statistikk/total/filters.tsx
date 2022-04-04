@@ -3,6 +3,7 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useKodeverkYtelser } from '../../../hooks/use-kodeverk-value';
 import { useGetUserDataQuery } from '../../../redux-api/metadata';
+import { ExcelExport } from '../../excel-export/excel-export';
 import { DateContainer, FilterPanelContainer, StyledResetButton } from '../../filters/common/styled-components';
 import { DateFilter } from '../../filters/date';
 import {
@@ -185,6 +186,7 @@ export const Filters = () => {
         />
         <FilteredHjemlerPills setFilter={setFilter} />
       </PillContainer>
+      <ExcelExport />
     </FilterPanelContainer>
   );
 };
