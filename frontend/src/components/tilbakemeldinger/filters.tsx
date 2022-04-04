@@ -7,7 +7,6 @@ import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { useGetSaksdatalisteLederVedtaksinstansQuery } from '../../redux-api/statistics';
 import { ReadOnlySelect } from '../../styled-components/filters-and-content';
 import { ISaksdatalisteLederVedtaksinstansParams } from '../../types/saksdata';
-import { ExcelExport } from '../excel-export/excel-export';
 import { DateContainer, FilterPanelContainer, StyledResetButton } from '../filters/common/styled-components';
 import { DateFilter } from '../filters/date';
 import {
@@ -194,7 +193,6 @@ export const Filters = () => {
         <SelectedKommentarer values={selectedKommentarer} setFilter={setFilter} />
         <FilteredHjemlerPills setFilter={setFilter} />
       </PillContainer>
-      <ExcelExport />
     </FilterPanelContainer>
   );
 };
