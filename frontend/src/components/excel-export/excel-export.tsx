@@ -6,7 +6,7 @@ import { baseUrl } from '../../redux-api/common';
 import { Role } from '../../types/user';
 
 export const ExcelExport = () => {
-  const isLeder = useHasRole(Role.ROLE_KLAGE_LEDER);
+  const isLeder = useHasRole(Role.ROLE_KAKA_LEDERSTATISTIKK);
 
   if (!isLeder) {
     return null;
