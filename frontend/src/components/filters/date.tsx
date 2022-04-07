@@ -1,5 +1,6 @@
-import { Datepicker } from 'nav-datovelger';
-import React from 'react';
+import { Error } from '@navikt/ds-icons';
+import { Datepicker, DatepickerChange } from 'nav-datovelger';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -10,18 +11,46 @@ interface Props {
   minDate?: string;
 }
 
-export const DateFilter = ({ label, date, maxDate, minDate, onChange }: Props) => (
-  <Label>
-    <LabelText>{label}:</LabelText>
-    <Datepicker
-      onChange={onChange}
-      value={date}
-      showYearSelector
-      limitations={{ maxDate, minDate }}
-      calendarSettings={{ showWeekNumbers: true }}
-    />
-  </Label>
-);
+export const DateFilter = ({ label, date, maxDate, minDate, onChange }: Props) => {
+  const [value, setValue] = useState(date);
+  const [inputError, setInputError] = useState<string>();
+
+  const onChangeWithValidation: DatepickerChange = (newValue, isValidISODateString) => {
+    setValue(newValue);
+
+    if (isValidISODateString) {
+      setInputError(undefined);
+
+      onChange(newValue);
+      return;
+    }
+
+    setInputError('Dato må være på formen DD.MM.ÅÅÅÅ');
+  };
+
+  return (
+    <Label>
+      <LabelText>{label}:</LabelText>
+      <DateAndError>
+        <Datepicker
+          onChange={onChangeWithValidation}
+          value={value}
+          showYearSelector
+          limitations={{ maxDate, minDate }}
+          calendarSettings={{ showWeekNumbers: true }}
+        />
+        <ErrorIndicator error={inputError} />
+      </DateAndError>
+    </Label>
+  );
+};
+
+interface ErrorProps {
+  error?: string;
+}
+
+const ErrorIndicator = ({ error }: ErrorProps) =>
+  typeof error === 'undefined' ? null : <StyledError title="Dato må være på formen DD.MM.ÅÅÅÅ"></StyledError>;
 
 const Label = styled.label`
   display: block;
@@ -33,4 +62,16 @@ const LabelText = styled.span`
   display: block;
   font-size: 16px;
   font-weight: 700;
+`;
+
+const DateAndError = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const StyledError = styled(Error)`
+  color: #ba3a26;
+  margin-left: 12px;
+  width: 20px;
+  height: 20px;
 `;
