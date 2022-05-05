@@ -29,10 +29,9 @@ export const StyledCommentField = styled.div`
 `;
 
 export const StyledCheckboxContainer = styled.div`
-  width: 500px;
   display: flex;
-  justify-content: space-between;
-  button {
-    margin-left: 5px;
-  }
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
+  position: relative;
 `;

@@ -2,14 +2,15 @@ import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import styled from 'styled-components';
-import { REASON_NAMES } from '../../../hooks/use-reason-name';
-import { RadioValg } from '../../../types/radio';
-import { IFullStatisticVurdering } from '../../../types/statistics';
-import { StatisticsProps } from '../types';
-import { GRAPH_COLOR } from './colors';
-import { percent, tickCallback } from './formatting';
+import { RadioValg } from '../../../../types/radio';
+import { IFullStatisticVurdering } from '../../../../types/statistics';
+import { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/reasons-labels';
+import { StatisticsProps } from '../../types';
+import { GRAPH_COLOR } from '../colors';
+import { percent, tickCallback } from '../formatting';
+import { ChartContainer, ChartTitle, QuarterChartContainer, ThreeQuarterChartContainer } from '../styled-components';
+import { HelpTexts } from './help-texts';
 import { MangelfulltOverTime } from './mangelfullt-over-time';
-import { ChartContainer, ChartTitle, QuarterChartContainer, ThreeQuarterChartContainer } from './styled-components';
 
 const useDoughnutOptions = (): ChartOptions<'doughnut'> => ({
   responsive: true,
@@ -106,7 +107,7 @@ export interface KvalitetsvurderingProps extends StatisticsProps {
     'utredningenRadioValg' | 'klageforberedelsenRadioValg' | 'vedtaketRadioValg' | 'brukAvRaadgivendeLegeRadioValg'
   >;
   title: string;
-  relevantReasons: string[];
+  relevantReasons: ReasonLabel[];
 }
 
 export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: KvalitetsvurderingProps) => {
@@ -123,9 +124,9 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: Kva
     `Bra / godt nok: ${percent(braNokSaker.length, totalAmountSaker)}`,
     `Mangelfullt: ${percent(numberOfMangelfulleSaker, totalAmountSaker)}`,
   ];
-  const barLabels = relevantReasons.map((reasonId) => REASON_NAMES[reasonId]);
+  const barLabels = relevantReasons.map(({ label }) => label);
   const barData: number[] = relevantReasons.map(
-    (reasonId) => mangelfulleSaker.filter((stat) => stat[reasonId] === true).length
+    ({ id }) => mangelfulleSaker.filter((stat) => stat[id] === true).length
   );
 
   const doughnutOptions = useDoughnutOptions();
@@ -163,6 +164,8 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: Kva
         <ChartTitle>Kvalitetsavviket i {title.toLowerCase()} per måned</ChartTitle>
         <MangelfulltOverTime stats={stats} />
       </ChartContainer>
+
+      <HelpTexts relevantReasons={relevantReasons} />
     </Container>
   );
 };
