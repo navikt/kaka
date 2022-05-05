@@ -1,7 +1,7 @@
 import React from 'react';
+import { formatPercent } from '../../../functions/format-number';
 import { UtfallEnum } from '../../../types/utfall';
 import { StatisticsProps } from '../types';
-import { cleanNumberDisplay } from './formatting';
 import { KeyContent, RedKeyNumber } from './styled-components';
 
 export const Omgjort = ({ stats }: StatisticsProps) => {
@@ -13,11 +13,11 @@ export const Omgjort = ({ stats }: StatisticsProps) => {
   const percent =
     typeof numOmgjort === 'undefined' || typeof stats === 'undefined'
       ? '-'
-      : cleanNumberDisplay(Math.round((numOmgjort.length / stats.length) * 100));
+      : formatPercent(numOmgjort.length / stats.length);
 
   return (
     <KeyContent>
-      <RedKeyNumber>{percent} %</RedKeyNumber>
+      <RedKeyNumber>{percent}</RedKeyNumber>
       <span>Omgjort av Klageinstansen</span>
     </KeyContent>
   );
