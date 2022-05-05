@@ -27,19 +27,22 @@ export const kvalitetsvurderingApi = createApi({
       UpdateBoolean | UpdateText | UpdateRadio | UpdateRadioExtended
     >({
       query: ({ id, ...body }) => {
-        const [[key, value], ...rest] = Object.entries(body);
+        const [first, ...rest]: [string, unknown][] = Object.entries(body);
 
         if (rest.length !== 0) {
           throw new Error('Only one value allowed');
         }
 
+        if (first === undefined) {
+          throw new Error('No values provided');
+        }
+
+        const [key, value] = first;
+
         return {
           url: `/api/kaka-api/kvalitetsvurdering/${id}/${key.toLowerCase()}`,
           method: 'PUT',
-          body: {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            value,
-          },
+          body: { value },
         };
       },
       onQueryStarted: async ({ id, ...update }, { dispatch, queryFulfilled }) => {
