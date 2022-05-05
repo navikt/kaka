@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { FORMAT, MONTH_FORMAT, NOW } from '../components/filters/date-presets/constants';
+import { FORMAT, MONTH_FORMAT, NOW, START_OF_MONTH } from '../components/filters/date-presets/constants';
 import { QueryParams } from '../components/filters/filter-query-params';
 import { useGetUserDataQuery } from '../redux-api/metadata';
 import { useKodeverkValue } from './use-kodeverk-value';
@@ -17,7 +17,7 @@ export const useDefaultQueryTotal = () => {
   const vedtaksinstansenheter = useKodeverkValue('vedtaksenheter') ?? [];
   const klageenheter = useKodeverkValue('klageenheter') ?? [];
 
-  const fromDate = NOW.subtract(30, 'day').format(FORMAT);
+  const fromDate = START_OF_MONTH.format(FORMAT);
   const toDate = NOW.format(FORMAT);
 
   const ansattEnhetId: string | undefined = data?.ansattEnhet?.id;

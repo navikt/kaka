@@ -13,6 +13,7 @@ import {
   NOW,
   ONE_YEAR_AGO,
   PRETTY_FORMAT,
+  START_OF_MONTH,
 } from '../../filters/date-presets/constants';
 import { DatePresets } from '../../filters/date-presets/date-presets';
 import { getLastTertial } from '../../filters/date-presets/get-last-tertial';
@@ -31,12 +32,13 @@ import { VedtaksenheterFilter } from '../../filters/vedtaksenheter';
 import { YtelseFilter } from '../../filters/ytelser';
 
 const FORMATTED_NOW = NOW.format('YYYY-MM-DD');
-const FORMATTED_30_DAYS_AGO = NOW.subtract(30, 'day').format('YYYY-MM-DD');
+const FORMATTED_START_OF_MONTH = START_OF_MONTH.format('YYYY-MM-DD');
+const PRETTY_START_OF_MONTH = START_OF_MONTH.format('DD.MM.YYYY');
 
 const datePresets: IOption[] = [
   {
-    label: 'Siste 30 dager',
-    fromDate: NOW.subtract(30, 'day'),
+    label: 'Denne måneden',
+    fromDate: START_OF_MONTH,
     toDate: NOW,
   },
   { label: 'Siste tertial', ...getLastTertial(NOW) },
@@ -75,7 +77,7 @@ export const Filters = () => {
   const resetFilters = () =>
     setSearchParams({
       [QueryParams.KLAGEENHETER]: userData?.ansattEnhet.id ?? '',
-      [QueryParams.FROM_DATE]: FORMATTED_30_DAYS_AGO,
+      [QueryParams.FROM_DATE]: FORMATTED_START_OF_MONTH,
       [QueryParams.TO_DATE]: FORMATTED_NOW,
     });
 
@@ -98,10 +100,10 @@ export const Filters = () => {
           onChange={(value) => setFilter(QueryParams.FROM_DATE, value)}
         />
         <ResetDateButton
-          date={FORMATTED_30_DAYS_AGO}
+          date={FORMATTED_START_OF_MONTH}
           selectedDate={fromDate}
           onClick={(date) => setFilter(QueryParams.FROM_DATE, date)}
-          title="30 dager siden"
+          title={PRETTY_START_OF_MONTH}
         />
       </DateContainer>
 
