@@ -18,7 +18,7 @@ import { CardSize, DynamicCard } from '../card/card';
 import { BehandlingstidHistogram } from '../charts/behandlingstid-histogram';
 import { BehandlingstidOverTime } from '../charts/behandlingstid-over-time';
 import { Hjemler } from '../charts/hjemler';
-import { Kvalitetsvurderinger } from '../charts/kvalitetsvurderinger';
+import { Kvalitetsvurderinger } from '../charts/kvalitetsvurderinger/kvalitetsvurderinger';
 import { UtfallGraph } from '../charts/utfall-graph';
 import { Gjennomsnittstid } from '../key-stats/average-time';
 import { Finished } from '../key-stats/finished';

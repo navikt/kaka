@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { QueryParams } from '../../filters/filter-query-params';
-import { KvalitetsvurderingProps } from '../charts/kvalitetsvurdering';
+import { KvalitetsvurderingProps } from '../charts/kvalitetsvurderinger/kvalitetsvurdering';
 import { isAllowedKey } from '../toggle-kvalitetsvurdering';
 
 export const useKvalitetsvurderingParam = (): [

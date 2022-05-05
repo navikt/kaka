@@ -1,6 +1,6 @@
 import React from 'react';
-import { useKvalitetsvurderingParam } from '../hooks/use-kvalitetsvurdering-param';
-import { StatisticsProps } from '../types';
+import { useKvalitetsvurderingParam } from '../../hooks/use-kvalitetsvurdering-param';
+import { StatisticsProps } from '../../types';
 import { Kvalitetsvurdering } from './kvalitetsvurdering';
 import { KVALITETSVURDERING_OPTIONS } from './kvalitetsvurdering-options';
 

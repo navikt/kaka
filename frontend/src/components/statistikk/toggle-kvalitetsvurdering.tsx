@@ -1,8 +1,8 @@
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import React from 'react';
 import styled from 'styled-components';
-import { KvalitetsvurderingProps } from './charts/kvalitetsvurdering';
-import { KVALITETSVURDERING_OPTIONS } from './charts/kvalitetsvurdering-options';
+import { KvalitetsvurderingProps } from './charts/kvalitetsvurderinger/kvalitetsvurdering';
+import { KVALITETSVURDERING_OPTIONS } from './charts/kvalitetsvurderinger/kvalitetsvurdering-options';
 import { useKvalitetsvurderingParam } from './hooks/use-kvalitetsvurdering-param';
 
 const ALLOWED_KEYS = Object.keys(KVALITETSVURDERING_OPTIONS);

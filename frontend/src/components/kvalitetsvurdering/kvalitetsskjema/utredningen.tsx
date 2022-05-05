@@ -1,5 +1,7 @@
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import React from 'react';
+import styled from 'styled-components';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useFieldName } from '../../../hooks/use-field-name';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
@@ -7,6 +9,7 @@ import { useValidationError } from '../../../hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
 import { RadioValg } from '../../../types/radio';
 import { Reason, Reasons } from './reasons';
+import { utredningenReasons } from './reasons-labels';
 import { FormSection, RadioButtonsRow, SubHeader } from './styled-components';
 
 export const Utredningen = () => {
@@ -22,54 +25,21 @@ export const Utredningen = () => {
 
   const { id, utredningenRadioValg } = kvalitetsvurdering;
 
-  const reasons: Reason[] = [
-    {
-      id: 'utredningenAvMedisinskeForhold',
-      label: 'Utredningen av medisinske forhold',
-      checked: kvalitetsvurdering.utredningenAvMedisinskeForhold,
-      textareaId: 'utredningenAvMedisinskeForholdText',
-    },
-    {
-      id: 'utredningenAvInntektsforhold',
-      label: 'Utredningen av inntektsforhold',
-      checked: kvalitetsvurdering.utredningenAvInntektsforhold,
-      textareaId: 'utredningenAvInntektsforholdText',
-    },
-    {
-      id: 'utredningenAvArbeid',
-      label: 'Utredningen av arbeid',
-      checked: kvalitetsvurdering.utredningenAvArbeid,
-      textareaId: 'utredningenAvArbeidText',
-    },
-    {
-      id: 'arbeidsrettetBrukeroppfoelging',
-      label: 'Arbeidsrettet brukeroppfølging',
-      checked: kvalitetsvurdering.arbeidsrettetBrukeroppfoelging,
-      textareaId: 'arbeidsrettetBrukeroppfoelgingText',
-    },
-    {
-      id: 'utredningenAvAndreAktuelleForholdISaken',
-      label: 'Utredningen av andre aktuelle forhold i saken',
-      checked: kvalitetsvurdering.utredningenAvAndreAktuelleForholdISaken,
-      textareaId: 'utredningenAvAndreAktuelleForholdISakenText',
-    },
-    {
-      id: 'utredningenAvEoesProblematikk',
-      label: 'Utredningen av EØS / utenlandsproblematikk',
-      checked: kvalitetsvurdering.utredningenAvEoesProblematikk,
-      textareaId: 'utredningenAvEoesProblematikkText',
-    },
-    {
-      id: 'veiledningFraNav',
-      label: 'Veiledning fra NAV',
-      checked: kvalitetsvurdering.veiledningFraNav,
-      textareaId: 'veiledningFraNavText',
-    },
-  ];
+  const reasons: Reason[] = utredningenReasons.map((reason) => ({
+    ...reason,
+    checked: kvalitetsvurdering[reason.id],
+  }));
 
   return (
     <FormSection>
-      <SubHeader>{header}</SubHeader>
+      <StyledHeaderWrapper>
+        <SubHeader>{header}</SubHeader>
+        <Hjelpetekst>
+          Gjelder kvaliteten på utredningen i perioden frem til og med oversendelse til klageinstansen. Er det kommet
+          nye opplysninger etter at saken er oversendt klageinstansen, som vedtaksinstansen burde innhentet, skal dette
+          også registreres her.
+        </Hjelpetekst>
+      </StyledHeaderWrapper>
       <RadioGruppe feil={utredningenRadioValg === null ? validationError : undefined}>
         <RadioButtonsRow>
           <Radio
@@ -97,3 +67,9 @@ export const Utredningen = () => {
     </FormSection>
   );
 };
+
+const StyledHeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;

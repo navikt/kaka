@@ -5,7 +5,7 @@ import { Table } from '../kvalitetsvurderinger/table';
 import { LoadingOverlay } from '../loader/overlay';
 import { CardSize, DynamicCard } from '../statistikk/card/card';
 import { Hjemler } from '../statistikk/charts/hjemler';
-import { Kvalitetsvurderinger } from '../statistikk/charts/kvalitetsvurderinger';
+import { Kvalitetsvurderinger } from '../statistikk/charts/kvalitetsvurderinger/kvalitetsvurderinger';
 import { UtfallGraph } from '../statistikk/charts/utfall-graph';
 import { Finished } from '../statistikk/key-stats/finished';
 import { Omgjort } from '../statistikk/key-stats/omgjort';
