@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { useGetUserDataQuery } from '../../../../redux-api/metadata';
 import { useGetManagerStatisticsQuery } from '../../../../redux-api/statistics';
 import { IFullStatisticVurdering, IManagerStatisticsQuery } from '../../../../types/statistics';
+import { FORMATTED_END_OF_LAST_MONTH, FORMATTED_START_OF_LAST_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
   useFromMonthQueryFilter,
@@ -12,8 +13,8 @@ import {
 
 const useStatistics = () => {
   const { data: userData } = useGetUserDataQuery();
-  const fromMonth = useFromMonthQueryFilter();
-  const toMonth = useToMonthQueryFilter();
+  const fromMonth = useFromMonthQueryFilter(FORMATTED_START_OF_LAST_MONTH);
+  const toMonth = useToMonthQueryFilter(FORMATTED_END_OF_LAST_MONTH);
 
   const saksbehandlere = useQueryFilters(QueryParams.SAKSBEHANDLERE);
 

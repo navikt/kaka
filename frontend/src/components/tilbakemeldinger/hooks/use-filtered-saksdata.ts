@@ -2,14 +2,16 @@ import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useGetSaksdatalisteLederVedtaksinstansQuery } from '../../../redux-api/statistics';
 import { ISaksdatalisteLederVedtaksinstansParams } from '../../../types/saksdata';
+import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../filters/date-presets/constants';
 import { QueryParams } from '../../filters/filter-query-params';
 import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../filters/hooks/use-query-filter';
 
 const useSaksdata = () => {
   const { data: userData } = useGetUserDataQuery();
+
   // Dates
-  const fromDate = useFromDateQueryFilter();
-  const toDate = useToDateQueryFilter();
+  const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
+  const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
   const mangelfullt = useQueryFilters(QueryParams.MANGELFULLT);
   const kommentarer = useQueryFilters(QueryParams.KOMMENTARER);

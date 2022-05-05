@@ -12,12 +12,9 @@ interface Props {
 }
 
 export const DateFilter = ({ label, date, maxDate, minDate, onChange }: Props) => {
-  const [value, setValue] = useState(date);
   const [inputError, setInputError] = useState<string>();
 
   const onChangeWithValidation: DatepickerChange = (newValue, isValidISODateString) => {
-    setValue(newValue);
-
     if (isValidISODateString) {
       setInputError(undefined);
 
@@ -34,7 +31,7 @@ export const DateFilter = ({ label, date, maxDate, minDate, onChange }: Props) =
       <DateAndError>
         <Datepicker
           onChange={onChangeWithValidation}
-          value={value}
+          value={date}
           showYearSelector
           limitations={{ maxDate, minDate }}
           calendarSettings={{ showWeekNumbers: true }}

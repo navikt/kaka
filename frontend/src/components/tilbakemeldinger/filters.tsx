@@ -11,11 +11,16 @@ import { DateContainer, FilterPanelContainer, StyledResetButton } from '../filte
 import { DateFilter } from '../filters/date';
 import {
   FORMAT,
+  FORMATTED_NOW,
+  FORMATTED_START_OF_MONTH,
   LAST_YEAR_END,
   LAST_YEAR_START,
   NOW,
   ONE_YEAR_AGO,
   PRETTY_FORMAT,
+  PRETTY_START_OF_MONTH,
+  START_OF_MONTH,
+  START_OF_YEAR,
 } from '../filters/date-presets/constants';
 import { DatePresets } from '../filters/date-presets/date-presets';
 import { getLastTertial } from '../filters/date-presets/get-last-tertial';
@@ -33,19 +38,16 @@ import { ResetDateButton } from '../filters/reset-date';
 import { UtfallFilter } from '../filters/utfall';
 import { YtelseFilter } from '../filters/ytelser';
 
-const FORMATTED_NOW = NOW.format('YYYY-MM-DD');
-const FORMATTED_30_DAYS_AGO = NOW.subtract(30, 'day').format('YYYY-MM-DD');
-
 const datePresets: IOption[] = [
   {
-    label: 'Siste 30 dager',
-    fromDate: NOW.subtract(30, 'day'),
+    label: 'Denne måneden',
+    fromDate: START_OF_MONTH,
     toDate: NOW,
   },
   { label: 'Siste tertial', ...getLastTertial(NOW) },
   { label: 'Nest siste tertial', ...getLastTertial(NOW.subtract(4, 'month')) },
   { label: 'Siste 12 mnd', fromDate: ONE_YEAR_AGO, toDate: NOW },
-  { label: 'I år', fromDate: NOW.startOf('year'), toDate: NOW },
+  { label: 'I år', fromDate: START_OF_YEAR, toDate: NOW },
   { label: 'I fjor', fromDate: LAST_YEAR_START, toDate: LAST_YEAR_END },
 ];
 
@@ -58,9 +60,10 @@ export const Filters = () => {
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedMangelfullt = useQueryFilters(QueryParams.MANGELFULLT);
   const selectedKommentarer = useQueryFilters(QueryParams.KOMMENTARER);
+
   // Dates
-  const fromDate = useFromDateQueryFilter();
-  const toDate = useToDateQueryFilter();
+  const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
+  const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
   const ytelser = useYtelserForVedtaksinstansenhet(userData?.ansattEnhet.id ?? skipToken);
 
@@ -92,7 +95,7 @@ export const Filters = () => {
 
   const resetFilters = () =>
     setSearchParams({
-      [QueryParams.FROM_DATE]: FORMATTED_30_DAYS_AGO,
+      [QueryParams.FROM_DATE]: FORMATTED_START_OF_MONTH,
       [QueryParams.TO_DATE]: FORMATTED_NOW,
     });
 
@@ -115,10 +118,10 @@ export const Filters = () => {
           onChange={(value) => setFilter(QueryParams.FROM_DATE, value)}
         />
         <ResetDateButton
-          date={FORMATTED_30_DAYS_AGO}
+          date={FORMATTED_START_OF_MONTH}
           selectedDate={fromDate}
           onClick={(date) => setFilter(QueryParams.FROM_DATE, date)}
-          title="30 dager siden"
+          title={PRETTY_START_OF_MONTH}
         />
       </DateContainer>
 

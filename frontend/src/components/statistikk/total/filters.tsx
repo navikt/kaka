@@ -8,11 +8,14 @@ import { DateContainer, FilterPanelContainer, StyledResetButton } from '../../fi
 import { DateFilter } from '../../filters/date';
 import {
   FORMAT,
+  FORMATTED_NOW,
+  FORMATTED_START_OF_MONTH,
   LAST_YEAR_END,
   LAST_YEAR_START,
   NOW,
   ONE_YEAR_AGO,
   PRETTY_FORMAT,
+  PRETTY_START_OF_MONTH,
   START_OF_MONTH,
 } from '../../filters/date-presets/constants';
 import { DatePresets } from '../../filters/date-presets/date-presets';
@@ -30,10 +33,6 @@ import { SakstypeFilter } from '../../filters/sakstyper';
 import { UtfallFilter } from '../../filters/utfall';
 import { VedtaksenheterFilter } from '../../filters/vedtaksenheter';
 import { YtelseFilter } from '../../filters/ytelser';
-
-const FORMATTED_NOW = NOW.format('YYYY-MM-DD');
-const FORMATTED_START_OF_MONTH = START_OF_MONTH.format('YYYY-MM-DD');
-const PRETTY_START_OF_MONTH = START_OF_MONTH.format('DD.MM.YYYY');
 
 const datePresets: IOption[] = [
   {
@@ -58,9 +57,10 @@ export const Filters = () => {
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
+
   // Dates
-  const fromDate = useFromDateQueryFilter();
-  const toDate = useToDateQueryFilter();
+  const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
+  const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
   const ytelser = useKodeverkYtelser();
 
