@@ -1,13 +1,18 @@
 import { useMemo } from 'react';
-import { FORMAT, MONTH_FORMAT, NOW, START_OF_MONTH } from '../components/filters/date-presets/constants';
+import {
+  FORMATTED_NOW,
+  FORMATTED_START_OF_MONTH,
+  MONTH_FORMAT,
+  NOW,
+} from '../components/filters/date-presets/constants';
 import { QueryParams } from '../components/filters/filter-query-params';
 import { useGetUserDataQuery } from '../redux-api/metadata';
 import { useKodeverkValue } from './use-kodeverk-value';
 
 export const useDefaultQuery = () =>
   useMemo(() => {
-    const fromDate = NOW.subtract(30, 'day').format(FORMAT);
-    const toDate = NOW.format(FORMAT);
+    const fromDate = FORMATTED_START_OF_MONTH;
+    const toDate = FORMATTED_NOW;
 
     return `${QueryParams.FROM_DATE}=${fromDate}&${QueryParams.TO_DATE}=${toDate}`;
   }, []);
@@ -17,8 +22,8 @@ export const useDefaultQueryTotal = () => {
   const vedtaksinstansenheter = useKodeverkValue('vedtaksenheter') ?? [];
   const klageenheter = useKodeverkValue('klageenheter') ?? [];
 
-  const fromDate = START_OF_MONTH.format(FORMAT);
-  const toDate = NOW.format(FORMAT);
+  const fromDate = FORMATTED_START_OF_MONTH;
+  const toDate = FORMATTED_NOW;
 
   const ansattEnhetId: string | undefined = data?.ansattEnhet?.id;
 

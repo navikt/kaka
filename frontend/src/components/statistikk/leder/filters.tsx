@@ -5,7 +5,16 @@ import { useKodeverkYtelser } from '../../../hooks/use-kodeverk-value';
 import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { ReadOnlySelect } from '../../../styled-components/filters-and-content';
 import { FilterPanelContainer, StyledResetButton } from '../../filters/common/styled-components';
-import { MONTH_FORMAT, NOW, PRETTY_FORMAT } from '../../filters/date-presets/constants';
+import {
+  END_OF_LAST_MONTH,
+  FORMATTED_END_OF_LAST_MONTH,
+  FORMATTED_LAST_MONTH,
+  FORMATTED_START_OF_LAST_MONTH,
+  MONTH_FORMAT,
+  NOW,
+  PRETTY_FORMAT,
+  START_OF_LAST_MONTH,
+} from '../../filters/date-presets/constants';
 import { DatePresets } from '../../filters/date-presets/date-presets';
 import { getLastTertial } from '../../filters/date-presets/get-last-tertial';
 import { IOption } from '../../filters/date-presets/types';
@@ -21,13 +30,11 @@ import { SakstypeFilter } from '../../filters/sakstyper';
 import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
 
-const LAST_MONTH = NOW.subtract(1, 'month').format('YYYY-MM');
-
 const datePresets: IOption[] = [
   {
     label: 'Siste måned',
-    fromDate: NOW.subtract(1, 'month').startOf('month'),
-    toDate: NOW.subtract(1, 'month').endOf('month'),
+    fromDate: START_OF_LAST_MONTH,
+    toDate: END_OF_LAST_MONTH,
   },
   { label: 'Siste tertial', ...getLastTertial(NOW) },
 ];
@@ -42,9 +49,10 @@ export const Filters = () => {
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedSaksbehandlere = useQueryFilters(QueryParams.SAKSBEHANDLERE);
+
   // Dates
-  const fromMonth = useFromMonthQueryFilter();
-  const toMonth = useToMonthQueryFilter();
+  const fromMonth = useFromMonthQueryFilter(FORMATTED_START_OF_LAST_MONTH);
+  const toMonth = useToMonthQueryFilter(FORMATTED_END_OF_LAST_MONTH);
 
   const ytelser = useKodeverkYtelser();
 
@@ -59,7 +67,9 @@ export const Filters = () => {
   };
 
   const resetFilters = () =>
-    setSearchParams(`?${QueryParams.FROM_MONTH}=${LAST_MONTH}&${QueryParams.TO_MONTH}=${LAST_MONTH}`);
+    setSearchParams(
+      `?${QueryParams.FROM_MONTH}=${FORMATTED_LAST_MONTH}&${QueryParams.TO_MONTH}=${FORMATTED_LAST_MONTH}`
+    );
 
   const setPreset = (fromDate: dayjs.Dayjs, toDate: dayjs.Dayjs) => {
     setFilter(QueryParams.FROM_MONTH, fromDate.format(MONTH_FORMAT));

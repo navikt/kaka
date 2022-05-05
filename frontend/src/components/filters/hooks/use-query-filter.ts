@@ -1,7 +1,5 @@
-import dayjs from 'dayjs';
 import { useSearchParams } from 'react-router-dom';
 import { QueryParams } from '../../filters/filter-query-params';
-import { FORMAT, MONTH_FORMAT } from '../date-presets/constants';
 
 export const useQueryFilter = (filter: QueryParams): string | null => {
   const [searchParams] = useSearchParams();
@@ -22,43 +20,41 @@ const EMPTY_ARRAY: string[] = [];
 
 export const useQueryFilters = (filter: QueryParams): string[] => useQueryFilter(filter)?.split(',') ?? EMPTY_ARRAY;
 
-const NOW = dayjs();
-
-export const useFromDateQueryFilter = (): string => {
+export const useFromDateQueryFilter = (defaultDate: string): string => {
   const queryValue = useQueryFilter(QueryParams.FROM_DATE);
 
   if (queryValue === null || queryValue.length === 0) {
-    return NOW.subtract(3, 'month').format(FORMAT);
+    return defaultDate;
   }
 
   return queryValue;
 };
 
-export const useToDateQueryFilter = (): string => {
+export const useToDateQueryFilter = (defaultDate: string): string => {
   const queryValue = useQueryFilter(QueryParams.TO_DATE);
 
   if (queryValue === null || queryValue.length === 0) {
-    return NOW.format('YYYY-MM-DD');
+    return defaultDate;
   }
 
   return queryValue;
 };
 
-export const useFromMonthQueryFilter = (): string => {
+export const useFromMonthQueryFilter = (defaultDate: string): string => {
   const queryValue = useQueryFilter(QueryParams.FROM_MONTH);
 
   if (queryValue === null || queryValue.length === 0) {
-    return NOW.subtract(1, 'month').format(MONTH_FORMAT);
+    return defaultDate;
   }
 
   return queryValue;
 };
 
-export const useToMonthQueryFilter = (): string => {
+export const useToMonthQueryFilter = (defaultDate: string): string => {
   const queryValue = useQueryFilter(QueryParams.TO_MONTH);
 
   if (queryValue === null || queryValue.length === 0) {
-    return NOW.subtract(1, 'month').format(MONTH_FORMAT);
+    return defaultDate;
   }
 
   return queryValue;
