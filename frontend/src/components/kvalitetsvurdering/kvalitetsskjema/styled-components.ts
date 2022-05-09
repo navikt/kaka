@@ -35,3 +35,9 @@ export const StyledCheckboxContainer = styled.div`
   width: 100%;
   position: relative;
 `;
+
+export const StyledHeaderHelpTextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
