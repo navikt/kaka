@@ -37,6 +37,7 @@ export const MottattVedtaksinstans = () => {
         showYearSelector
         error={validationError}
         data-testid="mottatt-vedtaksinstans"
+        helpText="Kaka gir ingen offisiell statistikk på saksbehandlingstiden. Det skal derfor ikke tas en større vurdering av hva korrekt dato er. Benytt gjerne journalføringsdatoen."
       />
     </StyledItem>
   );

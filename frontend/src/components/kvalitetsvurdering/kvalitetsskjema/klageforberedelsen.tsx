@@ -1,3 +1,4 @@
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { Radio, RadioGruppe } from 'nav-frontend-skjema';
 import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
@@ -10,7 +11,7 @@ import { RadioValg } from '../../../types/radio';
 import { SakstypeEnum } from '../../../types/sakstype';
 import { Reason, Reasons } from './reasons';
 import { klageforberedelsenReasons } from './reasons-labels';
-import { FormSection, RadioButtonsRow, SubHeader } from './styled-components';
+import { FormSection, RadioButtonsRow, StyledHeaderHelpTextWrapper, SubHeader } from './styled-components';
 
 export const Klageforberedelsen = () => {
   const [kvalitetsvurdering] = useKvalitetsvurdering();
@@ -37,7 +38,13 @@ export const Klageforberedelsen = () => {
 
   return (
     <FormSection>
-      <SubHeader>{header}</SubHeader>
+      <StyledHeaderHelpTextWrapper>
+        <SubHeader>{header}</SubHeader>
+        <Hjelpetekst>
+          Vedtaksinstansen skal gjøre en ny prøving av eget vedtak, vise klagers argumenter og begrunne hvorfor vedtaket
+          blir fastholdt.
+        </Hjelpetekst>
+      </StyledHeaderHelpTextWrapper>
       <RadioGruppe feil={klageforberedelsenRadioValg === null ? validationError : undefined}>
         <RadioButtonsRow>
           <Radio
