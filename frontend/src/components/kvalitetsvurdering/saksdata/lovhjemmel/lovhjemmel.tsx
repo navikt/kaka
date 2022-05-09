@@ -1,4 +1,5 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
@@ -71,7 +72,13 @@ export const Lovhjemmel = () => {
 
   return (
     <>
-      <StyledHeader>Utfallet er basert på lovhjemmel:</StyledHeader>
+      <StyledHeaderHelpTextWrapper>
+        <StyledHeader>Utfallet er basert på lovhjemmel:</StyledHeader>
+        <Hjelpetekst>
+          Hjemlene skal i utgangspunktet være de samme som i klagevedtaket. Dersom saken har flere klagetemaer og
+          kvaliteten er bra nok på det ene og mangelfull på det andre, velger du de hjemlene kvalitetsavviket gjelder.
+        </Hjelpetekst>
+      </StyledHeaderHelpTextWrapper>
       <LovhjemmelSelect
         disabled={!canEdit || noHjemler}
         options={options}
@@ -90,4 +97,10 @@ export const Lovhjemmel = () => {
 const StyledHeader = styled.h2`
   font-size: 16px;
   font-weight: bold;
+`;
+
+const StyledHeaderHelpTextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
 `;
