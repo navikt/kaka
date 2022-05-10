@@ -18,6 +18,7 @@ const INITIAL_ACCESS: Access = {
   [Role.ROLE_KAKA_KVALITETSTILBAKEMELDINGER]: false,
   [Role.ROLE_ADMIN]: false,
   [Role.ROLE_KLAGE_STRENGT_FORTROLIG]: false,
+  [Role.ROLE_KLAGE_LEDER]: false,
 };
 
 export const useUserHasRole = (): ReturnValue => {
