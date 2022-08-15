@@ -2,8 +2,9 @@ import { Download } from '@navikt/ds-icons';
 import React from 'react';
 import styled from 'styled-components';
 import { useHasRole } from '../../hooks/use-has-role';
-import { baseUrl } from '../../redux-api/common';
 import { Role } from '../../types/user';
+
+const URL = '/api/kaka-api/export/excel';
 
 export const ExcelExport = () => {
   const isLeder = useHasRole(Role.ROLE_KLAGE_LEDER);
@@ -12,10 +13,8 @@ export const ExcelExport = () => {
     return null;
   }
 
-  const url = `${baseUrl}api/kaka-api/export/excel`;
-
   return (
-    <StyledLink className="knapp knapp--mini" href={url} download="rapport">
+    <StyledLink className="knapp knapp--mini" href={URL} download="rapport">
       <span>Eksporter</span> <Download />
     </StyledLink>
   );

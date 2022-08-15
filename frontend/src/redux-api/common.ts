@@ -1,13 +1,11 @@
 import { FetchArgs, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 
 const isLocalhost = window.location.hostname === 'localhost';
-export const baseUrl = isLocalhost ? 'https://kaka.dev.nav.no/' : '/';
 const mode: RequestMode | undefined = isLocalhost ? 'cors' : undefined;
 
 export const baseQuery = retry(
   async (args: string | FetchArgs, api, extraOptions) => {
     const result = await fetchBaseQuery({
-      baseUrl: `${baseUrl}`,
       mode,
       credentials: 'include',
     })(args, api, extraOptions);
