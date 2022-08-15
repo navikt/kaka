@@ -28,11 +28,13 @@ import { KlageenheterFilter } from '../../filters/klageenheter';
 import { SelectedEnheterFilters } from '../../filters/pills/enhet';
 import { FilteredHjemlerPills } from '../../filters/pills/hjemler';
 import { PillContainer, SelectedFilters } from '../../filters/pills/pills';
+import { VedtaksinstansgrupperPills } from '../../filters/pills/vedtaksinstansgrupper';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { UtfallFilter } from '../../filters/utfall';
 import { VedtaksenheterFilter } from '../../filters/vedtaksenheter';
 import { YtelseFilter } from '../../filters/ytelser';
+import { VedtaksinstansgruppeFilter } from './vedtaksinstansgruppe-filter';
 
 const datePresets: IOption[] = [
   {
@@ -57,6 +59,7 @@ export const Filters = () => {
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
+  const selectedVedtaksinstansgrupper = useQueryFilters(QueryParams.VEDTAKSINSTANSGRUPPER);
 
   // Dates
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
@@ -135,6 +138,12 @@ export const Filters = () => {
         selected={selectedKlageenheter}
         setSelected={(values) => setFilter(QueryParams.KLAGEENHETER, ...values)}
       />
+
+      <VedtaksinstansgruppeFilter
+        selected={selectedVedtaksinstansgrupper}
+        setSelected={(values) => setFilter(QueryParams.VEDTAKSINSTANSGRUPPER, ...values)}
+      />
+
       <VedtaksenheterFilter
         selected={selectedEnheter}
         setSelected={(values) => setFilter(QueryParams.ENHETER, ...values)}
@@ -159,6 +168,9 @@ export const Filters = () => {
           category="klageenhet"
           setFilter={setFilter}
         />
+
+        <VedtaksinstansgrupperPills setFilter={setFilter} />
+
         <SelectedEnheterFilters
           values={selectedEnheter}
           type="enheter"

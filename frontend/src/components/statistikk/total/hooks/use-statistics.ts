@@ -28,6 +28,7 @@ export const useFilteredTotalStatistics = () => {
   const enheter = useQueryFilters(QueryParams.ENHETER);
   const klageenheter = useQueryFilters(QueryParams.KLAGEENHETER);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
+  const vedtaksinstansgrupper = useQueryFilters(QueryParams.VEDTAKSINSTANSGRUPPER);
 
   return useMemo(
     () =>
@@ -38,8 +39,10 @@ export const useFilteredTotalStatistics = () => {
           (utfall.length === 0 || utfall.includes(utfallId)) &&
           (types.length === 0 || types.includes(sakstypeId)) &&
           (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
-          (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id)))
+          (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))) &&
+          (vedtaksinstansgrupper.length === 0 ||
+            vedtaksinstansgrupper.some((id) => vedtaksinstansEnhet?.startsWith(id)))
       ),
-    [data, types, ytelser, utfall, enheter, klageenheter, hjemler]
+    [data, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper]
   );
 };

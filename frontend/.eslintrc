@@ -42,7 +42,7 @@
     "linebreak-style": ["error", "unix"],
     "max-depth": ["error", { "max": 2 }],
     "no-lonely-if": "error",
-    "complexity": ["error", { "max": 15 }],
+    "complexity": ["error", { "max": 18 }],
     "curly": ["error", "all"],
     "default-case": "error",
     "default-case-last": "error",

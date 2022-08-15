@@ -15,4 +15,5 @@ export enum QueryParams {
   SAKSBEHANDLERE = 'saksbehandlere',
   MANGELFULLT = 'mangelfullt',
   KOMMENTARER = 'kommentarer',
+  VEDTAKSINSTANSGRUPPER = 'vedtaksinstansgrupper',
 }
