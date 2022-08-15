@@ -56,7 +56,7 @@ export const setSessionCookie = (res: Response, sessionId: string, signature: st
     path: '/',
     httpOnly: true,
     sameSite: isDeployedToProd ? 'lax' : 'none', // Strict breaks Azure login flow because of redirect (third-party init).
-    secure: true,
+    secure: isDeployedToProd,
   });
   return [sessionId, signature];
 };
