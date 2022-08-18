@@ -2,6 +2,7 @@
   "name": "kaka",
   "version": "1.0.0",
   "description": "KAKA - System for registrering av saksvurderinger for Klageinstansen",
+  "license": "MIT",
   "scripts": {
     "build:js": "webpack --mode production",
     "build:static": "copyfiles -f ./public/index.html dist && copyfiles -u 1 ./assets/* dist/assets",
@@ -12,15 +13,14 @@
     "testcov": "jest --coverage --no-cache",
     "lint": "eslint src --color",
     "lint-fix": "eslint src --color --fix"
-    },
-  "license": "MIT",
+  },
   "devDependencies": {
     "@types/jest": "^28.1.7",
     "@types/react": "^17.0.48",
     "@types/react-dom": "^17.0.17",
     "@types/react-redux": "^7.1.24",
     "@types/styled-components": "^5.1.26",
-    "@types/webpack-env": "^1.17.0",
+    "@types/webpack-env": "^1.18.0",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
     "copyfiles": "^2.4.1",
@@ -47,7 +47,9 @@
     "webpack-dev-server": "^4.10.0"
   },
   "dependencies": {
-    "@navikt/ds-icons": "^0.8.20",
+    "@navikt/ds-css": "^1.0.2",
+    "@navikt/ds-icons": "^1.0.2",
+    "@navikt/ds-react": "^1.0.2",
     "@reduxjs/toolkit": "^1.8.4",
     "chart.js": "^3.9.1",
     "dayjs": "^1.11.5",

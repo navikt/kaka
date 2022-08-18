@@ -1,8 +1,8 @@
-import { useGetUserDataQuery } from '../redux-api/metadata';
+import { useUser } from '../simple-api-state/use-user';
 import { Role } from '../types/user';
 
 export const useUserRoles = () => {
-  const { data } = useGetUserDataQuery();
+  const { data } = useUser();
   return data?.roller ?? [];
 };
 

@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
-import { useGetKodeverkQuery } from '../../../redux-api/kodeverk';
+import { useKodeverk } from '../../../simple-api-state/use-kodeverk';
 
 export const useHjemmelTexts = (ytelseIds: string[]) => {
-  const { data } = useGetKodeverkQuery();
+  const { data } = useKodeverk();
 
   const ytelser = useMemo(() => data?.ytelser ?? [], [data]);
 

@@ -1,14 +1,14 @@
 import { skipToken } from '@reduxjs/toolkit/query/react';
 import { useMemo } from 'react';
-import { useGetUserDataQuery } from '../../../../redux-api/metadata';
 import { useGetMyStatisticsQuery } from '../../../../redux-api/statistics';
+import { useUser } from '../../../../simple-api-state/use-user';
 import { IFullStatisticVurdering, IStatisticsQuery } from '../../../../types/statistics';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../../filters/hooks/use-query-filter';
 
 const useStatistics = () => {
-  const { data: userData } = useGetUserDataQuery();
+  const { data: userData } = useUser();
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
 

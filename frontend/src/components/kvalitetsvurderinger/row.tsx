@@ -1,3 +1,4 @@
+import { Table } from '@navikt/ds-react';
 import React from 'react';
 import { isoDateTimeToPrettyDate } from '../../domain/date';
 import { formatId } from '../../functions/format-id';
@@ -22,22 +23,22 @@ export const Row = ({
   utfallId,
   testId,
 }: Props & (ISaksdataIncompleteSearchHit | ISaksdataCompleteSearchHit)): JSX.Element => (
-  <tr data-testid={`${testId}-row`} data-saksdata-id={id}>
-    <td>
+  <Table.Row data-testid={`${testId}-row`} data-saksdata-id={id}>
+    <Table.DataCell>
       <Type type={sakstypeId} />
-    </td>
-    <td>
+    </Table.DataCell>
+    <Table.DataCell>
       <Ytelse ytelseId={ytelseId} />
-    </td>
-    <td>
+    </Table.DataCell>
+    <Table.DataCell>
       <CopyButton text={sakenGjelder}>{formatId(sakenGjelder)}</CopyButton>
-    </td>
-    <td>{isoDateTimeToPrettyDate(modified)}</td>
-    <td>
+    </Table.DataCell>
+    <Table.DataCell>{isoDateTimeToPrettyDate(modified)}</Table.DataCell>
+    <Table.DataCell>
       <Utfall utfall={utfallId} />
-    </td>
-    <td>
+    </Table.DataCell>
+    <Table.DataCell>
       <OpenKvalitetsvurdering id={id} />
-    </td>
-  </tr>
+    </Table.DataCell>
+  </Table.Row>
 );

@@ -3,8 +3,8 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useYtelserForVedtaksinstansenhet } from '../../hooks/use-kodeverk-value';
-import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { useGetSaksdatalisteLederVedtaksinstansQuery } from '../../redux-api/statistics';
+import { useUser } from '../../simple-api-state/use-user';
 import { ReadOnlySelect } from '../../styled-components/filters-and-content';
 import { ISaksdatalisteLederVedtaksinstansParams } from '../../types/saksdata';
 import { DateContainer, FilterPanelContainer, StyledResetButton } from '../filters/common/styled-components';
@@ -52,7 +52,7 @@ const datePresets: IOption[] = [
 ];
 
 export const Filters = () => {
-  const { data: userData } = useGetUserDataQuery();
+  const { data: userData } = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);

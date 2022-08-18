@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useKodeverkYtelser } from '../../../hooks/use-kodeverk-value';
-import { useGetUserDataQuery } from '../../../redux-api/metadata';
+import { useUser } from '../../../simple-api-state/use-user';
 import { ReadOnlySelect } from '../../../styled-components/filters-and-content';
 import { FilterPanelContainer, StyledResetButton } from '../../filters/common/styled-components';
 import {
@@ -40,7 +40,7 @@ const datePresets: IOption[] = [
 ];
 
 export const Filters = () => {
-  const { data: userData } = useGetUserDataQuery();
+  const { data: userData } = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedEnheter = useQueryFilters(QueryParams.ENHETER);

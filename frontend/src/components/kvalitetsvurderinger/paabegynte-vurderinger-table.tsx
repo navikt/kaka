@@ -1,12 +1,12 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import React from 'react';
 import 'nav-frontend-tabell-style';
-import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { ISaksdataListParams, useGetIncompleteSaksdataListQuery } from '../../redux-api/saksdata';
-import { Table } from './table';
+import { useUser } from '../../simple-api-state/use-user';
+import { VurderingerTable } from './table';
 
 export const PaabegynteVurderingerTable = () => {
-  const { data: userData } = useGetUserDataQuery();
+  const { data: userData } = useUser();
 
   const query: ISaksdataListParams | typeof skipToken =
     typeof userData === 'undefined'
@@ -17,5 +17,5 @@ export const PaabegynteVurderingerTable = () => {
 
   const { data } = useGetIncompleteSaksdataListQuery(query);
 
-  return <Table data={data} testId="paabegynte-vurderinger" />;
+  return <VurderingerTable data={data} testId="paabegynte-vurderinger" />;
 };

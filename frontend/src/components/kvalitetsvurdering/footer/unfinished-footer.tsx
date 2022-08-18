@@ -5,8 +5,8 @@ import { isReduxValidationResponse } from '../../../functions/error-type-guard';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
-import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useDeleteSaksdataMutation, useFullfoerMutation } from '../../../redux-api/saksdata';
+import { useUser } from '../../../simple-api-state/use-user';
 import { BackLink } from './back-link';
 import { StyledButtons, StyledUnfinishedErrorFooter, StyledUnfinishedFooter } from './styled-components';
 import { ValidationSummaryPopup } from './validation-summary-popup';
@@ -15,7 +15,7 @@ export const UnfinishedFooter = () => {
   const id = useSaksdataId();
   const canEdit = useCanEdit();
   const navigate = useNavigate();
-  const { data: userData } = useGetUserDataQuery();
+  const { data: userData } = useUser();
   const [saksdata] = useSaksdata();
   const [finishVurdering, { isLoading: isFinishing, error }] = useFullfoerMutation({
     fixedCacheKey: id,

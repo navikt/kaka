@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useGetUserDataQuery } from '../redux-api/metadata';
+import { useUser } from '../simple-api-state/use-user';
 import { Role } from '../types/user';
 
 type Access = {
@@ -22,7 +22,7 @@ const INITIAL_ACCESS: Access = {
 };
 
 export const useUserHasRole = (): ReturnValue => {
-  const { data: user, isLoading } = useGetUserDataQuery();
+  const { data: user, isLoading } = useUser();
 
   return useMemo(() => {
     if (isLoading || typeof user === 'undefined') {

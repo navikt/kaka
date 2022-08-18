@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useYtelserForKlageenhet } from '../../../hooks/use-kodeverk-value';
-import { useGetUserDataQuery } from '../../../redux-api/metadata';
+import { useUser } from '../../../simple-api-state/use-user';
 import { DateContainer, FilterPanelContainer, StyledResetButton } from '../../filters/common/styled-components';
 import { DateFilter } from '../../filters/date';
 import {
@@ -45,7 +45,7 @@ const datePresets: IOption[] = [
 ];
 
 export const Filters = () => {
-  const { data: userData } = useGetUserDataQuery();
+  const { data: userData } = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedEnheter = useQueryFilters(QueryParams.ENHETER);

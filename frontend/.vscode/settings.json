@@ -15,5 +15,11 @@
     "source.fixAll.eslint": true
   },
   "tslint.enable": false,
-  "prettier.requireConfig": true
+  "prettier.requireConfig": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  }
 }

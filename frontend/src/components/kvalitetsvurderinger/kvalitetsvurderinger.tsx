@@ -3,13 +3,13 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { useCreateSaksdataMutation } from '../../redux-api/saksdata';
+import { useUser } from '../../simple-api-state/use-user';
 import { FullfoerteVurderingerTable } from './fullfoerte-vurderinger-table';
 import { PaabegynteVurderingerTable } from './paabegynte-vurderinger-table';
 
 export const Kvalitetsvurderinger = () => {
-  const { data: userData, isLoading } = useGetUserDataQuery();
+  const { data: userData, isLoading } = useUser();
   const [createSaksdata] = useCreateSaksdataMutation();
   const navigate = useNavigate();
 

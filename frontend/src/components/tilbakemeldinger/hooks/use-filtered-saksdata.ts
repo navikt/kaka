@@ -1,13 +1,13 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useGetSaksdatalisteLederVedtaksinstansQuery } from '../../../redux-api/statistics';
+import { useUser } from '../../../simple-api-state/use-user';
 import { ISaksdatalisteLederVedtaksinstansParams } from '../../../types/saksdata';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../filters/date-presets/constants';
 import { QueryParams } from '../../filters/filter-query-params';
 import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../filters/hooks/use-query-filter';
 
 const useSaksdata = () => {
-  const { data: userData } = useGetUserDataQuery();
+  const { data: userData } = useUser();
 
   // Dates
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
