@@ -6,14 +6,14 @@ import { useKodeverkYtelser, useSimpleYtelserForKlageenhet } from '../../../hook
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
-import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useSetYtelseMutation } from '../../../redux-api/saksdata';
+import { useUser } from '../../../simple-api-state/use-user';
 import { SakstypeEnum } from '../../../types/sakstype';
 import { EmptyOption } from './empty-option';
 import { StyledHeader, StyledItem } from './styled-components';
 
 export const Ytelse = () => {
-  const { data: user } = useGetUserDataQuery();
+  const { data: user } = useUser();
   const saksId = useSaksdataId();
   const [saksdata] = useSaksdata();
   const [setYtelse] = useSetYtelseMutation();

@@ -6,7 +6,7 @@ import {
   NOW,
 } from '../components/filters/date-presets/constants';
 import { QueryParams } from '../components/filters/filter-query-params';
-import { useGetUserDataQuery } from '../redux-api/metadata';
+import { useUser } from '../simple-api-state/use-user';
 import { useKodeverkValue } from './use-kodeverk-value';
 
 export const useDefaultQuery = () =>
@@ -18,7 +18,7 @@ export const useDefaultQuery = () =>
   }, []);
 
 export const useDefaultQueryTotal = () => {
-  const { data } = useGetUserDataQuery();
+  const { data } = useUser();
   const vedtaksinstansenheter = useKodeverkValue('vedtaksenheter') ?? [];
   const klageenheter = useKodeverkValue('klageenheter') ?? [];
 

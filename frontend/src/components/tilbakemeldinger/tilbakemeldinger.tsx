@@ -1,7 +1,7 @@
 import React from 'react';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '../../styled-components/cards';
 import { ContentArea, FilterSection, FiltersAndContentContainer } from '../../styled-components/filters-and-content';
-import { Table } from '../kvalitetsvurderinger/table';
+import { VurderingerTable } from '../kvalitetsvurderinger/table';
 import { LoadingOverlay } from '../loader/overlay';
 import { CardSize, DynamicCard } from '../statistikk/card/card';
 import { Hjemler } from '../statistikk/charts/hjemler';
@@ -45,7 +45,7 @@ export const Tilbakemeldinger = () => {
           </DynamicCard>
 
           <DynamicCard size={CardSize.LARGE}>
-            <Table data={saksdata} testId="fullfoerte-vurderinger" />
+            <VurderingerTable data={saksdata} testId="fullfoerte-vurderinger" />
           </DynamicCard>
 
           <DynamicCard size={CardSize.MEDIUM}>

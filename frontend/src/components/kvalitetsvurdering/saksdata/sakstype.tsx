@@ -5,12 +5,12 @@ import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useValidationError } from '../../../hooks/use-validation-error';
-import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useSetSakstypeMutation } from '../../../redux-api/saksdata';
+import { useUser } from '../../../simple-api-state/use-user';
 import { SakstypeEnum } from '../../../types/sakstype';
 
 export const Sakstype = () => {
-  const { data: user } = useGetUserDataQuery();
+  const { data: user } = useUser();
   const [saksdata] = useSaksdata();
   const [updateSakstype] = useSetSakstypeMutation();
   const sakstyper = useKodeverkValue('sakstyper');

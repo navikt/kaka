@@ -1,3 +1,4 @@
+import { Table } from '@navikt/ds-react';
 import React from 'react';
 import 'nav-frontend-tabell-style';
 import { ISaksdataCompleteSearchHit, ISaksdataIncompleteSearchHit } from '../../types/saksdata';
@@ -13,31 +14,31 @@ interface Props {
 export const VurderingRows = ({ vurderinger, columnCount, testId }: Props): JSX.Element => {
   if (typeof vurderinger === 'undefined') {
     return (
-      <tbody data-testid={`${testId}-table-loading`}>
-        <tr>
-          <td colSpan={columnCount}>
+      <Table.Body data-testid={`${testId}-table-loading`}>
+        <Table.Row>
+          <Table.DataCell colSpan={columnCount}>
             <RowLoader>Laster kvalitetsvurderinger...</RowLoader>
-          </td>
-        </tr>
-      </tbody>
+          </Table.DataCell>
+        </Table.Row>
+      </Table.Body>
     );
   }
 
   if (vurderinger.length === 0) {
     return (
-      <tbody data-testid={`${testId}-table-loaded`}>
-        <tr>
-          <td colSpan={columnCount}>Ingen kvalitetsvurderinger</td>
-        </tr>
-      </tbody>
+      <Table.Body data-testid={`${testId}-table-loaded`}>
+        <Table.Row>
+          <Table.DataCell colSpan={columnCount}>Ingen kvalitetsvurderinger</Table.DataCell>
+        </Table.Row>
+      </Table.Body>
     );
   }
 
   return (
-    <tbody data-testid={`${testId}-table-loaded`}>
+    <Table.Body data-testid={`${testId}-table-loaded`}>
       {vurderinger.map((k) => (
         <Row {...k} key={k.id} testId={testId} />
       ))}
-    </tbody>
+    </Table.Body>
   );
 };

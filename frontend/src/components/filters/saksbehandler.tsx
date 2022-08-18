@@ -1,7 +1,7 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import React from 'react';
-import { useGetUserDataQuery } from '../../redux-api/metadata';
 import { useGetSaksbehandlereQuery } from '../../redux-api/statistics';
+import { useUser } from '../../simple-api-state/use-user';
 import { Filter } from './common/filter';
 import { FilterType } from './types';
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const SaksbehandlerFilter = ({ selected, setSelected }: Props) => {
-  const { data: user } = useGetUserDataQuery();
+  const { data: user } = useUser();
   const { data } = useGetSaksbehandlereQuery(typeof user === 'undefined' ? skipToken : user.ansattEnhet.id);
 
   const saksbehandlere: FilterType[] = data?.map(({ navIdent, navn }) => ({ id: navIdent, label: navn })) ?? [];

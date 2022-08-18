@@ -7,14 +7,14 @@ import { useLovkildeToRegistreringshjemmelForYtelse } from '../../../../hooks/us
 import { useSaksdata } from '../../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../../hooks/use-validation-error';
-import { useGetUserDataQuery } from '../../../../redux-api/metadata';
 import { useSetHjemlerMutation } from '../../../../redux-api/saksdata';
+import { useUser } from '../../../../simple-api-state/use-user';
 import { UtfallEnum } from '../../../../types/utfall';
 import { LovhjemmelSelect } from './lovhjemmel-select';
 import { SelectedHjemlerList } from './selected-hjemler-list';
 
 export const Lovhjemmel = () => {
-  const { data: user } = useGetUserDataQuery();
+  const { data: user } = useUser();
   const [updateHjemler] = useSetHjemlerMutation();
   const saksdataId = useSaksdataId();
   const [saksdata] = useSaksdata();

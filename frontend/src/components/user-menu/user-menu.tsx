@@ -2,11 +2,11 @@ import { AutomaticSystem, Collapse, Expand, Logout, People } from '@navikt/ds-ic
 import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useOnClickOutside } from '../../hooks/use-on-click-outside';
-import { useGetUserDataQuery } from '../../redux-api/metadata';
+import { useUser } from '../../simple-api-state/use-user';
 import { CopyButton } from '../copy-button/copy-button';
 
 export const UserMenu = () => {
-  const { data: user } = useGetUserDataQuery();
+  const { data: user } = useUser();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
 

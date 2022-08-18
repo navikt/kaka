@@ -1,5 +1,5 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import { useGetKodeverkQuery } from '../redux-api/kodeverk';
+import { useKodeverk } from '../simple-api-state/use-kodeverk';
 import {
   IKlageenhet,
   IKodeverk,
@@ -17,9 +17,9 @@ export const useKodeverkValueDefault = <K extends keyof IKodeverk>(
 export const useKodeverkValue = <K extends keyof IKodeverk>(
   key: K | typeof skipToken = skipToken
 ): IKodeverk[K] | undefined => {
-  const { data } = useGetKodeverkQuery(key === skipToken ? skipToken : undefined);
+  const { data, isLoading } = useKodeverk();
 
-  if (key === skipToken || typeof data === 'undefined') {
+  if (key === skipToken || isLoading || typeof data === 'undefined') {
     return undefined;
   }
 

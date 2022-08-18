@@ -1,9 +1,9 @@
-import { useGetUserDataQuery } from '../redux-api/metadata';
+import { useUser } from '../simple-api-state/use-user';
 import { useKvalitetsvurderingIsFinished } from './use-kvalitetsvurdering-is-finished';
 import { useSaksdata } from './use-saksdata';
 
 export const useCanEdit = () => {
-  const { data } = useGetUserDataQuery();
+  const { data } = useUser();
   const [saksdata, isLoading] = useSaksdata();
   const finished = useKvalitetsvurderingIsFinished();
 

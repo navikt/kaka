@@ -5,14 +5,14 @@ import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
-import { useGetUserDataQuery } from '../../../redux-api/metadata';
 import { useSetUtfallMutation } from '../../../redux-api/saksdata';
+import { useUser } from '../../../simple-api-state/use-user';
 import { isUtfall } from '../../../types/utfall';
 import { EmptyOption } from './empty-option';
 import { StyledItem } from './styled-components';
 
 export const UtfallResultat = () => {
-  const { data: user } = useGetUserDataQuery();
+  const { data: user } = useUser();
   const id = useSaksdataId();
   const [saksdata] = useSaksdata();
   const [setUtfallResultat] = useSetUtfallMutation();

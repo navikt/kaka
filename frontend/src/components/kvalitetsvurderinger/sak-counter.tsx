@@ -1,3 +1,4 @@
+import { Detail } from '@navikt/ds-react';
 import React from 'react';
 import 'nav-frontend-tabell-style';
 import { ISaksdataSearchHitBase } from '../../types/saksdata';
@@ -8,12 +9,12 @@ interface SaksCounterProps {
 
 export const SakCounter = ({ list }: SaksCounterProps) => {
   if (typeof list === 'undefined' || list.length === 0) {
-    return <p>0 saker</p>;
+    return <Detail>0 saker</Detail>;
   }
 
   if (list.length === 1) {
-    return <p>{list.length} sak</p>;
+    return <Detail>{list.length} sak</Detail>;
   }
 
-  return <p>{list.length} saker</p>;
+  return <Detail>{list.length} saker</Detail>;
 };
