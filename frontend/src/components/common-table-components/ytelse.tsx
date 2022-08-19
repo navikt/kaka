@@ -8,5 +8,6 @@ interface Props {
 
 export const Ytelse = ({ ytelseId }: Props) => {
   const ytelse = useFullYtelseNameFromId(ytelseId);
+
   return <LabelYtelse>{ytelse}</LabelYtelse>;
 };

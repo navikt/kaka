@@ -15,6 +15,7 @@ export const StyledPill = styled.button`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 16px;
 
   &:hover {
     background-color: #03a9f4;
@@ -38,6 +39,5 @@ export const PillContainer = styled.ul`
   gap: 8px;
   padding: 0;
   margin: 0;
-  margin-bottom: 16px;
   list-style: none;
 `;

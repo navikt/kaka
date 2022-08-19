@@ -1,4 +1,4 @@
-import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import { isReduxValidationResponse } from '../../../functions/error-type-guard';
@@ -56,30 +56,22 @@ export const UnfinishedFooter = () => {
   return (
     <Wrapper>
       <StyledButtons>
-        <Hovedknapp
-          mini
+        <Button
+          size="small"
+          variant="primary"
           disabled={isDeleting}
           onClick={finish}
-          spinner={isFinishing}
-          autoDisableVedSpinner
+          loading={isFinishing}
           data-testid="complete-button"
-          className="footer-button"
         >
           Fullfør
-        </Hovedknapp>
+        </Button>
 
         <BackLink />
 
-        <Fareknapp
-          mini
-          onClick={deleteSaksdata}
-          spinner={isDeleting}
-          autoDisableVedSpinner
-          data-testid="delete-button"
-          className="footer-button"
-        >
+        <Button size="small" variant="danger" onClick={deleteSaksdata} loading={isDeleting} data-testid="delete-button">
           Slett
-        </Fareknapp>
+        </Button>
       </StyledButtons>
 
       <ValidationSummaryPopup hasErrors={hasErrors} />

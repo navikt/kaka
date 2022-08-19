@@ -1,4 +1,4 @@
-import { RadioValg, RadioValgExtended } from './radio';
+import { Radiovalg, RadiovalgExtended } from './radio';
 
 export type IKvalitetsvurdering = IKvalitetsvurderingBase &
   IKvalitetsvurderingBooleans &
@@ -6,7 +6,7 @@ export type IKvalitetsvurdering = IKvalitetsvurderingBase &
   IKvalitetsvurderingRadio &
   IKvalitetsvurderingRadioExtended;
 
-export interface IKvalitetsvurderingBase {
+interface IKvalitetsvurderingBase {
   readonly created: string; // LocalDateTime;
   readonly id: string;
   modified: string; // LocalDateTime;
@@ -55,11 +55,11 @@ export interface IKvalitetsvurderingTexts {
 }
 
 export interface IKvalitetsvurderingRadio {
-  klageforberedelsenRadioValg: RadioValg | null;
-  utredningenRadioValg: RadioValg | null;
-  vedtaketRadioValg: RadioValg | null;
+  klageforberedelsenRadioValg: Radiovalg | null;
+  utredningenRadioValg: Radiovalg | null;
+  vedtaketRadioValg: Radiovalg | null;
 }
 
 export interface IKvalitetsvurderingRadioExtended {
-  brukAvRaadgivendeLegeRadioValg: RadioValgExtended | null;
+  brukAvRaadgivendeLegeRadioValg: RadiovalgExtended | null;
 }

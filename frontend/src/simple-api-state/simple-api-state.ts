@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export interface State<T> {
+interface State<T> {
   data: T | undefined;
   isLoading: boolean;
   isUninitialized: boolean;
@@ -8,7 +8,7 @@ export interface State<T> {
   error: Error | undefined;
 }
 
-export type Listener<T> = (state: State<T>) => void;
+type Listener<T> = (state: State<T>) => void;
 
 export class SimpleApiState<T> {
   private data: T | undefined;
@@ -80,6 +80,7 @@ export const useSimpleApiState = <T>(store: SimpleApiState<T>): State<T> => {
 
   useEffect(() => {
     store.listen(setState);
+
     return () => store.unlisten(setState);
   }, [store]);
 

@@ -20,6 +20,7 @@ const useSaksdata = () => {
     typeof userData === 'undefined'
       ? skipToken
       : { navIdent: userData.ident, fromDate, toDate, mangelfullt, kommentarer };
+
   return useGetSaksdatalisteLederVedtaksinstansQuery(query, { pollingInterval: 3 * 60 * 1000 });
 };
 

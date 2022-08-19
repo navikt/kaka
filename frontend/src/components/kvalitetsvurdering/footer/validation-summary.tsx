@@ -1,4 +1,4 @@
-import Alertstripe from 'nav-frontend-alertstriper';
+import { Alert, Link } from '@navikt/ds-react';
 import React from 'react';
 import styled from 'styled-components';
 import { IValidationError, IValidationSection } from '../../../functions/error-type-guard';
@@ -19,10 +19,10 @@ export const ValidationSummary = ({ sections }: Props) => {
   ));
 
   return (
-    <StyledAlertStripe type="advarsel">
+    <Alert variant="warning">
       <StyledHeader>Kan ikke fullføre vurdering. Dette mangler:</StyledHeader>
       <ValidationSummaryContainer>{errorMessages}</ValidationSummaryContainer>
-    </StyledAlertStripe>
+    </Alert>
   );
 };
 
@@ -39,13 +39,13 @@ const Section = ({ properties, section }: IValidationSection) => (
 
 const Field = ({ field, reason }: IValidationError) => (
   <li>
-    <strong>{`${useFieldName(field)}: `}</strong>
-    <span>{reason}</span>
+    <Label>{`${useFieldName(field)}: `}</Label>
+    <InlineLink href={`#${field}`}>{reason}</InlineLink>
   </li>
 );
 
-const StyledAlertStripe = styled(Alertstripe)`
-  margin-bottom: 1em;
+const Label = styled.strong`
+  white-space: nowrap;
 `;
 
 const ValidationSummaryContainer = styled.article`
@@ -72,4 +72,8 @@ const StyledSection = styled.section`
 const StyledHeader = styled.h3`
   margin-top: 0;
   font-size: 16px;
+`;
+
+const InlineLink = styled(Link)`
+  display: inline;
 `;

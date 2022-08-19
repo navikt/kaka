@@ -2,7 +2,7 @@ import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import styled from 'styled-components';
-import { RadioValg } from '../../../../types/radio';
+import { Radiovalg } from '../../../../types/radio';
 import { IFullStatisticVurdering } from '../../../../types/statistics';
 import { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/reasons-labels';
 import { StatisticsProps } from '../../types';
@@ -111,8 +111,8 @@ export interface KvalitetsvurderingProps extends StatisticsProps {
 }
 
 export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: KvalitetsvurderingProps) => {
-  const mangelfulleSaker = useMemo(() => stats.filter((stat) => stat[field] === RadioValg.MANGELFULLT), [stats, field]);
-  const braNokSaker = useMemo(() => stats.filter((stat) => stat[field] === RadioValg.BRA), [stats, field]);
+  const mangelfulleSaker = useMemo(() => stats.filter((stat) => stat[field] === Radiovalg.MANGELFULLT), [stats, field]);
+  const braNokSaker = useMemo(() => stats.filter((stat) => stat[field] === Radiovalg.BRA), [stats, field]);
 
   const numberOfMangelfulleSaker = mangelfulleSaker.length;
 

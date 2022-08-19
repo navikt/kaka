@@ -22,6 +22,7 @@ export const reduxStore = configureStore({
     }).concat([kvalitetsvurderingApi.middleware, saksdataApi.middleware, statisticsApi.middleware]),
 });
 
-export type AppDispatch = typeof reduxStore.dispatch;
+type AppDispatch = typeof reduxStore.dispatch;
 
+// eslint-disable-next-line import/no-unused-modules
 export const useAppDispatch = () => useDispatch<AppDispatch>();

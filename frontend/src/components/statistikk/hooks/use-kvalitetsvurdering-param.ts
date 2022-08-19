@@ -1,23 +1,18 @@
 import { useSearchParams } from 'react-router-dom';
+import { RadiovalgField } from '../../../types/statistics';
 import { QueryParams } from '../../filters/filter-query-params';
-import { KvalitetsvurderingProps } from '../charts/kvalitetsvurderinger/kvalitetsvurdering';
-import { isAllowedKey } from '../toggle-kvalitetsvurdering';
+import { isAllowedKey } from '../charts/kvalitetsvurderinger/kvalitetsvurdering-options';
 
-export const useKvalitetsvurderingParam = (): [
-  KvalitetsvurderingProps['field'],
-  (kvalitetsvurderingId: KvalitetsvurderingProps['field']) => void
-] => {
+export const useKvalitetsvurderingParam = (): [RadiovalgField, (kvalitetsvurderingId: RadiovalgField) => void] => {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get(QueryParams.KVALITETSVURDERING);
 
-  const setKvalitetsvurdering = (kvalitetsvurderingId: KvalitetsvurderingProps['field']) => {
+  const setKvalitetsvurdering = (kvalitetsvurderingId: RadiovalgField) => {
     searchParams.set(QueryParams.KVALITETSVURDERING, kvalitetsvurderingId);
     setSearchParams(searchParams);
   };
 
-  const kvalitetsvurdering: KvalitetsvurderingProps['field'] = isAllowedKey(query)
-    ? query
-    : 'klageforberedelsenRadioValg';
+  const kvalitetsvurdering: RadiovalgField = isAllowedKey(query) ? query : 'klageforberedelsenRadioValg';
 
   return [kvalitetsvurdering, setKvalitetsvurdering];
 };

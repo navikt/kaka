@@ -98,6 +98,7 @@ export const saksdataApi = createApi({
     getIncompleteSaksdataList: builder.query<ISaksdataIncompleteSearchHit[], ISaksdataListParams>({
       query: (params) => {
         const query = qs.stringify(params);
+
         return `/api/kaka-api/saksdataliste/?fullfoert=false&${query}`;
       },
       transformResponse: ({ searchHits }) => searchHits,
@@ -105,6 +106,7 @@ export const saksdataApi = createApi({
     getCompleteSaksdataList: builder.query<ISaksdataCompleteSearchHit[], ISaksdataListParams>({
       query: (params) => {
         const query = qs.stringify(params);
+
         return `/api/kaka-api/saksdataliste/?fullfoert=true&${query}`;
       },
       transformResponse: ({ searchHits }) => searchHits,
@@ -144,9 +146,7 @@ export const saksdataApi = createApi({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/hjemmelidlist`,
         method: 'PUT',
-        body: {
-          value: body.hjemmelIdList,
-        },
+        body: { value: body.hjemmelIdList },
       }),
       onQueryStarted: async ({ id, saksbehandlerIdent, hjemmelIdList }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
@@ -173,9 +173,7 @@ export const saksdataApi = createApi({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/sakengjelder`,
         method: 'PUT',
-        body: {
-          value: body.sakenGjelder,
-        },
+        body: { value: body.sakenGjelder },
       }),
       onQueryStarted: async ({ id, sakenGjelder, saksbehandlerIdent }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
@@ -202,9 +200,7 @@ export const saksdataApi = createApi({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/mottattklageinstans`,
         method: 'PUT',
-        body: {
-          value: body.mottattKlageinstans,
-        },
+        body: { value: body.mottattKlageinstans },
       }),
       onQueryStarted: async ({ id, mottattKlageinstans }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
@@ -224,9 +220,7 @@ export const saksdataApi = createApi({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/mottattvedtaksinstans`,
         method: 'PUT',
-        body: {
-          value: body.mottattVedtaksinstans,
-        },
+        body: { value: body.mottattVedtaksinstans },
       }),
       onQueryStarted: async ({ id, mottattVedtaksinstans }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
@@ -246,9 +240,7 @@ export const saksdataApi = createApi({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/sakstype`,
         method: 'PUT',
-        body: {
-          value: body.sakstypeId,
-        },
+        body: { value: body.sakstypeId },
       }),
       onQueryStarted: async ({ id, sakstypeId, saksbehandlerIdent }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
@@ -275,9 +267,7 @@ export const saksdataApi = createApi({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/ytelse`,
         method: 'PUT',
-        body: {
-          value: body.ytelseId,
-        },
+        body: { value: body.ytelseId },
       }),
       onQueryStarted: async ({ id, ytelseId, saksbehandlerIdent }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
@@ -305,9 +295,7 @@ export const saksdataApi = createApi({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/utfall`,
         method: 'PUT',
-        body: {
-          value: body.utfallId,
-        },
+        body: { value: body.utfallId },
       }),
       onQueryStarted: async ({ id, saksbehandlerIdent, utfallId }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
@@ -334,38 +322,12 @@ export const saksdataApi = createApi({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/saksdata/${id}/vedtaksinstansenhet`,
         method: 'PUT',
-        body: {
-          value: body.vedtaksinstansEnhet,
-        },
+        body: { value: body.vedtaksinstansEnhet },
       }),
       onQueryStarted: async ({ id, vedtaksinstansEnhet }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
             draft.vedtaksinstansEnhet = vedtaksinstansEnhet;
-          })
-        );
-
-        try {
-          await queryFulfilled;
-        } catch {
-          patchResult.undo();
-        }
-      },
-    }),
-    setTilknyttetEnhet: builder.mutation<ISaksdataIncomplete, SaksdataUpdate<'tilknyttetEnhet'>>({
-      query: ({ id, tilknyttetEnhet }) => ({
-        url: `/api/kaka-api/saksdata/${id}/tilknyttetenhet`,
-        method: 'PUT',
-        body: {
-          value: tilknyttetEnhet,
-        },
-      }),
-      onQueryStarted: async ({ id, tilknyttetEnhet }, { dispatch, queryFulfilled }) => {
-        const patchResult = dispatch(
-          saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
-            draft.tilknyttetEnhet = tilknyttetEnhet;
-            draft.ytelseId = null;
-            draft.hjemmelIdList = [];
           })
         );
 
@@ -393,7 +355,6 @@ export const {
   useSetYtelseMutation,
   useSetUtfallMutation,
   useSetVedtaksinstansenhetMutation,
-  useSetTilknyttetEnhetMutation,
   useDeleteSaksdataMutation,
   useReopenSaksdataMutation,
 } = saksdataApi;

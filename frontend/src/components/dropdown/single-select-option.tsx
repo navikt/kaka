@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 interface OptionProps {
@@ -6,25 +6,14 @@ interface OptionProps {
   active: boolean;
   filterId: string;
   children: string;
-  focused: boolean;
 }
 
-export const SingleSelectOption = ({ active, filterId, children, onSelect, focused }: OptionProps): JSX.Element => {
-  const ref = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (focused && ref.current) {
-      ref.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-    }
-  }, [focused]);
-
-  return (
-    <StyledButton onClick={() => onSelect(filterId)} theme={{ focused, active }} ref={ref}>
-      <StyledChecked>{active ? '✓' : ''}</StyledChecked>
-      {children}
-    </StyledButton>
-  );
-};
+export const SingleSelectOption = ({ active, filterId, children, onSelect }: OptionProps): JSX.Element => (
+  <StyledButton onClick={() => onSelect(filterId)} theme={{ active }} title={children}>
+    <StyledChecked>{active ? '✓' : ''}</StyledChecked>
+    {children}
+  </StyledButton>
+);
 
 SingleSelectOption.displayName = 'SingleSelectOption';
 
@@ -36,9 +25,12 @@ const StyledButton = styled.button`
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   padding-right: 1em;
-  background: ${({ theme }: { theme: { focused: boolean } }) => (theme.focused ? '#0074df' : 'transparent')};
-  color: ${({ theme }: { theme: { focused: boolean } }) => (theme.focused ? 'white' : 'black')};
+  background: transparent;
+  color: black;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
 
   :hover {
     background: #0074df;

@@ -1,11 +1,11 @@
 import React from 'react';
-import { useBehandlingstidParam } from '../hooks/use-behandlingstid-param';
+import { useBehandlingstidField } from '../hooks/use-behandlingstid-param';
 import { StatisticsProps } from '../types';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, KeyNumber, RedKeyNumber } from './styled-components';
 
 export const Gjennomsnittstid = ({ stats }: StatisticsProps) => {
-  const [field] = useBehandlingstidParam();
+  const field = useBehandlingstidField();
 
   const finished = stats?.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null) ?? [];
 
@@ -19,7 +19,7 @@ export const Gjennomsnittstid = ({ stats }: StatisticsProps) => {
         <Wrapper>
           {cleanNumberDisplay(averageDays)} {averageDays === 1 ? 'dag' : 'dager'}
         </Wrapper>
-        <span>Gjennomsnitlig saksbehandlingstid</span>
+        <span>Gjennomsnittlig saksbehandlingstid</span>
       </KeyContent>
     </>
   );

@@ -2,7 +2,7 @@ import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { isNotUndefined } from '../../../functions/is-not';
-import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
+import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
 import { UtfallEnum } from '../../../types/utfall';
 import { StatisticsProps } from '../types';
 import { percent, tickCallback } from './formatting';
@@ -79,7 +79,7 @@ export const UtfallGraph = ({ stats: allStats }: StatisticsProps) => {
     [allStats]
   );
 
-  const utfall = useKodeverkValue('utfall');
+  const utfall = useKodeverkValueDefault('utfall');
 
   const stats = useMemo(
     () =>
@@ -90,7 +90,7 @@ export const UtfallGraph = ({ stats: allStats }: StatisticsProps) => {
   );
 
   const keys = Array.from(stats.keys());
-  const labels: string[] = keys.map((key) => utfall?.find(({ id }) => id === key)?.navn).filter(isNotUndefined);
+  const labels: string[] = keys.map((key) => utfall.find(({ id }) => id === key)?.navn).filter(isNotUndefined);
 
   const backgroundColor: string[] = keys.map((key) => COLOR_MAP[key]);
 

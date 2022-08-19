@@ -1,11 +1,11 @@
+import { Heading } from '@navikt/ds-react';
 import React from 'react';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { useSaksdata } from '../../../hooks/use-saksdata';
-import { RadioValg } from '../../../types/radio';
+import { Radiovalg } from '../../../types/radio';
 import { SakstypeEnum } from '../../../types/sakstype';
-import { Checkboxes } from './checkboxes';
-import { Reason } from './reasons';
-import { FormSection, SubHeader } from './styled-components';
+import { Reasons } from './reasons';
+import { Reason } from './types';
 
 export const Annet = () => {
   const [kvalitetsvurdering] = useKvalitetsvurdering();
@@ -15,13 +15,13 @@ export const Annet = () => {
     return null;
   }
 
-  const showNyeOpplysningerMottattReason = kvalitetsvurdering.utredningenRadioValg === RadioValg.BRA;
+  const showNyeOpplysningerMottattReason = kvalitetsvurdering.utredningenRadioValg === Radiovalg.BRA;
 
   const showBetydeligAvvikReason =
-    kvalitetsvurdering.vedtaketRadioValg === RadioValg.MANGELFULLT ||
-    kvalitetsvurdering.utredningenRadioValg === RadioValg.MANGELFULLT;
+    kvalitetsvurdering.vedtaketRadioValg === Radiovalg.MANGELFULLT ||
+    kvalitetsvurdering.utredningenRadioValg === Radiovalg.MANGELFULLT;
 
-  const showBrukIOpplaeringReason = kvalitetsvurdering.vedtaketRadioValg === RadioValg.BRA;
+  const showBrukIOpplaeringReason = kvalitetsvurdering.vedtaketRadioValg === Radiovalg.BRA;
 
   const showForm = showNyeOpplysningerMottattReason || showBetydeligAvvikReason || showBrukIOpplaeringReason;
 
@@ -61,9 +61,9 @@ export const Annet = () => {
   const reasons = saksdata.sakstypeId === SakstypeEnum.ANKE ? baseReasons : [...baseReasons, ...klageReasons];
 
   return (
-    <FormSection>
-      <SubHeader>Annet</SubHeader>
-      <Checkboxes reasons={reasons} />
-    </FormSection>
+    <section>
+      <Heading size="small">Annet</Heading>
+      <Reasons show legendText="" reasons={reasons} />
+    </section>
   );
 };

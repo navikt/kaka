@@ -9,7 +9,6 @@ import { Utfall } from '../common-table-components/utfall';
 import { Ytelse } from '../common-table-components/ytelse';
 import { CopyButton } from '../copy-button/copy-button';
 
-// ISaksdataComplete | ISaksdataIncomplete
 interface Props {
   testId: string;
 }

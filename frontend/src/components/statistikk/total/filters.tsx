@@ -1,10 +1,11 @@
+import { Button } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useKodeverkYtelser } from '../../../hooks/use-kodeverk-value';
+import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
 import { useUser } from '../../../simple-api-state/use-user';
 import { ExcelExport } from '../../excel-export/excel-export';
-import { DateContainer, FilterPanelContainer, StyledResetButton } from '../../filters/common/styled-components';
+import { DateContainer, FilterPanelContainer } from '../../filters/common/styled-components';
 import { DateFilter } from '../../filters/date';
 import {
   FORMAT,
@@ -25,7 +26,7 @@ import { QueryParams } from '../../filters/filter-query-params';
 import { HjemmelFilter } from '../../filters/hjemler';
 import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../filters/hooks/use-query-filter';
 import { KlageenheterFilter } from '../../filters/klageenheter';
-import { SelectedEnheterFilters } from '../../filters/pills/enhet';
+import { SelectedEnheterFilters, SelectedKlageenheterFilters } from '../../filters/pills/enhet';
 import { FilteredHjemlerPills } from '../../filters/pills/hjemler';
 import { PillContainer, SelectedFilters } from '../../filters/pills/pills';
 import { VedtaksinstansgrupperPills } from '../../filters/pills/vedtaksinstansgrupper';
@@ -65,7 +66,7 @@ export const Filters = () => {
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
-  const ytelser = useKodeverkYtelser();
+  const ytelser = useKodeverkValueDefault('ytelser');
 
   const setFilter = (filter: QueryParams, ...values: (string | number)[]) => {
     if (values.length === 0) {
@@ -91,9 +92,9 @@ export const Filters = () => {
 
   return (
     <FilterPanelContainer>
-      <StyledResetButton onClick={resetFilters} mini kompakt disabled={typeof userData === 'undefined'}>
+      <Button variant="secondary" size="small" onClick={resetFilters} disabled={typeof userData === 'undefined'}>
         Nullstill filter
-      </StyledResetButton>
+      </Button>
 
       <DateContainer>
         <DateFilter
@@ -162,21 +163,12 @@ export const Filters = () => {
       />
 
       <PillContainer>
-        <SelectedEnheterFilters
-          values={selectedKlageenheter}
-          type="klageenheter"
-          category="klageenhet"
-          setFilter={setFilter}
-        />
+        <SelectedKlageenheterFilters values={selectedKlageenheter} category="klageenhet" setFilter={setFilter} />
 
         <VedtaksinstansgrupperPills setFilter={setFilter} />
 
-        <SelectedEnheterFilters
-          values={selectedEnheter}
-          type="enheter"
-          category="vedtaksinstans"
-          setFilter={setFilter}
-        />
+        <SelectedEnheterFilters values={selectedEnheter} category="vedtaksinstans" setFilter={setFilter} />
+
         <SelectedFilters
           values={selectedUtfall}
           queryKey={QueryParams.UTFALL}

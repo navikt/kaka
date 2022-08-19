@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
+import React, { useCallback, useMemo, useState } from 'react';
+import styled from 'styled-components';
 import { Header } from './header';
-import { MultiSelectOption } from './multi-select-option';
-import {
-  StyledDropdown,
-  StyledDropdownProps,
-  StyledListItem,
-  StyledOptionList,
-  StyledSectionHeader,
-  StyledSectionList,
-} from './styled-components';
+import { StyledDropdown, StyledDropdownProps } from './styled-components';
 
-export interface Option {
+interface Option {
   label: string;
   value: string;
 }
 
-export interface SectionHeader {
+interface SectionHeader {
   id: string;
   name?: string;
 }
@@ -34,103 +28,74 @@ interface DropdownProps extends StyledDropdownProps {
   showFjernAlle?: boolean;
 }
 
-export const GroupedDropdown = ({
-  selected,
-  options,
-  open,
-  onChange,
-  close,
-  top,
-  left,
-  maxHeight,
-  minWidth,
-  showFjernAlle = true,
-}: DropdownProps): JSX.Element | null => {
-  const [filter, setFilter] = useState('');
-  const [fuzzyFilter, setFuzzyFilter] = useState<RegExp | null>(null);
-  const [focused, setFocused] = useState(-1);
-  const [filteredOptions, setFilteredOptions] = useState(options);
-  const [flattenedFilteredOptions, setFlattenedFilteredOptions] = useState<Option[]>(
-    options.flatMap(({ sectionOptions }) => sectionOptions)
-  );
-
-  useEffect(() => {
-    if (fuzzyFilter === null) {
-      setFilteredOptions(options);
-      setFlattenedFilteredOptions(options.flatMap(({ sectionOptions }) => sectionOptions));
-      return;
-    }
-
-    const filteredGroups = options.filter(({ sectionOptions }) =>
-      sectionOptions.some(({ label }) => fuzzyFilter.test(label))
-    );
-
-    const filtered = filteredGroups.map(({ sectionOptions, ...rest }) => ({
-      ...rest,
-      sectionOptions: sectionOptions.filter(({ label }) => fuzzyFilter.test(label)),
-    }));
-
-    setFilteredOptions(filtered);
-    setFlattenedFilteredOptions(filtered.flatMap(({ sectionOptions }) => sectionOptions));
-  }, [setFilteredOptions, options, fuzzyFilter]);
-
-  useEffect(() => {
-    if (!open && focused !== -1) {
-      setFocused(-1);
-    }
-  }, [open, focused]);
-
+export const GroupedDropdown = ({ open, ...rest }: DropdownProps) => {
   if (!open) {
     return null;
   }
 
-  const reset = () => {
-    onChange(null, false);
-  };
+  return <ShowGroupedDropdown {...rest} />;
+};
 
-  const onSelectFocused = () => {
-    const focusedOption = flattenedFilteredOptions[focused].value;
-    onChange(focusedOption, !selected.includes(focusedOption));
-  };
+const ShowGroupedDropdown = ({
+  selected,
+  options,
+  onChange,
+  close,
+  maxHeight,
+  minWidth,
+  showFjernAlle = true,
+}: Omit<DropdownProps, 'open'>): JSX.Element | null => {
+  const [filteredGroups, setFilteredGroups] = useState(options);
+
+  const allGroups = useMemo(() => options.flatMap(({ sectionOptions }) => sectionOptions), [options]);
+
+  const onHeaderChange = useCallback(
+    (filteredOptions: Option[]) =>
+      setFilteredGroups(
+        filteredGroups
+          .map(({ sectionOptions, ...rest }) => ({
+            ...rest,
+            sectionOptions: sectionOptions.filter((o) => filteredOptions.includes(o)),
+          }))
+          .filter(({ sectionOptions }) => sectionOptions.length !== 0)
+      ),
+    [filteredGroups]
+  );
+
+  const reset = () => onChange(null, false);
 
   return (
-    <StyledDropdown top={top} left={left} maxHeight={maxHeight} minWidth={minWidth}>
+    <StyledDropdown maxHeight={maxHeight} minWidth={minWidth}>
       <Header
-        filter={filter}
-        onFocusChange={setFocused}
-        onFilterChange={(newFilter, fuzzy) => {
-          setFilter(newFilter);
-          setFuzzyFilter(fuzzy);
-        }}
-        onSelect={onSelectFocused}
-        focused={focused}
+        options={allGroups}
+        onChange={onHeaderChange}
         onReset={showFjernAlle === true ? reset : undefined}
-        optionsCount={flattenedFilteredOptions.length}
         close={close}
       />
-      <StyledSectionList>
-        {filteredOptions.map(({ sectionHeader, sectionOptions }) => (
-          <li key={sectionHeader.id}>
-            {typeof sectionHeader.name !== 'undefined' && (
-              <StyledSectionHeader>{sectionHeader.name}</StyledSectionHeader>
-            )}
-            <StyledOptionList>
-              {sectionOptions.map(({ value, label }) => (
-                <StyledListItem key={value}>
-                  <MultiSelectOption
-                    active={selected.includes(value)}
-                    filterId={value}
-                    onChange={onChange}
-                    focused={focused === flattenedFilteredOptions.findIndex((o) => o.value === value)}
-                  >
-                    {label}
-                  </MultiSelectOption>
-                </StyledListItem>
-              ))}
-            </StyledOptionList>
-          </li>
+      <Container>
+        {filteredGroups.map(({ sectionHeader, sectionOptions }) => (
+          <CheckboxGroup key={sectionHeader.id} legend={sectionHeader.name} value={selected}>
+            {sectionOptions.map(({ value, label }) => (
+              <Checkbox
+                key={value}
+                size="small"
+                value={value}
+                onChange={(event) => onChange(value, event.target.checked)}
+              >
+                {label}
+              </Checkbox>
+            ))}
+          </CheckboxGroup>
         ))}
-      </StyledSectionList>
+      </Container>
     </StyledDropdown>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  padding: 8px;
+  overflow-y: scroll;
+`;

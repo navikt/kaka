@@ -1,6 +1,6 @@
 import { IKodeverkSimpleValue } from './kodeverk';
 
-export interface Navn {
+interface Navn {
   fornavn?: string;
   etternavn?: string;
   sammensattNavn?: string;

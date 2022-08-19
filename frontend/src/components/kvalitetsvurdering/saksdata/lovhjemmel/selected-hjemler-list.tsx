@@ -1,5 +1,4 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import NavFrontendSpinner from 'nav-frontend-spinner';
 import React, { useMemo } from 'react';
 import { useLovkildeToRegistreringshjemmelForYtelse } from '../../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../../hooks/use-saksdata';
@@ -35,7 +34,7 @@ export const SelectedHjemlerList = () => {
   );
 
   if (typeof saksdata === 'undefined') {
-    return <NavFrontendSpinner />;
+    return null;
   }
 
   return (

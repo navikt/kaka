@@ -14,7 +14,7 @@ export const useKodeverkValueDefault = <K extends keyof IKodeverk>(
   key: K | typeof skipToken = skipToken
 ): IKodeverk[K] => useKodeverkValue(key) ?? [];
 
-export const useKodeverkValue = <K extends keyof IKodeverk>(
+const useKodeverkValue = <K extends keyof IKodeverk>(
   key: K | typeof skipToken = skipToken
 ): IKodeverk[K] | undefined => {
   const { data, isLoading } = useKodeverk();
@@ -26,18 +26,8 @@ export const useKodeverkValue = <K extends keyof IKodeverk>(
   return data[key];
 };
 
-export const useKodeverkYtelser = (skip?: typeof skipToken): IYtelse[] => {
-  const data = useKodeverkValue(skip === skipToken ? skipToken : 'ytelser');
-
-  if (skip === skipToken || typeof data === 'undefined') {
-    return [];
-  }
-
-  return data;
-};
-
-export const useKodeverkYtelse = (ytelseId: string | typeof skipToken = skipToken): IYtelse | undefined =>
-  useKodeverkYtelser().find(({ id }) => id === ytelseId);
+const useKodeverkYtelse = (ytelseId: string | typeof skipToken = skipToken): IYtelse | undefined =>
+  useKodeverkValueDefault('ytelser').find(({ id }) => id === ytelseId);
 
 export const useFullYtelseNameFromId = (ytelseId: string | null): string => {
   const ytelse = useKodeverkYtelse(ytelseId ?? skipToken);
@@ -52,25 +42,17 @@ export const useFullYtelseNameFromId = (ytelseId: string | null): string => {
 export const useKodeverkUtfall = (
   utfallId: string | typeof skipToken = skipToken
 ): IKodeverkSimpleValue<UtfallEnum> | undefined => {
-  const data = useKodeverkValue(utfallId === skipToken ? skipToken : 'utfall');
+  const utfall = useKodeverkValueDefault('utfall');
 
-  if (utfallId === skipToken || typeof data === 'undefined') {
-    return undefined;
-  }
-
-  return data.find(({ id }) => id === utfallId);
+  return utfall.find(({ id }) => id === utfallId);
 };
 
 export const useKodeverkSakstype = (
   sakstypeId: string | typeof skipToken = skipToken
 ): IKodeverkSimpleValue<SakstypeEnum> | undefined => {
-  const data = useKodeverkValue(sakstypeId === skipToken ? skipToken : 'sakstyper');
+  const sakstyper = useKodeverkValueDefault('sakstyper');
 
-  if (sakstypeId === skipToken || typeof data === 'undefined') {
-    return undefined;
-  }
-
-  return data.find(({ id }) => id === sakstypeId);
+  return sakstyper.find(({ id }) => id === sakstypeId);
 };
 
 export const useEnheterForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkSimpleValue[] =>
@@ -79,14 +61,10 @@ export const useEnheterForYtelse = (ytelseId: string | typeof skipToken = skipTo
 export const useKlageenheterForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkSimpleValue[] =>
   useKodeverkYtelse(ytelseId)?.klageenheter ?? [];
 
-export const useKodeverkKlageenhet = (klageenhetId: string | typeof skipToken = skipToken): IKlageenhet | undefined => {
-  const data = useKodeverkValue(klageenhetId === skipToken ? skipToken : 'klageenheter');
+const useKodeverkKlageenhet = (klageenhetId: string | typeof skipToken = skipToken): IKlageenhet | undefined => {
+  const klageenheter = useKodeverkValueDefault('klageenheter');
 
-  if (klageenhetId === skipToken || typeof data === 'undefined') {
-    return undefined;
-  }
-
-  return data.find(({ id }) => id === klageenhetId);
+  return klageenheter.find(({ id }) => id === klageenhetId);
 };
 
 export const useLovkildeToRegistreringshjemmelForYtelse = (
@@ -106,7 +84,7 @@ export const useSimpleYtelserForKlageenhet = (
 };
 
 export const useYtelserForVedtaksinstansenhet = (enhetId: string | typeof skipToken = skipToken): IYtelse[] => {
-  const ytelser = useKodeverkYtelser();
+  const ytelser = useKodeverkValueDefault('ytelser');
 
   if (enhetId === skipToken) {
     return ytelser;
@@ -116,7 +94,7 @@ export const useYtelserForVedtaksinstansenhet = (enhetId: string | typeof skipTo
 };
 
 export const useYtelserForKlageenhet = (enhetId: string | typeof skipToken = skipToken): IYtelse[] => {
-  const ytelser = useKodeverkYtelser();
+  const ytelser = useKodeverkValueDefault('ytelser');
 
   if (enhetId === skipToken) {
     return ytelser;

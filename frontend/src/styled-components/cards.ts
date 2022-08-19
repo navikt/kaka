@@ -28,7 +28,7 @@ export const CardExtraSmall = styled(Card)`
   max-width: ${COLUMN_WIDTH - (GAP * 3) / 4}px;
 `;
 
-export const StickyContainer = styled.div`
+const StickyContainer = styled.div`
   position: sticky;
   top: 106px;
   z-index: 3;

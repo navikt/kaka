@@ -16,16 +16,18 @@ export const formatId = (id: string | null): string | null => {
   return id;
 };
 
-export const formatOrgNum = (n: string): string => {
+const formatOrgNum = (n: string): string => {
   const [a, b, c, d, e, f, g, h, i] = n;
+
   return `${a}${b}${c} ${d}${e}${f} ${g}${h}${i}`;
 };
 
-export const formatFnr = (n: string | undefined): string | null => {
+const formatFnr = (n: string | undefined): string | null => {
   if (typeof n === 'undefined') {
     return null;
   }
 
   const [a, b, c, d, e, f, g, h, i, j, k] = n;
+
   return `${a}${b}${c}${d}${e}${f} ${g}${h}${i}${j}${k}`;
 };

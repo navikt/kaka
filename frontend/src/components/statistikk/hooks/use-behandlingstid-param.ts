@@ -1,30 +1,40 @@
+import { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { IFullStatisticVurdering } from '../../../types/statistics';
 import { QueryParams } from '../../filters/filter-query-params';
-import { BehandlingsTidEnum } from '../types';
+import { BehandlingstidEnum, isBehandlingstidEnum } from '../types';
+
+export const useBehandlingstidParam = (): [BehandlingstidEnum, (behandlingstidType: BehandlingstidEnum) => void] => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const setType = useCallback(
+    (behandlingstidType: BehandlingstidEnum) => {
+      searchParams.set(QueryParams.BEHANDLINGSTID, behandlingstidType);
+      setSearchParams(searchParams);
+    },
+    [searchParams, setSearchParams]
+  );
+
+  const queryParam = searchParams.get(QueryParams.BEHANDLINGSTID);
+
+  const field = isBehandlingstidEnum(queryParam) ? queryParam : BehandlingstidEnum.KA;
+
+  return [field, setType];
+};
 
 type FieldName = keyof Pick<
   IFullStatisticVurdering,
   'kaBehandlingstidDays' | 'totalBehandlingstidDays' | 'vedtaksinstansBehandlingstidDays'
 >;
 
-const FIELD_MAP = new Map<BehandlingsTidEnum, FieldName>([
-  [BehandlingsTidEnum.TOTAL, 'totalBehandlingstidDays'],
-  [BehandlingsTidEnum.KA, 'kaBehandlingstidDays'],
-  [BehandlingsTidEnum.VEDTAKSINSTANS, 'vedtaksinstansBehandlingstidDays'],
+const FIELD_MAP = new Map<BehandlingstidEnum, FieldName>([
+  [BehandlingstidEnum.TOTAL, 'totalBehandlingstidDays'],
+  [BehandlingstidEnum.KA, 'kaBehandlingstidDays'],
+  [BehandlingstidEnum.VEDTAKSINSTANS, 'vedtaksinstansBehandlingstidDays'],
 ]);
 
-export const useBehandlingstidParam = (): [FieldName, (behandlingstidType: BehandlingsTidEnum) => void] => {
-  const [searchParams, setSearchParams] = useSearchParams();
+export const useBehandlingstidField = (): FieldName => {
+  const [queryParam] = useBehandlingstidParam();
 
-  const setType = (behandlingstidType: BehandlingsTidEnum) => {
-    searchParams.set(QueryParams.BEHANDLINGSTID, behandlingstidType.toString());
-    setSearchParams(searchParams);
-  };
-
-  const fieldId = Number.parseInt(searchParams.get(QueryParams.BEHANDLINGSTID) ?? BehandlingsTidEnum.KA.toString(), 10);
-
-  const field: FieldName = FIELD_MAP.get(fieldId) ?? 'kaBehandlingstidDays';
-
-  return [field, setType];
+  return FIELD_MAP.get(queryParam) ?? 'kaBehandlingstidDays';
 };

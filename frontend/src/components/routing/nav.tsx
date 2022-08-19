@@ -84,9 +84,9 @@ const NavItem = ({ hasAccess, testId, ...props }: NavItemProps) => {
 };
 
 const StyledNav = styled.nav`
-  padding-top: 1em;
+  padding-top: 16px;
   position: sticky;
-  top: 48px;
+  top: 0;
   background-color: white;
   z-index: 10;
 `;
@@ -97,7 +97,7 @@ const StyledNavLinkList = styled.ul`
   gap: 16px;
   list-style: none;
   padding: 0;
-  padding-top: 5px;
+  padding-top: 0;
   margin: 0 1em;
   border-bottom: 1px solid #3e3832;
 `;

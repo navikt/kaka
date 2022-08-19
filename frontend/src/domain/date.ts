@@ -2,13 +2,14 @@ const isoDateRegex = /^\d{4}-\d{2}-\d{2}$/; // 2020-10-29
 const isoTimeRegex = /^\d{2}:\d{2}:\d{2}\.\d+$/; // 14:25:19.734593
 const isoDateTimeRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z?$/; // 2020-10-29T14:25:19.734593Z
 
-export type ISODate = string;
-export type ISODateTime = string;
-export type ISOTime = string;
-export type prettyDate = string;
-export type prettyDateTime = string;
-export type prettyTime = string;
+type ISODate = string;
+type ISODateTime = string;
+type ISOTime = string;
+type prettyDate = string;
+type prettyDateTime = string;
+type prettyTime = string;
 
+// eslint-disable-next-line import/no-unused-modules
 export const isoDateTimeToPretty = (isoDateTime: ISODateTime | null): prettyDateTime | null => {
   if (isoDateTime === null || !isoDateTimeRegex.test(isoDateTime)) {
     return null;
@@ -36,6 +37,7 @@ export const isoDateTimeToPrettyDate = (isoDateTime: ISODateTime | null): pretty
   return isoDateToPretty(isoDate);
 };
 
+// eslint-disable-next-line import/no-unused-modules
 export const isoTimeToPretty = (isoTime: ISOTime | null): prettyTime | null => {
   if (isoTime === null || !isoTimeRegex.test(isoTime)) {
     return null;
@@ -44,6 +46,7 @@ export const isoTimeToPretty = (isoTime: ISOTime | null): prettyTime | null => {
   return isoTime.split('.')[0];
 };
 
+// eslint-disable-next-line import/no-unused-modules
 export const isoDateToPretty = (isoDate: ISODate | null): prettyDate | null => {
   if (isoDate === null || !isoDateRegex.test(isoDate)) {
     return null;
@@ -54,6 +57,7 @@ export const isoDateToPretty = (isoDate: ISODate | null): prettyDate | null => {
 
 const prettyRegex = /^\d{2}.\d{2}.\d{4}$/;
 
+// eslint-disable-next-line import/no-unused-modules
 export const prettyDateToISO = (prettyDate: prettyDate | null): ISODate | null => {
   if (prettyDate === null || !prettyRegex.test(prettyDate)) {
     return null;

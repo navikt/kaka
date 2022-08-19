@@ -1,4 +1,4 @@
-import { Knapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import React from 'react';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useGetSaksdataQuery, useReopenSaksdataMutation } from '../../../redux-api/saksdata';
@@ -34,15 +34,8 @@ const Reopen = () => {
   const reopen = () => reopenVurdering({ saksbehandlerIdent: userData.ident, saksdata });
 
   return (
-    <Knapp
-      mini
-      onClick={reopen}
-      spinner={isReopening}
-      autoDisableVedSpinner
-      data-testid="reopen-button"
-      className="footer-button"
-    >
+    <Button variant="secondary" size="small" onClick={reopen} loading={isReopening} data-testid="reopen-button">
       Endre
-    </Knapp>
+    </Button>
   );
 };

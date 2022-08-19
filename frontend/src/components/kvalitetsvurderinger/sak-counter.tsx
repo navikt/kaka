@@ -1,6 +1,5 @@
 import { Detail } from '@navikt/ds-react';
 import React from 'react';
-import 'nav-frontend-tabell-style';
 import { ISaksdataSearchHitBase } from '../../types/saksdata';
 
 interface SaksCounterProps {

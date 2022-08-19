@@ -5,6 +5,7 @@ const styles = css`
     box-sizing: border-box;
     font-family: 'Source Sans Pro', Arial, sans-serif;
     overflow-y: auto;
+    scroll-padding-top: 100px;
   }
 
   *,

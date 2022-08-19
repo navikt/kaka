@@ -38,6 +38,7 @@ export const SelectedFilters = <Q extends QueryParams, K extends keyof IKodeverk
   const pills = mappedValues.map(({ id, name }) => (
     <Pill key={id} id={id} queryKey={queryKey} setFilter={setFilter} name={name} values={values} category={category} />
   ));
+
   return <>{pills}</>;
 };
 

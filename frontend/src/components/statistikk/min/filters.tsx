@@ -1,10 +1,11 @@
+import { Button } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useYtelserForKlageenhet } from '../../../hooks/use-kodeverk-value';
 import { useUser } from '../../../simple-api-state/use-user';
-import { DateContainer, FilterPanelContainer, StyledResetButton } from '../../filters/common/styled-components';
+import { DateContainer, FilterPanelContainer } from '../../filters/common/styled-components';
 import { DateFilter } from '../../filters/date';
 import {
   FORMAT,
@@ -83,9 +84,9 @@ export const Filters = () => {
 
   return (
     <FilterPanelContainer>
-      <StyledResetButton onClick={resetFilters} mini kompakt>
+      <Button variant="secondary" size="small" onClick={resetFilters}>
         Nullstill filter
-      </StyledResetButton>
+      </Button>
 
       <DateContainer>
         <DateFilter

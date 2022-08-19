@@ -1,3 +1,4 @@
+import { RadiovalgField } from '../../../../types/statistics';
 import {
   ReasonLabel,
   brukAvRaadgivendeLegeReasons,
@@ -5,14 +6,14 @@ import {
   utredningenReasons,
   vedtaketReasons,
 } from '../../../kvalitetsvurdering/kvalitetsskjema/reasons-labels';
-import { KvalitetsvurderingProps } from './kvalitetsvurdering';
+// import { KvalitetsvurderingProps } from './kvalitetsvurdering';
 
 interface IOption {
   title: string;
   relevantReasons: ReasonLabel[];
 }
 
-export const KVALITETSVURDERING_OPTIONS: { [key in KvalitetsvurderingProps['field']]: IOption } = {
+export const KVALITETSVURDERING_OPTIONS: { [key in RadiovalgField]: IOption } = {
   klageforberedelsenRadioValg: {
     title: 'Klageforberedelsen',
     relevantReasons: klageforberedelsenReasons,
@@ -33,3 +34,7 @@ export const KVALITETSVURDERING_OPTIONS: { [key in KvalitetsvurderingProps['fiel
     relevantReasons: vedtaketReasons,
   },
 };
+
+const ALLOWED_KEYS = Object.keys(KVALITETSVURDERING_OPTIONS);
+
+export const isAllowedKey = (key: string | null): key is RadiovalgField => key !== null && ALLOWED_KEYS.includes(key);

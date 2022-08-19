@@ -1,7 +1,7 @@
-import NavFrontendSpinner from 'nav-frontend-spinner';
+import { Heading, Loader } from '@navikt/ds-react';
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { useKodeverkValue } from '../../../hooks/use-kodeverk-value';
+import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useGetSaksdataQuery } from '../../../redux-api/saksdata';
@@ -18,7 +18,7 @@ export const Kvalitetsskjema = () => {
   const [kvalitetsvurdering] = useKvalitetsvurdering();
 
   if (isLoading) {
-    return <NavFrontendSpinner />;
+    return <Loader size="3xlarge" />;
   }
 
   if (
@@ -32,6 +32,9 @@ export const Kvalitetsskjema = () => {
 
   return (
     <StyledKvalitetsskjema data-testid="kvalitetsskjema">
+      <Heading level="1" size="medium">
+        Kvalitetsvurdering
+      </Heading>
       <Klageforberedelsen />
       <Utredningen />
       <BrukAvRaadgivendeLegeDisplay ytelseId={saksdata.ytelseId} />
@@ -55,8 +58,10 @@ const BrukAvRaadgivendeLegeDisplay = ({ ytelseId }: BrukAvRaadgivendeLegeDisplay
   return null;
 };
 
-const StyledKvalitetsskjema = styled.div`
-  margin: 30px 0;
+const StyledKvalitetsskjema = styled.section`
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
 `;
 
 enum Ytelser {
@@ -98,13 +103,13 @@ const RELEVANTE_YTELSE_IDS: string[] = [
 ];
 
 const useIsRelevantYtelse = (ytelseId: string | null): boolean => {
-  const ytelseData = useKodeverkValue('ytelser');
+  const ytelser = useKodeverkValueDefault('ytelser');
 
   return useMemo<boolean>(() => {
-    if (typeof ytelseData === 'undefined' || ytelseId === null) {
+    if (typeof ytelser === 'undefined' || ytelseId === null) {
       return false;
     }
 
-    return ytelseData.some(({ id }) => id === ytelseId && RELEVANTE_YTELSE_IDS.includes(ytelseId));
-  }, [ytelseData, ytelseId]);
+    return ytelser.some(({ id }) => id === ytelseId && RELEVANTE_YTELSE_IDS.includes(ytelseId));
+  }, [ytelser, ytelseId]);
 };

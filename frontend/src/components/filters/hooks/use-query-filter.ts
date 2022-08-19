@@ -1,19 +1,10 @@
 import { useSearchParams } from 'react-router-dom';
 import { QueryParams } from '../../filters/filter-query-params';
 
-export const useQueryFilter = (filter: QueryParams): string | null => {
+const useQueryFilter = (filter: QueryParams): string | null => {
   const [searchParams] = useSearchParams();
+
   return searchParams.get(filter);
-};
-
-export const useQueryFilterDefault = (filter: QueryParams, defaultValue: string): string => {
-  const queryValue = useQueryFilter(filter);
-
-  if (queryValue === null || queryValue.length === 0) {
-    return defaultValue;
-  }
-
-  return queryValue;
 };
 
 const EMPTY_ARRAY: string[] = [];

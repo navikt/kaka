@@ -1,10 +1,10 @@
-import { RadioValg, RadioValgExtended } from './radio';
+import { Radiovalg, RadiovalgExtended } from './radio';
 import { SakstypeEnum } from './sakstype';
 import { UtfallEnum } from './utfall';
 
 type UUID = string;
 
-export interface Date {
+interface Date {
   readonly weekNumber: number;
   readonly year: number;
   readonly month: number;
@@ -37,13 +37,13 @@ export interface IStatisticVurdering {
   readonly begrunnelsenErIkkeKonkretOgIndividuell: boolean;
   readonly betydeligAvvik: boolean;
   readonly betydeligAvvikText: string | null;
-  readonly brukAvRaadgivendeLegeRadioValg: RadioValgExtended | null;
+  readonly brukAvRaadgivendeLegeRadioValg: RadiovalgExtended | null;
   readonly brukIOpplaering: boolean;
   readonly brukIOpplaeringText: string | null;
   readonly detErFeilIKonkretRettsanvendelse: boolean;
   readonly detErIkkeBruktRiktigHjemmel: boolean;
   readonly innholdetIRettsregleneErIkkeTilstrekkeligBeskrevet: boolean;
-  readonly klageforberedelsenRadioValg: RadioValg | null;
+  readonly klageforberedelsenRadioValg: Radiovalg | null;
   readonly klagerensRelevanteAnfoerslerIkkeKommentert: boolean;
   readonly konklusjonen: boolean;
   readonly nyeOpplysningerMottatt: boolean;
@@ -66,8 +66,8 @@ export interface IStatisticVurdering {
   readonly utredningenAvInntektsforholdText: string | null;
   readonly utredningenAvMedisinskeForhold: boolean;
   readonly utredningenAvMedisinskeForholdText: string | null;
-  readonly utredningenRadioValg: RadioValg | null;
-  readonly vedtaketRadioValg: RadioValg | null;
+  readonly utredningenRadioValg: Radiovalg | null;
+  readonly vedtaketRadioValg: Radiovalg | null;
   readonly veiledningFraNav: boolean;
   readonly veiledningFraNavText: string | null;
   readonly vurderingAvFaktumErMangelfull: boolean;
@@ -78,6 +78,7 @@ export interface IFullStatisticVurdering extends IStatisticVurdering {
   readonly tilknyttetEnhet: string;
   readonly vedtaksinstansEnhet: string | null;
 }
+
 export interface IFullStatistics {
   readonly anonymizedFinishedVurderingList: IFullStatisticVurdering[];
 }
@@ -107,3 +108,8 @@ export interface ISaksbehandler {
   navIdent: string;
   navn: string;
 }
+
+export type RadiovalgField = keyof Pick<
+  IFullStatisticVurdering,
+  'utredningenRadioValg' | 'klageforberedelsenRadioValg' | 'vedtaketRadioValg' | 'brukAvRaadgivendeLegeRadioValg'
+>;

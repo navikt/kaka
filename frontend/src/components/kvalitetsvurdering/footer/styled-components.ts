@@ -1,27 +1,22 @@
 import styled from 'styled-components';
 
 export const StyledButtons = styled.div`
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: space-between;
-
-  .footer-button {
-    width: 200px;
-    margin-right: 1em;
-  }
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, max-content));
+  column-gap: 16px;
+  width: 100%;
 `;
 
-export const StyledFooter = styled.div`
+const StyledFooter = styled.div`
   display: flex;
   position: sticky;
   bottom: 0;
   left: 0;
   width: 100%;
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-bottom: 0.5em;
-  padding-top: 0.5em;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+  padding-top: 8px;
   justify-content: space-between;
   align-items: center;
   align-content: center;

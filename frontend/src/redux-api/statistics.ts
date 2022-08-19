@@ -32,12 +32,14 @@ export const statisticsApi = createApi({
     getManagerStatistics: builder.query<IFullStatistics, IManagerStatisticsQuery>({
       query: ({ enhetId, ...params }) => {
         const query = qs.stringify(params, { arrayFormat: 'comma', skipNulls: true });
+
         return `/api/kaka-api/statistics/enheter/${enhetId}/manager?${query}`;
       },
     }),
     getVedtaksinstanslederStatistics: builder.query<IStatistics, IVedtaksinstanslederQuery>({
       query: (params) => {
         const query = qs.stringify(params, { arrayFormat: 'comma', skipNulls: true });
+
         return `/api/kaka-api/statistics/vedtaksinstansleder?${query}`;
       },
     }),
@@ -57,6 +59,7 @@ export const statisticsApi = createApi({
     >({
       query: (params) => {
         const query = qs.stringify(params, { arrayFormat: 'comma', skipNulls: true, encode: false });
+
         return `/api/kaka-api/saksdatalisteledervedtaksinstans?${query}`;
       },
     }),

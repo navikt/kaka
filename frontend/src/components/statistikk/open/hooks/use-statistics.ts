@@ -8,6 +8,7 @@ import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '.
 const useStatistics = () => {
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
+
   return useGetOpenStatisticsQuery({ fromDate, toDate }, { pollingInterval: 3 * 60 * 1000 });
 };
 

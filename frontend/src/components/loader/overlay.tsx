@@ -1,4 +1,4 @@
-import NavFrontendSpinner from 'nav-frontend-spinner';
+import { Loader } from '@navikt/ds-react';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -10,7 +10,7 @@ export const LoadingOverlay = ({ isLoading }: Props) => {
   if (isLoading) {
     return (
       <Overlay>
-        <NavFrontendSpinner type="XXL" />
+        <Loader size="3xlarge" variant="inverted" />
       </Overlay>
     );
   }
@@ -30,4 +30,5 @@ export const Overlay = styled.div`
   z-index: 5;
   background-color: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(2px);
+  align-items: flex-start;
 `;
