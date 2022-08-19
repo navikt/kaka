@@ -1,9 +1,9 @@
-import { Knapp } from 'nav-frontend-knapper';
 import styled from 'styled-components';
 
 export const FilterPanelContainer = styled.div`
   display: flex;
   flex-direction: column;
+  row-gap: 8px;
   position: relative;
   width: 100%;
   z-index: 1;
@@ -11,11 +11,6 @@ export const FilterPanelContainer = styled.div`
 
 export const Container = styled.div`
   position: relative;
-  margin-bottom: 16px;
-`;
-
-export const StyledResetButton = styled(Knapp)`
-  margin-bottom: 1em;
 `;
 
 export const DateContainer = styled.div`
@@ -23,25 +18,26 @@ export const DateContainer = styled.div`
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: end;
-  gap: 8px;
-  margin-bottom: 16px;
+  column-gap: 8px;
 `;
 
-export interface StyledLabelProps {
+interface StyledLabelProps {
   open: boolean;
 }
 
-export const StyledLabel = styled.button<StyledLabelProps>`
+export const StyledDropdownButton = styled.button<StyledLabelProps>`
   border: 1px solid rgb(120, 112, 106);
   border-radius: 4px;
-  min-height: 40px;
-  padding: 0;
-  padding-left: 16px;
-  padding-right: 16px;
+  min-height: 32px;
+  line-height: 24px;
+  padding: 4px;
+  padding-left: 8px;
+  padding-right: 32px;
   margin: 0;
   background-color: transparent;
   text-align: left;
   cursor: pointer;
+  font-size: 16px;
   font-weight: 700;
   position: relative;
   width: 100%;
@@ -50,11 +46,11 @@ export const StyledLabel = styled.button<StyledLabelProps>`
   ::after {
     content: '';
     position: absolute;
-    width: 0.5rem;
+    width: 8px;
     border-radius: 2px;
     height: 2px;
     background: #59514b;
-    right: 0.5rem;
+    right: 8px;
     top: 50%;
     transition: transform 0.1s ease;
   }

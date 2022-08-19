@@ -10,7 +10,7 @@ export const NOW = dayjs();
 
 // Months
 export const START_OF_MONTH = NOW.startOf('month');
-export const LAST_MONTH = NOW.subtract(1, 'month');
+const LAST_MONTH = NOW.subtract(1, 'month');
 export const START_OF_LAST_MONTH = LAST_MONTH.startOf('month');
 export const END_OF_LAST_MONTH = LAST_MONTH.endOf('month');
 

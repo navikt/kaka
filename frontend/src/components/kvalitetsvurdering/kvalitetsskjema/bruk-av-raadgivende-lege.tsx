@@ -1,14 +1,14 @@
-import { Radio } from 'nav-frontend-skjema';
+import { Heading, Radio, RadioGroup } from '@navikt/ds-react';
 import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useFieldName } from '../../../hooks/use-field-name';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
-import { RadioValgExtended } from '../../../types/radio';
-import { Reason, Reasons } from './reasons';
+import { RadiovalgExtended } from '../../../types/radio';
+import { Reasons } from './reasons';
 import { brukAvRaadgivendeLegeReasons } from './reasons-labels';
-import { FormSection, RadioButtonsColumn, SubHeader } from './styled-components';
+import { Reason } from './types';
 
 export const BrukAvRaadgivendeLege = () => {
   const [kvalitetsvurdering] = useKvalitetsvurdering();
@@ -28,42 +28,38 @@ export const BrukAvRaadgivendeLege = () => {
     checked: kvalitetsvurdering[reason.id],
   }));
 
+  const onChange = (value: RadiovalgExtended) =>
+    updateKvalitetsvurdering({ id, brukAvRaadgivendeLegeRadioValg: value });
+  const error = brukAvRaadgivendeLegeRadioValg === null ? validationError : undefined;
+
   return (
-    <FormSection>
-      <SubHeader>{header}</SubHeader>
-      <RadioButtonsColumn feil={brukAvRaadgivendeLegeRadioValg === null ? validationError : undefined}>
-        <Radio
-          name="BrukAvRaadgivendeLegeIkkeAktuelt"
-          label="Ikke aktuelt for saken"
-          onChange={() =>
-            updateKvalitetsvurdering({ id, brukAvRaadgivendeLegeRadioValg: RadioValgExtended.IKKE_AKTUELT })
-          }
-          checked={brukAvRaadgivendeLegeRadioValg === RadioValgExtended.IKKE_AKTUELT}
-          disabled={!canEdit}
-        />
-        <Radio
-          name="BrukAvRaadgivendeLegeBra"
-          label="Bra/godt nok"
-          onChange={() => updateKvalitetsvurdering({ id, brukAvRaadgivendeLegeRadioValg: RadioValgExtended.BRA })}
-          checked={brukAvRaadgivendeLegeRadioValg === RadioValgExtended.BRA}
-          disabled={!canEdit}
-        />
-        <Radio
-          name="BrukAvRaadgivendeLegeMangelfullt"
-          label="Mangelfullt"
-          onChange={() =>
-            updateKvalitetsvurdering({ id, brukAvRaadgivendeLegeRadioValg: RadioValgExtended.MANGELFULLT })
-          }
-          checked={brukAvRaadgivendeLegeRadioValg === RadioValgExtended.MANGELFULLT}
-          disabled={!canEdit}
-        />
-      </RadioButtonsColumn>
+    <section>
+      <Heading size="small">{header}</Heading>
+      <RadioGroup
+        legend={header}
+        hideLegend
+        value={brukAvRaadgivendeLegeRadioValg}
+        error={error}
+        onChange={onChange}
+        id="brukAvRaadgivendeLegeRadioValg"
+      >
+        <Radio value={RadiovalgExtended.IKKE_AKTUELT} disabled={!canEdit}>
+          Ikke aktuelt for saken
+        </Radio>
+        <Radio value={RadiovalgExtended.BRA} disabled={!canEdit}>
+          Bra/godt nok
+        </Radio>
+        <Radio value={RadiovalgExtended.MANGELFULLT} disabled={!canEdit}>
+          Mangelfullt
+        </Radio>
+      </RadioGroup>
+
       <Reasons
         error={validationError}
-        show={brukAvRaadgivendeLegeRadioValg === RadioValgExtended.MANGELFULLT}
+        show={brukAvRaadgivendeLegeRadioValg === RadiovalgExtended.MANGELFULLT}
         legendText="Hva er mangelfullt?"
         reasons={reasons}
       />
-    </FormSection>
+    </section>
   );
 };

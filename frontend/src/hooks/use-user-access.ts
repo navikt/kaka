@@ -31,6 +31,7 @@ export const useUserHasRole = (): ReturnValue => {
 
     const roles: Access = user.roller.reduce<Access>((acc, role) => {
       acc[role] = true;
+
       return acc;
     }, INITIAL_ACCESS);
 

@@ -3,7 +3,7 @@ import { useOnClickOutside } from '../../hooks/use-on-click-outside';
 import { IYtelse } from '../../types/kodeverk';
 import { GroupedDropdown, OptionGroup } from '../dropdown/grouped-dropdown';
 import { formatMetadata } from './common/dropdown';
-import { Container, StyledLabel } from './common/styled-components';
+import { Container, StyledDropdownButton } from './common/styled-components';
 import { useMergedLovKildeToRegistreringshjemler } from './hooks/use-merged-lovkilde-to-registreringshjemler';
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 export const HjemmelFilter = ({ selected, setSelected, ytelser }: Props) => {
   const lovKildeToRegistreringshjemler = useMergedLovKildeToRegistreringshjemler(ytelser);
 
-  const options = useMemo(
+  const options = useMemo<OptionGroup[]>(
     () =>
       lovKildeToRegistreringshjemler.map(({ lovkilde, registreringshjemler }) => ({
         sectionHeader: {
@@ -41,7 +41,7 @@ interface HjemmelSelectProps {
   metadata?: string | number;
 }
 
-export const HjemmelSelect = ({ onChange, options, selected, disabled, metadata }: HjemmelSelectProps) => {
+const HjemmelSelect = ({ onChange, options, selected, disabled, metadata }: HjemmelSelectProps) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -50,6 +50,7 @@ export const HjemmelSelect = ({ onChange, options, selected, disabled, metadata 
   const setSelected = (id: string | null, active: boolean) => {
     if (id === null) {
       onChange([]);
+
       return;
     }
 
@@ -63,10 +64,10 @@ export const HjemmelSelect = ({ onChange, options, selected, disabled, metadata 
 
   return (
     <Container ref={ref}>
-      <StyledLabel onClick={toggleOpen} disabled={disabled} open={open}>
+      <StyledDropdownButton onClick={toggleOpen} disabled={disabled} open={open}>
         Hjemmel
         {formatMetadata(metadata)}
-      </StyledLabel>
+      </StyledDropdownButton>
 
       <GroupedDropdown
         selected={selected}
@@ -75,7 +76,6 @@ export const HjemmelSelect = ({ onChange, options, selected, disabled, metadata 
         onChange={setSelected}
         close={close}
         showFjernAlle
-        top="40px"
         maxHeight="400px"
         minWidth="100%"
       />

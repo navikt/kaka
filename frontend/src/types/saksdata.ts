@@ -30,7 +30,7 @@ export interface ISaksdataIncompleteSearchHit extends ISaksdataSearchHitBase {
 }
 
 // Full types.
-export interface ISaksdataBase extends ISaksdataSearchHitBase {
+interface ISaksdataBase extends ISaksdataSearchHitBase {
   utfoerendeSaksbehandler: string;
 }
 

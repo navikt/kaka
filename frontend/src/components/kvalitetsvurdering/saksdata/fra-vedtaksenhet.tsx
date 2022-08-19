@@ -1,3 +1,4 @@
+import { Label } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
@@ -12,7 +13,6 @@ import { SakstypeEnum } from '../../../types/sakstype';
 import { SingleSelectDropdown } from '../../dropdown/single-select-dropdown';
 import { ErrorMessage } from '../../error-message/error-message';
 import { ToggleButton } from '../../toggle/toggle-button';
-import { StyledHeader, StyledItem } from './styled-components';
 
 export const FraVedtaksenhet = () => {
   const saksdataId = useSaksdataId();
@@ -20,17 +20,21 @@ export const FraVedtaksenhet = () => {
   const [setVedtaksenhet] = useSetVedtaksinstansenhetMutation();
   const canEdit = useCanEdit();
   const enheter = useEnheterForYtelse(saksdata?.ytelseId ?? skipToken); // Sakstype klage uses enheter
-  const ankeenheter = useKlageenheterForYtelse(saksdata?.ytelseId ?? skipToken); // Sakstype anke uses klageenheter
+  const klageenheter = useKlageenheterForYtelse(saksdata?.ytelseId ?? skipToken); // Sakstype anke uses klageenheter
   const validationError = useValidationError('vedtaksinstansEnhet');
   const [open, setOpen] = useState(false);
 
   const options = useMemo(() => {
-    if (typeof saksdata === 'undefined') {
-      return [];
+    if (saksdata?.sakstypeId === SakstypeEnum.ANKE) {
+      return klageenheter;
     }
 
-    return saksdata.sakstypeId === SakstypeEnum.ANKE ? ankeenheter : enheter;
-  }, [saksdata, ankeenheter, enheter]);
+    if (saksdata?.sakstypeId === SakstypeEnum.KLAGE) {
+      return enheter;
+    }
+
+    return [];
+  }, [saksdata?.sakstypeId, klageenheter, enheter]);
 
   const selectedEnhetName = useEnhetName(options, saksdata?.vedtaksinstansEnhet);
 
@@ -44,21 +48,25 @@ export const FraVedtaksenhet = () => {
 
   if (!canEdit) {
     return (
-      <StyledItem>
-        <StyledHeader>Fra vedtaksenhet:</StyledHeader>
+      <div>
+        <StyledLabel size="medium" spacing>
+          Fra vedtaksenhet
+        </StyledLabel>
         <Container data-testid="fra-vedtaksenhet-select">{selectedEnhetName ?? 'Ingen enhet'}</Container>
         <ErrorMessage error={validationError} />
-      </StyledItem>
+      </div>
     );
   }
 
   if (saksdata.ytelseId === null) {
     return (
-      <StyledItem>
-        <StyledHeader>Fra vedtaksenhet:</StyledHeader>
+      <div>
+        <StyledLabel size="medium" spacing>
+          Fra vedtaksenhet
+        </StyledLabel>
         <Container data-testid="fra-vedtaksenhet-select">Velg ytelse</Container>
         <ErrorMessage error={validationError} />
-      </StyledItem>
+      </div>
     );
   }
 
@@ -66,11 +74,13 @@ export const FraVedtaksenhet = () => {
 
   if (noEnheter) {
     return (
-      <StyledItem>
-        <StyledHeader>Fra vedtaksenhet:</StyledHeader>
+      <div>
+        <StyledLabel size="medium" spacing>
+          Fra vedtaksenhet
+        </StyledLabel>
         <Container data-testid="fra-vedtaksenhet-select">Ingen enheter</Container>
         <ErrorMessage error={validationError} />
-      </StyledItem>
+      </div>
     );
   }
 
@@ -82,10 +92,17 @@ export const FraVedtaksenhet = () => {
   const close = () => setOpen(false);
 
   return (
-    <StyledItem>
-      <StyledHeader>Fra vedtaksenhet:</StyledHeader>
+    <div>
+      <StyledLabel size="medium" spacing htmlFor="vedtaksinstansEnhet">
+        Fra vedtaksenhet
+      </StyledLabel>
       <Container data-testid="fra-vedtaksenhet-select">
-        <ToggleButton theme={{ open }} onClick={() => setOpen(!open)} error={typeof validationError !== 'undefined'}>
+        <ToggleButton
+          id="vedtaksinstansEnhet"
+          theme={{ open }}
+          onClick={() => setOpen(!open)}
+          error={typeof validationError !== 'undefined'}
+        >
           {selectedEnhetName ?? 'Ingen enhet'}
         </ToggleButton>
         <SingleSelectDropdown
@@ -98,7 +115,7 @@ export const FraVedtaksenhet = () => {
         />
       </Container>
       <ErrorMessage error={validationError} />
-    </StyledItem>
+    </div>
   );
 };
 
@@ -120,6 +137,8 @@ const useEnhetName = (options: IKodeverkSimpleValue[], enhetsNummer: string | nu
 const Container = styled.section`
   position: relative;
   z-index: 5;
-  min-width: 210px;
-  width: fit-content;
+`;
+
+const StyledLabel = styled(Label)`
+  display: block;
 `;

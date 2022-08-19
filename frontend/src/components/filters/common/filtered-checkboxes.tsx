@@ -1,35 +1,30 @@
-import { Input } from 'nav-frontend-skjema';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Header } from '../../dropdown/header';
 import { Checkboxes, CheckboxesProps } from './checkboxes';
 
 interface Props extends CheckboxesProps {
-  onKeyDown: React.KeyboardEventHandler<HTMLInputElement>;
+  close: () => void;
+  reset: () => void;
 }
 
-export const FilteredCheckboxes = ({ selected, filters, onCheck, onKeyDown }: Props): JSX.Element => {
-  const [filter, setFilter] = useState('');
-
-  const filteredFilters = useMemo(
-    () => filters.filter(({ label }) => label.toLowerCase().includes(filter.toLowerCase())),
-    [filter, filters]
-  );
+export const FilteredCheckboxes = ({ selected, filters, onCheck, close, reset }: Props): JSX.Element => {
+  const [filteredFilters, setFilteredFilters] = useState(filters);
 
   return (
     <>
-      <StyledInput
-        type="text"
-        value={filter}
-        onChange={({ target }) => setFilter(target.value)}
-        onKeyDown={onKeyDown}
-        autoFocus
-      />
-      <Checkboxes selected={selected} filters={filteredFilters} onCheck={onCheck} />
+      <Header options={filters} onChange={setFilteredFilters} onReset={reset} close={close} />
+      <Container>
+        <Checkboxes selected={selected} filters={filteredFilters} onCheck={onCheck} />
+      </Container>
     </>
   );
 };
 
-const StyledInput = styled(Input)`
-  width: 100%;
-  margin-bottom: 8px;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  padding: 8px;
+  overflow-y: scroll;
 `;

@@ -1,3 +1,4 @@
+import { Button } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import React from 'react';
 import styled from 'styled-components';
@@ -29,12 +30,17 @@ export const DatePresets = ({
 
       const isSelected = queryFromDate === selectedFromDate && queryToDate === selectedToDate;
 
-      const Button = isSelected ? SelectedPresetButton : PresetButton;
       const onClick = () => setPreset(fromDate, toDate);
 
       return (
         <StyledLi key={label}>
-          <Button title={title} onClick={onClick}>
+          <Button
+            variant={isSelected ? 'primary' : 'secondary'}
+            size="small"
+            aria-pressed={isSelected}
+            title={title}
+            onClick={onClick}
+          >
             {label}
           </Button>
         </StyledLi>
@@ -44,39 +50,16 @@ export const DatePresets = ({
 );
 
 const StyledPresetsList = styled.ul`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 8px;
   margin-bottom: 16px;
   list-style: none;
   padding: 0;
   margin: 0;
-  margin-bottom: 16px;
 `;
 
 const StyledLi = styled.li`
-  width: calc(50% - 4px);
-`;
-
-const PresetButton = styled.button`
-  display: block;
+  display: grid;
   width: 100%;
-  padding: 8px;
-  border: 2px solid #0067c5;
-  font-weight: 600;
-  background-color: #fff;
-  color: #0067c5;
-  border-radius: 16px;
-  cursor: pointer;
-
-  :hover {
-    background-color: #0067c5;
-    color: #fff;
-  }
-`;
-
-const SelectedPresetButton = styled(PresetButton)`
-  background-color: #0067c5;
-  color: #fff;
 `;

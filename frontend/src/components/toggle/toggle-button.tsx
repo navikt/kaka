@@ -11,9 +11,9 @@ export const ToggleButton = styled.button<Props>`
   border: 1px solid ${({ error }) => (error === true ? '#ba3a26' : '#78706a')};
   box-shadow: ${({ error }) => (error === true ? '0 0 0 1px #ba3a26' : 'none')};
   padding: 0;
-  padding-right: 20px;
+  padding-right: 24px;
   padding-left: 12px;
-  min-height: 40px;
+  min-height: 48px;
   width: 100%;
   white-space: nowrap;
   border-radius: 0.25rem;
@@ -22,7 +22,7 @@ export const ToggleButton = styled.button<Props>`
   background: none;
   user-select: none;
   position: relative;
-  font-size: 16px;
+  font-size: 18px;
   font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
   text-align: left;
   color: black;

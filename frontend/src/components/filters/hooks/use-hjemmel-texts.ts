@@ -1,10 +1,8 @@
 import { useMemo } from 'react';
-import { useKodeverk } from '../../../simple-api-state/use-kodeverk';
+import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
 
 export const useHjemmelTexts = (ytelseIds: string[]) => {
-  const { data } = useKodeverk();
-
-  const ytelser = useMemo(() => data?.ytelser ?? [], [data]);
+  const ytelser = useKodeverkValueDefault('ytelser');
 
   const filtered = useMemo(
     () => (ytelseIds.length === 0 ? ytelser : ytelser.filter(({ id }) => ytelseIds.includes(id))),

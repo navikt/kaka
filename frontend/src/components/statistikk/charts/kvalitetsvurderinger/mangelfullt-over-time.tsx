@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
 import { isNotUndefined } from '../../../../functions/is-not';
 import { IKvalitetsvurderingBooleans } from '../../../../types/kvalitetsvurdering';
-import { RadioValg } from '../../../../types/radio';
+import { Radiovalg } from '../../../../types/radio';
 import { IStatisticVurdering } from '../../../../types/statistics';
 import { ReasonLabel, getReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/reasons-labels';
 import { useKvalitetsvurderingParam } from '../../hooks/use-kvalitetsvurdering-param';
@@ -113,7 +113,7 @@ const useMangelfulleSaker = (stats: IStatisticVurdering[], field: string, releva
     const unsorted = stats
       .filter(
         ({ avsluttetAvSaksbehandler, ...stat }) =>
-          avsluttetAvSaksbehandler !== null && stat[field] === RadioValg.MANGELFULLT
+          avsluttetAvSaksbehandler !== null && stat[field] === Radiovalg.MANGELFULLT
       )
       .reduce((acc, sak) => {
         const { month, year } = sak.avsluttetAvSaksbehandler;

@@ -1,3 +1,4 @@
+import { ErrorMessage as NavErrorMessage } from '@navikt/ds-react';
 import React from 'react';
 
 interface ErrorMessageProps {
@@ -9,9 +10,5 @@ export const ErrorMessage = ({ error }: ErrorMessageProps) => {
     return null;
   }
 
-  return (
-    <div className="skjemaelement__feilmelding">
-      <p className="typo-feilmelding">{error}</p>
-    </div>
-  );
+  return <NavErrorMessage>{error}</NavErrorMessage>;
 };

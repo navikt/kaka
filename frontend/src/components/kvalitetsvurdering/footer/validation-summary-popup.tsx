@@ -1,5 +1,5 @@
 import { Collapse, Expand } from '@navikt/ds-icons';
-import AlertStripe from 'nav-frontend-alertstriper';
+import { Alert } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { isReduxValidationResponse } from '../../../functions/error-type-guard';
@@ -30,9 +30,9 @@ export const ValidationSummaryPopup = ({ hasErrors }: Props) => {
 
   if (isFullfoert) {
     return (
-      <AlertStripe type="suksess" form="inline">
+      <Alert variant="success" inline>
         Fullført kvalitetsvurdering
-      </AlertStripe>
+      </Alert>
     );
   }
 
@@ -45,17 +45,17 @@ export const ValidationSummaryPopup = ({ hasErrors }: Props) => {
   const Icon = open ? Expand : Collapse;
 
   const statusText = hasErrors ? 'Feil i utfyllingen' : 'Under utfylling';
-  const statusType = hasErrors ? 'advarsel' : 'info';
+  const statusType = hasErrors ? 'warning' : 'info';
 
   return (
     <>
       <StyledButton onClick={toggleOpen}>
-        <AlertStripe type={statusType} form="inline">
+        <Alert variant={statusType} inline>
           <StyledAlertStripeText>
             <StyledStatusText>{statusText}</StyledStatusText>
             <Icon />
           </StyledAlertStripeText>
-        </AlertStripe>
+        </Alert>
       </StyledButton>
       {open && (
         <StyledPopup>
@@ -85,6 +85,7 @@ const StyledButton = styled.button`
   background: transparent;
   border: 0;
   cursor: pointer;
+  white-space: nowrap;
 `;
 
 const StyledStatusText = styled.span`

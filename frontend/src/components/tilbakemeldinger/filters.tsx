@@ -1,3 +1,4 @@
+import { Button, Select } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import dayjs from 'dayjs';
 import React from 'react';
@@ -5,9 +6,8 @@ import { useSearchParams } from 'react-router-dom';
 import { useYtelserForVedtaksinstansenhet } from '../../hooks/use-kodeverk-value';
 import { useGetSaksdatalisteLederVedtaksinstansQuery } from '../../redux-api/statistics';
 import { useUser } from '../../simple-api-state/use-user';
-import { ReadOnlySelect } from '../../styled-components/filters-and-content';
 import { ISaksdatalisteLederVedtaksinstansParams } from '../../types/saksdata';
-import { DateContainer, FilterPanelContainer, StyledResetButton } from '../filters/common/styled-components';
+import { DateContainer, FilterPanelContainer } from '../filters/common/styled-components';
 import { DateFilter } from '../filters/date';
 import {
   FORMAT,
@@ -106,9 +106,9 @@ export const Filters = () => {
 
   return (
     <FilterPanelContainer>
-      <StyledResetButton onClick={resetFilters} mini kompakt disabled={typeof userData === 'undefined'}>
+      <Button variant="secondary" size="small" onClick={resetFilters} disabled={typeof userData === 'undefined'}>
         Nullstill filter
-      </StyledResetButton>
+      </Button>
 
       <DateContainer>
         <DateFilter
@@ -149,9 +149,9 @@ export const Filters = () => {
         prettyFormat={PRETTY_FORMAT}
       />
 
-      <ReadOnlySelect disabled>
+      <Select disabled size="small" label="">
         <option>{userData?.ansattEnhet.navn}</option>
-      </ReadOnlySelect>
+      </Select>
 
       <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
 

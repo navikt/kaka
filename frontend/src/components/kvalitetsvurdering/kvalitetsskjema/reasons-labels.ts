@@ -95,24 +95,6 @@ export const vedtaketReasons: ReasonLabel[] = [
   },
 ];
 
-export const annetBaseReasons: ReasonLabel[] = [
-  {
-    id: 'nyeOpplysningerMottatt',
-    label: 'Nye opplysninger mottatt etter oversendelse til klageinstansen',
-  },
-  {
-    id: 'betydeligAvvik',
-    label: 'Betydelig avvik med stor økonomisk konsekvens for søker',
-  },
-];
-
-export const annetKlageReasons: ReasonLabel[] = [
-  {
-    id: 'brukIOpplaering',
-    label: 'Bruk gjerne vedtaket som eksempel i opplæring',
-  },
-];
-
 export const utredningenReasons: ReasonLabel[] = [
   {
     id: 'utredningenAvMedisinskeForhold',
@@ -153,12 +135,10 @@ export const utredningenReasons: ReasonLabel[] = [
   },
 ];
 
-export const ALL_REASONS = [
+const ALL_REASONS = [
   ...klageforberedelsenReasons,
   ...brukAvRaadgivendeLegeReasons,
   ...vedtaketReasons,
-  ...annetBaseReasons,
-  ...annetKlageReasons,
   ...utredningenReasons,
 ];
 

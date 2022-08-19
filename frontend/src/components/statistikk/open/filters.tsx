@@ -1,9 +1,11 @@
+import { Cancel } from '@navikt/ds-icons';
+import { Button } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useKodeverkYtelser } from '../../../hooks/use-kodeverk-value';
+import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
 import { useUser } from '../../../simple-api-state/use-user';
-import { DateContainer, FilterPanelContainer, StyledResetButton } from '../../filters/common/styled-components';
+import { DateContainer, FilterPanelContainer } from '../../filters/common/styled-components';
 import { DateFilter } from '../../filters/date';
 import {
   FORMAT,
@@ -53,7 +55,7 @@ export const Filters = () => {
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
-  const ytelser = useKodeverkYtelser();
+  const ytelser = useKodeverkValueDefault('ytelser');
 
   const setFilter = (filter: QueryParams, ...values: (string | number)[]) => {
     if (values.length === 0) {
@@ -78,9 +80,15 @@ export const Filters = () => {
 
   return (
     <FilterPanelContainer>
-      <StyledResetButton onClick={resetFilters} mini kompakt disabled={typeof userData === 'undefined'}>
+      <Button
+        variant="secondary"
+        size="small"
+        icon={<Cancel aria-hidden />}
+        onClick={resetFilters}
+        disabled={typeof userData === 'undefined'}
+      >
         Nullstill filter
-      </StyledResetButton>
+      </Button>
 
       <DateContainer>
         <DateFilter

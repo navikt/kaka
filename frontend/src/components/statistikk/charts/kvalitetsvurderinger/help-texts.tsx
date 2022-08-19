@@ -1,5 +1,5 @@
 import { Helptext } from '@navikt/ds-icons';
-import { Knapp } from 'nav-frontend-knapper';
+import { BodyShort, Button, Label } from '@navikt/ds-react';
 import React, { Fragment, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/reasons-labels';
@@ -20,8 +20,14 @@ export const HelpTexts = ({ relevantReasons }: Props) => {
 
   return (
     <>
-      <ToggleButton onClick={() => setIsOpen(!isOpen)} disabled={!hasHelpTexts}>
-        {getButtonPrefix(isOpen, hasHelpTexts)} hjelpetekster <Helptext />
+      <ToggleButton
+        onClick={() => setIsOpen(!isOpen)}
+        disabled={!hasHelpTexts}
+        size="small"
+        icon={<Helptext />}
+        iconPosition="right"
+      >
+        {getButtonPrefix(isOpen, hasHelpTexts)} hjelpetekster
       </ToggleButton>
       <ShowHelpTexts isOpen={isOpen} relevantReasons={relevantReasonHelpTexts} />
     </>
@@ -50,24 +56,17 @@ const ShowHelpTexts = ({ isOpen, relevantReasons }: ShowProps) => {
 
   const descriptions = relevantReasons.map(({ label, helpText, id }) => (
     <Fragment key={id}>
-      <Title>{label}</Title>
-      <Description>{helpText}</Description>
+      <Label>{label}</Label>
+      <BodyShort size="small" spacing>
+        {helpText}
+      </BodyShort>
     </Fragment>
   ));
 
   return <dl>{descriptions}</dl>;
 };
 
-const ToggleButton = styled(Knapp)`
+const ToggleButton = styled(Button)`
   display: flex;
   gap: 8px;
-`;
-
-const Title = styled.dt`
-  margin-top: 8px;
-  font-weight: bold;
-`;
-
-const Description = styled.dd`
-  margin: 0;
 `;

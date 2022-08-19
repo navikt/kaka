@@ -1,4 +1,5 @@
-import { Søkeknapp } from 'nav-frontend-ikonknapper';
+import { Search } from '@navikt/ds-icons';
+import { Button } from '@navikt/ds-react';
 import React, { useRef, useState } from 'react';
 import { useOnClickOutside } from '../../../../hooks/use-on-click-outside';
 import { GroupedDropdown, OptionGroup } from '../../../dropdown/grouped-dropdown';
@@ -14,6 +15,7 @@ interface LovhjemmelSelectProps {
   'data-testid'?: string;
   showFjernAlle?: boolean;
   show: boolean;
+  id: string;
 }
 
 export const LovhjemmelSelect = ({
@@ -25,6 +27,7 @@ export const LovhjemmelSelect = ({
   'data-testid': testId,
   showFjernAlle,
   show,
+  id,
 }: LovhjemmelSelectProps) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -35,13 +38,16 @@ export const LovhjemmelSelect = ({
     return null;
   }
 
-  const setSelected = (id: string | null, active: boolean) => {
-    if (id === null) {
+  const setSelected = (selectedId: string | null, active: boolean) => {
+    if (selectedId === null) {
       onChange([]);
+
       return;
     }
 
-    const newList = active ? [...selected, id] : selected.filter((selectedValue: string) => selectedValue !== id);
+    const newList = active
+      ? [...selected, selectedId]
+      : selected.filter((selectedValue: string) => selectedValue !== selectedId);
 
     onChange(newList);
   };
@@ -53,9 +59,9 @@ export const LovhjemmelSelect = ({
     <>
       <StyledLovhjemmelSelect ref={ref} data-testid={testId} data-selected={selected.join(',')}>
         <StyledHjemler>
-          <Søkeknapp mini onClick={toggleOpen} disabled={disabled}>
-            <span>Hjemmel</span>
-          </Søkeknapp>
+          <Button id={id} size="medium" onClick={toggleOpen} disabled={disabled} icon={<Search aria-hidden />}>
+            Hjemmel
+          </Button>
         </StyledHjemler>
 
         <GroupedDropdown
@@ -65,8 +71,6 @@ export const LovhjemmelSelect = ({
           onChange={setSelected}
           close={close}
           showFjernAlle={showFjernAlle}
-          top={0}
-          left="370px"
           maxHeight="400px"
         />
       </StyledLovhjemmelSelect>

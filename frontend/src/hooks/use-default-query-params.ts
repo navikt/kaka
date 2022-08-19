@@ -6,8 +6,8 @@ import {
   NOW,
 } from '../components/filters/date-presets/constants';
 import { QueryParams } from '../components/filters/filter-query-params';
+import { useKodeverkValueDefault } from '../hooks/use-kodeverk-value';
 import { useUser } from '../simple-api-state/use-user';
-import { useKodeverkValue } from './use-kodeverk-value';
 
 export const useDefaultQuery = () =>
   useMemo(() => {
@@ -18,14 +18,15 @@ export const useDefaultQuery = () =>
   }, []);
 
 export const useDefaultQueryTotal = () => {
-  const { data } = useUser();
-  const vedtaksinstansenheter = useKodeverkValue('vedtaksenheter') ?? [];
-  const klageenheter = useKodeverkValue('klageenheter') ?? [];
+  const { data: user } = useUser();
+
+  const vedtaksinstansenheter = useKodeverkValueDefault('vedtaksenheter');
+  const klageenheter = useKodeverkValueDefault('klageenheter');
 
   const fromDate = FORMATTED_START_OF_MONTH;
   const toDate = FORMATTED_NOW;
 
-  const ansattEnhetId: string | undefined = data?.ansattEnhet?.id;
+  const ansattEnhetId: string | undefined = user?.ansattEnhet?.id;
 
   const query = `${QueryParams.FROM_DATE}=${fromDate}&${QueryParams.TO_DATE}=${toDate}`;
 

@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
+import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import React from 'react';
 import styled from 'styled-components';
 import { FilterType } from '../types';
@@ -10,21 +10,20 @@ export interface CheckboxesProps {
 }
 
 export const Checkboxes = ({ selected, filters, onCheck }: CheckboxesProps): JSX.Element => (
-  <CheckboxGruppe>
-    {filters.map(({ id, label }) => (
-      <StyledCheckbox
-        key={id}
-        label={label}
-        value={id}
-        onChange={({ target }) => onCheck(target.value, target.checked)}
-        checked={selected.includes(id)}
-      />
-    ))}
-  </CheckboxGruppe>
+  <Container>
+    <CheckboxGroup legend={null} hideLegend size="small" value={selected}>
+      {filters.map(({ id, label }) => (
+        <Checkbox key={id} value={id} onChange={({ target }) => onCheck(target.value, target.checked)}>
+          {label}
+        </Checkbox>
+      ))}
+    </CheckboxGroup>
+  </Container>
 );
 
-const StyledCheckbox = styled(Checkbox)`
-  > .skjemaelement__label {
-    width: 100%;
-  }
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  overflow-y: scroll;
 `;

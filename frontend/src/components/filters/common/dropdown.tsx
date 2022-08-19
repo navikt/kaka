@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useOnClickOutside } from '../../../hooks/use-on-click-outside';
-import { Container, StyledLabel } from './styled-components';
+import { Container, StyledDropdownButton } from './styled-components';
 
 interface Props {
   open: boolean;
@@ -19,10 +19,10 @@ export const Dropdown = ({ label, metadata, children, open, setOpen }: Props) =>
   if (open) {
     return (
       <Container ref={ref}>
-        <StyledLabel onClick={() => setOpen(false)} open={true}>
+        <StyledDropdownButton onClick={() => setOpen(false)} open={true}>
           {label}
           {formatMetadata(metadata)}
-        </StyledLabel>
+        </StyledDropdownButton>
         <DropdownContent>{children}</DropdownContent>
       </Container>
     );
@@ -30,10 +30,10 @@ export const Dropdown = ({ label, metadata, children, open, setOpen }: Props) =>
 
   return (
     <Container ref={ref}>
-      <StyledLabel onClick={() => setOpen(true)} open={false}>
+      <StyledDropdownButton onClick={() => setOpen(true)} open={false}>
         {label}
         {formatMetadata(metadata)}
-      </StyledLabel>
+      </StyledDropdownButton>
     </Container>
   );
 };
@@ -42,13 +42,13 @@ export const formatMetadata = (metadata?: number | string) =>
   typeof metadata !== 'undefined' ? ` (${metadata})` : null;
 
 const DropdownContent = styled.div`
-  display: block;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   left: 0;
   width: 100%;
   max-height: 400px;
-  overflow-y: auto;
-  padding: 8px;
+  padding: 0;
   padding-bottom: 0;
   background-color: white;
   z-index: 3;

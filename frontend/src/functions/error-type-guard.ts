@@ -10,7 +10,7 @@ export interface IValidationSection {
   properties: IValidationError[];
 }
 
-export interface IApiValidationResponse {
+interface IApiValidationResponse {
   status: number;
   title: string;
   sections: IValidationSection[];

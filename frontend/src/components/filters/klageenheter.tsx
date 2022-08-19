@@ -9,10 +9,11 @@ interface Props {
 }
 
 export const KlageenheterFilter = ({ selected, setSelected }: Props) => {
-  const enheter = useKodeverkValueDefault('klageenheter');
+  const klageenheter = useKodeverkValueDefault('klageenheter');
+
   const filters = useMemo<FilterType[]>(
-    () => enheter.map(({ id, navn }) => ({ label: `${id} - ${navn}`, id })),
-    [enheter]
+    () => klageenheter.map(({ id, navn }) => ({ label: `${id} - ${navn}`, id })),
+    [klageenheter]
   );
 
   return <Filter label="Klageinstans" selected={selected} filters={filters} setSelected={setSelected} />;

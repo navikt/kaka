@@ -21,6 +21,7 @@ export const useMyStatisticsIsLoading = (): boolean => useStatistics().isLoading
 
 const useAllMyStatistics = (): IFullStatisticVurdering[] => {
   const { data } = useStatistics();
+
   return data?.anonymizedFinishedVurderingList ?? [];
 };
 

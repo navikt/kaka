@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useKodeverkValueDefault } from '../../hooks/use-kodeverk-value';
 import { Filter } from './common/filter';
 import { FilterType } from './types';
@@ -9,8 +9,9 @@ interface SakstypeFilterProps {
 }
 
 export const SakstypeFilter = ({ selected, setSelected }: SakstypeFilterProps) => {
-  const sakstyper = useKodeverkValueDefault('sakstyper');
-  const filters = useMemo<FilterType[]>(() => sakstyper.map(({ id, navn }) => ({ label: navn, id })), [sakstyper]);
+  const data = useKodeverkValueDefault('sakstyper');
 
-  return <Filter label="Type" filters={filters} selected={selected} setSelected={setSelected} />;
+  const sakstyper = data?.map<FilterType>(({ id, navn }) => ({ id, label: navn })) ?? [];
+
+  return <Filter label="Type" filters={sakstyper} selected={selected} setSelected={setSelected} />;
 };

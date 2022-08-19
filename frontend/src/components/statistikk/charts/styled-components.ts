@@ -17,6 +17,7 @@ export const ThreeQuarterChartContainer = styled(Container)`
   width: 75%;
 `;
 
+// eslint-disable-next-line import/no-unused-modules
 export const HalfChartContainer = styled(Container)`
   width: 50%;
 `;

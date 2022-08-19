@@ -4,8 +4,7 @@ import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useSetMottattKlageinstansMutation } from '../../../redux-api/saksdata';
-import { DateTimePickerProps, DatepickerWithError } from '../../date-picker-with-error/date-picker-with-error';
-import { StyledItem } from './styled-components';
+import { DatepickerWithValidation } from '../../date-picker/date-picker';
 
 export const MottattKlageinstans = () => {
   const id = useSaksdataId();
@@ -18,25 +17,24 @@ export const MottattKlageinstans = () => {
     return null;
   }
 
-  const onChange: DateTimePickerProps['onChange'] = (mottattKlageinstans) => {
-    setMottattKlageinstans({ id, mottattKlageinstans });
-  };
-
   return (
-    <StyledItem>
-      <DatepickerWithError
-        label="Mottatt klageinstans:"
-        disabled={!canEdit}
-        onChange={onChange}
-        limitations={{
-          maxDate: new Date().toISOString(),
-        }}
-        value={saksdata.mottattKlageinstans ?? undefined}
-        locale="nb"
-        showYearSelector
-        error={validationError}
-        data-testid="mottatt-klageinstans"
-      />
-    </StyledItem>
+    <DatepickerWithValidation
+      label="Mottatt klageinstans"
+      disabled={!canEdit}
+      onChange={(mottattKlageinstans) => {
+        setMottattKlageinstans({ id, mottattKlageinstans });
+      }}
+      limitations={{
+        maxDate: new Date().toISOString(),
+      }}
+      value={saksdata.mottattKlageinstans ?? undefined}
+      locale="nb"
+      showYearSelector
+      error={validationError}
+      data-testid="mottattKlageinstans"
+      inputName="mottattKlageinstans"
+      id="mottattKlageinstans"
+      size="medium"
+    />
   );
 };

@@ -19,8 +19,6 @@ const useStatistics = () => {
   );
 };
 
-export const useStatisticsIsLoading = (): boolean => useStatistics().isLoading;
-
 const useAllStatistics = (): IStatisticVurdering[] => {
   const { data } = useStatistics();
 

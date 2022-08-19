@@ -1,6 +1,6 @@
+import { HelpText, Label } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
 import { useLovkildeToRegistreringshjemmelForYtelse } from '../../../../hooks/use-kodeverk-value';
@@ -19,29 +19,14 @@ export const Lovhjemmel = () => {
   const saksdataId = useSaksdataId();
   const [saksdata] = useSaksdata();
   const canEdit = useCanEdit();
-  const [localHjemler, setLocalHjemler] = useState<string[]>(saksdata?.hjemmelIdList ?? []);
   const validationError = useValidationError('hjemmelIdList');
   const lovKildeToRegistreringshjemler = useLovkildeToRegistreringshjemmelForYtelse(saksdata?.ytelseId ?? skipToken);
-
-  useEffect(() => {
-    if (typeof saksdata === 'undefined') {
-      return;
-    }
-
-    setLocalHjemler(saksdata.hjemmelIdList);
-  }, [saksdata, setLocalHjemler]);
 
   const options = useMemo(
     () =>
       lovKildeToRegistreringshjemler.map(({ lovkilde, registreringshjemler }) => ({
-        sectionHeader: {
-          id: lovkilde.id,
-          name: lovkilde.navn,
-        },
-        sectionOptions: registreringshjemler.map(({ id, navn }) => ({
-          value: id,
-          label: navn,
-        })),
+        sectionHeader: { id: lovkilde.id, name: lovkilde.navn },
+        sectionOptions: registreringshjemler.map(({ id, navn }) => ({ value: id, label: navn })),
       })),
     [lovKildeToRegistreringshjemler]
   );
@@ -52,10 +37,10 @@ export const Lovhjemmel = () => {
 
   if (!canEdit) {
     return (
-      <>
-        <StyledHeader>Utfallet er basert på lovhjemmel:</StyledHeader>
+      <section>
+        <LabelWithHelpText />
         <SelectedHjemlerList />
-      </>
+      </section>
     );
   }
 
@@ -66,41 +51,40 @@ export const Lovhjemmel = () => {
       return;
     }
 
-    setLocalHjemler(hjemmelIdList);
     updateHjemler({ id: saksdataId, hjemmelIdList, saksbehandlerIdent: user.ident });
   };
 
   return (
-    <>
-      <StyledHeaderHelpTextWrapper>
-        <StyledHeader>Utfallet er basert på lovhjemmel:</StyledHeader>
-        <Hjelpetekst>
-          Hjemlene skal i utgangspunktet være de samme som i klagevedtaket. Dersom saken har flere klagetemaer og
-          kvaliteten er bra nok på det ene og mangelfull på det andre, velger du de hjemlene kvalitetsavviket gjelder.
-        </Hjelpetekst>
-      </StyledHeaderHelpTextWrapper>
+    <section>
+      <LabelWithHelpText />
       <LovhjemmelSelect
         disabled={!canEdit || noHjemler}
         options={options}
-        selected={localHjemler}
+        selected={saksdata?.hjemmelIdList ?? []}
         onChange={onLovhjemmelChange}
         error={validationError}
         data-testid="lovhjemmel"
         showFjernAlle={false}
         show={canEdit}
+        id="hjemmelIdList"
       />
       <SelectedHjemlerList />
-    </>
+    </section>
   );
 };
 
-const StyledHeader = styled.h2`
-  font-size: 16px;
-  font-weight: bold;
-`;
-
-const StyledHeaderHelpTextWrapper = styled.div`
+const StyledLabel = styled(Label)`
   display: flex;
   align-items: center;
   gap: 8px;
 `;
+
+const LabelWithHelpText = () => (
+  <StyledLabel size="medium" spacing>
+    Utfallet er basert på lovhjemmel:
+    <HelpText placement="right">
+      Hjemlene skal i utgangspunktet være de samme som i klagevedtaket. Dersom saken har flere klagetemaer og kvaliteten
+      er bra nok på det ene og mangelfull på det andre, velger du de hjemlene kvalitetsavviket gjelder.
+    </HelpText>
+  </StyledLabel>
+);

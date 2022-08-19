@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Nav } from '../components/routing/nav';
+import { GAP } from '../styled-components/constants';
 
 interface Props {
   children: React.ReactNode;
@@ -24,8 +25,8 @@ const StyledPageWrapper = styled.article`
 `;
 
 const StyledPagePadding = styled.div`
-  padding-left: 2em;
-  padding-right: 2em;
+  padding-left: ${2 * GAP}px;
+  padding-right: ${2 * GAP}px;
   flex-grow: 1;
   display: flex;
 `;

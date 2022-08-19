@@ -1,5 +1,5 @@
+import { Select } from '@navikt/ds-react';
 import dayjs from 'dayjs';
-import { Select } from 'nav-frontend-skjema';
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
@@ -59,58 +59,31 @@ export const MonthFilter = ({ label, value, onChange }: Props) => {
     return [MAX_YEAR.toString(), MAX_MONTH];
   }, [value]);
 
-  const handleYearChange = (year: string) => onChange(`${year}-${selectedMonth}`);
+  const months = useMonths(Number.parseInt(selectedYear, 10));
 
-  const handleMonthChange = (month: string) => onChange(`${selectedYear}-${month}`);
+  const handleYearChange: React.ChangeEventHandler<HTMLSelectElement> = ({ target }) =>
+    onChange(`${target.value}-${selectedMonth}`);
+
+  const handleMonthChange: React.ChangeEventHandler<HTMLSelectElement> = ({ target }) =>
+    onChange(`${selectedYear}-${target.value}`);
 
   return (
     <Container>
-      <Years label={label} value={selectedYear} onChange={handleYearChange} />
-      <Months label={label} value={selectedMonth} selectedYear={selectedYear} onChange={handleMonthChange} />
-    </Container>
-  );
-};
-
-interface YearProps {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-}
-
-const Years = ({ label, value, onChange }: YearProps) => (
-  <YearLabel>
-    <LabelText>{label} år:</LabelText>
-    <Select value={value} onChange={({ target }) => onChange(target.value)} disabled={YEARS.length === 1}>
-      {YEARS.map((year) => (
-        <option key={year} value={year}>
-          {year}
-        </option>
-      ))}
-    </Select>
-  </YearLabel>
-);
-
-interface MonthProps {
-  label: string;
-  value: string;
-  selectedYear: string;
-  onChange: (value: string) => void;
-}
-
-const Months = ({ label, value, selectedYear, onChange }: MonthProps) => {
-  const months = useMonths(Number.parseInt(selectedYear, 10));
-
-  return (
-    <MonthLabel>
-      <LabelText>{label} måned:</LabelText>
-      <Select value={value} onChange={({ target }) => onChange(target.value)} disabled={months.length === 1}>
+      <Select label={`${label} år`} value={selectedYear} onChange={handleYearChange} size="small">
+        {YEARS.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
+      </Select>
+      <Select label={`${label} måned`} value={selectedMonth} onChange={handleMonthChange} size="small">
         {months.map((month) => (
           <option key={month.value} value={month.value}>
             {month.label}
           </option>
         ))}
       </Select>
-    </MonthLabel>
+    </Container>
   );
 };
 
@@ -123,27 +96,7 @@ const useMonths = (year: number) => {
 };
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-`;
-
-const BaseLabel = styled.label`
-  display: block;
-  cursor: pointer;
-  margin-bottom: 16px;
-`;
-
-const MonthLabel = styled(BaseLabel)`
-  width: 60%;
-`;
-
-const YearLabel = styled(BaseLabel)`
-  width: 40%;
-`;
-
-const LabelText = styled.span`
-  display: block;
-  font-size: 16px;
-  font-weight: 700;
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  grid-gap: 8px;
 `;

@@ -1,16 +1,15 @@
-import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import { Radio, RadioGruppe } from 'nav-frontend-skjema';
+import { HelpText, Radio, RadioGroup } from '@navikt/ds-react';
 import React from 'react';
-import styled from 'styled-components';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useFieldName } from '../../../hooks/use-field-name';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
-import { RadioValg } from '../../../types/radio';
-import { Reason, Reasons } from './reasons';
+import { Radiovalg } from '../../../types/radio';
+import { Reasons } from './reasons';
 import { utredningenReasons } from './reasons-labels';
-import { FormSection, RadioButtonsRow, SubHeader } from './styled-components';
+import { RadioButtonsRow, StyledHeading } from './styled-components';
+import { Reason } from './types';
 
 export const Utredningen = () => {
   const [kvalitetsvurdering] = useKvalitetsvurdering();
@@ -30,46 +29,43 @@ export const Utredningen = () => {
     checked: kvalitetsvurdering[reason.id],
   }));
 
+  const error = utredningenRadioValg === null ? validationError : undefined;
+  const onChange = (value: Radiovalg) => updateKvalitetsvurdering({ id, utredningenRadioValg: value });
+
   return (
-    <FormSection>
-      <StyledHeaderWrapper>
-        <SubHeader>{header}</SubHeader>
-        <Hjelpetekst>
+    <section>
+      <StyledHeading size="small">
+        {header}
+        <HelpText placement="right">
           Gjelder kvaliteten på utredningen i perioden frem til og med oversendelse til klageinstansen. Er det kommet
           nye opplysninger etter at saken er oversendt klageinstansen, som vedtaksinstansen burde innhentet, skal dette
           også registreres her.
-        </Hjelpetekst>
-      </StyledHeaderWrapper>
-      <RadioGruppe feil={utredningenRadioValg === null ? validationError : undefined}>
+        </HelpText>
+      </StyledHeading>
+
+      <RadioGroup
+        legend={header}
+        hideLegend
+        value={utredningenRadioValg}
+        error={error}
+        onChange={onChange}
+        id="utredningenRadioValg"
+      >
         <RadioButtonsRow>
-          <Radio
-            name="UtredningenBra"
-            label="Bra/godt nok"
-            onChange={() => updateKvalitetsvurdering({ id, utredningenRadioValg: RadioValg.BRA })}
-            checked={utredningenRadioValg === RadioValg.BRA}
-            disabled={!canEdit}
-          />
-          <Radio
-            name="UtredningenMangelfullt"
-            label="Mangelfullt"
-            onChange={() => updateKvalitetsvurdering({ id, utredningenRadioValg: RadioValg.MANGELFULLT })}
-            checked={utredningenRadioValg === RadioValg.MANGELFULLT}
-            disabled={!canEdit}
-          />
+          <Radio value={Radiovalg.BRA} disabled={!canEdit}>
+            Bra / godt nok
+          </Radio>
+          <Radio value={Radiovalg.MANGELFULLT} disabled={!canEdit}>
+            Mangelfullt
+          </Radio>
         </RadioButtonsRow>
-      </RadioGruppe>
+      </RadioGroup>
       <Reasons
         error={validationError}
-        show={utredningenRadioValg === RadioValg.MANGELFULLT}
+        show={utredningenRadioValg === Radiovalg.MANGELFULLT}
         legendText="Hva er mangelfullt?"
         reasons={reasons}
       />
-    </FormSection>
+    </section>
   );
 };
-
-const StyledHeaderWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;

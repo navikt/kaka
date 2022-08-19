@@ -1,14 +1,11 @@
-import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import { Checkbox, CheckboxGruppe } from 'nav-frontend-skjema';
-import NavFrontendSpinner from 'nav-frontend-spinner';
+import { Checkbox, CheckboxGroup, HelpText } from '@navikt/ds-react';
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
 import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
 import { CommentField } from './comment-field';
-import { Reason } from './reasons';
 import { StyledCheckboxContainer } from './styled-components';
+import { Reason } from './types';
 
 export interface CheckboxesProps {
   reasons: Reason[];
@@ -22,7 +19,7 @@ export const Checkboxes = React.forwardRef<HTMLDivElement, CheckboxesProps>(({ r
   const canEdit = useCanEdit();
 
   if (isLoading) {
-    return <NavFrontendSpinner />;
+    return null;
   }
 
   if (typeof kvalitetsvurdering === 'undefined') {
@@ -30,45 +27,38 @@ export const Checkboxes = React.forwardRef<HTMLDivElement, CheckboxesProps>(({ r
   }
 
   const { id } = kvalitetsvurdering;
+  const value = reasons.filter(({ checked }) => checked).map((r) => r.id);
 
   return (
-    <Wrapper ref={ref}>
-      <CheckboxGruppe legend={legendText} feil={error}>
+    <div ref={ref}>
+      <CheckboxGroup legend={legendText} error={error} value={value}>
         {reasons
           .filter((reason) => reason.show !== false)
           .map((reason) => {
             const showTextArea = reason.checked && typeof reason.textareaId !== 'undefined';
+
             return (
-              <Fragment key={String(reason.id)}>
+              <Fragment key={reason.id}>
                 <StyledCheckboxContainer>
                   <Checkbox
-                    label={reason.label}
                     value={reason.id}
-                    checked={reason.checked}
-                    onChange={({ target }) =>
-                      updateKvalitetsvurdering({
-                        id,
-                        [reason.id]: target.checked,
-                      })
-                    }
+                    onChange={({ target }) => updateKvalitetsvurdering({ id, [reason.id]: target.checked })}
                     disabled={!canEdit}
-                  />
+                  >
+                    {reason.label}
+                  </Checkbox>
                   <HjelpetekstDisplay helpText={reason.helpText} />
                 </StyledCheckboxContainer>
                 <CommentFieldDisplay textareaId={reason.textareaId} show={showTextArea} />
               </Fragment>
             );
           })}
-      </CheckboxGruppe>
-    </Wrapper>
+      </CheckboxGroup>
+    </div>
   );
 });
 
 Checkboxes.displayName = 'Checkboxes';
-
-const Wrapper = styled.div`
-  margin-top: 10px;
-`;
 
 interface CommentFieldDisplayProps {
   textareaId: string | undefined;
@@ -92,5 +82,5 @@ const HjelpetekstDisplay = ({ helpText }: HjelpetekstDisplayProps) => {
     return null;
   }
 
-  return <Hjelpetekst>{helpText}</Hjelpetekst>;
+  return <HelpText placement="right">{helpText}</HelpText>;
 };

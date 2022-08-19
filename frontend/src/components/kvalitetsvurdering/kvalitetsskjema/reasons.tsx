@@ -1,16 +1,7 @@
 import React, { createRef, useEffect } from 'react';
 import { usePrevious } from '../../../hooks/use-previous';
-import { IKvalitetsvurderingBooleans } from '../../../types/kvalitetsvurdering';
 import { Checkboxes, CheckboxesProps } from './checkboxes';
 
-export interface Reason {
-  id: keyof IKvalitetsvurderingBooleans;
-  label: string;
-  textareaId?: string;
-  helpText?: string;
-  show?: boolean;
-  checked: boolean;
-}
 interface ReasonsProps extends CheckboxesProps {
   show: boolean;
 }

@@ -1,5 +1,5 @@
 import { Historic } from '@navikt/ds-icons';
-import Knapp from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import React from 'react';
 
 interface Props {
@@ -15,8 +15,12 @@ export const ResetDateButton = ({ date, selectedDate, title, onClick }: Props) =
   }
 
   return (
-    <Knapp title={title} onClick={() => onClick(date)} kompakt>
-      <Historic />
-    </Knapp>
+    <Button
+      variant="secondary"
+      size="small"
+      title={title}
+      onClick={() => onClick(date)}
+      icon={<Historic aria-hidden />}
+    />
   );
 };

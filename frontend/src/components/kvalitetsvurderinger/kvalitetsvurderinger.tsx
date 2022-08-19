@@ -1,5 +1,5 @@
 import { Notes } from '@navikt/ds-icons';
-import { Hovedknapp } from 'nav-frontend-knapper';
+import { Button } from '@navikt/ds-react';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
@@ -29,13 +29,14 @@ export const Kvalitetsvurderinger = () => {
 
   return (
     <StyledKvalitetsvurderinger>
-      <StyledNewButton
+      <Button
         onClick={() => createNewSaksdata()}
         disabled={disabled}
         data-testid="new-kvalitetsvurdering-button"
+        icon={<Notes aria-hidden />}
       >
-        <Notes /> Ny kvalitetsvurdering
-      </StyledNewButton>
+        Ny kvalitetsvurdering
+      </Button>
 
       <SubHeader>Påbegynte vurderinger</SubHeader>
       <PaabegynteVurderingerTable />
@@ -56,10 +57,4 @@ const SubHeader = styled.h2`
 const StyledKvalitetsvurderinger = styled.section`
   padding-top: 2em;
   width: 100%;
-`;
-
-const StyledNewButton = styled(Hovedknapp)`
-  display: flex;
-  gap: 8px;
-  align-items: center;
 `;

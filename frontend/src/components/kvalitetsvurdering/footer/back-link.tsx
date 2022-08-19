@@ -1,5 +1,6 @@
+import { Button } from '@navikt/ds-react';
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDefaultQuery } from '../../../hooks/use-default-query-params';
 import { useUserHasRole } from '../../../hooks/use-user-access';
 
@@ -12,27 +13,25 @@ export const BackLink = () => {
     return null;
   }
 
-  const previousPage = location.state;
-
-  if (typeof previousPage === 'string') {
+  if (typeof location.state === 'string' && location.state.startsWith('/')) {
     return (
-      <NavLink to={previousPage} className="knapp knapp--mini footer-button">
+      <Button to={location.state} as={Link} size="small" variant="secondary" replace>
         Tilbake
-      </NavLink>
+      </Button>
     );
   }
 
   if (roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER) {
     return (
-      <NavLink to={`/tilbakemeldinger?${defaultQuery}`} className="knapp knapp--mini footer-button">
-        Tilbake
-      </NavLink>
+      <Button to={`/tilbakemeldinger?${defaultQuery}`} as={Link} size="small" variant="secondary">
+        Tilbakemeldinger
+      </Button>
     );
   }
 
   return (
-    <NavLink to="/kvalitetsvurderinger" className="knapp knapp--mini footer-button">
-      Tilbake
-    </NavLink>
+    <Button to="/kvalitetsvurderinger" as={Link} size="small" variant="secondary">
+      Kvalitetsvurderinger
+    </Button>
   );
 };

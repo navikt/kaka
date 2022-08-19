@@ -1,16 +1,14 @@
+import { BodyShort, Label, Select } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import { Select } from 'nav-frontend-skjema';
 import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useKodeverkYtelser, useSimpleYtelserForKlageenhet } from '../../../hooks/use-kodeverk-value';
+import { useSimpleYtelserForKlageenhet } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useSetYtelseMutation } from '../../../redux-api/saksdata';
 import { useUser } from '../../../simple-api-state/use-user';
-import { SakstypeEnum } from '../../../types/sakstype';
 import { EmptyOption } from './empty-option';
-import { StyledHeader, StyledItem } from './styled-components';
 
 export const Ytelse = () => {
   const { data: user } = useUser();
@@ -19,26 +17,24 @@ export const Ytelse = () => {
   const [setYtelse] = useSetYtelseMutation();
   const canEdit = useCanEdit();
   const validationError = useValidationError('ytelseId');
-  const ankeytelser = useSimpleYtelserForKlageenhet(saksdata?.tilknyttetEnhet ?? skipToken);
-  const klageytelser = useKodeverkYtelser();
+  const ytelser = useSimpleYtelserForKlageenhet(saksdata?.tilknyttetEnhet ?? skipToken);
 
   if (typeof saksdata === 'undefined' || typeof user === 'undefined') {
     return null;
   }
 
-  const ytelser = saksdata.sakstypeId === SakstypeEnum.ANKE ? ankeytelser : klageytelser;
-
   if (!canEdit) {
     const ytelse = ytelser.find(({ id }) => id === saksdata.ytelseId);
+
     return (
-      <StyledItem>
-        <StyledHeader>Ytelse</StyledHeader>
-        {ytelse?.navn ?? 'Ingen ytelse'}
-      </StyledItem>
+      <div>
+        <Label>Ytelse</Label>
+        <BodyShort>{ytelse?.navn ?? 'Ingen ytelse'}</BodyShort>
+      </div>
     );
   }
 
-  const options = ankeytelser.map(({ id, navn }) => (
+  const options = ytelser?.map(({ id, navn }) => (
     <option value={id} key={id}>
       {navn}
     </option>
@@ -50,19 +46,18 @@ export const Ytelse = () => {
   };
 
   return (
-    <StyledItem>
-      <Select
-        feil={validationError}
-        label="Ytelse"
-        onChange={({ target }) => onChange(target.value)}
-        disabled={!canEdit}
-        bredde="m"
-        value={saksdata.ytelseId ?? ''}
-        data-testid="ytelse-select"
-      >
-        <EmptyOption show={saksdata.ytelseId === null} />
-        {options}
-      </Select>
-    </StyledItem>
+    <Select
+      id="ytelseId"
+      error={validationError}
+      label="Ytelse"
+      onChange={({ target }) => onChange(target.value)}
+      disabled={!canEdit}
+      size="medium"
+      value={saksdata.ytelseId ?? ''}
+      data-testid="ytelse-select"
+    >
+      <EmptyOption show={saksdata.ytelseId === null} />
+      {options}
+    </Select>
   );
 };

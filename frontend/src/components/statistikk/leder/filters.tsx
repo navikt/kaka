@@ -1,10 +1,10 @@
+import { Button, Select } from '@navikt/ds-react';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useKodeverkYtelser } from '../../../hooks/use-kodeverk-value';
+import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
 import { useUser } from '../../../simple-api-state/use-user';
-import { ReadOnlySelect } from '../../../styled-components/filters-and-content';
-import { FilterPanelContainer, StyledResetButton } from '../../filters/common/styled-components';
+import { FilterPanelContainer } from '../../filters/common/styled-components';
 import {
   END_OF_LAST_MONTH,
   FORMATTED_END_OF_LAST_MONTH,
@@ -54,7 +54,7 @@ export const Filters = () => {
   const fromMonth = useFromMonthQueryFilter(FORMATTED_START_OF_LAST_MONTH);
   const toMonth = useToMonthQueryFilter(FORMATTED_END_OF_LAST_MONTH);
 
-  const ytelser = useKodeverkYtelser();
+  const ytelser = useKodeverkValueDefault('ytelser');
 
   const setFilter = (filter: QueryParams, ...values: (string | number)[]) => {
     if (values.length === 0) {
@@ -78,9 +78,9 @@ export const Filters = () => {
 
   return (
     <FilterPanelContainer>
-      <StyledResetButton onClick={resetFilters} mini kompakt>
+      <Button variant="secondary" size="small" onClick={resetFilters}>
         Nullstill filter
-      </StyledResetButton>
+      </Button>
 
       <MonthFilter label="Fra" value={fromMonth} onChange={(value) => setFilter(QueryParams.FROM_MONTH, value)} />
       <MonthFilter label="Til" value={toMonth} onChange={(value) => setFilter(QueryParams.TO_MONTH, value)} />
@@ -94,9 +94,9 @@ export const Filters = () => {
         prettyFormat={PRETTY_FORMAT}
       />
 
-      <ReadOnlySelect disabled>
+      <Select disabled aria-readonly label="Enhet" hideLabel size="small">
         <option>{userData?.ansattEnhet.navn}</option>
-      </ReadOnlySelect>
+      </Select>
 
       <SaksbehandlerFilter
         selected={selectedSaksbehandlere}

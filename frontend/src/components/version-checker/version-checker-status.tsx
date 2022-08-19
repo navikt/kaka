@@ -1,7 +1,7 @@
 import { AutomaticSystem, Success } from '@navikt/ds-icons';
-import { Knapp } from 'nav-frontend-knapper';
+import { BodyShort, Button } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { VersionChecker } from './version-checker';
 
 export const VersionCheckerStatus = () => {
@@ -13,6 +13,7 @@ export const VersionCheckerStatus = () => {
     }
 
     const versionChecker = new VersionChecker(setNeedsUpdate);
+
     return () => versionChecker.close();
   }, []);
 
@@ -21,14 +22,14 @@ export const VersionCheckerStatus = () => {
   }
 
   return (
-    <UpdateButton
+    <Button
       title="Det finnes en ny versjon av KAKA. Versjonen du ser på nå er ikke siste versjon. Trykk her for å laste siste versjon."
       onClick={() => window.location.reload()}
-      kompakt
-      mini
+      size="small"
+      icon={<AutomaticSystem aria-hidden />}
     >
-      <AutomaticSystem /> Oppdater til siste versjon
-    </UpdateButton>
+      Oppdater til siste versjon
+    </Button>
   );
 };
 
@@ -44,25 +45,15 @@ const Version = () => {
   }
 
   return (
-    <IconText>
+    <StyledBodyShort>
       <Success /> KAKA er klar til bruk!
-    </IconText>
+    </StyledBodyShort>
   );
 };
 
-const iconText = css`
-  & {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-`;
-
-const IconText = styled.span`
-  ${iconText}
+const StyledBodyShort = styled(BodyShort)`
+  display: flex;
+  gap: 8px;
+  align-items: center;
   color: #fff;
-`;
-
-const UpdateButton = styled(Knapp)`
-  ${iconText}
 `;
