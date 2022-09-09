@@ -1,4 +1,8 @@
+import { getLogger } from '../../logger';
+
 export const oboCache: Map<string, [string, number]> = new Map();
+
+const log = getLogger('auth');
 
 setInterval(() => {
   const before = oboCache.size;
@@ -16,13 +20,13 @@ setInterval(() => {
   const after = oboCache.size;
 
   if (deleted === 0) {
-    console.log(`Cleaned the OBO token cache. No expired tokens found. Cache had ${before} tokens.`);
+    log.debug({ msg: `Cleaned the OBO token cache. No expired tokens found. Cache had ${before} tokens.` });
     return;
   }
 
-  console.log(
-    `Cleaned the OBO token cache. Deleted ${deleted} expired tokens. Cache had ${before} tokens, ${after} remaining.`
-  );
+  log.debug({
+    msg: `Cleaned the OBO token cache. Deleted ${deleted} expired tokens. Cache had ${before} tokens, ${after} remaining.`,
+  });
 }, 10 * 60 * 1000); // 10 minutes.
 
 export const now = () => Math.round(Date.now() / 1000);
