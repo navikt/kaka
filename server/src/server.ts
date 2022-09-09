@@ -5,14 +5,20 @@ import { applicationDomain, isDeployed, isDeployedToProd } from './config/env';
 import { EmojiIcons, sendToSlack } from './slack';
 import { init } from './init';
 import { processErrors } from './process-errors';
+import { getLogger, httpLoggingMiddleware } from './logger';
 
 processErrors();
 
+const log = getLogger('server');
+
 if (isDeployed) {
+  log.info({ msg: 'Started!' });
   sendToSlack('Starting...', EmojiIcons.StartStruck);
 }
 
 const server = express();
+
+server.use(httpLoggingMiddleware);
 
 server.set('trust proxy', true);
 server.disable('x-powered-by');
