@@ -1,3 +1,7 @@
+import { getLogger } from '../logger';
+
+const log = getLogger('env-var');
+
 export const optionalEnvString = (name: string): string | undefined => {
   const envVariable = process.env[name];
 
@@ -18,7 +22,7 @@ export const requiredEnvString = (name: string, defaultValue?: string): string =
     return defaultValue;
   }
 
-  console.error(`Missing required environment variable '${name}'.`);
+  log.error({ msg: `Missing required environment variable '${name}'.` });
   process.exit(1);
 };
 
@@ -30,7 +34,7 @@ export const requiredEnvUrl = (name: string, defaultValue?: string): string => {
   if (envString.startsWith('https://')) {
     return envString;
   }
-  console.error(`Environment variable '${name}' is not a URL. Value: '${envString}'.`);
+  log.error({ msg: `Environment variable '${name}' is not a URL. Value: '${envString}'.` });
   process.exit(1);
 };
 
@@ -46,6 +50,6 @@ export const requiredEnvNumber = (name: string, defaultValue?: number): number =
     return defaultValue;
   }
 
-  console.error(`Could not parse environment variable '${name}' as integer/number. Parsed value: '${envString}'.`);
+  log.error({ msg: `Could not parse environment variable '${name}' as integer/number. Parsed value: '${envString}'.` });
   process.exit(1);
 };
