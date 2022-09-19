@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-interface State<T> {
+export interface State<T> {
   data: T | undefined;
   isLoading: boolean;
   isUninitialized: boolean;
