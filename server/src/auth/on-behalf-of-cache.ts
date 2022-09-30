@@ -1,4 +1,4 @@
-import { getLogger } from '../../logger';
+import { getLogger } from '../logger';
 
 export const oboCache: Map<string, [string, number]> = new Map();
 
