@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { UtfallEnum } from '../../../types/utfall';
 import { StatisticsProps } from '../types';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, RedKeyNumber } from './styled-components';
 
 export const Omgjort = ({ stats }: StatisticsProps) => {
-  const numOmgjort = stats?.filter(
-    ({ utfallId }) =>
-      utfallId === UtfallEnum.MEDHOLD || utfallId === UtfallEnum.DELVIS_MEDHOLD || utfallId === UtfallEnum.OPPHEVET
+  const numOmgjort: number = useMemo(
+    () =>
+      stats?.filter(
+        ({ utfallId }) =>
+          utfallId === UtfallEnum.MEDHOLD || utfallId === UtfallEnum.DELVIS_MEDHOLD || utfallId === UtfallEnum.OPPHEVET
+      ).length,
+    [stats]
   );
 
-  const percent =
-    typeof numOmgjort === 'undefined' || typeof stats === 'undefined'
-      ? '-'
-      : cleanNumberDisplay(Math.round((numOmgjort.length / stats.length) * 100));
+  const relevantStats: number = useMemo(
+    () =>
+      stats.filter(
+        ({ utfallId }) =>
+          utfallId !== UtfallEnum.RETUR && utfallId !== UtfallEnum.TRUKKET && utfallId !== UtfallEnum.UGUNST
+      ).length,
+    [stats]
+  );
+
+  const percent = cleanNumberDisplay(Math.round((numOmgjort / relevantStats) * 100));
 
   return (
     <KeyContent>
