@@ -81,15 +81,16 @@ export const UtfallGraph = ({ stats: allStats }: StatisticsProps) => {
 
   const utfall = useKodeverkValueDefault('utfall');
 
+  const keys = Object.values(UtfallEnum);
+
   const stats = useMemo(
     () =>
       new Map<UtfallEnum, number>(
-        Object.values(UtfallEnum).map((id) => [id, finishedStats.filter(({ utfallId }) => utfallId === id).length])
+        keys.map((id) => [id, finishedStats.filter(({ utfallId }) => utfallId === id).length])
       ),
-    [finishedStats]
+    [finishedStats, keys]
   );
 
-  const keys = Array.from(stats.keys());
   const labels: string[] = keys.map((key) => utfall.find(({ id }) => id === key)?.navn).filter(isNotUndefined);
 
   const backgroundColor: string[] = keys.map((key) => COLOR_MAP[key]);
@@ -119,13 +120,15 @@ export const UtfallGraph = ({ stats: allStats }: StatisticsProps) => {
   );
 };
 
-const COLOR_MAP = {
-  [UtfallEnum.AVVIST]: '#7CDAF8',
+const COLOR_MAP: Record<UtfallEnum, string> = {
+  [UtfallEnum.AVVIST]: '#B0B0B0',
   [UtfallEnum.DELVIS_MEDHOLD]: '#FFAA33',
   [UtfallEnum.MEDHOLD]: '#D05C4A',
   [UtfallEnum.OPPHEVET]: '#C1CB33',
   [UtfallEnum.RETUR]: '#3386E0',
   [UtfallEnum.STADFESTELSE]: '#33AA5F',
-  [UtfallEnum.TRUKKET]: '#A0A0A0',
+  [UtfallEnum.TRUKKET]: '#7CDAF8',
   [UtfallEnum.UGUNST]: '#8269A2',
+  [UtfallEnum.INNSTILLING_STADFESTELSE]: '#005519',
+  [UtfallEnum.INNSTILLING_AVVIST]: '#262626',
 };
