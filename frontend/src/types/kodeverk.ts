@@ -25,6 +25,10 @@ export interface IKlageenhet extends IKodeverkSimpleValue {
   ytelser: IKodeverkSimpleValue[];
 }
 
+interface ISakstyperToUtfall extends IKodeverkSimpleValue<SakstypeEnum> {
+  utfall: IKodeverkSimpleValue<UtfallEnum>[];
+}
+
 export interface IKodeverk {
   ytelser: IYtelse[];
   tema: IKodeverkValue[];
@@ -37,4 +41,5 @@ export interface IKodeverk {
   sakstyper: IKodeverkSimpleValue<SakstypeEnum>[];
   sources: IKodeverkSimpleValue[];
   brevmottakertyper: IKodeverkSimpleValue[];
+  sakstyperToUtfall: ISakstyperToUtfall[];
 }

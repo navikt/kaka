@@ -14,7 +14,7 @@ export const useKodeverkValueDefault = <K extends keyof IKodeverk>(
   key: K | typeof skipToken = skipToken
 ): IKodeverk[K] => useKodeverkValue(key) ?? [];
 
-const useKodeverkValue = <K extends keyof IKodeverk>(
+export const useKodeverkValue = <K extends keyof IKodeverk>(
   key: K | typeof skipToken = skipToken
 ): IKodeverk[K] | undefined => {
   const { data, isLoading } = useKodeverk();

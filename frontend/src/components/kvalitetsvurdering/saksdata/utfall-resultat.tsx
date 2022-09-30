@@ -1,9 +1,9 @@
 import { Select } from '@navikt/ds-react';
 import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
+import { useUtfall } from '../../../hooks/use-utfall';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useSetUtfallMutation } from '../../../redux-api/saksdata';
 import { useUser } from '../../../simple-api-state/use-user';
@@ -16,10 +16,10 @@ export const UtfallResultat = () => {
   const [saksdata] = useSaksdata();
   const [setUtfallResultat] = useSetUtfallMutation();
   const canEdit = useCanEdit();
-  const utfall = useKodeverkValueDefault('utfall');
+  const [utfall] = useUtfall(saksdata?.sakstypeId);
   const validationError = useValidationError('utfallId');
 
-  if (typeof saksdata === 'undefined' || typeof utfall === 'undefined' || typeof user === 'undefined') {
+  if (typeof saksdata === 'undefined' || typeof user === 'undefined') {
     return null;
   }
 
