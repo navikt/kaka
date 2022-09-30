@@ -18,7 +18,7 @@ export const baseQuery = retry(
 
     if (status === 401) {
       if (!isLocalhost) {
-        window.location.reload();
+        window.location.assign('/oauth2/login');
       }
 
       retry.fail(result.error);
