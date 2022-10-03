@@ -9,7 +9,6 @@ import { useSaksdataId } from '../../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../../hooks/use-validation-error';
 import { useSetHjemlerMutation } from '../../../../redux-api/saksdata';
 import { useUser } from '../../../../simple-api-state/use-user';
-import { UtfallEnum } from '../../../../types/utfall';
 import { LovhjemmelSelect } from './lovhjemmel-select';
 import { SelectedHjemlerList } from './selected-hjemler-list';
 
@@ -30,10 +29,6 @@ export const Lovhjemmel = () => {
       })),
     [lovKildeToRegistreringshjemler]
   );
-
-  if (saksdata?.utfallId === UtfallEnum.TRUKKET) {
-    return null;
-  }
 
   if (!canEdit) {
     return (
