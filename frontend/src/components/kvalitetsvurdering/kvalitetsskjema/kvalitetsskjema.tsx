@@ -25,6 +25,8 @@ export const Kvalitetsskjema = () => {
     typeof saksdata === 'undefined' ||
     typeof kvalitetsvurdering === 'undefined' ||
     saksdata.utfallId === UtfallEnum.TRUKKET ||
+    saksdata.utfallId === UtfallEnum.RETUR ||
+    saksdata.utfallId === UtfallEnum.UGUNST ||
     isError
   ) {
     return null;
