@@ -23,7 +23,7 @@ const UserDropdown = () => {
   return (
     <Menu>
       <Dropdown.Menu.List>
-        <Dropdown.Menu.List.Item as={StyledLink} to="/logout">
+        <Dropdown.Menu.List.Item as={StyledLink} to="/oauth2/logout">
           <Logout />
           Logg ut
         </Dropdown.Menu.List.Item>
