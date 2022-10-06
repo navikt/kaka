@@ -13,6 +13,7 @@ setInterval(() => {
       if (expires_at <= timestamp) {
         return oboCache.delete(key);
       }
+
       return false;
     })
     .filter((d) => d).length;
@@ -21,6 +22,7 @@ setInterval(() => {
 
   if (deleted === 0) {
     log.debug({ msg: `Cleaned the OBO token cache. No expired tokens found. Cache had ${before} tokens.` });
+
     return;
   }
 
