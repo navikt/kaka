@@ -17,7 +17,7 @@ type SerializableValue =
   | undefined
   | undefined[];
 
-export interface AnyObject {
+interface AnyObject {
   [key: string]: SerializableValue;
 }
 
