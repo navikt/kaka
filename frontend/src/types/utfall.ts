@@ -9,6 +9,8 @@ export enum UtfallEnum {
   AVVIST = '8',
   INNSTILLING_STADFESTELSE = '9',
   INNSTILLING_AVVIST = '10',
+  HEVET = '11',
+  HENVIST = '12',
 }
 
 export const isUtfall = (s: string): s is UtfallEnum => Object.values(UtfallEnum).some((e) => e === s);

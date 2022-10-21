@@ -131,4 +131,6 @@ const COLOR_MAP: Record<UtfallEnum, string> = {
   [UtfallEnum.UGUNST]: '#8269A2',
   [UtfallEnum.INNSTILLING_STADFESTELSE]: '#005519',
   [UtfallEnum.INNSTILLING_AVVIST]: '#262626',
+  [UtfallEnum.HEVET]: '#7D4C00',
+  [UtfallEnum.HENVIST]: '##666E00',
 };
