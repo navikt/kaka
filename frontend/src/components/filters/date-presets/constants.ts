@@ -16,7 +16,7 @@ export const END_OF_LAST_MONTH = endOfMonth(LAST_MONTH);
 
 // Years
 export const START_OF_YEAR = startOfYear(NOW);
-export const ONE_YEAR_AGO = subYears(START_OF_YEAR, 1);
+export const ONE_YEAR_AGO = subYears(NOW, 1);
 export const LAST_YEAR_START = startOfYear(ONE_YEAR_AGO);
 export const LAST_YEAR_END = endOfYear(ONE_YEAR_AGO);
 
