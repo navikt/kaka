@@ -17,7 +17,7 @@ export const DateContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  align-items: end;
+  align-items: center;
   column-gap: 8px;
 `;
 

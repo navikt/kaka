@@ -1,5 +1,5 @@
 import { Button } from '@navikt/ds-react';
-import dayjs from 'dayjs';
+import { format } from 'date-fns';
 import React from 'react';
 import styled from 'styled-components';
 import { IOption } from './types';
@@ -10,7 +10,7 @@ interface Props {
   options: IOption[];
   queryFormat: string;
   prettyFormat: string;
-  setPreset: (fromDate: dayjs.Dayjs, toDate: dayjs.Dayjs) => void;
+  setPreset: (fromDate: Date, toDate: Date) => void;
 }
 
 export const DatePresets = ({
@@ -23,10 +23,10 @@ export const DatePresets = ({
 }: Props) => (
   <StyledPresetsList>
     {options.map(({ label, fromDate, toDate }) => {
-      const title = `${fromDate.format(prettyFormat)} - ${toDate.format(prettyFormat)}`;
+      const title = `${format(fromDate, prettyFormat)} - ${format(toDate, prettyFormat)}`;
 
-      const queryFromDate = fromDate.format(queryFormat);
-      const queryToDate = toDate.format(queryFormat);
+      const queryFromDate = format(fromDate, queryFormat);
+      const queryToDate = format(toDate, queryFormat);
 
       const isSelected = queryFromDate === selectedFromDate && queryToDate === selectedToDate;
 

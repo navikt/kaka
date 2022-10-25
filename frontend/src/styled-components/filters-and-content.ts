@@ -6,11 +6,11 @@ export const FiltersAndContentContainer = styled.div`
   width: 100%;
 `;
 
-const FILTER_WIDTH = 320;
+const FILTER_WIDTH = 350;
 
 export const FilterSection = styled.div`
   position: fixed;
-  left: ${2 * GAP - 4}px;
+  left: ${GAP - 4}px;
   top: 0;
   display: flex;
   flex-direction: column;

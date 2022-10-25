@@ -1,12 +1,13 @@
-import { Button } from '@navikt/ds-react';
+import { Button, Label } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
-import dayjs from 'dayjs';
+import { format, parse, subMonths } from 'date-fns';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { isNotNull } from '../../../functions/is-not';
 import { useYtelserForKlageenhet } from '../../../hooks/use-kodeverk-value';
 import { useUser } from '../../../simple-api-state/use-user';
+import { DatepickerWithValidation } from '../../date-picker/date-picker';
 import { DateContainer, FilterPanelContainer } from '../../filters/common/styled-components';
-import { DateFilter } from '../../filters/date';
 import {
   FORMAT,
   FORMATTED_NOW,
@@ -18,6 +19,7 @@ import {
   PRETTY_FORMAT,
   PRETTY_START_OF_MONTH,
   START_OF_MONTH,
+  START_OF_YEAR,
 } from '../../filters/date-presets/constants';
 import { DatePresets } from '../../filters/date-presets/date-presets';
 import { getLastTertial } from '../../filters/date-presets/get-last-tertial';
@@ -39,9 +41,9 @@ const datePresets: IOption[] = [
     toDate: NOW,
   },
   { label: 'Siste tertial', ...getLastTertial(NOW) },
-  { label: 'Nest siste tertial', ...getLastTertial(NOW.subtract(4, 'month')) },
+  { label: 'Nest siste tertial', ...getLastTertial(subMonths(NOW, 4)) },
   { label: 'Siste 12 mnd', fromDate: ONE_YEAR_AGO, toDate: NOW },
-  { label: 'I år', fromDate: NOW.startOf('year'), toDate: NOW },
+  { label: 'I år', fromDate: START_OF_YEAR, toDate: NOW },
   { label: 'I fjor', fromDate: LAST_YEAR_START, toDate: LAST_YEAR_END },
 ];
 
@@ -61,11 +63,13 @@ export const Filters = () => {
 
   const ytelser = useYtelserForKlageenhet(userData?.ansattEnhet.id ?? skipToken);
 
-  const setFilter = (filter: QueryParams, ...values: (string | number)[]) => {
-    if (values.length === 0) {
+  const setFilter = (filter: QueryParams, ...values: (string | number | null)[]) => {
+    const v = values.filter(isNotNull);
+
+    if (v.length === 0) {
       searchParams.delete(filter);
     } else {
-      searchParams.set(filter, values.join(','));
+      searchParams.set(filter, v.join(','));
     }
 
     setSearchParams(searchParams);
@@ -77,9 +81,9 @@ export const Filters = () => {
       [QueryParams.TO_DATE]: FORMATTED_NOW,
     });
 
-  const setPreset = (from: dayjs.Dayjs, to: dayjs.Dayjs) => {
-    setFilter(QueryParams.FROM_DATE, from.format(FORMAT));
-    setFilter(QueryParams.TO_DATE, to.format(FORMAT));
+  const setPreset = (from: Date, to: Date) => {
+    setFilter(QueryParams.FROM_DATE, format(from, FORMAT));
+    setFilter(QueryParams.TO_DATE, format(to, FORMAT));
   };
 
   return (
@@ -88,35 +92,43 @@ export const Filters = () => {
         Nullstill filter
       </Button>
 
-      <DateContainer>
-        <DateFilter
-          label="Fra og med"
-          date={fromDate}
-          maxDate={toDate}
-          onChange={(value) => setFilter(QueryParams.FROM_DATE, value)}
-        />
-        <ResetDateButton
-          date={FORMATTED_START_OF_MONTH}
-          selectedDate={fromDate}
-          onClick={(date) => setFilter(QueryParams.FROM_DATE, date)}
-          title={PRETTY_START_OF_MONTH}
-        />
-      </DateContainer>
+      <DatepickerWithValidation
+        label={
+          <DateContainer>
+            <Label as="span">Fra og med</Label>
+            <ResetDateButton
+              date={FORMATTED_START_OF_MONTH}
+              selectedDate={fromDate}
+              onClick={(date) => setFilter(QueryParams.FROM_DATE, date)}
+              title={PRETTY_START_OF_MONTH}
+            />
+          </DateContainer>
+        }
+        id="from-date"
+        onChange={(value) => setFilter(QueryParams.FROM_DATE, value)}
+        value={fromDate}
+        toDate={parse(toDate, FORMAT, new Date())}
+        size="small"
+      />
 
-      <DateContainer>
-        <DateFilter
-          label="Til og med"
-          date={toDate}
-          minDate={fromDate}
-          onChange={(value) => setFilter(QueryParams.TO_DATE, value)}
-        />
-        <ResetDateButton
-          date={FORMATTED_NOW}
-          selectedDate={toDate}
-          onClick={(date) => setFilter(QueryParams.TO_DATE, date)}
-          title="Nå"
-        />
-      </DateContainer>
+      <DatepickerWithValidation
+        label={
+          <DateContainer>
+            <Label as="span">Til og med</Label>
+            <ResetDateButton
+              date={FORMATTED_NOW}
+              selectedDate={toDate}
+              onClick={(date) => setFilter(QueryParams.TO_DATE, date)}
+              title="Nå"
+            />
+          </DateContainer>
+        }
+        id="to-date"
+        value={toDate}
+        fromDate={parse(fromDate, FORMAT, new Date())}
+        onChange={(value) => setFilter(QueryParams.TO_DATE, value)}
+        size="small"
+      />
 
       <DatePresets
         selectedFromDate={fromDate}

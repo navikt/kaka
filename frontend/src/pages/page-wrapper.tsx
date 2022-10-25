@@ -25,8 +25,8 @@ const StyledPageWrapper = styled.article`
 `;
 
 const StyledPagePadding = styled.div`
-  padding-left: ${2 * GAP}px;
-  padding-right: ${2 * GAP}px;
+  padding-left: ${GAP}px;
+  padding-right: ${GAP}px;
   flex-grow: 1;
   display: flex;
 `;

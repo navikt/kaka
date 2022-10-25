@@ -21,18 +21,10 @@ export const MottattKlageinstans = () => {
     <DatepickerWithValidation
       label="Mottatt klageinstans"
       disabled={!canEdit}
-      onChange={(mottattKlageinstans) => {
-        setMottattKlageinstans({ id, mottattKlageinstans });
-      }}
-      limitations={{
-        maxDate: new Date().toISOString(),
-      }}
-      value={saksdata.mottattKlageinstans ?? undefined}
-      locale="nb"
-      showYearSelector
+      onChange={(mottattKlageinstans) => setMottattKlageinstans({ id, mottattKlageinstans })}
+      toDate={new Date()}
+      value={saksdata.mottattKlageinstans}
       error={validationError}
-      data-testid="mottattKlageinstans"
-      inputName="mottattKlageinstans"
       id="mottattKlageinstans"
       size="medium"
     />

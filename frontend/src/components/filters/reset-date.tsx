@@ -16,8 +16,8 @@ export const ResetDateButton = ({ date, selectedDate, title, onClick }: Props) =
 
   return (
     <Button
-      variant="secondary"
-      size="small"
+      variant="tertiary"
+      size="xsmall"
       title={title}
       onClick={() => onClick(date)}
       icon={<Historic aria-hidden />}
