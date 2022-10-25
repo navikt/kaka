@@ -1,11 +1,10 @@
 import { Select } from '@navikt/ds-react';
-import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
 const MONTH_REGEX = new RegExp('^\\d{4}-\\d{2}$');
 
-const NOW = dayjs();
+const NOW = new Date();
 const FIRST_YEAR = 2021;
 
 const MONTHS = [
@@ -24,7 +23,7 @@ const MONTHS = [
 ];
 
 const getCurrentMonth = (): string => {
-  const currentMonth = NOW.month() + 1;
+  const currentMonth = NOW.getMonth() + 1;
 
   if (currentMonth < 10) {
     return `0${currentMonth}`;
@@ -33,7 +32,7 @@ const getCurrentMonth = (): string => {
   return `${currentMonth}`;
 };
 
-const CURRENT_YEAR = NOW.year();
+const CURRENT_YEAR = NOW.getFullYear();
 const CURRENT_MONTH = getCurrentMonth();
 
 const MAX_YEAR = CURRENT_MONTH === '01' ? CURRENT_YEAR - 1 : CURRENT_YEAR;

@@ -1,5 +1,5 @@
 import { Button, Select } from '@navikt/ds-react';
-import dayjs from 'dayjs';
+import { format } from 'date-fns';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
@@ -71,9 +71,9 @@ export const Filters = () => {
       `?${QueryParams.FROM_MONTH}=${FORMATTED_LAST_MONTH}&${QueryParams.TO_MONTH}=${FORMATTED_LAST_MONTH}`
     );
 
-  const setPreset = (fromDate: dayjs.Dayjs, toDate: dayjs.Dayjs) => {
-    setFilter(QueryParams.FROM_MONTH, fromDate.format(MONTH_FORMAT));
-    setFilter(QueryParams.TO_MONTH, toDate.format(MONTH_FORMAT));
+  const setPreset = (fromDate: Date, toDate: Date) => {
+    setFilter(QueryParams.FROM_MONTH, format(fromDate, MONTH_FORMAT));
+    setFilter(QueryParams.TO_MONTH, format(toDate, MONTH_FORMAT));
   };
 
   return (

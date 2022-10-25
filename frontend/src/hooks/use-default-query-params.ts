@@ -1,3 +1,4 @@
+import { format, subMonths } from 'date-fns';
 import { useMemo } from 'react';
 import {
   FORMATTED_NOW,
@@ -47,8 +48,7 @@ export const useDefaultQueryTotal = () => {
 
 export const useDefaultQueryLeder = () =>
   useMemo(() => {
-    const fromMonth = NOW.subtract(1, 'month').format(MONTH_FORMAT);
-    const toMonth = NOW.subtract(1, 'month').format(MONTH_FORMAT);
+    const prevMonth = format(subMonths(NOW, 1), MONTH_FORMAT);
 
-    return `${QueryParams.FROM_MONTH}=${fromMonth}&${QueryParams.TO_MONTH}=${toMonth}`;
+    return `${QueryParams.FROM_MONTH}=${prevMonth}&${QueryParams.TO_MONTH}=${prevMonth}`;
   }, []);

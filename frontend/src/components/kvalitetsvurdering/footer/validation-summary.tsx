@@ -31,7 +31,7 @@ const Section = ({ properties, section }: IValidationSection) => (
     <SectionTitle>{useSectionTitle(section)}</SectionTitle>
     <StyledFieldList>
       {properties.map((p) => (
-        <Field key={p.field} {...p} />
+        <Field key={`${p.field}-${p.reason}`} {...p} />
       ))}
     </StyledFieldList>
   </StyledSection>

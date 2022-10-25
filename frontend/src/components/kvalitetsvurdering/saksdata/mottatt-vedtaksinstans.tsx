@@ -32,18 +32,10 @@ export const MottattVedtaksinstans = () => {
         </StyledLabel>
       }
       disabled={!canEdit}
-      onChange={(mottattVedtaksinstans) => {
-        setMottattVedtaksinstans({ id, mottattVedtaksinstans });
-      }}
-      limitations={{
-        maxDate: new Date().toISOString(),
-      }}
-      value={saksdata.mottattVedtaksinstans ?? undefined}
-      locale="nb"
-      showYearSelector
+      onChange={(mottattVedtaksinstans) => setMottattVedtaksinstans({ id, mottattVedtaksinstans })}
+      value={saksdata.mottattVedtaksinstans}
+      toDate={new Date()}
       error={validationError}
-      data-testid="mottattVedtaksinstans"
-      inputName="mottattVedtaksinstans"
       id="mottattVedtaksinstans"
       size="medium"
     />
