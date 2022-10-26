@@ -17,7 +17,7 @@ export const formatId = (id: string | null): string | null => {
 };
 
 const formatOrgNum = (n: string): string => {
-  const [a, b, c, d, e, f, g, h, i] = n;
+  const [a = '', b = '', c = '', d = '', e = '', f = '', g = '', h = '', i = ''] = n;
 
   return `${a}${b}${c} ${d}${e}${f} ${g}${h}${i}`;
 };
@@ -27,7 +27,7 @@ const formatFnr = (n: string | undefined): string | null => {
     return null;
   }
 
-  const [a, b, c, d, e, f, g, h, i, j, k] = n;
+  const [a = '', b = '', c = '', d = '', e = '', f = '', g = '', h = '', i = '', j = '', k = ''] = n;
 
   return `${a}${b}${c}${d}${e}${f} ${g}${h}${i}${j}${k}`;
 };

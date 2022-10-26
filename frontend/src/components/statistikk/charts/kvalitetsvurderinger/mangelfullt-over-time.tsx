@@ -76,9 +76,20 @@ export const MangelfulltOverTime = ({ stats }: StatisticsProps) => {
   const mangelfulleSaker = useMangelfulleSaker(stats, field, relevantReasons);
   const mangelfulleSakerArray = useMemo(() => Array.from(mangelfulleSaker.values()), [mangelfulleSaker]);
 
-  const tooltipCallback: TooltipCallback = ({ parsed, dataIndex, datasetIndex }) => {
+  const tooltipCallback: TooltipCallback = ({ parsed, dataIndex, datasetIndex, label }) => {
     const data = mangelfulleSakerArray[dataIndex];
-    const [reasonId, { quantity }] = Array.from(data.entries())[datasetIndex];
+
+    if (typeof data === 'undefined') {
+      return `${label}: ${parsed.y}%`;
+    }
+
+    const dataSet = Array.from(data.entries())[datasetIndex];
+
+    if (typeof dataSet === 'undefined') {
+      return `${label}: ${parsed.y}%`;
+    }
+
+    const [reasonId, { quantity }] = dataSet;
     const reasonName = getReasonLabel(reasonId);
 
     return `${reasonName}: ${Math.round(parsed.y * 100) / 100} % (${quantity})`;

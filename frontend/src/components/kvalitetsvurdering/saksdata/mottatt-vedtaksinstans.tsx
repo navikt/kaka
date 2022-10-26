@@ -8,6 +8,7 @@ import { useValidationError } from '../../../hooks/use-validation-error';
 import { useSetMottattVedtaksinstansMutation } from '../../../redux-api/saksdata';
 import { SakstypeEnum } from '../../../types/sakstype';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
+import { CENTURY_NUMBER } from '../../filters/date-presets/constants';
 
 export const MottattVedtaksinstans = () => {
   const id = useSaksdataId();
@@ -38,6 +39,7 @@ export const MottattVedtaksinstans = () => {
       error={validationError}
       id="mottattVedtaksinstans"
       size="medium"
+      centuryThreshold={CENTURY_NUMBER}
     />
   );
 };
