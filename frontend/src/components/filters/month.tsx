@@ -41,6 +41,8 @@ const MAX_MONTH = MAX_YEAR !== CURRENT_YEAR ? '12' : CURRENT_MONTH;
 const generateYears = (fromYear: number, toYear: number) =>
   Array.from({ length: toYear - fromYear + 1 }, (_, index) => toYear - index);
 
+const isYearAndMonth = (value: string[]): value is [string, string] => value.length === 2;
+
 const YEARS = generateYears(FIRST_YEAR, MAX_YEAR);
 
 interface Props {
@@ -50,9 +52,13 @@ interface Props {
 }
 
 export const MonthFilter = ({ label, value, onChange }: Props) => {
-  const [selectedYear, selectedMonth] = useMemo(() => {
+  const [selectedYear, selectedMonth] = useMemo<[string, string]>(() => {
     if (value !== null && value.length !== 0 && MONTH_REGEX.test(value)) {
-      return value.split('-');
+      const yearAndMonth = value.split('-');
+
+      if (isYearAndMonth(yearAndMonth)) {
+        return yearAndMonth;
+      }
     }
 
     return [MAX_YEAR.toString(), MAX_MONTH];

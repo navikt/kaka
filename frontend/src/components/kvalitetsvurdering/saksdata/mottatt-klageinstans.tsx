@@ -5,6 +5,7 @@ import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useSetMottattKlageinstansMutation } from '../../../redux-api/saksdata';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
+import { CENTURY_NUMBER } from '../../filters/date-presets/constants';
 
 export const MottattKlageinstans = () => {
   const id = useSaksdataId();
@@ -27,6 +28,7 @@ export const MottattKlageinstans = () => {
       error={validationError}
       id="mottattKlageinstans"
       size="medium"
+      centuryThreshold={CENTURY_NUMBER}
     />
   );
 };

@@ -27,8 +27,8 @@ export const isoDateTimeToPretty = (isoDateTime: ISODateTime | null): prettyDate
   return `${prettyDate} ${prettyTime}`;
 };
 
-export const isoDateTimeToPrettyDate = (isoDateTime: ISODateTime | null): prettyDateTime | null => {
-  if (isoDateTime === null || !isoDateTimeRegex.test(isoDateTime)) {
+export const isoDateTimeToPrettyDate = (isoDateTime: ISODateTime | null | undefined): prettyDateTime | null => {
+  if (isoDateTime === null || typeof isoDateTime === 'undefined' || !isoDateTimeRegex.test(isoDateTime)) {
     return null;
   }
 
@@ -38,17 +38,17 @@ export const isoDateTimeToPrettyDate = (isoDateTime: ISODateTime | null): pretty
 };
 
 // eslint-disable-next-line import/no-unused-modules
-export const isoTimeToPretty = (isoTime: ISOTime | null): prettyTime | null => {
-  if (isoTime === null || !isoTimeRegex.test(isoTime)) {
+export const isoTimeToPretty = (isoTime: ISOTime | null | undefined): prettyTime | null => {
+  if (isoTime === null || typeof isoTime === 'undefined' || !isoTimeRegex.test(isoTime)) {
     return null;
   }
 
-  return isoTime.split('.')[0];
+  return isoTime.split('.')[0] ?? null;
 };
 
 // eslint-disable-next-line import/no-unused-modules
-export const isoDateToPretty = (isoDate: ISODate | null): prettyDate | null => {
-  if (isoDate === null || !isoDateRegex.test(isoDate)) {
+export const isoDateToPretty = (isoDate: ISODate | null | undefined): prettyDate | null => {
+  if (isoDate === null || typeof isoDate === 'undefined' || !isoDateRegex.test(isoDate)) {
     return null;
   }
 
