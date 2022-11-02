@@ -1,6 +1,6 @@
 import React from 'react';
+import { useRegistreringshjemlerMap } from '../../../simple-api-state/use-kodeverk';
 import { QueryParams } from '../../filters/filter-query-params';
-import { useHjemmelTexts } from '../hooks/use-hjemmel-texts';
 import { useQueryFilters } from '../hooks/use-query-filter';
 import { Pill } from './pills';
 
@@ -9,11 +9,17 @@ interface FilteredHjemlerPillsProps {
 }
 
 export const FilteredHjemlerPills = ({ setFilter }: FilteredHjemlerPillsProps) => {
-  const hjemler = useHjemmelTexts([]);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
+  const { data: hjemler } = useRegistreringshjemlerMap();
+
+  if (selectedHjemler.length === 0 || typeof hjemler === 'undefined') {
+    return null;
+  }
 
   const pills = selectedHjemler.map((hjemmelId) => {
-    const label = hjemler.find(({ id }) => id === hjemmelId)?.label ?? hjemmelId;
+    const hjemmel = hjemler[hjemmelId];
+
+    const label = typeof hjemmel === 'undefined' ? hjemmelId : `${hjemmel.lovkilde.beskrivelse} ${hjemmel.hjemmelnavn}`;
 
     return (
       <Pill

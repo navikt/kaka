@@ -1,33 +1,25 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { useOnClickOutside } from '../../hooks/use-on-click-outside';
-import { IYtelse } from '../../types/kodeverk';
+import { useLovkildeToRegistreringshjemler } from '../../simple-api-state/use-kodeverk';
 import { GroupedDropdown, OptionGroup } from '../dropdown/grouped-dropdown';
 import { formatMetadata } from './common/dropdown';
 import { Container, StyledDropdownButton } from './common/styled-components';
-import { useMergedLovKildeToRegistreringshjemler } from './hooks/use-merged-lovkilde-to-registreringshjemler';
 
 interface Props {
   selected: string[];
   setSelected: (hjemmelIds: string[]) => void;
-  ytelser: IYtelse[];
 }
 
-export const HjemmelFilter = ({ selected, setSelected, ytelser }: Props) => {
-  const lovKildeToRegistreringshjemler = useMergedLovKildeToRegistreringshjemler(ytelser);
+export const HjemmelFilter = ({ selected, setSelected }: Props) => {
+  const { data = [] } = useLovkildeToRegistreringshjemler();
 
   const options = useMemo<OptionGroup[]>(
     () =>
-      lovKildeToRegistreringshjemler.map(({ lovkilde, registreringshjemler }) => ({
-        sectionHeader: {
-          id: lovkilde.id,
-          name: lovkilde.navn,
-        },
-        sectionOptions: registreringshjemler.map(({ id, label }) => ({
-          value: id,
-          label,
-        })),
+      data.map(({ id, navn, registreringshjemler }) => ({
+        sectionHeader: { id, name: navn },
+        sectionOptions: registreringshjemler.map((h) => ({ value: h.id, label: h.navn })),
       })),
-    [lovKildeToRegistreringshjemler]
+    [data]
   );
 
   return <HjemmelSelect options={options} selected={selected} onChange={setSelected} metadata={selected.length} />;
