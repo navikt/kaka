@@ -146,11 +146,7 @@ export const Filters = () => {
         setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)}
         ytelser={ytelser}
       />
-      <HjemmelFilter
-        selected={selectedHjemler}
-        setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)}
-        ytelser={ytelser}
-      />
+      <HjemmelFilter selected={selectedHjemler} setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)} />
 
       <PillContainer>
         <SelectedFilters
