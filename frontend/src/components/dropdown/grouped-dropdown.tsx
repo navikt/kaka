@@ -52,14 +52,14 @@ const ShowGroupedDropdown = ({
   const onHeaderChange = useCallback(
     (filteredOptions: Option[]) =>
       setFilteredGroups(
-        filteredGroups
+        options
           .map(({ sectionOptions, ...rest }) => ({
             ...rest,
             sectionOptions: sectionOptions.filter((o) => filteredOptions.includes(o)),
           }))
           .filter(({ sectionOptions }) => sectionOptions.length !== 0)
       ),
-    [filteredGroups]
+    [options]
   );
 
   const reset = () => onChange(null, false);
