@@ -16,7 +16,7 @@ export const TilbakekrevingFilter = ({ selected, setSelected }: Props) => (
       }
     }}
     value={selected}
-    defaultValue={TilbakekrevingEnum.EXCLUDE}
+    defaultValue={TilbakekrevingEnum.INCLUDE}
     size="small"
     label={<ToggleGroupLabel />}
   >
