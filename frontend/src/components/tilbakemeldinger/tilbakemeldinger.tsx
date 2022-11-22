@@ -9,7 +9,6 @@ import { Kvalitetsvurderinger } from '../statistikk/charts/kvalitetsvurderinger/
 import { UtfallGraph } from '../statistikk/charts/utfall-graph';
 import { Finished } from '../statistikk/key-stats/finished';
 import { Omgjort } from '../statistikk/key-stats/omgjort';
-import { StyledCharts } from '../statistikk/styled-components';
 import { ToggleKvalitetsvurdering } from '../statistikk/toggle-kvalitetsvurdering';
 import { Filters } from './filters';
 import { useFilteredSaksdata, useSaksdataIsLoading } from './hooks/use-filtered-saksdata';
@@ -39,9 +38,7 @@ export const Tilbakemeldinger = () => {
           <DynamicCard size={CardSize.LARGE}>
             <CardTitle>Kvalitetsvurderinger</CardTitle>
             <ToggleKvalitetsvurdering />
-            <StyledCharts>
-              <Kvalitetsvurderinger stats={stats} />
-            </StyledCharts>
+            <Kvalitetsvurderinger stats={stats} />
           </DynamicCard>
 
           <DynamicCard size={CardSize.LARGE}>
@@ -50,16 +47,12 @@ export const Tilbakemeldinger = () => {
 
           <DynamicCard size={CardSize.MEDIUM}>
             <CardTitle>Utfall</CardTitle>
-            <StyledCharts>
-              <UtfallGraph stats={stats} />
-            </StyledCharts>
+            <UtfallGraph stats={stats} />
           </DynamicCard>
 
           <DynamicCard size={CardSize.MEDIUM}>
             <CardTitle>Hjemler</CardTitle>
-            <StyledCharts>
-              <Hjemler stats={stats} />
-            </StyledCharts>
+            <Hjemler stats={stats} />
           </DynamicCard>
         </ContentArea>
       </FiltersAndContentContainer>

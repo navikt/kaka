@@ -19,7 +19,7 @@ export const HelpTexts = ({ relevantReasons }: Props) => {
   const hasHelpTexts = relevantReasonHelpTexts.length !== 0;
 
   return (
-    <>
+    <div>
       <ToggleButton
         onClick={() => setIsOpen(!isOpen)}
         disabled={!hasHelpTexts}
@@ -30,7 +30,7 @@ export const HelpTexts = ({ relevantReasons }: Props) => {
         {getButtonPrefix(isOpen, hasHelpTexts)} hjelpetekster
       </ToggleButton>
       <ShowHelpTexts isOpen={isOpen} relevantReasons={relevantReasonHelpTexts} />
-    </>
+    </div>
   );
 };
 

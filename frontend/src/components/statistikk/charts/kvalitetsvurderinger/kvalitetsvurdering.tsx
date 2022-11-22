@@ -8,7 +8,7 @@ import { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/reasons
 import { StatisticsProps } from '../../types';
 import { GRAPH_COLOR } from '../colors';
 import { percent, tickCallback } from '../formatting';
-import { ChartContainer, ChartTitle, QuarterChartContainer, ThreeQuarterChartContainer } from '../styled-components';
+import { ChartContainer, ChartTitle } from '../styled-components';
 import { HelpTexts } from './help-texts';
 import { MangelfulltOverTime } from './mangelfullt-over-time';
 
@@ -132,7 +132,7 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: Kva
   return (
     <Container>
       <CategoryContainer>
-        <QuarterChartContainer>
+        <ChartContainer columns={1}>
           <ChartTitle>{title}</ChartTitle>
           <Doughnut
             options={doughnutOptions}
@@ -148,16 +148,18 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: Kva
               ],
             }}
           />
-        </QuarterChartContainer>
-        <ThreeQuarterChartContainer>
+        </ChartContainer>
+
+        <ChartContainer columns={3}>
           <ChartTitle>Kvalitetsavviket i {title.toLowerCase()}</ChartTitle>
           <KvalitetsavvikChart
             barLabels={barLabels}
             barData={barData}
             numberOfMangelfulleSaker={numberOfMangelfulleSaker}
           />
-        </ThreeQuarterChartContainer>
+        </ChartContainer>
       </CategoryContainer>
+
       <ChartContainer>
         <ChartTitle>Kvalitetsavviket i {title.toLowerCase()} per måned</ChartTitle>
         <MangelfulltOverTime stats={stats} />
@@ -211,6 +213,9 @@ const TextChart = styled.span`
 `;
 
 const Container = styled.section`
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
   width: 100%;
 `;
 

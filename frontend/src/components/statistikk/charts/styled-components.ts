@@ -1,25 +1,12 @@
 import styled from 'styled-components';
 
-const Container = styled.div`
+interface ChartContainerProps {
+  columns?: 1 | 2 | 3 | 4;
+}
+
+export const ChartContainer = styled.div<ChartContainerProps>`
   position: relative;
-  padding: 16px;
-`;
-
-export const ChartContainer = styled(Container)`
-  width: 100%;
-`;
-
-export const QuarterChartContainer = styled(Container)`
-  width: 25%;
-`;
-
-export const ThreeQuarterChartContainer = styled(Container)`
-  width: 75%;
-`;
-
-// eslint-disable-next-line import/no-unused-modules
-export const HalfChartContainer = styled(Container)`
-  width: 50%;
+  width: ${({ columns = 4 }) => columns * 25}%;
 `;
 
 export const ChartTitle = styled.h2`
