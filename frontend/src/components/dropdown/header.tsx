@@ -16,6 +16,12 @@ interface HeaderProps<T extends Option> {
 export const Header = <T extends Option>({ options, onChange, close, onReset }: HeaderProps<T>): JSX.Element | null => {
   const onInputChange = useCallback(
     (search: string) => {
+      if (search.length === 0) {
+        onChange(options);
+
+        return;
+      }
+
       const cleanFilter = removeRegExpTokens(search);
       const pattern = cleanFilter.split('').join('.*');
       const escapedPattern = escapeRegExp(pattern);

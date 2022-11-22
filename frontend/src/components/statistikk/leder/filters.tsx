@@ -20,13 +20,19 @@ import { getLastTertial } from '../../filters/date-presets/get-last-tertial';
 import { IOption } from '../../filters/date-presets/types';
 import { QueryParams } from '../../filters/filter-query-params';
 import { HjemmelFilter } from '../../filters/hjemler';
-import { useFromMonthQueryFilter, useQueryFilters, useToMonthQueryFilter } from '../../filters/hooks/use-query-filter';
+import {
+  useFromMonthQueryFilter,
+  useQueryFilters,
+  useTilbakekrevingQueryFilter,
+  useToMonthQueryFilter,
+} from '../../filters/hooks/use-query-filter';
 import { MonthFilter } from '../../filters/month';
 import { FilteredHjemlerPills } from '../../filters/pills/hjemler';
 import { PillContainer, SelectedFilters } from '../../filters/pills/pills';
 import { FilteredSaksbehandlerPills } from '../../filters/pills/saksbehandler';
 import { SaksbehandlerFilter } from '../../filters/saksbehandler';
 import { SakstypeFilter } from '../../filters/sakstyper';
+import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
 import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
 
@@ -49,6 +55,7 @@ export const Filters = () => {
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedSaksbehandlere = useQueryFilters(QueryParams.SAKSBEHANDLERE);
+  const selectedTilbakekreving = useTilbakekrevingQueryFilter();
 
   // Dates
   const fromMonth = useFromMonthQueryFilter(FORMATTED_START_OF_LAST_MONTH);
@@ -92,6 +99,11 @@ export const Filters = () => {
         setPreset={setPreset}
         queryFormat={MONTH_FORMAT}
         prettyFormat={PRETTY_FORMAT}
+      />
+
+      <TilbakekrevingFilter
+        selected={selectedTilbakekreving}
+        setSelected={(value) => setFilter(QueryParams.TILBAKEKREVING, value)}
       />
 
       <Select disabled aria-readonly label="Enhet" hideLabel size="small">

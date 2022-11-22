@@ -33,7 +33,7 @@ export const CardExtraSmall = styled(Card)`
 
 const StickyContainer = styled.div`
   position: sticky;
-  top: 106px;
+  top: 75px;
   z-index: 3;
 `;
 

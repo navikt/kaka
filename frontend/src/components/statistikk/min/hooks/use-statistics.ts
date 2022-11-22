@@ -5,7 +5,13 @@ import { useUser } from '../../../../simple-api-state/use-user';
 import { IFullStatisticVurdering, IStatisticsQuery } from '../../../../types/statistics';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
-import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../../filters/hooks/use-query-filter';
+import {
+  useFromDateQueryFilter,
+  useQueryFilters,
+  useTilbakekrevingQueryFilter,
+  useToDateQueryFilter,
+} from '../../../filters/hooks/use-query-filter';
+import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
 
 const useStatistics = () => {
   const { data: userData } = useUser();
@@ -32,16 +38,18 @@ export const useFilteredMyStatistics = () => {
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
+  const tilbakekreving = useTilbakekrevingQueryFilter();
 
   return useMemo(
     () =>
       data.filter(
         ({ ytelseId, sakstypeId, utfallId, hjemmelIdList }) =>
+          tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
           (utfall.length === 0 || utfall.includes(utfallId)) &&
           (types.length === 0 || types.includes(sakstypeId)) &&
           (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
           (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id)))
       ),
-    [data, types, ytelser, utfall, hjemler]
+    [data, tilbakekreving, utfall, types, ytelser, hjemler]
   );
 };

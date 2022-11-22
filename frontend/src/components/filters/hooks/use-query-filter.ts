@@ -1,5 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { QueryParams } from '../../filters/filter-query-params';
+import { TilbakekrevingEnum } from '../types';
 
 const useQueryFilter = (filter: QueryParams): string | null => {
   const [searchParams] = useSearchParams();
@@ -50,3 +51,20 @@ export const useToMonthQueryFilter = (defaultDate: string): string => {
 
   return queryValue;
 };
+
+export const useTilbakekrevingQueryFilter = (): TilbakekrevingEnum | undefined => {
+  const queryValue = useQueryFilter(QueryParams.TILBAKEKREVING);
+
+  if (queryValue === null || queryValue.length === 0) {
+    return undefined;
+  }
+
+  if (!isTilbakekrevingEnum(queryValue)) {
+    return undefined;
+  }
+
+  return queryValue;
+};
+
+const isTilbakekrevingEnum = (value: string): value is TilbakekrevingEnum =>
+  Object.values(TilbakekrevingEnum).includes(value as TilbakekrevingEnum);
