@@ -38,7 +38,6 @@ const useOptions = (): ChartOptions<'bar'> => ({
       beginAtZero: true,
       bounds: 'ticks',
       grid: {
-        drawBorder: false,
         display: false,
       },
     },
@@ -58,7 +57,6 @@ const useOptions = (): ChartOptions<'bar'> => ({
         },
       },
       grid: {
-        drawBorder: false,
         display: false,
       },
       stacked: true,

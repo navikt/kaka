@@ -59,7 +59,6 @@ const useBarOptions = (labels: string[], data: number[], total = 1): ChartOption
       bounds: 'ticks',
       min: 0,
       grid: {
-        drawBorder: false,
         display: false,
       },
     },
@@ -73,7 +72,6 @@ const useBarOptions = (labels: string[], data: number[], total = 1): ChartOption
         },
       },
       grid: {
-        drawBorder: false,
         display: false,
       },
       stacked: true,
