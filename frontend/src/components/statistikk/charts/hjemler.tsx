@@ -33,7 +33,6 @@ const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'bar'> => (
       bounds: 'ticks',
       min: 0,
       grid: {
-        drawBorder: false,
         display: false,
       },
     },
@@ -46,7 +45,6 @@ const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'bar'> => (
         },
       },
       grid: {
-        drawBorder: false,
         display: false,
       },
     },
