@@ -6,7 +6,6 @@ import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
 import { UtfallEnum } from '../../../types/utfall';
 import { StatisticsProps } from '../types';
 import { percent, tickCallback } from './formatting';
-import { ChartContainer } from './styled-components';
 
 const useOptions = (total = 1): ChartOptions<'bar'> => ({
   elements: {
@@ -98,23 +97,21 @@ export const UtfallGraph = ({ stats: allStats }: StatisticsProps) => {
   const options = useOptions(allStats?.length);
 
   return (
-    <ChartContainer>
-      <Bar
-        options={options}
-        data={{
-          labels,
-          datasets: [
-            {
-              label: 'Utfall',
-              data: values,
-              backgroundColor,
-              barPercentage: 0.95,
-              categoryPercentage: 0.95,
-            },
-          ],
-        }}
-      />
-    </ChartContainer>
+    <Bar
+      options={options}
+      data={{
+        labels,
+        datasets: [
+          {
+            label: 'Utfall',
+            data: values,
+            backgroundColor,
+            barPercentage: 0.95,
+            categoryPercentage: 0.95,
+          },
+        ],
+      }}
+    />
   );
 };
 

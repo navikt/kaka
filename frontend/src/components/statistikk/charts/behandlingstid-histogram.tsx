@@ -5,7 +5,6 @@ import { useBehandlingstidField } from '../hooks/use-behandlingstid-param';
 import { useBuckets } from '../hooks/use-buckets';
 import { StatisticsProps } from '../types';
 import { GRAPH_COLOR } from './colors';
-import { ChartContainer } from './styled-components';
 
 const useOptions = (): ChartOptions<'bar'> => ({
   responsive: true,
@@ -108,20 +107,12 @@ export const BehandlingstidHistogram = ({ stats }: StatisticsProps) => {
   const options = useOptions();
 
   return (
-    <ChartContainer>
-      <Bar
-        options={options}
-        data={{
-          labels,
-          datasets: [
-            {
-              data,
-              barPercentage: 0.95,
-              categoryPercentage: 0.95,
-            },
-          ],
-        }}
-      />
-    </ChartContainer>
+    <Bar
+      options={options}
+      data={{
+        labels,
+        datasets: [{ data, barPercentage: 0.95, categoryPercentage: 0.95 }],
+      }}
+    />
   );
 };

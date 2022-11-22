@@ -8,6 +8,9 @@ const BaseCard = styled.section`
 `;
 
 const Card = styled(BaseCard)`
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
   width: 100%;
   flex-grow: 0;
 `;
@@ -57,13 +60,8 @@ export const StatsContainer = styled(BaseCard)`
 
 export const CardTitle = styled.h1`
   background-color: #fff;
-  padding-top: 0;
-  padding-left: 0;
-  padding-right: 8px;
-  padding-bottom: 8px;
-  border-radius: 4px;
-  margin-top: 0;
-  margin-bottom: 16px;
+  padding: 0;
+  margin: 0;
   z-index: 2;
   font-size: 32px;
   line-height: 1;

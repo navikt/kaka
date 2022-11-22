@@ -3,11 +3,11 @@ import React, { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
 import { CardTitle } from '../../../styled-components/cards';
 import { CardSize, DynamicCard } from '../card/card';
-import { StyledCharts } from '../styled-components';
 import { StatisticsProps } from '../types';
 
 const useOptions = (): ChartOptions<'line'> => ({
   responsive: true,
+  aspectRatio: 3,
   scales: {
     y: {
       title: {
@@ -149,9 +149,7 @@ export const BehandlingstidOverTime = ({ stats: allStats }: StatisticsProps) => 
   return (
     <DynamicCard size={size}>
       <CardTitle>Behandlingstid</CardTitle>
-      <StyledCharts>
-        <Line options={options} data={data} />
-      </StyledCharts>
+      <Line options={options} data={data} />
     </DynamicCard>
   );
 };

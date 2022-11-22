@@ -24,7 +24,6 @@ import { Gjennomsnittstid } from '../key-stats/average-time';
 import { Finished } from '../key-stats/finished';
 import { Omgjort } from '../key-stats/omgjort';
 import { Processed } from '../key-stats/processed';
-import { StyledCharts } from '../styled-components';
 import { ToggleTotalOrKA } from '../toggle-ka-total';
 import { ToggleKvalitetsvurdering } from '../toggle-kvalitetsvurdering';
 import { Filters } from './filters';
@@ -56,31 +55,23 @@ export const MinStatistikk = () => {
           <DynamicCard size={CardSize.LARGE}>
             <CardTitle>Kvalitetsvurderinger</CardTitle>
             <ToggleKvalitetsvurdering />
-            <StyledCharts>
-              <Kvalitetsvurderinger stats={stats} />
-            </StyledCharts>
+            <Kvalitetsvurderinger stats={stats} />
           </DynamicCard>
 
           <DynamicCard size={CardSize.MEDIUM}>
             <CardTitle>Utfall</CardTitle>
-            <StyledCharts>
-              <UtfallGraph stats={stats} />
-            </StyledCharts>
+            <UtfallGraph stats={stats} />
           </DynamicCard>
 
           <DynamicCard size={CardSize.MEDIUM}>
             <CardTitle>Hjemler</CardTitle>
-            <StyledCharts>
-              <Hjemler stats={stats} />
-            </StyledCharts>
+            <Hjemler stats={stats} />
           </DynamicCard>
 
           <DynamicCard size={CardSize.LARGE}>
             <CardTitle>Behandlingstid</CardTitle>
             <ToggleTotalOrKA />
-            <StyledCharts>
-              <BehandlingstidHistogram stats={stats} />
-            </StyledCharts>
+            <BehandlingstidHistogram stats={stats} />
           </DynamicCard>
 
           <BehandlingstidOverTime stats={stats} />
