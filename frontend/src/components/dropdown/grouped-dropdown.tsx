@@ -77,7 +77,7 @@ const ShowGroupedDropdown = ({
           <CheckboxGroup key={sectionHeader.id} legend={sectionHeader.name} value={selected}>
             {sectionOptions.map(({ value, label }) => (
               <Checkbox
-                key={value}
+                key={`${sectionHeader.id}-${value}`}
                 size="small"
                 value={value}
                 onChange={(event) => onChange(value, event.target.checked)}

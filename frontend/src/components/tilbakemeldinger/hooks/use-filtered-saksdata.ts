@@ -4,7 +4,13 @@ import { useUser } from '../../../simple-api-state/use-user';
 import { ISaksdatalisteLederVedtaksinstansParams } from '../../../types/saksdata';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../filters/date-presets/constants';
 import { QueryParams } from '../../filters/filter-query-params';
-import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../filters/hooks/use-query-filter';
+import {
+  useFromDateQueryFilter,
+  useQueryFilters,
+  useTilbakekrevingQueryFilter,
+  useToDateQueryFilter,
+} from '../../filters/hooks/use-query-filter';
+import { tilbakekrevingFilter } from '../../statistikk/filters/tilbakekreving';
 
 const useSaksdata = () => {
   const { data: userData } = useUser();
@@ -30,10 +36,12 @@ export const useFilteredSaksdata = () => {
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
+  const tilbakekreving = useTilbakekrevingQueryFilter();
 
   const filtered =
     data?.searchHits.filter(
       ({ ytelseId, utfallId, hjemmelIdList }) =>
+        tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
         (ytelser.length === 0 || ytelser.includes(ytelseId)) &&
         (utfall.length === 0 || utfall.includes(utfallId)) &&
         (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id)))

@@ -16,4 +16,5 @@ export enum QueryParams {
   MANGELFULLT = 'mangelfullt',
   KOMMENTARER = 'kommentarer',
   VEDTAKSINSTANSGRUPPER = 'vedtaksinstansgrupper',
+  TILBAKEKREVING = 'tilbakekreving',
 }

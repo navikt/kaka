@@ -28,7 +28,12 @@ import { getLastTertial } from '../filters/date-presets/get-last-tertial';
 import { IOption } from '../filters/date-presets/types';
 import { QueryParams } from '../filters/filter-query-params';
 import { HjemmelFilter } from '../filters/hjemler';
-import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../filters/hooks/use-query-filter';
+import {
+  useFromDateQueryFilter,
+  useQueryFilters,
+  useTilbakekrevingQueryFilter,
+  useToDateQueryFilter,
+} from '../filters/hooks/use-query-filter';
 import { KommentarerFilter } from '../filters/kommentarer';
 import { MangelfulltFilter } from '../filters/mangelfullt';
 import { FilteredHjemlerPills } from '../filters/pills/hjemler';
@@ -36,6 +41,7 @@ import { SelectedKommentarer } from '../filters/pills/kommentarer';
 import { SelectedMangelfullt } from '../filters/pills/mangelfullt';
 import { PillContainer, SelectedFilters } from '../filters/pills/pills';
 import { ResetDateButton } from '../filters/reset-date';
+import { TilbakekrevingFilter } from '../filters/tilbakekreving';
 import { UtfallFilter } from '../filters/utfall';
 import { YtelseFilter } from '../filters/ytelser';
 
@@ -61,6 +67,7 @@ export const Filters = () => {
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedMangelfullt = useQueryFilters(QueryParams.MANGELFULLT);
   const selectedKommentarer = useQueryFilters(QueryParams.KOMMENTARER);
+  const selectedTilbakekreving = useTilbakekrevingQueryFilter();
 
   // Dates
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
@@ -158,6 +165,11 @@ export const Filters = () => {
         setPreset={setPreset}
         queryFormat={FORMAT}
         prettyFormat={PRETTY_FORMAT}
+      />
+
+      <TilbakekrevingFilter
+        selected={selectedTilbakekreving}
+        setSelected={(value) => setFilter(QueryParams.TILBAKEKREVING, value)}
       />
 
       <Select disabled size="small" label="">

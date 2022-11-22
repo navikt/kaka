@@ -26,7 +26,12 @@ import { getLastTertial } from '../../filters/date-presets/get-last-tertial';
 import { IOption } from '../../filters/date-presets/types';
 import { QueryParams } from '../../filters/filter-query-params';
 import { HjemmelFilter } from '../../filters/hjemler';
-import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../filters/hooks/use-query-filter';
+import {
+  useFromDateQueryFilter,
+  useQueryFilters,
+  useTilbakekrevingQueryFilter,
+  useToDateQueryFilter,
+} from '../../filters/hooks/use-query-filter';
 import { KlageenheterFilter } from '../../filters/klageenheter';
 import { SelectedEnheterFilters, SelectedKlageenheterFilters } from '../../filters/pills/enhet';
 import { FilteredHjemlerPills } from '../../filters/pills/hjemler';
@@ -34,6 +39,7 @@ import { PillContainer, SelectedFilters } from '../../filters/pills/pills';
 import { VedtaksinstansgrupperPills } from '../../filters/pills/vedtaksinstansgrupper';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
+import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
 import { UtfallFilter } from '../../filters/utfall';
 import { VedtaksenheterFilter } from '../../filters/vedtaksenheter';
 import { YtelseFilter } from '../../filters/ytelser';
@@ -63,6 +69,7 @@ export const Filters = () => {
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedVedtaksinstansgrupper = useQueryFilters(QueryParams.VEDTAKSINSTANSGRUPPER);
+  const selectedTilbakekreving = useTilbakekrevingQueryFilter();
 
   // Dates
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
@@ -145,6 +152,11 @@ export const Filters = () => {
         setPreset={setPreset}
         queryFormat={FORMAT}
         prettyFormat={PRETTY_FORMAT}
+      />
+
+      <TilbakekrevingFilter
+        selected={selectedTilbakekreving}
+        setSelected={(value) => setFilter(QueryParams.TILBAKEKREVING, value)}
       />
 
       <KlageenheterFilter

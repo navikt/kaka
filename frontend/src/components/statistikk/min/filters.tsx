@@ -26,11 +26,17 @@ import { getLastTertial } from '../../filters/date-presets/get-last-tertial';
 import { IOption } from '../../filters/date-presets/types';
 import { QueryParams } from '../../filters/filter-query-params';
 import { HjemmelFilter } from '../../filters/hjemler';
-import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../filters/hooks/use-query-filter';
+import {
+  useFromDateQueryFilter,
+  useQueryFilters,
+  useTilbakekrevingQueryFilter,
+  useToDateQueryFilter,
+} from '../../filters/hooks/use-query-filter';
 import { FilteredHjemlerPills } from '../../filters/pills/hjemler';
 import { PillContainer, SelectedFilters } from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
+import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
 import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
 
@@ -56,6 +62,7 @@ export const Filters = () => {
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
+  const selectedTilbakekreving = useTilbakekrevingQueryFilter();
 
   // Dates
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
@@ -137,6 +144,11 @@ export const Filters = () => {
         setPreset={setPreset}
         queryFormat={FORMAT}
         prettyFormat={PRETTY_FORMAT}
+      />
+
+      <TilbakekrevingFilter
+        selected={selectedTilbakekreving}
+        setSelected={(value) => setFilter(QueryParams.TILBAKEKREVING, value)}
       />
 
       <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />

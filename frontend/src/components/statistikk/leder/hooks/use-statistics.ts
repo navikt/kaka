@@ -8,8 +8,10 @@ import { QueryParams } from '../../../filters/filter-query-params';
 import {
   useFromMonthQueryFilter,
   useQueryFilters,
+  useTilbakekrevingQueryFilter,
   useToMonthQueryFilter,
 } from '../../../filters/hooks/use-query-filter';
+import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
 
 const useStatistics = () => {
   const { data: userData } = useUser();
@@ -42,17 +44,19 @@ export const useFilteredManagerStatistics = () => {
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const klageenheter = useQueryFilters(QueryParams.KLAGEENHETER);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
+  const tilbakekreving = useTilbakekrevingQueryFilter();
 
   return useMemo(
     () =>
       data.filter(
         ({ ytelseId, sakstypeId, utfallId, tilknyttetEnhet, hjemmelIdList }) =>
+          tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
           (klageenheter.length === 0 || klageenheter.includes(tilknyttetEnhet)) &&
           (utfall.length === 0 || utfall.includes(utfallId)) &&
           (types.length === 0 || types.includes(sakstypeId)) &&
           (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
           (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id)))
       ),
-    [data, types, ytelser, utfall, klageenheter, hjemler]
+    [data, tilbakekreving, klageenheter, utfall, types, ytelser, hjemler]
   );
 };
