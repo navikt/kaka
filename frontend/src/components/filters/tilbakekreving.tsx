@@ -15,27 +15,28 @@ export const TilbakekrevingFilter = ({ selected, setSelected }: Props) => (
         setSelected(value);
       }
     }}
-    value={selected}
-    defaultValue={TilbakekrevingEnum.INCLUDE}
+    value={selected ?? TilbakekrevingEnum.INCLUDE}
     size="small"
     label={<ToggleGroupLabel />}
   >
-    <ToggleGroup.Item value={TilbakekrevingEnum.EXCLUDE}>Ekskludert</ToggleGroup.Item>
-    <ToggleGroup.Item value={TilbakekrevingEnum.INCLUDE}>Inkludert</ToggleGroup.Item>
+    <ToggleGroup.Item value={TilbakekrevingEnum.INCLUDE}>Med §22-15</ToggleGroup.Item>
+    <ToggleGroup.Item value={TilbakekrevingEnum.EXCLUDE}>Uten §22-15</ToggleGroup.Item>
     <ToggleGroup.Item value={TilbakekrevingEnum.ONLY}>Kun §22-15</ToggleGroup.Item>
   </ToggleGroup>
 );
 
+const TILBAKEKREVING_VALUES = Object.values(TilbakekrevingEnum);
+
 const isTilbakekrevingEnum = (value: string): value is TilbakekrevingEnum =>
-  Object.values(TilbakekrevingEnum).includes(value as TilbakekrevingEnum);
+  TILBAKEKREVING_VALUES.some((v) => v === value);
 
 const ToggleGroupLabel = () => (
   <StyledLabel>
     Tilbakekreving
     <HelpText placement="right">
-      <Label>Ekskludert</Label>
+      <Label>Med §22-15</Label>
       <BodyShort spacing>Ikke vis saker med tilbakekrevingshjemler.</BodyShort>
-      <Label>Inkludert</Label>
+      <Label>Uten §22-15</Label>
       <BodyShort spacing>Vis alle saker.</BodyShort>
       <Label>Kun §22-15</Label>
       <BodyShort spacing>Vis kun saker med tilbakekrevingshjemler.</BodyShort>

@@ -101,11 +101,6 @@ export const Filters = () => {
         prettyFormat={PRETTY_FORMAT}
       />
 
-      <TilbakekrevingFilter
-        selected={selectedTilbakekreving}
-        setSelected={(value) => setFilter(QueryParams.TILBAKEKREVING, value)}
-      />
-
       <Select disabled aria-readonly label="Enhet" hideLabel size="small">
         <option>{userData?.ansattEnhet.navn}</option>
       </Select>
@@ -156,6 +151,11 @@ export const Filters = () => {
         <FilteredHjemlerPills setFilter={setFilter} />
         <FilteredSaksbehandlerPills setFilter={setFilter} />
       </PillContainer>
+
+      <TilbakekrevingFilter
+        selected={selectedTilbakekreving}
+        setSelected={(value) => setFilter(QueryParams.TILBAKEKREVING, value)}
+      />
     </FilterPanelContainer>
   );
 };

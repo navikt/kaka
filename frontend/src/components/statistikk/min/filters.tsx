@@ -98,7 +98,6 @@ export const Filters = () => {
       <Button variant="secondary" size="small" onClick={resetFilters}>
         Nullstill filter
       </Button>
-
       <DatepickerWithValidation
         label={
           <DateContainer>
@@ -117,7 +116,6 @@ export const Filters = () => {
         toDate={parse(toDate, FORMAT, new Date())}
         size="small"
       />
-
       <DatepickerWithValidation
         label={
           <DateContainer>
@@ -136,7 +134,6 @@ export const Filters = () => {
         onChange={(value) => setFilter(QueryParams.TO_DATE, value)}
         size="small"
       />
-
       <DatePresets
         selectedFromDate={fromDate}
         selectedToDate={toDate}
@@ -145,12 +142,6 @@ export const Filters = () => {
         queryFormat={FORMAT}
         prettyFormat={PRETTY_FORMAT}
       />
-
-      <TilbakekrevingFilter
-        selected={selectedTilbakekreving}
-        setSelected={(value) => setFilter(QueryParams.TILBAKEKREVING, value)}
-      />
-
       <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
       <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
       <YtelseFilter
@@ -191,6 +182,11 @@ export const Filters = () => {
         />
         <FilteredHjemlerPills setFilter={setFilter} />
       </PillContainer>
+
+      <TilbakekrevingFilter
+        selected={selectedTilbakekreving}
+        setSelected={(value) => setFilter(QueryParams.TILBAKEKREVING, value)}
+      />
     </FilterPanelContainer>
   );
 };

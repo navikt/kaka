@@ -154,11 +154,6 @@ export const Filters = () => {
         prettyFormat={PRETTY_FORMAT}
       />
 
-      <TilbakekrevingFilter
-        selected={selectedTilbakekreving}
-        setSelected={(value) => setFilter(QueryParams.TILBAKEKREVING, value)}
-      />
-
       <KlageenheterFilter
         selected={selectedKlageenheter}
         setSelected={(values) => setFilter(QueryParams.KLAGEENHETER, ...values)}
@@ -210,8 +205,15 @@ export const Filters = () => {
           category="ytelse"
           setFilter={setFilter}
         />
+
         <FilteredHjemlerPills setFilter={setFilter} />
       </PillContainer>
+
+      <TilbakekrevingFilter
+        selected={selectedTilbakekreving}
+        setSelected={(value) => setFilter(QueryParams.TILBAKEKREVING, value)}
+      />
+
       <ExcelExport />
     </FilterPanelContainer>
   );
