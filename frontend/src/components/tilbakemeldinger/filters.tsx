@@ -167,11 +167,6 @@ export const Filters = () => {
         prettyFormat={PRETTY_FORMAT}
       />
 
-      <TilbakekrevingFilter
-        selected={selectedTilbakekreving}
-        setSelected={(value) => setFilter(QueryParams.TILBAKEKREVING, value)}
-      />
-
       <Select disabled size="small" label="">
         <option>{userData?.ansattEnhet.navn}</option>
       </Select>
@@ -215,6 +210,11 @@ export const Filters = () => {
         <SelectedKommentarer values={selectedKommentarer} setFilter={setFilter} />
         <FilteredHjemlerPills setFilter={setFilter} />
       </PillContainer>
+
+      <TilbakekrevingFilter
+        selected={selectedTilbakekreving}
+        setSelected={(value) => setFilter(QueryParams.TILBAKEKREVING, value)}
+      />
     </FilterPanelContainer>
   );
 };
