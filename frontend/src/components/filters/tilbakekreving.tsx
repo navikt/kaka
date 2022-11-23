@@ -35,9 +35,9 @@ const ToggleGroupLabel = () => (
     Tilbakekreving
     <HelpText placement="right">
       <Label>Med §22-15</Label>
-      <BodyShort spacing>Ikke vis saker med tilbakekrevingshjemler.</BodyShort>
+      <BodyShort spacing>Vis alle saker, også med tilbakekrevingshjemler.</BodyShort>
       <Label>Uten §22-15</Label>
-      <BodyShort spacing>Vis alle saker.</BodyShort>
+      <BodyShort spacing>Vis alle saker uten tilbakekrevingshjemler.</BodyShort>
       <Label>Kun §22-15</Label>
       <BodyShort spacing>Vis kun saker med tilbakekrevingshjemler.</BodyShort>
       <StyledTitle>Gjelder følgende hjemler:</StyledTitle>
