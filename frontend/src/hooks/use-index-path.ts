@@ -1,11 +1,18 @@
 import { useMemo } from 'react';
-import { useDefaultQuery, useDefaultQueryLeder } from './use-default-query-params';
+import {
+  useDefaultQueryAapen,
+  useDefaultQueryLeder,
+  useDefaultQueryTilbakemeldinger,
+  useDefaultQueryTotal,
+} from './use-default-query-params';
 import { useUserHasRole } from './use-user-access';
 
 export const useIndexPath = () => {
-  const lederQuery = useDefaultQueryLeder();
-  const openQuery = useDefaultQuery();
-  const defaultQuery = useDefaultQuery();
+  const defaultQueryAapen = useDefaultQueryAapen();
+  const defaultQueryLeder = useDefaultQueryLeder();
+  const defaultQueryTotal = useDefaultQueryTotal();
+  const defaultQueryTilbakemeldinger = useDefaultQueryTilbakemeldinger();
+
   const { isLoading, roles } = useUserHasRole();
 
   return useMemo(() => {
@@ -14,11 +21,11 @@ export const useIndexPath = () => {
     }
 
     if (roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER) {
-      return `/tilbakemeldinger?${defaultQuery}`;
+      return `/tilbakemeldinger?${defaultQueryTilbakemeldinger}`;
     }
 
     if (roles.ROLE_KAKA_LEDERSTATISTIKK) {
-      return `/statistikk/leder?${lederQuery}`;
+      return `/statistikk/leder?${defaultQueryLeder}`;
     }
 
     if (roles.ROLE_KAKA_KVALITETSVURDERING) {
@@ -26,9 +33,9 @@ export const useIndexPath = () => {
     }
 
     if (roles.ROLE_KAKA_TOTALSTATISTIKK) {
-      return `/statistikk/total?${lederQuery}`;
+      return `/statistikk/total?${defaultQueryTotal}`;
     }
 
-    return `/statistikk/aapen?${openQuery}`;
-  }, [isLoading, roles, lederQuery, openQuery, defaultQuery]);
+    return `/statistikk/aapen?${defaultQueryAapen}`;
+  }, [defaultQueryAapen, defaultQueryLeder, defaultQueryTilbakemeldinger, defaultQueryTotal, isLoading, roles]);
 };

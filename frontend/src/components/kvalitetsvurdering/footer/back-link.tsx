@@ -1,13 +1,13 @@
 import { Button } from '@navikt/ds-react';
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useDefaultQuery } from '../../../hooks/use-default-query-params';
+import { useDefaultQueryTilbakemeldinger } from '../../../hooks/use-default-query-params';
 import { useUserHasRole } from '../../../hooks/use-user-access';
 
 export const BackLink = () => {
   const location = useLocation();
   const { isLoading, roles } = useUserHasRole();
-  const defaultQuery = useDefaultQuery();
+  const defaultQuery = useDefaultQueryTilbakemeldinger();
 
   if (isLoading) {
     return null;

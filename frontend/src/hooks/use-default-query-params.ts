@@ -7,10 +7,11 @@ import {
   NOW,
 } from '../components/filters/date-presets/constants';
 import { QueryParams } from '../components/filters/filter-query-params';
+import { TilbakekrevingEnum } from '../components/filters/types';
 import { useKodeverkValueDefault } from '../hooks/use-kodeverk-value';
 import { useUser } from '../simple-api-state/use-user';
 
-export const useDefaultQuery = () =>
+export const useDefaultQueryAapen = () =>
   useMemo(() => {
     const fromDate = FORMATTED_START_OF_MONTH;
     const toDate = FORMATTED_NOW;
@@ -26,10 +27,11 @@ export const useDefaultQueryTotal = () => {
 
   const fromDate = FORMATTED_START_OF_MONTH;
   const toDate = FORMATTED_NOW;
+  const tilbakekreving = TilbakekrevingEnum.INCLUDE;
 
   const ansattEnhetId: string | undefined = user?.ansattEnhet?.id;
 
-  const query = `${QueryParams.FROM_DATE}=${fromDate}&${QueryParams.TO_DATE}=${toDate}`;
+  const query = `${QueryParams.FROM_DATE}=${fromDate}&${QueryParams.TO_DATE}=${toDate}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}`;
 
   if (typeof ansattEnhetId === 'undefined') {
     return query;
@@ -49,6 +51,16 @@ export const useDefaultQueryTotal = () => {
 export const useDefaultQueryLeder = () =>
   useMemo(() => {
     const prevMonth = format(subMonths(NOW, 1), MONTH_FORMAT);
+    const tilbakekreving = TilbakekrevingEnum.INCLUDE;
 
-    return `${QueryParams.FROM_MONTH}=${prevMonth}&${QueryParams.TO_MONTH}=${prevMonth}`;
+    return `${QueryParams.FROM_MONTH}=${prevMonth}&${QueryParams.TO_MONTH}=${prevMonth}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}`;
   }, []);
+
+export const useDefaultQueryMin = () => {
+  const defaultQuery = useDefaultQueryAapen();
+  const tilbakekreving = TilbakekrevingEnum.INCLUDE;
+
+  return `${defaultQuery}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}`;
+};
+
+export const useDefaultQueryTilbakemeldinger = useDefaultQueryMin;
