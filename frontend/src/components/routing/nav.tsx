@@ -2,13 +2,22 @@ import { Data, DataFilled, Divide, DivideFilled, List, Task } from '@navikt/ds-i
 import React from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import styled from 'styled-components';
-import { useDefaultQuery, useDefaultQueryLeder, useDefaultQueryTotal } from '../../hooks/use-default-query-params';
+import {
+  useDefaultQueryAapen,
+  useDefaultQueryLeder,
+  useDefaultQueryMin,
+  useDefaultQueryTilbakemeldinger,
+  useDefaultQueryTotal,
+} from '../../hooks/use-default-query-params';
 import { useUserHasRole } from '../../hooks/use-user-access';
 
 export const Nav = () => {
-  const defaultQuery = useDefaultQuery();
-  const totalQuery = useDefaultQueryTotal();
-  const lederQuery = useDefaultQueryLeder();
+  const defaultQueryAapen = useDefaultQueryAapen();
+  const defaultQueryLeder = useDefaultQueryLeder();
+  const defaultQueryTotal = useDefaultQueryTotal();
+  const defaultQueryMin = useDefaultQueryMin();
+  const defaultQueryTilbakemeldinger = useDefaultQueryTilbakemeldinger();
+
   const { isLoading, roles } = useUserHasRole();
 
   if (isLoading) {
@@ -18,12 +27,12 @@ export const Nav = () => {
   return (
     <StyledNav role="navigation" aria-label="Meny" data-testid="kaka-nav">
       <StyledNavLinkList>
-        <NavItem to={`/statistikk/aapen?${defaultQuery}`} testId="statistikk-aapen-nav-link" hasAccess>
+        <NavItem to={`/statistikk/aapen?${defaultQueryAapen}`} testId="statistikk-aapen-nav-link" hasAccess>
           <Data /> Åpen statistikk
         </NavItem>
 
         <NavItem
-          to={`/statistikk/total?${totalQuery}`}
+          to={`/statistikk/total?${defaultQueryTotal}`}
           testId="statistikk-total-nav-link"
           hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}
         >
@@ -31,7 +40,7 @@ export const Nav = () => {
         </NavItem>
 
         <NavItem
-          to={`/statistikk/leder?${lederQuery}`}
+          to={`/statistikk/leder?${defaultQueryLeder}`}
           testId="statistikk-leder-nav-link"
           hasAccess={roles.ROLE_KAKA_LEDERSTATISTIKK}
         >
@@ -39,7 +48,7 @@ export const Nav = () => {
         </NavItem>
 
         <NavItem
-          to={`/statistikk/min?${defaultQuery}`}
+          to={`/statistikk/min?${defaultQueryMin}`}
           testId="statistikk-min-nav-link"
           hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}
         >
@@ -55,7 +64,7 @@ export const Nav = () => {
         </NavItem>
 
         <NavItem
-          to={`/tilbakemeldinger?${defaultQuery}`}
+          to={`/tilbakemeldinger?${defaultQueryTilbakemeldinger}`}
           testId="tilbakemeldinger-nav-link"
           hasAccess={roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER}
         >
