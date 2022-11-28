@@ -42,6 +42,7 @@ import { SelectedMangelfullt } from '../filters/pills/mangelfullt';
 import { PillContainer, SelectedFilters } from '../filters/pills/pills';
 import { ResetDateButton } from '../filters/reset-date';
 import { TilbakekrevingFilter } from '../filters/tilbakekreving';
+import { TilbakekrevingEnum } from '../filters/types';
 import { UtfallFilter } from '../filters/utfall';
 import { YtelseFilter } from '../filters/ytelser';
 
@@ -67,7 +68,7 @@ export const Filters = () => {
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedMangelfullt = useQueryFilters(QueryParams.MANGELFULLT);
   const selectedKommentarer = useQueryFilters(QueryParams.KOMMENTARER);
-  const selectedTilbakekreving = useTilbakekrevingQueryFilter();
+  const selectedTilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   // Dates
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);

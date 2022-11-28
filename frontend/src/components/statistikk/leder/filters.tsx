@@ -33,6 +33,7 @@ import { FilteredSaksbehandlerPills } from '../../filters/pills/saksbehandler';
 import { SaksbehandlerFilter } from '../../filters/saksbehandler';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
+import { TilbakekrevingEnum } from '../../filters/types';
 import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
 
@@ -55,7 +56,7 @@ export const Filters = () => {
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedSaksbehandlere = useQueryFilters(QueryParams.SAKSBEHANDLERE);
-  const selectedTilbakekreving = useTilbakekrevingQueryFilter();
+  const selectedTilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   // Dates
   const fromMonth = useFromMonthQueryFilter(FORMATTED_START_OF_LAST_MONTH);

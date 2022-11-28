@@ -40,6 +40,7 @@ import { VedtaksinstansgrupperPills } from '../../filters/pills/vedtaksinstansgr
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
+import { TilbakekrevingEnum } from '../../filters/types';
 import { UtfallFilter } from '../../filters/utfall';
 import { VedtaksenheterFilter } from '../../filters/vedtaksenheter';
 import { YtelseFilter } from '../../filters/ytelser';
@@ -69,7 +70,7 @@ export const Filters = () => {
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedVedtaksinstansgrupper = useQueryFilters(QueryParams.VEDTAKSINSTANSGRUPPER);
-  const selectedTilbakekreving = useTilbakekrevingQueryFilter();
+  const selectedTilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   // Dates
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
