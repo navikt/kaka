@@ -10,6 +10,7 @@ import {
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
 } from '../../filters/hooks/use-query-filter';
+import { TilbakekrevingEnum } from '../../filters/types';
 import { tilbakekrevingFilter } from '../../statistikk/filters/tilbakekreving';
 
 const useSaksdata = () => {
@@ -36,7 +37,7 @@ export const useFilteredSaksdata = () => {
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
-  const tilbakekreving = useTilbakekrevingQueryFilter();
+  const tilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   const filtered =
     data?.searchHits.filter(

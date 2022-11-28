@@ -11,6 +11,7 @@ import {
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
 } from '../../../filters/hooks/use-query-filter';
+import { TilbakekrevingEnum } from '../../../filters/types';
 import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
 
 const useStatistics = () => {
@@ -38,7 +39,7 @@ export const useFilteredMyStatistics = () => {
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
-  const tilbakekreving = useTilbakekrevingQueryFilter();
+  const tilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   return useMemo(
     () =>

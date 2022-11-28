@@ -52,15 +52,15 @@ export const useToMonthQueryFilter = (defaultDate: string): string => {
   return queryValue;
 };
 
-export const useTilbakekrevingQueryFilter = (): TilbakekrevingEnum | undefined => {
+export const useTilbakekrevingQueryFilter = (defaultTilbakekreving: TilbakekrevingEnum): TilbakekrevingEnum => {
   const queryValue = useQueryFilter(QueryParams.TILBAKEKREVING);
 
   if (queryValue === null || queryValue.length === 0) {
-    return undefined;
+    return defaultTilbakekreving;
   }
 
   if (!isTilbakekrevingEnum(queryValue)) {
-    return undefined;
+    return defaultTilbakekreving;
   }
 
   return queryValue;
