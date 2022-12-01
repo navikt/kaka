@@ -1,4 +1,4 @@
-import { Radiovalg, RadiovalgExtended } from './radio';
+import { Radiovalg, RadiovalgExtended } from './kvalitetsvurdering/radio';
 import { SakstypeEnum } from './sakstype';
 import { UtfallEnum } from './utfall';
 

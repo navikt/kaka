@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import { isReduxValidationResponse } from '../functions/error-type-guard';
 import { useFullfoerMutation } from '../redux-api/saksdata';
-import { IKvalitetsvurdering } from '../types/kvalitetsvurdering';
+import { IKvalitetsvurderingV1 } from '../types/kvalitetsvurdering/v1';
 import { ISaksdataIncomplete } from '../types/saksdata';
 import { useSaksdataId } from './use-saksdata-id';
 
-type Field = keyof IKvalitetsvurdering | keyof ISaksdataIncomplete;
+type Field = keyof IKvalitetsvurderingV1 | keyof ISaksdataIncomplete;
 
 export const useValidationError = (field: Field): string | undefined => {
   const id = useSaksdataId();

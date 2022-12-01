@@ -5,7 +5,7 @@ import {
   klageforberedelsenReasons,
   utredningenReasons,
   vedtaketReasons,
-} from '../../../kvalitetsvurdering/kvalitetsskjema/reasons-labels';
+} from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
 // import { KvalitetsvurderingProps } from './kvalitetsvurdering';
 
 interface IOption {

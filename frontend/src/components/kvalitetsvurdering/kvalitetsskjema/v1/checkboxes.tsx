@@ -1,8 +1,8 @@
 import { Checkbox, CheckboxGroup, HelpText } from '@navikt/ds-react';
 import React, { Fragment } from 'react';
-import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
-import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
+import { useCanEdit } from '../../../../hooks/use-can-edit';
+import { useKvalitetsvurdering } from '../../../../hooks/use-kvalitetsvurdering';
+import { useUpdateKvalitetsvurderingMutation } from '../../../../redux-api/kvalitetsvurdering/v1';
 import { CommentField } from './comment-field';
 import { StyledCheckboxContainer } from './styled-components';
 import { Reason } from './types';

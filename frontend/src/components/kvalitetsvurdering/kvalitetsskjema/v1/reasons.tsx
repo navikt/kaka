@@ -1,5 +1,5 @@
 import React, { createRef, useEffect } from 'react';
-import { usePrevious } from '../../../hooks/use-previous';
+import { usePrevious } from '../../../../hooks/use-previous';
 import { Checkboxes, CheckboxesProps } from './checkboxes';
 
 interface ReasonsProps extends CheckboxesProps {

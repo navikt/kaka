@@ -1,11 +1,11 @@
 import { HelpText, Radio, RadioGroup } from '@navikt/ds-react';
 import React from 'react';
-import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useFieldName } from '../../../hooks/use-field-name';
-import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
-import { useValidationError } from '../../../hooks/use-validation-error';
-import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
-import { Radiovalg } from '../../../types/radio';
+import { useCanEdit } from '../../../../hooks/use-can-edit';
+import { useFieldName } from '../../../../hooks/use-field-name';
+import { useKvalitetsvurdering } from '../../../../hooks/use-kvalitetsvurdering';
+import { useValidationError } from '../../../../hooks/use-validation-error';
+import { useUpdateKvalitetsvurderingMutation } from '../../../../redux-api/kvalitetsvurdering/v1';
+import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
 import { Reasons } from './reasons';
 import { utredningenReasons } from './reasons-labels';
 import { RadioButtonsRow, StyledHeading } from './styled-components';

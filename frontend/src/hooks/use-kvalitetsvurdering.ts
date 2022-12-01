@@ -1,9 +1,9 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import { useGetKvalitetsvurderingQuery } from '../redux-api/kvalitetsvurdering';
-import { IKvalitetsvurdering } from '../types/kvalitetsvurdering';
+import { useGetKvalitetsvurderingQuery } from '../redux-api/kvalitetsvurdering/v1';
+import { IKvalitetsvurderingV1 } from '../types/kvalitetsvurdering/v1';
 import { useSaksdata } from './use-saksdata';
 
-export const useKvalitetsvurdering = (): [IKvalitetsvurdering | undefined, boolean] => {
+export const useKvalitetsvurdering = (): [IKvalitetsvurderingV1 | undefined, boolean] => {
   const [saksdata, saksdataIsLoading] = useSaksdata();
   const query = saksdataIsLoading ? skipToken : saksdata?.kvalitetsvurderingId ?? skipToken;
   const { data, isLoading, isFetching } = useGetKvalitetsvurderingQuery(query);

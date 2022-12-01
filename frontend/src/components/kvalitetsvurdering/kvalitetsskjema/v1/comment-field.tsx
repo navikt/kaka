@@ -1,9 +1,9 @@
 import { Textarea } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
-import { useUpdateKvalitetsvurderingMutation } from '../../../redux-api/kvalitetsvurdering';
+import { useCanEdit } from '../../../../hooks/use-can-edit';
+import { useKvalitetsvurdering } from '../../../../hooks/use-kvalitetsvurdering';
+import { useUpdateKvalitetsvurderingMutation } from '../../../../redux-api/kvalitetsvurdering/v1';
 
 interface CommentFieldProps {
   textareaId: string;
