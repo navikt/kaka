@@ -1,18 +1,18 @@
 import { Heading, Loader } from '@navikt/ds-react';
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
-import { useKvalitetsvurdering } from '../../../hooks/use-kvalitetsvurdering';
-import { useSaksdataId } from '../../../hooks/use-saksdata-id';
-import { useGetSaksdataQuery } from '../../../redux-api/saksdata';
-import { UtfallEnum } from '../../../types/utfall';
+import { useKodeverkValueDefault } from '../../../../hooks/use-kodeverk-value';
+import { useKvalitetsvurdering } from '../../../../hooks/use-kvalitetsvurdering';
+import { useSaksdataId } from '../../../../hooks/use-saksdata-id';
+import { useGetSaksdataQuery } from '../../../../redux-api/saksdata';
+import { UtfallEnum } from '../../../../types/utfall';
 import { Annet } from './annet';
 import { BrukAvRaadgivendeLege } from './bruk-av-raadgivende-lege';
 import { Klageforberedelsen } from './klageforberedelsen';
 import { Utredningen } from './utredningen';
 import { Vedtaket } from './vedtaket';
 
-export const Kvalitetsskjema = () => {
+export const KvalitetsskjemaV1 = () => {
   const saksdataId = useSaksdataId();
   const { data: saksdata, isLoading, isError } = useGetSaksdataQuery(saksdataId);
   const [kvalitetsvurdering] = useKvalitetsvurdering();

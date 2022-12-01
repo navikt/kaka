@@ -1,4 +1,4 @@
-import { IKvalitetsvurderingBooleans } from '../../../types/kvalitetsvurdering';
+import { IKvalitetsvurderingBooleans } from '../../../../types/kvalitetsvurdering/v1';
 
 export interface Reason {
   id: keyof IKvalitetsvurderingBooleans;

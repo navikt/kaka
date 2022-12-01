@@ -1,29 +1,29 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import {
-  IKvalitetsvurdering,
   IKvalitetsvurderingBooleans,
   IKvalitetsvurderingRadio,
   IKvalitetsvurderingRadioExtended,
   IKvalitetsvurderingTexts,
-} from '../types/kvalitetsvurdering';
-import { baseQuery } from './common';
+  IKvalitetsvurderingV1,
+} from '../../types/kvalitetsvurdering/v1';
+import { baseQuery } from '../common';
 
-type WithId = Pick<IKvalitetsvurdering, 'id'>;
+type WithId = Pick<IKvalitetsvurderingV1, 'id'>;
 
 type UpdateBoolean = Partial<IKvalitetsvurderingBooleans> & WithId;
 type UpdateText = Partial<IKvalitetsvurderingTexts> & WithId;
 type UpdateRadio = Partial<IKvalitetsvurderingRadio> & WithId;
 type UpdateRadioExtended = Partial<IKvalitetsvurderingRadioExtended> & WithId;
 
-export const kvalitetsvurderingApi = createApi({
-  reducerPath: 'kvalitetsvurderingApi',
+export const kvalitetsvurderingV1Api = createApi({
+  reducerPath: 'kvalitetsvurderingV1Api',
   baseQuery,
   endpoints: (builder) => ({
-    getKvalitetsvurdering: builder.query<IKvalitetsvurdering, string>({
+    getKvalitetsvurdering: builder.query<IKvalitetsvurderingV1, string>({
       query: (id) => `/api/kaka-api/kvalitetsvurdering/${id}`,
     }),
     updateKvalitetsvurdering: builder.mutation<
-      IKvalitetsvurdering,
+      IKvalitetsvurderingV1,
       UpdateBoolean | UpdateText | UpdateRadio | UpdateRadioExtended
     >({
       query: ({ id, ...body }) => {
@@ -47,7 +47,7 @@ export const kvalitetsvurderingApi = createApi({
       },
       onQueryStarted: async ({ id, ...update }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
-          kvalitetsvurderingApi.util.updateQueryData('getKvalitetsvurdering', id, (draft) =>
+          kvalitetsvurderingV1Api.util.updateQueryData('getKvalitetsvurdering', id, (draft) =>
             Object.assign(draft, update)
           )
         );
@@ -55,7 +55,7 @@ export const kvalitetsvurderingApi = createApi({
         try {
           const { data } = await queryFulfilled;
           dispatch(
-            kvalitetsvurderingApi.util.updateQueryData('getKvalitetsvurdering', id, (draft) => {
+            kvalitetsvurderingV1Api.util.updateQueryData('getKvalitetsvurdering', id, (draft) => {
               draft.modified = data.modified;
             })
           );
@@ -67,4 +67,4 @@ export const kvalitetsvurderingApi = createApi({
   }),
 });
 
-export const { useGetKvalitetsvurderingQuery, useUpdateKvalitetsvurderingMutation } = kvalitetsvurderingApi;
+export const { useGetKvalitetsvurderingQuery, useUpdateKvalitetsvurderingMutation } = kvalitetsvurderingV1Api;

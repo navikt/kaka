@@ -2,7 +2,7 @@ import { Helptext } from '@navikt/ds-icons';
 import { BodyShort, Button, Label } from '@navikt/ds-react';
 import React, { Fragment, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/reasons-labels';
+import { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
 
 interface Props {
   relevantReasons: ReasonLabel[];

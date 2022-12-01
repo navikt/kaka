@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { PageWrapper } from '../../pages/page-wrapper';
-import { Kvalitetsskjema } from './kvalitetsskjema/kvalitetsskjema';
+import { Kvalitetsskjema } from './kvalitetsskjema/v1/kvalitetsskjema';
 import { Saksdata } from './saksdata/saksdata';
 
 export const Kvalitetsvurdering = () => (

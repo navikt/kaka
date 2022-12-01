@@ -1,16 +1,11 @@
+import { IKvalitetsvurderingBase } from './common';
 import { Radiovalg, RadiovalgExtended } from './radio';
 
-export type IKvalitetsvurdering = IKvalitetsvurderingBase &
+export type IKvalitetsvurderingV1 = IKvalitetsvurderingBase &
   IKvalitetsvurderingBooleans &
   IKvalitetsvurderingTexts &
   IKvalitetsvurderingRadio &
   IKvalitetsvurderingRadioExtended;
-
-interface IKvalitetsvurderingBase {
-  readonly created: string; // LocalDateTime;
-  readonly id: string;
-  modified: string; // LocalDateTime;
-}
 
 export interface IKvalitetsvurderingBooleans {
   arbeidsrettetBrukeroppfoelging: boolean;

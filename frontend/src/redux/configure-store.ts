@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import { kvalitetsvurderingApi } from '../redux-api/kvalitetsvurdering';
+import { kvalitetsvurderingV1Api } from '../redux-api/kvalitetsvurdering/v1';
+import { kvalitetsvurderingV2Api } from '../redux-api/kvalitetsvurdering/v2';
 import { saksdataApi } from '../redux-api/saksdata';
 import { statisticsApi } from '../redux-api/statistics';
 import { rootReducer } from './root';
@@ -19,7 +20,12 @@ export const reduxStore = configureStore({
           'meta.baseQueryMeta.response',
         ],
       },
-    }).concat([kvalitetsvurderingApi.middleware, saksdataApi.middleware, statisticsApi.middleware]),
+    }).concat([
+      kvalitetsvurderingV1Api.middleware,
+      kvalitetsvurderingV2Api.middleware,
+      saksdataApi.middleware,
+      statisticsApi.middleware,
+    ]),
 });
 
 type AppDispatch = typeof reduxStore.dispatch;
