@@ -2,7 +2,7 @@ import { Table } from '@navikt/ds-react';
 import React from 'react';
 import { isoDateTimeToPrettyDate } from '../../domain/date';
 import { formatId } from '../../functions/format-id';
-import { ISaksdataCompleteSearchHit, ISaksdataIncompleteSearchHit } from '../../types/saksdata';
+import { ISaksdataComplete, ISaksdataIncomplete } from '../../types/saksdata';
 import { OpenKvalitetsvurdering } from '../common-table-components/open';
 import { Type } from '../common-table-components/type';
 import { Utfall } from '../common-table-components/utfall';
@@ -21,7 +21,7 @@ export const Row = ({
   modified,
   utfallId,
   testId,
-}: Props & (ISaksdataIncompleteSearchHit | ISaksdataCompleteSearchHit)): JSX.Element => (
+}: Props & (ISaksdataIncomplete | ISaksdataComplete)): JSX.Element => (
   <Table.Row data-testid={`${testId}-row`} data-saksdata-id={id}>
     <Table.DataCell>
       <Type type={sakstypeId} />

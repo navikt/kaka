@@ -13,7 +13,7 @@ import { EmptyOption } from './empty-option';
 export const Ytelse = () => {
   const { data: user } = useUser();
   const saksId = useSaksdataId();
-  const [saksdata] = useSaksdata();
+  const { data: saksdata } = useSaksdata();
   const [setYtelse] = useSetYtelseMutation();
   const canEdit = useCanEdit();
   const validationError = useValidationError('ytelseId');

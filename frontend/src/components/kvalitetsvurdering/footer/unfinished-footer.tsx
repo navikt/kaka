@@ -16,7 +16,7 @@ export const UnfinishedFooter = () => {
   const canEdit = useCanEdit();
   const navigate = useNavigate();
   const { data: userData } = useUser();
-  const [saksdata] = useSaksdata();
+  const { data: saksdata } = useSaksdata();
   const [finishVurdering, { isLoading: isFinishing, error }] = useFullfoerMutation({
     fixedCacheKey: id,
   });

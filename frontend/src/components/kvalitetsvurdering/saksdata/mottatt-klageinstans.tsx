@@ -9,7 +9,7 @@ import { CENTURY_NUMBER } from '../../filters/date-presets/constants';
 
 export const MottattKlageinstans = () => {
   const id = useSaksdataId();
-  const [saksdata] = useSaksdata();
+  const { data: saksdata } = useSaksdata();
   const [setMottattKlageinstans] = useSetMottattKlageinstansMutation();
   const canEdit = useCanEdit();
   const validationError = useValidationError('mottattKlageinstans');

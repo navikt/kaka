@@ -11,7 +11,7 @@ import { useUser } from '../../../simple-api-state/use-user';
 export const SakenGjelder = () => {
   const { data: user } = useUser();
   const id = useSaksdataId();
-  const [saksdata] = useSaksdata();
+  const { data: saksdata } = useSaksdata();
   const [updateSakenGjelder] = useSetSakenGjelderMutation();
   const canEdit = useCanEdit();
   const initialValue = saksdata?.sakenGjelder ?? '';

@@ -15,7 +15,7 @@ import {
 const EMPTY_LIST: string[] = [];
 
 export const SelectedHjemlerList = () => {
-  const [saksdata] = useSaksdata();
+  const { data: saksdata } = useSaksdata();
   const hjemler = useLovkildeToRegistreringshjemmelForYtelse(saksdata?.ytelseId ?? skipToken);
 
   const hjemmelIdList = saksdata?.hjemmelIdList ?? EMPTY_LIST;

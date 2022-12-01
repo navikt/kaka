@@ -1,9 +1,9 @@
 import { Detail } from '@navikt/ds-react';
 import React from 'react';
-import { ISaksdataSearchHitBase } from '../../types/saksdata';
+import { ISaksdataBase } from '../../types/saksdata';
 
 interface SaksCounterProps {
-  list?: ISaksdataSearchHitBase[];
+  list?: ISaksdataBase[];
 }
 
 export const SakCounter = ({ list }: SaksCounterProps) => {

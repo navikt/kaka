@@ -9,7 +9,7 @@ import { Reason } from './types';
 
 export const Annet = () => {
   const [kvalitetsvurdering] = useKvalitetsvurdering();
-  const [saksdata] = useSaksdata();
+  const { data: saksdata } = useSaksdata();
 
   if (typeof kvalitetsvurdering === 'undefined' || typeof saksdata === 'undefined') {
     return null;

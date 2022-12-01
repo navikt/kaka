@@ -15,7 +15,7 @@ import { Reason } from './types';
 
 export const Klageforberedelsen = () => {
   const [kvalitetsvurdering] = useKvalitetsvurdering();
-  const [saksdata] = useSaksdata();
+  const { data: saksdata } = useSaksdata();
   const [updateKvalitetsvurdering] = useUpdateKvalitetsvurderingMutation();
   const canEdit = useCanEdit();
   const validationError = useValidationError('klageforberedelsenRadioValg');

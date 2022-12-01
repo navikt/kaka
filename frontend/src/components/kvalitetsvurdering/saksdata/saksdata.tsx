@@ -12,7 +12,7 @@ import { UtfallResultat } from './utfall-resultat';
 import { Ytelse } from './ytelse';
 
 export const Saksdata = () => {
-  const [, isLoading] = useSaksdata();
+  const { isLoading } = useSaksdata();
 
   if (isLoading) {
     return <Loader size="3xlarge" />;

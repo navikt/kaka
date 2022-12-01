@@ -16,7 +16,7 @@ export const Lovhjemmel = () => {
   const { data: user } = useUser();
   const [updateHjemler] = useSetHjemlerMutation();
   const saksdataId = useSaksdataId();
-  const [saksdata] = useSaksdata();
+  const { data: saksdata } = useSaksdata();
   const canEdit = useCanEdit();
   const validationError = useValidationError('hjemmelIdList');
   const lovKildeToRegistreringshjemler = useLovkildeToRegistreringshjemmelForYtelse(saksdata?.ytelseId ?? skipToken);

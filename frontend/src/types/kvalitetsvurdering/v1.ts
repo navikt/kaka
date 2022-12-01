@@ -1,7 +1,12 @@
 import { IKvalitetsvurderingBase } from './common';
 import { Radiovalg, RadiovalgExtended } from './radio';
 
-export type IKvalitetsvurderingV1 = IKvalitetsvurderingBase &
+interface Version {
+  version: 1;
+}
+
+export type IKvalitetsvurderingV1 = Version &
+  IKvalitetsvurderingBase &
   IKvalitetsvurderingBooleans &
   IKvalitetsvurderingTexts &
   IKvalitetsvurderingRadio &

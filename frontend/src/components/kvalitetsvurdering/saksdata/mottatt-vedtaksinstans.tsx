@@ -12,7 +12,7 @@ import { CENTURY_NUMBER } from '../../filters/date-presets/constants';
 
 export const MottattVedtaksinstans = () => {
   const id = useSaksdataId();
-  const [saksdata] = useSaksdata();
+  const { data: saksdata } = useSaksdata();
   const canEdit = useCanEdit();
   const [setMottattVedtaksinstans] = useSetMottattVedtaksinstansMutation();
   const validationError = useValidationError('mottattVedtaksinstans');
