@@ -1,11 +1,11 @@
 import { Table } from '@navikt/ds-react';
 import React from 'react';
-import { ISaksdataCompleteSearchHit, ISaksdataIncompleteSearchHit } from '../../types/saksdata';
+import { ISaksdataComplete, ISaksdataIncomplete } from '../../types/saksdata';
 import { RowLoader } from '../loader/row-loader';
 import { Row } from './row';
 
 interface Props {
-  vurderinger?: (ISaksdataIncompleteSearchHit | ISaksdataCompleteSearchHit)[];
+  vurderinger?: (ISaksdataIncomplete | ISaksdataComplete)[];
   columnCount: number;
   testId: string;
 }

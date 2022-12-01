@@ -4,7 +4,7 @@ import { useSaksdata } from './use-saksdata';
 
 export const useCanEdit = () => {
   const { data } = useUser();
-  const [saksdata, isLoading] = useSaksdata();
+  const { data: saksdata, isLoading } = useSaksdata();
   const finished = useKvalitetsvurderingIsFinished();
 
   if (finished || isLoading || typeof saksdata === 'undefined' || typeof data === 'undefined') {

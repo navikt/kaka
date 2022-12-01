@@ -1,15 +1,9 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import qs from 'qs';
-import {
-  ISaksdataComplete,
-  ISaksdataCompleteSearchHit,
-  ISaksdataIncomplete,
-  ISaksdataIncompleteSearchHit,
-  ISaksdataSearchHitBase,
-} from '../types/saksdata';
+import { ISaksdataBase, ISaksdataComplete, ISaksdataIncomplete } from '../types/saksdata';
 import { baseQuery } from './common';
 
-type WithId = Pick<ISaksdataSearchHitBase, 'id'>;
+type WithId = Pick<ISaksdataBase, 'id'>;
 type Updatable = Omit<ISaksdataIncomplete, 'id' | 'created' | 'modified'>;
 type SaksdataUpdate<K extends keyof Updatable> = Pick<Updatable, K> & WithId;
 type SaksdataAndListUpdate<K extends keyof Updatable> = SaksdataUpdate<K> & { saksbehandlerIdent: string };
@@ -38,7 +32,7 @@ export const saksdataApi = createApi({
         dispatch(saksdataApi.util.updateQueryData('getSaksdata', data.id, () => data));
       },
     }),
-    reopenSaksdata: builder.mutation<null, { saksbehandlerIdent: string; saksdata: ISaksdataCompleteSearchHit }>({
+    reopenSaksdata: builder.mutation<null, { saksbehandlerIdent: string; saksdata: ISaksdataComplete }>({
       query: ({ saksdata }) => ({
         url: `/api/kaka-api/saksdata/${saksdata.id}/reopen`,
         method: 'POST',
@@ -95,21 +89,33 @@ export const saksdataApi = createApi({
     getSaksdata: builder.query<ISaksdataComplete | ISaksdataIncomplete, string>({
       query: (id) => `/api/kaka-api/saksdata/${id}`,
     }),
-    getIncompleteSaksdataList: builder.query<ISaksdataIncompleteSearchHit[], ISaksdataListParams>({
+    getIncompleteSaksdataList: builder.query<ISaksdataIncomplete[], ISaksdataListParams>({
       query: (params) => {
         const query = qs.stringify(params);
 
         return `/api/kaka-api/saksdataliste/?fullfoert=false&${query}`;
       },
       transformResponse: ({ searchHits }) => searchHits,
+      onQueryStarted: async (params, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled;
+        data.forEach((saksdata) => {
+          dispatch(saksdataApi.util.updateQueryData('getSaksdata', saksdata.id, () => saksdata));
+        });
+      },
     }),
-    getCompleteSaksdataList: builder.query<ISaksdataCompleteSearchHit[], ISaksdataListParams>({
+    getCompleteSaksdataList: builder.query<ISaksdataComplete[], ISaksdataListParams>({
       query: (params) => {
         const query = qs.stringify(params);
 
         return `/api/kaka-api/saksdataliste/?fullfoert=true&${query}`;
       },
       transformResponse: ({ searchHits }) => searchHits,
+      onQueryStarted: async (params, { dispatch, queryFulfilled }) => {
+        const { data } = await queryFulfilled;
+        data.forEach((saksdata) => {
+          dispatch(saksdataApi.util.updateQueryData('getSaksdata', saksdata.id, () => saksdata));
+        });
+      },
     }),
     fullfoer: builder.mutation<ISaksdataComplete, { saksdata: ISaksdataIncomplete; saksbehandlerIdent: string }>({
       query: ({ saksdata }) => ({

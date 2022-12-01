@@ -3,8 +3,9 @@ import { UtfallEnum } from './utfall';
 
 type UUID = string;
 
-// Search types.
-export interface ISaksdataSearchHitBase {
+type KvalitetsvurderingVersion = 1 | 2;
+
+export interface ISaksdataBase {
   id: UUID;
   created: string; // LocalDateTime;
   modified: string; // LocalDateTime;
@@ -13,34 +14,28 @@ export interface ISaksdataSearchHitBase {
   sakstypeId: SakstypeEnum;
   sourceId: string;
   kvalitetsvurderingId: string;
+  utfoerendeSaksbehandler: string;
+  kvalitetsvurderingReference: {
+    id: UUID;
+    version: KvalitetsvurderingVersion;
+  };
 }
 
-export interface ISaksdataCompleteSearchHit extends ISaksdataSearchHitBase {
+export interface ISaksdataComplete extends ISaksdataBase {
   avsluttetAvSaksbehandler: string; // LocalDateTime;
   ytelseId: string;
   utfallId: UtfallEnum;
   sakenGjelder: string;
-}
-
-export interface ISaksdataIncompleteSearchHit extends ISaksdataSearchHitBase {
-  avsluttetAvSaksbehandler: null; // LocalDateTime;
-  ytelseId: string | null;
-  utfallId: UtfallEnum | null;
-  sakenGjelder: string | null;
-}
-
-// Full types.
-interface ISaksdataBase extends ISaksdataSearchHitBase {
-  utfoerendeSaksbehandler: string;
-}
-
-export interface ISaksdataComplete extends ISaksdataBase, ISaksdataCompleteSearchHit {
   mottattKlageinstans: string;
   mottattVedtaksinstans: string;
   vedtaksinstansEnhet: string;
 }
 
-export interface ISaksdataIncomplete extends ISaksdataBase, ISaksdataIncompleteSearchHit {
+export interface ISaksdataIncomplete extends ISaksdataBase {
+  avsluttetAvSaksbehandler: null; // LocalDateTime;
+  ytelseId: string | null;
+  utfallId: UtfallEnum | null;
+  sakenGjelder: string | null;
   mottattKlageinstans: string | null;
   mottattVedtaksinstans: string | null;
   vedtaksinstansEnhet: string | null;
@@ -56,5 +51,5 @@ export interface ISaksdatalisteLederVedtaksinstansParams {
 }
 
 export interface ISaksdatalisteLederVedtaksinstans {
-  searchHits: ISaksdataCompleteSearchHit[];
+  searchHits: ISaksdataComplete[];
 }

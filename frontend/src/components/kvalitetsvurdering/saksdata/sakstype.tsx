@@ -11,7 +11,7 @@ import { SakstypeEnum } from '../../../types/sakstype';
 
 export const Sakstype = () => {
   const { data: user } = useUser();
-  const [saksdata] = useSaksdata();
+  const { data: saksdata } = useSaksdata();
   const [updateSakstype] = useSetSakstypeMutation();
   const sakstyper = useKodeverkValueDefault('sakstyper');
   const canEdit = useCanEdit();

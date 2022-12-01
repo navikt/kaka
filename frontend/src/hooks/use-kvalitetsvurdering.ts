@@ -4,7 +4,7 @@ import { IKvalitetsvurderingV1 } from '../types/kvalitetsvurdering/v1';
 import { useSaksdata } from './use-saksdata';
 
 export const useKvalitetsvurdering = (): [IKvalitetsvurderingV1 | undefined, boolean] => {
-  const [saksdata, saksdataIsLoading] = useSaksdata();
+  const { data: saksdata, isLoading: saksdataIsLoading } = useSaksdata();
   const query = saksdataIsLoading ? skipToken : saksdata?.kvalitetsvurderingId ?? skipToken;
   const { data, isLoading, isFetching } = useGetKvalitetsvurderingQuery(query);
 

@@ -16,7 +16,7 @@ import { ToggleButton } from '../../toggle/toggle-button';
 
 export const FraVedtaksenhet = () => {
   const saksdataId = useSaksdataId();
-  const [saksdata] = useSaksdata();
+  const { data: saksdata } = useSaksdata();
   const [setVedtaksenhet] = useSetVedtaksinstansenhetMutation();
   const canEdit = useCanEdit();
   const enheter = useEnheterForYtelse(saksdata?.ytelseId ?? skipToken); // Sakstype klage uses enheter

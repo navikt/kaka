@@ -13,7 +13,7 @@ import { EmptyOption } from './empty-option';
 export const UtfallResultat = () => {
   const { data: user } = useUser();
   const id = useSaksdataId();
-  const [saksdata] = useSaksdata();
+  const { data: saksdata } = useSaksdata();
   const [setUtfallResultat] = useSetUtfallMutation();
   const canEdit = useCanEdit();
   const [utfall] = useUtfall(saksdata?.sakstypeId);
