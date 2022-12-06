@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useGetTotalStatisticsQuery } from '../../../../redux-api/statistics';
-import { IFullStatisticVurdering } from '../../../../types/statistics';
+import { useStatisticsTotal } from '../../../../simple-api-state/statistics/v1/use-statistics-total';
+import { IFullStatisticVurdering } from '../../../../types/statistics/v1';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
@@ -16,15 +16,17 @@ const useTotalStatistics = () => {
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
-  return useGetTotalStatisticsQuery({ fromDate, toDate }, { pollingInterval: 3 * 60 * 1000 });
+  return useStatisticsTotal({ fromDate, toDate });
 };
 
 export const useTotalStatisticsIsLoading = (): boolean => useTotalStatistics().isLoading;
 
+const EMPTY_STATISTICS: IFullStatisticVurdering[] = [];
+
 const useAllTotalStatistics = (): IFullStatisticVurdering[] => {
   const { data } = useTotalStatistics();
 
-  return data?.anonymizedFinishedVurderingList ?? [];
+  return data?.anonymizedFinishedVurderingList ?? EMPTY_STATISTICS;
 };
 
 export const useFilteredTotalStatistics = () => {

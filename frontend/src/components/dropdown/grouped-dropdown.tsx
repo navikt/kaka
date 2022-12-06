@@ -26,6 +26,7 @@ interface DropdownProps extends StyledDropdownProps {
   open: boolean;
   close: () => void;
   showFjernAlle?: boolean;
+  testId: string;
 }
 
 export const GroupedDropdown = ({ open, ...rest }: DropdownProps) => {
@@ -43,6 +44,7 @@ const ShowGroupedDropdown = ({
   close,
   maxHeight,
   minWidth,
+  testId,
   showFjernAlle = true,
 }: Omit<DropdownProps, 'open'>): JSX.Element | null => {
   const [filteredGroups, setFilteredGroups] = useState(options);
@@ -65,7 +67,7 @@ const ShowGroupedDropdown = ({
   const reset = () => onChange(null, false);
 
   return (
-    <StyledDropdown maxHeight={maxHeight} minWidth={minWidth}>
+    <StyledDropdown maxHeight={maxHeight} minWidth={minWidth} data-testid={testId}>
       <Header
         options={allGroups}
         onChange={onHeaderChange}
@@ -74,13 +76,19 @@ const ShowGroupedDropdown = ({
       />
       <Container>
         {filteredGroups.map(({ sectionHeader, sectionOptions }) => (
-          <CheckboxGroup key={sectionHeader.id} legend={sectionHeader.name} value={selected}>
+          <CheckboxGroup
+            key={sectionHeader.id}
+            legend={sectionHeader.name}
+            value={selected}
+            data-testid={`${testId}-${sectionHeader.id}`}
+          >
             {sectionOptions.map(({ value, label }) => (
               <Checkbox
                 key={`${sectionHeader.id}-${value}`}
                 size="small"
                 value={value}
                 onChange={(event) => onChange(value, event.target.checked)}
+                data-testid={`${testId}-${value}`}
               >
                 {label}
               </Checkbox>

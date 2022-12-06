@@ -1,5 +1,5 @@
 import React from 'react';
-import { useKodeverkValueDefault } from '../../hooks/use-kodeverk-value';
+import { useSakstyper } from '../../simple-api-state/use-kodeverk';
 import { Filter } from './common/filter';
 import { FilterType } from './types';
 
@@ -9,7 +9,7 @@ interface SakstypeFilterProps {
 }
 
 export const SakstypeFilter = ({ selected, setSelected }: SakstypeFilterProps) => {
-  const data = useKodeverkValueDefault('sakstyper');
+  const { data = [] } = useSakstyper();
 
   const sakstyper = data?.map<FilterType>(({ id, navn }) => ({ id, label: navn })) ?? [];
 

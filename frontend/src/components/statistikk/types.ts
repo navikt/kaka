@@ -1,4 +1,4 @@
-import { IStatisticVurdering } from '../../types/statistics';
+import { IStatisticVurdering } from '../../types/statistics/v1';
 
 export interface StatisticsProps {
   stats: IStatisticVurdering[];

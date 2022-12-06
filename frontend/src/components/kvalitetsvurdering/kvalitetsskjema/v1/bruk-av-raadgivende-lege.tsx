@@ -1,7 +1,6 @@
 import { Heading, Radio, RadioGroup } from '@navikt/ds-react';
 import React from 'react';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
-import { useFieldName } from '../../../../hooks/use-field-name';
 import { useKvalitetsvurdering } from '../../../../hooks/use-kvalitetsvurdering';
 import { useValidationError } from '../../../../hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '../../../../redux-api/kvalitetsvurdering/v1';
@@ -9,13 +8,14 @@ import { RadiovalgExtended } from '../../../../types/kvalitetsvurdering/radio';
 import { Reasons } from './reasons';
 import { brukAvRaadgivendeLegeReasons } from './reasons-labels';
 import { Reason } from './types';
+import { useKvalitetsvurderingV1FieldName } from './use-field-name';
 
 export const BrukAvRaadgivendeLege = () => {
   const [kvalitetsvurdering] = useKvalitetsvurdering();
   const [updateKvalitetsvurdering] = useUpdateKvalitetsvurderingMutation();
   const validationError = useValidationError('brukAvRaadgivendeLegeRadioValg');
   const canEdit = useCanEdit();
-  const header = useFieldName('brukAvRaadgivendeLegeRadioValg');
+  const header = useKvalitetsvurderingV1FieldName('brukAvRaadgivendeLegeRadioValg');
 
   if (typeof kvalitetsvurdering === 'undefined') {
     return null;

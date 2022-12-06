@@ -19,27 +19,13 @@ export interface IYtelse extends IKodeverkSimpleValue {
   enheter: IKodeverkSimpleValue[];
   klageenheter: IKodeverkSimpleValue[];
   lovKildeToRegistreringshjemler: ILovKildeToRegistreringshjemmel[];
+  innsendingshjemler: IKodeverkValue[];
 }
 
 export interface IKlageenhet extends IKodeverkSimpleValue {
   ytelser: IKodeverkSimpleValue[];
 }
 
-interface ISakstyperToUtfall extends IKodeverkSimpleValue<SakstypeEnum> {
+export interface ISakstyperToUtfall extends IKodeverkSimpleValue<SakstypeEnum> {
   utfall: IKodeverkSimpleValue<UtfallEnum>[];
-}
-
-export interface IKodeverk {
-  ytelser: IYtelse[];
-  tema: IKodeverkValue[];
-  hjemler: IKodeverkValue[];
-  klageenheter: IKlageenhet[];
-  styringsenheter: IKodeverkSimpleValue[];
-  vedtaksenheter: IKodeverkSimpleValue[];
-  enheter: IKodeverkSimpleValue[];
-  utfall: IKodeverkSimpleValue<UtfallEnum>[];
-  sakstyper: IKodeverkSimpleValue<SakstypeEnum>[];
-  sources: IKodeverkSimpleValue[];
-  brevmottakertyper: IKodeverkSimpleValue[];
-  sakstyperToUtfall: ISakstyperToUtfall[];
 }

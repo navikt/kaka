@@ -1,5 +1,5 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import { useGetSaksdatalisteLederVedtaksinstansQuery } from '../../../redux-api/statistics';
+import { useSaksdatalisteLederVedtaksinstans } from '../../../simple-api-state/statistics/use-saksdataliste-leder-vedtaksinstans';
 import { useUser } from '../../../simple-api-state/use-user';
 import { ISaksdatalisteLederVedtaksinstansParams } from '../../../types/saksdata';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../filters/date-presets/constants';
@@ -28,7 +28,7 @@ const useSaksdata = () => {
       ? skipToken
       : { navIdent: userData.ident, fromDate, toDate, mangelfullt, kommentarer };
 
-  return useGetSaksdatalisteLederVedtaksinstansQuery(query, { pollingInterval: 3 * 60 * 1000 });
+  return useSaksdatalisteLederVedtaksinstans(query);
 };
 
 export const useFilteredSaksdata = () => {

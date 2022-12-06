@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import styled from 'styled-components';
 import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
-import { IFullStatisticVurdering } from '../../../../types/statistics';
+import { IFullStatisticVurdering } from '../../../../types/statistics/v1';
 import { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
 import { StatisticsProps } from '../../types';
 import { GRAPH_COLOR } from '../colors';

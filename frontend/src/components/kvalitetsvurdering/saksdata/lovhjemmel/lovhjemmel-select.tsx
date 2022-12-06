@@ -72,6 +72,7 @@ export const LovhjemmelSelect = ({
           close={close}
           showFjernAlle={showFjernAlle}
           maxHeight="400px"
+          testId="lovhjemmel-dropdown"
         />
       </StyledLovhjemmelSelect>
       <ErrorMessage error={error} />

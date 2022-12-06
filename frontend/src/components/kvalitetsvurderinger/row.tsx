@@ -21,13 +21,14 @@ export const Row = ({
   modified,
   utfallId,
   testId,
+  kvalitetsvurderingReference,
 }: Props & (ISaksdataIncomplete | ISaksdataComplete)): JSX.Element => (
   <Table.Row data-testid={`${testId}-row`} data-saksdata-id={id}>
     <Table.DataCell>
       <Type type={sakstypeId} />
     </Table.DataCell>
     <Table.DataCell>
-      <Ytelse ytelseId={ytelseId} />
+      <Ytelse ytelseId={ytelseId} ytelserVersion={kvalitetsvurderingReference.version} />
     </Table.DataCell>
     <Table.DataCell>
       <CopyButton text={sakenGjelder}>{formatId(sakenGjelder)}</CopyButton>

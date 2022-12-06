@@ -1,75 +1,88 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import { useKodeverk } from '../simple-api-state/use-kodeverk';
-import {
-  IKlageenhet,
-  IKodeverk,
-  IKodeverkSimpleValue,
-  ILovKildeToRegistreringshjemmel,
-  IYtelse,
-} from '../types/kodeverk';
+import { State } from '../simple-api-state/simple-api-state';
+import { useKlageenheter, useSakstyper, useUtfall, useYtelser } from '../simple-api-state/use-kodeverk';
+import { IKlageenhet, IKodeverkSimpleValue, ILovKildeToRegistreringshjemmel, IYtelse } from '../types/kodeverk';
+import { KvalitetsvurderingVersion } from '../types/saksdata';
 import { SakstypeEnum } from '../types/sakstype';
 import { UtfallEnum } from '../types/utfall';
+import { useSaksdata } from './use-saksdata';
 
-export const useKodeverkValueDefault = <K extends keyof IKodeverk>(
-  key: K | typeof skipToken = skipToken
-): IKodeverk[K] => useKodeverkValue(key) ?? [];
+type YtelseParams = typeof skipToken | { ytelseId: string; version: KvalitetsvurderingVersion };
 
-export const useKodeverkValue = <K extends keyof IKodeverk>(
-  key: K | typeof skipToken = skipToken
-): IKodeverk[K] | undefined => {
-  const { data, isLoading } = useKodeverk();
+export const useYtelseParams = (): YtelseParams => {
+  const { data: saksdata } = useSaksdata();
 
-  if (key === skipToken || isLoading || typeof data === 'undefined') {
-    return undefined;
+  if (typeof saksdata === 'undefined' || saksdata.ytelseId === null) {
+    return skipToken;
   }
 
-  return data[key];
+  return {
+    ytelseId: saksdata.ytelseId,
+    version: saksdata.kvalitetsvurderingReference.version,
+  };
 };
 
-const useKodeverkYtelse = (ytelseId: string | typeof skipToken = skipToken): IYtelse | undefined =>
-  useKodeverkValueDefault('ytelser').find(({ id }) => id === ytelseId);
+const useKodeverkYtelse = (params: YtelseParams): State<IYtelse> => {
+  const skip = params === skipToken;
+  const { data, ...rest } = useYtelser(skip ? skipToken : params.version);
 
-export const useFullYtelseNameFromId = (ytelseId: string | null): string => {
-  const ytelse = useKodeverkYtelse(ytelseId ?? skipToken);
+  if (skip) {
+    return { ...rest, data: undefined, isLoading: false };
+  }
 
-  if (typeof ytelse === 'undefined') {
+  const { ytelseId } = params;
+
+  if (typeof data === 'undefined') {
+    return { ...rest, data: undefined };
+  }
+
+  return { ...rest, data: data.find(({ id }) => id === ytelseId) };
+};
+
+export const useFullYtelseNameFromId = (params: YtelseParams): string => {
+  const { data: ytelse, isLoading } = useKodeverkYtelse(params);
+
+  if (isLoading) {
+    return 'Laster...';
+  }
+
+  if (params === skipToken || typeof ytelse === 'undefined') {
     return 'Mangler';
   }
 
-  return ytelse?.navn ?? ytelseId;
+  return ytelse?.navn ?? params.ytelseId;
 };
 
 export const useKodeverkUtfall = (
   utfallId: string | typeof skipToken = skipToken
 ): IKodeverkSimpleValue<UtfallEnum> | undefined => {
-  const utfall = useKodeverkValueDefault('utfall');
+  const { data = [] } = useUtfall();
 
-  return utfall.find(({ id }) => id === utfallId);
+  return utfallId === skipToken ? undefined : data.find(({ id }) => id === utfallId);
 };
 
 export const useKodeverkSakstype = (
   sakstypeId: string | typeof skipToken = skipToken
 ): IKodeverkSimpleValue<SakstypeEnum> | undefined => {
-  const sakstyper = useKodeverkValueDefault('sakstyper');
+  const { data = [] } = useSakstyper();
 
-  return sakstyper.find(({ id }) => id === sakstypeId);
+  return sakstypeId === skipToken ? undefined : data.find(({ id }) => id === sakstypeId);
 };
 
-export const useEnheterForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkSimpleValue[] =>
-  useKodeverkYtelse(ytelseId)?.enheter ?? [];
+export const useEnheterForYtelse = (params: YtelseParams): IKodeverkSimpleValue[] =>
+  useKodeverkYtelse(params).data?.enheter ?? [];
 
-export const useKlageenheterForYtelse = (ytelseId: string | typeof skipToken = skipToken): IKodeverkSimpleValue[] =>
-  useKodeverkYtelse(ytelseId)?.klageenheter ?? [];
+export const useKlageenheterForYtelse = (params: YtelseParams): IKodeverkSimpleValue[] =>
+  useKodeverkYtelse(params).data?.klageenheter ?? [];
 
 const useKodeverkKlageenhet = (klageenhetId: string | typeof skipToken = skipToken): IKlageenhet | undefined => {
-  const klageenheter = useKodeverkValueDefault('klageenheter');
+  const { data = [] } = useKlageenheter();
 
-  return klageenheter.find(({ id }) => id === klageenhetId);
+  return klageenhetId === skipToken ? undefined : data.find(({ id }) => id === klageenhetId);
 };
 
-export const useLovkildeToRegistreringshjemmelForYtelse = (
-  ytelseId: string | typeof skipToken = skipToken
-): ILovKildeToRegistreringshjemmel[] => useKodeverkYtelse(ytelseId)?.lovKildeToRegistreringshjemler ?? [];
+export const useLovkildeToRegistreringshjemmelForYtelse = (params: YtelseParams): ILovKildeToRegistreringshjemmel[] =>
+  useKodeverkYtelse(params).data?.lovKildeToRegistreringshjemler ?? [];
 
 export const useSimpleYtelserForKlageenhet = (
   klageenhetId: string | typeof skipToken = skipToken
@@ -83,21 +96,27 @@ export const useSimpleYtelserForKlageenhet = (
   return klageenhet.ytelser;
 };
 
-export const useYtelserForVedtaksinstansenhet = (enhetId: string | typeof skipToken = skipToken): IYtelse[] => {
-  const ytelser = useKodeverkValueDefault('ytelser');
+export const useYtelserForVedtaksinstansenhet = (
+  enhetId: string | typeof skipToken = skipToken,
+  version: KvalitetsvurderingVersion
+): IYtelse[] => {
+  const { data: ytelser = [] } = useYtelser(version);
 
   if (enhetId === skipToken) {
-    return ytelser;
+    return [];
   }
 
   return ytelser.filter(({ enheter }) => enheter.some(({ id }) => id === enhetId));
 };
 
-export const useYtelserForKlageenhet = (enhetId: string | typeof skipToken = skipToken): IYtelse[] => {
-  const ytelser = useKodeverkValueDefault('ytelser');
+export const useYtelserForKlageenhet = (
+  enhetId: string | typeof skipToken = skipToken,
+  version: KvalitetsvurderingVersion
+): IYtelse[] => {
+  const { data: ytelser = [] } = useYtelser(version);
 
   if (enhetId === skipToken) {
-    return ytelser;
+    return [];
   }
 
   return ytelser.filter(({ klageenheter }) => klageenheter.some(({ id }) => id === enhetId));

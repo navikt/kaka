@@ -1,7 +1,6 @@
 import { HelpText, Radio, RadioGroup } from '@navikt/ds-react';
 import React from 'react';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
-import { useFieldName } from '../../../../hooks/use-field-name';
 import { useKvalitetsvurdering } from '../../../../hooks/use-kvalitetsvurdering';
 import { useSaksdata } from '../../../../hooks/use-saksdata';
 import { useValidationError } from '../../../../hooks/use-validation-error';
@@ -12,6 +11,7 @@ import { Reasons } from './reasons';
 import { klageforberedelsenReasons } from './reasons-labels';
 import { RadioButtonsRow, StyledHeading } from './styled-components';
 import { Reason } from './types';
+import { useKvalitetsvurderingV1FieldName } from './use-field-name';
 
 export const Klageforberedelsen = () => {
   const [kvalitetsvurdering] = useKvalitetsvurdering();
@@ -19,7 +19,7 @@ export const Klageforberedelsen = () => {
   const [updateKvalitetsvurdering] = useUpdateKvalitetsvurderingMutation();
   const canEdit = useCanEdit();
   const validationError = useValidationError('klageforberedelsenRadioValg');
-  const header = useFieldName('klageforberedelsenRadioValg');
+  const header = useKvalitetsvurderingV1FieldName('klageforberedelsenRadioValg');
 
   if (
     typeof kvalitetsvurdering === 'undefined' ||

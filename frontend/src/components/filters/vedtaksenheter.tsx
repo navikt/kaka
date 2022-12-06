@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useKodeverkValueDefault } from '../../hooks/use-kodeverk-value';
+import { useVedtaksenheter } from '../../simple-api-state/use-kodeverk';
 import { Filter } from './common/filter';
 import { FilterType } from './types';
 
@@ -9,9 +9,12 @@ interface Props {
 }
 
 export const VedtaksenheterFilter = ({ selected, setSelected }: Props) => {
-  const data = useKodeverkValueDefault('vedtaksenheter');
+  const { data: vedtaksenheter = [] } = useVedtaksenheter();
 
-  const filters = useMemo<FilterType[]>(() => data.map(({ id, navn }) => ({ label: `${id} - ${navn}`, id })), [data]);
+  const filters = useMemo<FilterType[]>(
+    () => vedtaksenheter.map(({ id, navn }) => ({ label: `${id} - ${navn}`, id })),
+    [vedtaksenheter]
+  );
 
   return <Filter label="Vedtaksinstans" selected={selected} filters={filters} setSelected={setSelected} />;
 };

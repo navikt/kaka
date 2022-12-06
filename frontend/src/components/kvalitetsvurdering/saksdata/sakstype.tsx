@@ -2,10 +2,10 @@ import { Radio, RadioGroup } from '@navikt/ds-react';
 import React from 'react';
 import styled from 'styled-components';
 import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useSetSakstypeMutation } from '../../../redux-api/saksdata';
+import { useSakstyper } from '../../../simple-api-state/use-kodeverk';
 import { useUser } from '../../../simple-api-state/use-user';
 import { SakstypeEnum } from '../../../types/sakstype';
 
@@ -13,7 +13,7 @@ export const Sakstype = () => {
   const { data: user } = useUser();
   const { data: saksdata } = useSaksdata();
   const [updateSakstype] = useSetSakstypeMutation();
-  const sakstyper = useKodeverkValueDefault('sakstyper');
+  const { data: sakstyper = [] } = useSakstyper();
   const canEdit = useCanEdit();
   const validationError = useValidationError('sakstypeId');
 

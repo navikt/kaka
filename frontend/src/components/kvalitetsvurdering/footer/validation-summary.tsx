@@ -39,14 +39,10 @@ const Section = ({ properties, section }: IValidationSection) => (
 
 const Field = ({ field, reason }: IValidationError) => (
   <li>
-    <Label>{`${useFieldName(field)}: `}</Label>
+    <strong>{`${useFieldName(field)}: `}</strong>
     <InlineLink href={`#${field}`}>{reason}</InlineLink>
   </li>
 );
-
-const Label = styled.strong`
-  white-space: nowrap;
-`;
 
 const ValidationSummaryContainer = styled.article`
   margin: 0;

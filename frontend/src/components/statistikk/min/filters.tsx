@@ -32,8 +32,14 @@ import {
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
 } from '../../filters/hooks/use-query-filter';
-import { FilteredHjemlerPills } from '../../filters/pills/hjemler';
-import { PillContainer, SelectedFilters } from '../../filters/pills/pills';
+import {
+  EnheterPills,
+  HjemlerPills,
+  PillContainer,
+  SakstyperPills,
+  UtfallPills,
+  YtelserPills,
+} from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
@@ -58,7 +64,6 @@ export const Filters = () => {
   const { data: userData } = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const selectedEnheter = useQueryFilters(QueryParams.ENHETER);
   const selectedTypes = useQueryFilters(QueryParams.TYPES);
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
@@ -69,7 +74,7 @@ export const Filters = () => {
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
-  const ytelser = useYtelserForKlageenhet(userData?.ansattEnhet.id ?? skipToken);
+  const ytelser = useYtelserForKlageenhet(userData?.ansattEnhet.id ?? skipToken, 1); // TODO: Set real version
 
   const setFilter = (filter: QueryParams, ...values: (string | number | null)[]) => {
     const v = values.filter(isNotNull);
@@ -153,35 +158,11 @@ export const Filters = () => {
       <HjemmelFilter selected={selectedHjemler} setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)} />
 
       <PillContainer>
-        <SelectedFilters
-          values={selectedEnheter}
-          queryKey={QueryParams.ENHETER}
-          kodeverkKey="enheter"
-          category="vedtaksinstans"
-          setFilter={setFilter}
-        />
-        <SelectedFilters
-          values={selectedUtfall}
-          queryKey={QueryParams.UTFALL}
-          kodeverkKey="utfall"
-          category="utfall"
-          setFilter={setFilter}
-        />
-        <SelectedFilters
-          values={selectedTypes}
-          queryKey={QueryParams.TYPES}
-          kodeverkKey="sakstyper"
-          category="sakstype"
-          setFilter={setFilter}
-        />
-        <SelectedFilters
-          values={selectedYtelser}
-          queryKey={QueryParams.YTELSER}
-          kodeverkKey="ytelser"
-          category="ytelse"
-          setFilter={setFilter}
-        />
-        <FilteredHjemlerPills setFilter={setFilter} />
+        <EnheterPills setFilter={setFilter} />
+        <UtfallPills setFilter={setFilter} />
+        <SakstyperPills setFilter={setFilter} />
+        <YtelserPills setFilter={setFilter} />
+        <HjemlerPills setFilter={setFilter} />
       </PillContainer>
 
       <TilbakekrevingFilter

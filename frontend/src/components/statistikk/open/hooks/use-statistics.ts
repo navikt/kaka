@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useGetOpenStatisticsQuery } from '../../../../redux-api/statistics';
-import { IStatisticVurdering } from '../../../../types/statistics';
+import { useStatisticsOpen } from '../../../../simple-api-state/statistics/v1/use-statistics-open';
+import { IStatisticVurdering } from '../../../../types/statistics/v1';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../../filters/hooks/use-query-filter';
@@ -9,7 +9,7 @@ const useStatistics = () => {
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
-  return useGetOpenStatisticsQuery({ fromDate, toDate }, { pollingInterval: 3 * 60 * 1000 });
+  return useStatisticsOpen({ fromDate, toDate });
 };
 
 export const useTotalStatisticsIsLoading = (): boolean => useStatistics().isLoading;

@@ -8,7 +8,7 @@ import {
 } from '../components/filters/date-presets/constants';
 import { QueryParams } from '../components/filters/filter-query-params';
 import { TilbakekrevingEnum } from '../components/filters/types';
-import { useKodeverkValueDefault } from '../hooks/use-kodeverk-value';
+import { useKlageenheter, useVedtaksenheter } from '../simple-api-state/use-kodeverk';
 import { useUser } from '../simple-api-state/use-user';
 
 export const useDefaultQueryAapen = () =>
@@ -22,8 +22,8 @@ export const useDefaultQueryAapen = () =>
 export const useDefaultQueryTotal = () => {
   const { data: user } = useUser();
 
-  const vedtaksinstansenheter = useKodeverkValueDefault('vedtaksenheter');
-  const klageenheter = useKodeverkValueDefault('klageenheter');
+  const { data: vedtaksinstansenheter = [] } = useVedtaksenheter();
+  const { data: klageenheter = [] } = useKlageenheter();
 
   const fromDate = FORMATTED_START_OF_MONTH;
   const toDate = FORMATTED_NOW;

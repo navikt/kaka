@@ -13,6 +13,7 @@ interface DropdownProps {
   onChange: (selected: string) => void;
   close: () => void;
   labelFn: (kodeverkValue: IKodeverkSimpleValue) => string;
+  testId: string;
 }
 
 interface Option {
@@ -35,6 +36,7 @@ const ShowSingleSelectDropdown = ({
   onChange,
   close,
   labelFn,
+  testId,
 }: Omit<DropdownProps, 'open'>): JSX.Element | null => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -50,10 +52,15 @@ const ShowSingleSelectDropdown = ({
   return (
     <StyledDropdown ref={dropdownRef}>
       <Header options={options} onChange={setFilteredOptions} close={close} />
-      <StyledSectionList>
+      <StyledSectionList data-testid={`${testId}-list`}>
         {filteredOptions.map(({ label, value }) => (
           <StyledListItem key={value}>
-            <SingleSelectOption active={selected === value} filterId={value} onSelect={onChange}>
+            <SingleSelectOption
+              active={selected === value}
+              filterId={value}
+              onSelect={onChange}
+              testId={`${testId}-${value}`}
+            >
               {label}
             </SingleSelectOption>
           </StyledListItem>

@@ -1,4 +1,5 @@
 import { HelpText } from '@navikt/ds-react';
+import { parse, subDays } from 'date-fns';
 import React from 'react';
 import styled from 'styled-components';
 import { useCanEdit } from '../../../hooks/use-can-edit';
@@ -21,6 +22,9 @@ export const MottattVedtaksinstans = () => {
     return null;
   }
 
+  const toDate =
+    saksdata.mottattKlageinstans === null ? undefined : parse(saksdata.mottattKlageinstans, 'yyyy-MM-dd', new Date());
+
   return (
     <DatepickerWithValidation
       label={
@@ -35,11 +39,12 @@ export const MottattVedtaksinstans = () => {
       disabled={!canEdit}
       onChange={(mottattVedtaksinstans) => setMottattVedtaksinstans({ id, mottattVedtaksinstans })}
       value={saksdata.mottattVedtaksinstans}
-      toDate={new Date()}
+      toDate={toDate}
       error={validationError}
       id="mottattVedtaksinstans"
       size="medium"
       centuryThreshold={CENTURY_NUMBER}
+      warningThreshhold={subDays(new Date(), 360)}
     />
   );
 };

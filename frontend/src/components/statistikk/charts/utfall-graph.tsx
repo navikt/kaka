@@ -2,7 +2,7 @@ import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { isNotUndefined } from '../../../functions/is-not';
-import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
+import { useUtfall } from '../../../simple-api-state/use-kodeverk';
 import { UtfallEnum } from '../../../types/utfall';
 import { StatisticsProps } from '../types';
 import { percent, tickCallback } from './formatting';
@@ -76,7 +76,7 @@ export const UtfallGraph = ({ stats: allStats }: StatisticsProps) => {
     [allStats]
   );
 
-  const utfall = useKodeverkValueDefault('utfall');
+  const { data: utfall = [] } = useUtfall();
 
   const keys = Object.values(UtfallEnum);
 
