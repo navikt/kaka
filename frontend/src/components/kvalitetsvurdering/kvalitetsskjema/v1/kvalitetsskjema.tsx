@@ -1,10 +1,10 @@
 import { Heading, Loader } from '@navikt/ds-react';
+import { skipToken } from '@reduxjs/toolkit/dist/query';
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { useKodeverkValueDefault } from '../../../../hooks/use-kodeverk-value';
 import { useKvalitetsvurdering } from '../../../../hooks/use-kvalitetsvurdering';
-import { useSaksdataId } from '../../../../hooks/use-saksdata-id';
-import { useGetSaksdataQuery } from '../../../../redux-api/saksdata';
+import { useSaksdata } from '../../../../hooks/use-saksdata';
+import { useYtelser } from '../../../../simple-api-state/use-kodeverk';
 import { UtfallEnum } from '../../../../types/utfall';
 import { Annet } from './annet';
 import { BrukAvRaadgivendeLege } from './bruk-av-raadgivende-lege';
@@ -13,8 +13,7 @@ import { Utredningen } from './utredningen';
 import { Vedtaket } from './vedtaket';
 
 export const KvalitetsskjemaV1 = () => {
-  const saksdataId = useSaksdataId();
-  const { data: saksdata, isLoading, isError } = useGetSaksdataQuery(saksdataId);
+  const { data: saksdata, isLoading, isError } = useSaksdata();
   const [kvalitetsvurdering] = useKvalitetsvurdering();
 
   if (isLoading) {
@@ -105,7 +104,8 @@ const RELEVANTE_YTELSE_IDS: string[] = [
 ];
 
 const useIsRelevantYtelse = (ytelseId: string | null): boolean => {
-  const ytelser = useKodeverkValueDefault('ytelser');
+  const { data: saksdata } = useSaksdata();
+  const { data: ytelser } = useYtelser(saksdata?.kvalitetsvurderingReference.version ?? skipToken);
 
   return useMemo<boolean>(() => {
     if (typeof ytelser === 'undefined' || ytelseId === null) {

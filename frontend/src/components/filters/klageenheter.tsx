@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useKodeverkValueDefault } from '../../hooks/use-kodeverk-value';
+import { useKlageenheter } from '../../simple-api-state/use-kodeverk';
 import { Filter } from './common/filter';
 import { FilterType } from './types';
 
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const KlageenheterFilter = ({ selected, setSelected }: Props) => {
-  const klageenheter = useKodeverkValueDefault('klageenheter');
+  const { data: klageenheter = [] } = useKlageenheter();
 
   const filters = useMemo<FilterType[]>(
     () => klageenheter.map(({ id, navn }) => ({ label: `${id} - ${navn}`, id })),

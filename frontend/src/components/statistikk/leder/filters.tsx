@@ -2,7 +2,7 @@ import { Button, Select } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
+import { useYtelser } from '../../../simple-api-state/use-kodeverk';
 import { useUser } from '../../../simple-api-state/use-user';
 import { FilterPanelContainer } from '../../filters/common/styled-components';
 import {
@@ -27,9 +27,15 @@ import {
   useToMonthQueryFilter,
 } from '../../filters/hooks/use-query-filter';
 import { MonthFilter } from '../../filters/month';
-import { FilteredHjemlerPills } from '../../filters/pills/hjemler';
-import { PillContainer, SelectedFilters } from '../../filters/pills/pills';
-import { FilteredSaksbehandlerPills } from '../../filters/pills/saksbehandler';
+import {
+  EnheterPills,
+  HjemlerPills,
+  PillContainer,
+  SaksbehandlerPills,
+  SakstyperPills,
+  UtfallPills,
+  YtelserPills,
+} from '../../filters/pills/pills';
 import { SaksbehandlerFilter } from '../../filters/saksbehandler';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
@@ -50,7 +56,6 @@ export const Filters = () => {
   const { data: userData } = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const selectedEnheter = useQueryFilters(QueryParams.ENHETER);
   const selectedTypes = useQueryFilters(QueryParams.TYPES);
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
@@ -62,7 +67,7 @@ export const Filters = () => {
   const fromMonth = useFromMonthQueryFilter(FORMATTED_START_OF_LAST_MONTH);
   const toMonth = useToMonthQueryFilter(FORMATTED_END_OF_LAST_MONTH);
 
-  const ytelser = useKodeverkValueDefault('ytelser');
+  const { data: ytelser = [] } = useYtelser(1); // TODO: Set real version.
 
   const setFilter = (filter: QueryParams, ...values: (string | number)[]) => {
     if (values.length === 0) {
@@ -121,36 +126,12 @@ export const Filters = () => {
       <HjemmelFilter selected={selectedHjemler} setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)} />
 
       <PillContainer>
-        <SelectedFilters
-          values={selectedEnheter}
-          queryKey={QueryParams.ENHETER}
-          kodeverkKey="enheter"
-          category="vedtaksinstans"
-          setFilter={setFilter}
-        />
-        <SelectedFilters
-          values={selectedUtfall}
-          queryKey={QueryParams.UTFALL}
-          kodeverkKey="utfall"
-          category="utfall"
-          setFilter={setFilter}
-        />
-        <SelectedFilters
-          values={selectedTypes}
-          queryKey={QueryParams.TYPES}
-          kodeverkKey="sakstyper"
-          category="sakstype"
-          setFilter={setFilter}
-        />
-        <SelectedFilters
-          values={selectedYtelser}
-          queryKey={QueryParams.YTELSER}
-          kodeverkKey="ytelser"
-          category="ytelse"
-          setFilter={setFilter}
-        />
-        <FilteredHjemlerPills setFilter={setFilter} />
-        <FilteredSaksbehandlerPills setFilter={setFilter} />
+        <EnheterPills setFilter={setFilter} />
+        <UtfallPills setFilter={setFilter} />
+        <SakstyperPills setFilter={setFilter} />
+        <YtelserPills setFilter={setFilter} />
+        <HjemlerPills setFilter={setFilter} />
+        <SaksbehandlerPills setFilter={setFilter} />
       </PillContainer>
 
       <TilbakekrevingFilter

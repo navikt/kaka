@@ -1,34 +1,8 @@
-import { Radiovalg, RadiovalgExtended } from './kvalitetsvurdering/radio';
-import { SakstypeEnum } from './sakstype';
-import { UtfallEnum } from './utfall';
+import { Radiovalg, RadiovalgExtended } from '../kvalitetsvurdering/radio';
+import { ISaksdata, UUID } from './common';
 
-type UUID = string;
-
-interface Date {
-  readonly weekNumber: number;
-  readonly year: number;
-  readonly month: number;
-  readonly day: number;
-  readonly iso: string;
-  readonly epochDay: number;
-}
-
-export interface IStatisticVurdering {
+export interface IStatisticVurdering extends ISaksdata {
   readonly id: UUID; // Anonymized
-  readonly createdDate: Date; // First of either: saksdataCreated or kvalitetsvurderingCreated.
-  readonly modifiedDate: Date; // Last of either: saksdataModified or kvalitetsvurderingModified.
-
-  // Saksdata
-  readonly avsluttetAvSaksbehandler: Date;
-  readonly kaBehandlingstidDays: number;
-  readonly vedtaksinstansBehandlingstidDays: number;
-  readonly totalBehandlingstidDays: number;
-  readonly hjemmelIdList: string[];
-  readonly mottattKlageinstans: Date | null;
-  readonly mottattVedtaksinstans: Date | null;
-  readonly sakstypeId: SakstypeEnum;
-  readonly utfallId: UtfallEnum;
-  readonly ytelseId: string;
 
   // Kvalitetsvurdering
   readonly arbeidsrettetBrukeroppfoelging: boolean;
@@ -87,6 +61,7 @@ export interface IStatistics {
   readonly anonymizedFinishedVurderingList: IStatisticVurdering[];
 }
 
+// Query types
 export interface IStatisticsQuery {
   fromDate?: string;
   toDate?: string;
@@ -102,11 +77,6 @@ export interface IManagerStatisticsQuery {
   fromMonth?: string;
   toMonth?: string;
   saksbehandlere?: string[];
-}
-
-export interface ISaksbehandler {
-  navIdent: string;
-  navn: string;
 }
 
 export type RadiovalgField = keyof Pick<

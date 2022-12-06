@@ -15,41 +15,29 @@ type UpdateText = Partial<IKvalitetsvurderingTexts> & WithId;
 type UpdateRadio = Partial<IKvalitetsvurderingRadio> & WithId;
 type UpdateRadioExtended = Partial<IKvalitetsvurderingRadioExtended> & WithId;
 
+type UpdateParam = UpdateBoolean | UpdateText | UpdateRadio | UpdateRadioExtended;
+
 export const kvalitetsvurderingV1Api = createApi({
   reducerPath: 'kvalitetsvurderingV1Api',
   baseQuery,
+  tagTypes: ['kvalitetsvurdering'],
   endpoints: (builder) => ({
     getKvalitetsvurdering: builder.query<IKvalitetsvurderingV1, string>({
       query: (id) => `/api/kaka-api/kvalitetsvurdering/${id}`,
+      providesTags: (_, __, id) => [{ type: 'kvalitetsvurdering', id }],
     }),
-    updateKvalitetsvurdering: builder.mutation<
-      IKvalitetsvurderingV1,
-      UpdateBoolean | UpdateText | UpdateRadio | UpdateRadioExtended
-    >({
-      query: ({ id, ...body }) => {
-        const [first, ...rest]: [string, unknown][] = Object.entries(body);
-
-        if (rest.length !== 0) {
-          throw new Error('Only one value allowed');
-        }
-
-        if (first === undefined) {
-          throw new Error('No values provided');
-        }
-
-        const [key, value] = first;
-
-        return {
-          url: `/api/kaka-api/kvalitetsvurdering/${id}/${key.toLowerCase()}`,
-          method: 'PUT',
-          body: { value },
-        };
-      },
+    updateKvalitetsvurdering: builder.mutation<IKvalitetsvurderingV1, UpdateParam>({
+      query: ({ id, ...body }) => ({
+        url: `/api/kaka-api/kvalitetsvurderinger/v1/${id}`,
+        method: 'PATCH',
+        body,
+      }),
       onQueryStarted: async ({ id, ...update }, { dispatch, queryFulfilled }) => {
         const patchResult = dispatch(
-          kvalitetsvurderingV1Api.util.updateQueryData('getKvalitetsvurdering', id, (draft) =>
-            Object.assign(draft, update)
-          )
+          kvalitetsvurderingV1Api.util.updateQueryData('getKvalitetsvurdering', id, (draft) => ({
+            ...draft,
+            ...update,
+          }))
         );
 
         try {

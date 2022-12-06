@@ -1,8 +1,8 @@
 import { skipToken } from '@reduxjs/toolkit/query/react';
 import { useMemo } from 'react';
-import { useGetMyStatisticsQuery } from '../../../../redux-api/statistics';
+import { useStatisticsMy } from '../../../../simple-api-state/statistics/v1/use-statistics-my';
 import { useUser } from '../../../../simple-api-state/use-user';
-import { IFullStatisticVurdering, IStatisticsQuery } from '../../../../types/statistics';
+import { IFullStatisticVurdering, IStatisticsQuery } from '../../../../types/statistics/v1';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
@@ -21,7 +21,7 @@ const useStatistics = () => {
 
   const query: IStatisticsQuery | typeof skipToken = typeof userData === 'undefined' ? skipToken : { fromDate, toDate };
 
-  return useGetMyStatisticsQuery(query, { pollingInterval: 3 * 60 * 1000 });
+  return useStatisticsMy(query);
 };
 
 export const useMyStatisticsIsLoading = (): boolean => useStatistics().isLoading;

@@ -1,5 +1,8 @@
-import { IKodeverk, IKodeverkSimpleValue, IKodeverkValue } from '../types/kodeverk';
+import { skipToken } from '@reduxjs/toolkit/dist/query';
+import { IKlageenhet, IKodeverkSimpleValue, IKodeverkValue, ISakstyperToUtfall, IYtelse } from '../types/kodeverk';
+import { KvalitetsvurderingVersion } from '../types/saksdata';
 import { SakstypeEnum } from '../types/sakstype';
+import { UtfallEnum } from '../types/utfall';
 import { SimpleApiState, State, useSimpleApiState } from './simple-api-state';
 
 const API_PREFIX = '/api/klage-kodeverk-api/kodeverk';
@@ -15,17 +18,31 @@ interface IHjemmelNameWithLovkilde {
 
 type RegistreringshjemlerMap = Record<string, IHjemmelNameWithLovkilde>;
 
-const kodeverkApi = new SimpleApiState<IKodeverk>(`${API_PREFIX}`);
 const registreringshjemlerMap = new SimpleApiState<RegistreringshjemlerMap>(`${API_PREFIX}/registreringshjemlermap`);
 const lovkildeToRegistreringshjemler = new SimpleApiState<AllLovKilderToRegistreringshjemmel[]>(
   `${API_PREFIX}/lovkildetoregistreringshjemler`
 );
+const ytelserV1 = new SimpleApiState<IYtelse[]>(`${API_PREFIX}/ytelser/v1`);
+const ytelserV2 = new SimpleApiState<IYtelse[]>(`${API_PREFIX}/ytelser/v2`);
+const klageenheter = new SimpleApiState<IKlageenhet[]>(`${API_PREFIX}/klageenheter`);
+const enheter = new SimpleApiState<IKodeverkSimpleValue[]>(`${API_PREFIX}/enheter`);
+const sakstyper = new SimpleApiState<IKodeverkSimpleValue<SakstypeEnum>[]>(`${API_PREFIX}/sakstyper`);
+const utfall = new SimpleApiState<IKodeverkSimpleValue<UtfallEnum>[]>(`${API_PREFIX}/utfall`);
+const vedtaksenheter = new SimpleApiState<IKodeverkSimpleValue[]>(`${API_PREFIX}/vedtaksenheter`);
+const sakstyperToUtfall = new SimpleApiState<ISakstyperToUtfall[]>(`${API_PREFIX}/sakstypertoutfall`);
 
+export const useYtelser = (version: KvalitetsvurderingVersion | typeof skipToken = skipToken) =>
+  useSimpleApiState(version === 1 ? ytelserV1 : ytelserV2);
 export const useLovkildeToRegistreringshjemler = () => useSimpleApiState(lovkildeToRegistreringshjemler);
 export const useRegistreringshjemlerMap = () => useSimpleApiState(registreringshjemlerMap);
+export const useKlageenheter = () => useSimpleApiState(klageenheter);
+export const useEnheter = () => useSimpleApiState(enheter);
+export const useUtfall = () => useSimpleApiState(utfall);
+export const useVedtaksenheter = () => useSimpleApiState(vedtaksenheter);
+export const useSakstyperToUtfall = () => useSimpleApiState(sakstyperToUtfall);
 
-export const useKodeverk = (): State<IKodeverk> => {
-  const state = useSimpleApiState(kodeverkApi);
+export const useSakstyper = (): State<IKodeverkSimpleValue<SakstypeEnum>[]> => {
+  const state = useSimpleApiState(sakstyper);
 
   if (typeof state.data === 'undefined') {
     return state;
@@ -33,9 +50,6 @@ export const useKodeverk = (): State<IKodeverk> => {
 
   return {
     ...state,
-    data: {
-      ...state.data,
-      sakstyper: state.data.sakstyper.filter((sakstype) => sakstype.id !== SakstypeEnum.ANKE_I_TRYGDERETTEN),
-    },
+    data: state.data.filter((sakstype) => sakstype.id !== SakstypeEnum.ANKE_I_TRYGDERETTEN),
   };
 };

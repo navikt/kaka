@@ -1,6 +1,5 @@
-import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import React, { useMemo } from 'react';
-import { useLovkildeToRegistreringshjemmelForYtelse } from '../../../../hooks/use-kodeverk-value';
+import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '../../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../../hooks/use-saksdata';
 import { ILovKildeToRegistreringshjemmel } from '../../../../types/kodeverk';
 import {
@@ -16,7 +15,7 @@ const EMPTY_LIST: string[] = [];
 
 export const SelectedHjemlerList = () => {
   const { data: saksdata } = useSaksdata();
-  const hjemler = useLovkildeToRegistreringshjemmelForYtelse(saksdata?.ytelseId ?? skipToken);
+  const hjemler = useLovkildeToRegistreringshjemmelForYtelse(useYtelseParams());
 
   const hjemmelIdList = saksdata?.hjemmelIdList ?? EMPTY_LIST;
 
@@ -38,7 +37,7 @@ export const SelectedHjemlerList = () => {
   }
 
   return (
-    <StyledSelectedHjemler>
+    <StyledSelectedHjemler data-testid="selected-hjemler-list">
       <SelectedChildren registreringshjemmelIdList={list} />
     </StyledSelectedHjemler>
   );
@@ -61,7 +60,9 @@ const SelectedChildren = ({
 
           <StyledSelectedList>
             {registreringshjemler.map(({ navn, id }) => (
-              <StyledListItem key={id}>{navn}</StyledListItem>
+              <StyledListItem key={id} data-testid={`selected-hjemmel-${id}`}>
+                {navn}
+              </StyledListItem>
             ))}
           </StyledSelectedList>
         </StyledSelectedSection>

@@ -4,7 +4,7 @@ import { format, parse, subMonths } from 'date-fns';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { isNotNull } from '../../../functions/is-not';
-import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
+import { useYtelser } from '../../../simple-api-state/use-kodeverk';
 import { useUser } from '../../../simple-api-state/use-user';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
 import { DateContainer, FilterPanelContainer } from '../../filters/common/styled-components';
@@ -26,7 +26,7 @@ import { getLastTertial } from '../../filters/date-presets/get-last-tertial';
 import { IOption } from '../../filters/date-presets/types';
 import { QueryParams } from '../../filters/filter-query-params';
 import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../filters/hooks/use-query-filter';
-import { PillContainer, SelectedFilters } from '../../filters/pills/pills';
+import { PillContainer, SakstyperPills, UtfallPills, YtelserPills } from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { UtfallFilter } from '../../filters/utfall';
@@ -57,7 +57,7 @@ export const Filters = () => {
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
-  const ytelser = useKodeverkValueDefault('ytelser');
+  const { data: ytelser = [] } = useYtelser(1); // TODO: Set real version
 
   const setFilter = (filter: QueryParams, ...values: (string | number | null)[]) => {
     const v = values.filter(isNotNull);
@@ -150,27 +150,9 @@ export const Filters = () => {
       />
 
       <PillContainer>
-        <SelectedFilters
-          values={selectedUtfall}
-          queryKey={QueryParams.UTFALL}
-          kodeverkKey="utfall"
-          category="utfall"
-          setFilter={setFilter}
-        />
-        <SelectedFilters
-          values={selectedTypes}
-          queryKey={QueryParams.TYPES}
-          kodeverkKey="sakstyper"
-          category="sakstype"
-          setFilter={setFilter}
-        />
-        <SelectedFilters
-          values={selectedYtelser}
-          queryKey={QueryParams.YTELSER}
-          kodeverkKey="ytelser"
-          category="ytelse"
-          setFilter={setFilter}
-        />
+        <UtfallPills setFilter={setFilter} />
+        <SakstyperPills setFilter={setFilter} />
+        <YtelserPills setFilter={setFilter} />
       </PillContainer>
     </FilterPanelContainer>
   );

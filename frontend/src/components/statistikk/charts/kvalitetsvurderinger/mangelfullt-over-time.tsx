@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2';
 import { isNotUndefined } from '../../../../functions/is-not';
 import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
 import { IKvalitetsvurderingBooleans } from '../../../../types/kvalitetsvurdering/v1';
-import { IStatisticVurdering } from '../../../../types/statistics';
+import { IStatisticVurdering } from '../../../../types/statistics/v1';
 import { ReasonLabel, getReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
 import { useKvalitetsvurderingParam } from '../../hooks/use-kvalitetsvurdering-param';
 import { StatisticsProps } from '../../types';

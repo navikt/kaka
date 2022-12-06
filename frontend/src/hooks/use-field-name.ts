@@ -1,8 +1,23 @@
-export const FIELD_NAMES = {
-  klageforberedelsenRadioValg: 'Klageforberedelsen',
-  utredningenRadioValg: 'Utredningen',
-  vedtaketRadioValg: 'Vedtaket',
-  brukAvRaadgivendeLegeRadioValg: 'Bruk av rådgivende lege',
+import { KVALITETESVURDERING_V1_FIELD_NAMES as KVALITETSVURDERING_V1_FIELD_NAMES } from '../components/kvalitetsvurdering/kvalitetsskjema/v1/use-field-name';
+import {
+  KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES,
+  KVALITETSVURDERING_V2_FIELD_NAMES,
+} from '../components/kvalitetsvurdering/kvalitetsskjema/v2/common/use-field-name';
+import { ISaksdataComplete } from '../types/saksdata';
+
+type SaksdataKeys = keyof Pick<
+  ISaksdataComplete,
+  | 'utfallId'
+  | 'sakenGjelder'
+  | 'sakstypeId'
+  | 'ytelseId'
+  | 'hjemmelIdList'
+  | 'mottattVedtaksinstans'
+  | 'mottattKlageinstans'
+  | 'vedtaksinstansEnhet'
+>;
+
+export const SAKSDATA_FIELD_NAMES: Record<SaksdataKeys, string> = {
   utfallId: 'Utfall/resultat',
   sakenGjelder: 'Saken gjelder',
   sakstypeId: 'Sakstype',
@@ -13,4 +28,15 @@ export const FIELD_NAMES = {
   vedtaksinstansEnhet: 'Fra vedtaksenhet',
 };
 
-export const useFieldName = (field: keyof typeof FIELD_NAMES): string => FIELD_NAMES[field] ?? field;
+type Field =
+  | keyof typeof KVALITETSVURDERING_V1_FIELD_NAMES
+  | keyof typeof KVALITETSVURDERING_V2_FIELD_NAMES
+  | keyof typeof KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES
+  | SaksdataKeys;
+
+export const useFieldName = (field: Field): string =>
+  SAKSDATA_FIELD_NAMES[field] ??
+  KVALITETSVURDERING_V2_FIELD_NAMES[field] ??
+  KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES[field] ??
+  KVALITETSVURDERING_V1_FIELD_NAMES[field] ??
+  field;

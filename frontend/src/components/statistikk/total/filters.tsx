@@ -3,7 +3,7 @@ import { format, parse, subMonths } from 'date-fns';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { isNotNull } from '../../../functions/is-not';
-import { useKodeverkValueDefault } from '../../../hooks/use-kodeverk-value';
+import { useYtelser } from '../../../simple-api-state/use-kodeverk';
 import { useUser } from '../../../simple-api-state/use-user';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
 import { ExcelExport } from '../../excel-export/excel-export';
@@ -33,10 +33,16 @@ import {
   useToDateQueryFilter,
 } from '../../filters/hooks/use-query-filter';
 import { KlageenheterFilter } from '../../filters/klageenheter';
-import { SelectedEnheterFilters, SelectedKlageenheterFilters } from '../../filters/pills/enhet';
-import { FilteredHjemlerPills } from '../../filters/pills/hjemler';
-import { PillContainer, SelectedFilters } from '../../filters/pills/pills';
-import { VedtaksinstansgrupperPills } from '../../filters/pills/vedtaksinstansgrupper';
+import {
+  EnheterPills,
+  HjemlerPills,
+  KlageenheterPills,
+  PillContainer,
+  SakstyperPills,
+  UtfallPills,
+  VedtaksinstansgrupperPills,
+  YtelserPills,
+} from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
@@ -76,7 +82,7 @@ export const Filters = () => {
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
-  const ytelser = useKodeverkValueDefault('ytelser');
+  const { data: ytelser = [] } = useYtelser(1); // TODO: Set real version
 
   const setFilter = (filter: QueryParams, ...values: (string | number | null)[]) => {
     const v = values.filter(isNotNull);
@@ -179,35 +185,13 @@ export const Filters = () => {
       <HjemmelFilter selected={selectedHjemler} setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)} />
 
       <PillContainer>
-        <SelectedKlageenheterFilters values={selectedKlageenheter} category="klageenhet" setFilter={setFilter} />
-
+        <KlageenheterPills setFilter={setFilter} />
         <VedtaksinstansgrupperPills setFilter={setFilter} />
-
-        <SelectedEnheterFilters values={selectedEnheter} category="vedtaksinstans" setFilter={setFilter} />
-
-        <SelectedFilters
-          values={selectedUtfall}
-          queryKey={QueryParams.UTFALL}
-          kodeverkKey="utfall"
-          category="utfall"
-          setFilter={setFilter}
-        />
-        <SelectedFilters
-          values={selectedTypes}
-          queryKey={QueryParams.TYPES}
-          kodeverkKey="sakstyper"
-          category="sakstype"
-          setFilter={setFilter}
-        />
-        <SelectedFilters
-          values={selectedYtelser}
-          queryKey={QueryParams.YTELSER}
-          kodeverkKey="ytelser"
-          category="ytelse"
-          setFilter={setFilter}
-        />
-
-        <FilteredHjemlerPills setFilter={setFilter} />
+        <EnheterPills setFilter={setFilter} />
+        <UtfallPills setFilter={setFilter} />
+        <SakstyperPills setFilter={setFilter} />
+        <YtelserPills setFilter={setFilter} />
+        <HjemlerPills setFilter={setFilter} />
       </PillContainer>
 
       <TilbakekrevingFilter

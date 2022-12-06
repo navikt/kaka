@@ -2,30 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSaksdata } from '../../hooks/use-saksdata';
 import { PageWrapper } from '../../pages/page-wrapper';
-import { KvalitetsvurderingVersion } from '../../types/saksdata';
 import { KvalitetsskjemaV1 } from './kvalitetsskjema/v1/kvalitetsskjema';
 import { KvalitetsskjemaV2 } from './kvalitetsskjema/v2/kvalitetsskjema';
 import { Saksdata } from './saksdata/saksdata';
 
-export const Kvalitetsvurdering = () => {
-  const { data: saksdata } = useSaksdata();
+export const Kvalitetsvurdering = () => (
+  <PageWrapper>
+    <StyledKvalitetsvurdering>
+      <Saksdata />
+      <Kvalitetsskjema />
+    </StyledKvalitetsvurdering>
+  </PageWrapper>
+);
 
-  return (
-    <PageWrapper>
-      <StyledKvalitetsvurdering>
-        <Saksdata />
-        <Kvalitetsskjema version={saksdata?.kvalitetsvurderingReference.version} />
-      </StyledKvalitetsvurdering>
-    </PageWrapper>
-  );
-};
+const Kvalitetsskjema = () => {
+  const { data } = useSaksdata();
 
-interface KvalitetsskjemaVersionProps {
-  version: KvalitetsvurderingVersion | undefined;
-}
-
-const Kvalitetsskjema = ({ version }: KvalitetsskjemaVersionProps) => {
-  switch (version) {
+  switch (data?.kvalitetsvurderingReference.version) {
     case 1:
       return <KvalitetsskjemaV1 />;
     case 2:
@@ -40,4 +33,5 @@ const StyledKvalitetsvurdering = styled.div`
   flex-direction: column;
   row-gap: 32px;
   padding-bottom: 64px;
+  width: 800px;
 `;

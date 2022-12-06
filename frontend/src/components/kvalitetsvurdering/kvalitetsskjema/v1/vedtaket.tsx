@@ -1,7 +1,6 @@
 import { Heading, Radio, RadioGroup } from '@navikt/ds-react';
 import React from 'react';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
-import { useFieldName } from '../../../../hooks/use-field-name';
 import { useKvalitetsvurdering } from '../../../../hooks/use-kvalitetsvurdering';
 import { useValidationError } from '../../../../hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '../../../../redux-api/kvalitetsvurdering/v1';
@@ -10,13 +9,14 @@ import { Reasons } from './reasons';
 import { vedtaketReasons } from './reasons-labels';
 import { RadioButtonsRow } from './styled-components';
 import { Reason } from './types';
+import { useKvalitetsvurderingV1FieldName } from './use-field-name';
 
 export const Vedtaket = () => {
   const [kvalitetsvurdering] = useKvalitetsvurdering();
   const [updateKvalitetsvurdering] = useUpdateKvalitetsvurderingMutation();
   const canEdit = useCanEdit();
   const validationError = useValidationError('vedtaketRadioValg');
-  const header = useFieldName('vedtaketRadioValg');
+  const header = useKvalitetsvurderingV1FieldName('vedtaketRadioValg');
 
   if (typeof kvalitetsvurdering === 'undefined') {
     return null;

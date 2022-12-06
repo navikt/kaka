@@ -27,9 +27,11 @@ export const Ytelse = () => {
     const ytelse = ytelser.find(({ id }) => id === saksdata.ytelseId);
 
     return (
-      <div>
+      <div data-testid="selected-ytelse">
         <Label>Ytelse</Label>
-        <BodyShort>{ytelse?.navn ?? 'Ingen ytelse'}</BodyShort>
+        <BodyShort data-testid={`selected-ytelse-${ytelse?.id ?? 'NO_YTELSE'}`}>
+          {ytelse?.navn ?? 'Ingen ytelse'}
+        </BodyShort>
       </div>
     );
   }

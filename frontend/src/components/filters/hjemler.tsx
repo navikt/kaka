@@ -70,6 +70,7 @@ const HjemmelSelect = ({ onChange, options, selected, disabled, metadata }: Hjem
         showFjernAlle
         maxHeight="400px"
         minWidth="100%"
+        testId="hjemmel-filter"
       />
     </Container>
   );

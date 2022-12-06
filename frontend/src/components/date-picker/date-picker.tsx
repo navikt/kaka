@@ -1,20 +1,22 @@
-import { UNSAFE_DatePicker as Datepicker } from '@navikt/ds-react';
+import { Alert, UNSAFE_DatePicker as Datepicker } from '@navikt/ds-react';
 import { addYears, format, isAfter, isBefore, isValid, parse, subDays, subYears } from 'date-fns';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import styled from 'styled-components';
 import { isoDateToPretty } from '../../domain/date';
 import { FORMAT, PRETTY_FORMAT } from '../filters/date-presets/constants';
 
 interface Props {
+  centuryThreshold?: number;
   disabled?: boolean;
   error?: string;
   fromDate?: Date;
   id: string;
   label: React.ReactNode;
   onChange: (date: string | null) => void;
+  size: 'small' | 'medium';
   toDate?: Date;
   value: string | null;
-  size: 'small' | 'medium';
-  centuryThreshold?: number;
+  warningThreshhold?: Date;
 }
 
 export const DatepickerWithValidation = ({
@@ -28,6 +30,7 @@ export const DatepickerWithValidation = ({
   value,
   size,
   centuryThreshold = 50,
+  warningThreshhold,
 }: Props) => {
   const [inputError, setInputError] = useState<string>();
   const [input, setInput] = useState<string>(value === null ? '' : isoDateToPretty(value) ?? '');
@@ -159,7 +162,6 @@ export const DatepickerWithValidation = ({
     <Datepicker
       mode="single"
       data-testid={id}
-      id={id}
       fromDate={fromDate}
       toDate={toDate}
       defaultSelected={selected}
@@ -172,6 +174,7 @@ export const DatepickerWithValidation = ({
       onOpenToggle={() => setMonth(selected)}
     >
       <Datepicker.Input
+        id={id}
         error={error ?? inputError}
         label={label}
         disabled={disabled}
@@ -180,6 +183,7 @@ export const DatepickerWithValidation = ({
         onBlur={onInputChange}
         size={size}
       />
+      <Warning date={selected} threshhold={warningThreshhold} />
     </Datepicker>
   );
 };
@@ -200,3 +204,28 @@ const isFourChars = (parts: string[]): parts is [string, string, string, string]
 const isSixChars = (parts: string[]): parts is [string, string, string, string, string, string] => parts.length === 6;
 const isEightChars = (parts: string[]): parts is [string, string, string, string, string, string, string, string] =>
   parts.length === 8;
+
+interface WarningProps {
+  date: Date | undefined;
+  threshhold: Date | undefined;
+}
+
+const Warning = ({ date, threshhold }: WarningProps) => {
+  if (date === undefined || threshhold === undefined) {
+    return null;
+  }
+
+  if (isAfter(date, threshhold)) {
+    return null;
+  }
+
+  return (
+    <StyledAlert variant="warning" size="small">
+      Du har satt en dato som ligger langt tilbake i tid. Er du sikker på at du har fylt ut riktig dato?
+    </StyledAlert>
+  );
+};
+
+const StyledAlert = styled(Alert)`
+  margin-top: 8px;
+`;

@@ -1,9 +1,8 @@
 import { Label } from '@navikt/ds-react';
-import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useEnheterForYtelse, useKlageenheterForYtelse } from '../../../hooks/use-kodeverk-value';
+import { useEnheterForYtelse, useKlageenheterForYtelse, useYtelseParams } from '../../../hooks/use-kodeverk-value';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
 import { useValidationError } from '../../../hooks/use-validation-error';
@@ -19,8 +18,9 @@ export const FraVedtaksenhet = () => {
   const { data: saksdata } = useSaksdata();
   const [setVedtaksenhet] = useSetVedtaksinstansenhetMutation();
   const canEdit = useCanEdit();
-  const enheter = useEnheterForYtelse(saksdata?.ytelseId ?? skipToken); // Sakstype klage uses enheter
-  const klageenheter = useKlageenheterForYtelse(saksdata?.ytelseId ?? skipToken); // Sakstype anke uses klageenheter
+  const ytelseParams = useYtelseParams();
+  const enheter = useEnheterForYtelse(ytelseParams); // Sakstype klage uses enheter
+  const klageenheter = useKlageenheterForYtelse(ytelseParams); // Sakstype anke uses klageenheter
   const validationError = useValidationError('vedtaksinstansEnhet');
   const [open, setOpen] = useState(false);
 
@@ -52,7 +52,9 @@ export const FraVedtaksenhet = () => {
         <StyledLabel size="medium" spacing>
           Fra vedtaksenhet
         </StyledLabel>
-        <Container data-testid="fra-vedtaksenhet-select">{selectedEnhetName ?? 'Ingen enhet'}</Container>
+        <Container data-testid="fra-vedtaksenhet-select" data-value={saksdata.vedtaksinstansEnhet}>
+          {selectedEnhetName ?? 'Ingen enhet'}
+        </Container>
         <ErrorMessage error={validationError} />
       </div>
     );
@@ -102,6 +104,7 @@ export const FraVedtaksenhet = () => {
           theme={{ open }}
           onClick={() => setOpen(!open)}
           error={typeof validationError !== 'undefined'}
+          data-value={saksdata.vedtaksinstansEnhet}
         >
           {selectedEnhetName ?? 'Ingen enhet'}
         </ToggleButton>
@@ -112,6 +115,7 @@ export const FraVedtaksenhet = () => {
           onChange={onChange}
           close={close}
           labelFn={({ id, navn }) => `${id} - ${navn}`}
+          testId="fra-vedtaksenhet-dropdown"
         />
       </Container>
       <ErrorMessage error={validationError} />

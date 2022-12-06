@@ -2,6 +2,8 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import qs from 'qs';
 import { ISaksdataBase, ISaksdataComplete, ISaksdataIncomplete } from '../types/saksdata';
 import { baseQuery } from './common';
+import { kvalitetsvurderingV1Api } from './kvalitetsvurdering/v1';
+import { kvalitetsvurderingV2Api } from './kvalitetsvurdering/v2';
 
 type WithId = Pick<ISaksdataBase, 'id'>;
 type Updatable = Omit<ISaksdataIncomplete, 'id' | 'created' | 'modified'>;
@@ -21,6 +23,7 @@ export const saksdataApi = createApi({
       query: () => ({
         url: '/api/kaka-api/saksdata',
         method: 'POST',
+        body: { kvalitsvurderingVersion: 2 },
       }),
       onQueryStarted: async ({ saksbehandlerIdent, sidenDager }, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
@@ -32,7 +35,7 @@ export const saksdataApi = createApi({
         dispatch(saksdataApi.util.updateQueryData('getSaksdata', data.id, () => data));
       },
     }),
-    reopenSaksdata: builder.mutation<null, { saksbehandlerIdent: string; saksdata: ISaksdataComplete }>({
+    reopenSaksdata: builder.mutation<ISaksdataIncomplete, { saksbehandlerIdent: string; saksdata: ISaksdataComplete }>({
       query: ({ saksdata }) => ({
         url: `/api/kaka-api/saksdata/${saksdata.id}/reopen`,
         method: 'POST',
@@ -57,7 +60,24 @@ export const saksdataApi = createApi({
         );
 
         try {
-          await queryFulfilled;
+          const { data } = await queryFulfilled;
+          dispatch(saksdataApi.util.updateQueryData('getSaksdata', data.id, () => data));
+          dispatch(
+            saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
+              draft.map((s) => (s.id === data.id ? data : s))
+            )
+          );
+
+          if (data.kvalitetsvurderingReference.version !== saksdata.kvalitetsvurderingReference.version) {
+            switch (saksdata.kvalitetsvurderingReference.version) {
+              case 1:
+                kvalitetsvurderingV1Api.util.updateQueryData('getKvalitetsvurdering', data.id, () => undefined);
+                break;
+              case 2:
+                kvalitetsvurderingV2Api.util.updateQueryData('getKvalitetsvurdering', data.id, () => undefined);
+                break;
+            }
+          }
         } catch {
           getSaksdataPatchResult.undo();
           incompleteListPatchResult.undo();
@@ -131,6 +151,18 @@ export const saksdataApi = createApi({
 
         try {
           const { data } = await queryFulfilled;
+
+          dispatch(
+            kvalitetsvurderingV2Api.util.invalidateTags([
+              { type: 'kvalitetsvurdering', id: saksdata.kvalitetsvurderingReference.id },
+            ])
+          );
+
+          dispatch(
+            kvalitetsvurderingV1Api.util.invalidateTags([
+              { type: 'kvalitetsvurdering', id: saksdata.kvalitetsvurderingReference.id },
+            ])
+          );
 
           dispatch(
             saksdataApi.util.updateQueryData('getSaksdata', saksdata.id, (draft) => {

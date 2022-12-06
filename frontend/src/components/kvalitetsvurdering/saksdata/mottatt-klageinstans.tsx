@@ -1,3 +1,4 @@
+import { parse, subDays } from 'date-fns';
 import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useSaksdata } from '../../../hooks/use-saksdata';
@@ -18,17 +19,24 @@ export const MottattKlageinstans = () => {
     return null;
   }
 
+  const fromDate =
+    saksdata.mottattVedtaksinstans === null
+      ? undefined
+      : parse(saksdata.mottattVedtaksinstans, 'yyyy-MM-dd', new Date());
+
   return (
     <DatepickerWithValidation
       label="Mottatt klageinstans"
       disabled={!canEdit}
       onChange={(mottattKlageinstans) => setMottattKlageinstans({ id, mottattKlageinstans })}
       toDate={new Date()}
+      fromDate={fromDate}
       value={saksdata.mottattKlageinstans}
       error={validationError}
       id="mottattKlageinstans"
       size="medium"
       centuryThreshold={CENTURY_NUMBER}
+      warningThreshhold={subDays(new Date(), 360)}
     />
   );
 };

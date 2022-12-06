@@ -5,7 +5,7 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { isNotNull } from '../../functions/is-not';
 import { useYtelserForVedtaksinstansenhet } from '../../hooks/use-kodeverk-value';
-import { useGetSaksdatalisteLederVedtaksinstansQuery } from '../../redux-api/statistics';
+import { useSaksdatalisteLederVedtaksinstans } from '../../simple-api-state/statistics/use-saksdataliste-leder-vedtaksinstans';
 import { useUser } from '../../simple-api-state/use-user';
 import { ISaksdatalisteLederVedtaksinstansParams } from '../../types/saksdata';
 import { DatepickerWithValidation } from '../date-picker/date-picker';
@@ -36,10 +36,14 @@ import {
 } from '../filters/hooks/use-query-filter';
 import { KommentarerFilter } from '../filters/kommentarer';
 import { MangelfulltFilter } from '../filters/mangelfullt';
-import { FilteredHjemlerPills } from '../filters/pills/hjemler';
-import { SelectedKommentarer } from '../filters/pills/kommentarer';
-import { SelectedMangelfullt } from '../filters/pills/mangelfullt';
-import { PillContainer, SelectedFilters } from '../filters/pills/pills';
+import {
+  HjemlerPills,
+  KommentarerPills,
+  MangelfulltPills,
+  PillContainer,
+  UtfallPills,
+  YtelserPills,
+} from '../filters/pills/pills';
 import { ResetDateButton } from '../filters/reset-date';
 import { TilbakekrevingFilter } from '../filters/tilbakekreving';
 import { TilbakekrevingEnum } from '../filters/types';
@@ -74,7 +78,7 @@ export const Filters = () => {
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
-  const ytelser = useYtelserForVedtaksinstansenhet(userData?.ansattEnhet.id ?? skipToken);
+  const ytelser = useYtelserForVedtaksinstansenhet(userData?.ansattEnhet.id ?? skipToken, 1); // TODO: Set real version
 
   const query: ISaksdatalisteLederVedtaksinstansParams | typeof skipToken =
     typeof userData === 'undefined'
@@ -86,7 +90,7 @@ export const Filters = () => {
           mangelfullt: selectedMangelfullt,
           kommentarer: selectedKommentarer,
         };
-  const { data } = useGetSaksdatalisteLederVedtaksinstansQuery(query);
+  const { data } = useSaksdatalisteLederVedtaksinstans(query);
 
   if (typeof data === 'undefined') {
     return null;
@@ -193,23 +197,11 @@ export const Filters = () => {
       />
 
       <PillContainer>
-        <SelectedFilters
-          values={selectedUtfall}
-          queryKey={QueryParams.UTFALL}
-          kodeverkKey="utfall"
-          category="utfall"
-          setFilter={setFilter}
-        />
-        <SelectedFilters
-          values={selectedYtelser}
-          queryKey={QueryParams.YTELSER}
-          kodeverkKey="ytelser"
-          category="ytelse"
-          setFilter={setFilter}
-        />
-        <SelectedMangelfullt values={selectedMangelfullt} setFilter={setFilter} />
-        <SelectedKommentarer values={selectedKommentarer} setFilter={setFilter} />
-        <FilteredHjemlerPills setFilter={setFilter} />
+        <UtfallPills setFilter={setFilter} />
+        <YtelserPills setFilter={setFilter} />
+        <MangelfulltPills setFilter={setFilter} />
+        <KommentarerPills setFilter={setFilter} />
+        <HjemlerPills setFilter={setFilter} />
       </PillContainer>
 
       <TilbakekrevingFilter
