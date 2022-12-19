@@ -1,9 +1,8 @@
-import React, { useMemo, useRef, useState } from 'react';
-import { useOnClickOutside } from '../../hooks/use-on-click-outside';
+import React, { useMemo, useState } from 'react';
 import { useLovkildeToRegistreringshjemler } from '../../simple-api-state/use-kodeverk';
 import { GroupedDropdown, OptionGroup } from '../dropdown/grouped-dropdown';
 import { formatMetadata } from './common/dropdown';
-import { Container, StyledDropdownButton } from './common/styled-components';
+import { StyledDropdownButton } from './common/styled-components';
 
 interface Props {
   selected: string[];
@@ -35,9 +34,7 @@ interface HjemmelSelectProps {
 
 const HjemmelSelect = ({ onChange, options, selected, disabled, metadata }: HjemmelSelectProps) => {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useOnClickOutside(() => setOpen(false), ref, true);
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
 
   const setSelected = (id: string | null, active: boolean) => {
     if (id === null) {
@@ -55,13 +52,14 @@ const HjemmelSelect = ({ onChange, options, selected, disabled, metadata }: Hjem
   const close = () => setOpen(false);
 
   return (
-    <Container ref={ref}>
-      <StyledDropdownButton onClick={toggleOpen} disabled={disabled} open={open}>
+    <>
+      <StyledDropdownButton onClick={toggleOpen} disabled={disabled} open={open} ref={buttonRef}>
         Hjemmel
         {formatMetadata(metadata)}
       </StyledDropdownButton>
 
       <GroupedDropdown
+        anchorEl={buttonRef.current}
         selected={selected}
         options={options}
         open={open}
@@ -69,9 +67,9 @@ const HjemmelSelect = ({ onChange, options, selected, disabled, metadata }: Hjem
         close={close}
         showFjernAlle
         maxHeight="400px"
-        minWidth="100%"
+        width="100%"
         testId="hjemmel-filter"
       />
-    </Container>
+    </>
   );
 };

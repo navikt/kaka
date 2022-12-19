@@ -1,9 +1,9 @@
-import React, { useMemo, useRef, useState } from 'react';
-import { useOnClickOutside } from '../../hooks/use-on-click-outside';
+import React, { useMemo, useState } from 'react';
 import { IKodeverkSimpleValue } from '../../types/kodeverk';
+import { DropdownContainer } from './dropdown-container';
 import { Header } from './header';
 import { SingleSelectOption } from './single-select-option';
-import { StyledDropdown, StyledListItem, StyledSectionList } from './styled-components';
+import { StyledListItem, StyledSectionList } from './styled-components';
 
 interface DropdownProps {
   selected: string | null;
@@ -14,6 +14,9 @@ interface DropdownProps {
   close: () => void;
   labelFn: (kodeverkValue: IKodeverkSimpleValue) => string;
   testId: string;
+  maxHeight?: string | number;
+  width?: string | number;
+  buttonRef: HTMLButtonElement | null;
 }
 
 interface Option {
@@ -37,9 +40,10 @@ const ShowSingleSelectDropdown = ({
   close,
   labelFn,
   testId,
+  maxHeight,
+  width,
+  buttonRef,
 }: Omit<DropdownProps, 'open'>): JSX.Element | null => {
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
   const options = useMemo(
     () => kodeverk.map<Option>((kodeverkValue) => ({ value: kodeverkValue[valueKey], label: labelFn(kodeverkValue) })),
     [kodeverk, labelFn, valueKey]
@@ -47,10 +51,8 @@ const ShowSingleSelectDropdown = ({
 
   const [filteredOptions, setFilteredOptions] = useState<Option[]>(options);
 
-  useOnClickOutside(close, dropdownRef);
-
   return (
-    <StyledDropdown ref={dropdownRef}>
+    <DropdownContainer maxHeight={maxHeight} width={width} buttonRef={buttonRef} onClose={close}>
       <Header options={options} onChange={setFilteredOptions} close={close} />
       <StyledSectionList data-testid={`${testId}-list`}>
         {filteredOptions.map(({ label, value }) => (
@@ -66,6 +68,6 @@ const ShowSingleSelectDropdown = ({
           </StyledListItem>
         ))}
       </StyledSectionList>
-    </StyledDropdown>
+    </DropdownContainer>
   );
 };

@@ -1,10 +1,9 @@
 import { Search } from '@navikt/ds-icons';
 import { Button } from '@navikt/ds-react';
 import React, { useRef, useState } from 'react';
-import { useOnClickOutside } from '../../../../hooks/use-on-click-outside';
+import styled from 'styled-components';
 import { GroupedDropdown, OptionGroup } from '../../../dropdown/grouped-dropdown';
 import { ErrorMessage } from '../../../error-message/error-message';
-import { StyledHjemler, StyledLovhjemmelSelect } from './styled-components';
 
 interface LovhjemmelSelectProps {
   options: OptionGroup[];
@@ -30,9 +29,7 @@ export const LovhjemmelSelect = ({
   id,
 }: LovhjemmelSelectProps) => {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useOnClickOutside(() => setOpen(false), ref, true);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   if (!show) {
     return null;
@@ -56,26 +53,39 @@ export const LovhjemmelSelect = ({
   const close = () => setOpen(false);
 
   return (
-    <>
-      <StyledLovhjemmelSelect ref={ref} data-testid={testId} data-selected={selected.join(',')}>
-        <StyledHjemler>
-          <Button id={id} size="medium" onClick={toggleOpen} disabled={disabled} icon={<Search aria-hidden />}>
-            Hjemmel
-          </Button>
-        </StyledHjemler>
+    <Container data-testid={testId} data-selected={selected.join(',')}>
+      <StyledButton
+        ref={buttonRef}
+        id={id}
+        size="medium"
+        onClick={toggleOpen}
+        disabled={disabled}
+        icon={<Search aria-hidden />}
+      >
+        Hjemmel
+      </StyledButton>
 
-        <GroupedDropdown
-          selected={selected}
-          options={options}
-          open={open}
-          onChange={setSelected}
-          close={close}
-          showFjernAlle={showFjernAlle}
-          maxHeight="400px"
-          testId="lovhjemmel-dropdown"
-        />
-      </StyledLovhjemmelSelect>
+      <GroupedDropdown
+        anchorEl={buttonRef.current}
+        selected={selected}
+        options={options}
+        open={open}
+        onChange={setSelected}
+        close={close}
+        showFjernAlle={showFjernAlle}
+        maxHeight="400px"
+        width="100%"
+        testId="lovhjemmel-dropdown"
+      />
       <ErrorMessage error={error} />
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  position: relative;
+`;
+
+const StyledButton = styled(Button)`
+  width: 100%;
+`;
