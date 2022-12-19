@@ -1,8 +1,8 @@
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import React, { useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
+import { DropdownContainer } from './dropdown-container';
 import { Header } from './header';
-import { StyledDropdown, StyledDropdownProps } from './styled-components';
 
 interface Option {
   label: string;
@@ -19,7 +19,7 @@ export interface OptionGroup {
   sectionOptions: Option[];
 }
 
-interface DropdownProps extends StyledDropdownProps {
+interface DropdownProps {
   selected: string[];
   options: OptionGroup[];
   onChange: (id: string | null, active: boolean) => void;
@@ -27,6 +27,9 @@ interface DropdownProps extends StyledDropdownProps {
   close: () => void;
   showFjernAlle?: boolean;
   testId: string;
+  maxHeight?: string;
+  width?: string;
+  anchorEl: HTMLButtonElement | null;
 }
 
 export const GroupedDropdown = ({ open, ...rest }: DropdownProps) => {
@@ -43,8 +46,9 @@ const ShowGroupedDropdown = ({
   onChange,
   close,
   maxHeight,
-  minWidth,
+  width,
   testId,
+  anchorEl,
   showFjernAlle = true,
 }: Omit<DropdownProps, 'open'>): JSX.Element | null => {
   const [filteredGroups, setFilteredGroups] = useState(options);
@@ -67,7 +71,7 @@ const ShowGroupedDropdown = ({
   const reset = () => onChange(null, false);
 
   return (
-    <StyledDropdown maxHeight={maxHeight} minWidth={minWidth} data-testid={testId}>
+    <DropdownContainer maxHeight={maxHeight} width={width} buttonRef={anchorEl} onClose={close} testId={testId}>
       <Header
         options={allGroups}
         onChange={onHeaderChange}
@@ -96,7 +100,7 @@ const ShowGroupedDropdown = ({
           </CheckboxGroup>
         ))}
       </Container>
-    </StyledDropdown>
+    </DropdownContainer>
   );
 };
 
@@ -105,5 +109,4 @@ const Container = styled.div`
   flex-direction: column;
   row-gap: 8px;
   padding: 8px;
-  overflow-y: scroll;
 `;

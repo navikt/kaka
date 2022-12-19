@@ -23,6 +23,7 @@ export const FraVedtaksenhet = () => {
   const klageenheter = useKlageenheterForYtelse(ytelseParams); // Sakstype anke uses klageenheter
   const validationError = useValidationError('vedtaksinstansEnhet');
   const [open, setOpen] = useState(false);
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
 
   const options = useMemo(() => {
     if (saksdata?.sakstypeId === SakstypeEnum.ANKE) {
@@ -52,9 +53,9 @@ export const FraVedtaksenhet = () => {
         <StyledLabel size="medium" spacing>
           Fra vedtaksenhet
         </StyledLabel>
-        <Container data-testid="fra-vedtaksenhet-select" data-value={saksdata.vedtaksinstansEnhet}>
+        <SelectedEnhet data-testid="selected-vedtaksenhet" data-value={saksdata.vedtaksinstansEnhet}>
           {selectedEnhetName ?? 'Ingen enhet'}
-        </Container>
+        </SelectedEnhet>
         <ErrorMessage error={validationError} />
       </div>
     );
@@ -66,7 +67,7 @@ export const FraVedtaksenhet = () => {
         <StyledLabel size="medium" spacing>
           Fra vedtaksenhet
         </StyledLabel>
-        <Container data-testid="fra-vedtaksenhet-select">Velg ytelse</Container>
+        <SelectedEnhet data-testid="selected-vedtaksenhet">Velg ytelse</SelectedEnhet>
         <ErrorMessage error={validationError} />
       </div>
     );
@@ -80,7 +81,7 @@ export const FraVedtaksenhet = () => {
         <StyledLabel size="medium" spacing>
           Fra vedtaksenhet
         </StyledLabel>
-        <Container data-testid="fra-vedtaksenhet-select">Ingen enheter</Container>
+        <SelectedEnhet data-testid="selected-vedtaksenhet">Ingen enheter</SelectedEnhet>
         <ErrorMessage error={validationError} />
       </div>
     );
@@ -94,32 +95,33 @@ export const FraVedtaksenhet = () => {
   const close = () => setOpen(false);
 
   return (
-    <div>
+    <Container>
       <StyledLabel size="medium" spacing htmlFor="vedtaksinstansEnhet">
         Fra vedtaksenhet
       </StyledLabel>
-      <Container data-testid="fra-vedtaksenhet-select">
-        <ToggleButton
-          id="vedtaksinstansEnhet"
-          theme={{ open }}
-          onClick={() => setOpen(!open)}
-          error={typeof validationError !== 'undefined'}
-          data-value={saksdata.vedtaksinstansEnhet}
-        >
-          {selectedEnhetName ?? 'Ingen enhet'}
-        </ToggleButton>
-        <SingleSelectDropdown
-          selected={saksdata.vedtaksinstansEnhet}
-          kodeverk={options}
-          open={open}
-          onChange={onChange}
-          close={close}
-          labelFn={({ id, navn }) => `${id} - ${navn}`}
-          testId="fra-vedtaksenhet-dropdown"
-        />
-      </Container>
+      <ToggleButton
+        id="vedtaksinstansEnhet"
+        theme={{ open }}
+        onClick={() => setOpen(!open)}
+        error={typeof validationError !== 'undefined'}
+        data-value={saksdata.vedtaksinstansEnhet}
+        ref={buttonRef}
+      >
+        {selectedEnhetName ?? 'Ingen enhet'}
+      </ToggleButton>
+      <SingleSelectDropdown
+        buttonRef={buttonRef.current}
+        selected={saksdata.vedtaksinstansEnhet}
+        kodeverk={options}
+        open={open}
+        onChange={onChange}
+        close={close}
+        labelFn={({ id, navn }) => `${id} - ${navn}`}
+        testId="fra-vedtaksenhet-dropdown"
+        width="100%"
+      />
       <ErrorMessage error={validationError} />
-    </div>
+    </Container>
   );
 };
 
@@ -138,11 +140,15 @@ const useEnhetName = (options: IKodeverkSimpleValue[], enhetsNummer: string | nu
     return `${enhet.id} - ${enhet.navn}`;
   }, [options, enhetsNummer]);
 
-const Container = styled.section`
+const SelectedEnhet = styled.section`
   position: relative;
   z-index: 5;
 `;
 
 const StyledLabel = styled(Label)`
   display: block;
+`;
+
+const Container = styled.div`
+  position: relative;
 `;
