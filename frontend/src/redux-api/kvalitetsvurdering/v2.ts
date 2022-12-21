@@ -13,6 +13,9 @@ export const kvalitetsvurderingV2Api = createApi({
       query: (id) => `/api/kaka-api/kvalitetsvurderinger/v2/${id}`,
       providesTags: (_, __, id) => [{ type: 'kvalitetsvurdering', id }],
     }),
+    getCensoredKvalitetsvurdering: builder.query<IKvalitetsvurdering, string>({
+      query: (id) => `/api/kaka-api/censoredkvalitetsvurderinger/v2/${id}`,
+    }),
     updateKvalitetsvurdering: builder.mutation<IKvalitetsvurdering, Argument>({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/kvalitetsvurderinger/v2/${id}/`,
@@ -37,4 +40,8 @@ export const kvalitetsvurderingV2Api = createApi({
   }),
 });
 
-export const { useGetKvalitetsvurderingQuery, useUpdateKvalitetsvurderingMutation } = kvalitetsvurderingV2Api;
+export const {
+  useGetKvalitetsvurderingQuery,
+  useUpdateKvalitetsvurderingMutation,
+  useGetCensoredKvalitetsvurderingQuery,
+} = kvalitetsvurderingV2Api;
