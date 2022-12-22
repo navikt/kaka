@@ -23,7 +23,7 @@ export const kvalitetsvurderingV1Api = createApi({
   tagTypes: ['kvalitetsvurdering'],
   endpoints: (builder) => ({
     getKvalitetsvurdering: builder.query<IKvalitetsvurderingV1, string>({
-      query: (id) => `/api/kaka-api/kvalitetsvurdering/${id}`,
+      query: (id) => `/api/kaka-api/kvalitetsvurderinger/v1/${id}`,
       providesTags: (_, __, id) => [{ type: 'kvalitetsvurdering', id }],
     }),
     updateKvalitetsvurdering: builder.mutation<IKvalitetsvurderingV1, UpdateParam>({
