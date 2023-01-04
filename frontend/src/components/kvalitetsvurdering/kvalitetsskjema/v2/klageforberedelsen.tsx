@@ -100,7 +100,7 @@ const CHECKBOXES: ICheckboxParams[] = [
   },
   {
     field: 'klageforberedelsenFeilVedBegrunnelsenForHvorforAvslagOpprettholdesKlagerIkkeOppfyllerVilkaar',
-    label: 'Feil ved begrunnelsen for hvor avslag opprettholdes/klager ikke oppfyller vilkår.',
+    label: 'Feil ved begrunnelsen for hvorfor avslag opprettholdes/klager ikke oppfyller vilkår.',
   },
   {
     field: 'klageforberedelsenOversendelsesbrevetsInnholdErIkkeISamsvarMedSakensTema',

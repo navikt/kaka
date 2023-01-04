@@ -126,7 +126,7 @@ const CHECKBOXES: ICheckboxParams[] = [
   {
     field: 'raadgivendeLegeIkkebrukt',
     helpText:
-      'Du registrerer her om rådgivende lege burde vært brukt av underinstansen for å sikre og/eller synliggjøre at det trygdemedisinske er forstått riktig.',
+      'Du registrerer her om rådgivende lege burde vært brukt for å sikre og/eller synliggjøre at det trygdemedisinske er forstått riktig.',
     label: 'Rådgivende lege er ikke brukt.',
   },
   {
