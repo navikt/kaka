@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { IFullStatisticVurdering } from '../../../types/statistics/v1';
+import { IFullStatisticVurderingV1 } from '../../../types/statistics/v1';
 import { QueryParams } from '../../filters/filter-query-params';
 import { BehandlingstidEnum, isBehandlingstidEnum } from '../types';
 
@@ -23,7 +23,7 @@ export const useBehandlingstidParam = (): [BehandlingstidEnum, (behandlingstidTy
 };
 
 type FieldName = keyof Pick<
-  IFullStatisticVurdering,
+  IFullStatisticVurderingV1,
   'kaBehandlingstidDays' | 'totalBehandlingstidDays' | 'vedtaksinstansBehandlingstidDays'
 >;
 

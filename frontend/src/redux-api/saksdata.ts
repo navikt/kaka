@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import qs from 'qs';
-import { ISaksdataBase, ISaksdataComplete, ISaksdataIncomplete } from '../types/saksdata';
+import { ISaksdataBase, ISaksdataComplete, ISaksdataIncomplete, KvalitetsvurderingVersion } from '../types/saksdata';
 import { baseQuery } from './common';
 import { kvalitetsvurderingV1Api } from './kvalitetsvurdering/v1';
 import { kvalitetsvurderingV2Api } from './kvalitetsvurdering/v2';
@@ -70,10 +70,10 @@ export const saksdataApi = createApi({
 
           if (data.kvalitetsvurderingReference.version !== saksdata.kvalitetsvurderingReference.version) {
             switch (saksdata.kvalitetsvurderingReference.version) {
-              case 1:
+              case KvalitetsvurderingVersion.V1:
                 kvalitetsvurderingV1Api.util.updateQueryData('getKvalitetsvurdering', data.id, () => undefined);
                 break;
-              case 2:
+              case KvalitetsvurderingVersion.V2:
                 kvalitetsvurderingV2Api.util.updateQueryData('getKvalitetsvurdering', data.id, () => undefined);
                 break;
             }

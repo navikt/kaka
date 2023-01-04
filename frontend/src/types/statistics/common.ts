@@ -3,7 +3,7 @@ import { UtfallEnum } from '../utfall';
 
 export type UUID = string;
 
-interface Date {
+export interface StatsDate {
   readonly weekNumber: number;
   readonly year: number;
   readonly month: number;
@@ -13,13 +13,13 @@ interface Date {
 }
 
 export interface ISaksdata {
-  readonly avsluttetAvSaksbehandler: Date;
+  readonly avsluttetAvSaksbehandler: StatsDate;
   readonly kaBehandlingstidDays: number;
   readonly vedtaksinstansBehandlingstidDays: number;
   readonly totalBehandlingstidDays: number;
   readonly hjemmelIdList: string[];
-  readonly mottattKlageinstans: Date | null;
-  readonly mottattVedtaksinstans: Date | null;
+  readonly mottattKlageinstans: StatsDate | null;
+  readonly mottattVedtaksinstans: StatsDate | null;
   readonly sakstypeId: SakstypeEnum;
   readonly utfallId: UtfallEnum;
   readonly ytelseId: string;

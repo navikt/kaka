@@ -3,8 +3,8 @@ import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { isNotUndefined } from '../../../functions/is-not';
 import { useUtfall } from '../../../simple-api-state/use-kodeverk';
+import { StatsDate } from '../../../types/statistics/common';
 import { UtfallEnum } from '../../../types/utfall';
-import { StatisticsProps } from '../types';
 import { percent, tickCallback } from './formatting';
 
 const useOptions = (total = 1): ChartOptions<'bar'> => ({
@@ -70,7 +70,16 @@ const useOptions = (total = 1): ChartOptions<'bar'> => ({
   },
 });
 
-export const UtfallGraph = ({ stats: allStats }: StatisticsProps) => {
+interface Stat {
+  utfallId: UtfallEnum;
+  avsluttetAvSaksbehandler: StatsDate;
+}
+
+interface Props {
+  stats: Stat[];
+}
+
+export const UtfallGraph = ({ stats: allStats }: Props) => {
   const finishedStats = useMemo(
     () => allStats.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null),
     [allStats]

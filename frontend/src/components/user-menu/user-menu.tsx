@@ -33,7 +33,7 @@ const UserDropdown = () => {
           text={version}
           icon={<VersionIcon aria-hidden />}
         >
-          KAKA-versjon: <VersionNumber>{getShortVersion(version)}</VersionNumber>
+          Kaka-versjon: <VersionNumber>{getShortVersion(version)}</VersionNumber>
         </Dropdown.Menu.List.Item>
       </Dropdown.Menu.List>
     </Menu>

@@ -1,10 +1,16 @@
 import React, { useMemo } from 'react';
-import { StatisticsProps } from '../types';
+import { StatsDate } from '../../../types/statistics/common';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, KeyNumber } from './styled-components';
 
-interface Props extends StatisticsProps {
+interface Stat {
+  avsluttetAvSaksbehandler: StatsDate;
+  kaBehandlingstidDays: number;
+}
+
+interface Props {
   weeks: number;
+  stats: Stat[];
 }
 
 export const Processed = ({ stats, weeks }: Props) => {

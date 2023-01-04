@@ -17,4 +17,5 @@ export enum QueryParams {
   KOMMENTARER = 'kommentarer',
   VEDTAKSINSTANSGRUPPER = 'vedtaksinstansgrupper',
   TILBAKEKREVING = 'tilbakekreving',
+  VERSION = 'versjon',
 }

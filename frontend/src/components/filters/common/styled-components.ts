@@ -65,3 +65,9 @@ export const StyledDropdownButton = styled.button<StyledLabelProps>`
       open ? 'translateX(1.5px) translateY(-50%) rotate(45deg)' : 'translateX(1.5px) translateY(-50%) rotate(-45deg)'};
   }
 `;
+
+export const StyledHr = styled.hr`
+  color: var(--a-border-divider);
+  width: 100%;
+  height: 1px;
+`;

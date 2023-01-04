@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useStatisticsVedtaksinstansleder } from '../../../simple-api-state/statistics/v1/use-statistics-vedtaksinstansleder';
 import { SakstypeEnum } from '../../../types/sakstype';
-import { IStatisticVurdering } from '../../../types/statistics/v1';
+import { IStatisticVurderingV1 } from '../../../types/statistics/v1';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../filters/date-presets/constants';
 import { QueryParams } from '../../filters/filter-query-params';
 import {
@@ -23,13 +23,15 @@ const useStatistics = () => {
   return useStatisticsVedtaksinstansleder({ fromDate, toDate, mangelfullt, kommentarer });
 };
 
-const useAllStatistics = (): IStatisticVurdering[] => {
+export const useTilbakemeldingerStatisticsV1IsLoading = (): boolean => useStatistics().isLoading;
+
+const useAllStatistics = (): IStatisticVurderingV1[] => {
   const { data } = useStatistics();
 
   return data?.anonymizedFinishedVurderingList ?? [];
 };
 
-export const useFilteredStatistics = () => {
+export const useFilteredStatisticsV1 = () => {
   const stats = useAllStatistics();
 
   const ytelser = useQueryFilters(QueryParams.YTELSER);

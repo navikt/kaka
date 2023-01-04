@@ -1,8 +1,9 @@
 import { useSearchParams } from 'react-router-dom';
+import { KvalitetsvurderingVersion } from '../../../types/saksdata';
 import { QueryParams } from '../../filters/filter-query-params';
 import { TilbakekrevingEnum } from '../types';
 
-const useQueryFilter = (filter: QueryParams): string | null => {
+export const useQueryFilter = (filter: QueryParams): string | null => {
   const [searchParams] = useSearchParams();
 
   return searchParams.get(filter);
@@ -66,5 +67,26 @@ export const useTilbakekrevingQueryFilter = (defaultTilbakekreving: Tilbakekrevi
   return queryValue;
 };
 
+export const useVersionQueryFilter = (defaultVersion?: KvalitetsvurderingVersion): KvalitetsvurderingVersion => {
+  const queryValue = useQueryFilter(QueryParams.VERSION);
+
+  if (queryValue === null || queryValue.length === 0) {
+    return defaultVersion ?? KvalitetsvurderingVersion.V2;
+  }
+
+  const version = parseInt(queryValue, 10);
+
+  if (!isKvalitetsvurderingVersion(version)) {
+    return defaultVersion ?? KvalitetsvurderingVersion.V2;
+  }
+
+  return version;
+};
+
 const isTilbakekrevingEnum = (value: string): value is TilbakekrevingEnum =>
   Object.values(TilbakekrevingEnum).includes(value as TilbakekrevingEnum);
+
+const KVALITETSVURDERING_VERSION_VALUES = Object.values(KvalitetsvurderingVersion);
+
+const isKvalitetsvurderingVersion = (value: number): value is KvalitetsvurderingVersion =>
+  KVALITETSVURDERING_VERSION_VALUES.some((v) => v === value);

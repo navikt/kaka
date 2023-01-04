@@ -1,49 +1,39 @@
 import { Cancel } from '@navikt/ds-icons';
 import { Button, Label } from '@navikt/ds-react';
-import { format, parse, subMonths } from 'date-fns';
+import { format, parse } from 'date-fns';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { isNotNull } from '../../../functions/is-not';
 import { useYtelser } from '../../../simple-api-state/use-kodeverk';
 import { useUser } from '../../../simple-api-state/use-user';
+import { KvalitetsvurderingVersion } from '../../../types/saksdata';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
-import { DateContainer, FilterPanelContainer } from '../../filters/common/styled-components';
+import { DateContainer, FilterPanelContainer, StyledHr } from '../../filters/common/styled-components';
 import {
   FORMAT,
   FORMATTED_NOW,
   FORMATTED_START_OF_MONTH,
-  LAST_YEAR_END,
-  LAST_YEAR_START,
-  NOW,
-  ONE_YEAR_AGO,
   PRETTY_FORMAT,
   PRETTY_START_OF_MONTH,
-  START_OF_MONTH,
-  START_OF_YEAR,
 } from '../../filters/date-presets/constants';
 import { DatePresets } from '../../filters/date-presets/date-presets';
-import { getLastTertial } from '../../filters/date-presets/get-last-tertial';
-import { IOption } from '../../filters/date-presets/types';
 import { QueryParams } from '../../filters/filter-query-params';
-import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../filters/hooks/use-query-filter';
+import { useDatePresets } from '../../filters/hooks/use-date-presets';
+import { useDefaultDates } from '../../filters/hooks/use-default-dates';
+import {
+  useFromDateQueryFilter,
+  useQueryFilters,
+  useToDateQueryFilter,
+  useVersionQueryFilter,
+} from '../../filters/hooks/use-query-filter';
+import { useValidDateInterval } from '../../filters/hooks/use-valid-date-interval';
 import { PillContainer, SakstyperPills, UtfallPills, YtelserPills } from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
+import { DEFAULT_PARAMS_V1, DEFAULT_PARAMS_V2 } from '../../filters/statistics-version/default-params';
+import { StatisticsVersionFilter } from '../../filters/statistics-version/statistics-version';
 import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
-
-const datePresets: IOption[] = [
-  {
-    label: 'Denne måneden',
-    fromDate: START_OF_MONTH,
-    toDate: NOW,
-  },
-  { label: 'Siste tertial', ...getLastTertial(NOW) },
-  { label: 'Nest siste tertial', ...getLastTertial(subMonths(NOW, 4)) },
-  { label: 'Siste 12 mnd', fromDate: ONE_YEAR_AGO, toDate: NOW },
-  { label: 'I år', fromDate: START_OF_YEAR, toDate: NOW },
-  { label: 'I fjor', fromDate: LAST_YEAR_START, toDate: LAST_YEAR_END },
-];
 
 export const Filters = () => {
   const { data: userData } = useUser();
@@ -57,7 +47,14 @@ export const Filters = () => {
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
-  const { data: ytelser = [] } = useYtelser(1); // TODO: Set real version
+  const version = useVersionQueryFilter();
+
+  const datePresets = useDatePresets();
+
+  const { data: ytelser = [] } = useYtelser(version);
+
+  const { defaultFrom, defaultTo } = useDefaultDates();
+  const { validFrom, validTo } = useValidDateInterval();
 
   const setFilter = (filter: QueryParams, ...values: (string | number | null)[]) => {
     const v = values.filter(isNotNull);
@@ -73,6 +70,7 @@ export const Filters = () => {
 
   const resetFilters = () =>
     setSearchParams({
+      [QueryParams.VERSION]: KvalitetsvurderingVersion.V2.toString(),
       [QueryParams.FROM_DATE]: FORMATTED_START_OF_MONTH,
       [QueryParams.TO_DATE]: FORMATTED_NOW,
     });
@@ -94,12 +92,16 @@ export const Filters = () => {
         Nullstill filter
       </Button>
 
+      <StatisticsVersionFilter defaultParamsV1={DEFAULT_PARAMS_V1} defaultParamsV2={DEFAULT_PARAMS_V2} />
+
+      <StyledHr />
+
       <DatepickerWithValidation
         label={
           <DateContainer>
             <Label as="span">Fra og med</Label>
             <ResetDateButton
-              date={FORMATTED_START_OF_MONTH}
+              date={defaultFrom}
               selectedDate={fromDate}
               onClick={(date) => setFilter(QueryParams.FROM_DATE, date)}
               title={PRETTY_START_OF_MONTH}
@@ -109,6 +111,7 @@ export const Filters = () => {
         id="from-date"
         onChange={(value) => setFilter(QueryParams.FROM_DATE, value)}
         value={fromDate}
+        fromDate={validFrom}
         toDate={parse(toDate, FORMAT, new Date())}
         size="small"
       />
@@ -118,7 +121,7 @@ export const Filters = () => {
           <DateContainer>
             <Label as="span">Til og med</Label>
             <ResetDateButton
-              date={FORMATTED_NOW}
+              date={defaultTo}
               selectedDate={toDate}
               onClick={(date) => setFilter(QueryParams.TO_DATE, date)}
               title="Nå"
@@ -128,6 +131,7 @@ export const Filters = () => {
         id="to-date"
         value={toDate}
         fromDate={parse(fromDate, FORMAT, new Date())}
+        toDate={validTo}
         onChange={(value) => setFilter(QueryParams.TO_DATE, value)}
         size="small"
       />

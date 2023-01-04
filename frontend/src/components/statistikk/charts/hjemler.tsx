@@ -4,7 +4,6 @@ import { Bar } from 'react-chartjs-2';
 import { useSearchParams } from 'react-router-dom';
 import { QueryParams } from '../../filters/filter-query-params';
 import { useHjemmelTexts } from '../../filters/hooks/use-hjemmel-texts';
-import { StatisticsProps } from '../types';
 import { GRAPH_COLOR } from './colors';
 
 type TooltipCallback = ((this: TooltipModel<'bar'>, tooltipItem: TooltipItem<'bar'>) => string | string[]) | undefined;
@@ -71,13 +70,21 @@ const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'bar'> => (
   },
 });
 
+interface Stat {
+  hjemmelIdList: string[];
+}
+
+interface Props {
+  stats: Stat[];
+}
+
 const useFilteredYtelser = () => {
   const [searchParams] = useSearchParams();
 
   return searchParams.get(QueryParams.YTELSER)?.split(',') ?? [];
 };
 
-export const Hjemler = ({ stats }: StatisticsProps) => {
+export const Hjemler = ({ stats }: Props) => {
   const filteredYtelser = useFilteredYtelser();
   const hjemmelTexts = useHjemmelTexts(filteredYtelser);
 

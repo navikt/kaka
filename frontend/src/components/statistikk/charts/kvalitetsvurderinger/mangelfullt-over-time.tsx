@@ -4,10 +4,10 @@ import { Line } from 'react-chartjs-2';
 import { isNotUndefined } from '../../../../functions/is-not';
 import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
 import { IKvalitetsvurderingBooleans } from '../../../../types/kvalitetsvurdering/v1';
-import { IStatisticVurdering } from '../../../../types/statistics/v1';
+import { IStatisticVurderingV1 } from '../../../../types/statistics/v1';
 import { ReasonLabel, getReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
 import { useKvalitetsvurderingParam } from '../../hooks/use-kvalitetsvurdering-param';
-import { StatisticsProps } from '../../types';
+import { StatisticsPropsV1 } from '../../types';
 import { KVALITETSVURDERING_OPTIONS } from './kvalitetsvurdering-options';
 
 type TooltipCallback =
@@ -68,7 +68,7 @@ const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'line'> => 
 
 const COLLATOR = new Intl.Collator(undefined, { numeric: true });
 
-export const MangelfulltOverTime = ({ stats }: StatisticsProps) => {
+export const MangelfulltOverTime = ({ stats }: StatisticsPropsV1) => {
   const [field] = useKvalitetsvurderingParam();
 
   const { relevantReasons } = KVALITETSVURDERING_OPTIONS[field];
@@ -119,7 +119,7 @@ export const MangelfulltOverTime = ({ stats }: StatisticsProps) => {
 const COLORS = ['#7CDAF8', '#FFAA33', '#C1CB33', '#3386E0', '#33AA5F', '#A0A0A0', '#8269A2'];
 const getColor = (index: number) => COLORS[index % COLORS.length];
 
-const useMangelfulleSaker = (stats: IStatisticVurdering[], field: string, relevantReasons: ReasonLabel[]) => {
+const useMangelfulleSaker = (stats: IStatisticVurderingV1[], field: string, relevantReasons: ReasonLabel[]) => {
   const mangelfulleSaker = useMemo(() => {
     const unsorted = stats
       .filter(

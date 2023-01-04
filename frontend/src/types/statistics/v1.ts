@@ -1,7 +1,7 @@
 import { Radiovalg, RadiovalgExtended } from '../kvalitetsvurdering/radio';
 import { ISaksdata, UUID } from './common';
 
-export interface IStatisticVurdering extends ISaksdata {
+export interface IStatisticVurderingV1 extends ISaksdata {
   readonly id: UUID; // Anonymized
 
   // Kvalitetsvurdering
@@ -47,18 +47,18 @@ export interface IStatisticVurdering extends ISaksdata {
   readonly vurderingAvFaktumErMangelfull: boolean;
 }
 
-export interface IFullStatisticVurdering extends IStatisticVurdering {
+export interface IFullStatisticVurderingV1 extends IStatisticVurderingV1 {
   // Saksdata
   readonly tilknyttetEnhet: string;
   readonly vedtaksinstansEnhet: string | null;
 }
 
 export interface IFullStatistics {
-  readonly anonymizedFinishedVurderingList: IFullStatisticVurdering[];
+  readonly anonymizedFinishedVurderingList: IFullStatisticVurderingV1[];
 }
 
 export interface IStatistics {
-  readonly anonymizedFinishedVurderingList: IStatisticVurdering[];
+  readonly anonymizedFinishedVurderingList: IStatisticVurderingV1[];
 }
 
 // Query types
@@ -80,6 +80,6 @@ export interface IManagerStatisticsQuery {
 }
 
 export type RadiovalgField = keyof Pick<
-  IFullStatisticVurdering,
+  IFullStatisticVurderingV1,
   'utredningenRadioValg' | 'klageforberedelsenRadioValg' | 'vedtaketRadioValg' | 'brukAvRaadgivendeLegeRadioValg'
 >;

@@ -2,8 +2,8 @@ import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
 import { CardTitle } from '../../../styled-components/cards';
+import { StatsDate } from '../../../types/statistics/common';
 import { CardSize, DynamicCard } from '../card/card';
-import { StatisticsProps } from '../types';
 
 const useOptions = (): ChartOptions<'line'> => ({
   responsive: true,
@@ -34,7 +34,18 @@ const useOptions = (): ChartOptions<'line'> => ({
   },
 });
 
-export const BehandlingstidOverTime = ({ stats: allStats }: StatisticsProps) => {
+interface Stat {
+  avsluttetAvSaksbehandler: StatsDate;
+  kaBehandlingstidDays: number;
+  totalBehandlingstidDays: number;
+  vedtaksinstansBehandlingstidDays: number;
+}
+
+interface Props {
+  stats: Stat[];
+}
+
+export const BehandlingstidOverTime = ({ stats: allStats }: Props) => {
   const stats = useMemo(
     () => allStats.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null),
     [allStats]

@@ -2,7 +2,7 @@ import { skipToken } from '@reduxjs/toolkit/query/react';
 import { useMemo } from 'react';
 import { useStatisticsManager } from '../../../../simple-api-state/statistics/v1/use-statistics-manager';
 import { useUser } from '../../../../simple-api-state/use-user';
-import { IFullStatisticVurdering, IManagerStatisticsQuery } from '../../../../types/statistics/v1';
+import { IFullStatisticVurderingV1, IManagerStatisticsQuery } from '../../../../types/statistics/v1';
 import { FORMATTED_END_OF_LAST_MONTH, FORMATTED_START_OF_LAST_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
@@ -29,15 +29,15 @@ const useStatistics = () => {
   return useStatisticsManager(query);
 };
 
-export const useManagerStatisticsIsLoading = (): boolean => useStatistics().isLoading;
+export const useManagerStatisticsV1IsLoading = (): boolean => useStatistics().isLoading;
 
-const useAllManagerStatistics = (): IFullStatisticVurdering[] => {
+const useAllManagerStatistics = (): IFullStatisticVurderingV1[] => {
   const { data } = useStatistics();
 
   return data?.anonymizedFinishedVurderingList ?? [];
 };
 
-export const useFilteredManagerStatistics = () => {
+export const useFilteredManagerStatisticsV1 = () => {
   const data = useAllManagerStatistics();
 
   const types = useQueryFilters(QueryParams.TYPES);

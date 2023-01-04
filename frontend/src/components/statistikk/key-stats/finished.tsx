@@ -1,9 +1,17 @@
 import React from 'react';
-import { StatisticsProps } from '../types';
+import { StatsDate } from '../../..//types/statistics/common';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, KeyNumber } from './styled-components';
 
-export const Finished = ({ stats }: StatisticsProps) => {
+interface Stat {
+  avsluttetAvSaksbehandler: StatsDate;
+}
+
+interface Props {
+  stats: Stat[];
+}
+
+export const Finished = ({ stats }: Props) => {
   const count = stats?.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null).length;
 
   return (

@@ -3,9 +3,9 @@ import React, { useMemo } from 'react';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import styled from 'styled-components';
 import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
-import { IFullStatisticVurdering } from '../../../../types/statistics/v1';
+import { IFullStatisticVurderingV1 } from '../../../../types/statistics/v1';
 import { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
-import { StatisticsProps } from '../../types';
+import { StatisticsPropsV1 } from '../../types';
 import { GRAPH_COLOR } from '../colors';
 import { percent, tickCallback } from '../formatting';
 import { ChartContainer, ChartTitle } from '../styled-components';
@@ -99,9 +99,9 @@ const useBarOptions = (labels: string[], data: number[], total = 1): ChartOption
   },
 });
 
-export interface KvalitetsvurderingProps extends StatisticsProps {
+export interface KvalitetsvurderingProps extends StatisticsPropsV1 {
   field: keyof Pick<
-    IFullStatisticVurdering,
+    IFullStatisticVurderingV1,
     'utredningenRadioValg' | 'klageforberedelsenRadioValg' | 'vedtaketRadioValg' | 'brukAvRaadgivendeLegeRadioValg'
   >;
   title: string;

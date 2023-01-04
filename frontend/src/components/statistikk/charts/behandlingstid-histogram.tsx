@@ -3,7 +3,6 @@ import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useBehandlingstidField } from '../hooks/use-behandlingstid-param';
 import { useBuckets } from '../hooks/use-buckets';
-import { StatisticsProps } from '../types';
 import { GRAPH_COLOR } from './colors';
 
 const useOptions = (): ChartOptions<'bar'> => ({
@@ -99,7 +98,17 @@ const useOptions = (): ChartOptions<'bar'> => ({
   },
 });
 
-export const BehandlingstidHistogram = ({ stats }: StatisticsProps) => {
+interface Stat {
+  kaBehandlingstidDays: number;
+  totalBehandlingstidDays: number;
+  vedtaksinstansBehandlingstidDays: number;
+}
+
+interface Props {
+  stats: Stat[];
+}
+
+export const BehandlingstidHistogram = ({ stats }: Props) => {
   const field = useBehandlingstidField();
   const fieldStats = useMemo(() => stats.map((stat) => stat[field]), [stats, field]);
   const [labels, data] = useBuckets(fieldStats, 7, 104);

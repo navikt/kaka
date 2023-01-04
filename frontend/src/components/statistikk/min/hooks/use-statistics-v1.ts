@@ -2,7 +2,7 @@ import { skipToken } from '@reduxjs/toolkit/query/react';
 import { useMemo } from 'react';
 import { useStatisticsMy } from '../../../../simple-api-state/statistics/v1/use-statistics-my';
 import { useUser } from '../../../../simple-api-state/use-user';
-import { IFullStatisticVurdering, IStatisticsQuery } from '../../../../types/statistics/v1';
+import { IFullStatisticVurderingV1, IStatisticsQuery } from '../../../../types/statistics/v1';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
@@ -24,15 +24,15 @@ const useStatistics = () => {
   return useStatisticsMy(query);
 };
 
-export const useMyStatisticsIsLoading = (): boolean => useStatistics().isLoading;
+export const useMyStatisticsV1IsLoading = (): boolean => useStatistics().isLoading;
 
-const useAllMyStatistics = (): IFullStatisticVurdering[] => {
+const useAllMyStatistics = (): IFullStatisticVurderingV1[] => {
   const { data } = useStatistics();
 
   return data?.anonymizedFinishedVurderingList ?? [];
 };
 
-export const useFilteredMyStatistics = () => {
+export const useFilteredMyStatisticsV1 = () => {
   const data = useAllMyStatistics();
 
   const types = useQueryFilters(QueryParams.TYPES);
