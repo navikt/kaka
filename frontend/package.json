@@ -1,7 +1,7 @@
 {
   "name": "kaka",
   "version": "1.0.0",
-  "description": "KAKA - System for registrering av saksvurderinger for Klageinstansen",
+  "description": "Kaka - System for registrering av saksvurderinger for Klageinstansen",
   "license": "MIT",
   "scripts": {
     "build:js": "webpack --mode production",

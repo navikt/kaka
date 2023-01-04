@@ -1,11 +1,12 @@
 import { Select } from '@navikt/ds-react';
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
+import { KvalitetsvurderingVersion } from '../../types/saksdata';
+import { useVersionQueryFilter } from './hooks/use-query-filter';
 
 const MONTH_REGEX = new RegExp('^\\d{4}-\\d{2}$');
 
 const NOW = new Date();
-const FIRST_YEAR = 2021;
 
 const MONTHS = [
   { label: 'Januar', value: '01' },
@@ -43,8 +44,6 @@ const generateYears = (fromYear: number, toYear: number) =>
 
 const isYearAndMonth = (value: string[]): value is [string, string] => value.length === 2;
 
-const YEARS = generateYears(FIRST_YEAR, MAX_YEAR);
-
 interface Props {
   label: string;
   value: string | null;
@@ -65,6 +64,7 @@ export const MonthFilter = ({ label, value, onChange }: Props) => {
   }, [value]);
 
   const months = useMonths(Number.parseInt(selectedYear, 10));
+  const years = useYears();
 
   const handleYearChange: React.ChangeEventHandler<HTMLSelectElement> = ({ target }) =>
     onChange(`${target.value}-${selectedMonth}`);
@@ -75,7 +75,7 @@ export const MonthFilter = ({ label, value, onChange }: Props) => {
   return (
     <Container>
       <Select label={`${label} år`} value={selectedYear} onChange={handleYearChange} size="small">
-        {YEARS.map((year) => (
+        {years.map((year) => (
           <option key={year} value={year}>
             {year}
           </option>
@@ -98,6 +98,20 @@ const useMonths = (year: number) => {
   }
 
   return MONTHS.filter((month) => month.value < CURRENT_MONTH);
+};
+
+const useYears = () => {
+  const version = useVersionQueryFilter();
+
+  return useMemo(() => {
+    if (version === KvalitetsvurderingVersion.V1) {
+      return [2022];
+    } else if (version === KvalitetsvurderingVersion.V2) {
+      return generateYears(2023, CURRENT_YEAR);
+    }
+
+    return [];
+  }, [version]);
 };
 
 const Container = styled.div`

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useStatisticsOpen } from '../../../../simple-api-state/statistics/v1/use-statistics-open';
-import { IStatisticVurdering } from '../../../../types/statistics/v1';
+import { useStatisticsOpen } from '../../../../simple-api-state/statistics/v2/use-statistics-open';
+import { IStatisticVurderingV2 } from '../../../../types/statistics/v2';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../../filters/hooks/use-query-filter';
@@ -12,16 +12,16 @@ const useStatistics = () => {
   return useStatisticsOpen({ fromDate, toDate });
 };
 
-export const useTotalStatisticsIsLoading = (): boolean => useStatistics().isLoading;
+export const useOpenStatisticsV2IsLoading = (): boolean => useStatistics().isLoading;
 
-const useAllStatistics = (): IStatisticVurdering[] => {
+const useAllStatisticsV2 = (): IStatisticVurderingV2[] => {
   const { data } = useStatistics();
 
   return data?.anonymizedFinishedVurderingList ?? [];
 };
 
-export const useFilteredStatistics = () => {
-  const data = useAllStatistics();
+export const useFilteredStatisticsV2 = () => {
+  const data = useAllStatisticsV2();
 
   const types = useQueryFilters(QueryParams.TYPES);
   const ytelser = useQueryFilters(QueryParams.YTELSER);

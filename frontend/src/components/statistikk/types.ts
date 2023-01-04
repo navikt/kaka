@@ -1,7 +1,7 @@
-import { IStatisticVurdering } from '../../types/statistics/v1';
+import { IStatisticVurderingV1 } from '../../types/statistics/v1';
 
-export interface StatisticsProps {
-  stats: IStatisticVurdering[];
+export interface StatisticsPropsV1 {
+  stats: IStatisticVurderingV1[];
 }
 
 export enum BehandlingstidEnum {

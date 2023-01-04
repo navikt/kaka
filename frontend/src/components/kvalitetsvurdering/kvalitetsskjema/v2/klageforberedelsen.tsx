@@ -75,7 +75,7 @@ const CHECKBOXES: ICheckboxParams[] = [
       {
         field: 'klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert',
         helpText:
-          'F.eks. notater, klager, referat eller andre opplysninger fra Arena,  Pesys, Infotrygd, A-inntekt, Modia, eller digital aktivitetsplan.',
+          'F.eks. notater, klager, referat eller andre opplysninger fra Arena, Pesys, Infotrygd, A-inntekt, Modia, eller digital aktivitetsplan.',
         label: 'Relevante opplysninger fra andre fagsystemer er ikke journalført.',
       },
       {

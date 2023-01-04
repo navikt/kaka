@@ -1,10 +1,17 @@
 import React, { useMemo } from 'react';
 import { UtfallEnum } from '../../../types/utfall';
-import { StatisticsProps } from '../types';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, RedKeyNumber } from './styled-components';
 
-export const Omgjort = ({ stats }: StatisticsProps) => {
+interface Stat {
+  utfallId: UtfallEnum;
+}
+
+interface Props {
+  stats: Stat[];
+}
+
+export const Omgjort = ({ stats }: Props) => {
   const numOmgjort: number = useMemo(
     () =>
       stats?.filter(

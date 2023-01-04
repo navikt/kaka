@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useStatisticsTotal } from '../../../../simple-api-state/statistics/v1/use-statistics-total';
-import { IFullStatisticVurdering } from '../../../../types/statistics/v1';
+import { useStatisticsTotal } from '../../../../simple-api-state/statistics/v2/use-statistics-total';
+import { IFullStatisticVurderingV2 } from '../../../../types/statistics/v2';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
@@ -19,17 +19,17 @@ const useTotalStatistics = () => {
   return useStatisticsTotal({ fromDate, toDate });
 };
 
-export const useTotalStatisticsIsLoading = (): boolean => useTotalStatistics().isLoading;
+export const useTotalStatisticsV2IsLoading = (): boolean => useTotalStatistics().isLoading;
 
-const EMPTY_STATISTICS: IFullStatisticVurdering[] = [];
+const EMPTY_STATISTICS: IFullStatisticVurderingV2[] = [];
 
-const useAllTotalStatistics = (): IFullStatisticVurdering[] => {
+const useAllTotalStatistics = (): IFullStatisticVurderingV2[] => {
   const { data } = useTotalStatistics();
 
   return data?.anonymizedFinishedVurderingList ?? EMPTY_STATISTICS;
 };
 
-export const useFilteredTotalStatistics = () => {
+export const useFilteredTotalStatisticsV2 = () => {
   const data = useAllTotalStatistics();
 
   const types = useQueryFilters(QueryParams.TYPES);

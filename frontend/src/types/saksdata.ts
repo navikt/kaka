@@ -3,7 +3,10 @@ import { UtfallEnum } from './utfall';
 
 type UUID = string;
 
-export type KvalitetsvurderingVersion = 1 | 2;
+export enum KvalitetsvurderingVersion {
+  V1 = 1,
+  V2 = 2,
+}
 
 export interface ISaksdataBase {
   id: UUID;

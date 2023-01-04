@@ -12,7 +12,7 @@ export const KakaHeader = () => {
   return (
     <StyledHeader>
       <Header.Title as={Link} to={path}>
-        KAKA
+        Kaka
       </Header.Title>
       <MainContent>
         <VersionCheckerStatus />

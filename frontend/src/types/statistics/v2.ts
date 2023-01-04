@@ -2,7 +2,7 @@
 import { Radiovalg, RadiovalgExtended } from '../kvalitetsvurdering/radio';
 import { ISaksdata, UUID } from './common';
 
-export interface IStatisticVurdering extends ISaksdata {
+export interface IStatisticVurderingV2 extends ISaksdata {
   readonly id: UUID; // Anonymized
 
   // Kvalitetsvurdering
@@ -49,18 +49,18 @@ export interface IStatisticVurdering extends ISaksdata {
   readonly totalBehandlingstidDays: number;
 }
 
-export interface IFullStatisticVurdering extends IStatisticVurdering {
+export interface IFullStatisticVurderingV2 extends IStatisticVurderingV2 {
   // Saksdata
   readonly tilknyttetEnhet: string;
   readonly vedtaksinstansEnhet: string | null;
 }
 
 export interface IFullStatistics {
-  readonly anonymizedFinishedVurderingList: IFullStatisticVurdering[];
+  readonly anonymizedFinishedVurderingList: IFullStatisticVurderingV2[];
 }
 
 export interface IStatistics {
-  readonly anonymizedFinishedVurderingList: IStatisticVurdering[];
+  readonly anonymizedFinishedVurderingList: IStatisticVurderingV2[];
 }
 
 // Query types

@@ -23,7 +23,7 @@ export const VersionCheckerStatus = () => {
 
   return (
     <Button
-      title="Det finnes en ny versjon av KAKA. Versjonen du ser på nå er ikke siste versjon. Trykk her for å laste siste versjon."
+      title="Det finnes en ny versjon av Kaka. Versjonen du ser på nå er ikke siste versjon. Trykk her for å laste siste versjon."
       onClick={() => window.location.reload()}
       size="small"
       icon={<AutomaticSystem aria-hidden />}
@@ -46,7 +46,7 @@ const Version = () => {
 
   return (
     <StyledBodyShort>
-      <Success /> KAKA er klar til bruk!
+      <Success /> Kaka er klar til bruk!
     </StyledBodyShort>
   );
 };

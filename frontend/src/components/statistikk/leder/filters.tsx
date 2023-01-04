@@ -4,27 +4,26 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useYtelser } from '../../../simple-api-state/use-kodeverk';
 import { useUser } from '../../../simple-api-state/use-user';
-import { FilterPanelContainer } from '../../filters/common/styled-components';
+import { KvalitetsvurderingVersion } from '../../../types/saksdata';
+import { FilterPanelContainer, StyledHr } from '../../filters/common/styled-components';
 import {
-  END_OF_LAST_MONTH,
   FORMATTED_END_OF_LAST_MONTH,
   FORMATTED_LAST_MONTH,
   FORMATTED_START_OF_LAST_MONTH,
+  IS_BEFORE_FEBRUARY_2023,
   MONTH_FORMAT,
-  NOW,
   PRETTY_FORMAT,
-  START_OF_LAST_MONTH,
 } from '../../filters/date-presets/constants';
 import { DatePresets } from '../../filters/date-presets/date-presets';
-import { getLastTertial } from '../../filters/date-presets/get-last-tertial';
-import { IOption } from '../../filters/date-presets/types';
 import { QueryParams } from '../../filters/filter-query-params';
 import { HjemmelFilter } from '../../filters/hjemler';
+import { useDatePresetsLeder } from '../../filters/hooks/use-date-presets';
 import {
   useFromMonthQueryFilter,
   useQueryFilters,
   useTilbakekrevingQueryFilter,
   useToMonthQueryFilter,
+  useVersionQueryFilter,
 } from '../../filters/hooks/use-query-filter';
 import { MonthFilter } from '../../filters/month';
 import {
@@ -38,19 +37,14 @@ import {
 } from '../../filters/pills/pills';
 import { SaksbehandlerFilter } from '../../filters/saksbehandler';
 import { SakstypeFilter } from '../../filters/sakstyper';
+import { DEFAULT_PARAMS_V1_LEDER, DEFAULT_PARAMS_V2_LEDER } from '../../filters/statistics-version/default-params';
+import { StatisticsVersionFilter } from '../../filters/statistics-version/statistics-version';
 import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
 import { TilbakekrevingEnum } from '../../filters/types';
 import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
 
-const datePresets: IOption[] = [
-  {
-    label: 'Siste måned',
-    fromDate: START_OF_LAST_MONTH,
-    toDate: END_OF_LAST_MONTH,
-  },
-  { label: 'Siste tertial', ...getLastTertial(NOW) },
-];
+const DEFAULT_VERSION = IS_BEFORE_FEBRUARY_2023 ? KvalitetsvurderingVersion.V1 : KvalitetsvurderingVersion.V2;
 
 export const Filters = () => {
   const { data: userData } = useUser();
@@ -67,7 +61,11 @@ export const Filters = () => {
   const fromMonth = useFromMonthQueryFilter(FORMATTED_START_OF_LAST_MONTH);
   const toMonth = useToMonthQueryFilter(FORMATTED_END_OF_LAST_MONTH);
 
-  const { data: ytelser = [] } = useYtelser(1); // TODO: Set real version.
+  const datePresets = useDatePresetsLeder();
+
+  const version = useVersionQueryFilter(DEFAULT_VERSION);
+
+  const { data: ytelser = [] } = useYtelser(version);
 
   const setFilter = (filter: QueryParams, ...values: (string | number)[]) => {
     if (values.length === 0) {
@@ -85,6 +83,7 @@ export const Filters = () => {
     );
 
   const setPreset = (fromDate: Date, toDate: Date) => {
+    setFilter(QueryParams.VERSION, DEFAULT_VERSION.toString());
     setFilter(QueryParams.FROM_MONTH, format(fromDate, MONTH_FORMAT));
     setFilter(QueryParams.TO_MONTH, format(toDate, MONTH_FORMAT));
   };
@@ -94,6 +93,10 @@ export const Filters = () => {
       <Button variant="secondary" size="small" onClick={resetFilters}>
         Nullstill filter
       </Button>
+
+      <StatisticsVersionFilter defaultParamsV1={DEFAULT_PARAMS_V1_LEDER} defaultParamsV2={DEFAULT_PARAMS_V2_LEDER} />
+
+      <StyledHr />
 
       <MonthFilter label="Fra" value={fromMonth} onChange={(value) => setFilter(QueryParams.FROM_MONTH, value)} />
       <MonthFilter label="Til" value={toMonth} onChange={(value) => setFilter(QueryParams.TO_MONTH, value)} />
@@ -133,6 +136,8 @@ export const Filters = () => {
         <HjemlerPills setFilter={setFilter} />
         <SaksbehandlerPills setFilter={setFilter} />
       </PillContainer>
+
+      <StyledHr />
 
       <TilbakekrevingFilter
         selected={selectedTilbakekreving}
