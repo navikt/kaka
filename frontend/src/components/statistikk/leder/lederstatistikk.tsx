@@ -32,7 +32,6 @@ import { Finished } from '../key-stats/finished';
 import { Omgjort } from '../key-stats/omgjort';
 import { Processed } from '../key-stats/processed';
 import { ToggleTotalOrKA } from '../toggle-ka-total';
-import { ToggleKvalitetsvurdering } from '../toggle-kvalitetsvurdering';
 import { Filters } from './filters';
 import { useFilteredManagerStatisticsV1, useManagerStatisticsV1IsLoading } from './hooks/use-statistics-v1';
 import { useFilteredManagerStatisticsV2, useManagerStatisticsV2IsLoading } from './hooks/use-statistics-v2';
@@ -95,7 +94,6 @@ const Content = ({ stats, version, isLoading }: ContentProps) => (
 
       <DynamicCard size={CardSize.LARGE}>
         <CardTitle>Kvalitetsvurderinger</CardTitle>
-        <ToggleKvalitetsvurdering />
         {version === V1 ? <KvalitetsvurderingerV1 stats={stats} /> : null}
         {version === V2 ? <KvalitetsvurderingerV2 /> : null}
       </DynamicCard>
