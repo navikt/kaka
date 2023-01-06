@@ -16,7 +16,6 @@ import { KvalitetsvurderingerV2 } from '../statistikk/charts/v2/kvalitetsvurderi
 import { ContentLoader } from '../statistikk/content-loader';
 import { Finished } from '../statistikk/key-stats/finished';
 import { Omgjort } from '../statistikk/key-stats/omgjort';
-import { ToggleKvalitetsvurdering } from '../statistikk/toggle-kvalitetsvurdering';
 import { Filters } from './filters';
 import { useFilteredSaksdata, useSaksdataIsLoading } from './hooks/use-filtered-saksdata';
 import { useFilteredStatisticsV1, useTilbakemeldingerStatisticsV1IsLoading } from './hooks/use-filtered-statistics-v1';
@@ -79,7 +78,6 @@ const Content = ({ stats, version, isLoading }: ContentProps) => {
 
         <DynamicCard size={CardSize.LARGE}>
           <CardTitle>Kvalitetsvurderinger</CardTitle>
-          <ToggleKvalitetsvurdering />
           {version === V1 ? <KvalitetsvurderingerV1 stats={stats} /> : null}
           {version === V2 ? <KvalitetsvurderingerV2 /> : null}
         </DynamicCard>
