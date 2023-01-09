@@ -13,7 +13,7 @@ export const KvalitetsvurderingerV1 = ({ stats }: StatisticsPropsV1) => {
   return (
     <>
       <ToggleKvalitetsvurdering />
-      <Kvalitetsvurdering field={field} title={title} relevantReasons={relevantReasons} stats={stats} />;
+      <Kvalitetsvurdering field={field} title={title} relevantReasons={relevantReasons} stats={stats} />
     </>
   );
 };
