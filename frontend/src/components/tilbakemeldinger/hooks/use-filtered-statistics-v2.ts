@@ -18,9 +18,8 @@ const useStatistics = () => {
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
   const mangelfullt = useQueryFilters(QueryParams.MANGELFULLT);
-  const kommentarer = useQueryFilters(QueryParams.KOMMENTARER);
 
-  return useStatisticsVedtaksinstansleder({ fromDate, toDate, mangelfullt, kommentarer });
+  return useStatisticsVedtaksinstansleder({ fromDate, toDate, mangelfullt });
 };
 export const useTilbakemeldingerStatisticsV2IsLoading = (): boolean => useStatistics().isLoading;
 

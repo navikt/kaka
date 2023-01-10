@@ -16,7 +16,6 @@ export interface ISaksdataBase {
   hjemmelIdList: string[];
   sakstypeId: SakstypeEnum;
   sourceId: string;
-  kvalitetsvurderingId: string;
   utfoerendeSaksbehandler: string;
   kvalitetsvurderingReference: {
     id: UUID;
@@ -45,11 +44,14 @@ export interface ISaksdataIncomplete extends ISaksdataBase {
 }
 
 // API IO types.
-export interface ISaksdatalisteLederVedtaksinstansParams {
+export interface ISaksdatalisteLederVedtaksinstansParamsV2 {
   navIdent: string;
   fromDate: string;
   toDate: string;
   mangelfullt: string[];
+}
+
+export interface ISaksdatalisteLederVedtaksinstansParamsV1 extends ISaksdatalisteLederVedtaksinstansParamsV2 {
   kommentarer: string[];
 }
 

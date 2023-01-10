@@ -71,7 +71,6 @@ export interface IStatisticsQuery {
 
 export interface IVedtaksinstanslederQuery extends IStatisticsQuery {
   mangelfullt: string[];
-  kommentarer: string[];
 }
 
 export interface IManagerStatisticsQuery {
