@@ -1,7 +1,7 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import { useSaksdatalisteLederVedtaksinstans } from '../../../simple-api-state/statistics/use-saksdataliste-leder-vedtaksinstans';
+import { useSaksdatalisteLederVedtaksinstans } from '../../../simple-api-state/statistics/v1/use-saksdataliste-leder-vedtaksinstans';
 import { useUser } from '../../../simple-api-state/use-user';
-import { ISaksdatalisteLederVedtaksinstansParams } from '../../../types/saksdata';
+import { ISaksdatalisteLederVedtaksinstansParamsV1 } from '../../../types/saksdata';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../filters/date-presets/constants';
 import { QueryParams } from '../../filters/filter-query-params';
 import {
@@ -23,7 +23,7 @@ const useSaksdata = () => {
   const mangelfullt = useQueryFilters(QueryParams.MANGELFULLT);
   const kommentarer = useQueryFilters(QueryParams.KOMMENTARER);
 
-  const query: ISaksdatalisteLederVedtaksinstansParams | typeof skipToken =
+  const query: ISaksdatalisteLederVedtaksinstansParamsV1 | typeof skipToken =
     typeof userData === 'undefined'
       ? skipToken
       : { navIdent: userData.ident, fromDate, toDate, mangelfullt, kommentarer };
@@ -31,7 +31,7 @@ const useSaksdata = () => {
   return useSaksdatalisteLederVedtaksinstans(query);
 };
 
-export const useFilteredSaksdata = () => {
+export const useFilteredSaksdataV1 = () => {
   const { data } = useSaksdata();
 
   const ytelser = useQueryFilters(QueryParams.YTELSER);
@@ -51,4 +51,4 @@ export const useFilteredSaksdata = () => {
   return filtered;
 };
 
-export const useSaksdataIsLoading = (): boolean => useSaksdata().isLoading;
+export const useSaksdataV1IsLoading = (): boolean => useSaksdata().isLoading;

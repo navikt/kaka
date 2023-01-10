@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { KvalitetsvurderingVersion } from '../../types/saksdata';
 import { Filter } from './common/filter';
+import { useVersionQueryFilter } from './hooks/use-query-filter';
 import { FilterType } from './types';
 
 export const KOMMENTARER_KODEVERK: FilterType[] = [
@@ -22,6 +24,18 @@ interface KommentarerFilterProps {
   setSelected: (kommentarer: string[]) => void;
 }
 
-export const KommentarerFilter = ({ selected, setSelected }: KommentarerFilterProps): JSX.Element => (
-  <Filter label="Kommentarer" filters={KOMMENTARER_KODEVERK} selected={selected} setSelected={setSelected} />
-);
+export const KommentarerFilter = ({ selected, setSelected }: KommentarerFilterProps) => {
+  const version = useVersionQueryFilter();
+
+  useEffect(() => {
+    if (version !== KvalitetsvurderingVersion.V1 && selected.length !== 0) {
+      setSelected([]);
+    }
+  }, [selected.length, setSelected, version]);
+
+  if (version !== KvalitetsvurderingVersion.V1) {
+    return null;
+  }
+
+  return <Filter label="Kommentarer" filters={KOMMENTARER_KODEVERK} selected={selected} setSelected={setSelected} />;
+};

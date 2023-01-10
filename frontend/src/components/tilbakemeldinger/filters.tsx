@@ -5,9 +5,8 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { isNotNull } from '../../functions/is-not';
 import { useYtelserForVedtaksinstansenhet } from '../../hooks/use-kodeverk-value';
-import { useSaksdatalisteLederVedtaksinstans } from '../../simple-api-state/statistics/use-saksdataliste-leder-vedtaksinstans';
 import { useUser } from '../../simple-api-state/use-user';
-import { ISaksdatalisteLederVedtaksinstansParams, KvalitetsvurderingVersion } from '../../types/saksdata';
+import { KvalitetsvurderingVersion } from '../../types/saksdata';
 import { DatepickerWithValidation } from '../date-picker/date-picker';
 import { DateContainer, FilterPanelContainer, StyledHr } from '../filters/common/styled-components';
 import {
@@ -71,22 +70,6 @@ export const Filters = () => {
 
   const { defaultFrom, defaultTo } = useDefaultDates();
   const { validFrom, validTo } = useValidDateInterval();
-
-  const query: ISaksdatalisteLederVedtaksinstansParams | typeof skipToken =
-    typeof userData === 'undefined'
-      ? skipToken
-      : {
-          navIdent: userData.ident,
-          fromDate,
-          toDate,
-          mangelfullt: selectedMangelfullt,
-          kommentarer: selectedKommentarer,
-        };
-  const { data } = useSaksdatalisteLederVedtaksinstans(query);
-
-  if (typeof data === 'undefined') {
-    return null;
-  }
 
   const setFilter = (filter: QueryParams, ...values: (string | number | null)[]) => {
     const v = values.filter(isNotNull);
