@@ -1,7 +1,6 @@
 import { AutomaticSystem, Logout } from '@navikt/ds-icons';
 import { Dropdown, Header } from '@navikt/ds-react-internal';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { useUser } from '../../simple-api-state/use-user';
 import { CopyButton } from '../copy-button/copy-button';
@@ -23,9 +22,8 @@ const UserDropdown = () => {
   return (
     <Menu>
       <Dropdown.Menu.List>
-        <Dropdown.Menu.List.Item as={StyledLink} to="/oauth2/logout">
-          <Logout />
-          Logg ut
+        <Dropdown.Menu.List.Item as={StyledLogoutLink} href="/oauth2/logout">
+          <Logout /> Logg ut
         </Dropdown.Menu.List.Item>
         <Dropdown.Menu.List.Item
           as={StyledCopyButton}
@@ -79,8 +77,12 @@ const linkStyle = css`
   }
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled.a`
   ${linkStyle}
+`;
+
+const StyledLogoutLink = styled(StyledLink)`
+  color: #c30000;
 `;
 
 const StyledCopyButton = styled(CopyButton)`
