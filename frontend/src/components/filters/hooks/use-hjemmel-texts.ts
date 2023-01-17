@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 import { useYtelser } from '../../../simple-api-state/use-kodeverk';
+import { useVersionQueryFilter } from './use-query-filter';
 
 export const useHjemmelTexts = (ytelseIds: string[]) => {
-  const { data: ytelser = [] } = useYtelser();
+  const version = useVersionQueryFilter();
+  const { data: ytelser = [] } = useYtelser(version);
 
   const filtered = useMemo(
     () => (ytelseIds.length === 0 ? ytelser : ytelser.filter(({ id }) => ytelseIds.includes(id))),
