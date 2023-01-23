@@ -6,30 +6,10 @@ import { StatsDate } from '../../../types/statistics/common';
 import { CardSize, DynamicCard } from '../card/card';
 
 const useOptions = (): ChartOptions<'line'> => ({
-  responsive: true,
   aspectRatio: 3,
   scales: {
     y: {
-      title: {
-        display: true,
-        text: 'Behandlingstid (dager)',
-        font: {
-          weight: 'bold',
-          size: 14,
-        },
-      },
-    },
-    x: {
-      ticks: {
-        font: {
-          size: 11,
-        },
-      },
-    },
-  },
-  elements: {
-    line: {
-      tension: 0.3,
+      title: { display: true, text: 'Behandlingstid (dager)' },
     },
   },
 });

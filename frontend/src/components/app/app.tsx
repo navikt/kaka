@@ -6,6 +6,7 @@ import { KakaHeader } from '../header/header';
 import { Router } from '../routing/routes';
 import { GlobalStyles } from './global-styles';
 import { ScrollReset } from './scroll-reset';
+import './chartjs-default-config';
 
 export const App = () => (
   <React.StrictMode>

@@ -11,6 +11,7 @@ interface Props {
   queryFormat: string;
   prettyFormat: string;
   setPreset: (fromDate: Date, toDate: Date) => void;
+  disabled?: boolean;
 }
 
 export const DatePresets = ({
@@ -20,6 +21,7 @@ export const DatePresets = ({
   queryFormat,
   prettyFormat,
   setPreset,
+  disabled = false,
 }: Props) => (
   <StyledPresetsList>
     {options.map(({ label, fromDate, toDate }) => {
@@ -40,6 +42,7 @@ export const DatePresets = ({
             aria-pressed={isSelected}
             title={title}
             onClick={onClick}
+            disabled={disabled}
           >
             {label}
           </Button>

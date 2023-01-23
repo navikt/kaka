@@ -29,3 +29,5 @@ export interface ISaksbehandler {
   navIdent: string;
   navn: string;
 }
+
+export type OptionValue = [string, string];

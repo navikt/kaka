@@ -23,14 +23,10 @@ export const useTotalStatisticsV2IsLoading = (): boolean => useTotalStatistics()
 
 const EMPTY_STATISTICS: IFullStatisticVurderingV2[] = [];
 
-const useAllTotalStatistics = (): IFullStatisticVurderingV2[] => {
+export const useFilteredTotalStatisticsV2 = () => {
   const { data } = useTotalStatistics();
 
-  return data?.anonymizedFinishedVurderingList ?? EMPTY_STATISTICS;
-};
-
-export const useFilteredTotalStatisticsV2 = () => {
-  const data = useAllTotalStatistics();
+  const rest = data?.rest ?? EMPTY_STATISTICS;
 
   const types = useQueryFilters(QueryParams.TYPES);
   const ytelser = useQueryFilters(QueryParams.YTELSER);
@@ -43,7 +39,7 @@ export const useFilteredTotalStatisticsV2 = () => {
 
   return useMemo(
     () =>
-      data.filter(
+      rest.filter(
         ({ ytelseId, sakstypeId, utfallId, tilknyttetEnhet, vedtaksinstansEnhet, hjemmelIdList }) =>
           tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
           (klageenheter.length === 0 || klageenheter.includes(tilknyttetEnhet)) &&
@@ -55,6 +51,6 @@ export const useFilteredTotalStatisticsV2 = () => {
           (vedtaksinstansgrupper.length === 0 ||
             vedtaksinstansgrupper.some((id) => vedtaksinstansEnhet?.startsWith(id)))
       ),
-    [data, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper]
+    [rest, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper]
   );
 };

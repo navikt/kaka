@@ -1,4 +1,4 @@
-import { ChartOptions, TooltipItem, TooltipModel } from 'chart.js';
+import { ChartOptions, TooltipCallbacks } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
 import { isNotUndefined } from '../../../../functions/is-not';
@@ -10,59 +10,24 @@ import { useKvalitetsvurderingParam } from '../../hooks/use-kvalitetsvurdering-p
 import { StatisticsPropsV1 } from '../../types';
 import { KVALITETSVURDERING_OPTIONS } from './kvalitetsvurdering-options';
 
-type TooltipCallback =
-  | ((this: TooltipModel<'line'>, tooltipItem: TooltipItem<'line'>) => string | string[])
-  | undefined;
+type TooltipCallback = TooltipCallbacks<'line'>['label'];
 
 const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'line'> => ({
-  responsive: true,
   aspectRatio: 5,
   scales: {
     y: {
       min: 0,
       max: 100,
-      title: {
-        display: true,
-        text: 'Antall',
-        font: {
-          weight: 'bold',
-          size: 14,
-        },
-      },
+      title: { display: true, text: 'Antall' },
       ticks: {
         callback: (label) => `${label} %`,
         stepSize: 1,
-        font: {
-          size: 14,
-        },
       },
-    },
-    x: {
-      ticks: {
-        font: {
-          size: 14,
-        },
-      },
-    },
-  },
-  elements: {
-    line: {
-      tension: 0.3,
     },
   },
   plugins: {
-    tooltip: {
-      callbacks: {
-        label: tooltipCallback,
-      },
-    },
-    legend: {
-      position: 'left',
-      maxWidth: 500,
-      labels: {
-        font: { size: 13 },
-      },
-    },
+    tooltip: { callbacks: { label: tooltipCallback } },
+    legend: { position: 'left', maxWidth: 500 },
   },
 });
 

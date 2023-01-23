@@ -2,6 +2,7 @@ import { Radio } from '@navikt/ds-react';
 import React from 'react';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
 import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
+import { MainReason } from '../../../../types/kvalitetsvurdering/v2';
 import { SakstypeEnum } from '../../../../types/sakstype';
 import { Checkboxes } from './common/checkboxes';
 import { HeadingWithHelpText } from './common/heading-with-helptext';
@@ -15,8 +16,8 @@ export const Klageforberedelsen = () => {
   const { isLoading, kvalitetsvurdering, saksdata, update } = useKvalitetsvurderingV2();
 
   const canEdit = useCanEdit();
-  const validationError = useValidationError('klageforberedelsen');
-  const header = useKvalitetsvurderingV2FieldName('klageforberedelsen');
+  const validationError = useValidationError(MainReason.Klageforberedelsen);
+  const header = useKvalitetsvurderingV2FieldName(MainReason.Klageforberedelsen);
 
   if (
     isLoading ||
@@ -67,24 +68,24 @@ export const Klageforberedelsen = () => {
 
 const CHECKBOXES: ICheckboxParams[] = [
   {
-    field: 'klageforberedelsenSakensDokumenter',
+    field: 'sakensDokumenter',
     helpText:
       'Dokumentene er ikke fullstendige; f.eks. feil eller mangelfull journalføring av relevante opplysninger i klagebehandlingen.',
     label: 'Sakens dokumenter.',
     checkboxes: [
       {
-        field: 'klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert',
+        field: 'sakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert',
         helpText:
           'F.eks. notater, klager, referat eller andre opplysninger fra Arena, Pesys, Infotrygd, A-inntekt, Modia, eller digital aktivitetsplan.',
         label: 'Relevante opplysninger fra andre fagsystemer er ikke journalført.',
       },
       {
-        field: 'klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn',
+        field: 'sakensDokumenterJournalfoerteDokumenterFeilNavn',
         helpText: 'F.eks. står det «fritekstbrev» i stedet for «vedtak», eller «samtale» i stedet for «klage».',
         label: 'Journalførte dokumenter har feil titler/navn.',
       },
       {
-        field: 'klageforberedelsenSakensDokumenterManglerFysiskSaksmappe',
+        field: 'sakensDokumenterManglerFysiskSaksmappe',
         helpText: 'Gjelder kun i saker det er relevant/nødvendig.',
         label: 'Mangler fysisk saksmappe.',
       },

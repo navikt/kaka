@@ -24,7 +24,7 @@ export const baseQuery = retry(
       retry.fail(result.error);
     }
 
-    if (status === 400 || status === 403) {
+    if (status === 400 || status === 403 || status === 500) {
       retry.fail(result.error);
     }
 

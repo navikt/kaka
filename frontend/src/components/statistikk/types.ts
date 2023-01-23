@@ -1,3 +1,4 @@
+import { ISaksdata } from '../../types/statistics/common';
 import { IStatisticVurderingV1 } from '../../types/statistics/v1';
 
 export interface StatisticsPropsV1 {
@@ -14,3 +15,12 @@ const VALUES = Object.values(BehandlingstidEnum);
 
 export const isBehandlingstidEnum = (key: string | null): key is BehandlingstidEnum =>
   key !== null && VALUES.some((v) => v === key);
+
+interface DataSet {
+  label: string;
+  data: ISaksdata[];
+}
+
+export interface ComparisonPropsV2 {
+  stats: DataSet[];
+}

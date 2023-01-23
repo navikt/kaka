@@ -36,6 +36,7 @@ export interface IStatisticVurderingV2 extends ISaksdata {
   readonly vedtakAutomatiskVedtak: boolean;
   readonly vedtaket: Radiovalg;
   readonly vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet: boolean;
+  readonly vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList: string[];
   readonly vedtaketDetErLagtTilGrunnFeilFaktum: boolean;
   readonly vedtaketSpraakOgFormidlingErIkkeTydelig: boolean;
   readonly raadgivendeLegeIkkebrukt: boolean;
@@ -56,11 +57,7 @@ export interface IFullStatisticVurderingV2 extends IStatisticVurderingV2 {
 }
 
 export interface IFullStatistics {
-  readonly anonymizedFinishedVurderingList: IFullStatisticVurderingV2[];
-}
-
-export interface IStatistics {
-  readonly anonymizedFinishedVurderingList: IStatisticVurderingV2[];
+  readonly rest: IFullStatisticVurderingV2[];
 }
 
 // Query types
@@ -78,4 +75,36 @@ export interface IManagerStatisticsQuery {
   fromMonth?: string;
   toMonth?: string;
   saksbehandlere?: string[];
+}
+
+export interface IComparedFullStatisticVurderingV2 {
+  color: string;
+  vurderinger: IFullStatisticVurderingV2[];
+  label: string;
+}
+
+// Response types
+
+export interface IStatisticsResponseOpenV2 {
+  readonly rest: IStatisticVurderingV2[]; // All saker
+}
+
+export interface IStatisticsResponseMyV2 {
+  mine: IFullStatisticVurderingV2[]; // My saker
+  rest: IFullStatisticVurderingV2[]; // Other saker from my enhet
+}
+
+export interface IStatisticsResponseManagerV2 {
+  saksbehandlere: Record<string, IFullStatisticVurderingV2[]>;
+  mine: IFullStatisticVurderingV2[]; // Klageinstansleders enhet
+  rest: IFullStatisticVurderingV2[]; // Other klageenheter
+}
+
+export interface IStatisticsResponseTotalV2 {
+  rest: IFullStatisticVurderingV2[]; // All saker
+}
+
+export interface IStatisticsResponseVedtaksinstanslederV2 {
+  mine: IStatisticVurderingV2[]; // Vedtaksinstansleders enhet
+  rest: IFullStatisticVurderingV2[]; // Other vedtaksenheter
 }

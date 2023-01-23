@@ -1,5 +1,5 @@
 import { skipToken } from '@reduxjs/toolkit/query/react';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useStatisticsManager } from '../../../../simple-api-state/statistics/v2/use-statistics-manager';
 import { useUser } from '../../../../simple-api-state/use-user';
 import { IFullStatisticVurderingV2, IManagerStatisticsQuery } from '../../../../types/statistics/v2';
@@ -31,14 +31,15 @@ const useStatistics = () => {
 
 export const useManagerStatisticsV2IsLoading = (): boolean => useStatistics().isLoading;
 
-const useAllManagerStatistics = (): IFullStatisticVurderingV2[] => {
-  const { data } = useStatistics();
-
-  return data?.anonymizedFinishedVurderingList ?? [];
-};
+const EMPTY_ARRAY: IFullStatisticVurderingV2[] = [];
+const EMPTY_SAKSBEHANDLERE: Record<string, IFullStatisticVurderingV2[]> = {};
 
 export const useFilteredManagerStatisticsV2 = () => {
-  const data = useAllManagerStatistics();
+  const { data } = useStatistics();
+
+  const mine = useMemo(() => data?.mine ?? EMPTY_ARRAY, [data]);
+  const rest = useMemo(() => data?.rest ?? EMPTY_ARRAY, [data]);
+  const saksbehandlere = useMemo(() => data?.saksbehandlere ?? EMPTY_SAKSBEHANDLERE, [data]);
 
   const types = useQueryFilters(QueryParams.TYPES);
   const ytelser = useQueryFilters(QueryParams.YTELSER);
@@ -47,17 +48,27 @@ export const useFilteredManagerStatisticsV2 = () => {
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const tilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
-  return useMemo(
+  const filter = useCallback(
     () =>
-      data.filter(
-        ({ ytelseId, sakstypeId, utfallId, tilknyttetEnhet, hjemmelIdList }) =>
-          tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
-          (klageenheter.length === 0 || klageenheter.includes(tilknyttetEnhet)) &&
-          (utfall.length === 0 || utfall.includes(utfallId)) &&
-          (types.length === 0 || types.includes(sakstypeId)) &&
-          (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
-          (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id)))
+      ({ ytelseId, sakstypeId, utfallId, tilknyttetEnhet, hjemmelIdList }: IFullStatisticVurderingV2) =>
+        tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
+        (klageenheter.length === 0 || klageenheter.includes(tilknyttetEnhet)) &&
+        (utfall.length === 0 || utfall.includes(utfallId)) &&
+        (types.length === 0 || types.includes(sakstypeId)) &&
+        (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
+        (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))),
+    [hjemler, klageenheter, tilbakekreving, types, utfall, ytelser]
+  );
+
+  return useMemo(
+    () => ({
+      mine: mine.filter(filter),
+      rest: rest.filter(filter),
+      saksbehandlere: Object.entries(saksbehandlere).reduce<Record<string, IFullStatisticVurderingV2[]>>(
+        (acc, [saksbehandler, vurderinger]) => ({ ...acc, [saksbehandler]: vurderinger }),
+        {}
       ),
-    [data, tilbakekreving, klageenheter, utfall, types, ytelser, hjemler]
+    }),
+    [mine, filter, rest, saksbehandlere]
   );
 };

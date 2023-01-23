@@ -13,84 +13,27 @@ import { HelpTexts } from './help-texts';
 import { MangelfulltOverTime } from './mangelfullt-over-time';
 
 const useDoughnutOptions = (): ChartOptions<'doughnut'> => ({
-  responsive: true,
   aspectRatio: 1.5,
-  animation: {
-    duration: 200,
-    easing: 'easeOutQuart',
-  },
   plugins: {
-    legend: {
-      align: 'center',
-      labels: {
-        font: { size: 13 },
-      },
-    },
-    tooltip: {
-      callbacks: {
-        label: ({ label }) => label,
-      },
-    },
+    legend: { align: 'center' },
+    tooltip: { callbacks: { label: ({ label }) => label } },
   },
 });
 
 const useBarOptions = (labels: string[], data: number[], total = 1): ChartOptions<'bar'> => ({
-  elements: {
-    bar: {
-      borderRadius: 4,
-    },
-  },
   responsive: true,
   aspectRatio: 4,
-  animation: {
-    duration: 200,
-    easing: 'easeOutQuart',
-  },
   indexAxis: 'y',
   scales: {
-    y: {
-      ticks: {
-        font: {
-          size: 14,
-          family: '"Source Sans Pro", Arial, sans-serif',
-        },
-      },
-      beginAtZero: true,
-      bounds: 'ticks',
-      min: 0,
-      grid: {
-        display: false,
-      },
-    },
+    y: { beginAtZero: true, bounds: 'ticks', min: 0 },
     x: {
-      ticks: {
-        callback: (value) => tickCallback(value, total),
-        stepSize: total / 10,
-        font: {
-          size: 16,
-          family: '"Source Sans Pro", Arial, sans-serif',
-        },
-      },
-      grid: {
-        display: false,
-      },
+      ticks: { callback: (value) => tickCallback(value, total), stepSize: total / 10 },
       stacked: true,
     },
   },
   plugins: {
-    legend: {
-      display: false,
-      position: 'top' as const,
-      labels: {
-        font: {
-          size: 16,
-          family: '"Source Sans Pro", Arial, sans-serif',
-        },
-      },
-    },
-    title: {
-      display: false,
-    },
+    legend: { display: false, position: 'top' as const },
+    title: { display: false },
     tooltip: {
       callbacks: {
         label: ({ parsed, label }) => `${label}: ${percent(parsed.x, total)}`,

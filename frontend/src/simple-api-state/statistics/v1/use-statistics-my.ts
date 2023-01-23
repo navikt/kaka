@@ -1,9 +1,9 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import { IFullStatistics, IStatisticsQuery } from '../../../types/statistics/v1';
+import { IStatisticsQuery, IStatisticsResponseMyV1 } from '../../../types/statistics/v1';
 import { useSimpleApiState } from '../../simple-api-state';
 import { getStateFactory } from '../../state-factory';
 
-const getState = getStateFactory<IFullStatistics, IStatisticsQuery>('/statistics/v1/my');
+const getState = getStateFactory<IStatisticsResponseMyV1, IStatisticsQuery>('/statistics/v1/my');
 
 export const useStatisticsMy = (query: IStatisticsQuery | typeof skipToken) =>
   useSimpleApiState(query === skipToken ? skipToken : getState({ query }));

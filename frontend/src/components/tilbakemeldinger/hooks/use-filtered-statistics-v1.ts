@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useStatisticsVedtaksinstansleder } from '../../../simple-api-state/statistics/v1/use-statistics-vedtaksinstansleder';
 import { SakstypeEnum } from '../../../types/sakstype';
 import { IStatisticVurderingV1 } from '../../../types/statistics/v1';
@@ -25,30 +25,34 @@ const useStatistics = () => {
 
 export const useTilbakemeldingerStatisticsV1IsLoading = (): boolean => useStatistics().isLoading;
 
-const useAllStatistics = (): IStatisticVurderingV1[] => {
-  const { data } = useStatistics();
-
-  return data?.anonymizedFinishedVurderingList ?? [];
-};
+const EMPTY_ARRAY: IStatisticVurderingV1[] = [];
 
 export const useFilteredStatisticsV1 = () => {
-  const stats = useAllStatistics();
+  const { data } = useStatistics();
+
+  const mine = useMemo(() => data?.mine ?? EMPTY_ARRAY, [data]);
+  const rest = useMemo(() => data?.rest ?? EMPTY_ARRAY, [data]);
 
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const tilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
+  const filter = useCallback(
+    ({ sakstypeId, ytelseId, utfallId, hjemmelIdList }: IStatisticVurderingV1) =>
+      sakstypeId === SakstypeEnum.KLAGE &&
+      tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
+      (utfall.length === 0 || utfall.includes(utfallId)) &&
+      (ytelser.length === 0 || ytelser.includes(ytelseId)) &&
+      (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))),
+    [tilbakekreving, utfall, ytelser, hjemler]
+  );
+
   return useMemo(
-    () =>
-      stats.filter(
-        ({ sakstypeId, ytelseId, utfallId, hjemmelIdList }) =>
-          sakstypeId === SakstypeEnum.KLAGE &&
-          tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
-          (utfall.length === 0 || utfall.includes(utfallId)) &&
-          (ytelser.length === 0 || ytelser.includes(ytelseId)) &&
-          (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id)))
-      ),
-    [stats, tilbakekreving, utfall, ytelser, hjemler]
+    () => ({
+      mine: mine.filter(filter),
+      rest: rest.filter(filter),
+    }),
+    [mine, filter, rest]
   );
 };

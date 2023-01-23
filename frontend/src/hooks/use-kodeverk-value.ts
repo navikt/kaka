@@ -1,6 +1,7 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import { State } from '../simple-api-state/simple-api-state';
-import { useKlageenheter, useSakstyper, useUtfall, useYtelser } from '../simple-api-state/use-kodeverk';
+import { useKlageenheter, useSakstyper, useYtelser } from '../simple-api-state/use-kodeverk';
+import { useSortedUtfall } from '../simple-api-state/use-utfall';
 import { IKlageenhet, IKodeverkSimpleValue, ILovKildeToRegistreringshjemmel, IYtelse } from '../types/kodeverk';
 import { KvalitetsvurderingVersion } from '../types/saksdata';
 import { SakstypeEnum } from '../types/sakstype';
@@ -56,7 +57,7 @@ export const useFullYtelseNameFromId = (params: YtelseParams): string => {
 export const useKodeverkUtfall = (
   utfallId: string | typeof skipToken = skipToken
 ): IKodeverkSimpleValue<UtfallEnum> | undefined => {
-  const { data = [] } = useUtfall();
+  const { data = [] } = useSortedUtfall();
 
   return utfallId === skipToken ? undefined : data.find(({ id }) => id === utfallId);
 };

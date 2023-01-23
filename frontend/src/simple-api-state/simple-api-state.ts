@@ -58,6 +58,9 @@ export class SimpleApiState<T> {
       } else {
         this.error = new Error('Unknown error');
       }
+
+      // Retry after 1 minute.
+      setTimeout(this.fetchData, 60000);
     }
 
     this.isLoading = false;
@@ -108,6 +111,9 @@ export class SimpleApiState<T> {
   private clear = (): void => {
     console.info('Clearing cached data for', this.url);
     this.data = undefined;
+    this.error = undefined;
+    this.isError = false;
+    this.onChange();
   };
 }
 

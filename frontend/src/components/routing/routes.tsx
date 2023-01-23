@@ -4,6 +4,7 @@ import { useIndexPath } from '../../hooks/use-index-path';
 import { useUserHasRole } from '../../hooks/use-user-access';
 import { KvalitetsvurderingPage } from '../../pages/kvalitetsvurdering';
 import { KvalitetsvurderingerPage } from '../../pages/kvalitetsvurderinger';
+import { ComparisonPage } from '../../pages/statistikk/comparison';
 import { StatistikkLederPage } from '../../pages/statistikk/leder';
 import { StatistikkMinPage } from '../../pages/statistikk/min';
 import { StatistikkOpenPage } from '../../pages/statistikk/open';
@@ -78,6 +79,14 @@ export const Router = () => {
         element={
           <HasAccess hasAccess={roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER}>
             <KvalitetsvurderingPage />
+          </HasAccess>
+        }
+      />
+      <Route
+        path="sammenlikning"
+        element={
+          <HasAccess hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}>
+            <ComparisonPage />
           </HasAccess>
         }
       />

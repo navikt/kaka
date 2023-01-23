@@ -5,6 +5,7 @@ import { useCanEdit } from '../../../../hooks/use-can-edit';
 import { useSaksdata } from '../../../../hooks/use-saksdata';
 import { useYtelser } from '../../../../simple-api-state/use-kodeverk';
 import { RadiovalgExtended } from '../../../../types/kvalitetsvurdering/radio';
+import { MainReason } from '../../../../types/kvalitetsvurdering/v2';
 import { Checkboxes } from './common/checkboxes';
 import { ContainerWithHelpText } from './common/container-with-helptext';
 import { RadioButtonsRow, StyledHeading, StyledRadioGroup } from './common/styled-components';
@@ -69,8 +70,8 @@ export const BrukAvRaadgivendeLege = () => {
   const show = useIsRelevantYtelse(saksdata?.ytelseId);
 
   const canEdit = useCanEdit();
-  const validationError = useValidationError('brukAvRaadgivendeLege');
-  const header = useKvalitetsvurderingV2FieldName('brukAvRaadgivendeLege');
+  const validationError = useValidationError(MainReason.BrukAvRaadgivendeLege);
+  const header = useKvalitetsvurderingV2FieldName(MainReason.BrukAvRaadgivendeLege);
 
   if (!show || isLoading) {
     return null;

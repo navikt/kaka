@@ -10,13 +10,14 @@ interface Props {
   disabled?: boolean;
   error?: string;
   fromDate?: Date;
-  id: string;
+  id?: string;
   label: React.ReactNode;
   onChange: (date: string | null) => void;
   size: 'small' | 'medium';
   toDate?: Date;
   value: string | null;
   warningThreshhold?: Date;
+  className?: string;
 }
 
 export const DatepickerWithValidation = ({
@@ -31,6 +32,7 @@ export const DatepickerWithValidation = ({
   size,
   centuryThreshold = 50,
   warningThreshhold,
+  className,
 }: Props) => {
   const [inputError, setInputError] = useState<string>();
   const [input, setInput] = useState<string>(value === null ? '' : isoDateToPretty(value) ?? '');
@@ -172,6 +174,7 @@ export const DatepickerWithValidation = ({
       month={month}
       onMonthChange={setMonth}
       onOpenToggle={() => setMonth(selected)}
+      className={className}
     >
       <Datepicker.Input
         id={id}
