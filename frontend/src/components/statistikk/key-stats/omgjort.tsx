@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { UtfallEnum } from '../../../types/utfall';
-import { cleanNumberDisplay } from './formatting';
 import { KeyContent, RedKeyNumber } from './styled-components';
 
 interface Stat {
@@ -14,7 +13,7 @@ interface Props {
 export const Omgjort = ({ stats }: Props) => {
   const numOmgjort: number = useMemo(
     () =>
-      stats?.filter(
+      stats.filter(
         ({ utfallId }) =>
           utfallId === UtfallEnum.MEDHOLD || utfallId === UtfallEnum.DELVIS_MEDHOLD || utfallId === UtfallEnum.OPPHEVET
       ).length,
@@ -30,12 +29,21 @@ export const Omgjort = ({ stats }: Props) => {
     [stats]
   );
 
-  const percent = cleanNumberDisplay(Math.round((numOmgjort / relevantStats) * 100));
-
   return (
     <KeyContent>
-      <RedKeyNumber>{percent} %</RedKeyNumber>
+      <RedKeyNumber>{toPercent(numOmgjort, relevantStats)} %</RedKeyNumber>
       <span>Omgjort av Klageinstansen</span>
     </KeyContent>
   );
+};
+
+const toPercent = (numerator: number, denominator: number): string => {
+  if (denominator === 0) {
+    return '-';
+  }
+
+  return ((numerator / denominator) * 100).toLocaleString('nb-no', {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  });
 };

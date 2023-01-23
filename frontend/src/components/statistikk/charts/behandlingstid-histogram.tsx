@@ -6,58 +6,21 @@ import { useBuckets } from '../hooks/use-buckets';
 import { GRAPH_COLOR } from './colors';
 
 const useOptions = (): ChartOptions<'bar'> => ({
-  responsive: true,
-  elements: {
-    bar: {
-      borderRadius: 4,
-    },
-  },
   aspectRatio: 3,
-  animation: {
-    duration: 200,
-    easing: 'easeOutQuart',
-  },
   scales: {
     y: {
-      title: {
-        display: true,
-        text: 'Antall',
-        font: {
-          weight: 'bold',
-          size: 14,
-        },
-      },
-      ticks: {
-        font: {
-          size: 14,
-          family: '"Source Sans Pro", Arial, sans-serif',
-        },
-      },
+      title: { display: true, text: 'Antall' },
       beginAtZero: true,
       bounds: 'ticks',
-      grid: {
-        display: false,
-      },
     },
     x: {
-      title: {
-        display: true,
-        text: 'Innen uke',
-        font: {
-          weight: 'bold',
-          size: 14,
-        },
-      },
-      ticks: {
-        font: {
-          size: 14,
-          family: '"Source Sans Pro", Arial, sans-serif',
-        },
-      },
-      grid: {
-        display: false,
-      },
+      title: { display: true, text: 'Innen uke' },
       stacked: true,
+    },
+  },
+  plugins: {
+    legend: {
+      display: false,
     },
   },
   backgroundColor: (ctx) => {
@@ -76,25 +39,6 @@ const useOptions = (): ChartOptions<'bar'> => ({
     }
 
     return GRAPH_COLOR.YELLOW;
-  },
-  plugins: {
-    legend: {
-      display: false,
-      position: 'top' as const,
-      labels: {
-        font: {
-          size: 16,
-          family: '"Source Sans Pro", Arial, sans-serif',
-        },
-      },
-    },
-    title: {
-      display: false,
-      font: {
-        size: 24,
-        family: '"Source Sans Pro", Arial, sans-serif',
-      },
-    },
   },
 });
 

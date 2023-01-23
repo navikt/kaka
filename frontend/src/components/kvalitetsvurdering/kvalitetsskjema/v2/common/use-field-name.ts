@@ -3,11 +3,11 @@ import { IKvalitetsvurderingData } from '../../../../../types/kvalitetsvurdering
 type Keys = keyof IKvalitetsvurderingData;
 
 export const KVALITETSVURDERING_V2_FIELD_NAMES: Record<Keys, string> = {
-  klageforberedelsenSakensDokumenter: 'Sakens dokumenter',
-  klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert:
+  sakensDokumenter: 'Sakens dokumenter',
+  sakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert:
     'Relevante opplysninger fra andre fagsystemer er ikke journalført',
-  klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn: 'Journalfoerte dokumenter har feil titler/navn',
-  klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: 'Mangler fysisk saksmappe',
+  sakensDokumenterJournalfoerteDokumenterFeilNavn: 'Journalfoerte dokumenter har feil titler/navn',
+  sakensDokumenterManglerFysiskSaksmappe: 'Mangler fysisk saksmappe',
 
   klageforberedelsen: 'Klageforberedelsen',
   klageforberedelsenOversittetKlagefristIkkeKommentert: 'Oversittet klagefrist er ikke kommentert.',
@@ -39,11 +39,10 @@ export const KVALITETSVURDERING_V2_FIELD_NAMES: Record<Keys, string> = {
   vedtaketFeilKonkretRettsanvendelseHjemlerList: 'Hjemler for "Feil i den konkrete rettsanvendelsen"',
 
   vedtaketIkkeKonkretIndividuellBegrunnelse: 'Begrunnelsen er ikke konkret og individuell nok',
-  vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum:
-    'Det går ikke godt nok frem hva slags faktum som er lagt til grunn',
-  vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum:
+  vedtaketIkkeGodtNokFremFaktum: 'Det går ikke godt nok frem hva slags faktum som er lagt til grunn',
+  vedtaketIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum:
     'Det går ikke godt nok frem hvordan rettsregelen er anvendt på faktum',
-  vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst: 'Det er mye standardtekst',
+  vedtaketMyeStandardtekst: 'Det er mye standardtekst',
 
   vedtaketAutomatiskVedtak: 'Automatisk vedtak',
   vedtaket: 'Vedtaket',

@@ -1,11 +1,10 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query';
-import { IKlageenhet, IKodeverkSimpleValue, IKodeverkValue, ISakstyperToUtfall, IYtelse } from '../types/kodeverk';
+import { IKlageenhet, IKodeverkSimpleValue, IKodeverkValue, IYtelse } from '../types/kodeverk';
 import { KvalitetsvurderingVersion } from '../types/saksdata';
 import { SakstypeEnum } from '../types/sakstype';
-import { UtfallEnum } from '../types/utfall';
 import { SimpleApiState, State, useSimpleApiState } from './simple-api-state';
 
-const API_PREFIX = '/api/klage-kodeverk-api/kodeverk';
+export const API_PREFIX = '/api/klage-kodeverk-api/kodeverk';
 
 interface AllLovKilderToRegistreringshjemmel extends IKodeverkSimpleValue {
   registreringshjemler: IKodeverkSimpleValue[];
@@ -27,9 +26,8 @@ const ytelserV2 = new SimpleApiState<IYtelse[]>(`${API_PREFIX}/ytelser/v2`);
 const klageenheter = new SimpleApiState<IKlageenhet[]>(`${API_PREFIX}/klageenheter`);
 const enheter = new SimpleApiState<IKodeverkSimpleValue[]>(`${API_PREFIX}/enheter`);
 const sakstyper = new SimpleApiState<IKodeverkSimpleValue<SakstypeEnum>[]>(`${API_PREFIX}/sakstyper`);
-const utfall = new SimpleApiState<IKodeverkSimpleValue<UtfallEnum>[]>(`${API_PREFIX}/utfall`);
+const hjemler = new SimpleApiState<IKodeverkValue[]>(`${API_PREFIX}/hjemler`);
 const vedtaksenheter = new SimpleApiState<IKodeverkSimpleValue[]>(`${API_PREFIX}/vedtaksenheter`);
-const sakstyperToUtfall = new SimpleApiState<ISakstyperToUtfall[]>(`${API_PREFIX}/sakstypertoutfall`);
 
 export const useYtelser = (version: KvalitetsvurderingVersion | typeof skipToken = skipToken) =>
   useSimpleApiState(version === 1 ? ytelserV1 : ytelserV2);
@@ -37,9 +35,9 @@ export const useLovkildeToRegistreringshjemler = () => useSimpleApiState(lovkild
 export const useRegistreringshjemlerMap = () => useSimpleApiState(registreringshjemlerMap);
 export const useKlageenheter = () => useSimpleApiState(klageenheter);
 export const useEnheter = () => useSimpleApiState(enheter);
-export const useUtfall = () => useSimpleApiState(utfall);
+
+export const useHjemler = () => useSimpleApiState(hjemler);
 export const useVedtaksenheter = () => useSimpleApiState(vedtaksenheter);
-export const useSakstyperToUtfall = () => useSimpleApiState(sakstyperToUtfall);
 
 export const useSakstyper = (): State<IKodeverkSimpleValue<SakstypeEnum>[]> => {
   const state = useSimpleApiState(sakstyper);

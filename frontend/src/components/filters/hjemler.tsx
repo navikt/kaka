@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useLovkildeToRegistreringshjemler } from '../../simple-api-state/use-kodeverk';
 import { GroupedDropdown, OptionGroup } from '../dropdown/grouped-dropdown';
 import { formatMetadata } from './common/dropdown';
@@ -34,7 +34,7 @@ interface HjemmelSelectProps {
 
 const HjemmelSelect = ({ onChange, options, selected, disabled, metadata }: HjemmelSelectProps) => {
   const [open, setOpen] = useState(false);
-  const buttonRef = React.useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const setSelected = (id: string | null, active: boolean) => {
     if (id === null) {

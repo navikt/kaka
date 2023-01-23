@@ -2,6 +2,7 @@ import { Alert, Checkbox, Radio } from '@navikt/ds-react';
 import React from 'react';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
 import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
+import { MainReason } from '../../../../types/kvalitetsvurdering/v2';
 import { Checkboxes } from './common/checkboxes';
 import { ContainerWithHelpText } from './common/container-with-helptext';
 import { RadioButtonsRow, StyledHeading, StyledRadioGroup } from './common/styled-components';
@@ -17,8 +18,8 @@ export const Vedtaket = () => {
   const { isLoading, kvalitetsvurdering, update } = useKvalitetsvurderingV2();
 
   const canEdit = useCanEdit();
-  const validationError = useValidationError('vedtaket');
-  const header = useKvalitetsvurderingV2FieldName('vedtaket');
+  const validationError = useValidationError(MainReason.Vedtaket);
+  const header = useKvalitetsvurderingV2FieldName(MainReason.Vedtaket);
 
   if (isLoading) {
     return null;
@@ -112,15 +113,15 @@ const CHECKBOXES: ICheckboxParams[] = [
     label: 'Begrunnelsen er ikke konkret og individuell nok.',
     checkboxes: [
       {
-        field: 'vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum',
+        field: 'vedtaketIkkeGodtNokFremFaktum',
         label: 'Det går ikke godt nok frem hva slags faktum som er lagt til grunn.',
       },
       {
-        field: 'vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum',
+        field: 'vedtaketIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum',
         label: 'Det går ikke godt nok frem hvordan rettsregelen er anvendt på faktum.',
       },
       {
-        field: 'vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst',
+        field: 'vedtaketMyeStandardtekst',
         label: 'Det er mye standardtekst.',
       },
     ],

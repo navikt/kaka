@@ -7,7 +7,7 @@ import {
   MONTH_FORMAT,
   NOW,
 } from '../components/filters/date-presets/constants';
-import { QueryParams } from '../components/filters/filter-query-params';
+import { ComparableQueryParams, QueryParams } from '../components/filters/filter-query-params';
 import { TilbakekrevingEnum } from '../components/filters/types';
 import { useKlageenheter, useVedtaksenheter } from '../simple-api-state/use-kodeverk';
 import { useUser } from '../simple-api-state/use-user';
@@ -68,6 +68,16 @@ export const useDefaultQueryMin = () => {
   const tilbakekreving = TilbakekrevingEnum.INCLUDE;
 
   return `${defaultQuery}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}`;
+};
+
+export const useDefaultQueryComparison = () => {
+  const defaultQuery = useDefaultQueryAapen();
+  const tilbakekreving = TilbakekrevingEnum.INCLUDE;
+
+  const comparisonValues = encodeURIComponent(JSON.stringify([['AVERAGE', '#0067c5']]));
+  const defaultComparison = `comparisonProp=${ComparableQueryParams.ENHETER}&comparisonValues=${comparisonValues}`;
+
+  return `${defaultQuery}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}&${defaultComparison}`;
 };
 
 export const useDefaultQueryTilbakemeldinger = useDefaultQueryMin;

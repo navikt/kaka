@@ -1,5 +1,5 @@
 import { skipToken } from '@reduxjs/toolkit/query/react';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useStatisticsMy } from '../../../../simple-api-state/statistics/v2/use-statistics-my';
 import { useUser } from '../../../../simple-api-state/use-user';
 import { IFullStatisticVurderingV2, IStatisticsQuery } from '../../../../types/statistics/v2';
@@ -26,14 +26,13 @@ const useStatistics = () => {
 
 export const useMyStatisticsV2IsLoading = (): boolean => useStatistics().isLoading;
 
-const useAllMyStatistics = (): IFullStatisticVurderingV2[] => {
-  const { data } = useStatistics();
-
-  return data?.anonymizedFinishedVurderingList ?? [];
-};
+const EMPTY_ARRAY: IFullStatisticVurderingV2[] = [];
 
 export const useFilteredMyStatisticsV2 = () => {
-  const data = useAllMyStatistics();
+  const { data } = useStatistics();
+
+  const mine = useMemo(() => data?.mine ?? EMPTY_ARRAY, [data]);
+  const rest = useMemo(() => data?.rest ?? EMPTY_ARRAY, [data]);
 
   const types = useQueryFilters(QueryParams.TYPES);
   const ytelser = useQueryFilters(QueryParams.YTELSER);
@@ -41,16 +40,15 @@ export const useFilteredMyStatisticsV2 = () => {
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const tilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
-  return useMemo(
-    () =>
-      data.filter(
-        ({ ytelseId, sakstypeId, utfallId, hjemmelIdList }) =>
-          tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
-          (utfall.length === 0 || utfall.includes(utfallId)) &&
-          (types.length === 0 || types.includes(sakstypeId)) &&
-          (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
-          (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id)))
-      ),
-    [data, tilbakekreving, utfall, types, ytelser, hjemler]
+  const filter = useCallback(
+    ({ ytelseId, sakstypeId, utfallId, hjemmelIdList }: IFullStatisticVurderingV2) =>
+      tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
+      (utfall.length === 0 || utfall.includes(utfallId)) &&
+      (types.length === 0 || types.includes(sakstypeId)) &&
+      (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
+      (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))),
+    [hjemler, tilbakekreving, types, utfall, ytelser]
   );
+
+  return useMemo(() => ({ mine: mine.filter(filter), rest: rest.filter(filter) }), [mine, filter, rest]);
 };

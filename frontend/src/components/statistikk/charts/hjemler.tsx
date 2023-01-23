@@ -1,4 +1,4 @@
-import { ChartOptions, TooltipItem, TooltipModel } from 'chart.js';
+import { ChartOptions, TooltipCallbacks } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useSearchParams } from 'react-router-dom';
@@ -6,66 +6,27 @@ import { QueryParams } from '../../filters/filter-query-params';
 import { useHjemmelTexts } from '../../filters/hooks/use-hjemmel-texts';
 import { GRAPH_COLOR } from './colors';
 
-type TooltipCallback = ((this: TooltipModel<'bar'>, tooltipItem: TooltipItem<'bar'>) => string | string[]) | undefined;
+type TooltipCallback = TooltipCallbacks<'bar'>['label'];
 
 const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'bar'> => ({
-  elements: {
-    bar: {
-      borderRadius: 4,
-    },
-  },
-  animation: {
-    duration: 200,
-    easing: 'easeOutQuart',
-  },
   indexAxis: 'y',
   aspectRatio: 1,
   scales: {
     y: {
-      ticks: {
-        font: {
-          size: 14,
-          family: '"Source Sans Pro", Arial, sans-serif',
-        },
-      },
       beginAtZero: true,
       bounds: 'ticks',
       min: 0,
-      grid: {
-        display: false,
-      },
     },
-    x: {
-      ticks: {
-        stepSize: 1,
-        font: {
-          size: 14,
-          family: '"Source Sans Pro", Arial, sans-serif',
-        },
-      },
-      grid: {
-        display: false,
-      },
-    },
+    x: { ticks: { stepSize: 1 } },
   },
   plugins: {
     legend: {
       display: false,
       position: 'top' as const,
-      labels: {
-        font: {
-          size: 16,
-          family: '"Source Sans Pro", Arial, sans-serif',
-        },
-      },
     },
-    title: {
-      display: false,
-    },
+    title: { display: false },
     tooltip: {
-      callbacks: {
-        label: tooltipCallback,
-      },
+      callbacks: { label: tooltipCallback },
     },
   },
 });
@@ -110,11 +71,11 @@ export const Hjemler = ({ stats }: Props) => {
       .sort((a, b) => b[1] - a[1])
       .slice(0, 20);
 
-    const labels = Array.from(top20.map(([key]) => key)).map(
-      (hjemmelId) => hjemmelTexts.find(({ id }) => hjemmelId === id)?.label ?? hjemmelId
-    );
+    const labels = top20
+      .map(([key]) => key)
+      .map((hjemmelId) => hjemmelTexts.find(({ id }) => hjemmelId === id)?.label ?? hjemmelId);
 
-    const data = Array.from(top20.map(([, value]) => value));
+    const data = top20.map(([, value]) => value);
 
     return {
       labels,

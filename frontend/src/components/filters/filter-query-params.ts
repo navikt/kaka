@@ -1,21 +1,34 @@
-export enum QueryParams {
+export enum ComparableQueryParams {
   ENHETER = 'enheter',
   KLAGEENHETER = 'klageenheter',
-  TYPES = 'types',
+  VEDTAKSINSTANSGRUPPER = 'vedtaksinstansgrupper',
   YTELSER = 'ytelser',
   UTFALL = 'utfall',
-  YEAR = 'year',
+  DATE_INTERVALS = 'dateIntervals',
+  HJEMLER = 'hjemler',
+}
+
+enum UncomparableQueryParams {
+  TYPES = 'types',
+  BEHANDLINGSTID = 'bht',
+  KVALITETSVURDERING = 'kvt',
+  MANGELFULLT = 'mangelfullt',
+  KOMMENTARER = 'kommentarer',
+  SAKSBEHANDLERE = 'saksbehandlere',
+  TILBAKEKREVING = 'tilbakekreving',
+  COMPARISON_PROP = 'comparisonProp',
+  COMPARISON_VALUES = 'comparisonValues',
+  VERSION = 'version',
   FROM_MONTH = 'fromMonth',
   TO_MONTH = 'toMonth',
   FROM_DATE = 'fromDate',
   TO_DATE = 'toDate',
-  HJEMLER = 'hjemler',
-  BEHANDLINGSTID = 'bht',
-  KVALITETSVURDERING = 'kvt',
-  SAKSBEHANDLERE = 'saksbehandlere',
-  MANGELFULLT = 'mangelfullt',
-  KOMMENTARER = 'kommentarer',
-  VEDTAKSINSTANSGRUPPER = 'vedtaksinstansgrupper',
-  TILBAKEKREVING = 'tilbakekreving',
-  VERSION = 'versjon',
+  DATASET_INDEX = 'dataset',
 }
+
+export const QueryParams = {
+  ...ComparableQueryParams,
+  ...UncomparableQueryParams,
+};
+
+export type QueryParams = ComparableQueryParams | UncomparableQueryParams;

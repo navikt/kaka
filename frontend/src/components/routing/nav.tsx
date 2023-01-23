@@ -1,9 +1,10 @@
-import { Data, DataFilled, Divide, DivideFilled, List, Task } from '@navikt/ds-icons';
+import { Data, DataFilled, Divide, DivideFilled, List, Task, UpDown } from '@navikt/ds-icons';
 import React from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   useDefaultQueryAapen,
+  useDefaultQueryComparison,
   useDefaultQueryLeder,
   useDefaultQueryMin,
   useDefaultQueryTilbakemeldinger,
@@ -17,6 +18,7 @@ export const Nav = () => {
   const defaultQueryTotal = useDefaultQueryTotal();
   const defaultQueryMin = useDefaultQueryMin();
   const defaultQueryTilbakemeldinger = useDefaultQueryTilbakemeldinger();
+  const defauleQueryComparison = useDefaultQueryComparison();
 
   const { isLoading, roles } = useUserHasRole();
 
@@ -69,6 +71,13 @@ export const Nav = () => {
           hasAccess={roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER}
         >
           <Task /> Tilbakemeldinger
+        </NavItem>
+        <NavItem
+          to={`/sammenlikning?${defauleQueryComparison}`}
+          testId="sammenlikning-nav-link"
+          hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}
+        >
+          <UpDown /> Sammenlikning
         </NavItem>
       </StyledNavLinkList>
     </StyledNav>

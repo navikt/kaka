@@ -2,6 +2,7 @@ import { Radio } from '@navikt/ds-react';
 import React from 'react';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
 import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
+import { MainReason } from '../../../../types/kvalitetsvurdering/v2';
 import { Checkboxes } from './common/checkboxes';
 import { HeadingWithHelpText } from './common/heading-with-helptext';
 import { RadioButtonsRow, StyledRadioGroup } from './common/styled-components';
@@ -14,8 +15,8 @@ export const Utredningen = () => {
   const { isLoading, kvalitetsvurdering, update } = useKvalitetsvurderingV2();
 
   const canEdit = useCanEdit();
-  const validationError = useValidationError('utredningen');
-  const header = useKvalitetsvurderingV2FieldName('utredningen');
+  const validationError = useValidationError(MainReason.Utredningen);
+  const header = useKvalitetsvurderingV2FieldName(MainReason.Utredningen);
 
   if (isLoading) {
     return null;

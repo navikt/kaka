@@ -3,10 +3,10 @@ import React from 'react';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useSaksdata } from '../../../hooks/use-saksdata';
 import { useSaksdataId } from '../../../hooks/use-saksdata-id';
-import { useUtfall } from '../../../hooks/use-utfall';
 import { useValidationError } from '../../../hooks/use-validation-error';
 import { useSetUtfallMutation } from '../../../redux-api/saksdata';
 import { useUser } from '../../../simple-api-state/use-user';
+import { useUtfallFromSakstype } from '../../../simple-api-state/use-utfall';
 import { isUtfall } from '../../../types/utfall';
 import { EmptyOption } from './empty-option';
 
@@ -16,7 +16,7 @@ export const UtfallResultat = () => {
   const { data: saksdata } = useSaksdata();
   const [setUtfallResultat] = useSetUtfallMutation();
   const canEdit = useCanEdit();
-  const [utfall] = useUtfall(saksdata?.sakstypeId);
+  const [utfall] = useUtfallFromSakstype(saksdata?.sakstypeId);
   const validationError = useValidationError('utfallId');
 
   if (typeof saksdata === 'undefined' || typeof user === 'undefined') {

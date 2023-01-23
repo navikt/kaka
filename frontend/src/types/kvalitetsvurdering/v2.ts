@@ -1,14 +1,21 @@
 import { Radiovalg, RadiovalgExtended } from './radio';
 
+export enum MainReason {
+  Klageforberedelsen = 'klageforberedelsen',
+  Utredningen = 'utredningen',
+  Vedtaket = 'vedtaket',
+  BrukAvRaadgivendeLege = 'brukAvRaadgivendeLege',
+}
+
 interface SakensDokumenter {
-  klageforberedelsenSakensDokumenter: boolean; // Sakens dokumenter.
-  klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert: boolean; // Relevante opplysninger fra andre fagsystemer er ikke journalført.
-  klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn: boolean; // Journalførte dokumenter har feil titler/navn.
-  klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: boolean; // Mangler fysisk saksmappe.
+  sakensDokumenter: boolean; // Sakens dokumenter.
+  sakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert: boolean; // Relevante opplysninger fra andre fagsystemer er ikke journalført.
+  sakensDokumenterJournalfoerteDokumenterFeilNavn: boolean; // Journalførte dokumenter har feil titler/navn.
+  sakensDokumenterManglerFysiskSaksmappe: boolean; // Mangler fysisk saksmappe.
 }
 
 interface Klageforberedelsen extends SakensDokumenter {
-  klageforberedelsen: Radiovalg | null; // Klageforberedelsen.
+  [MainReason.Klageforberedelsen]: Radiovalg | null; // Klageforberedelsen.
   klageforberedelsenOversittetKlagefristIkkeKommentert: boolean; // Oversittet klagefrist er ikke kommentert.
   klageforberedelsenKlagersRelevanteAnfoerslerIkkeTilstrekkeligKommentertImoetegaatt: boolean; // Klagers relevante anførsler er ikke tilstrekkelig kommentert/imøtegått.
   klageforberedelsenFeilVedBegrunnelsenForHvorforAvslagOpprettholdesKlagerIkkeOppfyllerVilkaar: boolean; // Feil ved begrunnelsen for hvorfor avslag opprettholdes/klager ikke oppfyller vilkår.
@@ -17,7 +24,7 @@ interface Klageforberedelsen extends SakensDokumenter {
 }
 
 interface Utredningen {
-  utredningen: Radiovalg | null; // Utredningen.
+  [MainReason.Utredningen]: Radiovalg | null; // Utredningen.
   utredningenAvMedisinskeForhold: boolean; // Utredningen av medisinske forhold.
   utredningenAvInntektsforhold: boolean; // Utredningen av inntektsforhold.
   utredningenAvArbeidsaktivitet: boolean; // Utredningen av arbeidsaktivitet.
@@ -47,9 +54,9 @@ interface FeilKonkretRettsanvendelse {
 
 interface KonkretIndividuellBegrunnelse {
   vedtaketIkkeKonkretIndividuellBegrunnelse: boolean; // Begrunnelsen er ikke konkret og individuell nok.
-  vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum: boolean; // Det går ikke godt nok frem hva slags faktum som er lagt til grunn.
-  vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum: boolean; // Det går ikke godt nok frem hvordan rettsregelen er anvendt på faktum.
-  vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst: boolean; // Det er mye standardtekst.
+  vedtaketIkkeGodtNokFremFaktum: boolean; // Det går ikke godt nok frem hva slags faktum som er lagt til grunn.
+  vedtaketIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum: boolean; // Det går ikke godt nok frem hvordan rettsregelen er anvendt på faktum.
+  vedtaketMyeStandardtekst: boolean; // Det er mye standardtekst.
 }
 
 interface Vedtaket
@@ -59,7 +66,7 @@ interface Vedtaket
     FeilKonkretRettsanvendelse,
     KonkretIndividuellBegrunnelse {
   vedtaketAutomatiskVedtak: boolean; // Avhuking for automatiske vedtak.
-  vedtaket: Radiovalg | null; // Vedtaket.
+  [MainReason.Vedtaket]: Radiovalg | null; // Vedtaket.
   vedtaketDetErLagtTilGrunnFeilFaktum: boolean; // Det er lagt til grunn feil faktum.
   vedtaketSpraakOgFormidlingErIkkeTydelig: boolean; // Språket og formidlingen er ikke tydelig.
 }
@@ -72,12 +79,20 @@ interface BrukAvRaadgivendeLegeMangelfullt {
 }
 
 interface BrukAvRaadgivendeLege extends BrukAvRaadgivendeLegeMangelfullt {
-  brukAvRaadgivendeLege: RadiovalgExtended | null; // Bruk av rådgivende lege.
+  [MainReason.BrukAvRaadgivendeLege]: RadiovalgExtended | null; // Bruk av rådgivende lege.
 }
 
 interface Annet {
   annetFritekst: string | null; // Annet (valgfri).
 }
+
+export type IKvalitetsvurderingHjemler = Pick<
+  IKvalitetsvurderingData,
+  | 'vedtaketLovbestemmelsenTolketFeilHjemlerList'
+  | 'vedtaketFeilKonkretRettsanvendelseHjemlerList'
+  | 'vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdertHjemlerList'
+  | 'vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList'
+>;
 
 export type IKvalitetsvurderingBooleans = Omit<
   IKvalitetsvurderingData,
@@ -86,10 +101,7 @@ export type IKvalitetsvurderingBooleans = Omit<
   | 'annetFritekst'
   | 'brukAvRaadgivendeLege'
   | 'vedtaket'
-  | 'vedtaketLovbestemmelsenTolketFeilHjemlerList'
-  | 'vedtaketFeilKonkretRettsanvendelseHjemlerList'
-  | 'vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdertHjemlerList'
-  | 'vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList'
+  | keyof IKvalitetsvurderingHjemler
 >;
 
 export interface IKvalitetsvurderingData

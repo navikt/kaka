@@ -53,14 +53,6 @@ export interface IFullStatisticVurderingV1 extends IStatisticVurderingV1 {
   readonly vedtaksinstansEnhet: string | null;
 }
 
-export interface IFullStatistics {
-  readonly anonymizedFinishedVurderingList: IFullStatisticVurderingV1[];
-}
-
-export interface IStatistics {
-  readonly anonymizedFinishedVurderingList: IStatisticVurderingV1[];
-}
-
 // Query types
 export interface IStatisticsQuery {
   fromDate?: string;
@@ -83,3 +75,35 @@ export type RadiovalgField = keyof Pick<
   IFullStatisticVurderingV1,
   'utredningenRadioValg' | 'klageforberedelsenRadioValg' | 'vedtaketRadioValg' | 'brukAvRaadgivendeLegeRadioValg'
 >;
+
+export interface IComparedFullStatisticVurderingV1 {
+  color: string;
+  vurderinger: IFullStatisticVurderingV1[];
+  label: string;
+}
+
+// Response types
+
+export interface IStatisticsResponseOpenV1 {
+  readonly rest: IStatisticVurderingV1[]; // All saker
+}
+
+export interface IStatisticsResponseMyV1 {
+  mine: IFullStatisticVurderingV1[]; // My saker
+  rest: IFullStatisticVurderingV1[]; // Other saker from my enhet
+}
+
+export interface IStatisticsResponseManagerV1 {
+  saksbehandlere: Record<string, IFullStatisticVurderingV1[]>;
+  mine: IFullStatisticVurderingV1[]; // Klageinstansleders enhet
+  rest: IFullStatisticVurderingV1[]; // Other klageenheter
+}
+
+export interface IStatisticsResponseTotalV1 {
+  rest: IFullStatisticVurderingV1[]; // All saker
+}
+
+export interface IStatisticsResponseVedtaksinstanslederV1 {
+  mine: IStatisticVurderingV1[]; // Vedtaksinstansleders enhet
+  rest: IFullStatisticVurderingV1[]; // Other vedtaksenheter
+}

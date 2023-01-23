@@ -17,7 +17,7 @@ export const useOpenStatisticsV2IsLoading = (): boolean => useStatistics().isLoa
 const useAllStatisticsV2 = (): IStatisticVurderingV2[] => {
   const { data } = useStatistics();
 
-  return data?.anonymizedFinishedVurderingList ?? [];
+  return data?.rest ?? [];
 };
 
 export const useFilteredStatisticsV2 = () => {
