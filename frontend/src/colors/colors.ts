@@ -147,7 +147,7 @@ export const MAINREASON_COLOR_MAP: Record<MainReason, string> = Object.freeze({
 type SubReasonColorMap = Partial<Record<keyof IKvalitetsvurderingData, string>>;
 
 const KLAGEFORBEREDELSEN_COLOR_MAP: SubReasonColorMap = Object.freeze({
-  [KlageforberedelsenReasons.sakensDokumenter]: NAV_COLORS.blue[400],
+  [KlageforberedelsenReasons.klageforberedelsenSakensDokumenter]: NAV_COLORS.blue[400],
   [KlageforberedelsenReasons.klageforberedelsenOversittetKlagefristIkkeKommentert]: NAV_COLORS.blue[500],
   [KlageforberedelsenReasons.klageforberedelsenKlagersRelevanteAnfoerslerIkkeTilstrekkeligKommentertImoetegaatt]:
     NAV_COLORS.blue[600],
@@ -192,16 +192,17 @@ export const SUBREASON_COLOR_MAP: Record<MainReason, SubReasonColorMap> = Object
 });
 
 export const SAKENS_DOKUMENTER_COLOR_MAP: SubReasonColorMap = Object.freeze({
-  [SakensDokumenterReasons.sakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert]:
+  [SakensDokumenterReasons.klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert]:
     NAV_COLORS.blue[400],
-  [SakensDokumenterReasons.sakensDokumenterJournalfoerteDokumenterFeilNavn]: NAV_COLORS.blue[500],
-  [SakensDokumenterReasons.sakensDokumenterManglerFysiskSaksmappe]: NAV_COLORS.blue[600],
+  [SakensDokumenterReasons.klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn]: NAV_COLORS.blue[500],
+  [SakensDokumenterReasons.klageforberedelsenSakensDokumenterManglerFysiskSaksmappe]: NAV_COLORS.blue[600],
 });
 
 export const IKKE_KONKRET_BEGRUNNELSE_COLOR_MAP: SubReasonColorMap = Object.freeze({
-  [IkkeKonkretBegrunnelseReasons.vedtaketIkkeGodtNokFremFaktum]: NAV_COLORS.green[400],
-  [IkkeKonkretBegrunnelseReasons.vedtaketIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum]: NAV_COLORS.green[500],
-  [IkkeKonkretBegrunnelseReasons.vedtaketMyeStandardtekst]: NAV_COLORS.green[600],
+  [IkkeKonkretBegrunnelseReasons.vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum]: NAV_COLORS.green[400],
+  [IkkeKonkretBegrunnelseReasons.vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum]:
+    NAV_COLORS.green[500],
+  [IkkeKonkretBegrunnelseReasons.vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst]: NAV_COLORS.green[600],
 });
 
 export const UTFALL_COLOR_MAP: Record<UtfallEnum, string> = Object.freeze({

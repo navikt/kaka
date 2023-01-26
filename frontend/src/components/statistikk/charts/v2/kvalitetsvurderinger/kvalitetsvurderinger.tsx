@@ -40,7 +40,9 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
       <MangelfullDetails stats={datasets} />
       <CategoryContainer>
         <ChartContainer columns={2}>
-          <ChartTitle>{KVALITETSVURDERING_V2_FIELD_NAMES[KlageforberedelsenReasons.sakensDokumenter]}</ChartTitle>
+          <ChartTitle>
+            {KVALITETSVURDERING_V2_FIELD_NAMES[KlageforberedelsenReasons.klageforberedelsenSakensDokumenter]}
+          </ChartTitle>
           <SakensDokumenter stats={datasets} />
         </ChartContainer>
         <ChartContainer columns={2}>
