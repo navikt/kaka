@@ -30,7 +30,7 @@ export const getSakensDokumenterDatasets = (stats: DataSet[]) => {
 
     const { reasons, totalReasonsCount } = calculateReasons(data, reasonIds);
 
-    const sakensDokumenterFactor = (reasons['sakensDokumenter'] ?? 0) / totalReasonsCount;
+    const sakensDokumenterFactor = (reasons['klageforberedelsenSakensDokumenter'] ?? 0) / totalReasonsCount;
 
     const subReasons = data.reduce<Record<string, number>>((acc, sak) => {
       const mangelfulleIds = SAKENS_DOKUMENTER_REASONS.filter((id) => sak[id] === true);

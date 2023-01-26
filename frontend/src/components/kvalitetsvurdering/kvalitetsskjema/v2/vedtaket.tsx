@@ -113,15 +113,15 @@ const CHECKBOXES: ICheckboxParams[] = [
     label: 'Begrunnelsen er ikke konkret og individuell nok.',
     checkboxes: [
       {
-        field: 'vedtaketIkkeGodtNokFremFaktum',
+        field: 'vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum',
         label: 'Det går ikke godt nok frem hva slags faktum som er lagt til grunn.',
       },
       {
-        field: 'vedtaketIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum',
+        field: 'vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum',
         label: 'Det går ikke godt nok frem hvordan rettsregelen er anvendt på faktum.',
       },
       {
-        field: 'vedtaketMyeStandardtekst',
+        field: 'vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst',
         label: 'Det er mye standardtekst.',
       },
     ],

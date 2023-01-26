@@ -11,8 +11,8 @@ describe('getSakensDokumenterDatasets', () => {
         data: [
           {
             klageforberedelsen: Radiovalg.MANGELFULLT,
-            sakensDokumenter: true,
-            sakensDokumenterManglerFysiskSaksmappe: true,
+            klageforberedelsenSakensDokumenter: true,
+            klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: true,
           },
         ],
       },
@@ -32,8 +32,8 @@ describe('getSakensDokumenterDatasets', () => {
         data: [
           {
             klageforberedelsen: Radiovalg.MANGELFULLT,
-            sakensDokumenter: true,
-            sakensDokumenterManglerFysiskSaksmappe: true,
+            klageforberedelsenSakensDokumenter: true,
+            klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: true,
           },
           { klageforberedelsen: Radiovalg.BRA },
         ],
@@ -54,12 +54,12 @@ describe('getSakensDokumenterDatasets', () => {
         data: [
           {
             klageforberedelsen: Radiovalg.MANGELFULLT,
-            sakensDokumenter: true,
-            sakensDokumenterManglerFysiskSaksmappe: true,
+            klageforberedelsenSakensDokumenter: true,
+            klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: true,
           },
           {
             klageforberedelsen: Radiovalg.MANGELFULLT,
-            sakensDokumenter: false,
+            klageforberedelsenSakensDokumenter: false,
             klageforberedelsenOversittetKlagefristIkkeKommentert: true,
           },
         ],
@@ -80,8 +80,8 @@ describe('getSakensDokumenterDatasets', () => {
         data: [
           {
             klageforberedelsen: Radiovalg.MANGELFULLT,
-            sakensDokumenter: true,
-            sakensDokumenterManglerFysiskSaksmappe: true,
+            klageforberedelsenSakensDokumenter: true,
+            klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: true,
           },
           {
             utredningen: Radiovalg.MANGELFULLT,
@@ -104,9 +104,9 @@ describe('getSakensDokumenterDatasets', () => {
         data: [
           {
             klageforberedelsen: Radiovalg.MANGELFULLT,
-            sakensDokumenter: true,
-            sakensDokumenterManglerFysiskSaksmappe: true,
-            sakensDokumenterJournalfoerteDokumenterFeilNavn: true,
+            klageforberedelsenSakensDokumenter: true,
+            klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: true,
+            klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn: true,
           },
         ],
       },

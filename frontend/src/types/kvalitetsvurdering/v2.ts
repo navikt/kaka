@@ -8,10 +8,10 @@ export enum MainReason {
 }
 
 interface SakensDokumenter {
-  sakensDokumenter: boolean; // Sakens dokumenter.
-  sakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert: boolean; // Relevante opplysninger fra andre fagsystemer er ikke journalført.
-  sakensDokumenterJournalfoerteDokumenterFeilNavn: boolean; // Journalførte dokumenter har feil titler/navn.
-  sakensDokumenterManglerFysiskSaksmappe: boolean; // Mangler fysisk saksmappe.
+  klageforberedelsenSakensDokumenter: boolean; // Sakens dokumenter.
+  klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert: boolean; // Relevante opplysninger fra andre fagsystemer er ikke journalført.
+  klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn: boolean; // Journalførte dokumenter har feil titler/navn.
+  klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: boolean; // Mangler fysisk saksmappe.
 }
 
 interface Klageforberedelsen extends SakensDokumenter {
@@ -54,9 +54,9 @@ interface FeilKonkretRettsanvendelse {
 
 interface KonkretIndividuellBegrunnelse {
   vedtaketIkkeKonkretIndividuellBegrunnelse: boolean; // Begrunnelsen er ikke konkret og individuell nok.
-  vedtaketIkkeGodtNokFremFaktum: boolean; // Det går ikke godt nok frem hva slags faktum som er lagt til grunn.
-  vedtaketIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum: boolean; // Det går ikke godt nok frem hvordan rettsregelen er anvendt på faktum.
-  vedtaketMyeStandardtekst: boolean; // Det er mye standardtekst.
+  vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum: boolean; // Det går ikke godt nok frem hva slags faktum som er lagt til grunn.
+  vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum: boolean; // Det går ikke godt nok frem hvordan rettsregelen er anvendt på faktum.
+  vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst: boolean; // Det er mye standardtekst.
 }
 
 interface Vedtaket

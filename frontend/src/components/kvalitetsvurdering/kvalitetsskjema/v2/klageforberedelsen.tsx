@@ -68,24 +68,24 @@ export const Klageforberedelsen = () => {
 
 const CHECKBOXES: ICheckboxParams[] = [
   {
-    field: 'sakensDokumenter',
+    field: 'klageforberedelsenSakensDokumenter',
     helpText:
       'Dokumentene er ikke fullstendige; f.eks. feil eller mangelfull journalføring av relevante opplysninger i klagebehandlingen.',
     label: 'Sakens dokumenter.',
     checkboxes: [
       {
-        field: 'sakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert',
+        field: 'klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert',
         helpText:
           'F.eks. notater, klager, referat eller andre opplysninger fra Arena, Pesys, Infotrygd, A-inntekt, Modia, eller digital aktivitetsplan.',
         label: 'Relevante opplysninger fra andre fagsystemer er ikke journalført.',
       },
       {
-        field: 'sakensDokumenterJournalfoerteDokumenterFeilNavn',
+        field: 'klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn',
         helpText: 'F.eks. står det «fritekstbrev» i stedet for «vedtak», eller «samtale» i stedet for «klage».',
         label: 'Journalførte dokumenter har feil titler/navn.',
       },
       {
-        field: 'sakensDokumenterManglerFysiskSaksmappe',
+        field: 'klageforberedelsenSakensDokumenterManglerFysiskSaksmappe',
         helpText: 'Gjelder kun i saker det er relevant/nødvendig.',
         label: 'Mangler fysisk saksmappe.',
       },

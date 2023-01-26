@@ -9,7 +9,7 @@ export const MAIN_REASON_IDS: Readonly<MainReason[]> = Object.freeze([
 ]);
 
 export enum KlageforberedelsenReasons {
-  sakensDokumenter = 'sakensDokumenter',
+  klageforberedelsenSakensDokumenter = 'klageforberedelsenSakensDokumenter',
   klageforberedelsenOversittetKlagefristIkkeKommentert = 'klageforberedelsenOversittetKlagefristIkkeKommentert',
   klageforberedelsenKlagersRelevanteAnfoerslerIkkeTilstrekkeligKommentertImoetegaatt = 'klageforberedelsenKlagersRelevanteAnfoerslerIkkeTilstrekkeligKommentertImoetegaatt',
   klageforberedelsenFeilVedBegrunnelsenForHvorforAvslagOpprettholdesKlagerIkkeOppfyllerVilkaar = 'klageforberedelsenFeilVedBegrunnelsenForHvorforAvslagOpprettholdesKlagerIkkeOppfyllerVilkaar',
@@ -43,15 +43,15 @@ export enum BrukAvRaadgivendeLegeReasons {
 }
 
 export enum SakensDokumenterReasons {
-  sakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert = 'sakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert',
-  sakensDokumenterJournalfoerteDokumenterFeilNavn = 'sakensDokumenterJournalfoerteDokumenterFeilNavn',
-  sakensDokumenterManglerFysiskSaksmappe = 'sakensDokumenterManglerFysiskSaksmappe',
+  klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert = 'klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert',
+  klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn = 'klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn',
+  klageforberedelsenSakensDokumenterManglerFysiskSaksmappe = 'klageforberedelsenSakensDokumenterManglerFysiskSaksmappe',
 }
 
 export enum IkkeKonkretBegrunnelseReasons {
-  vedtaketIkkeGodtNokFremFaktum = 'vedtaketIkkeGodtNokFremFaktum',
-  vedtaketIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum = 'vedtaketIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum',
-  vedtaketMyeStandardtekst = 'vedtaketMyeStandardtekst',
+  vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum = 'vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum',
+  vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum = 'vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum',
+  vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst = 'vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst',
 }
 
 const KLAGEFORBEREDELSEN_REASONS = Object.values(KlageforberedelsenReasons);
