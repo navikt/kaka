@@ -42,19 +42,27 @@ const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => 
 export const Omgjoeringsprosent = ({ stats }: ComparisonPropsV2) => {
   const { data: utfallMap = [] } = useUtfall();
 
+  const relevantStats = stats.map((s) => ({
+    ...s,
+    data: s.data.filter(
+      ({ utfallId }) =>
+        utfallId !== UtfallEnum.RETUR && utfallId !== UtfallEnum.TRUKKET && utfallId !== UtfallEnum.UGUNST
+    ),
+  }));
+
   const utfallBars = useMemo(
     () =>
       [UtfallEnum.MEDHOLD, UtfallEnum.DELVIS_MEDHOLD, UtfallEnum.OPPHEVET].map<[UtfallEnum, [number, number][]]>(
         (utfall) => [
           utfall,
-          stats.map<[number, number]>((s) => {
+          relevantStats.map<[number, number]>((s) => {
             const correctUtfall = s.data.filter((v) => v.utfallId === utfall);
 
             return [correctUtfall.length, (correctUtfall.length / s.data.length) * 100];
           }),
         ]
       ),
-    [stats]
+    [relevantStats]
   );
 
   const getAbsoluteValue: GetAbsoluteValue = (datasetIndex, dataIndex) =>
@@ -73,7 +81,7 @@ export const Omgjoeringsprosent = ({ stats }: ComparisonPropsV2) => {
     [utfallBars, utfallMap]
   );
 
-  const labels = stats.map(({ label }, index) => {
+  const labels = relevantStats.map(({ label }, index) => {
     let count = 0;
     let percent = 0;
 

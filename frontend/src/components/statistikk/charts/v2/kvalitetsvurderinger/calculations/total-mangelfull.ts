@@ -1,5 +1,4 @@
 import { MAINREASON_COLOR_MAP } from '../../../../../../colors/colors';
-import { toPercent } from '../../../../../../domain/number';
 import { MainReason } from '../../../../../../types/kvalitetsvurdering/v2';
 import { KVALITETSVURDERING_V2_FIELD_NAMES } from '../../../../../kvalitetsvurdering/kvalitetsskjema/v2/common/use-field-name';
 import { MangelfullVurdering } from '../types';
@@ -57,7 +56,7 @@ export const getTotalMangelfullDatasets = (stats: DataSet[]): StackedBarData => 
 const getResult = (reasonId: MainReason, results: Record<MainReason, [number, number]>[]): StackedBarPiece =>
   Object.freeze({
     label: KVALITETSVURDERING_V2_FIELD_NAMES[reasonId],
-    data: results.map((data) => toPercent(data[reasonId][1])),
+    data: results.map((data) => data[reasonId][1] * 100),
     counts: results.map((data) => data[reasonId][0]),
     backgroundColor: MAINREASON_COLOR_MAP[reasonId],
   });
