@@ -34,14 +34,6 @@ export const Nav = () => {
         </NavItem>
 
         <NavItem
-          to={`/statistikk/total?${defaultQueryTotal}`}
-          testId="statistikk-total-nav-link"
-          hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}
-        >
-          <DataFilled /> Totalstatistikk
-        </NavItem>
-
-        <NavItem
           to={`/statistikk/leder?${defaultQueryLeder}`}
           testId="statistikk-leder-nav-link"
           hasAccess={roles.ROLE_KAKA_LEDERSTATISTIKK}
@@ -71,13 +63,6 @@ export const Nav = () => {
           hasAccess={roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER}
         >
           <Task /> Tilbakemeldinger
-        </NavItem>
-        <NavItem
-          to={`/sammenlikning?${defauleQueryComparison}`}
-          testId="sammenlikning-nav-link"
-          hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}
-        >
-          <UpDown /> Sammenlikning
         </NavItem>
       </StyledNavLinkList>
     </StyledNav>
