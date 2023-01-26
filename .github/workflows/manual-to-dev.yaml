@@ -8,6 +8,7 @@ env:
 
 jobs:
   deploytodev:
+    name: Deploy to dev-gcp
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
