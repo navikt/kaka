@@ -93,7 +93,9 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
       </Container>
       <HjemlerContainer>
         {HJEMLER_CHART_PROPS_LIST.map((params, index) => (
-          <Hjemler key={params.reasonId} {...params} dataset={focusedDataset} index={index} />
+          <HjemlerSubContainer key={params.reasonId}>
+            <Hjemler key={params.reasonId} {...params} dataset={focusedDataset} index={index} />
+          </HjemlerSubContainer>
         ))}
       </HjemlerContainer>
     </>
@@ -171,11 +173,20 @@ const CategoryContainer = styled.div`
 `;
 
 const HjemlerContainer = styled.div`
-  display: grid;
-  grid-template-areas: 'title-0 title-1 title-2 title-3' 'chart-0 chart-1 chart-2 chart-3';
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: min-content auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  row-gap: 16px;
+  column-gap: 0;
+  justify-content: space-evenly;
   width: 100%;
+`;
+
+const HjemlerSubContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 350px;
+  width: 25%;
 `;
 
 const Container = styled.div`

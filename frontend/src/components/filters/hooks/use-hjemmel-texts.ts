@@ -18,8 +18,8 @@ export const useHjemmelTexts = (ytelseIds: string[]) => {
         .flatMap(({ registreringshjemler, lovkilde }) =>
           registreringshjemler.map(({ id, navn }) => ({
             id,
-            label: `${lovkilde.beskrivelse} - ${navn}`,
-            tooltip: `${lovkilde.navn} - ${navn}`,
+            label: `${navn} - ${lovkilde.beskrivelse}`,
+            tooltip: `${navn} - ${lovkilde.navn}`,
           }))
         ),
     [filtered]

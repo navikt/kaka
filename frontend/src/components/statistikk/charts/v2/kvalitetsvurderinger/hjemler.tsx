@@ -1,4 +1,4 @@
-import { ChartOptions } from 'chart.js';
+import { ChartOptions, TooltipCallbacks } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import styled from 'styled-components';
@@ -39,13 +39,37 @@ export const Hjemler = ({ dataset, hjemmelListId, reasonId, index }: Props) => {
         return id;
       }
 
-      return `${hjemmel.lovkilde.beskrivelse} - ${hjemmel.hjemmelnavn}`;
+      const name = `${hjemmel.hjemmelnavn} - ${hjemmel.lovkilde.navn}`;
+
+      if (name.length <= 15) {
+        return name;
+      }
+
+      return name.substring(0, 15);
     });
 
     const datasets = [{ data: top.map(([, value]) => value), backgroundColor: VEDTAKET_TEXTS[reasonId].color }];
 
-    return { labels, datasets };
+    return { labels, datasets, ids: top.map(([id]) => id) };
   }, [reasonId, dataset.data, hjemler, hjemmelListId]);
+
+  const tooltipCallback: TooltipCallback = ({ dataIndex, label }) => {
+    const id = data.ids[dataIndex];
+
+    if (typeof id === 'undefined') {
+      return label;
+    }
+
+    const hjemmel = hjemler[id];
+
+    if (typeof hjemmel === 'undefined') {
+      return label;
+    }
+
+    return `${hjemmel.hjemmelnavn} - ${hjemmel.lovkilde.navn}`;
+  };
+
+  const options = useOptions(tooltipCallback);
 
   return (
     <>
@@ -66,7 +90,9 @@ const ChartContainer = styled.div<{ $index: number }>`
   grid-area: chart-${({ $index }) => $index};
 `;
 
-const options: ChartOptions<'bar'> = {
+type TooltipCallback = TooltipCallbacks<'bar'>['label'];
+
+const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'bar'> => ({
   indexAxis: 'y',
   aspectRatio: 1,
   scales: {
@@ -83,5 +109,6 @@ const options: ChartOptions<'bar'> = {
   plugins: {
     legend: { display: false },
     title: { display: false },
+    tooltip: { callbacks: { label: tooltipCallback } },
   },
-};
+});
