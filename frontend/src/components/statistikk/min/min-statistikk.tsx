@@ -1,6 +1,5 @@
 import React from 'react';
 import { FilterSection, FiltersAndContentContainer } from '../../../styled-components/filters-and-content';
-import { VersionWarning } from '../../filters/common/version-warning';
 import { useVersionQueryFilter } from '../../filters/hooks/use-query-filter';
 import { ContentLoader } from '../content-loader';
 import { ContentV1 } from './content/content-v1';
@@ -15,7 +14,6 @@ export const MinStatistikk = () => {
   return (
     <FiltersAndContentContainer>
       <FilterSection>
-        <VersionWarning />
         <Filters />
       </FilterSection>
       <ContentLoader version={version} V1Content={<V1Content />} V2Content={<V2Content />} />

@@ -8,14 +8,14 @@ export enum MainReason {
 }
 
 interface SakensDokumenter {
-  klageforberedelsenSakensDokumenter: boolean; // Sakens dokumenter.
   klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert: boolean; // Relevante opplysninger fra andre fagsystemer er ikke journalført.
   klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn: boolean; // Journalførte dokumenter har feil titler/navn.
   klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: boolean; // Mangler fysisk saksmappe.
 }
 
-interface Klageforberedelsen extends SakensDokumenter {
+interface IKlageforberedelsen extends SakensDokumenter {
   [MainReason.Klageforberedelsen]: Radiovalg | null; // Klageforberedelsen.
+  klageforberedelsenSakensDokumenter: boolean; // Sakens dokumenter.
   klageforberedelsenOversittetKlagefristIkkeKommentert: boolean; // Oversittet klagefrist er ikke kommentert.
   klageforberedelsenKlagersRelevanteAnfoerslerIkkeTilstrekkeligKommentertImoetegaatt: boolean; // Klagers relevante anførsler er ikke tilstrekkelig kommentert/imøtegått.
   klageforberedelsenFeilVedBegrunnelsenForHvorforAvslagOpprettholdesKlagerIkkeOppfyllerVilkaar: boolean; // Feil ved begrunnelsen for hvorfor avslag opprettholdes/klager ikke oppfyller vilkår.
@@ -23,7 +23,7 @@ interface Klageforberedelsen extends SakensDokumenter {
   klageforberedelsenOversendelsesbrevIkkeSendtKopiTilPartenEllerFeilMottaker: boolean; // Det er ikke sendt kopi av oversendelsesbrevet til parten, eller det er sendt til feil mottaker.
 }
 
-interface Utredningen {
+interface IUtredningen {
   [MainReason.Utredningen]: Radiovalg | null; // Utredningen.
   utredningenAvMedisinskeForhold: boolean; // Utredningen av medisinske forhold.
   utredningenAvInntektsforhold: boolean; // Utredningen av inntektsforhold.
@@ -59,7 +59,7 @@ interface KonkretIndividuellBegrunnelse {
   vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst: boolean; // Det er mye standardtekst.
 }
 
-interface Vedtaket
+interface IVedtaket
   extends BruktFeilHjemler,
     LovbestemmelsenTolketFeil,
     InnholdetIRettsreglene,
@@ -86,6 +86,41 @@ interface Annet {
   annetFritekst: string | null; // Annet (valgfri).
 }
 
+export type KlageforberedelsenKeys = keyof Omit<
+  IKlageforberedelsen,
+  keyof SakensDokumenter | MainReason.Klageforberedelsen
+>;
+
+export type SakensDokumenterKeys = keyof SakensDokumenter;
+
+export type UtredningenKeys = keyof Omit<IUtredningen, MainReason.Utredningen>;
+
+export type VedtaketKeys = keyof Pick<
+  IKvalitetsvurdering,
+  | 'vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert'
+  | 'vedtaketLovbestemmelsenTolketFeil'
+  | 'vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet'
+  | 'vedtaketDetErLagtTilGrunnFeilFaktum'
+  | 'vedtaketFeilKonkretRettsanvendelse'
+  | 'vedtaketIkkeKonkretIndividuellBegrunnelse'
+  | 'vedtaketSpraakOgFormidlingErIkkeTydelig'
+>;
+
+export type IkkeKonkretBegrunnelseKeys = keyof Omit<
+  KonkretIndividuellBegrunnelse,
+  'vedtaketIkkeKonkretIndividuellBegrunnelse'
+>;
+
+export type VedtaketHjemlerListKeys = keyof Pick<
+  IVedtaket,
+  | 'vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdertHjemlerList'
+  | 'vedtaketLovbestemmelsenTolketFeilHjemlerList'
+  | 'vedtaketFeilKonkretRettsanvendelseHjemlerList'
+  | 'vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList'
+>;
+
+export type BrukAvRaadgivendeLegeKeys = keyof BrukAvRaadgivendeLegeMangelfullt;
+
 export type IKvalitetsvurderingHjemler = Pick<
   IKvalitetsvurderingData,
   | 'vedtaketLovbestemmelsenTolketFeilHjemlerList'
@@ -105,10 +140,9 @@ export type IKvalitetsvurderingBooleans = Omit<
 >;
 
 export interface IKvalitetsvurderingData
-  extends Klageforberedelsen,
-    Utredningen,
-    Vedtaket,
-    Vedtaket,
+  extends IKlageforberedelsen,
+    IUtredningen,
+    IVedtaket,
     BrukAvRaadgivendeLege,
     Annet {}
 

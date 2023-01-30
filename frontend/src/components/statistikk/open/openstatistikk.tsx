@@ -1,7 +1,6 @@
 import { Alert } from '@navikt/ds-react';
 import React from 'react';
 import { FilterSection, FiltersAndContentContainer } from '../../../styled-components/filters-and-content';
-import { VersionWarning } from '../../filters/common/version-warning';
 import { useVersionQueryFilter } from '../../filters/hooks/use-query-filter';
 import { ContentLoader } from '../content-loader';
 import { ContentV1 } from './content/content-v1';
@@ -16,7 +15,6 @@ export const OpenStatistikk = () => {
   return (
     <FiltersAndContentContainer>
       <FilterSection>
-        <VersionWarning />
         <Alert variant="info" size="medium" fullWidth>
           Denne statistikken baserer seg på resultater av klage- og ankebehandlinger som er fullført i NAV Klageinstans.
           Statistikken kan derfor avvike fra offisiell statistikk på området.

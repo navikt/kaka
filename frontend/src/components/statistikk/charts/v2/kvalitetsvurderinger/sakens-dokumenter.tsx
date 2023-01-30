@@ -61,7 +61,7 @@ export const SakensDokumenter = ({ stats }: Props) => {
   const options = useOptions(getAbsoluteValue);
 
   return (
-    <HorizontalBars barCount={stats.length} barThickness={BAR_THICKNESS}>
+    <HorizontalBars barCount={data.labels.length} barThickness={BAR_THICKNESS} chartOptions={options}>
       <Bar data={data} options={options} />
     </HorizontalBars>
   );

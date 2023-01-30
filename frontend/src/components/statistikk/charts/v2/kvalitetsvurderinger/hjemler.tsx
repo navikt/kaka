@@ -2,18 +2,17 @@ import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import styled from 'styled-components';
-import { VEDTAKET_COLOR_MAP } from '../../../../../colors/colors';
 import { useHjemler } from '../../../../../simple-api-state/use-kodeverk';
+import { VedtaketTextsKeys } from '../../../../../types/kvalitetsvurdering/texts/structures';
+import { VEDTAKET_TEXTS } from '../../../../../types/kvalitetsvurdering/texts/texts';
 import { IKvalitetsvurderingHjemler } from '../../../../../types/kvalitetsvurdering/v2';
-import { KVALITETSVURDERING_V2_FIELD_NAMES } from '../../../../kvalitetsvurdering/kvalitetsskjema/v2/common/use-field-name';
 import { ChartTitle } from '../../styled-components';
-import { VedtaketReasons } from './calculations/constants';
 import { DataSet } from './types';
 
 interface Props {
   dataset: DataSet;
   hjemmelListId: keyof IKvalitetsvurderingHjemler;
-  reasonId: VedtaketReasons;
+  reasonId: VedtaketTextsKeys;
   index: number;
 }
 
@@ -35,14 +34,14 @@ export const Hjemler = ({ dataset, hjemmelListId, reasonId, index }: Props) => {
 
     const labels = top20.map(([id]) => hjemler.find((hjemmel) => id === hjemmel.id)?.navn ?? id);
 
-    const datasets = [{ data: top20.map(([, value]) => value), backgroundColor: VEDTAKET_COLOR_MAP[reasonId] }];
+    const datasets = [{ data: top20.map(([, value]) => value), backgroundColor: VEDTAKET_TEXTS[reasonId].color }];
 
     return { labels, datasets };
   }, [reasonId, dataset.data, hjemler, hjemmelListId]);
 
   return (
     <>
-      <HjemlerChartTitle $index={index}>{KVALITETSVURDERING_V2_FIELD_NAMES[reasonId]}</HjemlerChartTitle>
+      <HjemlerChartTitle $index={index}>{VEDTAKET_TEXTS[reasonId].label}</HjemlerChartTitle>
       <ChartContainer $index={index}>
         <Bar options={options} data={data} />
       </ChartContainer>

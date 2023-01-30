@@ -5,6 +5,14 @@ import { useCanEdit } from '../../../../hooks/use-can-edit';
 import { useSaksdata } from '../../../../hooks/use-saksdata';
 import { useYtelser } from '../../../../simple-api-state/use-kodeverk';
 import { RadiovalgExtended } from '../../../../types/kvalitetsvurdering/radio';
+import {
+  BRUK_AV_RAADGIVENDE_LEGE_REASONS,
+  getChildrenEntries,
+} from '../../../../types/kvalitetsvurdering/texts/structures';
+import {
+  BRUK_AV_RAADGIVENDE_LEGE_RADIO_TEXTS,
+  BRUK_AV_RAADGIVENDE_LEGE_TEXTS,
+} from '../../../../types/kvalitetsvurdering/texts/texts';
 import { MainReason } from '../../../../types/kvalitetsvurdering/v2';
 import { Checkboxes } from './common/checkboxes';
 import { ContainerWithHelpText } from './common/container-with-helptext';
@@ -93,13 +101,13 @@ export const BrukAvRaadgivendeLege = () => {
         id="brukAvRaadgivendeLege"
       >
         <RadioButtonsRow>
-          <ContainerWithHelpText helpText="Du registrerer her dersom den konkrete saken ikke gjelder trygdemedisinske spørsmål.">
+          <ContainerWithHelpText helpText={BRUK_AV_RAADGIVENDE_LEGE_RADIO_TEXTS.IKKE_AKTUELT.helpText}>
             <Radio value={RadiovalgExtended.IKKE_AKTUELT} disabled={!canEdit}>
               Ikke aktuelt for den konkrete saken
             </Radio>
           </ContainerWithHelpText>
 
-          <ContainerWithHelpText helpText="Du registrerer her om den konkrete saken gjelder trygdemedisinske spørsmål og det er ok at rådgivende lege ikke er brukt, eller bruken av rådgivende lege er god nok.">
+          <ContainerWithHelpText helpText={BRUK_AV_RAADGIVENDE_LEGE_RADIO_TEXTS.BRA.helpText}>
             <Radio value={RadiovalgExtended.BRA} disabled={!canEdit}>
               Bra/godt nok
             </Radio>
@@ -113,7 +121,7 @@ export const BrukAvRaadgivendeLege = () => {
 
       <Checkboxes
         kvalitetsvurdering={kvalitetsvurdering}
-        checkboxes={CHECKBOXES}
+        checkboxes={BRUK_AV_RAADGIVENDE_LEGE_CHECKBOXES}
         update={update}
         show={brukAvRaadgivendeLege === RadiovalgExtended.MANGELFULLT}
         errorField="raadgivendeLegeGroup"
@@ -123,27 +131,11 @@ export const BrukAvRaadgivendeLege = () => {
   );
 };
 
-const CHECKBOXES: ICheckboxParams[] = [
-  {
-    field: 'raadgivendeLegeIkkebrukt',
-    helpText:
-      'Du registrerer her om rådgivende lege burde vært brukt for å sikre og/eller synliggjøre at det trygdemedisinske er forstått riktig.',
-    label: 'Rådgivende lege er ikke brukt.',
-  },
-  {
-    field: 'raadgivendeLegeMangelfullBrukAvRaadgivendeLege',
-    helpText:
-      'F.eks. har saksbehandler stilt feil spørsmål, eller saksbehandler har lagt for mye vekt på vurdering fra rådgivende lege/brukt som «fasit».',
-    label: 'Saksbehandlers bruk av rådgivende lege er mangelfull.',
-  },
-  {
-    field: 'raadgivendeLegeUttaltSegOmTemaUtoverTrygdemedisin',
-    label: 'Rådgivende lege har uttalt seg om tema utover trygdemedisin.',
-  },
-  {
-    field: 'raadgivendeLegeBegrunnelseMangelfullEllerIkkeDokumentert',
-    helpText:
-      'Du registrerer her om begrunnelsen er dokumentert, men for tynn, f.eks. kun inneholder en konklusjon. Du registrerer her om det ikke går frem hva slags dokumentasjon rådgivende lege har sett. Du registrerer også her om vurderingen fra rådgivende lege ikke er dokumentert i det hele tatt.',
-    label: 'Rådgivende lege er brukt, men begrunnelsen fra rådgivende lege er mangelfull eller ikke dokumentert.',
-  },
-];
+const BRUK_AV_RAADGIVENDE_LEGE_CHECKBOXES: ICheckboxParams[] = BRUK_AV_RAADGIVENDE_LEGE_REASONS.map((field) => ({
+  field,
+  ...BRUK_AV_RAADGIVENDE_LEGE_TEXTS[field],
+  checkboxes: getChildrenEntries(BRUK_AV_RAADGIVENDE_LEGE_TEXTS[field]).map(([f, value]) => ({
+    field: f,
+    ...value,
+  })),
+}));

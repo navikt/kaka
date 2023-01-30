@@ -1,7 +1,7 @@
 import { Radiovalg } from '../../../../../../../types/kvalitetsvurdering/radio';
+import { MAIN_REASON_IDS } from '../../../../../../../types/kvalitetsvurdering/texts/structures';
 import { MainReason } from '../../../../../../../types/kvalitetsvurdering/v2';
 import { IFullStatisticVurderingV2 } from '../../../../../../../types/statistics/v2';
-import { MAIN_REASON_IDS } from '../constants';
 
 interface Counts {
   [MainReason.Klageforberedelsen]: number;

@@ -1,10 +1,13 @@
 import { ChartData } from 'chart.js';
-import { NAV_COLORS, SAKENS_DOKUMENTER_COLOR_MAP } from '../../../../../../colors/colors';
-import { round } from '../../../../../../domain/number';
+import { NAV_COLORS } from '../../../../../../colors/colors';
+import { toPercent } from '../../../../../../domain/number';
+import {
+  REASON_TO_SUBREASONS,
+  SAKENS_DOKUMENTER_REASONS,
+} from '../../../../../../types/kvalitetsvurdering/texts/structures';
+import { SAKENS_DOKUMENTER_TEXTS } from '../../../../../../types/kvalitetsvurdering/texts/texts';
 import { MainReason } from '../../../../../../types/kvalitetsvurdering/v2';
-import { KVALITETSVURDERING_V2_FIELD_NAMES } from '../../../../../kvalitetsvurdering/kvalitetsskjema/v2/common/use-field-name';
 import { DataSet } from '../types';
-import { REASON_TO_SUBREASONS, SAKENS_DOKUMENTER_REASONS } from './constants';
 import { calculateMainReasons } from './helpers/main-reasons';
 import { calculateReasons } from './helpers/reasons';
 import { calculateTotalMangelfullFactor } from './helpers/total-mangelfull-factor';
@@ -60,10 +63,10 @@ export const getSakensDokumenterDatasets = (stats: DataSet[]) => {
   });
 
   const datasets = SAKENS_DOKUMENTER_REASONS.map<StackedBarPiece>((reasonId) => ({
-    label: KVALITETSVURDERING_V2_FIELD_NAMES[reasonId],
+    label: SAKENS_DOKUMENTER_TEXTS[reasonId].label,
     data: stacks.map(({ data }) => (data[reasonId] ?? 0) * 100),
     counts: stacks.map(({ count }) => count[reasonId] ?? 0),
-    backgroundColor: SAKENS_DOKUMENTER_COLOR_MAP[reasonId] ?? NAV_COLORS.blue[500],
+    backgroundColor: SAKENS_DOKUMENTER_TEXTS[reasonId].color ?? NAV_COLORS.blue[500],
     barThickness: BAR_THICKNESS,
   })).filter((dataset) => dataset.data.some((v) => v !== 0)); // Remove empty datasets.
 
@@ -76,7 +79,7 @@ export const getSakensDokumenterDatasets = (stats: DataSet[]) => {
       percent += data[index] ?? 0;
     }
 
-    const percentValue = Number.isNaN(percent) ? '-' : round(percent, 1);
+    const percentValue = Number.isNaN(percent) ? '-' : toPercent(percent / 100);
 
     return `${label} (${percentValue} % | ${count} stk)`;
   });

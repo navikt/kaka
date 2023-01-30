@@ -1,13 +1,24 @@
 import { Select, ToggleGroup } from '@navikt/ds-react';
 import React from 'react';
 import styled from 'styled-components';
-import { IKvalitetsvurderingHjemler } from '../../../../../types/kvalitetsvurdering/v2';
+import {
+  VedtaketHjemlerListTextsKeys,
+  VedtaketTextsKeys,
+} from '../../../../../types/kvalitetsvurdering/texts/structures';
+import {
+  BRUK_AV_RAADGIVENDE_LEGE_TEXTS,
+  KLAGEFORBEREDELSEN_TEXTS,
+  KVALITETSVURDERING_TEXTS,
+  SAKENS_DOKUMENTER_TEXTS,
+  UTREDNINGEN_TEXTS,
+  VEDTAKET_TEXTS,
+} from '../../../../../types/kvalitetsvurdering/texts/texts';
+import { MainReason } from '../../../../../types/kvalitetsvurdering/v2';
 import { IStatisticVurderingV2 } from '../../../../../types/statistics/v2';
 import { QueryParams } from '../../../../filters/filter-query-params';
-import { KVALITETSVURDERING_V2_FIELD_NAMES } from '../../../../kvalitetsvurdering/kvalitetsskjema/v2/common/use-field-name';
 import { useQueryParam } from '../../../hooks/use-query-param';
 import { ChartContainer, ChartTitle } from '../../styled-components';
-import { KlageforberedelsenReasons, VedtaketReasons } from './calculations/constants';
+import { HelpTexts } from './help-texts';
 import { Hjemler } from './hjemler';
 import { IkkeKonkretBegrunnelse } from './ikke-konkret-begrunnelse';
 import { MangelfullDetails } from './mangelfull-details';
@@ -23,6 +34,29 @@ interface Props {
   datasets: DataSet[];
 }
 
+const MAIN_HELP_TEXTS = [
+  {
+    label: KVALITETSVURDERING_TEXTS[MainReason.Klageforberedelsen].label,
+    key: MainReason.Klageforberedelsen,
+    texts: KLAGEFORBEREDELSEN_TEXTS,
+  },
+  {
+    label: KVALITETSVURDERING_TEXTS[MainReason.Utredningen].label,
+    key: MainReason.Utredningen,
+    texts: UTREDNINGEN_TEXTS,
+  },
+  {
+    label: KVALITETSVURDERING_TEXTS[MainReason.Vedtaket].label,
+    key: MainReason.Vedtaket,
+    texts: VEDTAKET_TEXTS,
+  },
+  {
+    label: KVALITETSVURDERING_TEXTS[MainReason.BrukAvRaadgivendeLege].label,
+    key: MainReason.BrukAvRaadgivendeLege,
+    texts: BRUK_AV_RAADGIVENDE_LEGE_TEXTS,
+  },
+];
+
 export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
   const [datasetIndexString, setDatasetIndex] = useQueryParam(QueryParams.DATASET_INDEX, '0');
 
@@ -37,18 +71,19 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
   return (
     <>
       <TotalMangelfull stats={datasets} />
+      <HelpTexts helpTexts={[{ texts: KVALITETSVURDERING_TEXTS, key: 'KVALITETSVURDERING_TEXTS' }]} />
+
       <MangelfullDetails stats={datasets} />
+      <HelpTexts helpTexts={MAIN_HELP_TEXTS} />
+
       <CategoryContainer>
         <ChartContainer columns={2}>
-          <ChartTitle>
-            {KVALITETSVURDERING_V2_FIELD_NAMES[KlageforberedelsenReasons.klageforberedelsenSakensDokumenter]}
-          </ChartTitle>
+          <ChartTitle>{KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenSakensDokumenter.label}</ChartTitle>
           <SakensDokumenter stats={datasets} />
+          <HelpTexts helpTexts={[{ texts: SAKENS_DOKUMENTER_TEXTS, key: 'SAKENS_DOKUMENTER_TEXTS' }]} />
         </ChartContainer>
         <ChartContainer columns={2}>
-          <ChartTitle>
-            {KVALITETSVURDERING_V2_FIELD_NAMES[VedtaketReasons.vedtaketIkkeKonkretIndividuellBegrunnelse]}
-          </ChartTitle>
+          <ChartTitle>{VEDTAKET_TEXTS.vedtaketIkkeKonkretIndividuellBegrunnelse.label}</ChartTitle>
           <IkkeKonkretBegrunnelse stats={datasets} />
         </ChartContainer>
       </CategoryContainer>
@@ -106,25 +141,25 @@ const DatasetSelector = ({ datasets, datasetIndexString, onChange }: DatasetSele
 };
 
 interface HjemlerChartProps {
-  hjemmelListId: keyof IKvalitetsvurderingHjemler;
-  reasonId: VedtaketReasons;
+  hjemmelListId: VedtaketHjemlerListTextsKeys;
+  reasonId: VedtaketTextsKeys;
 }
 
 const HJEMLER_CHART_PROPS_LIST: HjemlerChartProps[] = [
   {
-    reasonId: VedtaketReasons.vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert,
+    reasonId: 'vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert',
     hjemmelListId: 'vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdertHjemlerList',
   },
   {
-    reasonId: VedtaketReasons.vedtaketLovbestemmelsenTolketFeil,
+    reasonId: 'vedtaketLovbestemmelsenTolketFeil',
     hjemmelListId: 'vedtaketLovbestemmelsenTolketFeilHjemlerList',
   },
   {
-    reasonId: VedtaketReasons.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet,
+    reasonId: 'vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet',
     hjemmelListId: 'vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList',
   },
   {
-    reasonId: VedtaketReasons.vedtaketFeilKonkretRettsanvendelse,
+    reasonId: 'vedtaketFeilKonkretRettsanvendelse',
     hjemmelListId: 'vedtaketFeilKonkretRettsanvendelseHjemlerList',
   },
 ];

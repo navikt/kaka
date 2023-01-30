@@ -63,7 +63,7 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
           </StatsContainer>
         </FullWidthStickyContainer>
 
-        <DynamicCard size={CardSize.MEDIUM}>
+        <DynamicCard size={CardSize.LARGE}>
           <CardTitle>Min enhets omgjøringsprosent</CardTitle>
           <Omgjoeringsprosent stats={datasets} />
         </DynamicCard>

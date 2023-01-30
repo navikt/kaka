@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
+import { toPercent } from '../../../domain/number';
 import { StatsDate } from '../../../types/statistics/common';
-import { cleanNumberDisplay } from './formatting';
 import { KeyContent, KeyNumber } from './styled-components';
 
 interface Stat {
@@ -24,11 +24,12 @@ export const Processed = ({ stats, weeks }: Props) => {
     [finished, weeks]
   );
 
-  const percent = Math.round((behandlet / finished.length) * 100);
+  const fraction = behandlet / finished.length;
+  const percent = Number.isNaN(fraction) ? '-' : toPercent(fraction);
 
   return (
     <KeyContent>
-      <KeyNumber>{cleanNumberDisplay(percent)} %</KeyNumber>
+      <KeyNumber>{percent}</KeyNumber>
       <span>
         Behandlet innenfor {weeks} {weeks === 1 ? 'uke' : 'uker'}
       </span>

@@ -1,12 +1,3 @@
-import {
-  BrukAvRaadgivendeLegeReasons,
-  IkkeKonkretBegrunnelseReasons,
-  KlageforberedelsenReasons,
-  SakensDokumenterReasons,
-  UtredningenReasons,
-  VedtaketReasons,
-} from '../components/statistikk/charts/v2/kvalitetsvurderinger/calculations/constants';
-import { IKvalitetsvurderingData, MainReason } from '../types/kvalitetsvurdering/v2';
 import { UtfallEnum } from '../types/utfall';
 
 export const NAV_COLORS = Object.freeze({
@@ -137,83 +128,15 @@ export const NAV_COLORS = Object.freeze({
   },
 });
 
-export const MAINREASON_COLOR_MAP: Record<MainReason, string> = Object.freeze({
-  [MainReason.Klageforberedelsen]: NAV_COLORS.blue[400],
-  [MainReason.Utredningen]: NAV_COLORS.orange[400],
-  [MainReason.Vedtaket]: NAV_COLORS.green[400],
-  [MainReason.BrukAvRaadgivendeLege]: NAV_COLORS.red[400],
-});
-
-type SubReasonColorMap = Partial<Record<keyof IKvalitetsvurderingData, string>>;
-
-const KLAGEFORBEREDELSEN_COLOR_MAP: SubReasonColorMap = Object.freeze({
-  [KlageforberedelsenReasons.klageforberedelsenSakensDokumenter]: NAV_COLORS.blue[300],
-  [KlageforberedelsenReasons.klageforberedelsenOversittetKlagefristIkkeKommentert]: NAV_COLORS.blue[400],
-  [KlageforberedelsenReasons.klageforberedelsenKlagersRelevanteAnfoerslerIkkeTilstrekkeligKommentertImoetegaatt]:
-    NAV_COLORS.blue[500],
-  [KlageforberedelsenReasons.klageforberedelsenFeilVedBegrunnelsenForHvorforAvslagOpprettholdesKlagerIkkeOppfyllerVilkaar]:
-    NAV_COLORS.blue[600],
-  [KlageforberedelsenReasons.klageforberedelsenOversendelsesbrevetsInnholdErIkkeISamsvarMedSakensTema]:
-    NAV_COLORS.blue[700],
-  [KlageforberedelsenReasons.klageforberedelsenOversendelsesbrevIkkeSendtKopiTilPartenEllerFeilMottaker]:
-    NAV_COLORS.blue[800],
-});
-
-const UTREDNINGEN_COLOR_MAP: SubReasonColorMap = Object.freeze({
-  [UtredningenReasons.utredningenAvMedisinskeForhold]: NAV_COLORS.orange[400],
-  [UtredningenReasons.utredningenAvInntektsforhold]: NAV_COLORS.orange[500],
-  [UtredningenReasons.utredningenAvArbeidsaktivitet]: NAV_COLORS.orange[600],
-  [UtredningenReasons.utredningenAvEoesUtenlandsproblematikk]: NAV_COLORS.orange[700],
-  [UtredningenReasons.utredningenAvAndreAktuelleForholdISaken]: NAV_COLORS.orange[800],
-});
-
-export const VEDTAKET_COLOR_MAP: SubReasonColorMap = Object.freeze({
-  [VedtaketReasons.vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert]: NAV_COLORS.green[200],
-  [VedtaketReasons.vedtaketLovbestemmelsenTolketFeil]: NAV_COLORS.green[300],
-  [VedtaketReasons.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet]: NAV_COLORS.green[400],
-  [VedtaketReasons.vedtaketDetErLagtTilGrunnFeilFaktum]: NAV_COLORS.green[500],
-  [VedtaketReasons.vedtaketFeilKonkretRettsanvendelse]: NAV_COLORS.green[600],
-  [VedtaketReasons.vedtaketIkkeKonkretIndividuellBegrunnelse]: NAV_COLORS.green[700],
-  [VedtaketReasons.vedtaketSpraakOgFormidlingErIkkeTydelig]: NAV_COLORS.green[800],
-});
-
-const BRUK_AV_RAADGIVENDE_LEGE_COLOR_MAP: SubReasonColorMap = Object.freeze({
-  [BrukAvRaadgivendeLegeReasons.raadgivendeLegeIkkebrukt]: NAV_COLORS.red[400],
-  [BrukAvRaadgivendeLegeReasons.raadgivendeLegeMangelfullBrukAvRaadgivendeLege]: NAV_COLORS.red[500],
-  [BrukAvRaadgivendeLegeReasons.raadgivendeLegeUttaltSegOmTemaUtoverTrygdemedisin]: NAV_COLORS.red[600],
-  [BrukAvRaadgivendeLegeReasons.raadgivendeLegeBegrunnelseMangelfullEllerIkkeDokumentert]: NAV_COLORS.red[700],
-});
-
-export const SUBREASON_COLOR_MAP: Record<MainReason, SubReasonColorMap> = Object.freeze({
-  [MainReason.Klageforberedelsen]: KLAGEFORBEREDELSEN_COLOR_MAP,
-  [MainReason.Utredningen]: UTREDNINGEN_COLOR_MAP,
-  [MainReason.Vedtaket]: VEDTAKET_COLOR_MAP,
-  [MainReason.BrukAvRaadgivendeLege]: BRUK_AV_RAADGIVENDE_LEGE_COLOR_MAP,
-});
-
-export const SAKENS_DOKUMENTER_COLOR_MAP: SubReasonColorMap = Object.freeze({
-  [SakensDokumenterReasons.klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert]:
-    NAV_COLORS.blue[400],
-  [SakensDokumenterReasons.klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn]: NAV_COLORS.blue[500],
-  [SakensDokumenterReasons.klageforberedelsenSakensDokumenterManglerFysiskSaksmappe]: NAV_COLORS.blue[600],
-});
-
-export const IKKE_KONKRET_BEGRUNNELSE_COLOR_MAP: SubReasonColorMap = Object.freeze({
-  [IkkeKonkretBegrunnelseReasons.vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum]: NAV_COLORS.green[400],
-  [IkkeKonkretBegrunnelseReasons.vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum]:
-    NAV_COLORS.green[500],
-  [IkkeKonkretBegrunnelseReasons.vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst]: NAV_COLORS.green[600],
-});
-
-export const UTFALL_COLOR_MAP: Record<UtfallEnum, string> = Object.freeze({
-  [UtfallEnum.AVVIST]: '#B0B0B0',
-  [UtfallEnum.DELVIS_MEDHOLD]: '#FFAA33',
-  [UtfallEnum.MEDHOLD]: '#D05C4A',
-  [UtfallEnum.OPPHEVET]: '#C1CB33',
-  [UtfallEnum.RETUR]: '#3386E0',
-  [UtfallEnum.STADFESTELSE]: '#33AA5F',
-  [UtfallEnum.TRUKKET]: '#7CDAF8',
-  [UtfallEnum.UGUNST]: '#8269A2',
-  [UtfallEnum.INNSTILLING_STADFESTELSE]: '#005519',
-  [UtfallEnum.INNSTILLING_AVVIST]: '#262626',
+export const UTFALL_COLOR_MAP = Object.freeze<Record<UtfallEnum, string>>({
+  [UtfallEnum.AVVIST]: NAV_COLORS.gray[400],
+  [UtfallEnum.DELVIS_MEDHOLD]: NAV_COLORS.orange[400],
+  [UtfallEnum.MEDHOLD]: NAV_COLORS.red[400],
+  [UtfallEnum.OPPHEVET]: NAV_COLORS.limegreen[400],
+  [UtfallEnum.RETUR]: NAV_COLORS.blue[400],
+  [UtfallEnum.STADFESTELSE]: NAV_COLORS.green[400],
+  [UtfallEnum.TRUKKET]: NAV_COLORS.lightblue[400],
+  [UtfallEnum.UGUNST]: NAV_COLORS.purple[400],
+  [UtfallEnum.INNSTILLING_STADFESTELSE]: NAV_COLORS.green[700],
+  [UtfallEnum.INNSTILLING_AVVIST]: NAV_COLORS.gray[400],
 });
