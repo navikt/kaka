@@ -1,10 +1,12 @@
 import { ChartData } from 'chart.js';
-import { SUBREASON_COLOR_MAP } from '../../../../../../colors/colors';
-import { round } from '../../../../../../domain/number';
+import { toPercent } from '../../../../../../domain/number';
+import {
+  KVALITETSVURDERING_V2_TEXTS,
+  MAIN_REASON_IDS,
+  REASON_TO_SUBREASONS,
+} from '../../../../../../types/kvalitetsvurdering/texts/structures';
 import { MainReason } from '../../../../../../types/kvalitetsvurdering/v2';
-import { KVALITETSVURDERING_V2_FIELD_NAMES } from '../../../../../kvalitetsvurdering/kvalitetsskjema/v2/common/use-field-name';
 import { DataSet } from '../types';
-import { MAIN_REASON_IDS, REASON_TO_SUBREASONS } from './constants';
 import { calculateMainReasons } from './helpers/main-reasons';
 import { calculateReasons } from './helpers/reasons';
 import { calculateTotalMangelfullFactor } from './helpers/total-mangelfull-factor';
@@ -113,10 +115,10 @@ export const getMangelfullDetailsDatasets = (stats: DataSet[]): { datasets: Stac
 
   const datasets: StackedBarPiece[] = MAIN_REASON_IDS.flatMap<StackedBarPiece>((mainReason) =>
     REASON_TO_SUBREASONS[mainReason].map<StackedBarPiece>((reasonId) => ({
-      label: KVALITETSVURDERING_V2_FIELD_NAMES[reasonId],
+      label: KVALITETSVURDERING_V2_TEXTS[reasonId].label,
       data: stacks.map(({ data }) => (data[reasonId]?.[1] ?? 0) * 100),
       counts: stacks.map(({ data }) => data[reasonId]?.[0] ?? 0),
-      backgroundColor: SUBREASON_COLOR_MAP[mainReason]?.[reasonId] ?? 'red',
+      backgroundColor: KVALITETSVURDERING_V2_TEXTS[reasonId].color ?? 'red',
       barThickness: BAR_THICKNESS,
     }))
   ).filter((dataset) => dataset.data.some((v) => v !== 0)); // Remove empty datasets.
@@ -130,9 +132,9 @@ export const getMangelfullDetailsDatasets = (stats: DataSet[]): { datasets: Stac
       percent += data[index] ?? 0;
     }
 
-    const percentValue = Number.isNaN(percent) ? '-' : round(percent, 1);
+    const percentValue = Number.isNaN(percent) ? '-' : toPercent(percent / 100);
 
-    return `${label} (${percentValue} % | ${count} stk)`;
+    return `${label} (${percentValue} | ${count} stk)`;
   });
 
   return { datasets, labels };

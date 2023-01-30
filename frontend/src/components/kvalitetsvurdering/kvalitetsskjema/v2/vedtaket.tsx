@@ -2,6 +2,8 @@ import { Alert, Checkbox, Radio } from '@navikt/ds-react';
 import React from 'react';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
 import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
+import { VEDTAKET_REASONS, getChildrenEntries } from '../../../../types/kvalitetsvurdering/texts/structures';
+import { AUTOMATISK_VEDTAK_TEXTS, VEDTAKET_TEXTS } from '../../../../types/kvalitetsvurdering/texts/texts';
 import { MainReason } from '../../../../types/kvalitetsvurdering/v2';
 import { Checkboxes } from './common/checkboxes';
 import { ContainerWithHelpText } from './common/container-with-helptext';
@@ -11,8 +13,7 @@ import { useKvalitetsvurderingV2FieldName } from './common/use-field-name';
 import { useKvalitetsvurderingV2 } from './common/use-kvalitetsvurdering-v2';
 import { useValidationError } from './common/use-validation-error';
 
-const AUTOMATISK_VEDTAK_HELPTEXT =
-  'Du skal gjøre de samme kvalitetsvurderingene for automatiske vedtak som for andre vedtak. Du kan krysse av for automatisk vedtak dersom det er tydelig merket i vedtaket.';
+const { label, helpText } = AUTOMATISK_VEDTAK_TEXTS.vedtaketAutomatiskVedtak;
 
 export const Vedtaket = () => {
   const { isLoading, kvalitetsvurdering, update } = useKvalitetsvurderingV2();
@@ -33,15 +34,15 @@ export const Vedtaket = () => {
     <section>
       <StyledHeading size="small">{header}</StyledHeading>
 
-      {vedtakAutomatiskVedtak === true ? <Alert variant="info">{AUTOMATISK_VEDTAK_HELPTEXT}</Alert> : null}
-      <ContainerWithHelpText helpText={AUTOMATISK_VEDTAK_HELPTEXT}>
+      {vedtakAutomatiskVedtak === true ? <Alert variant="info">{helpText}</Alert> : null}
+      <ContainerWithHelpText helpText={helpText}>
         <Checkbox
           value="vedtakAutomatiskVedtak"
           checked={vedtakAutomatiskVedtak}
           onChange={({ target }) => update({ vedtaketAutomatiskVedtak: target.checked })}
           disabled={!canEdit}
         >
-          Automatisk vedtak
+          {label}
         </Checkbox>
       </ContainerWithHelpText>
 
@@ -75,61 +76,11 @@ export const Vedtaket = () => {
   );
 };
 
-const CHECKBOXES: ICheckboxParams[] = [
-  {
-    field: 'vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert',
-    label: 'Det er brukt feil hjemmel eller alle relevante hjemler er ikke vurdert.',
-    hjemler: 'vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdertHjemlerList',
-    helpText: 'Du registrerer også her dersom EØS-/utenlandsproblematikk ikke er fanget opp.',
-  },
-  {
-    field: 'vedtaketLovbestemmelsenTolketFeil',
-    label: 'Lovbestemmelsen er tolket feil.',
-    hjemler: 'vedtaketLovbestemmelsenTolketFeilHjemlerList',
-    helpText: 'F.eks. er «en vesentlig medvirkende årsak» tolket som et krav om hovedårsak.',
-  },
-  {
-    field: 'vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet',
-    label: 'Innholdet i rettsreglene er ikke tilstrekkelig beskrevet.',
-    hjemler: 'vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList',
-    helpText:
-      'F.eks. er ikke alle relevante momenter eller unntak beskrevet som er nødvendige for at bruker skal forstå innholdet i regelen.',
-  },
-  {
-    field: 'vedtaketDetErLagtTilGrunnFeilFaktum',
-    label: 'Det er lagt til grunn feil faktum.',
-    helpText:
-      'Med faktum mener vi de faktiske forhold du legger til grunn etter å ha vurdert og vektet bevisene i saken. Du registrerer her dersom alle relevante bevis ikke er sett/vurdert, herunder informasjon fra andre fagsystemer NAV har tilgang til. Du registrerer også her dersom bevis er tolket eller vektlagt feil.',
-  },
-  {
-    field: 'vedtaketFeilKonkretRettsanvendelse',
-    label: 'Feil i den konkrete rettsanvendelsen.',
-    hjemler: 'vedtaketFeilKonkretRettsanvendelseHjemlerList',
-    helpText:
-      'Det er lagt til grunn riktig tolkning av rettsregelen og riktig faktum, men likevel kommet til feil resultat/subsumsjonen er feil.',
-  },
-  {
-    field: 'vedtaketIkkeKonkretIndividuellBegrunnelse',
-    label: 'Begrunnelsen er ikke konkret og individuell nok.',
-    checkboxes: [
-      {
-        field: 'vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum',
-        label: 'Det går ikke godt nok frem hva slags faktum som er lagt til grunn.',
-      },
-      {
-        field: 'vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum',
-        label: 'Det går ikke godt nok frem hvordan rettsregelen er anvendt på faktum.',
-      },
-      {
-        field: 'vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst',
-        label: 'Det er mye standardtekst.',
-      },
-    ],
-  },
-  {
-    field: 'vedtaketSpraakOgFormidlingErIkkeTydelig',
-    label: 'Språket og formidlingen er ikke tydelig.',
-    helpText:
-      'F.eks. er ikke språket tilpasset mottaker, oppbyggingen av innholdet er ulogisk, det er mye gjentagelser eller det er ikke mellomrom mellom ordene i brevet.',
-  },
-];
+const CHECKBOXES: ICheckboxParams[] = VEDTAKET_REASONS.map((field) => ({
+  field,
+  ...VEDTAKET_TEXTS[field],
+  checkboxes: getChildrenEntries(VEDTAKET_TEXTS[field]).map(([f, value]) => ({
+    field: f,
+    ...value,
+  })),
+}));

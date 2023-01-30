@@ -1,6 +1,5 @@
-import { MAINREASON_COLOR_MAP } from '../../../../../../colors/colors';
+import { KVALITETSVURDERING_TEXTS } from '../../../../../../types/kvalitetsvurdering/texts/texts';
 import { MainReason } from '../../../../../../types/kvalitetsvurdering/v2';
-import { KVALITETSVURDERING_V2_FIELD_NAMES } from '../../../../../kvalitetsvurdering/kvalitetsskjema/v2/common/use-field-name';
 import { MangelfullVurdering } from '../types';
 import { calculateMainReasons } from './helpers/main-reasons';
 import { calculateTotalMangelfullFactor } from './helpers/total-mangelfull-factor';
@@ -55,8 +54,11 @@ export const getTotalMangelfullDatasets = (stats: DataSet[]): StackedBarData => 
 
 const getResult = (reasonId: MainReason, results: Record<MainReason, [number, number]>[]): StackedBarPiece =>
   Object.freeze({
-    label: KVALITETSVURDERING_V2_FIELD_NAMES[reasonId],
+    label: KVALITETSVURDERING_TEXTS[reasonId].label,
     data: results.map((data) => data[reasonId][1] * 100),
     counts: results.map((data) => data[reasonId][0]),
-    backgroundColor: MAINREASON_COLOR_MAP[reasonId],
+    backgroundColor: KVALITETSVURDERING_TEXTS[reasonId].color,
+    barThickness: BAR_THICKNESS,
   });
+
+export const BAR_THICKNESS = 50;

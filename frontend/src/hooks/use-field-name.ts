@@ -1,8 +1,7 @@
 import { KVALITETESVURDERING_V1_FIELD_NAMES as KVALITETSVURDERING_V1_FIELD_NAMES } from '../components/kvalitetsvurdering/kvalitetsskjema/v1/use-field-name';
-import {
-  KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES,
-  KVALITETSVURDERING_V2_FIELD_NAMES,
-} from '../components/kvalitetsvurdering/kvalitetsskjema/v2/common/use-field-name';
+import { KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES } from '../components/kvalitetsvurdering/kvalitetsskjema/v2/common/use-field-name';
+import { KVALITETSVURDERING_V2_TEXTS } from '../types/kvalitetsvurdering/texts/structures';
+import { IKvalitetsvurdering } from '../types/kvalitetsvurdering/v2';
 import { ISaksdataComplete } from '../types/saksdata';
 
 type SaksdataKeys = keyof Pick<
@@ -30,13 +29,13 @@ export const SAKSDATA_FIELD_NAMES: Record<SaksdataKeys, string> = {
 
 type Field =
   | keyof typeof KVALITETSVURDERING_V1_FIELD_NAMES
-  | keyof typeof KVALITETSVURDERING_V2_FIELD_NAMES
+  | keyof IKvalitetsvurdering
   | keyof typeof KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES
   | SaksdataKeys;
 
 export const useFieldName = (field: Field): string =>
   SAKSDATA_FIELD_NAMES[field] ??
-  KVALITETSVURDERING_V2_FIELD_NAMES[field] ??
+  KVALITETSVURDERING_V2_TEXTS[field].label ??
   KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES[field] ??
   KVALITETSVURDERING_V1_FIELD_NAMES[field] ??
   field;

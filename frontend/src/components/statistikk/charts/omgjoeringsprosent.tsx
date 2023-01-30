@@ -1,25 +1,28 @@
-import { ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { UTFALL_COLOR_MAP } from '../../../colors/colors';
-import { round } from '../../../domain/number';
+import { toPercent } from '../../../domain/number';
 import { useUtfall } from '../../../simple-api-state/use-utfall';
 import { UtfallEnum } from '../../../types/utfall';
 import { GetAbsoluteValue, useBarTooltipText } from '../hooks/use-bar-tooltip-text';
 import { ComparisonPropsV2 } from '../types';
+import { HorizontalBars } from './v2/kvalitetsvurderinger/horizontal-bars';
 
 const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => {
   const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue);
 
   return {
-    aspectRatio: 3,
+    maintainAspectRatio: false,
+    indexAxis: 'y',
     scales: {
-      y: {
+      y: { stacked: true },
+      x: {
+        beginAtZero: true,
         stacked: true,
         ticks: { callback: (label) => `${label} %` },
         title: { display: true, text: 'Omgjøringsprosent' },
       },
-      x: { stacked: true },
     },
     animation: {
       onProgress() {
@@ -72,11 +75,12 @@ export const Omgjoeringsprosent = ({ stats }: ComparisonPropsV2) => {
 
   const datasets = useMemo(
     () =>
-      utfallBars.map(([utfall, bar]) => ({
+      utfallBars.map<StackedBarPiece>(([utfall, bar]) => ({
         label: utfallMap.find((u) => u.id === utfall)?.navn ?? utfall,
         data: bar.map(([, percent]) => percent),
         counts: bar.map(([count]) => count),
         backgroundColor: UTFALL_COLOR_MAP[utfall],
+        barThickness: BAR_THICKNESS,
       })),
     [utfallBars, utfallMap]
   );
@@ -90,10 +94,23 @@ export const Omgjoeringsprosent = ({ stats }: ComparisonPropsV2) => {
       percent += data[index] ?? 0;
     }
 
-    const percentValue = Number.isNaN(percent) ? '-' : round(percent, 1);
+    const percentValue = Number.isNaN(percent) ? '- %' : toPercent(percent / 100);
 
-    return `${label} (${percentValue} % | ${count} stk)`;
+    return `${label} (${percentValue} | ${count} stk)`;
   });
 
-  return <Bar data={{ labels, datasets }} options={options} />;
+  return (
+    <HorizontalBars barCount={labels.length} barThickness={BAR_THICKNESS} chartOptions={options}>
+      <Bar data={{ labels, datasets }} options={options} />
+    </HorizontalBars>
+  );
 };
+
+const BAR_THICKNESS = 50;
+
+interface StackedBarPieceCount {
+  label: string;
+  counts: number[];
+}
+
+type StackedBarPiece = StackedBarPieceCount & ChartData<'bar', number[], string>['datasets'][0];

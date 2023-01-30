@@ -24,13 +24,13 @@ export const ContentV1 = ({ stats, isLoading }: Props) => {
 
       <ContentArea>
         <DynamicCard size={CardSize.LARGE}>
-          <CardTitle>Omgjøringsprosent per uke</CardTitle>
-          <OmgjoeringsprosentOverTime stats={stats} />
+          <CardTitle>Omgjøringsprosent</CardTitle>
+          <Omgjoeringsprosent stats={datasets} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.LARGE}>
-          <CardTitle>Omgjøringsprosent</CardTitle>
-          <Omgjoeringsprosent stats={datasets} />
+          <CardTitle>Omgjøringsprosent per uke</CardTitle>
+          <OmgjoeringsprosentOverTime stats={stats} />
         </DynamicCard>
       </ContentArea>
     </>

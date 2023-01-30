@@ -2,7 +2,6 @@ import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { GetAbsoluteValue, useBarTooltipText } from '../../../hooks/use-bar-tooltip-text';
-import { MAIN_REASON_IDS } from './calculations/constants';
 import { BAR_THICKNESS, getMangelfullDetailsDatasets } from './calculations/mangelfull-details';
 import { HorizontalBars } from './horizontal-bars';
 import { DataSet } from './types';
@@ -19,10 +18,7 @@ const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => 
         beginAtZero: true,
         stacked: true,
         ticks: { callback: (label) => `${label} %` },
-        title: {
-          display: true,
-          text: 'Andel per mangelfull grunn',
-        },
+        title: { display: true, text: 'Andel per mangelfull grunn' },
       },
     },
     animation: {
@@ -60,7 +56,7 @@ export const MangelfullDetails = ({ stats }: Props) => {
   const options = useOptions(getAbsoluteValue);
 
   return (
-    <HorizontalBars barCount={stats.length * MAIN_REASON_IDS.length} barThickness={BAR_THICKNESS}>
+    <HorizontalBars barCount={labels.length} barThickness={BAR_THICKNESS} chartOptions={options}>
       <Bar data={{ datasets, labels }} options={options} />
     </HorizontalBars>
   );

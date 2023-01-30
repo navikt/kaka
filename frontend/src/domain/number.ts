@@ -1,5 +1,8 @@
-export const round = (n: number, decimals = 1) =>
-  n.toLocaleString('nb-no', {
+import { LOCALE } from './intl';
+
+export const toPercent = (n: number, decimals = 1) =>
+  n.toLocaleString(LOCALE, {
+    style: 'percent',
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   });

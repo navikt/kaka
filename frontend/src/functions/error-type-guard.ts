@@ -1,13 +1,13 @@
 import { KVALITETESVURDERING_V1_FIELD_NAMES } from '../components/kvalitetsvurdering/kvalitetsskjema/v1/use-field-name';
-import { KVALITETSVURDERING_V2_FIELD_NAMES } from '../components/kvalitetsvurdering/kvalitetsskjema/v2/common/use-field-name';
 import { SAKSDATA_FIELD_NAMES } from '../hooks/use-field-name';
+import { IKvalitetsvurdering } from '../types/kvalitetsvurdering/v2';
 
 export interface IValidationError {
   reason: string;
   field:
     | keyof typeof SAKSDATA_FIELD_NAMES
     | keyof typeof KVALITETESVURDERING_V1_FIELD_NAMES
-    | keyof typeof KVALITETSVURDERING_V2_FIELD_NAMES;
+    | keyof IKvalitetsvurdering;
 }
 
 export interface IValidationSection {

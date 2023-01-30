@@ -2,6 +2,8 @@ import { Radio } from '@navikt/ds-react';
 import React from 'react';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
 import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
+import { UTREDNINGEN_REASONS, getChildrenEntries } from '../../../../types/kvalitetsvurdering/texts/structures';
+import { KVALITETSVURDERING_TEXTS, UTREDNINGEN_TEXTS } from '../../../../types/kvalitetsvurdering/texts/texts';
 import { MainReason } from '../../../../types/kvalitetsvurdering/v2';
 import { Checkboxes } from './common/checkboxes';
 import { HeadingWithHelpText } from './common/heading-with-helptext';
@@ -28,7 +30,7 @@ export const Utredningen = () => {
 
   return (
     <section>
-      <HeadingWithHelpText helpText="Gjelder kvaliteten på utredningen av opplysninger som NAV ikke har tilgang til. Gjelder utredningen av saken i perioden frem til og med oversendelse til klageinstansen. Er det kommet nye opplysninger etter at saken er oversendt klageinstansen, men som vedtaksinstansen burde innhentet, skal dette også registreres her.">
+      <HeadingWithHelpText helpText={KVALITETSVURDERING_TEXTS[MainReason.Utredningen].helpText}>
         {header}
       </HeadingWithHelpText>
       <StyledRadioGroup
@@ -51,7 +53,7 @@ export const Utredningen = () => {
 
       <Checkboxes
         kvalitetsvurdering={kvalitetsvurdering}
-        checkboxes={CHECKBOXES}
+        checkboxes={UTREDNINGEN_CHECKBOXES}
         update={update}
         show={utredningen === Radiovalg.MANGELFULLT}
         errorField="utredningenGroup"
@@ -61,33 +63,11 @@ export const Utredningen = () => {
   );
 };
 
-const CHECKBOXES: ICheckboxParams[] = [
-  {
-    field: 'utredningenAvMedisinskeForhold',
-    helpText:
-      'F.eks. er det ikke innhentet uttalelse fra en behandler eller rapport fra rehabiliteringsopphold. Dersom opplysninger som er innhentet ikke er gode nok, og NAV burde bedt om presiseringer eller mer utdypede opplysninger, registreres det her.',
-    label: 'Utredningen av medisinske forhold.',
-  },
-  {
-    field: 'utredningenAvInntektsforhold',
-    helpText: 'F.eks. er det ikke innhentet lønnslipper eller kontoopplysninger.',
-    label: 'Utredningen av inntektsforhold.',
-  },
-  {
-    field: 'utredningenAvArbeidsaktivitet',
-    helpText: 'F.eks. er det ikke innhentet arbeidskontrakt, timelister, eller rapporter fra tiltak.',
-    label: 'Utredningen av arbeidsaktivitet.',
-  },
-  {
-    field: 'utredningenAvEoesUtenlandsproblematikk',
-    helpText:
-      'F.eks. er det ikke er innhentet opplysninger om trygdetid i andre land. Er EØS-/utenlandsproblematikk ikke fanget opp i det hele tatt, registreres også det her.',
-    label: 'Utredningen av EØS-/utenlandsproblematikk.',
-  },
-  {
-    field: 'utredningenAvAndreAktuelleForholdISaken',
-    label: 'Utredningen av andre aktuelle forhold i saken.',
-    helpText:
-      'Du kan skrive konkret hvilke feil ved utredningen av andre aktuelle forhold det gjelder i fritekstfeltet nederst.',
-  },
-];
+const UTREDNINGEN_CHECKBOXES: ICheckboxParams[] = UTREDNINGEN_REASONS.map((field) => ({
+  field,
+  ...UTREDNINGEN_TEXTS[field],
+  checkboxes: getChildrenEntries(UTREDNINGEN_TEXTS[field]).map(([f, value]) => ({
+    field: f,
+    ...value,
+  })),
+}));

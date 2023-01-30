@@ -3,9 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
 import { useKlageenheter } from '../../../../simple-api-state/use-kodeverk';
 import { useUser } from '../../../../simple-api-state/use-user';
+import { ANNET_TEXTS } from '../../../../types/kvalitetsvurdering/texts/texts';
 import { HeadingWithHelpText } from './common/heading-with-helptext';
 import { useKvalitetsvurderingV2 } from './common/use-kvalitetsvurdering-v2';
 import { useValidationError } from './common/use-validation-error';
+
+const { label, helpText } = ANNET_TEXTS.annetFritekst;
 
 export const Annet = () => {
   const isInKlageenhet = useIsInKlageenhet();
@@ -16,9 +19,7 @@ export const Annet = () => {
 
   return (
     <section>
-      <HeadingWithHelpText helpText="Det du skriver her er kun for klageinstansens interne bruk. Har saken andre avvik som ikke passer med noen av de andre registreringsmulighetene i Kaka, kan du skrive dette her. Husk å skrive kort/med stikkord. Ikke skriv personopplysninger eller detaljer om saken. Du kan også skrive stikkord dersom saken gjelder et typetilfelle.">
-        Annet (valgfri)
-      </HeadingWithHelpText>
+      <HeadingWithHelpText helpText={helpText}>{label}</HeadingWithHelpText>
 
       <CommentLoader />
     </section>

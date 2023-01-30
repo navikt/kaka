@@ -1,10 +1,13 @@
 import { ChartData } from 'chart.js';
-import { IKKE_KONKRET_BEGRUNNELSE_COLOR_MAP, NAV_COLORS } from '../../../../../../colors/colors';
-import { round } from '../../../../../../domain/number';
+import { NAV_COLORS } from '../../../../../../colors/colors';
+import { toPercent } from '../../../../../../domain/number';
+import {
+  IKKE_KONKRET_BEGRUNNELSE_REASONS,
+  REASON_TO_SUBREASONS,
+} from '../../../../../../types/kvalitetsvurdering/texts/structures';
+import { IKKE_KONKRET_BEGRUNNELSE_TEXTS } from '../../../../../../types/kvalitetsvurdering/texts/texts';
 import { MainReason } from '../../../../../../types/kvalitetsvurdering/v2';
-import { KVALITETSVURDERING_V2_FIELD_NAMES } from '../../../../../kvalitetsvurdering/kvalitetsskjema/v2/common/use-field-name';
 import { DataSet } from '../types';
-import { IKKE_KONKRET_BEGRUNNELSE_REASONS, REASON_TO_SUBREASONS } from './constants';
 import { calculateMainReasons } from './helpers/main-reasons';
 import { calculateReasons } from './helpers/reasons';
 import { calculateTotalMangelfullFactor } from './helpers/total-mangelfull-factor';
@@ -60,10 +63,10 @@ export const getIkkeKonkretBegrunnelseDatasets = (stats: DataSet[]) => {
   });
 
   const datasets = IKKE_KONKRET_BEGRUNNELSE_REASONS.map<StackedBarPiece>((reasonId) => ({
-    label: KVALITETSVURDERING_V2_FIELD_NAMES[reasonId],
+    label: IKKE_KONKRET_BEGRUNNELSE_TEXTS[reasonId].label,
     data: stacks.map(({ data }) => (data[reasonId] ?? 0) * 100),
     counts: stacks.map(({ counts: count }) => count[reasonId] ?? 0),
-    backgroundColor: IKKE_KONKRET_BEGRUNNELSE_COLOR_MAP[reasonId] ?? NAV_COLORS.green[500],
+    backgroundColor: IKKE_KONKRET_BEGRUNNELSE_TEXTS[reasonId].color ?? NAV_COLORS.green[500],
     barThickness: BAR_THICKNESS,
   })).filter((dataset) => dataset.data.some((v) => v !== 0)); // Remove empty datasets.
 
@@ -76,9 +79,9 @@ export const getIkkeKonkretBegrunnelseDatasets = (stats: DataSet[]) => {
       percent += data[index] ?? 0;
     }
 
-    const percentValue = Number.isNaN(percent) ? '-' : round(percent, 1);
+    const percentValue = Number.isNaN(percent) ? '-' : toPercent(percent / 100);
 
-    return `${label} (${percentValue} % | ${count} stk)`;
+    return `${label} (${percentValue} | ${count} stk)`;
   });
 
   return { labels, datasets };

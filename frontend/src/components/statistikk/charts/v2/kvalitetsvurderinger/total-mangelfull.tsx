@@ -1,17 +1,20 @@
 import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { round } from '../../../../../domain/number';
+import { toPercent } from '../../../../../domain/number';
 import { GetAbsoluteValue, useBarTooltipText } from '../../../hooks/use-bar-tooltip-text';
-import { DataSet, getTotalMangelfullDatasets } from './calculations/total-mangelfull';
+import { BAR_THICKNESS, DataSet, getTotalMangelfullDatasets } from './calculations/total-mangelfull';
+import { HorizontalBars } from './horizontal-bars';
 
 const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => {
   const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue);
 
   return {
-    aspectRatio: 3,
+    maintainAspectRatio: false,
+    indexAxis: 'y',
     scales: {
-      y: {
+      y: { stacked: true },
+      x: {
         stacked: true,
         beginAtZero: true,
         ticks: { callback: (label) => `${label} %` },
@@ -20,7 +23,6 @@ const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => 
           text: 'Mangelfullt',
         },
       },
-      x: { stacked: true },
     },
     animation: {
       onProgress() {
@@ -65,10 +67,14 @@ export const TotalMangelfull = ({ stats }: Props) => {
       percent += data[index] ?? 0;
     }
 
-    const percentValue = Number.isNaN(percent) ? '-' : round(percent, 1);
+    const percentValue = Number.isNaN(percent) ? '-' : toPercent(percent / 100);
 
-    return `${label} (${percentValue} % | ${count} stk)`;
+    return `${label} (${percentValue} | ${count} stk)`;
   });
 
-  return <Bar data={{ labels, datasets }} options={options} />;
+  return (
+    <HorizontalBars barCount={labels.length} chartOptions={options} barThickness={BAR_THICKNESS}>
+      <Bar data={{ labels, datasets }} options={options} />
+    </HorizontalBars>
+  );
 };

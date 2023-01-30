@@ -1,5 +1,6 @@
 import { Chart, TooltipCallbacks } from 'chart.js';
-import { round } from '../../../domain/number';
+import { LOCALE } from '../../../domain/intl';
+import { toPercent } from '../../../domain/number';
 import { getFontColor } from '../../../functions/get-font-color';
 
 export type GetAbsoluteValue = (datasetIndex: number, dataIndex: number) => [number, number];
@@ -21,8 +22,13 @@ export const useBarTooltipText = (getAbsoluteValue: GetAbsoluteValue) => {
     for (let i = 0; i < chart.data.datasets.length; i++) {
       const meta = chart.getDatasetMeta(i);
       meta.data.forEach((bar, index) => {
+        const props = bar.getProps(['height', 'width', 'horizontal', 'options', '$context'], true);
+
+        if (typeof props['$context'] === 'object' && props['$context']['mode'] === 'hide') {
+          return;
+        }
+
         const [sum, percent] = getAbsoluteValue(i, index);
-        const props = bar.getProps(['height', 'width', 'horizontal', 'options'], true);
 
         ctx.fillStyle = getFontColor(props.options.backgroundColor);
 
@@ -31,13 +37,13 @@ export const useBarTooltipText = (getAbsoluteValue: GetAbsoluteValue) => {
         }
 
         if (props.horizontal === true) {
-          const line2 = `${sum.toLocaleString('nb-no')} stk`;
+          const line2 = `${sum.toLocaleString(LOCALE)} stk`;
 
           if (ctx.measureText(line2).width > props.width) {
             return;
           }
 
-          const line1 = `${round(percent, 1)} %`;
+          const line1 = toPercent(percent / 100);
 
           if (ctx.measureText(line1).width > props.width) {
             return;
@@ -54,8 +60,8 @@ export const useBarTooltipText = (getAbsoluteValue: GetAbsoluteValue) => {
         if (typeof props.height === 'number' && props.height >= 28) {
           const y = bar.y + props.height / 2;
 
-          ctx.fillText(`${round(percent, 1)} %`, bar.x, y - 6, props.width);
-          ctx.fillText(`${sum.toLocaleString('nb-no')} stk`, bar.x, y + 10, props.width);
+          ctx.fillText(toPercent(percent / 100), bar.x, y - 6, props.width);
+          ctx.fillText(`${sum.toLocaleString(LOCALE)} stk`, bar.x, y + 10, props.width);
         }
       });
     }
@@ -66,7 +72,7 @@ export const useBarTooltipText = (getAbsoluteValue: GetAbsoluteValue) => {
   const tooltipCallback: TooltipCallbacks<'bar'>['label'] = ({ datasetIndex, dataIndex, dataset }) => {
     const [sum, percent] = getAbsoluteValue(datasetIndex, dataIndex);
 
-    return `${dataset.label ?? 'Ukjent'}: ${round(percent, 1)} % (${sum.toLocaleString('nb-no')} stk)`;
+    return `${dataset.label ?? 'Ukjent'}: ${toPercent(percent / 100)} (${sum.toLocaleString(LOCALE)} stk)`;
   };
 
   return { renderBarText, tooltipCallback };

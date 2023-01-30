@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { toPercent } from '../../../domain/number';
 import { UtfallEnum } from '../../../types/utfall';
 import { KeyContent, RedKeyNumber } from './styled-components';
 
@@ -31,19 +32,16 @@ export const Omgjort = ({ stats }: Props) => {
 
   return (
     <KeyContent>
-      <RedKeyNumber>{toPercent(numOmgjort, relevantStats)} %</RedKeyNumber>
+      <RedKeyNumber>{percent(numOmgjort, relevantStats)}</RedKeyNumber>
       <span>Omgjort av Klageinstansen</span>
     </KeyContent>
   );
 };
 
-const toPercent = (numerator: number, denominator: number): string => {
+const percent = (numerator: number, denominator: number): string => {
   if (denominator === 0) {
     return '-';
   }
 
-  return ((numerator / denominator) * 100).toLocaleString('nb-no', {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  });
+  return toPercent(numerator / denominator);
 };
