@@ -2,7 +2,7 @@ import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import styled from 'styled-components';
-import { useHjemler } from '../../../../../simple-api-state/use-kodeverk';
+import { useRegistreringshjemlerMap } from '../../../../../simple-api-state/use-kodeverk';
 import { VedtaketTextsKeys } from '../../../../../types/kvalitetsvurdering/texts/structures';
 import { VEDTAKET_TEXTS } from '../../../../../types/kvalitetsvurdering/texts/texts';
 import { IKvalitetsvurderingHjemler } from '../../../../../types/kvalitetsvurdering/v2';
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const Hjemler = ({ dataset, hjemmelListId, reasonId, index }: Props) => {
-  const { data: hjemler = [] } = useHjemler();
+  const { data: hjemler = {} } = useRegistreringshjemlerMap();
 
   const data = useMemo(() => {
     const hjemlerCount = dataset.data.reduce<Record<string, number>>((counts, sak) => {
@@ -28,13 +28,21 @@ export const Hjemler = ({ dataset, hjemmelListId, reasonId, index }: Props) => {
       return counts;
     }, {});
 
-    const top20 = Object.entries(hjemlerCount)
+    const top = Object.entries(hjemlerCount)
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 20);
+      .slice(0, 10);
 
-    const labels = top20.map(([id]) => hjemler.find((hjemmel) => id === hjemmel.id)?.navn ?? id);
+    const labels = top.map(([id]) => {
+      const hjemmel = hjemler[id];
 
-    const datasets = [{ data: top20.map(([, value]) => value), backgroundColor: VEDTAKET_TEXTS[reasonId].color }];
+      if (typeof hjemmel === 'undefined') {
+        return id;
+      }
+
+      return `${hjemmel.lovkilde.beskrivelse} - ${hjemmel.hjemmelnavn}`;
+    });
+
+    const datasets = [{ data: top.map(([, value]) => value), backgroundColor: VEDTAKET_TEXTS[reasonId].color }];
 
     return { labels, datasets };
   }, [reasonId, dataset.data, hjemler, hjemmelListId]);
