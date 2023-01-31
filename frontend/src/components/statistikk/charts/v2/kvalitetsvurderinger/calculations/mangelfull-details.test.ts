@@ -40,7 +40,7 @@ describe('getDatasets', () => {
       },
     ];
 
-    const { datasets } = getMangelfullDetailsDatasets(stats);
+    const { datasets } = getMangelfullDetailsDatasets(stats, 'avvik');
 
     // utredningenAvMedisinskeForhold is false, therefore 0 in the dataset, therefore excluded in the results
 
@@ -71,7 +71,7 @@ describe('getDatasets', () => {
       { label: 'Andre', data: [UTREDNINGEN_FULLY_BRA] },
     ];
 
-    const { datasets } = getMangelfullDetailsDatasets(stats);
+    const { datasets } = getMangelfullDetailsDatasets(stats, 'avvik');
 
     const [
       utredningenAvMedisinskeForhold,
@@ -116,7 +116,7 @@ describe('getDatasets', () => {
       },
     ];
 
-    const { datasets } = getMangelfullDetailsDatasets(stats);
+    const { datasets } = getMangelfullDetailsDatasets(stats, 'avvik');
 
     const [
       utredningenAvMedisinskeForhold,

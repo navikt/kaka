@@ -6,8 +6,10 @@ import { BAR_THICKNESS, getMangelfullDetailsDatasets } from './calculations/mang
 import { HorizontalBars } from './horizontal-bars';
 import { DataSet } from './types';
 
+const UNIT = 'avvik';
+
 const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => {
-  const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue);
+  const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue, UNIT);
 
   return {
     maintainAspectRatio: false,
@@ -45,7 +47,7 @@ interface Props {
 }
 
 export const MangelfullDetails = ({ stats }: Props) => {
-  const { datasets, labels } = useMemo(() => getMangelfullDetailsDatasets(stats), [stats]);
+  const { datasets, labels } = useMemo(() => getMangelfullDetailsDatasets(stats, UNIT), [stats]);
 
   const getAbsoluteValue: GetAbsoluteValue = (datasetIndex, dataIndex) => {
     const count = datasets[datasetIndex]?.counts[dataIndex] ?? 0;

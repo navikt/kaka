@@ -6,8 +6,10 @@ import { BAR_THICKNESS, getSakensDokumenterDatasets } from './calculations/saken
 import { HorizontalBars } from './horizontal-bars';
 import { DataSet } from './types';
 
+const UNIT = 'avvik';
+
 const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => {
-  const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue);
+  const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue, UNIT);
 
   return {
     maintainAspectRatio: false,
@@ -49,7 +51,7 @@ interface Props {
 }
 
 export const SakensDokumenter = ({ stats }: Props) => {
-  const data = useMemo(() => getSakensDokumenterDatasets(stats), [stats]);
+  const data = useMemo(() => getSakensDokumenterDatasets(stats, UNIT), [stats]);
 
   const getAbsoluteValue: GetAbsoluteValue = (datasetIndex, dataIndex) => {
     const count = data.datasets[datasetIndex]?.counts[dataIndex] ?? 0;

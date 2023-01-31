@@ -6,8 +6,10 @@ import { BAR_THICKNESS, getIkkeKonkretBegrunnelseDatasets } from './calculations
 import { HorizontalBars } from './horizontal-bars';
 import { DataSet } from './types';
 
+const UNIT = 'avvik';
+
 const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => {
-  const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue);
+  const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue, UNIT);
 
   return {
     maintainAspectRatio: false,
@@ -51,7 +53,7 @@ interface Props {
 }
 
 export const IkkeKonkretBegrunnelse = ({ stats }: Props) => {
-  const data = useMemo(() => getIkkeKonkretBegrunnelseDatasets(stats), [stats]);
+  const data = useMemo(() => getIkkeKonkretBegrunnelseDatasets(stats, UNIT), [stats]);
 
   const getAbsoluteValue: GetAbsoluteValue = (datasetIndex, dataIndex) => {
     const count = data.datasets[datasetIndex]?.counts[dataIndex] ?? 0;

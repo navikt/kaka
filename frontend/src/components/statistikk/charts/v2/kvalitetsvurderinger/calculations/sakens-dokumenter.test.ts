@@ -18,7 +18,7 @@ describe('getSakensDokumenterDatasets', () => {
       },
     ];
 
-    const result = getSakensDokumenterDatasets(stats);
+    const result = getSakensDokumenterDatasets(stats, 'avvik');
 
     expect(result.datasets?.[0]?.data).toStrictEqual([100]);
     expect(result.datasets?.[0]?.counts).toStrictEqual([1]);
@@ -41,7 +41,7 @@ describe('getSakensDokumenterDatasets', () => {
       },
     ];
 
-    const result = getSakensDokumenterDatasets(stats);
+    const result = getSakensDokumenterDatasets(stats, 'avvik');
 
     expect(result.datasets?.[0]?.data).toStrictEqual([50]);
     expect(result.datasets?.[0]?.counts).toStrictEqual([1]);
@@ -68,7 +68,7 @@ describe('getSakensDokumenterDatasets', () => {
       },
     ];
 
-    const result = getSakensDokumenterDatasets(stats);
+    const result = getSakensDokumenterDatasets(stats, 'avvik');
 
     expect(result.datasets?.[0]?.data).toStrictEqual([50]);
     expect(result.datasets?.[0]?.counts).toStrictEqual([1]);
@@ -93,7 +93,7 @@ describe('getSakensDokumenterDatasets', () => {
       },
     ];
 
-    const result = getSakensDokumenterDatasets(stats);
+    const result = getSakensDokumenterDatasets(stats, 'avvik');
 
     expect(result.datasets?.[0]?.data).toStrictEqual([50]);
     expect(result.datasets?.[0]?.counts).toStrictEqual([1]);
@@ -116,7 +116,7 @@ describe('getSakensDokumenterDatasets', () => {
       },
     ];
 
-    const result = getSakensDokumenterDatasets(stats);
+    const result = getSakensDokumenterDatasets(stats, 'avvik');
 
     expect(result.datasets?.[0]?.data).toStrictEqual([50]);
     expect(result.datasets?.[1]?.data).toStrictEqual([50]);
