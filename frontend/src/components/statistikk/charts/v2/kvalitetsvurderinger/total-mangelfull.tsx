@@ -6,8 +6,10 @@ import { GetAbsoluteValue, useBarTooltipText } from '../../../hooks/use-bar-tool
 import { BAR_THICKNESS, DataSet, getTotalMangelfullDatasets } from './calculations/total-mangelfull';
 import { HorizontalBars } from './horizontal-bars';
 
+const UNIT = 'saker';
+
 const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => {
-  const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue);
+  const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue, UNIT);
 
   return {
     maintainAspectRatio: false,
@@ -69,7 +71,7 @@ export const TotalMangelfull = ({ stats }: Props) => {
 
     const percentValue = Number.isNaN(percent) ? '-' : toPercent(percent / 100);
 
-    return `${label} (${percentValue} | ${count} stk)`;
+    return `${label} (${percentValue} | ${count} ${UNIT})`;
   });
 
   return (

@@ -21,7 +21,7 @@ interface StackedBarPieceCount {
 
 type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
 
-export const getIkkeKonkretBegrunnelseDatasets = (stats: DataSet[]) => {
+export const getIkkeKonkretBegrunnelseDatasets = (stats: DataSet[], unit: string) => {
   const stacks = stats.flatMap(({ data, label }) => {
     const totalMangelfullFactor = calculateTotalMangelfullFactor(data);
 
@@ -71,7 +71,7 @@ export const getIkkeKonkretBegrunnelseDatasets = (stats: DataSet[]) => {
 
     const percentValue = Number.isNaN(percent) ? '-' : toPercent(percent / 100);
 
-    return `${label} (${percentValue} | ${count} stk)`;
+    return `${label} (${percentValue} | ${count} ${unit})`;
   });
 
   return { labels, datasets };

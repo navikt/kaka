@@ -9,8 +9,10 @@ import { GetAbsoluteValue, useBarTooltipText } from '../hooks/use-bar-tooltip-te
 import { ComparisonPropsV2 } from '../types';
 import { HorizontalBars } from './v2/kvalitetsvurderinger/horizontal-bars';
 
+const UNIT = 'saker';
+
 const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => {
-  const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue);
+  const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue, UNIT);
 
   return {
     maintainAspectRatio: false,
@@ -96,7 +98,7 @@ export const Omgjoeringsprosent = ({ stats }: ComparisonPropsV2) => {
 
     const percentValue = Number.isNaN(percent) ? '- %' : toPercent(percent / 100);
 
-    return `${label} (${percentValue} | ${count} stk)`;
+    return `${label} (${percentValue} | ${count} ${UNIT})`;
   });
 
   return (

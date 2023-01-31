@@ -5,7 +5,7 @@ import { getFontColor } from '../../../functions/get-font-color';
 
 export type GetAbsoluteValue = (datasetIndex: number, dataIndex: number) => [number, number];
 
-export const useBarTooltipText = (getAbsoluteValue: GetAbsoluteValue) => {
+export const useBarTooltipText = (getAbsoluteValue: GetAbsoluteValue, unit = 'stk') => {
   const renderBarText = (ctx: CanvasRenderingContext2D) => {
     const chart = Chart.getChart(ctx);
 
@@ -37,7 +37,7 @@ export const useBarTooltipText = (getAbsoluteValue: GetAbsoluteValue) => {
         }
 
         if (props.horizontal === true) {
-          const line2 = `${sum.toLocaleString(LOCALE)} stk`;
+          const line2 = `${sum.toLocaleString(LOCALE)} ${unit}`;
 
           if (ctx.measureText(line2).width > props.width) {
             return;
@@ -61,7 +61,7 @@ export const useBarTooltipText = (getAbsoluteValue: GetAbsoluteValue) => {
           const y = bar.y + props.height / 2;
 
           ctx.fillText(toPercent(percent / 100), bar.x, y - 6, props.width);
-          ctx.fillText(`${sum.toLocaleString(LOCALE)} stk`, bar.x, y + 10, props.width);
+          ctx.fillText(`${sum.toLocaleString(LOCALE)} ${unit}`, bar.x, y + 10, props.width);
         }
       });
     }
@@ -72,7 +72,7 @@ export const useBarTooltipText = (getAbsoluteValue: GetAbsoluteValue) => {
   const tooltipCallback: TooltipCallbacks<'bar'>['label'] = ({ datasetIndex, dataIndex, dataset }) => {
     const [sum, percent] = getAbsoluteValue(datasetIndex, dataIndex);
 
-    return `${dataset.label ?? 'Ukjent'}: ${toPercent(percent / 100)} (${sum.toLocaleString(LOCALE)} stk)`;
+    return `${dataset.label ?? 'Ukjent'}: ${toPercent(percent / 100)} (${sum.toLocaleString(LOCALE)} ${unit})`;
   };
 
   return { renderBarText, tooltipCallback };

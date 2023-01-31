@@ -73,7 +73,10 @@ interface StackedBarPieceCount {
 
 type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
 
-export const getMangelfullDetailsDatasets = (stats: DataSet[]): { datasets: StackedBarPiece[]; labels: string[] } => {
+export const getMangelfullDetailsDatasets = (
+  stats: DataSet[],
+  unit: string
+): { datasets: StackedBarPiece[]; labels: string[] } => {
   const unsortedBars = stats.flatMap(({ label, data }) => [
     { label: `${label} - Klageforberedelsen`, data, mainReason: Klageforberedelsen },
     { label: `${label} - Utredningen`, data, mainReason: Utredningen },
@@ -84,8 +87,6 @@ export const getMangelfullDetailsDatasets = (stats: DataSet[]): { datasets: Stac
   const sortedBars = MAIN_REASON_IDS.flatMap((mainReasonId) =>
     unsortedBars.filter(({ mainReason }) => mainReason === mainReasonId)
   );
-
-  // const labels = sortedBars.map(({ label }) => label);
 
   interface Stack {
     mainReason: MainReason;
@@ -134,7 +135,7 @@ export const getMangelfullDetailsDatasets = (stats: DataSet[]): { datasets: Stac
 
     const percentValue = Number.isNaN(percent) ? '-' : toPercent(percent / 100);
 
-    return `${label} (${percentValue} | ${count} stk)`;
+    return `${label} (${percentValue} | ${count} ${unit})`;
   });
 
   return { datasets, labels };
