@@ -10,6 +10,7 @@ import { Hjemler } from '../../charts/hjemler';
 import { Omgjoeringsprosent } from '../../charts/omgjoeringsprosent';
 import { UtfallGraph } from '../../charts/utfall-graph';
 import { KvalitetsvurderingerV2 } from '../../charts/v2/kvalitetsvurderinger/kvalitetsvurderinger';
+import { useRelevantStatistics } from '../../hooks/use-relevant-statistics';
 import { Gjennomsnittstid } from '../../key-stats/average-time';
 import { Finished } from '../../key-stats/finished';
 import { Omgjort } from '../../key-stats/omgjort';
@@ -22,7 +23,9 @@ interface Props {
 }
 
 export const ContentV2 = ({ stats, isLoading }: Props) => {
-  const datasets = [{ label: 'Totalt', data: stats }];
+  const relevantStats = useRelevantStatistics(stats);
+
+  const datasets = [{ label: 'Totalt', data: relevantStats }];
 
   return (
     <>
@@ -31,10 +34,10 @@ export const ContentV2 = ({ stats, isLoading }: Props) => {
         <FullWidthStickyContainer>
           <StatsContainer>
             <Finished stats={stats} />
-            <Omgjort stats={stats} />
-            <Gjennomsnittstid stats={stats} />
-            <Processed weeks={12} stats={stats} />
-            <Processed weeks={15} stats={stats} />
+            <Omgjort stats={relevantStats} label="Omgjort av klageinstansen" />
+            <Gjennomsnittstid stats={relevantStats} />
+            <Processed weeks={12} stats={relevantStats} />
+            <Processed weeks={15} stats={relevantStats} />
           </StatsContainer>
         </FullWidthStickyContainer>
 
@@ -50,21 +53,21 @@ export const ContentV2 = ({ stats, isLoading }: Props) => {
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Utfall</CardTitle>
-          <UtfallGraph stats={stats} />
+          <UtfallGraph stats={relevantStats} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Hjemler</CardTitle>
-          <Hjemler stats={stats} />
+          <Hjemler stats={relevantStats} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.LARGE}>
           <CardTitle>Behandlingstid</CardTitle>
           <ToggleTotalOrKA />
-          <BehandlingstidHistogram stats={stats} />
+          <BehandlingstidHistogram stats={relevantStats} />
         </DynamicCard>
 
-        <BehandlingstidOverTime stats={stats} />
+        <BehandlingstidOverTime stats={relevantStats} />
       </ContentArea>
     </>
   );

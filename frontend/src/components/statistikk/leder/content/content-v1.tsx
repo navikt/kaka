@@ -13,6 +13,8 @@ import { Hjemler } from '../../charts/hjemler';
 import { KvalitetsvurderingerV1 } from '../../charts/kvalitetsvurderinger/kvalitetsvurderinger';
 import { Omgjoeringsprosent } from '../../charts/omgjoeringsprosent';
 import { UtfallGraph } from '../../charts/utfall-graph';
+import { filterIrrelevant } from '../../filters/relevant';
+import { useRelevantStatistics } from '../../hooks/use-relevant-statistics';
 import { Gjennomsnittstid } from '../../key-stats/average-time';
 import { Finished } from '../../key-stats/finished';
 import { Omgjort } from '../../key-stats/omgjort';
@@ -36,15 +38,18 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
     () =>
       Object.entries(saksbehandlere).map(([navIdent, stats]) => ({
         label: saksbehandlerList.find((s) => s.navIdent === navIdent)?.navn ?? 'Laster...',
-        data: stats ?? [],
+        data: filterIrrelevant(stats),
       })),
     [saksbehandlerList, saksbehandlere]
   );
 
+  const relevantMine = useRelevantStatistics(mine);
+  const relevantRest = useRelevantStatistics(rest);
+
   const datasets = [
-    { label: 'Min enhet', data: mine },
-    { label: 'Andre enheter', data: rest },
-    { label: 'Alle enheter', data: [...mine, ...rest] },
+    { label: 'Min enhet', data: relevantMine },
+    { label: 'Andre enheter', data: relevantRest },
+    { label: 'Alle enheter', data: [...relevantMine, ...relevantRest] },
     ...saksbehandlereStats,
   ];
 
@@ -56,10 +61,10 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
         <FullWidthStickyContainer>
           <StatsContainer>
             <Finished stats={mine} />
-            <Omgjort stats={mine} />
-            <Gjennomsnittstid stats={mine} />
-            <Processed weeks={12} stats={mine} />
-            <Processed weeks={15} stats={mine} />
+            <Omgjort stats={relevantMine} label="Omgjort av vår enhet" />
+            <Gjennomsnittstid stats={relevantMine} />
+            <Processed weeks={12} stats={relevantMine} />
+            <Processed weeks={15} stats={relevantMine} />
           </StatsContainer>
         </FullWidthStickyContainer>
 
@@ -70,26 +75,26 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
 
         <DynamicCard size={CardSize.LARGE}>
           <CardTitle>Kvalitetsvurderinger</CardTitle>
-          <KvalitetsvurderingerV1 stats={mine} />
+          <KvalitetsvurderingerV1 stats={relevantMine} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Utfall</CardTitle>
-          <UtfallGraph stats={mine} />
+          <UtfallGraph stats={relevantMine} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Hjemler</CardTitle>
-          <Hjemler stats={mine} />
+          <Hjemler stats={relevantMine} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.LARGE}>
           <CardTitle>Behandlingstid</CardTitle>
           <ToggleTotalOrKA />
-          <BehandlingstidHistogram stats={mine} />
+          <BehandlingstidHistogram stats={relevantMine} />
         </DynamicCard>
 
-        <BehandlingstidOverTime stats={mine} />
+        <BehandlingstidOverTime stats={relevantMine} />
       </ContentArea>
     </>
   );

@@ -9,6 +9,7 @@ import { Hjemler } from '../../statistikk/charts/hjemler';
 import { Omgjoeringsprosent } from '../../statistikk/charts/omgjoeringsprosent';
 import { UtfallGraph } from '../../statistikk/charts/utfall-graph';
 import { KvalitetsvurderingerV2 } from '../../statistikk/charts/v2/kvalitetsvurderinger/kvalitetsvurderinger';
+import { useRelevantStatistics } from '../../statistikk/hooks/use-relevant-statistics';
 import { Finished } from '../../statistikk/key-stats/finished';
 import { Omgjort } from '../../statistikk/key-stats/omgjort';
 import { TilbakemeldingerCommonProps } from '../types';
@@ -19,10 +20,13 @@ interface Props extends TilbakemeldingerCommonProps {
 }
 
 export const ContentV2 = ({ mine, rest, statsIsLoading, saksdata, saksdataIsLoading }: Props) => {
+  const relevantMine = useRelevantStatistics(mine);
+  const relevantRest = useRelevantStatistics(rest);
+
   const datasets = [
-    { label: 'Vår enhet', data: mine },
-    { label: 'Andres enheter', data: rest },
-    { label: 'Alle enheter', data: [...mine, ...rest] },
+    { label: 'Vår enhet', data: relevantMine },
+    { label: 'Andres enheter', data: relevantRest },
+    { label: 'Alle enheter', data: [...relevantMine, ...relevantRest] },
   ];
 
   return (
@@ -33,7 +37,7 @@ export const ContentV2 = ({ mine, rest, statsIsLoading, saksdata, saksdataIsLoad
         <FullWidthStickyContainer>
           <StatsContainer>
             <Finished stats={mine} />
-            <Omgjort stats={mine} />
+            <Omgjort stats={relevantMine} label="Omgjort av vår enhet" />
           </StatsContainer>
         </FullWidthStickyContainer>
 
@@ -53,12 +57,12 @@ export const ContentV2 = ({ mine, rest, statsIsLoading, saksdata, saksdataIsLoad
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Utfall</CardTitle>
-          <UtfallGraph stats={mine} />
+          <UtfallGraph stats={relevantMine} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Hjemler</CardTitle>
-          <Hjemler stats={mine} />
+          <Hjemler stats={relevantMine} />
         </DynamicCard>
       </ContentArea>
     </>

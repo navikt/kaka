@@ -6,6 +6,7 @@ import { LoadingOverlay } from '../../../loader/overlay';
 import { CardSize, DynamicCard } from '../../card/card';
 import { OmgjoeringsprosentOverTime } from '../../charts/comparison/omgjoeringsprosent-over-time';
 import { Omgjoeringsprosent } from '../../charts/omgjoeringsprosent';
+import { filterIrrelevant } from '../../filters/relevant';
 
 interface Props {
   stats: IComparedFullStatisticVurderingV1[];
@@ -15,7 +16,7 @@ interface Props {
 export const ContentV1 = ({ stats, isLoading }: Props) => {
   const datasets = stats.map(({ label, vurderinger }) => ({
     label,
-    data: vurderinger,
+    data: filterIrrelevant(vurderinger),
   }));
 
   return (
