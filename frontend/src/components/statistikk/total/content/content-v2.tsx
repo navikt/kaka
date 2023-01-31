@@ -10,6 +10,7 @@ import { Hjemler } from '../../charts/hjemler';
 import { Omgjoeringsprosent } from '../../charts/omgjoeringsprosent';
 import { UtfallGraph } from '../../charts/utfall-graph';
 import { KvalitetsvurderingerV2 } from '../../charts/v2/kvalitetsvurderinger/kvalitetsvurderinger';
+import { useRelevantStatistics } from '../../hooks/use-relevant-statistics';
 import { Gjennomsnittstid } from '../../key-stats/average-time';
 import { Finished } from '../../key-stats/finished';
 import { Omgjort } from '../../key-stats/omgjort';
@@ -22,7 +23,9 @@ interface Props {
 }
 
 export const ContentV2 = ({ rest, isLoading }: Props) => {
-  const datasets = [{ label: 'Totalt', data: rest }];
+  const relevantRest = useRelevantStatistics(rest);
+
+  const datasets = [{ label: 'Totalt', data: relevantRest }];
 
   return (
     <>
@@ -32,10 +35,10 @@ export const ContentV2 = ({ rest, isLoading }: Props) => {
         <FullWidthStickyContainer>
           <StatsContainer>
             <Finished stats={rest} />
-            <Omgjort stats={rest} />
-            <Gjennomsnittstid stats={rest} />
-            <Processed weeks={12} stats={rest} />
-            <Processed weeks={15} stats={rest} />
+            <Omgjort stats={relevantRest} label="Omgjort av klageinstansen" />
+            <Gjennomsnittstid stats={relevantRest} />
+            <Processed weeks={12} stats={relevantRest} />
+            <Processed weeks={15} stats={relevantRest} />
           </StatsContainer>
         </FullWidthStickyContainer>
 
@@ -51,21 +54,21 @@ export const ContentV2 = ({ rest, isLoading }: Props) => {
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Utfall</CardTitle>
-          <UtfallGraph stats={rest} />
+          <UtfallGraph stats={relevantRest} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Hjemler</CardTitle>
-          <Hjemler stats={rest} />
+          <Hjemler stats={relevantRest} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.LARGE}>
           <CardTitle>Behandlingstid</CardTitle>
           <ToggleTotalOrKA />
-          <BehandlingstidHistogram stats={rest} />
+          <BehandlingstidHistogram stats={relevantRest} />
         </DynamicCard>
 
-        <BehandlingstidOverTime stats={rest} />
+        <BehandlingstidOverTime stats={relevantRest} />
       </ContentArea>
     </>
   );

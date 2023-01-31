@@ -10,6 +10,7 @@ import { Hjemler } from '../../charts/hjemler';
 import { KvalitetsvurderingerV1 } from '../../charts/kvalitetsvurderinger/kvalitetsvurderinger';
 import { Omgjoeringsprosent } from '../../charts/omgjoeringsprosent';
 import { UtfallGraph } from '../../charts/utfall-graph';
+import { useRelevantStatistics } from '../../hooks/use-relevant-statistics';
 import { Gjennomsnittstid } from '../../key-stats/average-time';
 import { Finished } from '../../key-stats/finished';
 import { Omgjort } from '../../key-stats/omgjort';
@@ -21,48 +22,54 @@ interface Props {
   isLoading: boolean;
 }
 
-export const ContentV1 = ({ rest, isLoading }: Props) => (
-  <>
-    <LoadingOverlay isLoading={isLoading} />
+export const ContentV1 = ({ rest, isLoading }: Props) => {
+  const relevantRest = useRelevantStatistics(rest);
 
-    <ContentArea>
-      <FullWidthStickyContainer>
-        <StatsContainer>
-          <Finished stats={rest} />
-          <Omgjort stats={rest} />
-          <Gjennomsnittstid stats={rest} />
-          <Processed weeks={12} stats={rest} />
-          <Processed weeks={15} stats={rest} />
-        </StatsContainer>
-      </FullWidthStickyContainer>
+  const datasets = [{ label: 'Totalt', data: relevantRest }];
 
-      <DynamicCard size={CardSize.LARGE}>
-        <CardTitle>Omgjøringsprosent</CardTitle>
-        <Omgjoeringsprosent stats={[{ label: 'Totalt', data: rest }]} />
-      </DynamicCard>
+  return (
+    <>
+      <LoadingOverlay isLoading={isLoading} />
 
-      <DynamicCard size={CardSize.LARGE}>
-        <CardTitle>Kvalitetsvurderinger</CardTitle>
-        <KvalitetsvurderingerV1 stats={rest} />
-      </DynamicCard>
+      <ContentArea>
+        <FullWidthStickyContainer>
+          <StatsContainer>
+            <Finished stats={rest} />
+            <Omgjort stats={relevantRest} label="Omgjort av klageinstansen" />
+            <Gjennomsnittstid stats={relevantRest} />
+            <Processed weeks={12} stats={relevantRest} />
+            <Processed weeks={15} stats={relevantRest} />
+          </StatsContainer>
+        </FullWidthStickyContainer>
 
-      <DynamicCard size={CardSize.MEDIUM}>
-        <CardTitle>Utfall</CardTitle>
-        <UtfallGraph stats={rest} />
-      </DynamicCard>
+        <DynamicCard size={CardSize.LARGE}>
+          <CardTitle>Omgjøringsprosent</CardTitle>
+          <Omgjoeringsprosent stats={datasets} />
+        </DynamicCard>
 
-      <DynamicCard size={CardSize.MEDIUM}>
-        <CardTitle>Hjemler</CardTitle>
-        <Hjemler stats={rest} />
-      </DynamicCard>
+        <DynamicCard size={CardSize.LARGE}>
+          <CardTitle>Kvalitetsvurderinger</CardTitle>
+          <KvalitetsvurderingerV1 stats={relevantRest} />
+        </DynamicCard>
 
-      <DynamicCard size={CardSize.LARGE}>
-        <CardTitle>Behandlingstid</CardTitle>
-        <ToggleTotalOrKA />
-        <BehandlingstidHistogram stats={rest} />
-      </DynamicCard>
+        <DynamicCard size={CardSize.MEDIUM}>
+          <CardTitle>Utfall</CardTitle>
+          <UtfallGraph stats={relevantRest} />
+        </DynamicCard>
 
-      <BehandlingstidOverTime stats={rest} />
-    </ContentArea>
-  </>
-);
+        <DynamicCard size={CardSize.MEDIUM}>
+          <CardTitle>Hjemler</CardTitle>
+          <Hjemler stats={relevantRest} />
+        </DynamicCard>
+
+        <DynamicCard size={CardSize.LARGE}>
+          <CardTitle>Behandlingstid</CardTitle>
+          <ToggleTotalOrKA />
+          <BehandlingstidHistogram stats={relevantRest} />
+        </DynamicCard>
+
+        <BehandlingstidOverTime stats={relevantRest} />
+      </ContentArea>
+    </>
+  );
+};

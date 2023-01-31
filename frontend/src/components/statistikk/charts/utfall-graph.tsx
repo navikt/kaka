@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { UTFALL_COLOR_MAP } from '../../../colors/colors';
 import { isNotUndefined } from '../../../functions/is-not';
-import { UTFALL_VALUES, useSortedUtfall } from '../../../simple-api-state/use-utfall';
+import { UTFALL_VALUES_FOR_STATS, useSortedUtfall } from '../../../simple-api-state/use-utfall';
 import { StatsDate } from '../../../types/statistics/common';
 import { UtfallEnum } from '../../../types/utfall';
 import { percent, tickCallback } from './formatting';
@@ -46,14 +46,16 @@ export const UtfallGraph = ({ stats: allStats }: Props) => {
   const stats = useMemo(
     () =>
       new Map<UtfallEnum, number>(
-        UTFALL_VALUES.map((id) => [id, finishedStats.filter(({ utfallId }) => utfallId === id).length])
+        UTFALL_VALUES_FOR_STATS.map((id) => [id, finishedStats.filter(({ utfallId }) => utfallId === id).length])
       ),
     [finishedStats]
   );
 
-  const labels: string[] = UTFALL_VALUES.map((key) => utfall.find(({ id }) => id === key)?.navn).filter(isNotUndefined);
+  const labels: string[] = UTFALL_VALUES_FOR_STATS.map((key) => utfall.find(({ id }) => id === key)?.navn).filter(
+    isNotUndefined
+  );
 
-  const backgroundColor: string[] = UTFALL_VALUES.map((key) => UTFALL_COLOR_MAP[key]);
+  const backgroundColor: string[] = UTFALL_VALUES_FOR_STATS.map((key) => UTFALL_COLOR_MAP[key]);
 
   const values = Array.from(stats.values());
 

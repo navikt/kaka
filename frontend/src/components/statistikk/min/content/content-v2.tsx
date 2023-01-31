@@ -10,6 +10,7 @@ import { Hjemler } from '../../charts/hjemler';
 import { Omgjoeringsprosent } from '../../charts/omgjoeringsprosent';
 import { UtfallGraph } from '../../charts/utfall-graph';
 import { KvalitetsvurderingerV2 } from '../../charts/v2/kvalitetsvurderinger/kvalitetsvurderinger';
+import { useRelevantStatistics } from '../../hooks/use-relevant-statistics';
 import { Gjennomsnittstid } from '../../key-stats/average-time';
 import { Finished } from '../../key-stats/finished';
 import { Omgjort } from '../../key-stats/omgjort';
@@ -23,10 +24,13 @@ interface Props {
 }
 
 export const ContentV2 = ({ mine, rest, isLoading }: Props) => {
+  const relevantMine = useRelevantStatistics(mine);
+  const relevantRest = useRelevantStatistics(rest);
+
   const datasets = [
-    { label: 'Meg', data: mine },
-    { label: 'Andre saksbehandlere i min enhet', data: rest },
-    { label: 'Alle saksbehandlere i min enhet', data: [...mine, ...rest] },
+    { label: 'Meg', data: relevantMine },
+    { label: 'Andre saksbehandlere i min enhet', data: relevantRest },
+    { label: 'Alle saksbehandlere i min enhet', data: [...relevantMine, ...relevantRest] },
   ];
 
   return (
@@ -36,10 +40,10 @@ export const ContentV2 = ({ mine, rest, isLoading }: Props) => {
         <FullWidthStickyContainer>
           <StatsContainer>
             <Finished stats={mine} />
-            <Omgjort stats={mine} />
-            <Gjennomsnittstid stats={mine} />
-            <Processed weeks={12} stats={mine} />
-            <Processed weeks={15} stats={mine} />
+            <Omgjort stats={relevantMine} label="Omgjort av meg" />
+            <Gjennomsnittstid stats={relevantMine} />
+            <Processed weeks={12} stats={relevantMine} />
+            <Processed weeks={15} stats={relevantMine} />
           </StatsContainer>
         </FullWidthStickyContainer>
 
@@ -55,21 +59,21 @@ export const ContentV2 = ({ mine, rest, isLoading }: Props) => {
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Utfall</CardTitle>
-          <UtfallGraph stats={mine} />
+          <UtfallGraph stats={relevantMine} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Hjemler</CardTitle>
-          <Hjemler stats={mine} />
+          <Hjemler stats={relevantMine} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.LARGE}>
           <CardTitle>Behandlingstid</CardTitle>
           <ToggleTotalOrKA />
-          <BehandlingstidHistogram stats={mine} />
+          <BehandlingstidHistogram stats={relevantMine} />
         </DynamicCard>
 
-        <BehandlingstidOverTime stats={mine} />
+        <BehandlingstidOverTime stats={relevantMine} />
       </ContentArea>
     </>
   );

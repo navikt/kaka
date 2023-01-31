@@ -9,9 +9,10 @@ interface Stat {
 
 interface Props {
   stats: Stat[];
+  label: string;
 }
 
-export const Omgjort = ({ stats }: Props) => {
+export const Omgjort = ({ stats, label }: Props) => {
   const numOmgjort: number = useMemo(
     () =>
       stats.filter(
@@ -21,26 +22,17 @@ export const Omgjort = ({ stats }: Props) => {
     [stats]
   );
 
-  const relevantStats: number = useMemo(
-    () =>
-      stats.filter(
-        ({ utfallId }) =>
-          utfallId !== UtfallEnum.RETUR && utfallId !== UtfallEnum.TRUKKET && utfallId !== UtfallEnum.UGUNST
-      ).length,
-    [stats]
-  );
-
   return (
     <KeyContent>
-      <RedKeyNumber>{percent(numOmgjort, relevantStats)}</RedKeyNumber>
-      <span>Omgjort av Klageinstansen</span>
+      <RedKeyNumber>{percent(numOmgjort, stats.length)}</RedKeyNumber>
+      <span>{label}</span>
     </KeyContent>
   );
 };
 
 const percent = (numerator: number, denominator: number): string => {
   if (denominator === 0) {
-    return '-';
+    return '- %';
   }
 
   return toPercent(numerator / denominator);

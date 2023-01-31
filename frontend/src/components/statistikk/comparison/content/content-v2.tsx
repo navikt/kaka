@@ -7,6 +7,7 @@ import { CardSize, DynamicCard } from '../../card/card';
 import { OmgjoeringsprosentOverTime } from '../../charts/comparison/omgjoeringsprosent-over-time';
 import { Omgjoeringsprosent } from '../../charts/omgjoeringsprosent';
 import { KvalitetsvurderingerV2 } from '../../charts/v2/kvalitetsvurderinger/kvalitetsvurderinger';
+import { filterIrrelevant } from '../../filters/relevant';
 
 interface Props {
   stats: IComparedFullStatisticVurderingV2[];
@@ -16,7 +17,7 @@ interface Props {
 export const ContentV2 = ({ stats, isLoading }: Props) => {
   const datasets = stats.map(({ label, vurderinger }) => ({
     label,
-    data: vurderinger,
+    data: filterIrrelevant(vurderinger),
   }));
 
   return (
