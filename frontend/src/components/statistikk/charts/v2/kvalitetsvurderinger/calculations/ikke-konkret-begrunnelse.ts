@@ -35,21 +35,11 @@ export const getIkkeKonkretBegrunnelseDatasets = (stats: DataSet[]) => {
 
     const sakensDokumenterFactor = (reasons['vedtaketIkkeKonkretIndividuellBegrunnelse'] ?? 0) / totalReasonsCount;
 
-    const subReasons = data.reduce<Record<string, number>>((acc, sak) => {
-      const mangelfulleIds = IKKE_KONKRET_BEGRUNNELSE_REASONS.filter((id) => sak[id] === true);
-
-      if (mangelfulleIds.length !== 0) {
-        mangelfulleIds.forEach((id) => {
-          acc[id] = (acc[id] ?? 0) + 1;
-        });
-      }
-
-      return acc;
-    }, {});
-
-    const subReasonArray = Object.entries(subReasons);
-
-    const totalIkkeKonkretBegrunnelseCount = subReasonArray.reduce((total, [, count]) => total + count, 0);
+    const {
+      reasons: subReasons,
+      reasonArray: subReasonArray,
+      totalReasonsCount: totalIkkeKonkretBegrunnelseCount,
+    } = calculateReasons(data, IKKE_KONKRET_BEGRUNNELSE_REASONS);
 
     const factor = totalMangelfullFactor * vedtaketMangelfullFactor * sakensDokumenterFactor;
 
@@ -58,7 +48,7 @@ export const getIkkeKonkretBegrunnelseDatasets = (stats: DataSet[]) => {
       data: Object.fromEntries(
         subReasonArray.map(([id, count]) => [id, (count / totalIkkeKonkretBegrunnelseCount) * factor])
       ),
-      counts: Object.fromEntries(subReasonArray),
+      counts: subReasons,
     };
   });
 
