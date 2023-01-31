@@ -17,7 +17,7 @@ export const Finished = ({ stats }: Props) => {
   return (
     <KeyContent>
       <KeyNumber>{cleanNumberDisplay(count)}</KeyNumber>
-      <span>Fullførte vurderinger</span>
+      <span>Registrerte saker</span>
     </KeyContent>
   );
 };
