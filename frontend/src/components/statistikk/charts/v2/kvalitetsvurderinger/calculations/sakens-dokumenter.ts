@@ -35,21 +35,11 @@ export const getSakensDokumenterDatasets = (stats: DataSet[]) => {
 
     const sakensDokumenterFactor = (reasons['klageforberedelsenSakensDokumenter'] ?? 0) / totalReasonsCount;
 
-    const subReasons = data.reduce<Record<string, number>>((acc, sak) => {
-      const mangelfulleIds = SAKENS_DOKUMENTER_REASONS.filter((id) => sak[id] === true);
-
-      if (mangelfulleIds.length !== 0) {
-        mangelfulleIds.forEach((id) => {
-          acc[id] = (acc[id] ?? 0) + 1;
-        });
-      }
-
-      return acc;
-    }, {});
-
-    const subReasonArray = Object.entries(subReasons);
-
-    const totalSakensDokumenterCount = subReasonArray.reduce((total, [, count]) => total + count, 0);
+    const {
+      reasons: subReasons,
+      reasonArray: subReasonArray,
+      totalReasonsCount: totalSakensDokumenterCount,
+    } = calculateReasons(data, SAKENS_DOKUMENTER_REASONS);
 
     const factor = totalMangelfullFactor * klageforberedelsenMangelfullFactor * sakensDokumenterFactor;
 
@@ -58,7 +48,7 @@ export const getSakensDokumenterDatasets = (stats: DataSet[]) => {
       data: Object.fromEntries(
         subReasonArray.map(([id, count]) => [id, (count / totalSakensDokumenterCount) * factor])
       ),
-      count: Object.fromEntries(subReasonArray),
+      count: subReasons,
     };
   });
 
@@ -81,7 +71,7 @@ export const getSakensDokumenterDatasets = (stats: DataSet[]) => {
 
     const percentValue = Number.isNaN(percent) ? '-' : toPercent(percent / 100);
 
-    return `${label} (${percentValue} % | ${count} stk)`;
+    return `${label} (${percentValue} | ${count} stk)`;
   });
 
   return { labels, datasets };
