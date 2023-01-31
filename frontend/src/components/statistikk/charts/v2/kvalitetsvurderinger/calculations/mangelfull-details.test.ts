@@ -22,7 +22,7 @@ const UTREDNINGEN_FULLY_BRA = {
 
 describe('getDatasets', () => {
   it('should calculate one simple dataset', () => {
-    expect.assertions(4);
+    expect.assertions(8);
 
     const stats: DataSet[] = [
       {
@@ -56,10 +56,15 @@ describe('getDatasets', () => {
     expect(utredningenAvArbeidsaktivitet?.data).toStrictEqual([0, 25, 0, 0]);
     expect(utredningenAvEoesUtenlandsproblematikk?.data).toStrictEqual([0, 25, 0, 0]);
     expect(utredningenAvAndreAktuelleForholdISaken?.data).toStrictEqual([0, 25, 0, 0]);
+
+    expect(utredningenAvInntektsforhold?.counts).toStrictEqual([0, 1, 0, 0]);
+    expect(utredningenAvArbeidsaktivitet?.counts).toStrictEqual([0, 1, 0, 0]);
+    expect(utredningenAvEoesUtenlandsproblematikk?.counts).toStrictEqual([0, 1, 0, 0]);
+    expect(utredningenAvAndreAktuelleForholdISaken?.counts).toStrictEqual([0, 1, 0, 0]);
   });
 
   it('should calculate two simple datasets', () => {
-    expect.assertions(5);
+    expect.assertions(10);
 
     const stats: DataSet[] = [
       { label: 'Min', data: [UTREDNINGEN_FULLY_MANGELFULL] },
@@ -81,10 +86,16 @@ describe('getDatasets', () => {
     expect(utredningenAvArbeidsaktivitet?.data).toStrictEqual([0, 0, 20, 0, 0, 0, 0, 0]);
     expect(utredningenAvEoesUtenlandsproblematikk?.data).toStrictEqual([0, 0, 20, 0, 0, 0, 0, 0]);
     expect(utredningenAvAndreAktuelleForholdISaken?.data).toStrictEqual([0, 0, 20, 0, 0, 0, 0, 0]);
+
+    expect(utredningenAvMedisinskeForhold?.counts).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
+    expect(utredningenAvInntektsforhold?.counts).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
+    expect(utredningenAvArbeidsaktivitet?.counts).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
+    expect(utredningenAvEoesUtenlandsproblematikk?.counts).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
+    expect(utredningenAvAndreAktuelleForholdISaken?.counts).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
   });
 
   it('should calculate one complex dataset', () => {
-    expect.assertions(5);
+    expect.assertions(10);
 
     const stats: DataSet[] = [
       {
@@ -120,5 +131,11 @@ describe('getDatasets', () => {
     expect(utredningenAvArbeidsaktivitet?.data).toStrictEqual([0, 12.5, 0, 0]);
     expect(utredningenAvEoesUtenlandsproblematikk?.data).toStrictEqual([0, 6.25, 0, 0]);
     expect(utredningenAvAndreAktuelleForholdISaken?.data).toStrictEqual([0, 6.25, 0, 0]);
+
+    expect(utredningenAvMedisinskeForhold?.counts).toStrictEqual([0, 2, 0, 0]);
+    expect(utredningenAvInntektsforhold?.counts).toStrictEqual([0, 2, 0, 0]);
+    expect(utredningenAvArbeidsaktivitet?.counts).toStrictEqual([0, 2, 0, 0]);
+    expect(utredningenAvEoesUtenlandsproblematikk?.counts).toStrictEqual([0, 1, 0, 0]);
+    expect(utredningenAvAndreAktuelleForholdISaken?.counts).toStrictEqual([0, 1, 0, 0]);
   });
 });
