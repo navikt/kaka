@@ -17,6 +17,7 @@ import { MainReason } from '../../../../../types/kvalitetsvurdering/v2';
 import { IStatisticVurderingV2 } from '../../../../../types/statistics/v2';
 import { QueryParams } from '../../../../filters/filter-query-params';
 import { useQueryParam } from '../../../hooks/use-query-param';
+import { TitleWithExplainer } from '../../kvalitetsvurderinger/explainer';
 import { ChartContainer, ChartTitle } from '../../styled-components';
 import { HelpTexts } from './help-texts';
 import { Hjemler } from './hjemler';
@@ -70,20 +71,22 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
 
   return (
     <>
+      <TitleWithExplainer>Hovedgrunner</TitleWithExplainer>
       <TotalMangelfull stats={datasets} />
       <HelpTexts helpTexts={[{ texts: KVALITETSVURDERING_TEXTS, key: 'KVALITETSVURDERING_TEXTS' }]} />
 
+      <TitleWithExplainer>Grunner</TitleWithExplainer>
       <MangelfullDetails stats={datasets} />
       <HelpTexts helpTexts={MAIN_HELP_TEXTS} />
 
       <CategoryContainer>
         <ChartContainer columns={2}>
-          <ChartTitle>{KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenSakensDokumenter.label}</ChartTitle>
+          <TitleWithExplainer>{KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenSakensDokumenter.label}</TitleWithExplainer>
           <SakensDokumenter stats={datasets} />
           <HelpTexts helpTexts={[{ texts: SAKENS_DOKUMENTER_TEXTS, key: 'SAKENS_DOKUMENTER_TEXTS' }]} />
         </ChartContainer>
         <ChartContainer columns={2}>
-          <ChartTitle>{VEDTAKET_TEXTS.vedtaketIkkeKonkretIndividuellBegrunnelse.label}</ChartTitle>
+          <TitleWithExplainer>{VEDTAKET_TEXTS.vedtaketIkkeKonkretIndividuellBegrunnelse.label}</TitleWithExplainer>
           <IkkeKonkretBegrunnelse stats={datasets} />
         </ChartContainer>
       </CategoryContainer>
