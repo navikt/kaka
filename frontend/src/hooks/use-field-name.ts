@@ -35,7 +35,7 @@ type Field =
 
 export const useFieldName = (field: Field): string =>
   SAKSDATA_FIELD_NAMES[field] ??
-  KVALITETSVURDERING_V2_TEXTS[field].label ??
+  KVALITETSVURDERING_V2_TEXTS[field]?.label ??
   KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES[field] ??
   KVALITETSVURDERING_V1_FIELD_NAMES[field] ??
   field;
