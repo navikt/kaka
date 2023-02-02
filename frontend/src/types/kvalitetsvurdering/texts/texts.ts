@@ -4,6 +4,7 @@ import {
   BrukAvRaadgivendeLegeKeys,
   IKvalitetsvurderingHjemler,
   IkkeKonkretBegrunnelseKeys,
+  KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES,
   KlageforberedelsenKeys,
   MainReason,
   SakensDokumenterKeys,
@@ -21,6 +22,7 @@ export interface KvalitetsskjemaText {
   helpText?: string;
   color?: string;
   hjemler?: keyof IKvalitetsvurderingHjemler;
+  groupErrorField?: keyof typeof KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES;
   children?: Children;
 }
 
@@ -48,6 +50,7 @@ export const KLAGEFORBEREDELSEN_TEXTS: Record<KlageforberedelsenKeys, Kvalitetss
     children: SAKENS_DOKUMENTER_TEXTS,
     color: NAV_COLORS.blue[100],
     label: 'Sakens dokumenter',
+    groupErrorField: 'klageforberedelsenSakensDokumenterGroup',
     helpText:
       'Dokumentene er ikke fullstendige; f.eks. feil eller mangelfull journalføring av relevante opplysninger i klagebehandlingen.',
   },
@@ -171,6 +174,7 @@ export const VEDTAKET_TEXTS: Record<VedtaketKeys, KvalitetsskjemaText> = {
   vedtaketIkkeKonkretIndividuellBegrunnelse: {
     color: NAV_COLORS.green[600],
     label: 'Begrunnelsen er ikke konkret og individuell nok',
+    groupErrorField: 'vedtaketIkkeKonkretIndividuellBegrunnelseGroup',
     children: IKKE_KONKRET_BEGRUNNELSE_TEXTS,
   },
   vedtaketSpraakOgFormidlingErIkkeTydelig: {

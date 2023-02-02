@@ -61,7 +61,7 @@ export const Klageforberedelsen = () => {
         update={update}
         checkboxes={KLAGEFORBEREDELSEN_CHECKBOXES}
         show={klageforberedelsen === Radiovalg.MANGELFULLT}
-        errorField="klageforberedelsenGroup"
+        groupErrorField="klageforberedelsenGroup"
         label="Hva er mangelfullt?"
       />
     </section>

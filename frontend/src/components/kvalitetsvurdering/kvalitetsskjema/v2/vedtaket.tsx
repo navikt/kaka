@@ -69,7 +69,7 @@ export const Vedtaket = () => {
         update={update}
         checkboxes={CHECKBOXES}
         show={vedtaket === Radiovalg.MANGELFULLT}
-        errorField="vedtaketGroup"
+        groupErrorField="vedtaketGroup"
         label="Hva er mangelfullt?"
       />
     </section>

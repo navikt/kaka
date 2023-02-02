@@ -147,3 +147,12 @@ export interface IKvalitetsvurderingData
     Annet {}
 
 export type IKvalitetsvurdering = IKvalitetsvurderingData;
+
+export const KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES = {
+  klageforberedelsenGroup: 'Mangelfull klageforberedelse',
+  utredningenGroup: 'Mangelfull utredning',
+  vedtaketGroup: 'Mangelfullt vedtak',
+  raadgivendeLegeGroup: 'Mangelfull bruk av rådgivende lege',
+  vedtaketIkkeKonkretIndividuellBegrunnelseGroup: 'Begrunnelsen er ikke konkret og individuell nok',
+  klageforberedelsenSakensDokumenterGroup: 'Sakens dokumenter',
+};
