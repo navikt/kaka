@@ -124,7 +124,7 @@ export const BrukAvRaadgivendeLege = () => {
         checkboxes={BRUK_AV_RAADGIVENDE_LEGE_CHECKBOXES}
         update={update}
         show={brukAvRaadgivendeLege === RadiovalgExtended.MANGELFULLT}
-        errorField="raadgivendeLegeGroup"
+        groupErrorField="raadgivendeLegeGroup"
         label="Hva er mangelfullt?"
       />
     </section>

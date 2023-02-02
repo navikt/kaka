@@ -1,11 +1,13 @@
 import { CheckboxGroup } from '@navikt/ds-react';
 import React, { useMemo } from 'react';
-import { IKvalitetsvurderingData } from '../../../../../types/kvalitetsvurdering/v2';
+import {
+  IKvalitetsvurderingData,
+  KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES,
+} from '../../../../../types/kvalitetsvurdering/v2';
 import { Hjemler } from './hjemler';
 import { KvalitetsskjemaCheckbox } from './kvalitetsvurdering-checkbox';
 import { SubSection } from './styled-components';
 import { ICheckboxParams } from './types';
-import { KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES } from './use-field-name';
 import { useKvalitetsvurderingV2 } from './use-kvalitetsvurdering-v2';
 import { useValidationError } from './use-validation-error';
 
@@ -14,15 +16,23 @@ interface Props {
   update: (data: Partial<IKvalitetsvurderingData>) => void;
   checkboxes: ICheckboxParams[];
   show: boolean;
-  errorField: keyof IKvalitetsvurderingData | keyof typeof KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES;
+  groupErrorField?: keyof typeof KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES;
   hideLegend?: boolean;
   label: string;
 }
 
-export const Checkboxes = ({ kvalitetsvurdering, label, update, checkboxes, show, errorField, hideLegend }: Props) => {
+export const Checkboxes = ({
+  kvalitetsvurdering,
+  label,
+  update,
+  checkboxes,
+  show,
+  groupErrorField,
+  hideLegend,
+}: Props) => {
   const allFields = useMemo(() => getFields(checkboxes), [checkboxes]);
   const value = useMemo(() => allFields.filter((f) => kvalitetsvurdering[f]), [allFields, kvalitetsvurdering]);
-  const error = useValidationError(errorField);
+  const error = useValidationError(groupErrorField);
 
   if (!show) {
     return null;
@@ -49,7 +59,7 @@ export const Checkboxes = ({ kvalitetsvurdering, label, update, checkboxes, show
         value={value}
         onChange={onChange}
         error={error}
-        id={errorField}
+        id={groupErrorField}
       >
         {checkboxes.map((m) => (
           <Checkbox key={m.field} {...m} />
@@ -59,7 +69,7 @@ export const Checkboxes = ({ kvalitetsvurdering, label, update, checkboxes, show
   );
 };
 
-const Checkbox = ({ field, label, helpText, hjemler, checkboxes }: ICheckboxParams) => {
+const Checkbox = ({ field, label, helpText, hjemler, checkboxes, groupErrorField }: ICheckboxParams) => {
   const { kvalitetsvurdering, isLoading, update } = useKvalitetsvurderingV2();
 
   if (isLoading) {
@@ -79,7 +89,7 @@ const Checkbox = ({ field, label, helpText, hjemler, checkboxes }: ICheckboxPara
           show={kvalitetsvurdering[field]}
           label={label}
           hideLegend
-          errorField={field}
+          groupErrorField={groupErrorField}
           update={update}
         />
       )}
