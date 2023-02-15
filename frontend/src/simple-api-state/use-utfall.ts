@@ -52,7 +52,12 @@ const UTFALL_VALUES = Object.values(UtfallEnum).sort(
 );
 
 export const UTFALL_VALUES_FOR_STATS = UTFALL_VALUES.filter(
-  (v) => v !== UtfallEnum.RETUR && v !== UtfallEnum.TRUKKET && v !== UtfallEnum.UGUNST
+  (v) =>
+    v !== UtfallEnum.RETUR &&
+    v !== UtfallEnum.TRUKKET &&
+    v !== UtfallEnum.UGUNST &&
+    v !== UtfallEnum.HEVET &&
+    v !== UtfallEnum.HENVIST
 );
 
 const isUtfall = (value: string): value is UtfallEnum => UTFALL_VALUES.some((v) => v === value);
@@ -98,7 +103,15 @@ export const useUtfallForStats = () => {
   const { data = [], ...rest } = useUtfall();
 
   const filtered = useMemo(
-    () => data.filter(({ id }) => id !== UtfallEnum.RETUR && id !== UtfallEnum.TRUKKET && id !== UtfallEnum.UGUNST),
+    () =>
+      data.filter(
+        ({ id }) =>
+          id !== UtfallEnum.RETUR &&
+          id !== UtfallEnum.TRUKKET &&
+          id !== UtfallEnum.UGUNST &&
+          id !== UtfallEnum.HEVET &&
+          id !== UtfallEnum.HENVIST
+      ),
     [data]
   );
 

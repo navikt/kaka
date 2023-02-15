@@ -139,4 +139,6 @@ export const UTFALL_COLOR_MAP = Object.freeze<Record<UtfallEnum, string>>({
   [UtfallEnum.UGUNST]: NAV_COLORS.purple[400],
   [UtfallEnum.INNSTILLING_STADFESTELSE]: NAV_COLORS.green[700],
   [UtfallEnum.INNSTILLING_AVVIST]: NAV_COLORS.gray[400],
+  [UtfallEnum.HEVET]: NAV_COLORS.gray[400], // Not used
+  [UtfallEnum.HENVIST]: NAV_COLORS.gray[400], // Not used
 });
