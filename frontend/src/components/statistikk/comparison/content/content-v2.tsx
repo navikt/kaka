@@ -31,7 +31,6 @@ export const ContentV2 = ({ stats, isLoading }: Props) => {
         </DynamicCard>
 
         <DynamicCard size={CardSize.LARGE}>
-          <CardTitle>Kvalitetsvurderinger</CardTitle>
           <KvalitetsvurderingerV2 datasets={datasets} />
         </DynamicCard>
 
