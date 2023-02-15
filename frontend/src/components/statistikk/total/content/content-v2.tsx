@@ -48,7 +48,6 @@ export const ContentV2 = ({ rest, isLoading }: Props) => {
         </DynamicCard>
 
         <DynamicCard size={CardSize.LARGE}>
-          <CardTitle>Kvalitetsvurderinger</CardTitle>
           <KvalitetsvurderingerV2 datasets={datasets} />
         </DynamicCard>
 

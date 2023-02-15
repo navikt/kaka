@@ -1,7 +1,8 @@
+import { HelpText } from '@navikt/ds-react';
 import React from 'react';
 import { StatsDate } from '../../..//types/statistics/common';
 import { cleanNumberDisplay } from './formatting';
-import { KeyContent, KeyNumber } from './styled-components';
+import { HelpTextContent, KeyContent, KeyLabelWithHelpText, KeyNumber } from './styled-components';
 
 interface Stat {
   avsluttetAvSaksbehandler: StatsDate;
@@ -17,7 +18,12 @@ export const Finished = ({ stats }: Props) => {
   return (
     <KeyContent>
       <KeyNumber>{cleanNumberDisplay(count)}</KeyNumber>
-      <span>Registrerte saker</span>
+      <KeyLabelWithHelpText>
+        Registrerte saker
+        <HelpText placement="bottom">
+          <HelpTextContent>Registrerte saker inkluderer alle saker uansett utfall.</HelpTextContent>
+        </HelpText>
+      </KeyLabelWithHelpText>
     </KeyContent>
   );
 };

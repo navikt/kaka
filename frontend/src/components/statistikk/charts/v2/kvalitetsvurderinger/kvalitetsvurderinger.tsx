@@ -17,7 +17,7 @@ import { MainReason } from '../../../../../types/kvalitetsvurdering/v2';
 import { IStatisticVurderingV2 } from '../../../../../types/statistics/v2';
 import { QueryParams } from '../../../../filters/filter-query-params';
 import { useQueryParam } from '../../../hooks/use-query-param';
-import { TitleWithExplainer } from '../../kvalitetsvurderinger/explainer';
+import { CardTitleWithExplainer, TitleWithExplainer } from '../../kvalitetsvurderinger/explainer';
 import { ChartContainer, ChartTitle } from '../../styled-components';
 import { HelpTexts } from './help-texts';
 import { Hjemler } from './hjemler';
@@ -71,6 +71,13 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
 
   return (
     <>
+      <CardTitleWithExplainer
+        helpText="Ved utregningen av hvor mange prosent av sakene som har mangler ved kvaliteten, er ikke saker med utfallene
+          «retur», «trukket» og «ugunst (ugyldig)» med i grunnlaget. Klageinstansen gjør ikke kvalitetsvurderinger i
+          saker med disse utfallene."
+      >
+        Kvalitetsvurderinger
+      </CardTitleWithExplainer>
       <TitleWithExplainer>Hovedgrunner</TitleWithExplainer>
       <TotalMangelfull stats={datasets} />
       <HelpTexts helpTexts={[{ texts: KVALITETSVURDERING_TEXTS, key: 'KVALITETSVURDERING_TEXTS' }]} />

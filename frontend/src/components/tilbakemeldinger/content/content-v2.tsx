@@ -47,7 +47,6 @@ export const ContentV2 = ({ mine, rest, statsIsLoading, saksdata, saksdataIsLoad
         </DynamicCard>
 
         <DynamicCard size={CardSize.LARGE}>
-          <CardTitle>Kvalitetsvurderinger</CardTitle>
           <KvalitetsvurderingerV2 datasets={datasets} />
         </DynamicCard>
 
