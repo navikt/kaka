@@ -8,7 +8,7 @@ import { HeadingWithHelpText } from './common/heading-with-helptext';
 import { useKvalitetsvurderingV2 } from './common/use-kvalitetsvurdering-v2';
 import { useValidationError } from './common/use-validation-error';
 
-const { label, helpText } = ANNET_TEXTS.annetFritekst;
+const { label, helpText, description } = ANNET_TEXTS.annetFritekst;
 
 export const Annet = () => {
   const isInKlageenhet = useIsInKlageenhet();
@@ -17,13 +17,7 @@ export const Annet = () => {
     return null;
   }
 
-  return (
-    <section>
-      <HeadingWithHelpText helpText={helpText}>{label}</HeadingWithHelpText>
-
-      <CommentLoader />
-    </section>
-  );
+  return <CommentLoader />;
 };
 
 const useIsInKlageenhet = () => {
@@ -72,13 +66,14 @@ const Comment = ({ onChange, value, error }: CommentProps) => {
 
   return (
     <Textarea
-      label="Annet"
-      hideLabel
+      hideLabel={false}
       onChange={({ target }) => setText(target.value)}
       disabled={!canEdit}
       value={text}
       error={error}
       data-testid="annetFritekst"
+      label={<HeadingWithHelpText helpText={helpText}>{label}</HeadingWithHelpText>}
+      description={description}
     />
   );
 };
