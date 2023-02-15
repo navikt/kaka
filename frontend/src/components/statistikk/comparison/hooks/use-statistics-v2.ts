@@ -7,7 +7,14 @@ import { useComparisonProp } from '../../../filters/comparison/comparison-values
 import { useComparisonValues } from '../../../filters/comparison/comparison-values/use-values';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { ComparableQueryParams, QueryParams } from '../../../filters/filter-query-params';
-import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../../filters/hooks/use-query-filter';
+import {
+  useFromDateQueryFilter,
+  useQueryFilters,
+  useTilbakekrevingQueryFilter,
+  useToDateQueryFilter,
+} from '../../../filters/hooks/use-query-filter';
+import { TilbakekrevingEnum } from '../../../filters/types';
+import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
 import { useLabels } from './use-labels';
 
 const useStatistics = () => {
@@ -27,9 +34,14 @@ const useAllStatistics = (): IFullStatisticVurderingV2[] => {
 export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] => {
   const data = useAllStatistics();
 
+  const klageenheter = useQueryFilters(QueryParams.KLAGEENHETER);
+  const vedtaksinstansgrupper = useQueryFilters(QueryParams.VEDTAKSINSTANSGRUPPER);
+  const enheter = useQueryFilters(QueryParams.ENHETER);
+  const utfall = useQueryFilters(QueryParams.UTFALL);
   const types = useQueryFilters(QueryParams.TYPES);
   const ytelser = useQueryFilters(QueryParams.YTELSER);
-  const utfall = useQueryFilters(QueryParams.UTFALL);
+  const hjemler = useQueryFilters(QueryParams.HJEMLER);
+  const tilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   const comparisonProp = useComparisonProp();
   const comparisonValues = useComparisonValues();
@@ -42,13 +54,18 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
   const prefilteredData = useMemo(
     () =>
       data.filter(
-        (s) =>
-          s.avsluttetAvSaksbehandler !== null &&
-          (utfall.length === 0 || utfall.includes(s.utfallId)) &&
-          (types.length === 0 || types.includes(s.sakstypeId)) &&
-          (ytelser.length === 0 || ytelser.includes(s.ytelseId))
+        ({ ytelseId, sakstypeId, utfallId, tilknyttetEnhet, vedtaksinstansEnhet, hjemmelIdList }) =>
+          tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
+          (klageenheter.length === 0 || klageenheter.includes(tilknyttetEnhet)) &&
+          (enheter.length === 0 || vedtaksinstansEnhet === null || enheter.includes(vedtaksinstansEnhet)) &&
+          (utfall.length === 0 || utfall.includes(utfallId)) &&
+          (types.length === 0 || types.includes(sakstypeId)) &&
+          (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
+          (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))) &&
+          (vedtaksinstansgrupper.length === 0 ||
+            vedtaksinstansgrupper.some((id) => vedtaksinstansEnhet?.startsWith(id)))
       ),
-    [data, utfall, types, ytelser]
+    [data, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper]
   );
 
   return useMemo(() => {
