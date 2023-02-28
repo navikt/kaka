@@ -69,7 +69,7 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
         <FullWidthStickyContainer>
           <StatsContainer>
             <Finished stats={relevantData} />
-            <Omgjort stats={relevantData} label="Omgjort" />
+            <Omgjort stats={relevantData} label="Omgjort av vår enhet" />
             <Gjennomsnittstid stats={relevantData} />
             <Processed weeks={12} stats={relevantData} />
             <Processed weeks={15} stats={relevantData} />
