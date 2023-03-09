@@ -5,5 +5,5 @@ import { ComparisonOption } from './comparison-option';
 export const Hjemler = () => {
   const { data = [] } = useHjemler();
 
-  return <ComparisonOption data={data.map((h) => ({ id: h.id, label: h.navn }))} />;
+  return <ComparisonOption testId="hjemler-comparison" data={data} />;
 };

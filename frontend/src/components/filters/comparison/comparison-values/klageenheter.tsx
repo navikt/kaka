@@ -5,5 +5,5 @@ import { ComparisonOption } from './comparison-option';
 export const Klageenheter = () => {
   const { data = [] } = useKlageenheter();
 
-  return <ComparisonOption data={data.map((k) => ({ id: k.id, label: k.navn }))} />;
+  return <ComparisonOption testId="klageenheter-comparison" data={data} />;
 };
