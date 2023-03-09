@@ -37,6 +37,9 @@ const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => 
         callbacks: {
           label: tooltipCallback,
         },
+        xAlign: 'center',
+        yAlign: 'top',
+        caretPadding: 25,
       },
     },
   };
