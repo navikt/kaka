@@ -5,5 +5,10 @@ import { ComparisonOption } from './comparison-option';
 export const Enheter = () => {
   const { data = [] } = useEnheter();
 
-  return <ComparisonOption data={data.map((e) => ({ id: e.id, label: e.navn }))} />;
+  return (
+    <ComparisonOption
+      testId="enheter-comparison"
+      data={data.map(({ id, navn }) => ({ id, navn: `${id} - ${navn}` }))}
+    />
+  );
 };

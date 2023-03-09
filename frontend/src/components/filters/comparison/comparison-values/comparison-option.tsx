@@ -1,19 +1,16 @@
 import React, { useMemo } from 'react';
+import { IKodeverkSimpleValue } from '../../../../types/kodeverk';
 import { AddOptionButton } from './add-option-button';
 import { DEFAULT_OPTIONS } from './default-options';
 import { SimpleComparisonItem } from './simple-comparison-item';
 import { useOnchange } from './use-onchange';
 
-interface Option {
-  id: string;
-  label: string;
-}
-
 interface Props {
-  data: Option[];
+  data: IKodeverkSimpleValue[];
+  testId: string;
 }
 
-export const ComparisonOption = ({ data }: Props) => {
+export const ComparisonOption = ({ data, testId }: Props) => {
   const { selectedValues, add, remove, setId, setColor } = useOnchange();
   const options = useMemo(() => [...data, ...DEFAULT_OPTIONS], [data]);
   const availableOptions = useMemo(
@@ -21,23 +18,23 @@ export const ComparisonOption = ({ data }: Props) => {
     [options, selectedValues]
   );
   const availableOptionIds = availableOptions.map((e) => e.id);
-  const itemOptions = useMemo(() => availableOptions.map((e) => ({ value: e.id, label: e.label })), [availableOptions]);
-
   const [nextOption] = availableOptionIds;
 
   return (
     <>
       <AddOptionButton option={nextOption} onAdd={add} />
-      {selectedValues.map(([id, color]) => (
+      {selectedValues.map(([id, color], i) => (
         <SimpleComparisonItem
+          testId={`${testId}-${i}`}
           key={id}
           value={id}
           color={color}
-          currentOption={{ value: id, label: options.find((e) => e.id === id)?.label ?? '' }}
-          availableOptions={itemOptions}
+          currentOption={{ id, navn: options.find((e) => e.id === id)?.navn ?? id }}
+          availableOptions={availableOptions}
           onRemove={remove}
           onChangeId={setId}
           onChangeColor={setColor}
+          selectedLabel={options.find((e) => e.id === id)?.navn ?? id}
         />
       ))}
     </>

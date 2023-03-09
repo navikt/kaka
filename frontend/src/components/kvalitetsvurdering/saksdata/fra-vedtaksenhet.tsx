@@ -101,9 +101,9 @@ export const FraVedtaksenhet = () => {
       </StyledLabel>
       <ToggleButton
         id="vedtaksinstansEnhet"
-        theme={{ open }}
+        $open={open}
         onClick={() => setOpen(!open)}
-        error={typeof validationError !== 'undefined'}
+        $error={typeof validationError !== 'undefined'}
         data-value={saksdata.vedtaksinstansEnhet}
         ref={buttonRef}
       >
