@@ -44,20 +44,17 @@ export const useFilteredManagerStatisticsV2 = () => {
   const types = useQueryFilters(QueryParams.TYPES);
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
-  const klageenheter = useQueryFilters(QueryParams.KLAGEENHETER);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const tilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   const filter = useCallback(
-    () =>
-      ({ ytelseId, sakstypeId, utfallId, tilknyttetEnhet, hjemmelIdList }: IFullStatisticVurderingV2) =>
-        tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
-        (klageenheter.length === 0 || klageenheter.includes(tilknyttetEnhet)) &&
-        (utfall.length === 0 || utfall.includes(utfallId)) &&
-        (types.length === 0 || types.includes(sakstypeId)) &&
-        (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
-        (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))),
-    [hjemler, klageenheter, tilbakekreving, types, utfall, ytelser]
+    ({ ytelseId, sakstypeId, utfallId, hjemmelIdList }: IFullStatisticVurderingV2) =>
+      tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
+      (utfall.length === 0 || utfall.includes(utfallId)) &&
+      (types.length === 0 || types.includes(sakstypeId)) &&
+      (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
+      (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))),
+    [hjemler, tilbakekreving, types, utfall, ytelser]
   );
 
   return useMemo(
@@ -65,7 +62,7 @@ export const useFilteredManagerStatisticsV2 = () => {
       mine: mine.filter(filter),
       rest: rest.filter(filter),
       saksbehandlere: Object.entries(saksbehandlere).reduce<Record<string, IFullStatisticVurderingV2[]>>(
-        (acc, [saksbehandler, vurderinger]) => ({ ...acc, [saksbehandler]: vurderinger }),
+        (acc, [saksbehandler, vurderinger]) => ({ ...acc, [saksbehandler]: vurderinger.filter(filter) }),
         {}
       ),
     }),
