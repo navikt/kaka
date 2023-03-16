@@ -16,6 +16,7 @@ import {
 import { MainReason } from '../../../../../types/kvalitetsvurdering/v2';
 import { IStatisticVurderingV2 } from '../../../../../types/statistics/v2';
 import { QueryParams } from '../../../../filters/filter-query-params';
+import { CardSize, DynamicCard } from '../../../card/card';
 import { useQueryParam } from '../../../hooks/use-query-param';
 import { CardTitleWithExplainer, TitleWithExplainer } from '../../kvalitetsvurderinger/explainer';
 import { ChartContainer, ChartTitle } from '../../styled-components';
@@ -70,7 +71,7 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
   }
 
   return (
-    <>
+    <DynamicCard size={CardSize.LARGE}>
       <CardTitleWithExplainer
         helpText="Ved utregningen av hvor mange prosent av sakene som har mangler ved kvaliteten, er ikke saker med utfallene
           «retur», «trukket» og «ugunst (ugyldig)» med i grunnlaget. Klageinstansen gjør ikke kvalitetsvurderinger i
@@ -108,7 +109,7 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
           </HjemlerSubContainer>
         ))}
       </HjemlerContainer>
-    </>
+    </DynamicCard>
   );
 };
 

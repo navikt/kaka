@@ -16,7 +16,7 @@ type MinimalVurdering = Pick<IFullStatisticVurderingV2, 'avsluttetAvSaksbehandle
 interface Stat {
   color: string;
   label: string;
-  vurderinger: MinimalVurdering[];
+  data: MinimalVurdering[];
 }
 
 interface Props {
@@ -32,7 +32,7 @@ export const OmgjoeringsprosentOverTime = ({ stats }: Props) => {
   const datasets = useMemo(
     () =>
       stats.map((s) => {
-        const weekTotals = s.vurderinger.reduce((acc, stat) => {
+        const weekTotals = s.data.reduce((acc, stat) => {
           if (stat.avsluttetAvSaksbehandler === null) {
             return acc;
           }

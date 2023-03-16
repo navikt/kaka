@@ -15,6 +15,7 @@ import { Hjemler } from '../../charts/hjemler';
 import { Omgjoeringsprosent } from '../../charts/omgjoeringsprosent';
 import { UtfallGraph } from '../../charts/utfall-graph';
 import { KvalitetsvurderingerV2 } from '../../charts/v2/kvalitetsvurderinger/kvalitetsvurderinger';
+import { COLORS } from '../../comparison/get-default-color';
 import { filterIrrelevant } from '../../filters/relevant';
 import { useRelevantStatistics } from '../../hooks/use-relevant-statistics';
 import { Gjennomsnittstid } from '../../key-stats/average-time';
@@ -54,12 +55,28 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
     [relevantMine, relevantSaksbehandlereStats, selectedSaksbehandlere.length]
   );
 
-  const datasets = [
-    { label: 'Vår enhet', data: relevantMine },
-    { label: 'Andre enheter', data: relevantRest },
-    { label: 'Alle enheter', data: [...relevantMine, ...relevantRest] },
-    ...relevantSaksbehandlereStats,
-  ];
+  const datasets = useMemo(
+    () => [
+      { label: 'Vår enhet', data: relevantMine },
+      { label: 'Andre enheter', data: relevantRest },
+      { label: 'Alle enheter', data: [...relevantMine, ...relevantRest] },
+      ...relevantSaksbehandlereStats,
+    ],
+    [relevantMine, relevantRest, relevantSaksbehandlereStats]
+  );
+
+  const behandlingstidStats = useMemo(
+    () =>
+      datasets.map(({ label, data }, i) => ({
+        label,
+        color: COLORS[i] ?? 'red',
+        data: data.map(({ avsluttetAvSaksbehandler, kaBehandlingstidDays }) => ({
+          avsluttetAvSaksbehandler,
+          behandlingstidDays: kaBehandlingstidDays,
+        })),
+      })),
+    [datasets]
+  );
 
   return (
     <>
@@ -81,9 +98,7 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
           <Omgjoeringsprosent stats={datasets} />
         </DynamicCard>
 
-        <DynamicCard size={CardSize.LARGE}>
-          <KvalitetsvurderingerV2 datasets={datasets} />
-        </DynamicCard>
+        <KvalitetsvurderingerV2 datasets={datasets} />
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Utfall</CardTitle>
@@ -101,7 +116,7 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
           <BehandlingstidHistogram stats={relevantData} />
         </DynamicCard>
 
-        <BehandlingstidOverTime stats={relevantData} />
+        <BehandlingstidOverTime stats={behandlingstidStats} />
       </ContentArea>
     </>
   );

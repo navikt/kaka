@@ -10,6 +10,7 @@ import { Hjemler } from '../../charts/hjemler';
 import { Omgjoeringsprosent } from '../../charts/omgjoeringsprosent';
 import { UtfallGraph } from '../../charts/utfall-graph';
 import { KvalitetsvurderingerV2 } from '../../charts/v2/kvalitetsvurderinger/kvalitetsvurderinger';
+import { useBehandlingstidOverTime } from '../../hooks/use-behandlingstid-over-time';
 import { useRelevantStatistics } from '../../hooks/use-relevant-statistics';
 import { Gjennomsnittstid } from '../../key-stats/average-time';
 import { Finished } from '../../key-stats/finished';
@@ -24,6 +25,7 @@ interface Props {
 
 export const ContentV2 = ({ stats, isLoading }: Props) => {
   const relevantStats = useRelevantStatistics(stats);
+  const behandlingstidOverTime = useBehandlingstidOverTime(relevantStats);
 
   const datasets = [{ label: 'Totalt', data: relevantStats }];
 
@@ -46,9 +48,7 @@ export const ContentV2 = ({ stats, isLoading }: Props) => {
           <Omgjoeringsprosent stats={datasets} />
         </DynamicCard>
 
-        <DynamicCard size={CardSize.LARGE}>
-          <KvalitetsvurderingerV2 datasets={datasets} />
-        </DynamicCard>
+        <KvalitetsvurderingerV2 datasets={datasets} />
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Utfall</CardTitle>
@@ -66,7 +66,7 @@ export const ContentV2 = ({ stats, isLoading }: Props) => {
           <BehandlingstidHistogram stats={relevantStats} />
         </DynamicCard>
 
-        <BehandlingstidOverTime stats={relevantStats} />
+        <BehandlingstidOverTime stats={behandlingstidOverTime} />
       </ContentArea>
     </>
   );
