@@ -1,11 +1,12 @@
 import { ChartOptions } from 'chart.js';
+import { getISOWeeksInYear } from 'date-fns';
 import React, { useMemo } from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import { CardTitle } from '../../../styled-components/cards';
 import { StatsDate } from '../../../types/statistics/common';
 import { CardSize, DynamicCard } from '../card/card';
 
-const useOptions = (): ChartOptions<'line'> => ({
+const useOptions = (): ChartOptions<'bar'> => ({
   aspectRatio: 3,
   scales: {
     y: {
@@ -14,133 +15,143 @@ const useOptions = (): ChartOptions<'line'> => ({
   },
 });
 
-interface Stat {
+interface Data {
   avsluttetAvSaksbehandler: StatsDate;
-  kaBehandlingstidDays: number;
-  totalBehandlingstidDays: number;
-  vedtaksinstansBehandlingstidDays: number;
+  behandlingstidDays: number;
+}
+
+interface Stat {
+  label: string;
+  data: Data[];
+  color: string;
 }
 
 interface Props {
   stats: Stat[];
+  children?: React.ReactNode;
 }
 
-export const BehandlingstidOverTime = ({ stats: allStats }: Props) => {
-  const stats = useMemo(
-    () => allStats.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null),
-    [allStats]
-  );
+interface Dataset {
+  count: number;
+  behandlingstidDays: number;
+  year: number;
+  weekNumber: number;
+}
 
-  const weekTotals = useMemo(
+export const BehandlingstidOverTime = ({ stats, children }: Props) => {
+  const datasets = useMemo(
     () =>
-      stats.reduce(
-        (acc, stat) => {
-          if (stat.avsluttetAvSaksbehandler !== null) {
-            const { weekNumber, year } = stat.avsluttetAvSaksbehandler;
-            const key = `${year}-${weekNumber}`;
-            const existing = acc.get(key);
+      stats.map(({ label, color, data: rawData }) => {
+        const weekTotals = rawData
+          .sort((a, b) => {
+            const { year: aYear, weekNumber: aWeek } = a.avsluttetAvSaksbehandler;
+            const { year: bYear, weekNumber: bWeek } = b.avsluttetAvSaksbehandler;
 
-            if (typeof existing === 'undefined') {
-              acc.set(key, {
-                count: 1,
-                total: stat.totalBehandlingstidDays,
-                ka: stat.kaBehandlingstidDays,
-                vedtak: stat.vedtaksinstansBehandlingstidDays,
-                year,
-                weekNumber,
-              });
-            } else {
-              acc.set(key, {
-                count: existing.count + 1,
-                total: existing.total + stat.totalBehandlingstidDays,
-                ka: existing.ka + stat.kaBehandlingstidDays,
-                vedtak: existing.vedtak + stat.vedtaksinstansBehandlingstidDays,
-                year,
-                weekNumber,
-              });
+            if (aYear !== bYear) {
+              return aYear - bYear;
             }
-          }
 
-          return acc;
-        },
-        new Map<
-          string,
-          {
-            count: number;
-            total: number;
-            ka: number;
-            vedtak: number;
-            year: number;
-            weekNumber: number;
-          }
-        >()
-      ),
+            return aWeek - bWeek;
+          })
+          .reduce((acc, stat) => {
+            if (stat.avsluttetAvSaksbehandler !== null) {
+              const { weekNumber, year } = stat.avsluttetAvSaksbehandler;
+              const key = `${year} uke ${weekNumber}`;
+              const existing = acc.get(key);
+
+              if (typeof existing === 'undefined') {
+                acc.set(key, {
+                  count: 1,
+                  behandlingstidDays: stat.behandlingstidDays,
+                  year,
+                  weekNumber,
+                });
+              } else {
+                acc.set(key, {
+                  count: existing.count + 1,
+                  behandlingstidDays: existing.behandlingstidDays + stat.behandlingstidDays,
+                  year,
+                  weekNumber,
+                });
+              }
+            }
+
+            return acc;
+          }, new Map<string, Dataset>());
+
+        const data: Record<string, number> = {};
+
+        for (const [key, { behandlingstidDays, count }] of weekTotals) {
+          data[key] = Math.round(behandlingstidDays / count);
+        }
+
+        return {
+          label,
+          backgroundColor: color,
+          borderColor: color,
+          borderWidth: 2,
+          data,
+        };
+      }),
     [stats]
   );
 
-  const sortedEntries = useMemo(
-    () =>
-      [...weekTotals.entries()].sort((a, b) => {
-        const [, { year: aYear, weekNumber: aWeek }] = a;
-        const [, { year: bYear, weekNumber: bWeek }] = b;
-
-        if (aYear !== bYear) {
-          return aYear - bYear;
-        }
-
-        return aWeek - bWeek;
-      }),
-    [weekTotals]
-  );
-
-  const data = useMemo(() => {
-    const labels = sortedEntries.map(([, { year, weekNumber }]) => `${year} uke ${weekNumber}`);
-    const vedtak = sortedEntries.map((entry) => Math.round(entry[1].vedtak / entry[1].count));
-    const ka = sortedEntries.map((entry) => Math.round(entry[1].ka / entry[1].count));
-    const total = sortedEntries.map((entry) => Math.round(entry[1].total / entry[1].count));
-
-    return {
-      labels,
-      datasets: [
-        {
-          label: 'Vedtaksinstans',
-          data: vedtak,
-          backgroundColor: '#7CDAF8',
-          borderColor: '#7CDAF8',
-          borderWidth: 2,
-        },
-        {
-          label: 'Klageinstans',
-          data: ka,
-          backgroundColor: '#8269A2',
-          borderColor: '#8269A2',
-          borderWidth: 2,
-        },
-        {
-          label: 'Total',
-          data: total,
-          backgroundColor: '#33AA5F',
-          borderColor: '#33AA5F',
-          borderWidth: 2,
-        },
-      ],
-    };
-  }, [sortedEntries]);
-
   const options = useOptions();
 
+  const labels = useMemo(() => {
+    const flatStats = stats.flatMap(({ data }) => data);
+    const [initial] = flatStats;
+
+    if (typeof initial === 'undefined') {
+      return [];
+    }
+
+    let minWeek = initial.avsluttetAvSaksbehandler.weekNumber;
+    let minYear = initial.avsluttetAvSaksbehandler.year;
+    let maxWeek = initial.avsluttetAvSaksbehandler.weekNumber;
+    let maxYear = initial.avsluttetAvSaksbehandler.year;
+
+    for (const { avsluttetAvSaksbehandler } of flatStats) {
+      const { year, weekNumber } = avsluttetAvSaksbehandler;
+
+      if (year < minYear || (year === minYear && weekNumber < minWeek)) {
+        minYear = year;
+        minWeek = weekNumber;
+      }
+
+      if (year > maxYear || (year === maxYear && weekNumber > maxWeek)) {
+        maxYear = year;
+        maxWeek = weekNumber;
+      }
+    }
+
+    const yearAndWeekList: string[] = [];
+
+    for (let y = minYear; y <= maxYear; y++) {
+      const startWeek = y === minYear ? minWeek : 1;
+      const numberOfWeeks = y === maxYear ? maxWeek : getISOWeeksInYear(new Date(y, 0, 1));
+
+      for (let w = startWeek; w <= numberOfWeeks; w++) {
+        yearAndWeekList.push(`${y} uke ${w}`);
+      }
+    }
+
+    return yearAndWeekList;
+  }, [stats]);
+
   const size = useMemo(() => {
-    if (data.labels.length > 15) {
+    if (labels.length * datasets.length > 15) {
       return CardSize.LARGE;
     }
 
     return CardSize.MEDIUM;
-  }, [data.labels]);
+  }, [datasets.length, labels.length]);
 
   return (
     <DynamicCard size={size}>
       <CardTitle>Behandlingstid</CardTitle>
-      <Line options={options} data={data} />
+      {children}
+      <Bar options={options} data={{ datasets, labels }} />
     </DynamicCard>
   );
 };

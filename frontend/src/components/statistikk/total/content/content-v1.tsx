@@ -10,6 +10,7 @@ import { Hjemler } from '../../charts/hjemler';
 import { KvalitetsvurderingerV1 } from '../../charts/kvalitetsvurderinger/kvalitetsvurderinger';
 import { Omgjoeringsprosent } from '../../charts/omgjoeringsprosent';
 import { UtfallGraph } from '../../charts/utfall-graph';
+import { useBehandlingstidOverTime } from '../../hooks/use-behandlingstid-over-time';
 import { useRelevantStatistics } from '../../hooks/use-relevant-statistics';
 import { Gjennomsnittstid } from '../../key-stats/average-time';
 import { Finished } from '../../key-stats/finished';
@@ -24,6 +25,7 @@ interface Props {
 
 export const ContentV1 = ({ rest, isLoading }: Props) => {
   const relevantRest = useRelevantStatistics(rest);
+  const behandlingstidOverTime = useBehandlingstidOverTime(relevantRest);
 
   const datasets = [{ label: 'Totalt', data: relevantRest }];
 
@@ -68,7 +70,7 @@ export const ContentV1 = ({ rest, isLoading }: Props) => {
           <BehandlingstidHistogram stats={relevantRest} />
         </DynamicCard>
 
-        <BehandlingstidOverTime stats={relevantRest} />
+        <BehandlingstidOverTime stats={behandlingstidOverTime} />
       </ContentArea>
     </>
   );

@@ -14,8 +14,9 @@ interface Props {
 }
 
 export const ContentV1 = ({ stats, isLoading }: Props) => {
-  const datasets = stats.map(({ label, vurderinger }) => ({
+  const datasets = stats.map(({ label, vurderinger, color }) => ({
     label,
+    color,
     data: filterIrrelevant(vurderinger),
   }));
 
@@ -31,7 +32,7 @@ export const ContentV1 = ({ stats, isLoading }: Props) => {
 
         <DynamicCard size={CardSize.LARGE}>
           <CardTitle>Omgjøringsprosent per uke</CardTitle>
-          <OmgjoeringsprosentOverTime stats={stats} />
+          <OmgjoeringsprosentOverTime stats={datasets} />
         </DynamicCard>
       </ContentArea>
     </>
