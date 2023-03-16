@@ -1,12 +1,12 @@
 import { ChartOptions } from 'chart.js';
 import { getISOWeeksInYear } from 'date-fns';
 import React, { useMemo } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import { CardTitle } from '../../../styled-components/cards';
 import { StatsDate } from '../../../types/statistics/common';
 import { CardSize, DynamicCard } from '../card/card';
 
-const useOptions = (): ChartOptions<'bar'> => ({
+const useOptions = (): ChartOptions<'line'> => ({
   aspectRatio: 3,
   scales: {
     y: {
@@ -151,7 +151,7 @@ export const BehandlingstidOverTime = ({ stats, children }: Props) => {
     <DynamicCard size={size}>
       <CardTitle>Behandlingstid</CardTitle>
       {children}
-      <Bar options={options} data={{ datasets, labels }} />
+      <Line options={options} data={{ datasets, labels }} />
     </DynamicCard>
   );
 };
