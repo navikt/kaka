@@ -1,5 +1,5 @@
 import { Label } from '@navikt/ds-react';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useCanEdit } from '../../../hooks/use-can-edit';
 import { useEnheterForYtelse, useKlageenheterForYtelse, useYtelseParams } from '../../../hooks/use-kodeverk-value';
@@ -23,7 +23,7 @@ export const FraVedtaksenhet = () => {
   const klageenheter = useKlageenheterForYtelse(ytelseParams); // Sakstype anke uses klageenheter
   const validationError = useValidationError('vedtaksinstansEnhet');
   const [open, setOpen] = useState(false);
-  const buttonRef = React.useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const options = useMemo(() => {
     if (saksdata?.sakstypeId === SakstypeEnum.ANKE) {

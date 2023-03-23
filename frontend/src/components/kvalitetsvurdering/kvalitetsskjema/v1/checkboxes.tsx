@@ -1,5 +1,5 @@
 import { Checkbox, CheckboxGroup, HelpText } from '@navikt/ds-react';
-import React, { Fragment } from 'react';
+import React, { Fragment, forwardRef } from 'react';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
 import { useKvalitetsvurdering } from '../../../../hooks/use-kvalitetsvurdering';
 import { useUpdateKvalitetsvurderingMutation } from '../../../../redux-api/kvalitetsvurdering/v1';
@@ -14,7 +14,7 @@ export interface CheckboxesProps {
   error?: string | undefined;
 }
 
-export const Checkboxes = React.forwardRef<HTMLDivElement, CheckboxesProps>(({ reasons, legendText, error }, ref) => {
+export const Checkboxes = forwardRef<HTMLDivElement, CheckboxesProps>(({ reasons, legendText, error }, ref) => {
   const [kvalitetsvurdering, isLoading] = useKvalitetsvurdering();
   const [updateKvalitetsvurdering] = useUpdateKvalitetsvurderingMutation();
   const canEdit = useCanEdit();
