@@ -1,4 +1,3 @@
-import { Helptext } from '@navikt/ds-icons';
 import { BodyShort, Button, Label } from '@navikt/ds-react';
 import React, { Fragment, useMemo, useState } from 'react';
 import styled from 'styled-components';
@@ -20,13 +19,7 @@ export const HelpTexts = ({ relevantReasons }: Props) => {
 
   return (
     <div>
-      <ToggleButton
-        onClick={() => setIsOpen(!isOpen)}
-        disabled={!hasHelpTexts}
-        size="small"
-        icon={<Helptext />}
-        iconPosition="right"
-      >
+      <ToggleButton onClick={() => setIsOpen(!isOpen)} disabled={!hasHelpTexts} size="small" iconPosition="right">
         {getButtonPrefix(isOpen, hasHelpTexts)} hjelpetekster
       </ToggleButton>
       <ShowHelpTexts isOpen={isOpen} relevantReasons={relevantReasonHelpTexts} />

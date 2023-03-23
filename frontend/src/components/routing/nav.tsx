@@ -1,4 +1,12 @@
-import { Data, DataFilled, Divide, DivideFilled, List, Task, UpDown } from '@navikt/ds-icons';
+import {
+  BarChartFillIcon,
+  BarChartIcon,
+  LineGraphStackedIcon,
+  ListIcon,
+  PieChartFillIcon,
+  PieChartIcon,
+  TasklistIcon,
+} from '@navikt/aksel-icons';
 import React from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
 import styled from 'styled-components';
@@ -30,7 +38,7 @@ export const Nav = () => {
     <StyledNav role="navigation" aria-label="Meny" data-testid="kaka-nav">
       <StyledNavLinkList>
         <NavItem to={`/statistikk/aapen?${defaultQueryAapen}`} testId="statistikk-aapen-nav-link" hasAccess>
-          <Data /> Åpen statistikk
+          <BarChartIcon /> Åpen statistikk
         </NavItem>
 
         <NavItem
@@ -38,7 +46,7 @@ export const Nav = () => {
           testId="statistikk-total-nav-link"
           hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}
         >
-          <DataFilled /> Totalstatistikk
+          <BarChartFillIcon /> Totalstatistikk
         </NavItem>
 
         <NavItem
@@ -46,7 +54,7 @@ export const Nav = () => {
           testId="statistikk-leder-nav-link"
           hasAccess={roles.ROLE_KAKA_LEDERSTATISTIKK}
         >
-          <DivideFilled /> Lederstatistikk
+          <PieChartFillIcon /> Lederstatistikk
         </NavItem>
 
         <NavItem
@@ -54,7 +62,7 @@ export const Nav = () => {
           testId="statistikk-min-nav-link"
           hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}
         >
-          <Divide /> Min statistikk
+          <PieChartIcon /> Min statistikk
         </NavItem>
 
         <NavItem
@@ -62,7 +70,7 @@ export const Nav = () => {
           testId="kvalitetsvurdering-nav-link"
           hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}
         >
-          <List /> Kvalitetsvurderinger
+          <ListIcon /> Kvalitetsvurderinger
         </NavItem>
 
         <NavItem
@@ -70,14 +78,14 @@ export const Nav = () => {
           testId="tilbakemeldinger-nav-link"
           hasAccess={roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER}
         >
-          <Task /> Tilbakemeldinger
+          <TasklistIcon /> Tilbakemeldinger
         </NavItem>
         <NavItem
           to={`/sammenlikning?${defauleQueryComparison}`}
           testId="sammenlikning-nav-link"
           hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}
         >
-          <UpDown /> Sammenlikning
+          <LineGraphStackedIcon /> Sammenlikning
         </NavItem>
       </StyledNavLinkList>
     </StyledNav>

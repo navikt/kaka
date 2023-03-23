@@ -1,4 +1,4 @@
-import { Cancel } from '@navikt/ds-icons';
+import { ArrowUndoIcon } from '@navikt/aksel-icons';
 import { Button, HelpText, Label } from '@navikt/ds-react';
 import { format, parse } from 'date-fns';
 import React from 'react';
@@ -109,7 +109,7 @@ export const Filters = () => {
       <Button
         variant="secondary"
         size="small"
-        icon={<Cancel aria-hidden />}
+        icon={<ArrowUndoIcon aria-hidden />}
         onClick={resetFilters}
         disabled={typeof userData === 'undefined'}
       >

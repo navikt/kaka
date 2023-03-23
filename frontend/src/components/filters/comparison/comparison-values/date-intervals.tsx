@@ -1,4 +1,4 @@
-import { Delete } from '@navikt/ds-icons';
+import { TrashIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import { parse } from 'date-fns';
 import React from 'react';
@@ -52,7 +52,12 @@ export const DateIntervals = () => {
                 onChange={({ target }) => setColor(stringInterval, target.value)}
               />
 
-              <Button onClick={() => removeIndex(index)} size="small" icon={<Delete aria-hidden />} variant="danger" />
+              <Button
+                onClick={() => removeIndex(index)}
+                size="small"
+                icon={<TrashIcon aria-hidden />}
+                variant="danger"
+              />
             </Buttons>
           </Container>
         );

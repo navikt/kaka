@@ -1,4 +1,4 @@
-import { Delete } from '@navikt/ds-icons';
+import { TrashIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import React from 'react';
 import styled from 'styled-components';
@@ -55,7 +55,7 @@ export const SimpleComparisonItem = ({
         />
       </DropdownContainer>
       <StyledColorPicker type="color" value={color} onChange={({ target }) => onChangeColor(value, target.value)} />
-      <Button onClick={() => onRemove(value)} size="small" icon={<Delete aria-hidden />} variant="danger" />
+      <Button onClick={() => onRemove(value)} size="small" icon={<TrashIcon aria-hidden />} variant="danger" />
     </StyledComparisonItem>
   );
 };
