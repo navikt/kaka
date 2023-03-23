@@ -1,4 +1,4 @@
-import { useGetSaksdataQuery } from '../redux-api/saksdata';
+import { useGetSaksdataQuery } from '@app/redux-api/saksdata';
 import { useSaksdataId } from './use-saksdata-id';
 
 export const useSaksdata = () => {

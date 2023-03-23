@@ -1,7 +1,7 @@
 import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { toPercent } from '../../../../../domain/number';
+import { toPercent } from '@app/domain/number';
 import { GetAbsoluteValue, useBarTooltipText } from '../../../hooks/use-bar-tooltip-text';
 import { BAR_THICKNESS, DataSet, getTotalMangelfullDatasets } from './calculations/total-mangelfull';
 import { HorizontalBars } from './horizontal-bars';

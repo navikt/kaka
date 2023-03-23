@@ -1,7 +1,7 @@
 import { Chart, TooltipCallbacks } from 'chart.js';
-import { LOCALE } from '../../../domain/intl';
-import { toPercent } from '../../../domain/number';
-import { getFontColor } from '../../../functions/get-font-color';
+import { LOCALE } from '@app/domain/intl';
+import { toPercent } from '@app/domain/number';
+import { getFontColor } from '@app/functions/get-font-color';
 
 export type GetAbsoluteValue = (datasetIndex: number, dataIndex: number) => [number, number];
 

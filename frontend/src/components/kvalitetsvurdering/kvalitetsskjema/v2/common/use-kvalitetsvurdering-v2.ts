@@ -1,14 +1,14 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query';
-import { useSaksdata } from '../../../../../hooks/use-saksdata';
+import { useSaksdata } from '@app/hooks/use-saksdata';
 import {
   useGetCensoredKvalitetsvurderingQuery,
   useGetKvalitetsvurderingQuery,
   useUpdateKvalitetsvurderingMutation,
-} from '../../../../../redux-api/kvalitetsvurdering/v2';
-import { useKlageenheter } from '../../../../../simple-api-state/use-kodeverk';
-import { useUser } from '../../../../../simple-api-state/use-user';
-import { IKvalitetsvurdering, IKvalitetsvurderingData } from '../../../../../types/kvalitetsvurdering/v2';
-import { ISaksdataComplete, ISaksdataIncomplete } from '../../../../../types/saksdata';
+} from '@app/redux-api/kvalitetsvurdering/v2';
+import { useKlageenheter } from '@app/simple-api-state/use-kodeverk';
+import { useUser } from '@app/simple-api-state/use-user';
+import { IKvalitetsvurdering, IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
+import { ISaksdataComplete, ISaksdataIncomplete } from '@app/types/saksdata';
 
 interface Loading {
   saksdata: undefined;

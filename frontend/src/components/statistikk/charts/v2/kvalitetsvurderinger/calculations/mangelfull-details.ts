@@ -1,11 +1,11 @@
 import { ChartData } from 'chart.js';
-import { toPercent } from '../../../../../../domain/number';
+import { toPercent } from '@app/domain/number';
 import {
   KVALITETSVURDERING_V2_TEXTS,
   MAIN_REASON_IDS,
   REASON_TO_SUBREASONS,
-} from '../../../../../../types/kvalitetsvurdering/texts/structures';
-import { MainReason } from '../../../../../../types/kvalitetsvurdering/v2';
+} from '@app/types/kvalitetsvurdering/texts/structures';
+import { MainReason } from '@app/types/kvalitetsvurdering/v2';
 import { DataSet } from '../types';
 import { calculateMainReasons } from './helpers/main-reasons';
 import { calculateReasons } from './helpers/reasons';

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
-import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '../../../../hooks/use-kodeverk-value';
-import { useSaksdata } from '../../../../hooks/use-saksdata';
-import { ILovKildeToRegistreringshjemmel } from '../../../../types/kodeverk';
+import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
+import { useSaksdata } from '@app/hooks/use-saksdata';
+import { ILovKildeToRegistreringshjemmel } from '@app/types/kodeverk';
 import {
   StyledListItem,
   StyledNoneSelected,

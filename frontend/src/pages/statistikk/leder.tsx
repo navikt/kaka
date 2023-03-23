@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lederstatistikk } from '../../components/statistikk/leder/lederstatistikk';
+import { Lederstatistikk } from '@app/components/statistikk/leder/lederstatistikk';
 import { PageWrapper } from '../page-wrapper';
 
 export const StatistikkLederPage = () => (

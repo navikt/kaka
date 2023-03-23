@@ -1,4 +1,4 @@
-import { RadiovalgField } from '../../../../types/statistics/v1';
+import { RadiovalgField } from '@app/types/statistics/v1';
 import {
   ReasonLabel,
   brukAvRaadgivendeLegeReasons,

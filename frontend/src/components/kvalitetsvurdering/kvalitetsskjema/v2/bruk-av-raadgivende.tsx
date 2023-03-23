@@ -1,19 +1,16 @@
 import { Radio } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import React, { useMemo } from 'react';
-import { useCanEdit } from '../../../../hooks/use-can-edit';
-import { useSaksdata } from '../../../../hooks/use-saksdata';
-import { useYtelser } from '../../../../simple-api-state/use-kodeverk';
-import { RadiovalgExtended } from '../../../../types/kvalitetsvurdering/radio';
-import {
-  BRUK_AV_RAADGIVENDE_LEGE_REASONS,
-  getChildrenEntries,
-} from '../../../../types/kvalitetsvurdering/texts/structures';
+import { useCanEdit } from '@app/hooks/use-can-edit';
+import { useSaksdata } from '@app/hooks/use-saksdata';
+import { useYtelser } from '@app/simple-api-state/use-kodeverk';
+import { RadiovalgExtended } from '@app/types/kvalitetsvurdering/radio';
+import { BRUK_AV_RAADGIVENDE_LEGE_REASONS, getChildrenEntries } from '@app/types/kvalitetsvurdering/texts/structures';
 import {
   BRUK_AV_RAADGIVENDE_LEGE_RADIO_TEXTS,
   BRUK_AV_RAADGIVENDE_LEGE_TEXTS,
-} from '../../../../types/kvalitetsvurdering/texts/texts';
-import { MainReason } from '../../../../types/kvalitetsvurdering/v2';
+} from '@app/types/kvalitetsvurdering/texts/texts';
+import { MainReason } from '@app/types/kvalitetsvurdering/v2';
 import { Checkboxes } from './common/checkboxes';
 import { ContainerWithHelpText } from './common/container-with-helptext';
 import { RadioButtonsRow, StyledHeading, StyledRadioGroup } from './common/styled-components';

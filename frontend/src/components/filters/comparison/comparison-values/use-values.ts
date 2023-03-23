@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { OptionValue } from '../../../../types/statistics/common';
+import { OptionValue } from '@app/types/statistics/common';
 import { QueryParams } from '../../filter-query-params';
 
 export const useComparisonValues = (): OptionValue[] => {

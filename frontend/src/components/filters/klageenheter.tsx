@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useKlageenheter } from '../../simple-api-state/use-kodeverk';
+import { useKlageenheter } from '@app/simple-api-state/use-kodeverk';
 import { Filter } from './common/filter';
 import { FilterType } from './types';
 

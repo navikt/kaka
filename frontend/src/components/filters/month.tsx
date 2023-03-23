@@ -1,7 +1,7 @@
 import { Select } from '@navikt/ds-react';
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { KvalitetsvurderingVersion } from '../../types/saksdata';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { useVersionQueryFilter } from './hooks/use-query-filter';
 
 const MONTH_REGEX = new RegExp('^\\d{4}-\\d{2}$');

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { IKodeverkSimpleValue } from '../../../../types/kodeverk';
+import { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { AddOptionButton } from './add-option-button';
 import { DEFAULT_OPTIONS } from './default-options';
 import { SimpleComparisonItem } from './simple-comparison-item';

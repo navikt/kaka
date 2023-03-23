@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useYtelser } from '../../../simple-api-state/use-kodeverk';
+import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { useVersionQueryFilter } from './use-query-filter';
 
 export const useHjemmelTexts = (ytelseIds: string[]) => {

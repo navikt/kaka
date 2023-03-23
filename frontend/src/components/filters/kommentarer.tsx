@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { KvalitetsvurderingVersion } from '../../types/saksdata';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { Filter } from './common/filter';
 import { useVersionQueryFilter } from './hooks/use-query-filter';
 import { FilterType } from './types';

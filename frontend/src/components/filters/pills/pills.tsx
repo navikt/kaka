@@ -6,10 +6,10 @@ import {
   useRegistreringshjemlerMap,
   useSakstyper,
   useYtelser,
-} from '../../../simple-api-state/use-kodeverk';
-import { useSaksbehandlere } from '../../../simple-api-state/use-saksbehandlere';
-import { useUser } from '../../../simple-api-state/use-user';
-import { useUtfall } from '../../../simple-api-state/use-utfall';
+} from '@app/simple-api-state/use-kodeverk';
+import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
+import { useUser } from '@app/simple-api-state/use-user';
+import { useUtfall } from '@app/simple-api-state/use-utfall';
 import { QueryParams } from '../../filters/filter-query-params';
 import { VEDTAKSINSTANSGRUPPER } from '../../statistikk/total/vedtaksinstansgruppe-filter';
 import { useQueryFilters } from '../hooks/use-query-filter';

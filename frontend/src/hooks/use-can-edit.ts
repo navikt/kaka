@@ -1,4 +1,4 @@
-import { useUser } from '../simple-api-state/use-user';
+import { useUser } from '@app/simple-api-state/use-user';
 import { useKvalitetsvurderingIsFinished } from './use-kvalitetsvurdering-is-finished';
 import { useSaksdata } from './use-saksdata';
 

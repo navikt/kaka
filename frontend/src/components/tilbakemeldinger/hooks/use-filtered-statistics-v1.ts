@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
-import { useStatisticsVedtaksinstansleder } from '../../../simple-api-state/statistics/v1/use-statistics-vedtaksinstansleder';
-import { SakstypeEnum } from '../../../types/sakstype';
-import { IStatisticVurderingV1 } from '../../../types/statistics/v1';
+import { useStatisticsVedtaksinstansleder } from '@app/simple-api-state/statistics/v1/use-statistics-vedtaksinstansleder';
+import { SakstypeEnum } from '@app/types/sakstype';
+import { IStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../filters/date-presets/constants';
 import { QueryParams } from '../../filters/filter-query-params';
 import {

@@ -1,9 +1,9 @@
 import { Heading } from '@navikt/ds-react';
 import React from 'react';
-import { useKvalitetsvurdering } from '../../../../hooks/use-kvalitetsvurdering';
-import { useSaksdata } from '../../../../hooks/use-saksdata';
-import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
-import { SakstypeEnum } from '../../../../types/sakstype';
+import { useKvalitetsvurdering } from '@app/hooks/use-kvalitetsvurdering';
+import { useSaksdata } from '@app/hooks/use-saksdata';
+import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
+import { SakstypeEnum } from '@app/types/sakstype';
 import { Reasons } from './reasons';
 import { Reason } from './types';
 

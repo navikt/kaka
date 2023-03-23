@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
-import { useStatisticsTotal } from '../../../../simple-api-state/statistics/v1/use-statistics-total';
-import { OptionValue } from '../../../../types/statistics/common';
-import { IComparedFullStatisticVurderingV1, IFullStatisticVurderingV1 } from '../../../../types/statistics/v1';
+import { useStatisticsTotal } from '@app/simple-api-state/statistics/v1/use-statistics-total';
+import { OptionValue } from '@app/types/statistics/common';
+import { IComparedFullStatisticVurderingV1, IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { AVERAGE, REST } from '../../../filters/comparison/comparison-values/default-options';
 import { useComparisonProp } from '../../../filters/comparison/comparison-values/use-prop';
 import { useComparisonValues } from '../../../filters/comparison/comparison-values/use-values';

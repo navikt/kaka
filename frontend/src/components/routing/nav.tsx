@@ -17,8 +17,8 @@ import {
   useDefaultQueryMin,
   useDefaultQueryTilbakemeldinger,
   useDefaultQueryTotal,
-} from '../../hooks/use-default-query-params';
-import { useUserHasRole } from '../../hooks/use-user-access';
+} from '@app/hooks/use-default-query-params';
+import { useUserHasRole } from '@app/hooks/use-user-access';
 
 export const Nav = () => {
   const defaultQueryAapen = useDefaultQueryAapen();

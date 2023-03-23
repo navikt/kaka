@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { KvalitetsvurderingVersion } from '../../../types/saksdata';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { QueryParams } from '../../filters/filter-query-params';
 import { TilbakekrevingEnum } from '../types';
 

@@ -1,5 +1,5 @@
-import { Radiovalg } from '../../../../../../../types/kvalitetsvurdering/radio';
-import { MAIN_REASON_IDS } from '../../../../../../../types/kvalitetsvurdering/texts/structures';
+import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
+import { MAIN_REASON_IDS } from '@app/types/kvalitetsvurdering/texts/structures';
 import { MainReasonsVurdering } from '../../types';
 
 export const calculateTotalMangelfullFactor = (data: MainReasonsVurdering[]) =>

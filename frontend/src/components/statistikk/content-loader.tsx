@@ -1,4 +1,4 @@
-import { KvalitetsvurderingVersion } from '../../types/saksdata';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 
 interface Props {
   version: KvalitetsvurderingVersion;

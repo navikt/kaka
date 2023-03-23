@@ -1,6 +1,6 @@
-import { Radiovalg } from '../../../../../../../types/kvalitetsvurdering/radio';
-import { MAIN_REASON_IDS } from '../../../../../../../types/kvalitetsvurdering/texts/structures';
-import { MainReason } from '../../../../../../../types/kvalitetsvurdering/v2';
+import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
+import { MAIN_REASON_IDS } from '@app/types/kvalitetsvurdering/texts/structures';
+import { MainReason } from '@app/types/kvalitetsvurdering/v2';
 import { MainReasonsVurdering } from '../../types';
 
 interface Counts {

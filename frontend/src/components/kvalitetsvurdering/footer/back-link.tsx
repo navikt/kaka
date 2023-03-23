@@ -1,8 +1,8 @@
 import { Button } from '@navikt/ds-react';
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useDefaultQueryTilbakemeldinger } from '../../../hooks/use-default-query-params';
-import { useUserHasRole } from '../../../hooks/use-user-access';
+import { useDefaultQueryTilbakemeldinger } from '@app/hooks/use-default-query-params';
+import { useUserHasRole } from '@app/hooks/use-user-access';
 
 export const BackLink = () => {
   const location = useLocation();

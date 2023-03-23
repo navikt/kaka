@@ -1,7 +1,7 @@
-import { KVALITETESVURDERING_V1_FIELD_NAMES } from '../components/kvalitetsvurdering/kvalitetsskjema/v1/use-field-name';
-import { SAKSDATA_FIELD_NAMES } from '../hooks/use-field-name';
-import { IKvalitetsvurdering, IKvalitetsvurderingData } from '../types/kvalitetsvurdering/v2';
-import { GenericObject, isGenericObject } from '../types/types';
+import { KVALITETESVURDERING_V1_FIELD_NAMES } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v1/use-field-name';
+import { SAKSDATA_FIELD_NAMES } from '@app/hooks/use-field-name';
+import { IKvalitetsvurdering, IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
+import { GenericObject, isGenericObject } from '@app/types/types';
 
 export interface IValidationErrorV1 {
   reason: string;

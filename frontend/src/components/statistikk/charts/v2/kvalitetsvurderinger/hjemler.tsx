@@ -2,10 +2,10 @@ import { ChartOptions, TooltipCallbacks } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import styled from 'styled-components';
-import { useRegistreringshjemlerMap } from '../../../../../simple-api-state/use-kodeverk';
-import { VedtaketTextsKeys } from '../../../../../types/kvalitetsvurdering/texts/structures';
-import { VEDTAKET_TEXTS } from '../../../../../types/kvalitetsvurdering/texts/texts';
-import { IKvalitetsvurderingHjemler } from '../../../../../types/kvalitetsvurdering/v2';
+import { useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
+import { VedtaketTextsKeys } from '@app/types/kvalitetsvurdering/texts/structures';
+import { VEDTAKET_TEXTS } from '@app/types/kvalitetsvurdering/texts/texts';
+import { IKvalitetsvurderingHjemler } from '@app/types/kvalitetsvurdering/v2';
 import { ChartTitle } from '../../styled-components';
 import { DataSet } from './types';
 

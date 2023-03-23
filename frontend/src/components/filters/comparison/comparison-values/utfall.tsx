@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSortedUtfall } from '../../../../simple-api-state/use-utfall';
+import { useSortedUtfall } from '@app/simple-api-state/use-utfall';
 import { ComparisonOption } from './comparison-option';
 
 export const Utfall = () => {

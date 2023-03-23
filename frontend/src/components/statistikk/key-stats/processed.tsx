@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { toPercent } from '../../../domain/number';
-import { StatsDate } from '../../../types/statistics/common';
+import { toPercent } from '@app/domain/number';
+import { StatsDate } from '@app/types/statistics/common';
 import { KeyContent, KeyNumber } from './styled-components';
 
 interface Stat {

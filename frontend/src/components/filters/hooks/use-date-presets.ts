@@ -1,5 +1,5 @@
 import { subMonths } from 'date-fns';
-import { KvalitetsvurderingVersion } from '../../../types/saksdata';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import {
   END_OF_LAST_MONTH,
   IS_BEFORE_2024,

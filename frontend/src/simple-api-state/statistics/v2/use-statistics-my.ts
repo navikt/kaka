@@ -1,5 +1,5 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import { IStatisticsQuery, IStatisticsResponseMyV2 } from '../../../types/statistics/v2';
+import { IStatisticsQuery, IStatisticsResponseMyV2 } from '@app/types/statistics/v2';
 import { useSimpleApiState } from '../../simple-api-state';
 import { getStateFactory } from '../../state-factory';
 

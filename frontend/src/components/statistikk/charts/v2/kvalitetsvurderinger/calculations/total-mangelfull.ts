@@ -1,5 +1,5 @@
-import { KVALITETSVURDERING_TEXTS } from '../../../../../../types/kvalitetsvurdering/texts/texts';
-import { MainReason } from '../../../../../../types/kvalitetsvurdering/v2';
+import { KVALITETSVURDERING_TEXTS } from '@app/types/kvalitetsvurdering/texts/texts';
+import { MainReason } from '@app/types/kvalitetsvurdering/v2';
 import { MainReasonsVurdering } from '../types';
 import { calculateMainReasons } from './helpers/main-reasons';
 import { calculateTotalMangelfullFactor } from './helpers/total-mangelfull-factor';

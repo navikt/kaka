@@ -1,9 +1,6 @@
 import { CheckboxGroup } from '@navikt/ds-react';
 import React, { useMemo } from 'react';
-import {
-  IKvalitetsvurderingData,
-  KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES,
-} from '../../../../../types/kvalitetsvurdering/v2';
+import { IKvalitetsvurderingData, KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES } from '@app/types/kvalitetsvurdering/v2';
 import { Hjemler } from './hjemler';
 import { KvalitetsskjemaCheckbox } from './kvalitetsvurdering-checkbox';
 import { SubSection } from './styled-components';

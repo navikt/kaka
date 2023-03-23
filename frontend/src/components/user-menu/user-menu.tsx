@@ -2,7 +2,7 @@ import { CogRotationIcon, LeaveIcon } from '@navikt/aksel-icons';
 import { Dropdown, Header } from '@navikt/ds-react-internal';
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { useUser } from '../../simple-api-state/use-user';
+import { useUser } from '@app/simple-api-state/use-user';
 import { CopyButton } from '../copy-button/copy-button';
 
 export const UserMenu = () => {

@@ -1,10 +1,10 @@
 import { parse, subDays } from 'date-fns';
 import React from 'react';
-import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useSaksdata } from '../../../hooks/use-saksdata';
-import { useSaksdataId } from '../../../hooks/use-saksdata-id';
-import { useValidationError } from '../../../hooks/use-validation-error';
-import { useSetMottattKlageinstansMutation } from '../../../redux-api/saksdata';
+import { useCanEdit } from '@app/hooks/use-can-edit';
+import { useSaksdata } from '@app/hooks/use-saksdata';
+import { useSaksdataId } from '@app/hooks/use-saksdata-id';
+import { useValidationError } from '@app/hooks/use-validation-error';
+import { useSetMottattKlageinstansMutation } from '@app/redux-api/saksdata';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
 import { CENTURY_NUMBER } from '../../filters/date-presets/constants';
 

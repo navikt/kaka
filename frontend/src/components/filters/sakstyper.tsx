@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSakstyper } from '../../simple-api-state/use-kodeverk';
+import { useSakstyper } from '@app/simple-api-state/use-kodeverk';
 import { Filter } from './common/filter';
 import { FilterType } from './types';
 

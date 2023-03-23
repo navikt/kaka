@@ -1,7 +1,7 @@
 import {
   IKvalitetsvurderingBooleans,
   KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES,
-} from '../../../../../types/kvalitetsvurdering/v2';
+} from '@app/types/kvalitetsvurdering/v2';
 import { Hjemler } from './hjemler';
 
 export interface ICheckboxParams {

@@ -1,7 +1,7 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import { useSaksdatalisteLederVedtaksinstans } from '../../../simple-api-state/statistics/v1/use-saksdataliste-leder-vedtaksinstans';
-import { useUser } from '../../../simple-api-state/use-user';
-import { ISaksdatalisteLederVedtaksinstansParamsV1 } from '../../../types/saksdata';
+import { useSaksdatalisteLederVedtaksinstans } from '@app/simple-api-state/statistics/v1/use-saksdataliste-leder-vedtaksinstans';
+import { useUser } from '@app/simple-api-state/use-user';
+import { ISaksdatalisteLederVedtaksinstansParamsV1 } from '@app/types/saksdata';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../filters/date-presets/constants';
 import { QueryParams } from '../../filters/filter-query-params';
 import {

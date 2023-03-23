@@ -1,12 +1,9 @@
 import { ChartData } from 'chart.js';
-import { NAV_COLORS } from '../../../../../../colors/colors';
-import { toPercent } from '../../../../../../domain/number';
-import {
-  IKKE_KONKRET_BEGRUNNELSE_REASONS,
-  REASON_TO_SUBREASONS,
-} from '../../../../../../types/kvalitetsvurdering/texts/structures';
-import { IKKE_KONKRET_BEGRUNNELSE_TEXTS } from '../../../../../../types/kvalitetsvurdering/texts/texts';
-import { MainReason } from '../../../../../../types/kvalitetsvurdering/v2';
+import { NAV_COLORS } from '@app/colors/colors';
+import { toPercent } from '@app/domain/number';
+import { IKKE_KONKRET_BEGRUNNELSE_REASONS, REASON_TO_SUBREASONS } from '@app/types/kvalitetsvurdering/texts/structures';
+import { IKKE_KONKRET_BEGRUNNELSE_TEXTS } from '@app/types/kvalitetsvurdering/texts/texts';
+import { MainReason } from '@app/types/kvalitetsvurdering/v2';
 import { DataSet } from '../types';
 import { calculateMainReasons } from './helpers/main-reasons';
 import { calculateReasons } from './helpers/reasons';

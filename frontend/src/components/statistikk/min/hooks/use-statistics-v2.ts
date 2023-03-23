@@ -1,8 +1,8 @@
 import { skipToken } from '@reduxjs/toolkit/query/react';
 import { useCallback, useMemo } from 'react';
-import { useStatisticsMy } from '../../../../simple-api-state/statistics/v2/use-statistics-my';
-import { useUser } from '../../../../simple-api-state/use-user';
-import { IFullStatisticVurderingV2, IStatisticsQuery } from '../../../../types/statistics/v2';
+import { useStatisticsMy } from '@app/simple-api-state/statistics/v2/use-statistics-my';
+import { useUser } from '@app/simple-api-state/use-user';
+import { IFullStatisticVurderingV2, IStatisticsQuery } from '@app/types/statistics/v2';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {

@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
-import { isoDateToPretty } from '../../../../domain/date';
-import { useEnheter, useHjemler, useKlageenheter, useYtelser } from '../../../../simple-api-state/use-kodeverk';
-import { useSortedUtfall } from '../../../../simple-api-state/use-utfall';
-import { IKodeverkSimpleValue } from '../../../../types/kodeverk';
+import { isoDateToPretty } from '@app/domain/date';
+import { useEnheter, useHjemler, useKlageenheter, useYtelser } from '@app/simple-api-state/use-kodeverk';
+import { useSortedUtfall } from '@app/simple-api-state/use-utfall';
+import { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { AVERAGE, REST } from '../../../filters/comparison/comparison-values/default-options';
 import { ComparableQueryParams } from '../../../filters/filter-query-params';
 import { VEDTAKSINSTANSGRUPPER } from '../../total/vedtaksinstansgruppe-filter';

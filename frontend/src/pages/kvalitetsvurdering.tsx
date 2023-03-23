@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Footer } from '../components/kvalitetsvurdering/footer/footer';
-import { Kvalitetsvurdering } from '../components/kvalitetsvurdering/kvalitetsvurdering';
+import { Footer } from '@app/components/kvalitetsvurdering/footer/footer';
+import { Kvalitetsvurdering } from '@app/components/kvalitetsvurdering/kvalitetsvurdering';
 
 export const KvalitetsvurderingPage = () => (
   <StyledKvalitetsvurderingPage>

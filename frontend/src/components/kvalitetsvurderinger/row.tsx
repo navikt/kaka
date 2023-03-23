@@ -1,8 +1,8 @@
 import { Table } from '@navikt/ds-react';
 import React from 'react';
-import { isoDateTimeToPrettyDate } from '../../domain/date';
-import { formatId } from '../../functions/format-id';
-import { ISaksdataComplete, ISaksdataIncomplete } from '../../types/saksdata';
+import { isoDateTimeToPrettyDate } from '@app/domain/date';
+import { formatId } from '@app/functions/format-id';
+import { ISaksdataComplete, ISaksdataIncomplete } from '@app/types/saksdata';
 import { OpenKvalitetsvurdering } from '../common-table-components/open';
 import { Type } from '../common-table-components/type';
 import { Utfall } from '../common-table-components/utfall';

@@ -1,7 +1,7 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import React from 'react';
-import { useSaksbehandlere } from '../../simple-api-state/use-saksbehandlere';
-import { useUser } from '../../simple-api-state/use-user';
+import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
+import { useUser } from '@app/simple-api-state/use-user';
 import { Filter } from './common/filter';
 import { FilterType } from './types';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Nav } from '../components/routing/nav';
-import { GAP } from '../styled-components/constants';
+import { Nav } from '@app/components/routing/nav';
+import { GAP } from '@app/styled-components/constants';
 
 interface Props {
   children: React.ReactNode;
