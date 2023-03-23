@@ -1,14 +1,14 @@
-import express from 'express';
+import { Router, static as expressStatic } from 'express';
 import { frontendDistDirectoryPath } from '@app/config/config';
 
-const router = express.Router();
+const router = Router();
 
 export const setupStaticRoutes = () => {
   router.get('/', (req, res) => {
     res.status(200).sendFile('index.html', { root: frontendDistDirectoryPath });
   });
 
-  router.use(express.static(frontendDistDirectoryPath, { index: false }));
+  router.use(expressStatic(frontendDistDirectoryPath, { index: false }));
 
   router.get('*', (req, res) => {
     res.status(200).sendFile('index.html', { root: frontendDistDirectoryPath });
