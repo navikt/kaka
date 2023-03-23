@@ -58,7 +58,7 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: 'https://kaka.dev.nav.no',
+        target: 'https://kaka.intern.dev.nav.no',
         secure: false,
         changeOrigin: true,
         withCredentials: true,
