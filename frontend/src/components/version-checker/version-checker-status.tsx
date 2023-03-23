@@ -1,4 +1,4 @@
-import { AutomaticSystem, Success } from '@navikt/ds-icons';
+import { CheckmarkIcon, CogRotationIcon } from '@navikt/aksel-icons';
 import { BodyShort, Button } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -26,7 +26,7 @@ export const VersionCheckerStatus = () => {
       title="Det finnes en ny versjon av Kaka. Versjonen du ser på nå er ikke siste versjon. Trykk her for å laste siste versjon."
       onClick={() => window.location.reload()}
       size="small"
-      icon={<AutomaticSystem aria-hidden />}
+      icon={<CogRotationIcon aria-hidden />}
     >
       Oppdater til siste versjon
     </Button>
@@ -46,7 +46,7 @@ const Version = () => {
 
   return (
     <StyledBodyShort>
-      <Success /> Kaka er klar til bruk!
+      <CheckmarkIcon /> Kaka er klar til bruk!
     </StyledBodyShort>
   );
 };

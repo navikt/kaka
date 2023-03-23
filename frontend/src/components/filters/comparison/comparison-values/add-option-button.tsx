@@ -1,4 +1,4 @@
-import { Add } from '@navikt/ds-icons';
+import { PlusIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import React from 'react';
 
@@ -18,7 +18,7 @@ export const AddOptionButton = ({ onAdd, option }: Props) => {
   };
 
   return (
-    <Button onClick={add} size="small" icon={<Add aria-hidden />} disabled={disabled} title={title}>
+    <Button onClick={add} size="small" icon={<PlusIcon aria-hidden />} disabled={disabled} title={title}>
       Legg til
     </Button>
   );

@@ -1,4 +1,4 @@
-import { Close } from '@navikt/ds-icons';
+import { XMarkIcon } from '@navikt/aksel-icons';
 import styled from 'styled-components';
 
 export const StyledPill = styled.button`
@@ -22,7 +22,7 @@ export const StyledPill = styled.button`
   }
 `;
 
-export const PillIcon = styled(Close)`
+export const PillIcon = styled(XMarkIcon)`
   position: absolute;
   right: 16px;
   top: 50%;

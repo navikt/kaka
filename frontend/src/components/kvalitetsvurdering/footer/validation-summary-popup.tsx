@@ -1,4 +1,4 @@
-import { Collapse, Expand } from '@navikt/ds-icons';
+import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
 import { Alert } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -42,7 +42,7 @@ export const ValidationSummaryPopup = ({ hasErrors }: Props) => {
 
   const toggleOpen = () => setOpen(!open);
 
-  const Icon = open ? Expand : Collapse;
+  const Icon = open ? ChevronDownIcon : ChevronUpIcon;
 
   const statusText = hasErrors ? 'Feil i utfyllingen' : 'Under utfylling';
   const statusType = hasErrors ? 'warning' : 'info';

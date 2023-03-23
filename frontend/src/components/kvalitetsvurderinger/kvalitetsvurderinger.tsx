@@ -1,4 +1,4 @@
-import { Notes } from '@navikt/ds-icons';
+import { DocPencilIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import React from 'react';
 import { useNavigate } from 'react-router';
@@ -33,7 +33,7 @@ export const Kvalitetsvurderinger = () => {
         onClick={() => createNewSaksdata()}
         disabled={disabled}
         data-testid="new-kvalitetsvurdering-button"
-        icon={<Notes aria-hidden />}
+        icon={<DocPencilIcon aria-hidden />}
       >
         Ny kvalitetsvurdering
       </Button>

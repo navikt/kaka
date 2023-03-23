@@ -1,4 +1,4 @@
-import { Historic } from '@navikt/ds-icons';
+import { ClockDashedIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import React from 'react';
 
@@ -20,7 +20,7 @@ export const ResetDateButton = ({ date, selectedDate, title, onClick }: Props) =
       size="xsmall"
       title={title}
       onClick={() => onClick(date)}
-      icon={<Historic aria-hidden />}
+      icon={<ClockDashedIcon aria-hidden />}
     />
   );
 };

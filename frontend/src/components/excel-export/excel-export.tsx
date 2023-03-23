@@ -1,4 +1,4 @@
-import { Download } from '@navikt/ds-icons';
+import { DownloadIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import React from 'react';
 import { useHasRole } from '../../hooks/use-has-role';
@@ -22,7 +22,7 @@ export const ExcelExport = () => {
       size="small"
       href={url}
       download="rapport"
-      icon={<Download aria-hidden />}
+      icon={<DownloadIcon aria-hidden />}
       iconPosition="right"
     >
       Eksporter
