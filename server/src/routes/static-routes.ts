@@ -1,5 +1,5 @@
 import express from 'express';
-import { frontendDistDirectoryPath } from '../config/config';
+import { frontendDistDirectoryPath } from '@app/config/config';
 
 const router = express.Router();
 
