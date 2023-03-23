@@ -1,16 +1,14 @@
 import { MainReason } from '../../../../../types/kvalitetsvurdering/v2';
-import { IFullStatisticVurderingV2 } from '../../../../../types/statistics/v2';
-
-export type MinimalVurdering = Partial<IFullStatisticVurderingV2>;
+import { IStatisticVurderingV2 } from '../../../../../types/statistics/v2';
 
 export interface DataSet {
   label: string;
-  data: MinimalVurdering[];
+  data: IStatisticVurderingV2[];
 }
 
-export interface MangelfullVurdering {
-  [MainReason.Klageforberedelsen]: IFullStatisticVurderingV2['klageforberedelsen'];
-  [MainReason.Utredningen]: IFullStatisticVurderingV2['utredningen'];
-  [MainReason.Vedtaket]: IFullStatisticVurderingV2['vedtaket'];
-  [MainReason.BrukAvRaadgivendeLege]: IFullStatisticVurderingV2['brukAvRaadgivendeLege'];
+export interface MainReasonsVurdering {
+  [MainReason.Klageforberedelsen]: IStatisticVurderingV2[MainReason.Klageforberedelsen];
+  [MainReason.Utredningen]: IStatisticVurderingV2[MainReason.Utredningen];
+  [MainReason.Vedtaket]: IStatisticVurderingV2[MainReason.Vedtaket];
+  [MainReason.BrukAvRaadgivendeLege]: IStatisticVurderingV2[MainReason.BrukAvRaadgivendeLege];
 }

@@ -1,15 +1,11 @@
 import React from 'react';
-import { StatsDate } from '../../../types/statistics/common';
+import { ISaksdata } from '../../../types/statistics/common';
 import { useBehandlingstidField } from '../hooks/use-behandlingstid-param';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, KeyNumber, RedKeyNumber } from './styled-components';
 
-interface Stat {
-  avsluttetAvSaksbehandler: StatsDate;
-}
-
 interface Props {
-  stats: Stat[];
+  stats: ISaksdata[];
 }
 
 export const Gjennomsnittstid = ({ stats }: Props) => {

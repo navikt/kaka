@@ -1,24 +1,25 @@
 import { Radiovalg } from '../../../../../../types/kvalitetsvurdering/radio';
 import { DataSet } from '../types';
+import { getStats } from './helpers/test-helpers';
 import { getMangelfullDetailsDatasets } from './mangelfull-details';
 
-const UTREDNINGEN_FULLY_MANGELFULL = {
+const UTREDNINGEN_FULLY_MANGELFULL = getStats({
   utredningen: Radiovalg.MANGELFULLT,
   utredningenAvMedisinskeForhold: true,
   utredningenAvInntektsforhold: true,
   utredningenAvArbeidsaktivitet: true,
   utredningenAvEoesUtenlandsproblematikk: true,
   utredningenAvAndreAktuelleForholdISaken: true,
-};
+});
 
-const UTREDNINGEN_FULLY_BRA = {
+const UTREDNINGEN_FULLY_BRA = getStats({
   utredningen: Radiovalg.BRA,
   utredningenAvMedisinskeForhold: false,
   utredningenAvInntektsforhold: false,
   utredningenAvArbeidsaktivitet: false,
   utredningenAvEoesUtenlandsproblematikk: false,
   utredningenAvAndreAktuelleForholdISaken: false,
-};
+});
 
 describe('getDatasets', () => {
   it('should calculate one simple dataset', () => {
@@ -28,14 +29,14 @@ describe('getDatasets', () => {
       {
         label: 'Min',
         data: [
-          {
+          getStats({
             utredningen: Radiovalg.MANGELFULLT,
             utredningenAvMedisinskeForhold: false,
             utredningenAvInntektsforhold: true,
             utredningenAvArbeidsaktivitet: true,
             utredningenAvEoesUtenlandsproblematikk: true,
             utredningenAvAndreAktuelleForholdISaken: true,
-          },
+          }),
         ],
       },
     ];
@@ -104,14 +105,14 @@ describe('getDatasets', () => {
           UTREDNINGEN_FULLY_BRA,
           UTREDNINGEN_FULLY_BRA,
           UTREDNINGEN_FULLY_MANGELFULL,
-          {
+          getStats({
             utredningen: Radiovalg.MANGELFULLT,
             utredningenAvMedisinskeForhold: true, // Mangelfull
             utredningenAvInntektsforhold: true, // Mangelfull
             utredningenAvArbeidsaktivitet: true, // Mangelfull
             utredningenAvEoesUtenlandsproblematikk: false,
             utredningenAvAndreAktuelleForholdISaken: false,
-          },
+          }),
         ],
       },
     ];

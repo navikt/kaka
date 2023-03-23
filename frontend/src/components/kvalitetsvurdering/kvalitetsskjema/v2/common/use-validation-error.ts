@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { isReduxValidationResponse } from '../../../../../functions/error-type-guard';
 import { useSaksdataId } from '../../../../../hooks/use-saksdata-id';
 import { useFullfoerMutation } from '../../../../../redux-api/saksdata';
 import {
@@ -6,7 +7,6 @@ import {
   KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES,
 } from '../../../../../types/kvalitetsvurdering/v2';
 import { ISaksdataIncomplete } from '../../../../../types/saksdata';
-import { isReduxValidationResponse } from './validation';
 
 type Field =
   | keyof IKvalitetsvurderingData

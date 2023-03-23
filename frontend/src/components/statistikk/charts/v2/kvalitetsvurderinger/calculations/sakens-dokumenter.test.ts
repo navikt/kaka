@@ -1,4 +1,5 @@
 import { Radiovalg } from '../../../../../../types/kvalitetsvurdering/radio';
+import { getStats } from './helpers/test-helpers';
 import { getSakensDokumenterDatasets } from './sakens-dokumenter';
 
 describe('getSakensDokumenterDatasets', () => {
@@ -14,7 +15,7 @@ describe('getSakensDokumenterDatasets', () => {
             klageforberedelsenSakensDokumenter: true,
             klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: true,
           },
-        ],
+        ].map(getStats),
       },
     ];
 
@@ -37,7 +38,7 @@ describe('getSakensDokumenterDatasets', () => {
             klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: true,
           },
           { klageforberedelsen: Radiovalg.BRA },
-        ],
+        ].map(getStats),
       },
     ];
 
@@ -64,7 +65,7 @@ describe('getSakensDokumenterDatasets', () => {
             klageforberedelsenSakensDokumenter: false,
             klageforberedelsenOversittetKlagefristIkkeKommentert: true,
           },
-        ],
+        ].map(getStats),
       },
     ];
 
@@ -89,7 +90,7 @@ describe('getSakensDokumenterDatasets', () => {
           {
             utredningen: Radiovalg.MANGELFULLT,
           },
-        ],
+        ].map(getStats),
       },
     ];
 
@@ -112,7 +113,7 @@ describe('getSakensDokumenterDatasets', () => {
             klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: true,
             klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn: true,
           },
-        ],
+        ].map(getStats),
       },
     ];
 

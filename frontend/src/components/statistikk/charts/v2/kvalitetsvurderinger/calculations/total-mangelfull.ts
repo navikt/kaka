@@ -1,12 +1,12 @@
 import { KVALITETSVURDERING_TEXTS } from '../../../../../../types/kvalitetsvurdering/texts/texts';
 import { MainReason } from '../../../../../../types/kvalitetsvurdering/v2';
-import { MangelfullVurdering } from '../types';
+import { MainReasonsVurdering } from '../types';
 import { calculateMainReasons } from './helpers/main-reasons';
 import { calculateTotalMangelfullFactor } from './helpers/total-mangelfull-factor';
 
 export interface DataSet {
   label: string;
-  data: MangelfullVurdering[];
+  data: MainReasonsVurdering[];
 }
 
 interface StackedBarPiece {

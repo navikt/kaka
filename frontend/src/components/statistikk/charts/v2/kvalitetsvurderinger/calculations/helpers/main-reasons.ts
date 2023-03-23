@@ -1,7 +1,7 @@
 import { Radiovalg } from '../../../../../../../types/kvalitetsvurdering/radio';
 import { MAIN_REASON_IDS } from '../../../../../../../types/kvalitetsvurdering/texts/structures';
 import { MainReason } from '../../../../../../../types/kvalitetsvurdering/v2';
-import { IFullStatisticVurderingV2 } from '../../../../../../../types/statistics/v2';
+import { MainReasonsVurdering } from '../../types';
 
 interface Counts {
   [MainReason.Klageforberedelsen]: number;
@@ -15,7 +15,7 @@ interface Calculation {
   totalMainReasonsCount: number;
 }
 
-export const calculateMainReasons = (data: Partial<IFullStatisticVurderingV2>[]): Calculation => {
+export const calculateMainReasons = (data: MainReasonsVurdering[]): Calculation => {
   const mainReasons = data.reduce<Record<MainReason, number>>(
     (acc, sak) => {
       const mangelfulleIds = MAIN_REASON_IDS.filter((id) => sak[id] === Radiovalg.MANGELFULLT);

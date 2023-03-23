@@ -1,7 +1,7 @@
 import { Alert, Link } from '@navikt/ds-react';
 import React from 'react';
 import styled from 'styled-components';
-import { IValidationError, IValidationSection } from '../../../functions/error-type-guard';
+import { IValidationErrorV1, IValidationSection } from '../../../functions/error-type-guard';
 import { useFieldName } from '../../../hooks/use-field-name';
 import { useSectionTitle } from '../../../hooks/use-section-title';
 
@@ -37,7 +37,7 @@ const Section = ({ properties, section }: IValidationSection) => (
   </StyledSection>
 );
 
-const Field = ({ field, reason }: IValidationError) => (
+const Field = ({ field, reason }: IValidationErrorV1) => (
   <li>
     <strong>{`${useFieldName(field)}: `}</strong>
     <InlineLink href={`#${field}`}>{reason}</InlineLink>
