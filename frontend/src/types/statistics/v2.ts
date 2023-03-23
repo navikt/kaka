@@ -6,15 +6,15 @@ export interface IStatisticVurderingV2 extends ISaksdata {
   readonly id: UUID; // Anonymized
 
   // Kvalitetsvurdering
-  readonly sakensDokumenter: boolean;
-  readonly sakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert: boolean;
-  readonly sakensDokumenterJournalfoerteDokumenterFeilNavn: boolean;
-  readonly sakensDokumenterManglerFysiskSaksmappe: boolean;
+  readonly klageforberedelsenSakensDokumenter: boolean;
+  readonly klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert: boolean;
+  readonly klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn: boolean;
+  readonly klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: boolean;
   readonly klageforberedelsen: Radiovalg;
   readonly klageforberedelsenUnderinstansIkkeSendtAlleRelevanteSaksdokumenterTilParten: boolean;
   readonly klageforberedelsenOversittetKlagefristIkkeKommentert: boolean;
-  readonly klageforberedelsenKlagersRelevanteAnfoerslerIkkeTilstrekkeligImotegatt: boolean;
-  readonly klageforberedelsenMangelfullBegrunnelseForHvorforVedtaketOpprettholdes: boolean;
+  readonly klageforberedelsenKlagersRelevanteAnfoerslerIkkeTilstrekkeligKommentertImoetegaatt: boolean;
+  readonly klageforberedelsenFeilVedBegrunnelsenForHvorforAvslagOpprettholdesKlagerIkkeOppfyllerVilkaar: boolean;
   readonly klageforberedelsenOversendelsesbrevetsInnholdErIkkeISamsvarMedSakensTema: boolean;
   readonly klageforberedelsenOversendelsesbrevIkkeSendtKopiTilPartenEllerFeilMottaker: boolean;
   readonly utredningen: Radiovalg;
@@ -30,10 +30,10 @@ export interface IStatisticVurderingV2 extends ISaksdata {
   readonly vedtaketFeilKonkretRettsanvendelse: boolean;
   readonly vedtaketFeilKonkretRettsanvendelseHjemlerList: string[];
   readonly vedtaketIkkeKonkretIndividuellBegrunnelse: boolean;
-  readonly vedtaketIkkeGodtNokFremFaktum: boolean;
-  readonly vedtaketIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum: boolean;
-  readonly vedtaketMyeStandardtekst: boolean;
-  readonly vedtakAutomatiskVedtak: boolean;
+  readonly vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum: boolean;
+  readonly vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum: boolean;
+  readonly vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst: boolean;
+  readonly vedtaketAutomatiskVedtak: boolean;
   readonly vedtaket: Radiovalg;
   readonly vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet: boolean;
   readonly vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList: string[];
@@ -42,9 +42,8 @@ export interface IStatisticVurderingV2 extends ISaksdata {
   readonly raadgivendeLegeIkkebrukt: boolean;
   readonly raadgivendeLegeMangelfullBrukAvRaadgivendeLege: boolean;
   readonly raadgivendeLegeUttaltSegOmTemaUtoverTrygdemedisin: boolean;
-  readonly raadgivendeLegeBegrunnelseMangelfullEllerIkkeSkriftliggjort: boolean;
+  readonly raadgivendeLegeBegrunnelseMangelfullEllerIkkeDokumentert: boolean;
   readonly brukAvRaadgivendeLege: RadiovalgExtended | null;
-  readonly annetFritekst: string | null;
   readonly kaBehandlingstidDays: number;
   readonly vedtaksinstansBehandlingstidDays: number;
   readonly totalBehandlingstidDays: number;

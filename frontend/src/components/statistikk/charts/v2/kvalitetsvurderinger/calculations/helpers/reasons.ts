@@ -1,7 +1,6 @@
-import { IKvalitetsvurderingData } from '../../../../../../../types/kvalitetsvurdering/v2';
-import { IFullStatisticVurderingV2 } from '../../../../../../../types/statistics/v2';
+import { IStatisticVurderingV2 } from '../../../../../../../types/statistics/v2';
 
-type Counts = Partial<Record<keyof IKvalitetsvurderingData, number>>;
+type Counts = Partial<Record<keyof IStatisticVurderingV2, number>>;
 
 interface Calculation {
   reasons: Counts;
@@ -10,10 +9,10 @@ interface Calculation {
 }
 
 export const calculateReasons = (
-  data: Partial<IFullStatisticVurderingV2>[],
-  reasonIds: (keyof IKvalitetsvurderingData)[]
+  data: IStatisticVurderingV2[],
+  reasonIds: (keyof IStatisticVurderingV2)[]
 ): Calculation => {
-  const reasons = data.reduce<Partial<Record<keyof IKvalitetsvurderingData, number>>>((acc, sak) => {
+  const reasons = data.reduce<Partial<Record<keyof IStatisticVurderingV2, number>>>((acc, sak) => {
     const mangelfulleIds = reasonIds.filter((id) => sak[id] === true);
 
     if (mangelfulleIds.length !== 0) {

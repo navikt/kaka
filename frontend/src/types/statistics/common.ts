@@ -23,6 +23,8 @@ export interface ISaksdata {
   readonly sakstypeId: SakstypeEnum;
   readonly utfallId: UtfallEnum;
   readonly ytelseId: string;
+  readonly createdDate: StatsDate;
+  readonly modifiedDate: StatsDate;
 }
 
 export interface ISaksbehandler {

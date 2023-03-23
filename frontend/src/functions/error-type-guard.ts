@@ -1,8 +1,9 @@
 import { KVALITETESVURDERING_V1_FIELD_NAMES } from '../components/kvalitetsvurdering/kvalitetsskjema/v1/use-field-name';
 import { SAKSDATA_FIELD_NAMES } from '../hooks/use-field-name';
-import { IKvalitetsvurdering } from '../types/kvalitetsvurdering/v2';
+import { IKvalitetsvurdering, IKvalitetsvurderingData } from '../types/kvalitetsvurdering/v2';
+import { GenericObject, isGenericObject } from '../types/types';
 
-export interface IValidationError {
+export interface IValidationErrorV1 {
   reason: string;
   field:
     | keyof typeof SAKSDATA_FIELD_NAMES
@@ -10,7 +11,14 @@ export interface IValidationError {
     | keyof IKvalitetsvurdering;
 }
 
-export interface IValidationSection {
+interface IValidationErrorV2 {
+  field: keyof IKvalitetsvurderingData;
+  reason: string;
+}
+
+type IValidationError = IValidationErrorV1 | IValidationErrorV2;
+
+export interface IValidationSection extends GenericObject {
   section: 'kvalitetsvurdering' | 'saksdata';
   properties: IValidationError[];
 }
@@ -35,11 +43,8 @@ export const isReduxValidationResponse = (error: unknown): error is IReduxError<
   return Array.isArray(data.sections) && data.sections.every(isValidationSection);
 };
 
-const isValidationSection = (error: unknown): error is IValidationSection =>
-  typeof error === 'object' &&
-  error !== null &&
-  typeof error['section'] === 'string' &&
-  Array.isArray(error['properties']);
+const isValidationSection = (error: GenericObject): error is IValidationSection =>
+  typeof error['section'] === 'string' && Array.isArray(error['properties']);
 
 interface IReduxError<T = unknown> {
   status: number;
@@ -47,4 +52,4 @@ interface IReduxError<T = unknown> {
 }
 
 const isReduxError = <T>(error: unknown): error is IReduxError<T> =>
-  typeof error === 'object' && error !== null && typeof error['status'] === 'number';
+  isGenericObject(error) && typeof error['status'] === 'number';

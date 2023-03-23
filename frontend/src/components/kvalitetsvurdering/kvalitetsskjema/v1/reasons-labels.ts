@@ -1,10 +1,10 @@
-import { IKvalitetsvurderingBooleans } from '../../../../types/kvalitetsvurdering/v1';
+import { IKvalitetsvurderingBooleans, IKvalitetsvurderingTexts } from '../../../../types/kvalitetsvurdering/v1';
 
 export interface ReasonLabel {
   id: keyof IKvalitetsvurderingBooleans;
   label: string;
   helpText?: string;
-  textareaId?: string;
+  textareaId?: keyof IKvalitetsvurderingTexts;
 }
 
 export const klageforberedelsenReasons: ReasonLabel[] = [

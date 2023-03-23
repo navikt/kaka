@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2';
 import { isNotUndefined } from '../../../../functions/is-not';
 import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
 import { IKvalitetsvurderingBooleans } from '../../../../types/kvalitetsvurdering/v1';
-import { IStatisticVurderingV1 } from '../../../../types/statistics/v1';
+import { IStatisticVurderingV1, RadiovalgField } from '../../../../types/statistics/v1';
 import { ReasonLabel, getReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
 import { useKvalitetsvurderingParam } from '../../hooks/use-kvalitetsvurdering-param';
 import { StatisticsPropsV1 } from '../../types';
@@ -84,7 +84,7 @@ export const MangelfulltOverTime = ({ stats }: StatisticsPropsV1) => {
 const COLORS = ['#7CDAF8', '#FFAA33', '#C1CB33', '#3386E0', '#33AA5F', '#A0A0A0', '#8269A2'];
 const getColor = (index: number) => COLORS[index % COLORS.length];
 
-const useMangelfulleSaker = (stats: IStatisticVurderingV1[], field: string, relevantReasons: ReasonLabel[]) => {
+const useMangelfulleSaker = (stats: IStatisticVurderingV1[], field: RadiovalgField, relevantReasons: ReasonLabel[]) => {
   const mangelfulleSaker = useMemo(() => {
     const unsorted = stats
       .filter(

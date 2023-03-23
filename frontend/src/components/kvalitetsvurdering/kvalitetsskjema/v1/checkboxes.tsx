@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
 import { useKvalitetsvurdering } from '../../../../hooks/use-kvalitetsvurdering';
 import { useUpdateKvalitetsvurderingMutation } from '../../../../redux-api/kvalitetsvurdering/v1';
+import { IKvalitetsvurderingTexts } from '../../../../types/kvalitetsvurdering/v1';
 import { CommentField } from './comment-field';
 import { StyledCheckboxContainer } from './styled-components';
 import { Reason } from './types';
@@ -61,7 +62,7 @@ export const Checkboxes = React.forwardRef<HTMLDivElement, CheckboxesProps>(({ r
 Checkboxes.displayName = 'Checkboxes';
 
 interface CommentFieldDisplayProps {
-  textareaId: string | undefined;
+  textareaId: keyof IKvalitetsvurderingTexts | undefined;
   show: boolean;
 }
 

@@ -4,17 +4,31 @@ import styled from 'styled-components';
 import { useCanEdit } from '../../../../hooks/use-can-edit';
 import { useKvalitetsvurdering } from '../../../../hooks/use-kvalitetsvurdering';
 import { useUpdateKvalitetsvurderingMutation } from '../../../../redux-api/kvalitetsvurdering/v1';
+import { IKvalitetsvurderingTexts, IKvalitetsvurderingV1 } from '../../../../types/kvalitetsvurdering/v1';
 
-interface CommentFieldProps {
-  textareaId: string;
+interface Props {
+  textareaId: keyof IKvalitetsvurderingTexts;
 }
 
-export const CommentField = ({ textareaId }: CommentFieldProps) => {
+export const CommentField = (props: Props) => {
   const [kvalitetsvurdering, isLoading] = useKvalitetsvurdering();
+
+  if (isLoading || typeof kvalitetsvurdering === 'undefined') {
+    return null;
+  }
+
+  return <CommentFieldContent {...props} kvalitetsvurdering={kvalitetsvurdering} />;
+};
+
+interface CommentFieldContentProps extends Props {
+  kvalitetsvurdering: IKvalitetsvurderingV1;
+}
+
+const CommentFieldContent = ({ textareaId, kvalitetsvurdering }: CommentFieldContentProps) => {
   const [updateKvalitetsvurdering] = useUpdateKvalitetsvurderingMutation();
   const canEdit = useCanEdit();
 
-  const [comment, setComment] = useState<string>(kvalitetsvurdering ? kvalitetsvurdering[textareaId] : '');
+  const [comment, setComment] = useState<string>(kvalitetsvurdering[textareaId] ?? '');
 
   useEffect(() => {
     if (typeof kvalitetsvurdering === 'undefined' || kvalitetsvurdering[textareaId] === comment) {
@@ -29,10 +43,6 @@ export const CommentField = ({ textareaId }: CommentFieldProps) => {
 
     return () => clearTimeout(timeout); // Clear existing timer every time it runs.
   }, [comment, kvalitetsvurdering, textareaId, updateKvalitetsvurdering]);
-
-  if (isLoading || typeof kvalitetsvurdering === 'undefined') {
-    return null;
-  }
 
   return (
     <StyledTextarea
