@@ -1,4 +1,4 @@
-import { IStatisticVurderingV2 } from '../../../../../../../types/statistics/v2';
+import { IStatisticVurderingV2 } from '@app/types/statistics/v2';
 
 type Counts = Partial<Record<keyof IStatisticVurderingV2, number>>;
 

@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -7,6 +8,7 @@ module.exports = {
   },
   plugins: [
     new webpack.EnvironmentPlugin({'VERSION': 'dev'}),
+    new ForkTsCheckerWebpackPlugin(),
   ],
   module: {
     rules: [
@@ -14,33 +16,25 @@ module.exports = {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
+        options: { transpileOnly: true }
       },
       {
-        test: /\.(le|c)ss$/,
+        test: /\.css$/,
         use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
-          {
-            loader: 'less-loader',
-            options: {
-              lessOptions: {
-                strictMath: true,
-              },
-            },
-          },
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
         ],
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
-        type: 'asset/resource'
+        type: 'asset/resource',
       },
     ],
   },
   resolve: {
+    alias: {
+      '@app': path.resolve(__dirname, 'src'),
+    },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   output: {

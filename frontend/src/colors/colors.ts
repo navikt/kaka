@@ -1,4 +1,4 @@
-import { UtfallEnum } from '../types/utfall';
+import { UtfallEnum } from '@app/types/utfall';
 
 export const NAV_COLORS = Object.freeze({
   transparent: 'rgba(255, 255, 255, 0)',
