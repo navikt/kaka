@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { CardExtraSmall, CardLarge, CardMedium, CardSmall } from '../../../styled-components/cards';
+import { CardExtraSmall, CardLarge, CardMedium, CardSmall } from '@app/styled-components/cards';
 
 export enum CardSize {
   EXTRA_SMALL,

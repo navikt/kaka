@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { RadiovalgField } from '../../../types/statistics/v1';
+import { RadiovalgField } from '@app/types/statistics/v1';
 import { QueryParams } from '../../filters/filter-query-params';
 import { isAllowedKey } from '../charts/kvalitetsvurderinger/kvalitetsvurdering-options';
 

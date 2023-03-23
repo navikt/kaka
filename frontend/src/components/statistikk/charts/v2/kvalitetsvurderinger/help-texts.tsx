@@ -1,8 +1,8 @@
 import { BodyShort, Heading, Label, ReadMore } from '@navikt/ds-react';
 import React from 'react';
 import styled from 'styled-components';
-import { KvalitetsskjemaText } from '../../../../../types/kvalitetsvurdering/texts/texts';
-import { IKvalitetsvurdering } from '../../../../../types/kvalitetsvurdering/v2';
+import { KvalitetsskjemaText } from '@app/types/kvalitetsvurdering/texts/texts';
+import { IKvalitetsvurdering } from '@app/types/kvalitetsvurdering/v2';
 
 interface HelpText {
   label?: string;

@@ -1,13 +1,13 @@
 import { Select } from '@navikt/ds-react';
 import React from 'react';
-import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useSaksdata } from '../../../hooks/use-saksdata';
-import { useSaksdataId } from '../../../hooks/use-saksdata-id';
-import { useValidationError } from '../../../hooks/use-validation-error';
-import { useSetUtfallMutation } from '../../../redux-api/saksdata';
-import { useUser } from '../../../simple-api-state/use-user';
-import { useUtfallFromSakstype } from '../../../simple-api-state/use-utfall';
-import { isUtfall } from '../../../types/utfall';
+import { useCanEdit } from '@app/hooks/use-can-edit';
+import { useSaksdata } from '@app/hooks/use-saksdata';
+import { useSaksdataId } from '@app/hooks/use-saksdata-id';
+import { useValidationError } from '@app/hooks/use-validation-error';
+import { useSetUtfallMutation } from '@app/redux-api/saksdata';
+import { useUser } from '@app/simple-api-state/use-user';
+import { useUtfallFromSakstype } from '@app/simple-api-state/use-utfall';
+import { isUtfall } from '@app/types/utfall';
 import { EmptyOption } from './empty-option';
 
 export const UtfallResultat = () => {

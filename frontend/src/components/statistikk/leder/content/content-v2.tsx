@@ -1,10 +1,10 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import React, { useMemo } from 'react';
-import { useSaksbehandlere } from '../../../../simple-api-state/use-saksbehandlere';
-import { useUser } from '../../../../simple-api-state/use-user';
-import { CardTitle, FullWidthStickyContainer, StatsContainer } from '../../../../styled-components/cards';
-import { ContentArea } from '../../../../styled-components/filters-and-content';
-import { IFullStatisticVurderingV2 } from '../../../../types/statistics/v2';
+import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
+import { useUser } from '@app/simple-api-state/use-user';
+import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
+import { ContentArea } from '@app/styled-components/filters-and-content';
+import { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { QueryParams } from '../../../filters/filter-query-params';
 import { useQueryFilters } from '../../../filters/hooks/use-query-filter';
 import { LoadingOverlay } from '../../../loader/overlay';

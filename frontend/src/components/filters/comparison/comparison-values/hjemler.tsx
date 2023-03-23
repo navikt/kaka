@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHjemler } from '../../../../simple-api-state/use-kodeverk';
+import { useHjemler } from '@app/simple-api-state/use-kodeverk';
 import { ComparisonOption } from './comparison-option';
 
 export const Hjemler = () => {

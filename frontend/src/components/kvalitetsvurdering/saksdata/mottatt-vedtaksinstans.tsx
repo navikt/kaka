@@ -2,12 +2,12 @@ import { HelpText } from '@navikt/ds-react';
 import { parse, subDays } from 'date-fns';
 import React from 'react';
 import styled from 'styled-components';
-import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useSaksdata } from '../../../hooks/use-saksdata';
-import { useSaksdataId } from '../../../hooks/use-saksdata-id';
-import { useValidationError } from '../../../hooks/use-validation-error';
-import { useSetMottattVedtaksinstansMutation } from '../../../redux-api/saksdata';
-import { SakstypeEnum } from '../../../types/sakstype';
+import { useCanEdit } from '@app/hooks/use-can-edit';
+import { useSaksdata } from '@app/hooks/use-saksdata';
+import { useSaksdataId } from '@app/hooks/use-saksdata-id';
+import { useValidationError } from '@app/hooks/use-validation-error';
+import { useSetMottattVedtaksinstansMutation } from '@app/redux-api/saksdata';
+import { SakstypeEnum } from '@app/types/sakstype';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
 import { CENTURY_NUMBER } from '../../filters/date-presets/constants';
 

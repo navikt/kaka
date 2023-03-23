@@ -1,7 +1,7 @@
 import { HelpText } from '@navikt/ds-react';
 import React, { useMemo } from 'react';
-import { toPercent } from '../../../domain/number';
-import { UtfallEnum } from '../../../types/utfall';
+import { toPercent } from '@app/domain/number';
+import { UtfallEnum } from '@app/types/utfall';
 import { HelpTextContent, KeyContent, KeyLabelWithHelpText, RedKeyNumber } from './styled-components';
 
 interface Stat {

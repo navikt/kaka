@@ -1,5 +1,5 @@
 import React from 'react';
-import { FilterSection, FiltersAndContentContainer } from '../../../styled-components/filters-and-content';
+import { FilterSection, FiltersAndContentContainer } from '@app/styled-components/filters-and-content';
 import { useVersionQueryFilter } from '../../filters/hooks/use-query-filter';
 import { ContentLoader } from '../content-loader';
 import { ContentV1 } from './content/content-v1';

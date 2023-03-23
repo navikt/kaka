@@ -2,9 +2,9 @@ import { Button, Select } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useYtelser } from '../../../simple-api-state/use-kodeverk';
-import { useUser } from '../../../simple-api-state/use-user';
-import { KvalitetsvurderingVersion } from '../../../types/saksdata';
+import { useYtelser } from '@app/simple-api-state/use-kodeverk';
+import { useUser } from '@app/simple-api-state/use-user';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { FilterPanelContainer, StyledHr } from '../../filters/common/styled-components';
 import {
   FORMATTED_END_OF_LAST_MONTH,

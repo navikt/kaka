@@ -2,7 +2,7 @@ import { TrashIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { IKodeverkSimpleValue } from '../../../../types/kodeverk';
+import { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { SingleSelectDropdown } from '../../../dropdown/single-select-dropdown';
 import { ToggleButton } from '../../../toggle/toggle-button';
 

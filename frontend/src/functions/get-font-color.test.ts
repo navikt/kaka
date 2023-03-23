@@ -1,4 +1,4 @@
-import { NAV_COLORS } from '../colors/colors';
+import { NAV_COLORS } from '@app/colors/colors';
 import { FontColor, getFontColor } from './get-font-color';
 
 describe('get font color for background', () => {

@@ -6,12 +6,12 @@ import {
   IS_BEFORE_FEBRUARY_2023,
   MONTH_FORMAT,
   NOW,
-} from '../components/filters/date-presets/constants';
-import { ComparableQueryParams, QueryParams } from '../components/filters/filter-query-params';
-import { TilbakekrevingEnum } from '../components/filters/types';
-import { useKlageenheter, useVedtaksenheter } from '../simple-api-state/use-kodeverk';
-import { useUser } from '../simple-api-state/use-user';
-import { KvalitetsvurderingVersion } from '../types/saksdata';
+} from '@app/components/filters/date-presets/constants';
+import { ComparableQueryParams, QueryParams } from '@app/components/filters/filter-query-params';
+import { TilbakekrevingEnum } from '@app/components/filters/types';
+import { useKlageenheter, useVedtaksenheter } from '@app/simple-api-state/use-kodeverk';
+import { useUser } from '@app/simple-api-state/use-user';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 
 const DEFAULT_VERSION = `${QueryParams.VERSION}=${KvalitetsvurderingVersion.V2}`;
 const DEFAULT_VERSION_LEDER = `${QueryParams.VERSION}=${

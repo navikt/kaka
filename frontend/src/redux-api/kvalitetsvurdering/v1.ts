@@ -5,7 +5,7 @@ import {
   IKvalitetsvurderingRadioExtended,
   IKvalitetsvurderingTexts,
   IKvalitetsvurderingV1,
-} from '../../types/kvalitetsvurdering/v1';
+} from '@app/types/kvalitetsvurdering/v1';
 import { baseQuery } from '../common';
 
 type WithId = Pick<IKvalitetsvurderingV1, 'id'>;

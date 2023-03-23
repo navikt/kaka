@@ -1,7 +1,7 @@
-import { KVALITETESVURDERING_V1_FIELD_NAMES as KVALITETSVURDERING_V1_FIELD_NAMES } from '../components/kvalitetsvurdering/kvalitetsskjema/v1/use-field-name';
-import { KVALITETSVURDERING_V2_TEXTS } from '../types/kvalitetsvurdering/texts/structures';
-import { KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES } from '../types/kvalitetsvurdering/v2';
-import { ISaksdataComplete } from '../types/saksdata';
+import { KVALITETESVURDERING_V1_FIELD_NAMES as KVALITETSVURDERING_V1_FIELD_NAMES } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v1/use-field-name';
+import { KVALITETSVURDERING_V2_TEXTS } from '@app/types/kvalitetsvurdering/texts/structures';
+import { KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES } from '@app/types/kvalitetsvurdering/v2';
+import { ISaksdataComplete } from '@app/types/saksdata';
 
 type SaksdataKeys = keyof Pick<
   ISaksdataComplete,

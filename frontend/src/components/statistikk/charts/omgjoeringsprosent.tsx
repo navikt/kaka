@@ -1,10 +1,10 @@
 import { ChartData, ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { UTFALL_COLOR_MAP } from '../../../colors/colors';
-import { toPercent } from '../../../domain/number';
-import { useUtfall } from '../../../simple-api-state/use-utfall';
-import { UtfallEnum } from '../../../types/utfall';
+import { UTFALL_COLOR_MAP } from '@app/colors/colors';
+import { toPercent } from '@app/domain/number';
+import { useUtfall } from '@app/simple-api-state/use-utfall';
+import { UtfallEnum } from '@app/types/utfall';
 import { GetAbsoluteValue, useBarTooltipText } from '../hooks/use-bar-tooltip-text';
 import { ComparisonPropsV2 } from '../types';
 import { HorizontalBars } from './v2/kvalitetsvurderinger/horizontal-bars';

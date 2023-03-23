@@ -1,5 +1,5 @@
 import React from 'react';
-import { useKlageenheter } from '../../../../simple-api-state/use-kodeverk';
+import { useKlageenheter } from '@app/simple-api-state/use-kodeverk';
 import { ComparisonOption } from './comparison-option';
 
 export const Klageenheter = () => {

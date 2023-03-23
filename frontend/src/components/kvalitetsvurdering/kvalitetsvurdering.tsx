@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useSaksdata } from '../../hooks/use-saksdata';
-import { PageWrapper } from '../../pages/page-wrapper';
+import { useSaksdata } from '@app/hooks/use-saksdata';
+import { PageWrapper } from '@app/pages/page-wrapper';
 import { KvalitetsskjemaV1 } from './kvalitetsskjema/v1/kvalitetsskjema';
 import { KvalitetsskjemaV2 } from './kvalitetsskjema/v2/kvalitetsskjema';
 import { Saksdata } from './saksdata/saksdata';

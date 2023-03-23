@@ -1,15 +1,15 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { useIndexPath } from '../../hooks/use-index-path';
-import { useUserHasRole } from '../../hooks/use-user-access';
-import { KvalitetsvurderingPage } from '../../pages/kvalitetsvurdering';
-import { KvalitetsvurderingerPage } from '../../pages/kvalitetsvurderinger';
-import { ComparisonPage } from '../../pages/statistikk/comparison';
-import { StatistikkLederPage } from '../../pages/statistikk/leder';
-import { StatistikkMinPage } from '../../pages/statistikk/min';
-import { StatistikkOpenPage } from '../../pages/statistikk/open';
-import { StatistikkTotalPage } from '../../pages/statistikk/total';
-import { TilbakemeldingerPage } from '../../pages/tilbakemeldinger';
+import { useIndexPath } from '@app/hooks/use-index-path';
+import { useUserHasRole } from '@app/hooks/use-user-access';
+import { KvalitetsvurderingPage } from '@app/pages/kvalitetsvurdering';
+import { KvalitetsvurderingerPage } from '@app/pages/kvalitetsvurderinger';
+import { ComparisonPage } from '@app/pages/statistikk/comparison';
+import { StatistikkLederPage } from '@app/pages/statistikk/leder';
+import { StatistikkMinPage } from '@app/pages/statistikk/min';
+import { StatistikkOpenPage } from '@app/pages/statistikk/open';
+import { StatistikkTotalPage } from '@app/pages/statistikk/total';
+import { TilbakemeldingerPage } from '@app/pages/tilbakemeldinger';
 import { Overlay } from '../loader/overlay';
 
 export const Router = () => {

@@ -1,6 +1,6 @@
 import { Detail } from '@navikt/ds-react';
 import React from 'react';
-import { ISaksdataBase } from '../../types/saksdata';
+import { ISaksdataBase } from '@app/types/saksdata';
 
 interface SaksCounterProps {
   list?: ISaksdataBase[];

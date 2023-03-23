@@ -3,10 +3,10 @@ import { Button, Label } from '@navikt/ds-react';
 import { format, parse } from 'date-fns';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { isNotNull } from '../../../functions/is-not';
-import { useYtelser } from '../../../simple-api-state/use-kodeverk';
-import { useUser } from '../../../simple-api-state/use-user';
-import { KvalitetsvurderingVersion } from '../../../types/saksdata';
+import { isNotNull } from '@app/functions/is-not';
+import { useYtelser } from '@app/simple-api-state/use-kodeverk';
+import { useUser } from '@app/simple-api-state/use-user';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
 import { DateContainer, FilterPanelContainer, StyledHr } from '../../filters/common/styled-components';
 import {

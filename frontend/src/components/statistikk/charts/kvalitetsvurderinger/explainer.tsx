@@ -1,7 +1,7 @@
 import { HelpText } from '@navikt/ds-react';
 import React from 'react';
 import styled from 'styled-components';
-import { CardTitle } from '../../../../styled-components/cards';
+import { CardTitle } from '@app/styled-components/cards';
 import { ChartTitle } from '../styled-components';
 
 interface Props {

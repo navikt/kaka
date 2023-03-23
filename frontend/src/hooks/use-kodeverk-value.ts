@@ -1,11 +1,11 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import { State } from '../simple-api-state/simple-api-state';
-import { useKlageenheter, useSakstyper, useYtelser } from '../simple-api-state/use-kodeverk';
-import { useSortedUtfall } from '../simple-api-state/use-utfall';
-import { IKlageenhet, IKodeverkSimpleValue, ILovKildeToRegistreringshjemmel, IYtelse } from '../types/kodeverk';
-import { KvalitetsvurderingVersion } from '../types/saksdata';
-import { SakstypeEnum } from '../types/sakstype';
-import { UtfallEnum } from '../types/utfall';
+import { State } from '@app/simple-api-state/simple-api-state';
+import { useKlageenheter, useSakstyper, useYtelser } from '@app/simple-api-state/use-kodeverk';
+import { useSortedUtfall } from '@app/simple-api-state/use-utfall';
+import { IKlageenhet, IKodeverkSimpleValue, ILovKildeToRegistreringshjemmel, IYtelse } from '@app/types/kodeverk';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { SakstypeEnum } from '@app/types/sakstype';
+import { UtfallEnum } from '@app/types/utfall';
 import { useSaksdata } from './use-saksdata';
 
 type YtelseParams = typeof skipToken | { ytelseId: string; version: KvalitetsvurderingVersion };

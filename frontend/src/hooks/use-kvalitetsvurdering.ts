@@ -1,6 +1,6 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
-import { useGetKvalitetsvurderingQuery } from '../redux-api/kvalitetsvurdering/v1';
-import { IKvalitetsvurderingV1 } from '../types/kvalitetsvurdering/v1';
+import { useGetKvalitetsvurderingQuery } from '@app/redux-api/kvalitetsvurdering/v1';
+import { IKvalitetsvurderingV1 } from '@app/types/kvalitetsvurdering/v1';
 import { useSaksdata } from './use-saksdata';
 
 export const useKvalitetsvurdering = (): [IKvalitetsvurderingV1 | undefined, boolean] => {

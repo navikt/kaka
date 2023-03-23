@@ -1,13 +1,13 @@
 import { BodyShort, Label, Select } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import React from 'react';
-import { useCanEdit } from '../../../hooks/use-can-edit';
-import { useSimpleYtelserForKlageenhet } from '../../../hooks/use-kodeverk-value';
-import { useSaksdata } from '../../../hooks/use-saksdata';
-import { useSaksdataId } from '../../../hooks/use-saksdata-id';
-import { useValidationError } from '../../../hooks/use-validation-error';
-import { useSetYtelseMutation } from '../../../redux-api/saksdata';
-import { useUser } from '../../../simple-api-state/use-user';
+import { useCanEdit } from '@app/hooks/use-can-edit';
+import { useSimpleYtelserForKlageenhet } from '@app/hooks/use-kodeverk-value';
+import { useSaksdata } from '@app/hooks/use-saksdata';
+import { useSaksdataId } from '@app/hooks/use-saksdata-id';
+import { useValidationError } from '@app/hooks/use-validation-error';
+import { useSetYtelseMutation } from '@app/redux-api/saksdata';
+import { useUser } from '@app/simple-api-state/use-user';
 import { EmptyOption } from './empty-option';
 
 export const Ytelse = () => {

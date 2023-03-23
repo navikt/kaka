@@ -1,10 +1,7 @@
 import { Select, ToggleGroup } from '@navikt/ds-react';
 import React from 'react';
 import styled from 'styled-components';
-import {
-  VedtaketHjemlerListTextsKeys,
-  VedtaketTextsKeys,
-} from '../../../../../types/kvalitetsvurdering/texts/structures';
+import { VedtaketHjemlerListTextsKeys, VedtaketTextsKeys } from '@app/types/kvalitetsvurdering/texts/structures';
 import {
   BRUK_AV_RAADGIVENDE_LEGE_TEXTS,
   KLAGEFORBEREDELSEN_TEXTS,
@@ -12,9 +9,9 @@ import {
   SAKENS_DOKUMENTER_TEXTS,
   UTREDNINGEN_TEXTS,
   VEDTAKET_TEXTS,
-} from '../../../../../types/kvalitetsvurdering/texts/texts';
-import { MainReason } from '../../../../../types/kvalitetsvurdering/v2';
-import { IStatisticVurderingV2 } from '../../../../../types/statistics/v2';
+} from '@app/types/kvalitetsvurdering/texts/texts';
+import { MainReason } from '@app/types/kvalitetsvurdering/v2';
+import { IStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { QueryParams } from '../../../../filters/filter-query-params';
 import { CardSize, DynamicCard } from '../../../card/card';
 import { useQueryParam } from '../../../hooks/use-query-param';

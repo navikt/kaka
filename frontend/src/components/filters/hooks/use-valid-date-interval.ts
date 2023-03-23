@@ -1,4 +1,4 @@
-import { KvalitetsvurderingVersion } from '../../../types/saksdata';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { DEC_31_2022, JAN_1_2022, JAN_1_2023, NOW } from '../date-presets/constants';
 import { useVersionQueryFilter } from './use-query-filter';
 

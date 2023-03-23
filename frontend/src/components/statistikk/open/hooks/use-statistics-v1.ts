@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useStatisticsOpen } from '../../../../simple-api-state/statistics/v1/use-statistics-open';
-import { IStatisticVurderingV1 } from '../../../../types/statistics/v1';
+import { useStatisticsOpen } from '@app/simple-api-state/statistics/v1/use-statistics-open';
+import { IStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../../filters/hooks/use-query-filter';

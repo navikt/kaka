@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEnheter } from '../../../../simple-api-state/use-kodeverk';
+import { useEnheter } from '@app/simple-api-state/use-kodeverk';
 import { ComparisonOption } from './comparison-option';
 
 export const Enheter = () => {

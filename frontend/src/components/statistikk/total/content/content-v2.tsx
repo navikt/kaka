@@ -1,7 +1,7 @@
 import React from 'react';
-import { CardTitle, FullWidthStickyContainer, StatsContainer } from '../../../../styled-components/cards';
-import { ContentArea } from '../../../../styled-components/filters-and-content';
-import { IFullStatisticVurderingV2 } from '../../../../types/statistics/v2';
+import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
+import { ContentArea } from '@app/styled-components/filters-and-content';
+import { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { LoadingOverlay } from '../../../loader/overlay';
 import { CardSize, DynamicCard } from '../../card/card';
 import { BehandlingstidHistogram } from '../../charts/behandlingstid-histogram';

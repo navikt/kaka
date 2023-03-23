@@ -1,9 +1,9 @@
 import { DownloadIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import React from 'react';
-import { useHasRole } from '../../hooks/use-has-role';
-import { KvalitetsvurderingVersion } from '../../types/saksdata';
-import { Role } from '../../types/user';
+import { useHasRole } from '@app/hooks/use-has-role';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { Role } from '@app/types/user';
 import { QueryParams } from '../filters/filter-query-params';
 import { useQueryFilter, useVersionQueryFilter } from '../filters/hooks/use-query-filter';
 

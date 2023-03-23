@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { IFullStatisticVurderingV1 } from '../../../types/statistics/v1';
+import { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { QueryParams } from '../../filters/filter-query-params';
 import { BehandlingstidEnum, isBehandlingstidEnum } from '../types';
 

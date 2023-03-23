@@ -1,6 +1,6 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import React from 'react';
-import { useKodeverkUtfall } from '../../hooks/use-kodeverk-value';
+import { useKodeverkUtfall } from '@app/hooks/use-kodeverk-value';
 
 interface Props {
   utfall: string | null;

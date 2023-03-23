@@ -1,8 +1,8 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import React from 'react';
-import { useFullYtelseNameFromId } from '../../hooks/use-kodeverk-value';
-import { LabelYtelse } from '../../styled-components/labels';
-import { KvalitetsvurderingVersion } from '../../types/saksdata';
+import { useFullYtelseNameFromId } from '@app/hooks/use-kodeverk-value';
+import { LabelYtelse } from '@app/styled-components/labels';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 
 interface Props {
   ytelseId: string | null;

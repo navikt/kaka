@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { OptionValue } from '../../../../types/statistics/common';
+import { OptionValue } from '@app/types/statistics/common';
 import { getDefaultColor } from '../../../statistikk/comparison/get-default-color';
 import { QueryParams } from '../../filter-query-params';
 import { useComparisonValues } from './use-values';

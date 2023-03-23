@@ -1,8 +1,8 @@
 import { skipToken } from '@reduxjs/toolkit/query/react';
 import React from 'react';
-import { useKodeverkSakstype } from '../../hooks/use-kodeverk-value';
-import { LabelAnke, LabelKlage } from '../../styled-components/labels';
-import { SakstypeEnum } from '../../types/sakstype';
+import { useKodeverkSakstype } from '@app/hooks/use-kodeverk-value';
+import { LabelAnke, LabelKlage } from '@app/styled-components/labels';
+import { SakstypeEnum } from '@app/types/sakstype';
 
 interface Props {
   type: SakstypeEnum;

@@ -1,7 +1,7 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query/react';
 import React from 'react';
-import { ISaksdataListParams, useGetCompleteSaksdataListQuery } from '../../redux-api/saksdata';
-import { useUser } from '../../simple-api-state/use-user';
+import { ISaksdataListParams, useGetCompleteSaksdataListQuery } from '@app/redux-api/saksdata';
+import { useUser } from '@app/simple-api-state/use-user';
 import { VurderingerTable } from './table';
 
 export const FullfoerteVurderingerTable = () => {

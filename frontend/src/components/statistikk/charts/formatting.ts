@@ -1,4 +1,4 @@
-import { toPercent } from '../../../domain/number';
+import { toPercent } from '@app/domain/number';
 
 export const percent = (value: number, total: number): string => `${toPercent(value / total)} (${value})`;
 

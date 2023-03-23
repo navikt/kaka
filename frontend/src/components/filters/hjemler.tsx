@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { useLovkildeToRegistreringshjemler } from '../../simple-api-state/use-kodeverk';
+import { useLovkildeToRegistreringshjemler } from '@app/simple-api-state/use-kodeverk';
 import { GroupedDropdown, OptionGroup } from '../dropdown/grouped-dropdown';
 import { formatMetadata } from './common/dropdown';
 import { StyledDropdownButton } from './common/styled-components';

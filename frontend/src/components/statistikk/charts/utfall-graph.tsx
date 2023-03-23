@@ -1,11 +1,11 @@
 import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { UTFALL_COLOR_MAP } from '../../../colors/colors';
-import { isNotUndefined } from '../../../functions/is-not';
-import { UTFALL_VALUES_FOR_STATS, useSortedUtfall } from '../../../simple-api-state/use-utfall';
-import { StatsDate } from '../../../types/statistics/common';
-import { UtfallEnum } from '../../../types/utfall';
+import { UTFALL_COLOR_MAP } from '@app/colors/colors';
+import { isNotUndefined } from '@app/functions/is-not';
+import { UTFALL_VALUES_FOR_STATS, useSortedUtfall } from '@app/simple-api-state/use-utfall';
+import { StatsDate } from '@app/types/statistics/common';
+import { UtfallEnum } from '@app/types/utfall';
 import { percent, tickCallback } from './formatting';
 
 const useOptions = (total = 1): ChartOptions<'bar'> => ({

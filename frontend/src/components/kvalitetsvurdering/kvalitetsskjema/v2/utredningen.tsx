@@ -1,10 +1,10 @@
 import { Radio } from '@navikt/ds-react';
 import React from 'react';
-import { useCanEdit } from '../../../../hooks/use-can-edit';
-import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
-import { UTREDNINGEN_REASONS, getChildrenEntries } from '../../../../types/kvalitetsvurdering/texts/structures';
-import { KVALITETSVURDERING_TEXTS, UTREDNINGEN_TEXTS } from '../../../../types/kvalitetsvurdering/texts/texts';
-import { MainReason } from '../../../../types/kvalitetsvurdering/v2';
+import { useCanEdit } from '@app/hooks/use-can-edit';
+import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
+import { UTREDNINGEN_REASONS, getChildrenEntries } from '@app/types/kvalitetsvurdering/texts/structures';
+import { KVALITETSVURDERING_TEXTS, UTREDNINGEN_TEXTS } from '@app/types/kvalitetsvurdering/texts/texts';
+import { MainReason } from '@app/types/kvalitetsvurdering/v2';
 import { Checkboxes } from './common/checkboxes';
 import { HeadingWithHelpText } from './common/heading-with-helptext';
 import { RadioButtonsRow, StyledRadioGroup } from './common/styled-components';

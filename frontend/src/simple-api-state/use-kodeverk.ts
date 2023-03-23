@@ -1,7 +1,7 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query';
-import { IKlageenhet, IKodeverkSimpleValue, IKodeverkValue, IYtelse } from '../types/kodeverk';
-import { KvalitetsvurderingVersion } from '../types/saksdata';
-import { SakstypeEnum } from '../types/sakstype';
+import { IKlageenhet, IKodeverkSimpleValue, IKodeverkValue, IYtelse } from '@app/types/kodeverk';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { SakstypeEnum } from '@app/types/sakstype';
 import { SimpleApiState, State, useSimpleApiState } from './simple-api-state';
 
 export const API_PREFIX = '/api/klage-kodeverk-api/kodeverk';

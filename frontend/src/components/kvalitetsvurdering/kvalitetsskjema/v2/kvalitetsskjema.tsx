@@ -1,8 +1,8 @@
 import { Heading, Loader } from '@navikt/ds-react';
 import React from 'react';
 import styled from 'styled-components';
-import { useSaksdata } from '../../../../hooks/use-saksdata';
-import { UtfallEnum } from '../../../../types/utfall';
+import { useSaksdata } from '@app/hooks/use-saksdata';
+import { UtfallEnum } from '@app/types/utfall';
 import { Annet } from './annet';
 import { BrukAvRaadgivendeLege } from './bruk-av-raadgivende';
 import { useKvalitetsvurderingV2 } from './common/use-kvalitetsvurdering-v2';

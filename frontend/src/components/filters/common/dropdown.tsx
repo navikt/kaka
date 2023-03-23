@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { useOnClickOutside } from '../../../hooks/use-on-click-outside';
+import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
 import { Container, StyledDropdownButton } from './styled-components';
 
 interface Props {

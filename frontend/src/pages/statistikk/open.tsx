@@ -1,5 +1,5 @@
 import React from 'react';
-import { OpenStatistikk } from '../../components/statistikk/open/openstatistikk';
+import { OpenStatistikk } from '@app/components/statistikk/open/openstatistikk';
 import { PageWrapper } from '../page-wrapper';
 
 export const StatistikkOpenPage = () => (

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { IYtelse } from '../../types/kodeverk';
+import { IYtelse } from '@app/types/kodeverk';
 import { Filter } from './common/filter';
 import { FilterType } from './types';
 

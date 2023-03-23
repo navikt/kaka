@@ -2,7 +2,7 @@ import { Alert, UNSAFE_DatePicker as Datepicker } from '@navikt/ds-react';
 import { addYears, format, isAfter, isBefore, isValid, parse, subDays, subYears } from 'date-fns';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { isoDateToPretty } from '../../domain/date';
+import { isoDateToPretty } from '@app/domain/date';
 import { FORMAT, PRETTY_FORMAT } from '../filters/date-presets/constants';
 
 interface Props {

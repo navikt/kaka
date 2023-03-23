@@ -1,8 +1,8 @@
-import { Radiovalg } from '../../../../../../../types/kvalitetsvurdering/radio';
-import { SakstypeEnum } from '../../../../../../../types/sakstype';
-import { StatsDate } from '../../../../../../../types/statistics/common';
-import { IStatisticVurderingV2 } from '../../../../../../../types/statistics/v2';
-import { UtfallEnum } from '../../../../../../../types/utfall';
+import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
+import { SakstypeEnum } from '@app/types/sakstype';
+import { StatsDate } from '@app/types/statistics/common';
+import { IStatisticVurderingV2 } from '@app/types/statistics/v2';
+import { UtfallEnum } from '@app/types/utfall';
 
 const DEFAULT_DATE: StatsDate = {
   weekNumber: 12,

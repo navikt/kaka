@@ -1,10 +1,10 @@
 import { ChartOptions, TooltipCallbacks } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
-import { isNotUndefined } from '../../../../functions/is-not';
-import { Radiovalg } from '../../../../types/kvalitetsvurdering/radio';
-import { IKvalitetsvurderingBooleans } from '../../../../types/kvalitetsvurdering/v1';
-import { IStatisticVurderingV1, RadiovalgField } from '../../../../types/statistics/v1';
+import { isNotUndefined } from '@app/functions/is-not';
+import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
+import { IKvalitetsvurderingBooleans } from '@app/types/kvalitetsvurdering/v1';
+import { IStatisticVurderingV1, RadiovalgField } from '@app/types/statistics/v1';
 import { ReasonLabel, getReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
 import { useKvalitetsvurderingParam } from '../../hooks/use-kvalitetsvurdering-param';
 import { StatisticsPropsV1 } from '../../types';

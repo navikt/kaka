@@ -1,9 +1,9 @@
 import { Textarea } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
-import { useCanEdit } from '../../../../hooks/use-can-edit';
-import { useKlageenheter } from '../../../../simple-api-state/use-kodeverk';
-import { useUser } from '../../../../simple-api-state/use-user';
-import { ANNET_TEXTS } from '../../../../types/kvalitetsvurdering/texts/texts';
+import { useCanEdit } from '@app/hooks/use-can-edit';
+import { useKlageenheter } from '@app/simple-api-state/use-kodeverk';
+import { useUser } from '@app/simple-api-state/use-user';
+import { ANNET_TEXTS } from '@app/types/kvalitetsvurdering/texts/texts';
 import { HeadingWithHelpText } from './common/heading-with-helptext';
 import { useKvalitetsvurderingV2 } from './common/use-kvalitetsvurdering-v2';
 import { useValidationError } from './common/use-validation-error';

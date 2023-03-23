@@ -1,4 +1,4 @@
-import { KvalitetsvurderingVersion } from '../../../types/saksdata';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import {
   FORMATTED_DEC_1_2022,
   FORMATTED_DEC_31_2022,

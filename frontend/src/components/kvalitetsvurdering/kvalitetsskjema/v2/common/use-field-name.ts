@@ -1,5 +1,5 @@
-import { KVALITETSVURDERING_V2_TEXTS } from '../../../../../types/kvalitetsvurdering/texts/structures';
-import { IKvalitetsvurderingData } from '../../../../../types/kvalitetsvurdering/v2';
+import { KVALITETSVURDERING_V2_TEXTS } from '@app/types/kvalitetsvurdering/texts/structures';
+import { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
 
 type Keys = keyof IKvalitetsvurderingData;
 

@@ -2,10 +2,10 @@ import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
 import { Alert } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { isReduxValidationResponse } from '../../../functions/error-type-guard';
-import { useKvalitetsvurderingIsFinished } from '../../../hooks/use-kvalitetsvurdering-is-finished';
-import { useSaksdataId } from '../../../hooks/use-saksdata-id';
-import { useFullfoerMutation } from '../../../redux-api/saksdata';
+import { isReduxValidationResponse } from '@app/functions/error-type-guard';
+import { useKvalitetsvurderingIsFinished } from '@app/hooks/use-kvalitetsvurdering-is-finished';
+import { useSaksdataId } from '@app/hooks/use-saksdata-id';
+import { useFullfoerMutation } from '@app/redux-api/saksdata';
 import { ValidationSummary } from './validation-summary';
 
 interface Props {

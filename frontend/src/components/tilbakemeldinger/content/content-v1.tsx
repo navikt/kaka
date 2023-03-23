@@ -1,7 +1,7 @@
 import React from 'react';
-import { CardTitle, FullWidthStickyContainer, StatsContainer } from '../../../styled-components/cards';
-import { ContentArea } from '../../../styled-components/filters-and-content';
-import { IStatisticVurderingV1 } from '../../../types/statistics/v1';
+import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
+import { ContentArea } from '@app/styled-components/filters-and-content';
+import { IStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { VurderingerTable } from '../../kvalitetsvurderinger/table';
 import { LoadingOverlay } from '../../loader/overlay';
 import { CardSize, DynamicCard } from '../../statistikk/card/card';
