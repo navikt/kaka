@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import qs from 'qs';
+import { stringify } from 'qs';
 import { ISaksdataBase, ISaksdataComplete, ISaksdataIncomplete, KvalitetsvurderingVersion } from '../types/saksdata';
 import { baseQuery } from './common';
 import { kvalitetsvurderingV1Api } from './kvalitetsvurdering/v1';
@@ -111,7 +111,7 @@ export const saksdataApi = createApi({
     }),
     getIncompleteSaksdataList: builder.query<ISaksdataIncomplete[], ISaksdataListParams>({
       query: (params) => {
-        const query = qs.stringify(params);
+        const query = stringify(params);
 
         return `/api/kaka-api/saksdataliste/?fullfoert=false&${query}`;
       },
@@ -125,7 +125,7 @@ export const saksdataApi = createApi({
     }),
     getCompleteSaksdataList: builder.query<ISaksdataComplete[], ISaksdataListParams>({
       query: (params) => {
-        const query = qs.stringify(params);
+        const query = stringify(params);
 
         return `/api/kaka-api/saksdataliste/?fullfoert=true&${query}`;
       },

@@ -1,6 +1,6 @@
 import { TrashIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IKodeverkSimpleValue } from '../../../../types/kodeverk';
 import { SingleSelectDropdown } from '../../../dropdown/single-select-dropdown';
@@ -29,8 +29,8 @@ export const SimpleComparisonItem = ({
   selectedLabel,
   testId,
 }: ComparisonItemProps) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const ref = React.useRef<HTMLButtonElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef<HTMLButtonElement>(null);
 
   const toggleOpen = () => setIsOpen(!isOpen);
   const closeDropdown = () => setIsOpen(false);
