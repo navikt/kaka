@@ -47,12 +47,26 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
     [saksbehandlerList, saksbehandlere]
   );
 
+  const allSaksbehandlereStats = useMemo(
+    () =>
+      Object.entries(saksbehandlere).map(([navIdent, stats]) => ({
+        label: saksbehandlerList.find((s) => s.navIdent === navIdent)?.navn ?? 'Laster...',
+        data: stats,
+      })),
+    [saksbehandlerList, saksbehandlere]
+  );
+
   const relevantMine = useRelevantStatistics(mine);
   const relevantRest = useRelevantStatistics(rest);
 
   const relevantData = useMemo(
     () => (selectedSaksbehandlere.length > 0 ? relevantSaksbehandlereStats.flatMap(({ data }) => data) : relevantMine),
     [relevantMine, relevantSaksbehandlereStats, selectedSaksbehandlere.length]
+  );
+
+  const allData = useMemo(
+    () => (selectedSaksbehandlere.length > 0 ? allSaksbehandlereStats.flatMap(({ data }) => data) : mine),
+    [allSaksbehandlereStats, mine, selectedSaksbehandlere.length]
   );
 
   const datasets = useMemo(
@@ -85,7 +99,7 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
       <ContentArea>
         <FullWidthStickyContainer>
           <StatsContainer>
-            <Finished stats={relevantData} />
+            <Finished stats={allData} />
             <Omgjort stats={relevantData} label="Omgjort av vår enhet" />
             <Gjennomsnittstid stats={relevantData} />
             <Processed weeks={12} stats={relevantData} />
