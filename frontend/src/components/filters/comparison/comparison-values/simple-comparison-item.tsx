@@ -1,7 +1,12 @@
 import { TrashIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
+import {
+  DropdownContainer,
+  Ellipsis,
+  StyledColorPicker,
+  StyledComparisonItem,
+} from '@app/components/filters/comparison/comparison-values/styled-components';
 import { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { SingleSelectDropdown } from '../../../dropdown/single-select-dropdown';
 import { ToggleButton } from '../../../toggle/toggle-button';
@@ -59,26 +64,3 @@ export const SimpleComparisonItem = ({
     </StyledComparisonItem>
   );
 };
-
-const StyledComparisonItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-const StyledColorPicker = styled.input`
-  width: 30px;
-  min-width: 30px;
-`;
-
-const Ellipsis = styled.div`
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-
-const DropdownContainer = styled.div`
-  flex-grow: 1;
-  overflow-x: hidden;
-`;
