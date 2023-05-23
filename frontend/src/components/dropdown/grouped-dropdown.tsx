@@ -1,35 +1,15 @@
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
-import React, { useCallback, useMemo, useState } from 'react';
-import styled from 'styled-components';
+import React, { useMemo, useState } from 'react';
+import { useOnHeaderChange } from '@app/components/dropdown/hooks/use-on-header-change';
+import { DropdownContent } from '@app/components/dropdown/styled-components';
+import { CommonGroupedDropdownProps } from '@app/components/dropdown/types';
 import { DropdownContainer } from './dropdown-container';
 import { Header } from './header';
 
-interface Option {
-  label: string;
-  value: string;
-}
-
-interface SectionHeader {
-  id: string;
-  name?: string;
-}
-
-export interface OptionGroup {
-  sectionHeader: SectionHeader;
-  sectionOptions: Option[];
-}
-
-interface DropdownProps {
+interface DropdownProps extends CommonGroupedDropdownProps {
   selected: string[];
-  options: OptionGroup[];
   onChange: (id: string | null, active: boolean) => void;
-  open: boolean;
-  close: () => void;
   showFjernAlle?: boolean;
-  testId: string;
-  maxHeight?: string;
-  width?: string;
-  anchorEl: HTMLButtonElement | null;
 }
 
 export const GroupedDropdown = ({ open, ...rest }: DropdownProps) => {
@@ -52,21 +32,8 @@ const ShowGroupedDropdown = ({
   showFjernAlle = true,
 }: Omit<DropdownProps, 'open'>): JSX.Element | null => {
   const [filteredGroups, setFilteredGroups] = useState(options);
-
   const allGroups = useMemo(() => options.flatMap(({ sectionOptions }) => sectionOptions), [options]);
-
-  const onHeaderChange = useCallback(
-    (filteredOptions: Option[]) =>
-      setFilteredGroups(
-        options
-          .map(({ sectionOptions, ...rest }) => ({
-            ...rest,
-            sectionOptions: sectionOptions.filter((o) => filteredOptions.includes(o)),
-          }))
-          .filter(({ sectionOptions }) => sectionOptions.length !== 0)
-      ),
-    [options]
-  );
+  const onHeaderChange = useOnHeaderChange(options, setFilteredGroups);
 
   const reset = () => onChange(null, false);
 
@@ -78,7 +45,7 @@ const ShowGroupedDropdown = ({
         onReset={showFjernAlle === true ? reset : undefined}
         close={close}
       />
-      <Container>
+      <DropdownContent>
         {filteredGroups.map(({ sectionHeader, sectionOptions }) => (
           <CheckboxGroup
             key={sectionHeader.id}
@@ -99,14 +66,7 @@ const ShowGroupedDropdown = ({
             ))}
           </CheckboxGroup>
         ))}
-      </Container>
+      </DropdownContent>
     </DropdownContainer>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 8px;
-  padding: 8px;
-`;

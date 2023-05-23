@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useState } from 'react';
+import { OptionGroup } from '@app/components/dropdown/types';
 import { useLovkildeToRegistreringshjemler } from '@app/simple-api-state/use-kodeverk';
-import { GroupedDropdown, OptionGroup } from '../dropdown/grouped-dropdown';
+import { GroupedDropdown } from '../dropdown/grouped-dropdown';
 import { formatMetadata } from './common/dropdown';
 import { StyledDropdownButton } from './common/styled-components';
 
