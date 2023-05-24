@@ -15,7 +15,7 @@ interface IHjemmelNameWithLovkilde {
   hjemmelnavn: string;
 }
 
-type RegistreringshjemlerMap = Record<string, IHjemmelNameWithLovkilde>;
+export type RegistreringshjemlerMap = Record<string, IHjemmelNameWithLovkilde>;
 
 const registreringshjemlerMap = new SimpleApiState<RegistreringshjemlerMap>(`${API_PREFIX}/registreringshjemlermap`);
 const lovkildeToRegistreringshjemler = new SimpleApiState<AllLovKilderToRegistreringshjemmel[]>(
@@ -26,7 +26,6 @@ const ytelserV2 = new SimpleApiState<IYtelse[]>(`${API_PREFIX}/ytelser/v2`);
 const klageenheter = new SimpleApiState<IKlageenhet[]>(`${API_PREFIX}/klageenheter`);
 const enheter = new SimpleApiState<IKodeverkSimpleValue[]>(`${API_PREFIX}/enheter`);
 const sakstyper = new SimpleApiState<IKodeverkSimpleValue<SakstypeEnum>[]>(`${API_PREFIX}/sakstyper`);
-const hjemler = new SimpleApiState<IKodeverkValue[]>(`${API_PREFIX}/hjemler`);
 const vedtaksenheter = new SimpleApiState<IKodeverkSimpleValue[]>(`${API_PREFIX}/vedtaksenheter`);
 
 export const useYtelser = (version: KvalitetsvurderingVersion | typeof skipToken = skipToken) =>
@@ -36,7 +35,6 @@ export const useRegistreringshjemlerMap = () => useSimpleApiState(registreringsh
 export const useKlageenheter = () => useSimpleApiState(klageenheter);
 export const useEnheter = () => useSimpleApiState(enheter);
 
-export const useHjemler = () => useSimpleApiState(hjemler);
 export const useVedtaksenheter = () => useSimpleApiState(vedtaksenheter);
 
 export const useSakstyper = (): State<IKodeverkSimpleValue<SakstypeEnum>[]> => {
