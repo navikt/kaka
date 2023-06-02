@@ -1,8 +1,8 @@
 import {
   BarChartFillIcon,
   BarChartIcon,
+  BulletListIcon,
   LineGraphStackedIcon,
-  ListIcon,
   PieChartFillIcon,
   PieChartIcon,
   TasklistIcon,
@@ -38,7 +38,7 @@ export const Nav = () => {
     <StyledNav role="navigation" aria-label="Meny" data-testid="kaka-nav">
       <StyledNavLinkList>
         <NavItem to={`/statistikk/aapen?${defaultQueryAapen}`} testId="statistikk-aapen-nav-link" hasAccess>
-          <BarChartIcon /> Åpen statistikk
+          <BarChartIcon aria-hidden /> Åpen statistikk
         </NavItem>
 
         <NavItem
@@ -46,7 +46,7 @@ export const Nav = () => {
           testId="statistikk-total-nav-link"
           hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}
         >
-          <BarChartFillIcon /> Totalstatistikk
+          <BarChartFillIcon aria-hidden /> Totalstatistikk
         </NavItem>
 
         <NavItem
@@ -54,7 +54,7 @@ export const Nav = () => {
           testId="statistikk-leder-nav-link"
           hasAccess={roles.ROLE_KAKA_LEDERSTATISTIKK}
         >
-          <PieChartFillIcon /> Lederstatistikk
+          <PieChartFillIcon aria-hidden /> Lederstatistikk
         </NavItem>
 
         <NavItem
@@ -62,7 +62,7 @@ export const Nav = () => {
           testId="statistikk-min-nav-link"
           hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}
         >
-          <PieChartIcon /> Min statistikk
+          <PieChartIcon aria-hidden /> Min statistikk
         </NavItem>
 
         <NavItem
@@ -70,7 +70,7 @@ export const Nav = () => {
           testId="kvalitetsvurdering-nav-link"
           hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}
         >
-          <ListIcon /> Kvalitetsvurderinger
+          <BulletListIcon aria-hidden /> Kvalitetsvurderinger
         </NavItem>
 
         <NavItem
@@ -78,14 +78,14 @@ export const Nav = () => {
           testId="tilbakemeldinger-nav-link"
           hasAccess={roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER}
         >
-          <TasklistIcon /> Tilbakemeldinger
+          <TasklistIcon aria-hidden /> Tilbakemeldinger
         </NavItem>
         <NavItem
           to={`/sammenlikning?${defauleQueryComparison}`}
           testId="sammenlikning-nav-link"
           hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}
         >
-          <LineGraphStackedIcon /> Sammenlikning
+          <LineGraphStackedIcon aria-hidden /> Sammenlikning
         </NavItem>
       </StyledNavLinkList>
     </StyledNav>
