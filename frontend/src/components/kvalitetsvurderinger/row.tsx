@@ -1,4 +1,4 @@
-import { Table } from '@navikt/ds-react';
+import { CopyButton, Table } from '@navikt/ds-react';
 import React from 'react';
 import { isoDateTimeToPrettyDate } from '@app/domain/date';
 import { formatId } from '@app/functions/format-id';
@@ -7,7 +7,6 @@ import { OpenKvalitetsvurdering } from '../common-table-components/open';
 import { Type } from '../common-table-components/type';
 import { Utfall } from '../common-table-components/utfall';
 import { Ytelse } from '../common-table-components/ytelse';
-import { CopyButton } from '../copy-button/copy-button';
 
 interface Props {
   testId: string;
@@ -31,7 +30,9 @@ export const Row = ({
       <Ytelse ytelseId={ytelseId} ytelserVersion={kvalitetsvurderingReference.version} />
     </Table.DataCell>
     <Table.DataCell>
-      <CopyButton text={sakenGjelder}>{formatId(sakenGjelder)}</CopyButton>
+      {sakenGjelder === null ? null : (
+        <CopyButton size="small" variant="neutral" copyText={sakenGjelder} text={formatId(sakenGjelder)} />
+      )}
     </Table.DataCell>
     <Table.DataCell>{isoDateTimeToPrettyDate(modified)}</Table.DataCell>
     <Table.DataCell>
