@@ -44,7 +44,7 @@ export const Nav = () => {
         <NavItem
           to={`/statistikk/total?${defaultQueryTotal}`}
           testId="statistikk-total-nav-link"
-          hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}
+          hasAccess={roles.KAKA_TOTALSTATISTIKK}
         >
           <BarChartFillIcon aria-hidden /> Totalstatistikk
         </NavItem>
@@ -52,7 +52,7 @@ export const Nav = () => {
         <NavItem
           to={`/statistikk/leder?${defaultQueryLeder}`}
           testId="statistikk-leder-nav-link"
-          hasAccess={roles.ROLE_KAKA_LEDERSTATISTIKK}
+          hasAccess={roles.KAKA_LEDERSTATISTIKK}
         >
           <PieChartFillIcon aria-hidden /> Lederstatistikk
         </NavItem>
@@ -60,7 +60,7 @@ export const Nav = () => {
         <NavItem
           to={`/statistikk/min?${defaultQueryMin}`}
           testId="statistikk-min-nav-link"
-          hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}
+          hasAccess={roles.KAKA_KVALITETSVURDERING}
         >
           <PieChartIcon aria-hidden /> Min statistikk
         </NavItem>
@@ -68,7 +68,7 @@ export const Nav = () => {
         <NavItem
           to="/kvalitetsvurderinger"
           testId="kvalitetsvurdering-nav-link"
-          hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}
+          hasAccess={roles.KAKA_KVALITETSVURDERING}
         >
           <BulletListIcon aria-hidden /> Kvalitetsvurderinger
         </NavItem>
@@ -76,14 +76,14 @@ export const Nav = () => {
         <NavItem
           to={`/tilbakemeldinger?${defaultQueryTilbakemeldinger}`}
           testId="tilbakemeldinger-nav-link"
-          hasAccess={roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER}
+          hasAccess={roles.KAKA_KVALITETSTILBAKEMELDINGER}
         >
           <TasklistIcon aria-hidden /> Tilbakemeldinger
         </NavItem>
         <NavItem
           to={`/sammenlikning?${defauleQueryComparison}`}
           testId="sammenlikning-nav-link"
-          hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}
+          hasAccess={roles.KAKA_TOTALSTATISTIKK}
         >
           <LineGraphStackedIcon aria-hidden /> Sammenlikning
         </NavItem>

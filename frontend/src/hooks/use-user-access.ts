@@ -12,12 +12,14 @@ interface ReturnValue {
 }
 
 const INITIAL_ACCESS: Access = {
-  [Role.ROLE_KAKA_KVALITETSVURDERING]: false,
-  [Role.ROLE_KAKA_TOTALSTATISTIKK]: false,
-  [Role.ROLE_KAKA_LEDERSTATISTIKK]: false,
-  [Role.ROLE_KAKA_KVALITETSTILBAKEMELDINGER]: false,
-  [Role.ROLE_ADMIN]: false,
-  [Role.ROLE_KLAGE_STRENGT_FORTROLIG]: false,
+  [Role.KAKA_KVALITETSVURDERING]: false,
+  [Role.KAKA_TOTALSTATISTIKK]: false,
+  [Role.KAKA_LEDERSTATISTIKK]: false,
+  [Role.KAKA_KVALITETSTILBAKEMELDINGER]: false,
+  [Role.KAKA_ADMIN]: false,
+  [Role.EGEN_ANSATT]: false,
+  [Role.FORTROLIG]: false,
+  [Role.STRENGT_FORTROLIG]: false,
   [Role.ROLE_KLAGE_LEDER]: false,
 };
 

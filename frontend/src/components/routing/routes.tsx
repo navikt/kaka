@@ -28,7 +28,7 @@ export const Router = () => {
         <Route
           path="total"
           element={
-            <HasAccess hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}>
+            <HasAccess hasAccess={roles.KAKA_TOTALSTATISTIKK}>
               <StatistikkTotalPage />
             </HasAccess>
           }
@@ -36,7 +36,7 @@ export const Router = () => {
         <Route
           path="leder"
           element={
-            <HasAccess hasAccess={roles.ROLE_KAKA_LEDERSTATISTIKK}>
+            <HasAccess hasAccess={roles.KAKA_LEDERSTATISTIKK}>
               <StatistikkLederPage />
             </HasAccess>
           }
@@ -44,7 +44,7 @@ export const Router = () => {
         <Route
           path="min"
           element={
-            <HasAccess hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}>
+            <HasAccess hasAccess={roles.KAKA_KVALITETSVURDERING}>
               <StatistikkMinPage />
             </HasAccess>
           }
@@ -53,7 +53,7 @@ export const Router = () => {
       <Route
         path="kvalitetsvurderinger"
         element={
-          <HasAccess hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}>
+          <HasAccess hasAccess={roles.KAKA_KVALITETSVURDERING}>
             <KvalitetsvurderingerPage />
           </HasAccess>
         }
@@ -61,7 +61,7 @@ export const Router = () => {
       <Route
         path="kvalitetsvurderinger/:saksdataId"
         element={
-          <HasAccess hasAccess={roles.ROLE_KAKA_KVALITETSVURDERING}>
+          <HasAccess hasAccess={roles.KAKA_KVALITETSVURDERING}>
             <KvalitetsvurderingPage />
           </HasAccess>
         }
@@ -69,7 +69,7 @@ export const Router = () => {
       <Route
         path="tilbakemeldinger"
         element={
-          <HasAccess hasAccess={roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER}>
+          <HasAccess hasAccess={roles.KAKA_KVALITETSTILBAKEMELDINGER}>
             <TilbakemeldingerPage />
           </HasAccess>
         }
@@ -77,7 +77,7 @@ export const Router = () => {
       <Route
         path="tilbakemeldinger/:saksdataId"
         element={
-          <HasAccess hasAccess={roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER}>
+          <HasAccess hasAccess={roles.KAKA_KVALITETSTILBAKEMELDINGER}>
             <KvalitetsvurderingPage />
           </HasAccess>
         }
@@ -85,7 +85,7 @@ export const Router = () => {
       <Route
         path="sammenlikning"
         element={
-          <HasAccess hasAccess={roles.ROLE_KAKA_TOTALSTATISTIKK}>
+          <HasAccess hasAccess={roles.KAKA_TOTALSTATISTIKK}>
             <ComparisonPage />
           </HasAccess>
         }
