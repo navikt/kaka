@@ -21,7 +21,7 @@ export const BackLink = () => {
     );
   }
 
-  if (roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER) {
+  if (roles.KAKA_KVALITETSTILBAKEMELDINGER) {
     return (
       <Button to={`/tilbakemeldinger?${defaultQuery}`} as={Link} size="small" variant="secondary">
         Tilbakemeldinger

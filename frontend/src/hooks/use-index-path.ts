@@ -20,19 +20,19 @@ export const useIndexPath = () => {
       return '/';
     }
 
-    if (roles.ROLE_KAKA_KVALITETSTILBAKEMELDINGER) {
+    if (roles.KAKA_KVALITETSTILBAKEMELDINGER) {
       return `/tilbakemeldinger?${defaultQueryTilbakemeldinger}`;
     }
 
-    if (roles.ROLE_KAKA_LEDERSTATISTIKK) {
+    if (roles.KAKA_LEDERSTATISTIKK) {
       return `/statistikk/leder?${defaultQueryLeder}`;
     }
 
-    if (roles.ROLE_KAKA_KVALITETSVURDERING) {
+    if (roles.KAKA_KVALITETSVURDERING) {
       return '/kvalitetsvurderinger';
     }
 
-    if (roles.ROLE_KAKA_TOTALSTATISTIKK) {
+    if (roles.KAKA_TOTALSTATISTIKK) {
       return `/statistikk/total?${defaultQueryTotal}`;
     }
 
