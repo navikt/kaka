@@ -38,15 +38,15 @@ describe('normalizePath', () => {
 
   it('should normalize query params with NAV-ident', () => {
     expect.assertions(1);
-    const actual = normalizePath('/api/kaka-api/saksdataliste/?fullfoert=true&saksbehandlere=A123456');
-    const expected = '/kaka-api/saksdataliste/?fullfoert=true&saksbehandlere=NAVIDENT';
+    const actual = normalizePath('/api/kaka-api/saksdataliste?fullfoert=true&saksbehandlere=A123456');
+    const expected = '/kaka-api/saksdataliste?fullfoert=true&saksbehandlere=NAVIDENT';
     expect(actual).toBe(expected);
   });
 
   it('should normalize query params with 2 NAV-idents', () => {
     expect.assertions(1);
-    const actual = normalizePath('/api/kaka-api/saksdataliste/?fullfoert=true&saksbehandlere=A123456,B098765');
-    const expected = '/kaka-api/saksdataliste/?fullfoert=true&saksbehandlere=NAVIDENT,NAVIDENT';
+    const actual = normalizePath('/api/kaka-api/saksdataliste?fullfoert=true&saksbehandlere=A123456,B098765');
+    const expected = '/kaka-api/saksdataliste?fullfoert=true&saksbehandlere=NAVIDENT,NAVIDENT';
     expect(actual).toBe(expected);
   });
 });
