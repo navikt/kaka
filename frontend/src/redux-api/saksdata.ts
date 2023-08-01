@@ -113,7 +113,7 @@ export const saksdataApi = createApi({
       query: (params) => {
         const query = stringify(params);
 
-        return `/api/kaka-api/saksdataliste/?fullfoert=false&${query}`;
+        return `/api/kaka-api/saksdataliste?fullfoert=false&${query}`;
       },
       transformResponse: ({ searchHits }) => searchHits,
       onQueryStarted: async (params, { dispatch, queryFulfilled }) => {
@@ -127,7 +127,7 @@ export const saksdataApi = createApi({
       query: (params) => {
         const query = stringify(params);
 
-        return `/api/kaka-api/saksdataliste/?fullfoert=true&${query}`;
+        return `/api/kaka-api/saksdataliste?fullfoert=true&${query}`;
       },
       transformResponse: ({ searchHits }) => searchHits,
       onQueryStarted: async (params, { dispatch, queryFulfilled }) => {
