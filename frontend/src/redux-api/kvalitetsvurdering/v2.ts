@@ -18,7 +18,7 @@ export const kvalitetsvurderingV2Api = createApi({
     }),
     updateKvalitetsvurdering: builder.mutation<IKvalitetsvurdering, Argument>({
       query: ({ id, ...body }) => ({
-        url: `/api/kaka-api/kvalitetsvurderinger/v2/${id}/`,
+        url: `/api/kaka-api/kvalitetsvurderinger/v2/${id}`,
         method: 'PATCH',
         body,
       }),
