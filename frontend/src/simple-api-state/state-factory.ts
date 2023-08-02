@@ -1,4 +1,4 @@
-import { stringify } from 'qs';
+import { queryStringify } from '@app/functions/query-string';
 import { SimpleApiState } from './simple-api-state';
 
 interface PathParams<Q> {
@@ -10,7 +10,7 @@ export const getStateFactory = <T, Q>(basePath: string) => {
   const STATES: Map<string, SimpleApiState<T>> = new Map();
 
   return ({ path = '', query }: PathParams<Q>) => {
-    const q = stringify(query, { arrayFormat: 'comma', skipNulls: true, addQueryPrefix: true });
+    const q = query === undefined || query === null ? '' : `?${queryStringify(query)}`;
     const url = `/api/kaka-api${basePath}${path}${q}`;
     const existing = STATES.get(url);
 
