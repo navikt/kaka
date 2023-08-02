@@ -1,5 +1,4 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { stringify } from 'qs';
 import { ISaksdataBase, ISaksdataComplete, ISaksdataIncomplete, KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { baseQuery } from './common';
 import { kvalitetsvurderingV1Api } from './kvalitetsvurdering/v1';
@@ -110,11 +109,10 @@ export const saksdataApi = createApi({
       query: (id) => `/api/kaka-api/saksdata/${id}`,
     }),
     getIncompleteSaksdataList: builder.query<ISaksdataIncomplete[], ISaksdataListParams>({
-      query: (params) => {
-        const query = stringify(params);
-
-        return `/api/kaka-api/saksdataliste?fullfoert=false&${query}`;
-      },
+      query: (params) => ({
+        url: `/api/kaka-api/saksdataliste`,
+        params: { ...params, fullfoert: false },
+      }),
       transformResponse: ({ searchHits }) => searchHits,
       onQueryStarted: async (params, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
@@ -124,11 +122,10 @@ export const saksdataApi = createApi({
       },
     }),
     getCompleteSaksdataList: builder.query<ISaksdataComplete[], ISaksdataListParams>({
-      query: (params) => {
-        const query = stringify(params);
-
-        return `/api/kaka-api/saksdataliste?fullfoert=true&${query}`;
-      },
+      query: (params) => ({
+        url: `/api/kaka-api/saksdataliste`,
+        params: { ...params, fullfoert: true },
+      }),
       transformResponse: ({ searchHits }) => searchHits,
       onQueryStarted: async (params, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
