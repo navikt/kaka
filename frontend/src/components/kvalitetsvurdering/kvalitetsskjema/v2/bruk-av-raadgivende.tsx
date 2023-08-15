@@ -36,6 +36,8 @@ enum Ytelser {
   Menerstatning = '37',
   Yrkessykdom = '38',
   Tvungen_forvaltning = '39',
+  Bil = '49',
+  Helsetjenester_og_ortopediske_hjelpemidler = '50',
 }
 
 const YTELSER_RELEVANT_FOR_RAADGIVENDE_LEGE: string[] = [
@@ -50,6 +52,8 @@ const YTELSER_RELEVANT_FOR_RAADGIVENDE_LEGE: string[] = [
   Ytelser.Hjelpestønad,
   Ytelser.Grunnstønad,
   Ytelser.Hjelpemidler,
+  Ytelser.Bil,
+  Ytelser.Helsetjenester_og_ortopediske_hjelpemidler,
   Ytelser.Uføretrygd,
   Ytelser.Yrkesskade,
   Ytelser.Menerstatning,
