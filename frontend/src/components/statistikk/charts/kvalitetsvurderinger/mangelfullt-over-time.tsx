@@ -75,7 +75,7 @@ export const MangelfulltOverTime = ({ stats }: StatisticsPropsV1) => {
         borderWidth: 2,
       })),
     ],
-    [relevantReasons, mangelfulleSaker]
+    [relevantReasons, mangelfulleSaker],
   );
 
   return <Line options={options} data={{ datasets, labels }} />;
@@ -89,7 +89,7 @@ const useMangelfulleSaker = (stats: IStatisticVurderingV1[], field: RadiovalgFie
     const unsorted = stats
       .filter(
         ({ avsluttetAvSaksbehandler, ...stat }) =>
-          avsluttetAvSaksbehandler !== null && stat[field] === Radiovalg.MANGELFULLT
+          avsluttetAvSaksbehandler !== null && stat[field] === Radiovalg.MANGELFULLT,
       )
       .reduce((acc, sak) => {
         const { month, year } = sak.avsluttetAvSaksbehandler;

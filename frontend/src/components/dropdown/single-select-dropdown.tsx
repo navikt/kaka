@@ -46,7 +46,7 @@ const ShowSingleSelectDropdown = ({
 }: Omit<DropdownProps, 'open'>): JSX.Element | null => {
   const options = useMemo(
     () => kodeverk.map<Option>((kodeverkValue) => ({ value: kodeverkValue[valueKey], label: labelFn(kodeverkValue) })),
-    [kodeverk, labelFn, valueKey]
+    [kodeverk, labelFn, valueKey],
   );
 
   const [filteredOptions, setFilteredOptions] = useState<Option[]>(options);

@@ -4,7 +4,7 @@ const TILBAKEKREVING_IDS = ['144', '145', '146', '147', '148', '149', '268'];
 
 export const tilbakekrevingFilter = (
   hjemmelIdList: string[],
-  tilbakekreving: TilbakekrevingEnum | undefined
+  tilbakekreving: TilbakekrevingEnum | undefined,
 ): boolean => {
   if (tilbakekreving === TilbakekrevingEnum.INCLUDE) {
     return true;

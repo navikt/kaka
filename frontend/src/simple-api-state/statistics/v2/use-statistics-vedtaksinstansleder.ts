@@ -4,7 +4,7 @@ import { useSimpleApiState } from '../../simple-api-state';
 import { getStateFactory } from '../../state-factory';
 
 const getState = getStateFactory<IStatisticsResponseVedtaksinstanslederV2, IVedtaksinstanslederQuery>(
-  '/statistics/v2/vedtaksinstansleder'
+  '/statistics/v2/vedtaksinstansleder',
 );
 
 export const useStatisticsVedtaksinstansleder = (query: IVedtaksinstanslederQuery | typeof skipToken) =>

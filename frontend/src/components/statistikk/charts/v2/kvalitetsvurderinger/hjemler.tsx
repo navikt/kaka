@@ -1,7 +1,7 @@
 import { ChartOptions, TooltipCallbacks } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
 import { VedtaketTextsKeys } from '@app/types/kvalitetsvurdering/texts/structures';
 import { VEDTAKET_TEXTS } from '@app/types/kvalitetsvurdering/texts/texts';

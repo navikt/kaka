@@ -43,7 +43,7 @@ export const getSakensDokumenterDatasets = (stats: DataSet[], unit: string) => {
     return {
       label,
       data: Object.fromEntries(
-        subReasonArray.map(([id, count]) => [id, (count / totalSakensDokumenterCount) * factor])
+        subReasonArray.map(([id, count]) => [id, (count / totalSakensDokumenterCount) * factor]),
       ),
       count: subReasons,
     };

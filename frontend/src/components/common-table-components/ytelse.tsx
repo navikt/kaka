@@ -11,7 +11,7 @@ interface Props {
 
 export const Ytelse = ({ ytelseId, ytelserVersion }: Props) => {
   const ytelse = useFullYtelseNameFromId(
-    typeof ytelseId !== 'string' ? skipToken : { ytelseId, version: ytelserVersion }
+    typeof ytelseId !== 'string' ? skipToken : { ytelseId, version: ytelserVersion },
   );
 
   return <LabelYtelse>{ytelse}</LabelYtelse>;

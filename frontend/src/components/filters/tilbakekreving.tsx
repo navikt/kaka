@@ -1,6 +1,6 @@
 import { BodyShort, HelpText, Label, ToggleGroup } from '@navikt/ds-react';
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { TilbakekrevingEnum } from './types';
 
 interface Props {

@@ -1,6 +1,6 @@
 import { HelpText } from '@navikt/ds-react';
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { CardTitle } from '@app/styled-components/cards';
 import { ChartTitle } from '../styled-components';
 

@@ -75,7 +75,7 @@ type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
 
 export const getMangelfullDetailsDatasets = (
   stats: DataSet[],
-  unit: string
+  unit: string,
 ): { datasets: StackedBarPiece[]; labels: string[] } => {
   const unsortedBars = stats.flatMap(({ label, data }) => [
     { label: `${label} - Klageforberedelsen`, data, mainReason: Klageforberedelsen },
@@ -85,7 +85,7 @@ export const getMangelfullDetailsDatasets = (
   ]);
 
   const sortedBars = MAIN_REASON_IDS.flatMap((mainReasonId) =>
-    unsortedBars.filter(({ mainReason }) => mainReason === mainReasonId)
+    unsortedBars.filter(({ mainReason }) => mainReason === mainReasonId),
   );
 
   interface Stack {
@@ -109,7 +109,7 @@ export const getMangelfullDetailsDatasets = (
       mainReason,
       label,
       data: Object.fromEntries(
-        reasonArray.map(([id, count]) => [id, [count, (count / totalReasonsCount) * mainReasonMangelfullFactor]])
+        reasonArray.map(([id, count]) => [id, [count, (count / totalReasonsCount) * mainReasonMangelfullFactor]]),
       ),
     };
   });
@@ -121,7 +121,7 @@ export const getMangelfullDetailsDatasets = (
       counts: stacks.map(({ data }) => data[reasonId]?.[0] ?? 0),
       backgroundColor: KVALITETSVURDERING_V2_TEXTS[reasonId].color ?? 'red',
       barThickness: BAR_THICKNESS,
-    }))
+    })),
   ).filter((dataset) => dataset.data.some((v) => v !== 0)); // Remove empty datasets.
 
   const labels = stacks.map(({ label }, index) => {

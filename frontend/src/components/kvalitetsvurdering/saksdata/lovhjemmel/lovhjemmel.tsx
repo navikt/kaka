@@ -1,6 +1,6 @@
 import { HelpText, Label } from '@navikt/ds-react';
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
 import { useSaksdata } from '@app/hooks/use-saksdata';
@@ -26,7 +26,7 @@ export const Lovhjemmel = () => {
         sectionHeader: { id: lovkilde.id, name: lovkilde.navn },
         sectionOptions: registreringshjemler.map(({ id, navn }) => ({ value: id, label: navn })),
       })),
-    [lovKildeToRegistreringshjemler]
+    [lovKildeToRegistreringshjemler],
   );
 
   if (!canEdit) {

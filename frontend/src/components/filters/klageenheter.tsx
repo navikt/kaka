@@ -13,7 +13,7 @@ export const KlageenheterFilter = ({ selected, setSelected }: Props) => {
 
   const filters = useMemo<FilterType[]>(
     () => klageenheter.map(({ id, navn }) => ({ label: `${id} - ${navn}`, id })),
-    [klageenheter]
+    [klageenheter],
   );
 
   return <Filter label="Klageinstans" selected={selected} filters={filters} setSelected={setSelected} />;

@@ -1,6 +1,6 @@
 import { Select, ToggleGroup } from '@navikt/ds-react';
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { VedtaketHjemlerListTextsKeys, VedtaketTextsKeys } from '@app/types/kvalitetsvurdering/texts/structures';
 import {
   BRUK_AV_RAADGIVENDE_LEGE_TEXTS,

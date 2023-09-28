@@ -48,7 +48,7 @@ const sortUtfallKlageAndAnke = (a: IKodeverkSimpleValue<UtfallEnum>, b: IKodever
   KLAGE_AND_ANKE_ORDER.indexOf(a.id) - KLAGE_AND_ANKE_ORDER.indexOf(b.id);
 
 const UTFALL_VALUES = Object.values(UtfallEnum).sort(
-  (a, b) => KLAGE_AND_ANKE_ORDER.indexOf(a) - KLAGE_AND_ANKE_ORDER.indexOf(b)
+  (a, b) => KLAGE_AND_ANKE_ORDER.indexOf(a) - KLAGE_AND_ANKE_ORDER.indexOf(b),
 );
 
 export const UTFALL_VALUES_FOR_STATS = UTFALL_VALUES.filter(
@@ -57,7 +57,7 @@ export const UTFALL_VALUES_FOR_STATS = UTFALL_VALUES.filter(
     v !== UtfallEnum.TRUKKET &&
     v !== UtfallEnum.UGUNST &&
     v !== UtfallEnum.HEVET &&
-    v !== UtfallEnum.HENVIST
+    v !== UtfallEnum.HENVIST,
 );
 
 const isUtfall = (value: string): value is UtfallEnum => UTFALL_VALUES.some((v) => v === value);
@@ -83,7 +83,7 @@ const useSakstyperToUtfall = () => {
 
         return { id, utfall: u.filter(filterAnkeITrygderetten), navn };
       }),
-    [data]
+    [data],
   );
 
   return { data: sorted, ...rest };
@@ -110,9 +110,9 @@ export const useUtfallForStats = () => {
           id !== UtfallEnum.TRUKKET &&
           id !== UtfallEnum.UGUNST &&
           id !== UtfallEnum.HEVET &&
-          id !== UtfallEnum.HENVIST
+          id !== UtfallEnum.HENVIST,
       ),
-    [data]
+    [data],
   );
 
   return { data: filtered, ...rest };

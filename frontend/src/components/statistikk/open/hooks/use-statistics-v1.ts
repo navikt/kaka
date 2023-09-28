@@ -33,8 +33,8 @@ export const useFilteredStatisticsV1 = () => {
         ({ ytelseId, sakstypeId, utfallId }) =>
           (utfall.length === 0 || utfall.includes(utfallId)) &&
           (types.length === 0 || types.includes(sakstypeId)) &&
-          (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId))
+          (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)),
       ),
-    [data, types, ytelser, utfall]
+    [data, types, ytelser, utfall],
   );
 };

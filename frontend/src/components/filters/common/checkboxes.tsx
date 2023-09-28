@@ -1,6 +1,6 @@
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { FilterType } from '../types';
 
 export interface CheckboxesProps {

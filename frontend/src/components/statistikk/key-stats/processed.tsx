@@ -16,12 +16,12 @@ interface Props {
 export const Processed = ({ stats, weeks }: Props) => {
   const finished = useMemo(
     () => stats?.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null) ?? [],
-    [stats]
+    [stats],
   );
 
   const behandlet = useMemo(
     () => finished.reduce((acc, { kaBehandlingstidDays }) => (kaBehandlingstidDays < weeks * 7 ? acc + 1 : acc), 0),
-    [finished, weeks]
+    [finished, weeks],
   );
 
   const fraction = behandlet / finished.length;

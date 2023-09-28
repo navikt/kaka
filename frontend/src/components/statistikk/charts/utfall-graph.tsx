@@ -38,7 +38,7 @@ interface Props {
 export const UtfallGraph = ({ stats: allStats }: Props) => {
   const finishedStats = useMemo(
     () => allStats.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null),
-    [allStats]
+    [allStats],
   );
 
   const { data: utfall = [] } = useSortedUtfall();
@@ -46,13 +46,13 @@ export const UtfallGraph = ({ stats: allStats }: Props) => {
   const stats = useMemo(
     () =>
       new Map<UtfallEnum, number>(
-        UTFALL_VALUES_FOR_STATS.map((id) => [id, finishedStats.filter(({ utfallId }) => utfallId === id).length])
+        UTFALL_VALUES_FOR_STATS.map((id) => [id, finishedStats.filter(({ utfallId }) => utfallId === id).length]),
       ),
-    [finishedStats]
+    [finishedStats],
   );
 
   const labels: string[] = UTFALL_VALUES_FOR_STATS.map((key) => utfall.find(({ id }) => id === key)?.navn).filter(
-    isNotUndefined
+    isNotUndefined,
   );
 
   const backgroundColor: string[] = UTFALL_VALUES_FOR_STATS.map((key) => UTFALL_COLOR_MAP[key]);

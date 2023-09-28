@@ -47,7 +47,7 @@ export const useFilteredMyStatisticsV1 = () => {
       (types.length === 0 || types.includes(sakstypeId)) &&
       (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
       (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))),
-    [hjemler, tilbakekreving, types, utfall, ytelser]
+    [hjemler, tilbakekreving, types, utfall, ytelser],
   );
 
   return useMemo(() => ({ mine: mine.filter(filter), rest: rest.filter(filter) }), [mine, filter, rest]);

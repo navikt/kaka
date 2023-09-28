@@ -36,7 +36,7 @@ export const useFilteredStatisticsV1 = (): IComparedFullStatisticVurderingV1[] =
   const labels = useLabels();
   const getLabel = useCallback(
     (value: string) => (comparisonProp === null ? value : labels[comparisonProp](value)),
-    [comparisonProp, labels]
+    [comparisonProp, labels],
   );
 
   const prefilteredData = useMemo(
@@ -46,9 +46,9 @@ export const useFilteredStatisticsV1 = (): IComparedFullStatisticVurderingV1[] =
           s.avsluttetAvSaksbehandler !== null &&
           (utfall.length === 0 || utfall.includes(s.utfallId)) &&
           (types.length === 0 || types.includes(s.sakstypeId)) &&
-          (ytelser.length === 0 || ytelser.includes(s.ytelseId))
+          (ytelser.length === 0 || ytelser.includes(s.ytelseId)),
       ),
-    [data, utfall, types, ytelser]
+    [data, utfall, types, ytelser],
   );
 
   return useMemo(() => {
@@ -84,7 +84,7 @@ export const useFilteredStatisticsV1 = (): IComparedFullStatisticVurderingV1[] =
 const getMatchedValue = (
   comparisonProp: ComparableQueryParams,
   comparisonValues: OptionValue[],
-  sak: IFullStatisticVurderingV1
+  sak: IFullStatisticVurderingV1,
 ): OptionValue | undefined => {
   switch (comparisonProp) {
     case ComparableQueryParams.KLAGEENHETER:

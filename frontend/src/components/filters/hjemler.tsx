@@ -19,7 +19,7 @@ export const HjemmelFilter = ({ selected, setSelected }: Props) => {
         sectionHeader: { id, name: navn },
         sectionOptions: registreringshjemler.map((h) => ({ value: h.id, label: h.navn })),
       })),
-    [data]
+    [data],
   );
 
   return <HjemmelSelect options={options} selected={selected} onChange={setSelected} metadata={selected.length} />;

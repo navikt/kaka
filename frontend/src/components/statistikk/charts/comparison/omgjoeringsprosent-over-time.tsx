@@ -75,7 +75,7 @@ export const OmgjoeringsprosentOverTime = ({ stats }: Props) => {
           borderColor: s.color,
         };
       }),
-    [stats]
+    [stats],
   );
 
   const [first] = datasets;

@@ -29,7 +29,7 @@ export const saksdataApi = createApi({
         dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent, sidenDager }, (draft) => {
             draft.push(data);
-          })
+          }),
         );
         dispatch(saksdataApi.util.updateQueryData('getSaksdata', data.id, () => data));
       },
@@ -43,19 +43,19 @@ export const saksdataApi = createApi({
         const getSaksdataPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', saksdata.id, (draft) => {
             draft.avsluttetAvSaksbehandler = null;
-          })
+          }),
         );
 
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) => {
             draft.push({ ...saksdata, avsluttetAvSaksbehandler: null });
-          })
+          }),
         );
 
         const completeListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getCompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-            draft.filter(({ id }) => id !== saksdata.id)
-          )
+            draft.filter(({ id }) => id !== saksdata.id),
+          ),
         );
 
         try {
@@ -63,8 +63,8 @@ export const saksdataApi = createApi({
           dispatch(saksdataApi.util.updateQueryData('getSaksdata', data.id, () => data));
           dispatch(
             saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-              draft.map((s) => (s.id === data.id ? data : s))
-            )
+              draft.map((s) => (s.id === data.id ? data : s)),
+            ),
           );
 
           if (data.kvalitetsvurderingReference.version !== saksdata.kvalitetsvurderingReference.version) {
@@ -93,8 +93,8 @@ export const saksdataApi = createApi({
         const deleteResult = dispatch(saksdataApi.util.updateQueryData('getSaksdata', saksId, () => undefined));
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-            draft.filter(({ id }) => id !== saksId)
-          )
+            draft.filter(({ id }) => id !== saksId),
+          ),
         );
 
         try {
@@ -142,8 +142,8 @@ export const saksdataApi = createApi({
       onQueryStarted: async ({ saksdata, saksbehandlerIdent }, { dispatch, queryFulfilled }) => {
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-            draft.filter(({ id }) => saksdata.id !== id)
-          )
+            draft.filter(({ id }) => saksdata.id !== id),
+          ),
         );
 
         try {
@@ -152,25 +152,25 @@ export const saksdataApi = createApi({
           dispatch(
             kvalitetsvurderingV2Api.util.invalidateTags([
               { type: 'kvalitetsvurdering', id: saksdata.kvalitetsvurderingReference.id },
-            ])
+            ]),
           );
 
           dispatch(
             kvalitetsvurderingV1Api.util.invalidateTags([
               { type: 'kvalitetsvurdering', id: saksdata.kvalitetsvurderingReference.id },
-            ])
+            ]),
           );
 
           dispatch(
             saksdataApi.util.updateQueryData('getSaksdata', saksdata.id, (draft) => {
               draft.avsluttetAvSaksbehandler = data.avsluttetAvSaksbehandler;
-            })
+            }),
           );
 
           dispatch(
             saksdataApi.util.updateQueryData('getCompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-              draft.map((s) => (s.id === saksdata.id ? data : s))
-            )
+              draft.map((s) => (s.id === saksdata.id ? data : s)),
+            ),
           );
         } catch {
           incompleteListPatchResult.undo();
@@ -187,13 +187,13 @@ export const saksdataApi = createApi({
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
             draft.hjemmelIdList = hjemmelIdList;
-          })
+          }),
         );
 
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, hjemmelIdList } : saksdata))
-          )
+            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, hjemmelIdList } : saksdata)),
+          ),
         );
 
         try {
@@ -214,13 +214,13 @@ export const saksdataApi = createApi({
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
             draft.sakenGjelder = sakenGjelder;
-          })
+          }),
         );
 
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, sakenGjelder } : saksdata))
-          )
+            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, sakenGjelder } : saksdata)),
+          ),
         );
 
         try {
@@ -241,7 +241,7 @@ export const saksdataApi = createApi({
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
             draft.mottattKlageinstans = mottattKlageinstans;
-          })
+          }),
         );
 
         try {
@@ -261,7 +261,7 @@ export const saksdataApi = createApi({
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
             draft.mottattVedtaksinstans = mottattVedtaksinstans;
-          })
+          }),
         );
 
         try {
@@ -281,13 +281,13 @@ export const saksdataApi = createApi({
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
             draft.sakstypeId = sakstypeId;
-          })
+          }),
         );
 
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, sakstypeId } : saksdata))
-          )
+            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, sakstypeId } : saksdata)),
+          ),
         );
 
         try {
@@ -309,13 +309,13 @@ export const saksdataApi = createApi({
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
             draft.ytelseId = ytelseId;
             draft.hjemmelIdList = [];
-          })
+          }),
         );
 
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, ytelseId } : saksdata))
-          )
+            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, ytelseId } : saksdata)),
+          ),
         );
 
         try {
@@ -336,13 +336,13 @@ export const saksdataApi = createApi({
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
             draft.utfallId = utfallId;
-          })
+          }),
         );
 
         const incompleteListPatchResult = dispatch(
           saksdataApi.util.updateQueryData('getIncompleteSaksdataList', { saksbehandlerIdent }, (draft) =>
-            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, utfallId } : saksdata))
-          )
+            draft.map((saksdata) => (saksdata.id === id ? { ...saksdata, utfallId } : saksdata)),
+          ),
         );
 
         try {
@@ -363,7 +363,7 @@ export const saksdataApi = createApi({
         const patchResult = dispatch(
           saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
             draft.vedtaksinstansEnhet = vedtaksinstansEnhet;
-          })
+          }),
         );
 
         try {

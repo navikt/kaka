@@ -1,6 +1,6 @@
 import { Select } from '@navikt/ds-react';
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { useVersionQueryFilter } from './hooks/use-query-filter';
 

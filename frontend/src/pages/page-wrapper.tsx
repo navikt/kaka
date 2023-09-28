@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { Nav } from '@app/components/routing/nav';
 import { GAP } from '@app/styled-components/constants';
 

@@ -1,7 +1,7 @@
-import { Alert, UNSAFE_DatePicker as Datepicker } from '@navikt/ds-react';
+import { Alert, DatePicker } from '@navikt/ds-react';
 import { addYears, format, isAfter, isBefore, isValid, parse, subDays, subYears } from 'date-fns';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { isoDateToPretty } from '@app/domain/date';
 import { FORMAT, PRETTY_FORMAT } from '../filters/date-presets/constants';
 
@@ -77,7 +77,7 @@ export const DatepickerWithValidation = ({
       setInputError(undefined);
       onChange(format(date, FORMAT));
     },
-    [fromDate, onChange, toDate]
+    [fromDate, onChange, toDate],
   );
 
   const onInputChange = useCallback(() => {
@@ -161,7 +161,7 @@ export const DatepickerWithValidation = ({
   }, [centuryThreshold, fromDate, input, onChange, toDate, validateInput]);
 
   return (
-    <Datepicker
+    <DatePicker
       mode="single"
       data-testid={id}
       fromDate={fromDate}
@@ -176,7 +176,7 @@ export const DatepickerWithValidation = ({
       onOpenToggle={() => setMonth(selected)}
       className={className}
     >
-      <Datepicker.Input
+      <DatePicker.Input
         id={id}
         error={error ?? inputError}
         label={label}
@@ -187,7 +187,7 @@ export const DatepickerWithValidation = ({
         size={size}
       />
       <Warning date={selected} threshhold={warningThreshhold} />
-    </Datepicker>
+    </DatePicker>
   );
 };
 

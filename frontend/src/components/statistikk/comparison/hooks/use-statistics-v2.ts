@@ -48,7 +48,7 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
   const labels = useLabels();
   const getLabel = useCallback(
     (value: string) => (comparisonProp === null ? value : labels[comparisonProp](value)),
-    [comparisonProp, labels]
+    [comparisonProp, labels],
   );
 
   const prefilteredData = useMemo(
@@ -63,9 +63,9 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
           (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
           (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))) &&
           (vedtaksinstansgrupper.length === 0 ||
-            vedtaksinstansgrupper.some((id) => vedtaksinstansEnhet?.startsWith(id)))
+            vedtaksinstansgrupper.some((id) => vedtaksinstansEnhet?.startsWith(id))),
       ),
-    [data, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper]
+    [data, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
   );
 
   return useMemo(() => {
@@ -101,7 +101,7 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
 const getMatchedValue = (
   comparisonProp: ComparableQueryParams,
   comparisonValues: OptionValue[],
-  sak: IFullStatisticVurderingV2
+  sak: IFullStatisticVurderingV2,
 ): OptionValue | undefined => {
   switch (comparisonProp) {
     case ComparableQueryParams.KLAGEENHETER:

@@ -9,5 +9,5 @@ export const useUpdateFilters = (selected: string[], setSelected: SetSelectedTyp
       const newList = checked ? [...selected, id] : selected.filter((s) => s !== id);
       setSelected(newList);
     },
-    [setSelected, selected]
+    [setSelected, selected],
   );

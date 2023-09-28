@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { BREAK_POINT, GAP } from './constants';
 
 export const FiltersAndContentContainer = styled.div`

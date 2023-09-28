@@ -38,7 +38,7 @@ const isKvalitetsvurderingV2TextKey = (field: Field): field is keyof typeof KVAL
   field in KVALITETSVURDERING_V2_TEXTS;
 
 const isKvalitetsvurderingV2CheckboxGroupKey = (
-  field: Field
+  field: Field,
 ): field is keyof typeof KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES =>
   field in KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES;
 

@@ -10,7 +10,7 @@ export const useOnHeaderChange = (options: OptionGroup[], setFilteredGroups: (g:
             ...rest,
             sectionOptions: sectionOptions.filter((o) => filteredOptions.includes(o)),
           }))
-          .filter(({ sectionOptions }) => sectionOptions.length !== 0)
+          .filter(({ sectionOptions }) => sectionOptions.length !== 0),
       ),
-    [options, setFilteredGroups]
+    [options, setFilteredGroups],
   );

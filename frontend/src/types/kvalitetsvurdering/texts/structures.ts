@@ -42,27 +42,27 @@ export const KVALITETSVURDERING_V2_TEXTS: Record<keyof IKvalitetsvurdering, Kval
 };
 
 export const SAKENS_DOKUMENTER_REASONS = Object.keys(SAKENS_DOKUMENTER_TEXTS).filter(
-  (key): key is SakensDokumenterTextsKeys => key in SAKENS_DOKUMENTER_TEXTS
+  (key): key is SakensDokumenterTextsKeys => key in SAKENS_DOKUMENTER_TEXTS,
 );
 
 export const IKKE_KONKRET_BEGRUNNELSE_REASONS = Object.keys(IKKE_KONKRET_BEGRUNNELSE_TEXTS).filter(
-  (key): key is IkkeKonkretBegrunnelseTextsKeys => key in IKKE_KONKRET_BEGRUNNELSE_TEXTS
+  (key): key is IkkeKonkretBegrunnelseTextsKeys => key in IKKE_KONKRET_BEGRUNNELSE_TEXTS,
 );
 
 export const KLAGEFORBEREDELSEN_REASONS = Object.keys(KLAGEFORBEREDELSEN_TEXTS).filter(
-  (key): key is KlageforberedelsenTextsKeys => key in KLAGEFORBEREDELSEN_TEXTS
+  (key): key is KlageforberedelsenTextsKeys => key in KLAGEFORBEREDELSEN_TEXTS,
 );
 
 export const UTREDNINGEN_REASONS = Object.keys(UTREDNINGEN_TEXTS).filter(
-  (key): key is UtredningenTextsKeys => key in UTREDNINGEN_TEXTS
+  (key): key is UtredningenTextsKeys => key in UTREDNINGEN_TEXTS,
 );
 
 export const VEDTAKET_REASONS = Object.keys(VEDTAKET_TEXTS).filter(
-  (key): key is VedtaketTextsKeys => key in VEDTAKET_TEXTS
+  (key): key is VedtaketTextsKeys => key in VEDTAKET_TEXTS,
 );
 
 export const BRUK_AV_RAADGIVENDE_LEGE_REASONS = Object.keys(BRUK_AV_RAADGIVENDE_LEGE_TEXTS).filter(
-  (key): key is BrukAvRaadgivendeLegeTextsKeys => key in BRUK_AV_RAADGIVENDE_LEGE_TEXTS
+  (key): key is BrukAvRaadgivendeLegeTextsKeys => key in BRUK_AV_RAADGIVENDE_LEGE_TEXTS,
 );
 
 export const REASON_TO_SUBREASONS: {

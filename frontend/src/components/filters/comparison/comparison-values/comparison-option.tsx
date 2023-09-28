@@ -15,7 +15,7 @@ export const ComparisonOption = ({ data, testId }: Props) => {
   const options = useMemo(() => [...data, ...DEFAULT_OPTIONS], [data]);
   const availableOptions = useMemo(
     () => options.filter((e) => !selectedValues.some(([id]) => id === e.id)),
-    [options, selectedValues]
+    [options, selectedValues],
   );
   const availableOptionIds = availableOptions.map((e) => e.id);
   const [nextOption] = availableOptionIds;

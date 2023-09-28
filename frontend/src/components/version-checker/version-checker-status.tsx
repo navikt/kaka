@@ -1,7 +1,7 @@
 import { CheckmarkIcon, CogRotationIcon } from '@navikt/aksel-icons';
 import { BodyShort, Button } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { VersionChecker } from './version-checker';
 
 export const VersionCheckerStatus = () => {

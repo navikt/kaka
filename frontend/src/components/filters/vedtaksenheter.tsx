@@ -13,7 +13,7 @@ export const VedtaksenheterFilter = ({ selected, setSelected }: Props) => {
 
   const filters = useMemo<FilterType[]>(
     () => vedtaksenheter.map(({ id, navn }) => ({ label: `${id} - ${navn}`, id })),
-    [vedtaksenheter]
+    [vedtaksenheter],
   );
 
   return <Filter label="Vedtaksinstans" selected={selected} filters={filters} setSelected={setSelected} />;

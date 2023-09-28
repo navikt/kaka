@@ -8,7 +8,7 @@ export const useHjemmelTexts = (ytelseIds: string[]) => {
 
   const filtered = useMemo(
     () => (ytelseIds.length === 0 ? ytelser : ytelser.filter(({ id }) => ytelseIds.includes(id))),
-    [ytelser, ytelseIds]
+    [ytelser, ytelseIds],
   );
 
   return useMemo(
@@ -20,8 +20,8 @@ export const useHjemmelTexts = (ytelseIds: string[]) => {
             id,
             label: `${navn} - ${lovkilde.beskrivelse}`,
             tooltip: `${navn} - ${lovkilde.navn}`,
-          }))
+          })),
         ),
-    [filtered]
+    [filtered],
   );
 };

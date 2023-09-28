@@ -1,6 +1,6 @@
 import { Button, Search } from '@navikt/ds-react';
 import React, { KeyboardEventHandler, useCallback } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 interface Option {
   label: string;
@@ -30,7 +30,7 @@ export const Header = <T extends Option>({ options, onChange, close, onReset }: 
       const simple = new RegExp(`.*${cleanFilter}.*`, 'i');
       onChange(filterOptions(options, fuzzy, simple));
     },
-    [onChange, options]
+    [onChange, options],
   );
 
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
@@ -69,7 +69,7 @@ const escapeRegExp = (pattern: string): string => pattern.replaceAll('-', '\\-')
 const filterOptions = <T extends Option>(
   options: T[],
   fuzzyFilter: RegExp | null,
-  simpleFilter: RegExp | null
+  simpleFilter: RegExp | null,
 ): T[] => {
   if (fuzzyFilter === null || simpleFilter === null) {
     return options;

@@ -3,5 +3,6 @@ import { UtfallEnum } from '@app/types/utfall';
 
 export const filterIrrelevant = <T extends ISaksdata>(stats: T[]): T[] =>
   stats.filter(
-    ({ utfallId }) => utfallId !== UtfallEnum.RETUR && utfallId !== UtfallEnum.TRUKKET && utfallId !== UtfallEnum.UGUNST
+    ({ utfallId }) =>
+      utfallId !== UtfallEnum.RETUR && utfallId !== UtfallEnum.TRUKKET && utfallId !== UtfallEnum.UGUNST,
   );

@@ -43,7 +43,7 @@ export const getIkkeKonkretBegrunnelseDatasets = (stats: DataSet[], unit: string
     return {
       label,
       data: Object.fromEntries(
-        subReasonArray.map(([id, count]) => [id, (count / totalIkkeKonkretBegrunnelseCount) * factor])
+        subReasonArray.map(([id, count]) => [id, (count / totalIkkeKonkretBegrunnelseCount) * factor]),
       ),
       counts: subReasons,
     };
