@@ -75,7 +75,7 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: Kva
   return (
     <Container>
       <CategoryContainer>
-        <ChartContainer columns={1}>
+        <ChartContainer $columns={1}>
           <ChartTitle>{title}</ChartTitle>
           <Doughnut
             options={doughnutOptions}
@@ -93,7 +93,7 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: Kva
           />
         </ChartContainer>
 
-        <ChartContainer columns={3}>
+        <ChartContainer $columns={3}>
           <ChartTitle>Kvalitetsavviket i {title.toLowerCase()}</ChartTitle>
           <KvalitetsavvikChart
             barLabels={barLabels}

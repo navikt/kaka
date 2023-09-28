@@ -85,12 +85,12 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
       <HelpTexts helpTexts={MAIN_HELP_TEXTS} />
 
       <CategoryContainer>
-        <ChartContainer columns={2}>
+        <ChartContainer $columns={2}>
           <TitleWithExplainer>{KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenSakensDokumenter.label}</TitleWithExplainer>
           <SakensDokumenter stats={datasets} />
           <HelpTexts helpTexts={[{ texts: SAKENS_DOKUMENTER_TEXTS, key: 'SAKENS_DOKUMENTER_TEXTS' }]} />
         </ChartContainer>
-        <ChartContainer columns={2}>
+        <ChartContainer $columns={2}>
           <TitleWithExplainer>{VEDTAKET_TEXTS.vedtaketIkkeKonkretIndividuellBegrunnelse.label}</TitleWithExplainer>
           <IkkeKonkretBegrunnelse stats={datasets} />
         </ChartContainer>
