@@ -29,6 +29,8 @@ const StyledHeading = styled(ChartTitle)`
 
 const HelpTextContent = styled.div`
   text-align: left;
+  // https://github.com/floating-ui/floating-ui/issues/2338
+  width: 350px;
 `;
 
 interface CardTitleWithExplainerProps extends Props {
