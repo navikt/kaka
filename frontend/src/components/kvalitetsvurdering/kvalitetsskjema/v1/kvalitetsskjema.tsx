@@ -1,7 +1,7 @@
 import { Heading, Loader } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { useKvalitetsvurdering } from '@app/hooks/use-kvalitetsvurdering';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';

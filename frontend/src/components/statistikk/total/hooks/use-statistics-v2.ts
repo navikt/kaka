@@ -49,8 +49,8 @@ export const useFilteredTotalStatisticsV2 = () => {
           (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
           (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))) &&
           (vedtaksinstansgrupper.length === 0 ||
-            vedtaksinstansgrupper.some((id) => vedtaksinstansEnhet?.startsWith(id)))
+            vedtaksinstansgrupper.some((id) => vedtaksinstansEnhet?.startsWith(id))),
       ),
-    [rest, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper]
+    [rest, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
   );
 };

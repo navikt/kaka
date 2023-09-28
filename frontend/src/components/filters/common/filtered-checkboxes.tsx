@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { Header } from '../../dropdown/header';
 import { Checkboxes, CheckboxesProps } from './checkboxes';
 

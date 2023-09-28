@@ -1,6 +1,6 @@
 import { Heading } from '@navikt/ds-react';
 import React, { Fragment, useMemo, useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { useOnHeaderChange } from '@app/components/dropdown/hooks/use-on-header-change';
 import { SingleSelectOption } from '@app/components/dropdown/single-select-option';
 import { DropdownContent, StyledListItem } from '@app/components/dropdown/styled-components';

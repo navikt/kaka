@@ -31,7 +31,7 @@ export const SakenGjelder = () => {
 
     const timer = setTimeout(
       () => updateSakenGjelder({ sakenGjelder: value.replaceAll(' ', ''), id, saksbehandlerIdent: user.ident }),
-      500
+      500,
     );
 
     return () => clearTimeout(timer);

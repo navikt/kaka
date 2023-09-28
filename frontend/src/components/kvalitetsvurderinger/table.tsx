@@ -1,6 +1,6 @@
 import { Pagination, Table } from '@navikt/ds-react';
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { ISaksdataComplete, ISaksdataIncomplete } from '@app/types/saksdata';
 import { VurderingRows } from './rows';
 import { SakCounter } from './sak-counter';

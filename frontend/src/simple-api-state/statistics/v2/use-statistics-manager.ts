@@ -4,7 +4,7 @@ import { useSimpleApiState } from '../../simple-api-state';
 import { getStateFactory } from '../../state-factory';
 
 const getState = getStateFactory<IStatisticsResponseManagerV2, Omit<IManagerStatisticsQuery, 'enhetId'>>(
-  '/statistics/v2/enheter'
+  '/statistics/v2/enheter',
 );
 
 export const useStatisticsManager = (query: IManagerStatisticsQuery | typeof skipToken) =>

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { PageWrapper } from '@app/pages/page-wrapper';
 import { KvalitetsskjemaV1 } from './kvalitetsskjema/v1/kvalitetsskjema';

@@ -29,13 +29,13 @@ export const useLabels = (): Record<ComparableQueryParams, (value: string) => st
       [ComparableQueryParams.VEDTAKSINSTANSGRUPPER]: (id) =>
         getLabel(
           id,
-          VEDTAKSINSTANSGRUPPER.map((g) => ({ id: g.id, navn: g.label }))
+          VEDTAKSINSTANSGRUPPER.map((g) => ({ id: g.id, navn: g.label })),
         ),
       [ComparableQueryParams.UTFALL]: (id) => getLabel(id, utfall),
       [ComparableQueryParams.DATE_INTERVALS]: (dateInterval) =>
         dateInterval.split(';').map(isoDateToPretty).join(' - '),
     }),
-    [enheter, hjemler, klageenheter, utfall, ytelser]
+    [enheter, hjemler, klageenheter, utfall, ytelser],
   );
 };
 

@@ -79,7 +79,7 @@ export const Filters = () => {
 
   const resetFilters = () =>
     setSearchParams(
-      `?${QueryParams.FROM_MONTH}=${FORMATTED_LAST_MONTH}&${QueryParams.TO_MONTH}=${FORMATTED_LAST_MONTH}`
+      `?${QueryParams.FROM_MONTH}=${FORMATTED_LAST_MONTH}&${QueryParams.TO_MONTH}=${FORMATTED_LAST_MONTH}`,
     );
 
   const setPreset = (fromDate: Date, toDate: Date) => {

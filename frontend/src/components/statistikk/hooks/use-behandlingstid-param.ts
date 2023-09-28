@@ -12,7 +12,7 @@ export const useBehandlingstidParam = (): [BehandlingstidEnum, (behandlingstidTy
       searchParams.set(QueryParams.BEHANDLINGSTID, behandlingstidType);
       setSearchParams(searchParams);
     },
-    [searchParams, setSearchParams]
+    [searchParams, setSearchParams],
   );
 
   const queryParam = searchParams.get(QueryParams.BEHANDLINGSTID);

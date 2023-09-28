@@ -63,7 +63,7 @@ export const Hjemler = ({ stats }: Props) => {
 
         return acc;
       }, new Map<string, number>()),
-    [stats]
+    [stats],
   );
 
   const barData = useMemo(() => {

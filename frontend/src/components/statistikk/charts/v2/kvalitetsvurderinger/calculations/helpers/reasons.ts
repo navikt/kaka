@@ -10,7 +10,7 @@ interface Calculation {
 
 export const calculateReasons = (
   data: IStatisticVurderingV2[],
-  reasonIds: (keyof IStatisticVurderingV2)[]
+  reasonIds: (keyof IStatisticVurderingV2)[],
 ): Calculation => {
   const reasons = data.reduce<Partial<Record<keyof IStatisticVurderingV2, number>>>((acc, sak) => {
     const mangelfulleIds = reasonIds.filter((id) => sak[id] === true);

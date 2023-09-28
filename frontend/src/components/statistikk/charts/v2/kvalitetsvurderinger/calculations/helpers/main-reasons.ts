@@ -34,7 +34,7 @@ export const calculateMainReasons = (data: MainReasonsVurdering[]): Calculation 
       [MainReason.Utredningen]: 0,
       [MainReason.Vedtaket]: 0,
       [MainReason.BrukAvRaadgivendeLege]: 0,
-    }
+    },
   );
 
   const totalMainReasonsCount = Object.values(mainReasons).reduce((total, count) => total + count, 0);

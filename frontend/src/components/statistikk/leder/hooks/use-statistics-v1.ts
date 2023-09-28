@@ -54,7 +54,7 @@ export const useFilteredManagerStatisticsV1 = () => {
       (types.length === 0 || types.includes(sakstypeId)) &&
       (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
       (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))),
-    [hjemler, tilbakekreving, types, utfall, ytelser]
+    [hjemler, tilbakekreving, types, utfall, ytelser],
   );
 
   return useMemo(
@@ -63,9 +63,9 @@ export const useFilteredManagerStatisticsV1 = () => {
       rest: rest.filter(filter),
       saksbehandlere: Object.entries(saksbehandlere).reduce<Record<string, IFullStatisticVurderingV1[]>>(
         (acc, [saksbehandler, vurderinger]) => ({ ...acc, [saksbehandler]: vurderinger.filter(filter) }),
-        {}
+        {},
       ),
     }),
-    [mine, filter, rest, saksbehandlere]
+    [mine, filter, rest, saksbehandlere],
   );
 };

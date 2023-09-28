@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { BREAK_POINT, COLUMN_WIDTH, GAP } from './constants';
 
 const BaseCard = styled.section`

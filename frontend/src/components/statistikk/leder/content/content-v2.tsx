@@ -44,7 +44,7 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
         label: saksbehandlerList.find((s) => s.navIdent === navIdent)?.navn ?? 'Laster...',
         data: filterIrrelevant(stats),
       })),
-    [saksbehandlerList, saksbehandlere]
+    [saksbehandlerList, saksbehandlere],
   );
 
   const allSaksbehandlereStats = useMemo(
@@ -53,7 +53,7 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
         label: saksbehandlerList.find((s) => s.navIdent === navIdent)?.navn ?? 'Laster...',
         data: stats,
       })),
-    [saksbehandlerList, saksbehandlere]
+    [saksbehandlerList, saksbehandlere],
   );
 
   const relevantMine = useRelevantStatistics(mine);
@@ -61,12 +61,12 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
 
   const relevantData = useMemo(
     () => (selectedSaksbehandlere.length > 0 ? relevantSaksbehandlereStats.flatMap(({ data }) => data) : relevantMine),
-    [relevantMine, relevantSaksbehandlereStats, selectedSaksbehandlere.length]
+    [relevantMine, relevantSaksbehandlereStats, selectedSaksbehandlere.length],
   );
 
   const allData = useMemo(
     () => (selectedSaksbehandlere.length > 0 ? allSaksbehandlereStats.flatMap(({ data }) => data) : mine),
-    [allSaksbehandlereStats, mine, selectedSaksbehandlere.length]
+    [allSaksbehandlereStats, mine, selectedSaksbehandlere.length],
   );
 
   const datasets = useMemo(
@@ -76,7 +76,7 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
       { label: 'Alle enheter', data: [...relevantMine, ...relevantRest] },
       ...relevantSaksbehandlereStats,
     ],
-    [relevantMine, relevantRest, relevantSaksbehandlereStats]
+    [relevantMine, relevantRest, relevantSaksbehandlereStats],
   );
 
   const behandlingstidStats = useMemo(
@@ -89,7 +89,7 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
           behandlingstidDays: kaBehandlingstidDays,
         })),
       })),
-    [datasets]
+    [datasets],
   );
 
   return (

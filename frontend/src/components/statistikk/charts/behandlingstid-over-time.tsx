@@ -93,7 +93,7 @@ export const BehandlingstidOverTime = ({ stats, children }: Props) => {
           data,
         };
       }),
-    [stats]
+    [stats],
   );
 
   const options = useOptions();

@@ -34,5 +34,5 @@ export const baseQuery = retry(
   },
   {
     maxRetries: 3,
-  }
+  },
 );

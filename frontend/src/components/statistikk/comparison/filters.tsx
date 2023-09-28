@@ -3,7 +3,7 @@ import { Button, HelpText, Label } from '@navikt/ds-react';
 import { format, parse } from 'date-fns';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';

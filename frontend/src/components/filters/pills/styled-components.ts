@@ -1,5 +1,5 @@
 import { XMarkIcon } from '@navikt/aksel-icons';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 export const StyledPill = styled.button`
   position: relative;

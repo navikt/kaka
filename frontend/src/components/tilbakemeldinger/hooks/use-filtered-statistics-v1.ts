@@ -45,7 +45,7 @@ export const useFilteredStatisticsV1 = () => {
       (utfall.length === 0 || utfall.includes(utfallId)) &&
       (ytelser.length === 0 || ytelser.includes(ytelseId)) &&
       (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))),
-    [tilbakekreving, utfall, ytelser, hjemler]
+    [tilbakekreving, utfall, ytelser, hjemler],
   );
 
   return useMemo(
@@ -53,6 +53,6 @@ export const useFilteredStatisticsV1 = () => {
       mine: mine.filter(filter),
       rest: rest.filter(filter),
     }),
-    [mine, filter, rest]
+    [mine, filter, rest],
   );
 };

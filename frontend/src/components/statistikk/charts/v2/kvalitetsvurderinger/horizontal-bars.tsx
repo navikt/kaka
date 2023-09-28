@@ -1,6 +1,6 @@
 import { Chart, ChartOptions } from 'chart.js';
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 // Above graph
 const PADDING_TOP = 13; // Always present

@@ -1,7 +1,7 @@
 import { ChartOptions } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar, Doughnut } from 'react-chartjs-2';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
@@ -67,7 +67,7 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: Kva
   ];
   const barLabels = relevantReasons.map(({ label }) => label);
   const barData: number[] = relevantReasons.map(
-    ({ id }) => mangelfulleSaker.filter((stat) => stat[id] === true).length
+    ({ id }) => mangelfulleSaker.filter((stat) => stat[id] === true).length,
   );
 
   const doughnutOptions = useDoughnutOptions();

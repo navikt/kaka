@@ -54,7 +54,7 @@ export const Omgjoeringsprosent = ({ stats }: ComparisonPropsV2) => {
     ...s,
     data: s.data.filter(
       ({ utfallId }) =>
-        utfallId !== UtfallEnum.RETUR && utfallId !== UtfallEnum.TRUKKET && utfallId !== UtfallEnum.UGUNST
+        utfallId !== UtfallEnum.RETUR && utfallId !== UtfallEnum.TRUKKET && utfallId !== UtfallEnum.UGUNST,
     ),
   }));
 
@@ -68,9 +68,9 @@ export const Omgjoeringsprosent = ({ stats }: ComparisonPropsV2) => {
 
             return [correctUtfall.length, (correctUtfall.length / s.data.length) * 100];
           }),
-        ]
+        ],
       ),
-    [relevantStats]
+    [relevantStats],
   );
 
   const getAbsoluteValue: GetAbsoluteValue = (datasetIndex, dataIndex) =>
@@ -87,7 +87,7 @@ export const Omgjoeringsprosent = ({ stats }: ComparisonPropsV2) => {
         backgroundColor: UTFALL_COLOR_MAP[utfall],
         barThickness: BAR_THICKNESS,
       })),
-    [utfallBars, utfallMap]
+    [utfallBars, utfallMap],
   );
 
   const labels = relevantStats.map(({ label }, index) => {

@@ -55,7 +55,7 @@ export const useFullYtelseNameFromId = (params: YtelseParams): string => {
 };
 
 export const useKodeverkUtfall = (
-  utfallId: string | typeof skipToken = skipToken
+  utfallId: string | typeof skipToken = skipToken,
 ): IKodeverkSimpleValue<UtfallEnum> | undefined => {
   const { data = [] } = useSortedUtfall();
 
@@ -63,7 +63,7 @@ export const useKodeverkUtfall = (
 };
 
 export const useKodeverkSakstype = (
-  sakstypeId: string | typeof skipToken = skipToken
+  sakstypeId: string | typeof skipToken = skipToken,
 ): IKodeverkSimpleValue<SakstypeEnum> | undefined => {
   const { data = [] } = useSakstyper();
 
@@ -86,7 +86,7 @@ export const useLovkildeToRegistreringshjemmelForYtelse = (params: YtelseParams)
   useKodeverkYtelse(params).data?.lovKildeToRegistreringshjemler ?? [];
 
 export const useSimpleYtelserForKlageenhet = (
-  klageenhetId: string | typeof skipToken = skipToken
+  klageenhetId: string | typeof skipToken = skipToken,
 ): IKodeverkSimpleValue[] => {
   const klageenhet = useKodeverkKlageenhet(klageenhetId);
 
@@ -99,7 +99,7 @@ export const useSimpleYtelserForKlageenhet = (
 
 export const useYtelserForVedtaksinstansenhet = (
   enhetId: string | typeof skipToken = skipToken,
-  version: KvalitetsvurderingVersion
+  version: KvalitetsvurderingVersion,
 ): IYtelse[] => {
   const { data: ytelser = [] } = useYtelser(version);
 
@@ -112,7 +112,7 @@ export const useYtelserForVedtaksinstansenhet = (
 
 export const useYtelserForKlageenhet = (
   enhetId: string | typeof skipToken = skipToken,
-  version: KvalitetsvurderingVersion
+  version: KvalitetsvurderingVersion,
 ): IYtelse[] => {
   const { data: ytelser = [] } = useYtelser(version);
 

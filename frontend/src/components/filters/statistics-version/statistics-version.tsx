@@ -1,7 +1,7 @@
 import { HelpText, ToggleGroup } from '@navikt/ds-react';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { QueryParams } from '../filter-query-params';
 import { useVersionQueryFilter } from '../hooks/use-query-filter';

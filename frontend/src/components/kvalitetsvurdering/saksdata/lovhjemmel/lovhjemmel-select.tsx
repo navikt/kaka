@@ -1,7 +1,7 @@
 import { MagnifyingGlassIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { OptionGroup } from '@app/components/dropdown/types';
 import { GroupedDropdown } from '../../../dropdown/grouped-dropdown';
 import { ErrorMessage } from '../../../error-message/error-message';

@@ -9,7 +9,7 @@ import {
 } from '@navikt/aksel-icons';
 import React from 'react';
 import { NavLink, NavLinkProps } from 'react-router-dom';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import {
   useDefaultQueryAapen,
   useDefaultQueryComparison,

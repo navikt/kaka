@@ -45,7 +45,7 @@ export const useFilteredSaksdataV1 = () => {
         tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
         (ytelser.length === 0 || ytelser.includes(ytelseId)) &&
         (utfall.length === 0 || utfall.includes(utfallId)) &&
-        (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id)))
+        (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))),
     ) ?? [];
 
   return filtered;

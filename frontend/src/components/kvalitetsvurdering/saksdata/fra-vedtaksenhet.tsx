@@ -1,6 +1,6 @@
 import { Label } from '@navikt/ds-react';
 import React, { useMemo, useRef, useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useEnheterForYtelse, useKlageenheterForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
 import { useSaksdata } from '@app/hooks/use-saksdata';

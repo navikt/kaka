@@ -5,7 +5,7 @@ export const useSaksdataId = (): string => {
 
   if (typeof saksdataId !== 'string' || saksdataId.length === 0) {
     throw new Error(
-      `"useKvalitetsvurderingId" hook used outside of "/kvalitetsvurderinger/:id" route. Current path "${window.location.pathname}".`
+      `"useKvalitetsvurderingId" hook used outside of "/kvalitetsvurderinger/:id" route. Current path "${window.location.pathname}".`,
     );
   }
 

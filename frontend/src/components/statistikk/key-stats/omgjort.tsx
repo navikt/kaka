@@ -18,9 +18,9 @@ export const Omgjort = ({ stats, label }: Props) => {
     () =>
       stats.filter(
         ({ utfallId }) =>
-          utfallId === UtfallEnum.MEDHOLD || utfallId === UtfallEnum.DELVIS_MEDHOLD || utfallId === UtfallEnum.OPPHEVET
+          utfallId === UtfallEnum.MEDHOLD || utfallId === UtfallEnum.DELVIS_MEDHOLD || utfallId === UtfallEnum.OPPHEVET,
       ).length,
-    [stats]
+    [stats],
   );
 
   return (

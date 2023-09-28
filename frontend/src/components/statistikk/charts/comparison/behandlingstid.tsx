@@ -63,7 +63,7 @@ export const BehandlingstidComparison = ({ stats }: Props) => {
 
   const labels = useMemo(
     () => stats.map((stat, i) => `${stat.label} (totalt ${(vedtaksinstansData[i] ?? 0) + (klageinstansData[i] ?? 0)})`),
-    [klageinstansData, stats, vedtaksinstansData]
+    [klageinstansData, stats, vedtaksinstansData],
   );
 
   const datasets = [

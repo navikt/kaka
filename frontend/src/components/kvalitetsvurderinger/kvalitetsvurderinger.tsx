@@ -2,7 +2,7 @@ import { DocPencilIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import React from 'react';
 import { useNavigate } from 'react-router';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { useCreateSaksdataMutation } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';
 import { FullfoerteVurderingerTable } from './fullfoerte-vurderinger-table';

@@ -22,7 +22,7 @@ const useNextOption = (data: IKodeverkSimpleValue[]): string | undefined => {
   const options = useMemo(() => [...data, ...DEFAULT_OPTIONS], [data]);
   const availableOptions = useMemo(
     () => options.filter((e) => !selectedValues.some(([id]) => id === e.id)),
-    [options, selectedValues]
+    [options, selectedValues],
   );
   const availableOptionIds = availableOptions.map((e) => e.id);
   const [nextOption] = availableOptionIds;
@@ -40,7 +40,7 @@ export const Hjemler = () => {
         id,
         navn: hjemmelnavn,
       })),
-    [registreringshjemlerMap]
+    [registreringshjemlerMap],
   );
 
   const nextOption = useNextOption(ids);
@@ -69,13 +69,13 @@ const useLovkildeToRegistreringshjemlerOptions = (selectedValues: OptionValue[])
           .filter((h) => !selectedIds.includes(h.id))
           .map((h) => ({ value: h.id, label: h.navn })),
       })),
-    [data, selectedIds]
+    [data, selectedIds],
   );
 
   const defaultOptions = useMemo(
     () =>
       DEFAULT_OPTIONS.filter(({ id }) => !selectedIds.includes(id)).map(({ id, navn }) => ({ value: id, label: navn })),
-    [selectedIds]
+    [selectedIds],
   );
 
   if (defaultOptions.length === 0) {

@@ -1,7 +1,7 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
 import { Alert } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 import { isReduxValidationResponse } from '@app/functions/error-type-guard';
 import { useKvalitetsvurderingIsFinished } from '@app/hooks/use-kvalitetsvurdering-is-finished';
 import { useSaksdataId } from '@app/hooks/use-saksdata-id';

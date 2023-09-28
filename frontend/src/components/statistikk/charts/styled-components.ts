@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from 'styled-components';
 
 interface ChartContainerProps {
   columns?: 1 | 2 | 3 | 4;

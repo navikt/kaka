@@ -19,7 +19,7 @@ export type RegistreringshjemlerMap = Record<string, IHjemmelNameWithLovkilde>;
 
 const registreringshjemlerMap = new SimpleApiState<RegistreringshjemlerMap>(`${API_PREFIX}/registreringshjemlermap`);
 const lovkildeToRegistreringshjemler = new SimpleApiState<AllLovKilderToRegistreringshjemmel[]>(
-  `${API_PREFIX}/lovkildetoregistreringshjemler`
+  `${API_PREFIX}/lovkildetoregistreringshjemler`,
 );
 const ytelserV1 = new SimpleApiState<IYtelse[]>(`${API_PREFIX}/ytelser/v1`);
 const ytelserV2 = new SimpleApiState<IYtelse[]>(`${API_PREFIX}/ytelser/v2`);

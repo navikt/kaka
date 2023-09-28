@@ -15,7 +15,7 @@ export const useValidationError = (field: Field): string | undefined => {
 
   const allProperties = useMemo(
     () => (isReduxValidationResponse(error) ? error.data.sections.flatMap(({ properties }) => properties) : []),
-    [error]
+    [error],
   );
 
   return useMemo(() => allProperties?.find((p) => p.field === field)?.reason, [allProperties, field]);
