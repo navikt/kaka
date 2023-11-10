@@ -44,3 +44,7 @@ spec:
   envFrom:
     - secret: kaka-session-key
     - secret: slack-url
+  liveness:
+    path: /isAlive
+  readiness:
+    path: /isReady
