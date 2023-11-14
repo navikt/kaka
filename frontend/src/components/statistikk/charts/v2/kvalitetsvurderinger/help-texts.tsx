@@ -16,7 +16,7 @@ interface Props {
 
 export const HelpTexts = ({ helpTexts }: Props) => (
   <ReadMore header="Hjelpetekster">
-    <ShowHelpTexts show={true} helpTexts={helpTexts} />
+    <ShowHelpTexts show helpTexts={helpTexts} />
   </ReadMore>
 );
 
