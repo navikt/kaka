@@ -19,7 +19,7 @@ export const Dropdown = ({ label, metadata, children, open, setOpen }: Props) =>
   if (open) {
     return (
       <Container ref={ref}>
-        <StyledDropdownButton onClick={() => setOpen(false)} open={true}>
+        <StyledDropdownButton onClick={() => setOpen(false)} open>
           {label}
           {formatMetadata(metadata)}
         </StyledDropdownButton>
