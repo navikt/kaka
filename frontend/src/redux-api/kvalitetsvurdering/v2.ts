@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IKvalitetsvurdering, IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
+import { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
 import { baseQuery } from '../common';
 
 type Argument = Partial<IKvalitetsvurderingData> & { id: string };
@@ -9,14 +9,14 @@ export const kvalitetsvurderingV2Api = createApi({
   baseQuery,
   tagTypes: ['kvalitetsvurdering'],
   endpoints: (builder) => ({
-    getKvalitetsvurdering: builder.query<IKvalitetsvurdering, string>({
+    getKvalitetsvurdering: builder.query<IKvalitetsvurderingData, string>({
       query: (id) => `/api/kaka-api/kvalitetsvurderinger/v2/${id}`,
       providesTags: (_, __, id) => [{ type: 'kvalitetsvurdering', id }],
     }),
-    getCensoredKvalitetsvurdering: builder.query<IKvalitetsvurdering, string>({
+    getCensoredKvalitetsvurdering: builder.query<IKvalitetsvurderingData, string>({
       query: (id) => `/api/kaka-api/censoredkvalitetsvurderinger/v2/${id}`,
     }),
-    updateKvalitetsvurdering: builder.mutation<IKvalitetsvurdering, Argument>({
+    updateKvalitetsvurdering: builder.mutation<IKvalitetsvurderingData, Argument>({
       query: ({ id, ...body }) => ({
         url: `/api/kaka-api/kvalitetsvurderinger/v2/${id}`,
         method: 'PATCH',

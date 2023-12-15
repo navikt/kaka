@@ -1,51 +1,49 @@
 import { CheckboxGroup } from '@navikt/ds-react';
 import React, { useMemo } from 'react';
-import { IKvalitetsvurderingData, KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES } from '@app/types/kvalitetsvurdering/v2';
-import { Hjemler } from './hjemler';
+import { KvalitetsskjemaTextarea } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/textarea';
+import { IKvalitetsvurderingBooleans, IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
+import { AllRegistreringshjemler } from './all-registreringshjemler';
 import { KvalitetsskjemaCheckbox } from './kvalitetsvurdering-checkbox';
+import { Saksdatahjemler } from './saksdatahjemler';
 import { SubSection } from './styled-components';
-import { ICheckboxParams } from './types';
+import { CheckboxParams, GroupErrorField, InputParams, TypeEnum } from './types';
 import { useKvalitetsvurderingV2 } from './use-kvalitetsvurdering-v2';
 import { useValidationError } from './use-validation-error';
 
 interface Props {
   kvalitetsvurdering: IKvalitetsvurderingData;
   update: (data: Partial<IKvalitetsvurderingData>) => void;
-  checkboxes: ICheckboxParams[];
-  show: boolean;
-  groupErrorField?: keyof typeof KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES;
+  childList: InputParams[];
+  groupErrorField?: GroupErrorField;
   hideLegend?: boolean;
   label: string;
+  parentKey?: keyof IKvalitetsvurderingBooleans;
 }
 
 export const Checkboxes = ({
   kvalitetsvurdering,
   label,
   update,
-  checkboxes,
-  show,
+  childList,
   groupErrorField,
   hideLegend,
+  parentKey,
 }: Props) => {
-  const allFields = useMemo(() => getFields(checkboxes), [checkboxes]);
+  const allFields = useMemo(() => getFields(childList), [childList]);
   const value = useMemo(() => allFields.filter((f) => kvalitetsvurdering[f]), [allFields, kvalitetsvurdering]);
   const error = useValidationError(groupErrorField);
 
-  if (!show) {
-    return null;
-  }
-
   const onChange = (fields: string[]) => {
-    const newFields = allFields.reduce((acc, field) => {
+    for (let i = allFields.length - 1; i >= 0; i--) {
+      const field = allFields[i]!;
       const isFieldChecked = fields.includes(field);
+      const hasChange = kvalitetsvurdering[field] !== isFieldChecked;
 
-      if (kvalitetsvurdering[field] === isFieldChecked) {
-        return acc;
+      if (hasChange) {
+        update({ [field]: isFieldChecked });
+        break;
       }
-
-      return { ...acc, [field]: isFieldChecked };
-    }, {});
-    update(newFields);
+    }
   };
 
   return (
@@ -58,41 +56,58 @@ export const Checkboxes = ({
         error={error}
         id={groupErrorField}
       >
-        {checkboxes.map((m) => (
-          <Checkbox key={m.field} {...m} />
-        ))}
+        {childList.map((m) => {
+          if (isCheckbox(m)) {
+            return <Checkbox key={m.field} checkbox={m} />;
+          }
+
+          return <KvalitetsskjemaTextarea key={m.field} {...m} parentKey={parentKey} />;
+        })}
       </CheckboxGroup>
     </SubSection>
   );
 };
 
-const Checkbox = ({ field, label, helpText, hjemler, checkboxes, groupErrorField }: ICheckboxParams) => {
+interface CheckboxProps {
+  checkbox: CheckboxParams;
+}
+
+const Checkbox = ({ checkbox }: CheckboxProps) => {
+  const { field, label, helpText, saksdatahjemler, allRegistreringshjemler, childList, groupErrorField } = checkbox;
+
   const { kvalitetsvurdering, isLoading, update } = useKvalitetsvurderingV2();
 
   if (isLoading) {
     return null;
   }
 
+  const show = childList !== undefined && childList.length !== 0 && kvalitetsvurdering[field] === true;
+
   return (
     <>
       <KvalitetsskjemaCheckbox field={field} helpText={helpText}>
         {label}
       </KvalitetsskjemaCheckbox>
-      {typeof hjemler === 'undefined' ? null : <Hjemler field={hjemler} show={kvalitetsvurdering[field]} />}
-      {typeof checkboxes === 'undefined' ? null : (
+      {typeof saksdatahjemler === 'undefined' ? null : <Saksdatahjemler field={saksdatahjemler} parentKey={field} />}
+      {typeof allRegistreringshjemler === 'undefined' ? null : (
+        <AllRegistreringshjemler field={allRegistreringshjemler} parentKey={field} />
+      )}
+      {show ? (
         <Checkboxes
           kvalitetsvurdering={kvalitetsvurdering}
-          checkboxes={checkboxes}
-          show={kvalitetsvurdering[field]}
+          childList={childList}
           label={label}
           hideLegend
           groupErrorField={groupErrorField}
           update={update}
+          parentKey={field}
         />
-      )}
+      ) : null}
     </>
   );
 };
 
-const getFields = (checkboxes: ICheckboxParams[]): ICheckboxParams['field'][] =>
-  checkboxes.flatMap((checkbox) => [checkbox.field, ...getFields(checkbox.checkboxes ?? [])]);
+const getFields = (checkboxes: InputParams[]): (keyof IKvalitetsvurderingBooleans)[] =>
+  checkboxes.filter(isCheckbox).flatMap((checkbox) => [checkbox.field, ...getFields(checkbox.childList ?? [])]);
+
+const isCheckbox = (checkbox: InputParams): checkbox is CheckboxParams => checkbox.type === TypeEnum.CHECKBOX;

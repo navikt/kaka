@@ -1,9 +1,9 @@
 import { ChartData } from 'chart.js';
 import { NAV_COLORS } from '@app/colors/colors';
 import { toPercent } from '@app/domain/number';
-import { IKKE_KONKRET_BEGRUNNELSE_REASONS, REASON_TO_SUBREASONS } from '@app/types/kvalitetsvurdering/texts/structures';
-import { IKKE_KONKRET_BEGRUNNELSE_TEXTS } from '@app/types/kvalitetsvurdering/texts/texts';
-import { MainReason } from '@app/types/kvalitetsvurdering/v2';
+import { IKKE_KONKRET_BEGRUNNELSE_REASONS, REASON_TO_SUBREASONS } from '@app/types/statistics/legacy/structures';
+import { IKKE_KONKRET_BEGRUNNELSE_TEXTS } from '@app/types/statistics/legacy/texts';
+import { MainReason } from '@app/types/statistics/legacy/v2';
 import { DataSet } from '../types';
 import { calculateMainReasons } from './helpers/main-reasons';
 import { calculateReasons } from './helpers/reasons';

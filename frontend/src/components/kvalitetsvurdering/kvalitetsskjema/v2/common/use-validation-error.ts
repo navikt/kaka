@@ -1,14 +1,12 @@
 import { useMemo } from 'react';
+import { GroupErrorField } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/types';
 import { isReduxValidationResponse } from '@app/functions/error-type-guard';
 import { useSaksdataId } from '@app/hooks/use-saksdata-id';
 import { useFullfoerMutation } from '@app/redux-api/saksdata';
-import { IKvalitetsvurderingData, KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES } from '@app/types/kvalitetsvurdering/v2';
+import { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
 import { ISaksdataIncomplete } from '@app/types/saksdata';
 
-type Field =
-  | keyof IKvalitetsvurderingData
-  | keyof ISaksdataIncomplete
-  | keyof typeof KVALITETSVURDERING_V2_CHECKBOX_GROUP_NAMES;
+type Field = keyof IKvalitetsvurderingData | keyof ISaksdataIncomplete | GroupErrorField;
 
 export const useValidationError = (field?: Field): string | undefined => {
   const id = useSaksdataId();

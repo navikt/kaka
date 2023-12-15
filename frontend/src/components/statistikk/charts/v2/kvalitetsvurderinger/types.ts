@@ -1,4 +1,4 @@
-import { MainReason } from '@app/types/kvalitetsvurdering/v2';
+import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import { IStatisticVurderingV2 } from '@app/types/statistics/v2';
 
 export interface DataSet {

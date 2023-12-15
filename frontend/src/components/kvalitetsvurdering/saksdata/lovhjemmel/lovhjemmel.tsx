@@ -1,8 +1,8 @@
+import { MagnifyingGlassIcon } from '@navikt/aksel-icons';
 import { HelpText, Label } from '@navikt/ds-react';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 import { useCanEdit } from '@app/hooks/use-can-edit';
-import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { useSaksdataId } from '@app/hooks/use-saksdata-id';
 import { useValidationError } from '@app/hooks/use-validation-error';
@@ -18,27 +18,17 @@ export const Lovhjemmel = () => {
   const { data: saksdata } = useSaksdata();
   const canEdit = useCanEdit();
   const validationError = useValidationError('hjemmelIdList');
-  const lovKildeToRegistreringshjemler = useLovkildeToRegistreringshjemmelForYtelse(useYtelseParams());
 
-  const options = useMemo(
-    () =>
-      lovKildeToRegistreringshjemler.map(({ lovkilde, registreringshjemler }) => ({
-        sectionHeader: { id: lovkilde.id, name: lovkilde.navn },
-        sectionOptions: registreringshjemler.map(({ id, navn }) => ({ value: id, label: navn })),
-      })),
-    [lovKildeToRegistreringshjemler],
-  );
+  const selected = saksdata?.hjemmelIdList ?? [];
 
   if (!canEdit) {
     return (
       <section>
         <LabelWithHelpText />
-        <SelectedHjemlerList />
+        <SelectedHjemlerList selected={selected} />
       </section>
     );
   }
-
-  const noHjemler = options.length === 0;
 
   const onLovhjemmelChange = (hjemmelIdList: string[]) => {
     if (typeof user === 'undefined') {
@@ -52,8 +42,7 @@ export const Lovhjemmel = () => {
     <section>
       <LabelWithHelpText />
       <LovhjemmelSelect
-        disabled={!canEdit || noHjemler}
-        options={options}
+        disabled={!canEdit}
         selected={saksdata?.hjemmelIdList ?? []}
         onChange={onLovhjemmelChange}
         error={validationError}
@@ -61,8 +50,11 @@ export const Lovhjemmel = () => {
         showFjernAlle={false}
         show={canEdit}
         id="hjemmelIdList"
-      />
-      <SelectedHjemlerList />
+        icon={<MagnifyingGlassIcon aria-hidden />}
+      >
+        Hjemmel
+      </LovhjemmelSelect>
+      <SelectedHjemlerList selected={selected} />
     </section>
   );
 };

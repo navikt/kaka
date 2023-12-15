@@ -1,23 +1,19 @@
 import React, { useMemo } from 'react';
 import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
-import { useSaksdata } from '@app/hooks/use-saksdata';
 import { ILovKildeToRegistreringshjemmel } from '@app/types/kodeverk';
 import {
-  StyledListItem,
   StyledNoneSelected,
   StyledSelectedHjemler,
   StyledSelectedList,
-  StyledSelectedSection,
   StyledSelectedSectionHeader,
 } from './styled-components';
 
-const EMPTY_LIST: string[] = [];
+interface Props {
+  selected: string[];
+}
 
-export const SelectedHjemlerList = () => {
-  const { data: saksdata } = useSaksdata();
+export const SelectedHjemlerList = ({ selected }: Props) => {
   const hjemler = useLovkildeToRegistreringshjemmelForYtelse(useYtelseParams());
-
-  const hjemmelIdList = saksdata?.hjemmelIdList ?? EMPTY_LIST;
 
   const list = useMemo<ILovKildeToRegistreringshjemmel[]>(
     () =>
@@ -25,16 +21,12 @@ export const SelectedHjemlerList = () => {
         .map(({ lovkilde, registreringshjemler }) => ({
           lovkilde,
           registreringshjemler: registreringshjemler.filter((registreringshjemmel) =>
-            hjemmelIdList.includes(registreringshjemmel.id),
+            selected.includes(registreringshjemmel.id),
           ),
         }))
         .filter(({ registreringshjemler }) => registreringshjemler.length !== 0),
-    [hjemmelIdList, hjemler],
+    [selected, hjemler],
   );
-
-  if (typeof saksdata === 'undefined') {
-    return null;
-  }
 
   return (
     <StyledSelectedHjemler data-testid="selected-hjemler-list">
@@ -55,17 +47,17 @@ const SelectedChildren = ({
   return (
     <>
       {registreringshjemmelIdList.map(({ lovkilde, registreringshjemler }) => (
-        <StyledSelectedSection key={lovkilde.id}>
+        <div key={lovkilde.id}>
           <StyledSelectedSectionHeader>{lovkilde.navn}</StyledSelectedSectionHeader>
 
           <StyledSelectedList>
             {registreringshjemler.map(({ navn, id }) => (
-              <StyledListItem key={id} data-testid={`selected-hjemmel-${id}`}>
+              <li key={id} data-testid={`selected-hjemmel-${id}`}>
                 {navn}
-              </StyledListItem>
+              </li>
             ))}
           </StyledSelectedList>
-        </StyledSelectedSection>
+        </div>
       ))}
     </>
   );

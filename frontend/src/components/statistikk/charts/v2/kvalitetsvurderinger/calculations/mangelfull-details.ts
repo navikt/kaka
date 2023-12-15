@@ -4,8 +4,8 @@ import {
   KVALITETSVURDERING_V2_TEXTS,
   MAIN_REASON_IDS,
   REASON_TO_SUBREASONS,
-} from '@app/types/kvalitetsvurdering/texts/structures';
-import { MainReason } from '@app/types/kvalitetsvurdering/v2';
+} from '@app/types/statistics/legacy/structures';
+import { MainReason } from '@app/types/statistics/legacy/v2';
 import { DataSet } from '../types';
 import { calculateMainReasons } from './helpers/main-reasons';
 import { calculateReasons } from './helpers/reasons';
@@ -115,13 +115,19 @@ export const getMangelfullDetailsDatasets = (
   });
 
   const datasets: StackedBarPiece[] = MAIN_REASON_IDS.flatMap<StackedBarPiece>((mainReason) =>
-    REASON_TO_SUBREASONS[mainReason].map<StackedBarPiece>((reasonId) => ({
-      label: KVALITETSVURDERING_V2_TEXTS[reasonId].label,
-      data: stacks.map(({ data }) => (data[reasonId]?.[1] ?? 0) * 100),
-      counts: stacks.map(({ data }) => data[reasonId]?.[0] ?? 0),
-      backgroundColor: KVALITETSVURDERING_V2_TEXTS[reasonId].color ?? 'red',
-      barThickness: BAR_THICKNESS,
-    })),
+    REASON_TO_SUBREASONS[mainReason].map<StackedBarPiece>((reasonId) => {
+      const text = KVALITETSVURDERING_V2_TEXTS[reasonId];
+      const { label } = text;
+      const backgroundColor = 'color' in text ? text.color : 'red';
+
+      return {
+        label,
+        data: stacks.map(({ data }) => (data[reasonId]?.[1] ?? 0) * 100),
+        counts: stacks.map(({ data }) => data[reasonId]?.[0] ?? 0),
+        backgroundColor,
+        barThickness: BAR_THICKNESS,
+      };
+    }),
   ).filter((dataset) => dataset.data.some((v) => v !== 0)); // Remove empty datasets.
 
   const labels = stacks.map(({ label }, index) => {

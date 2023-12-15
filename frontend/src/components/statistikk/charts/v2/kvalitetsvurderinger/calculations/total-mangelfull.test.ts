@@ -1,5 +1,5 @@
 import { Radiovalg, RadiovalgExtended } from '@app/types/kvalitetsvurdering/radio';
-import { MainReason } from '@app/types/kvalitetsvurdering/v2';
+import { MainReason } from '@app/types/statistics/legacy/v2';
 import { DataSet, getTotalMangelfullDatasets } from './total-mangelfull';
 
 const BRA_VURDERING = {
