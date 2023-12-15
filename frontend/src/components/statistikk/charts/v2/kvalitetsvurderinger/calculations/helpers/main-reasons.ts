@@ -1,7 +1,13 @@
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
-import { MAIN_REASON_IDS } from '@app/types/kvalitetsvurdering/texts/structures';
-import { MainReason } from '@app/types/kvalitetsvurdering/v2';
+import { MainReason } from '@app/types/statistics/legacy/v2';
 import { MainReasonsVurdering } from '../../types';
+
+const MAIN_REASON_IDS: Readonly<MainReason[]> = Object.freeze([
+  MainReason.Klageforberedelsen,
+  MainReason.Utredningen,
+  MainReason.Vedtaket,
+  MainReason.BrukAvRaadgivendeLege,
+]);
 
 interface Counts {
   [MainReason.Klageforberedelsen]: number;

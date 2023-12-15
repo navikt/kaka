@@ -1,5 +1,4 @@
 import { NAV_COLORS } from '@app/colors/colors';
-import { RadiovalgExtended } from '../radio';
 import {
   BrukAvRaadgivendeLegeKeys,
   IKvalitetsvurderingHjemler,
@@ -11,7 +10,7 @@ import {
   UtredningenKeys,
   VedtaketHjemlerListKeys,
   VedtaketKeys,
-} from '../v2';
+} from './v2';
 
 type Children =
   | Record<SakensDokumenterKeys, KvalitetsskjemaText>
@@ -225,16 +224,6 @@ export const ANNET_TEXTS = {
       'Det du skriver her er kun for klageinstansens interne bruk og blir ikke synlig for vedtaksinstansen. Har saken andre avvik som ikke passer med noen av de andre registreringsmulighetene i Kaka, kan du skrive dette her. Husk å skrive kort / med stikkord. Ikke skriv personopplysninger eller detaljer om saken. Du kan også skrive stikkord dersom saken gjelder et typetilfelle.',
     description:
       'Det du skriver her er kun synlig for klageinstansen og ikke for vedtaksinstansen. Husk å ikke skrive personopplysninger.',
-  },
-};
-
-export const BRUK_AV_RAADGIVENDE_LEGE_RADIO_TEXTS = {
-  [RadiovalgExtended.IKKE_AKTUELT]: {
-    helpText: 'Du registrerer her dersom den konkrete saken ikke gjelder trygdemedisinske spørsmål.',
-  },
-  [RadiovalgExtended.BRA]: {
-    helpText:
-      'Du registrerer her om den konkrete saken gjelder trygdemedisinske spørsmål og det er ok at rådgivende lege ikke er brukt, eller bruken av rådgivende lege er god nok.',
   },
 };
 

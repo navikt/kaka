@@ -1,13 +1,12 @@
-import { MagnifyingGlassIcon } from '@navikt/aksel-icons';
-import { Button } from '@navikt/ds-react';
-import React, { useRef, useState } from 'react';
+import { Alert, Button, ButtonProps } from '@navikt/ds-react';
+import { skipToken } from '@reduxjs/toolkit/query';
+import React, { useMemo, useRef, useState } from 'react';
 import { styled } from 'styled-components';
-import { OptionGroup } from '@app/components/dropdown/types';
+import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
 import { GroupedDropdown } from '../../../dropdown/grouped-dropdown';
 import { ErrorMessage } from '../../../error-message/error-message';
 
 interface LovhjemmelSelectProps {
-  options: OptionGroup[];
   selected: string[];
   onChange: (selected: string[]) => void;
   disabled?: boolean;
@@ -15,12 +14,15 @@ interface LovhjemmelSelectProps {
   'data-testid'?: string;
   showFjernAlle?: boolean;
   show: boolean;
-  id: string;
+  id?: string;
+  size?: ButtonProps['size'];
+  variant?: ButtonProps['variant'];
+  children: string;
+  icon?: React.ReactNode;
 }
 
 export const LovhjemmelSelect = ({
   onChange,
-  options,
   selected,
   disabled,
   error,
@@ -28,12 +30,35 @@ export const LovhjemmelSelect = ({
   showFjernAlle,
   show,
   id,
+  size = 'medium',
+  variant = 'primary',
+  children,
+  icon,
 }: LovhjemmelSelectProps) => {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const ytelseParams = useYtelseParams();
+  const lovKildeToRegistreringshjemler = useLovkildeToRegistreringshjemmelForYtelse(ytelseParams);
+
+  const options = useMemo(
+    () =>
+      lovKildeToRegistreringshjemler.map(({ lovkilde, registreringshjemler }) => ({
+        sectionHeader: { id: lovkilde.id, name: lovkilde.navn },
+        sectionOptions: registreringshjemler.map(({ id: value, navn }) => ({ value, label: navn })),
+      })),
+    [lovKildeToRegistreringshjemler],
+  );
 
   if (!show) {
     return null;
+  }
+
+  if (ytelseParams === skipToken) {
+    return (
+      <Alert inline variant="warning">
+        Velg en ytelse for å se hjemler
+      </Alert>
+    );
   }
 
   const setSelected = (selectedId: string | null, active: boolean) => {
@@ -58,12 +83,13 @@ export const LovhjemmelSelect = ({
       <StyledButton
         ref={buttonRef}
         id={id}
-        size="medium"
+        variant={variant}
+        size={size}
         onClick={toggleOpen}
-        disabled={disabled}
-        icon={<MagnifyingGlassIcon aria-hidden />}
+        disabled={options.length === 0 || disabled}
+        icon={icon}
       >
-        Hjemmel
+        {children}
       </StyledButton>
 
       <GroupedDropdown

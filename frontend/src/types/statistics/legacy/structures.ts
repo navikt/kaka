@@ -1,4 +1,3 @@
-import { IKvalitetsvurdering, MainReason } from '../v2';
 import {
   ANNET_TEXTS,
   AUTOMATISK_VEDTAK_TEXTS,
@@ -12,6 +11,7 @@ import {
   VEDTAKET_HJEMLER_LIST_TEXTS,
   VEDTAKET_TEXTS,
 } from './texts';
+import { IKvalitetsvurdering, MainReason } from './v2';
 
 type KlageforberedelsenTextsKeys = keyof typeof KLAGEFORBEREDELSEN_TEXTS;
 type UtredningenTextsKeys = keyof typeof UTREDNINGEN_TEXTS;
@@ -49,19 +49,17 @@ export const IKKE_KONKRET_BEGRUNNELSE_REASONS = Object.keys(IKKE_KONKRET_BEGRUNN
   (key): key is IkkeKonkretBegrunnelseTextsKeys => key in IKKE_KONKRET_BEGRUNNELSE_TEXTS,
 );
 
-export const KLAGEFORBEREDELSEN_REASONS = Object.keys(KLAGEFORBEREDELSEN_TEXTS).filter(
+const KLAGEFORBEREDELSEN_REASONS = Object.keys(KLAGEFORBEREDELSEN_TEXTS).filter(
   (key): key is KlageforberedelsenTextsKeys => key in KLAGEFORBEREDELSEN_TEXTS,
 );
 
-export const UTREDNINGEN_REASONS = Object.keys(UTREDNINGEN_TEXTS).filter(
+const UTREDNINGEN_REASONS = Object.keys(UTREDNINGEN_TEXTS).filter(
   (key): key is UtredningenTextsKeys => key in UTREDNINGEN_TEXTS,
 );
 
-export const VEDTAKET_REASONS = Object.keys(VEDTAKET_TEXTS).filter(
-  (key): key is VedtaketTextsKeys => key in VEDTAKET_TEXTS,
-);
+const VEDTAKET_REASONS = Object.keys(VEDTAKET_TEXTS).filter((key): key is VedtaketTextsKeys => key in VEDTAKET_TEXTS);
 
-export const BRUK_AV_RAADGIVENDE_LEGE_REASONS = Object.keys(BRUK_AV_RAADGIVENDE_LEGE_TEXTS).filter(
+const BRUK_AV_RAADGIVENDE_LEGE_REASONS = Object.keys(BRUK_AV_RAADGIVENDE_LEGE_TEXTS).filter(
   (key): key is BrukAvRaadgivendeLegeTextsKeys => key in BRUK_AV_RAADGIVENDE_LEGE_TEXTS,
 );
 
@@ -75,16 +73,4 @@ export const REASON_TO_SUBREASONS: {
   [MainReason.Utredningen]: UTREDNINGEN_REASONS,
   [MainReason.Vedtaket]: VEDTAKET_REASONS,
   [MainReason.BrukAvRaadgivendeLege]: BRUK_AV_RAADGIVENDE_LEGE_REASONS,
-};
-
-const EMPTY_ARRAY: [] = [];
-
-export const getChildrenEntries = ({
-  children,
-}: KvalitetsskjemaText): [keyof KvalitetsskjemaText['children'], KvalitetsskjemaText][] => {
-  if (typeof children === 'undefined') {
-    return EMPTY_ARRAY;
-  }
-
-  return Object.entries(children) as [keyof KvalitetsskjemaText['children'], KvalitetsskjemaText][];
 };

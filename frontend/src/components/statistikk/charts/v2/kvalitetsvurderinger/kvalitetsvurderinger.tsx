@@ -1,7 +1,7 @@
 import { Select, ToggleGroup } from '@navikt/ds-react';
 import React from 'react';
 import { styled } from 'styled-components';
-import { VedtaketHjemlerListTextsKeys, VedtaketTextsKeys } from '@app/types/kvalitetsvurdering/texts/structures';
+import { VedtaketHjemlerListTextsKeys, VedtaketTextsKeys } from '@app/types/statistics/legacy/structures';
 import {
   BRUK_AV_RAADGIVENDE_LEGE_TEXTS,
   KLAGEFORBEREDELSEN_TEXTS,
@@ -9,8 +9,8 @@ import {
   SAKENS_DOKUMENTER_TEXTS,
   UTREDNINGEN_TEXTS,
   VEDTAKET_TEXTS,
-} from '@app/types/kvalitetsvurdering/texts/texts';
-import { MainReason } from '@app/types/kvalitetsvurdering/v2';
+} from '@app/types/statistics/legacy/texts';
+import { MainReason } from '@app/types/statistics/legacy/v2';
 import { IStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { QueryParams } from '../../../../filters/filter-query-params';
 import { CardSize, DynamicCard } from '../../../card/card';
@@ -102,7 +102,13 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
       <HjemlerContainer>
         {HJEMLER_CHART_PROPS_LIST.map((params, index) => (
           <HjemlerSubContainer key={params.reasonId}>
-            <Hjemler key={params.reasonId} {...params} dataset={focusedDataset} index={index} />
+            <Hjemler
+              key={params.reasonId}
+              {...params}
+              hjemmelListId={params.hjemmelListId}
+              dataset={focusedDataset}
+              index={index}
+            />
           </HjemlerSubContainer>
         ))}
       </HjemlerContainer>

@@ -2,10 +2,12 @@ import { styled } from 'styled-components';
 
 export const StyledSelectedHjemler = styled.div`
   margin-top: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
   padding-left: 1em;
   border-left: 2px solid #ccc;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `;
 
 export const StyledNoneSelected = styled.p`
@@ -17,27 +19,15 @@ export const StyledSelectedList = styled.ul`
   list-style: none;
   padding-left: 10px;
   margin: 0;
-`;
 
-export const StyledListItem = styled.li`
-  margin-bottom: 0.5em;
-
-  :last-child {
-    margin-bottom: 0;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 `;
 
 export const StyledSelectedSectionHeader = styled.h3`
   font-size: 16px;
   font-weight: bold;
   margin-top: 0;
-  margin-bottom: 0.5em;
-`;
-
-export const StyledSelectedSection = styled.div`
-  padding-top: 1em;
-
-  :first-of-type {
-    padding-top: 0;
-  }
+  margin-bottom: 4px;
 `;

@@ -1,14 +1,14 @@
 import { Heading, Loader } from '@navikt/ds-react';
 import React from 'react';
 import { styled } from 'styled-components';
+import { BrukAvRaadgivendeLege } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/bruk-av-raadgivende-overlege/bruk-av-raadgivende';
+import { Utredningen } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/utredningen/utredningen';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { UtfallEnum } from '@app/types/utfall';
 import { Annet } from './annet';
-import { BrukAvRaadgivendeLege } from './bruk-av-raadgivende';
 import { useKvalitetsvurderingV2 } from './common/use-kvalitetsvurdering-v2';
-import { Klageforberedelsen } from './klageforberedelsen';
-import { Utredningen } from './utredningen';
-import { Vedtaket } from './vedtaket';
+import { Klageforberedelsen } from './klageforberedelsen/klageforberedelsen';
+import { Vedtaket } from './vedtaket/vedtaket';
 
 export const KvalitetsskjemaV2 = () => {
   const { data: saksdata, isLoading, isError } = useSaksdata();

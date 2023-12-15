@@ -17,11 +17,13 @@ export interface IStatisticVurderingV2 extends ISaksdata {
   readonly klageforberedelsenFeilVedBegrunnelsenForHvorforAvslagOpprettholdesKlagerIkkeOppfyllerVilkaar: boolean;
   readonly klageforberedelsenOversendelsesbrevetsInnholdErIkkeISamsvarMedSakensTema: boolean;
   readonly klageforberedelsenOversendelsesbrevIkkeSendtKopiTilPartenEllerFeilMottaker: boolean;
+  readonly klageforberedelsenUtredningenUnderKlageforberedelsen: boolean;
   readonly utredningen: Radiovalg;
   readonly utredningenAvMedisinskeForhold: boolean;
   readonly utredningenAvInntektsforhold: boolean;
   readonly utredningenAvArbeidsaktivitet: boolean;
   readonly utredningenAvEoesUtenlandsproblematikk: boolean;
+  readonly utredningenAvSivilstandBoforhold: boolean;
   readonly utredningenAvAndreAktuelleForholdISaken: boolean;
   readonly vedtaketLovbestemmelsenTolketFeil: boolean;
   readonly vedtaketLovbestemmelsenTolketFeilHjemlerList: string[];
