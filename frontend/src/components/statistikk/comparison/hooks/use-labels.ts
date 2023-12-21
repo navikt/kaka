@@ -11,7 +11,7 @@ import { useSortedUtfall } from '@app/simple-api-state/use-utfall';
 import { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { AVERAGE, REST } from '../../../filters/comparison/comparison-values/default-options';
 import { ComparableQueryParams } from '../../../filters/filter-query-params';
-import { VEDTAKSINSTANSGRUPPER } from '../../total/vedtaksinstansgruppe-filter';
+import { VEDTAKSINSTANSGRUPPE_FILTERS } from '../../total/vedtaksinstansgruppe-filter';
 
 export const useLabels = (): Record<ComparableQueryParams, (value: string) => string> => {
   const { data: enheter = [] } = useEnheter();
@@ -29,7 +29,7 @@ export const useLabels = (): Record<ComparableQueryParams, (value: string) => st
       [ComparableQueryParams.VEDTAKSINSTANSGRUPPER]: (id) =>
         getLabel(
           id,
-          VEDTAKSINSTANSGRUPPER.map((g) => ({ id: g.id, navn: g.label })),
+          VEDTAKSINSTANSGRUPPE_FILTERS.map((g) => ({ id: g.id, navn: g.label })),
         ),
       [ComparableQueryParams.UTFALL]: (id) => getLabel(id, utfall),
       [ComparableQueryParams.DATE_INTERVALS]: (dateInterval) =>

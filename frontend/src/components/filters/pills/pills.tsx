@@ -11,7 +11,7 @@ import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
 import { useUser } from '@app/simple-api-state/use-user';
 import { useUtfall } from '@app/simple-api-state/use-utfall';
 import { QueryParams } from '../../filters/filter-query-params';
-import { VEDTAKSINSTANSGRUPPER } from '../../statistikk/total/vedtaksinstansgruppe-filter';
+import { VEDTAKSINSTANSGRUPPE_FILTERS } from '../../statistikk/total/vedtaksinstansgruppe-filter';
 import { useQueryFilters } from '../hooks/use-query-filter';
 import { KOMMENTARER_KODEVERK } from '../kommentarer';
 import { MANGELFULLT_KODEVERK } from '../mangelfullt';
@@ -203,7 +203,7 @@ export const VedtaksinstansgrupperPills = ({ setFilter }: Props) => {
   const { VEDTAKSINSTANSGRUPPER: V } = QueryParams;
 
   const pills = selected.map((id) => {
-    const label = VEDTAKSINSTANSGRUPPER.find((v) => v.id === id)?.label ?? id;
+    const label = VEDTAKSINSTANSGRUPPE_FILTERS.find((v) => v.id === id)?.label ?? id;
 
     return <Pill key={id} id={id} queryKey={V} setFilter={setFilter} name={label} values={selected} category={c} />;
   });

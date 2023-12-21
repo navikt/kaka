@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { filterVedtaksinstans } from '@app/components/statistikk/filters/vedtaksinstans';
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v1/use-statistics-total';
 import { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
@@ -48,8 +49,7 @@ export const useFilteredTotalStatisticsV1 = () => {
           (types.length === 0 || types.includes(sakstypeId)) &&
           (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
           (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))) &&
-          (vedtaksinstansgrupper.length === 0 ||
-            vedtaksinstansgrupper.some((id) => vedtaksinstansEnhet?.startsWith(id))),
+          (vedtaksinstansgrupper.length === 0 || filterVedtaksinstans(vedtaksinstansgrupper, vedtaksinstansEnhet)),
       ),
     [rest, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
   );
