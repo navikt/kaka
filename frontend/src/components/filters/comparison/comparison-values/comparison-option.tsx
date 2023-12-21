@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { AddOptionButton } from './add-option-button';
-import { DEFAULT_OPTIONS } from './default-options';
+import { AVERAGE, AVERAGE_LABEL, GLOBAL_AVERAGE, GLOBAL_AVERAGE_LABEL, REST, REST_LABEL } from './default-options';
 import { SimpleComparisonItem } from './simple-comparison-item';
 import { useOnchange } from './use-onchange';
 
@@ -12,7 +12,15 @@ interface Props {
 
 export const ComparisonOption = ({ data, testId }: Props) => {
   const { selectedValues, add, remove, setId, setColor } = useOnchange();
-  const options = useMemo(() => [...data, ...DEFAULT_OPTIONS], [data]);
+  const options = useMemo(
+    () => [
+      { id: AVERAGE, navn: AVERAGE_LABEL },
+      { id: GLOBAL_AVERAGE, navn: GLOBAL_AVERAGE_LABEL },
+      ...data,
+      { id: REST, navn: REST_LABEL },
+    ],
+    [data],
+  );
   const availableOptions = useMemo(
     () => options.filter((e) => !selectedValues.some(([id]) => id === e.id)),
     [options, selectedValues],
