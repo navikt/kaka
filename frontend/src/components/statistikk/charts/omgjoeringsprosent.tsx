@@ -99,9 +99,11 @@ export const Omgjoeringsprosent = ({ stats }: ComparisonPropsV2) => {
       percent += data[index] ?? 0;
     }
 
-    const percentValue = Number.isNaN(percent) ? '- %' : toPercent(percent / 100);
+    const percentValue = percent / 100;
+    const percentString = Number.isNaN(percent) ? '- %' : toPercent(percentValue);
+    const totalCount = count === 0 ? 0 : Math.round(count / percentValue);
 
-    return `${label} (${percentValue} | ${count} ${UNIT})`;
+    return `${label} (${percentString} | ${count} av ${totalCount} ${UNIT})`;
   });
 
   return (
