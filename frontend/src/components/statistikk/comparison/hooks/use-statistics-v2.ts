@@ -3,7 +3,7 @@ import { filterVedtaksinstans } from '@app/components/statistikk/filters/vedtaks
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v2/use-statistics-total';
 import { OptionValue } from '@app/types/statistics/common';
 import { IComparedFullStatisticVurderingV2, IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
-import { AVERAGE, REST } from '../../../filters/comparison/comparison-values/default-options';
+import { AVERAGE, GLOBAL_AVERAGE, REST } from '../../../filters/comparison/comparison-values/default-options';
 import { useComparisonProp } from '../../../filters/comparison/comparison-values/use-prop';
 import { useComparisonValues } from '../../../filters/comparison/comparison-values/use-values';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
@@ -79,22 +79,43 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
 
     const initialBuckets: Bucket[] = comparisonValues.map(([value, color]) => ({
       value,
-      vurderinger: value === AVERAGE ? prefilteredData : [],
+      vurderinger: value === GLOBAL_AVERAGE ? prefilteredData : [],
       color,
       label: getLabel(value),
     }));
 
-    return prefilteredData.reduce<Bucket[]>((acc, sak) => {
+    for (const sak of prefilteredData) {
       const value = getMatchedValue(comparisonProp, comparisonValues, sak)?.[0] ?? REST;
 
-      return acc.map((b) => {
-        if (b.value !== value) {
-          return b;
+      for (const bucket of initialBuckets) {
+        if (bucket.value !== value) {
+          continue;
         }
 
-        return { ...b, vurderinger: [...b.vurderinger, sak] };
-      });
-    }, initialBuckets);
+        bucket.vurderinger.push(sak);
+      }
+    }
+
+    for (const averageBucket of initialBuckets) {
+      if (averageBucket.value === AVERAGE) {
+        for (const bucket of initialBuckets) {
+          if (
+            bucket.vurderinger.length === 0 ||
+            bucket.value === GLOBAL_AVERAGE ||
+            bucket.value === REST ||
+            bucket.value === AVERAGE
+          ) {
+            continue;
+          }
+
+          averageBucket.vurderinger.push(...bucket.vurderinger);
+        }
+
+        break;
+      }
+    }
+
+    return initialBuckets;
   }, [comparisonValues, prefilteredData, getLabel, comparisonProp]);
 };
 

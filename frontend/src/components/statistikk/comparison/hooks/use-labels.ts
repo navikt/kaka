@@ -9,7 +9,14 @@ import {
 } from '@app/simple-api-state/use-kodeverk';
 import { useSortedUtfall } from '@app/simple-api-state/use-utfall';
 import { IKodeverkSimpleValue } from '@app/types/kodeverk';
-import { AVERAGE, REST } from '../../../filters/comparison/comparison-values/default-options';
+import {
+  AVERAGE,
+  AVERAGE_LABEL,
+  GLOBAL_AVERAGE,
+  GLOBAL_AVERAGE_LABEL,
+  REST,
+  REST_LABEL,
+} from '../../../filters/comparison/comparison-values/default-options';
 import { ComparableQueryParams } from '../../../filters/filter-query-params';
 import { VEDTAKSINSTANSGRUPPE_FILTERS } from '../../total/vedtaksinstansgruppe-filter';
 
@@ -40,13 +47,19 @@ export const useLabels = (): Record<ComparableQueryParams, (value: string) => st
 };
 
 const getDefaultLabel = (value: string) => {
+  if (value === GLOBAL_AVERAGE) {
+    return GLOBAL_AVERAGE_LABEL;
+  }
+
   if (value === AVERAGE) {
-    return 'Gjennomsnitt';
+    return AVERAGE_LABEL;
   }
 
   if (value === REST) {
-    return 'Resten';
+    return REST_LABEL;
   }
+
+  return null;
 };
 
 const getLabel = (value: string, options: IKodeverkSimpleValue<string>[]): string =>
