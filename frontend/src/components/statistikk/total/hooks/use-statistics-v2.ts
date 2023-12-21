@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
+import { filterVedtaksinstans } from '@app/components/statistikk/filters/vedtaksinstans';
+import { State } from '@app/simple-api-state/simple-api-state';
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v2/use-statistics-total';
-import { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
+import { IFullStatisticVurderingV2, IStatisticsResponseTotalV2 } from '@app/types/statistics/v2';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
@@ -12,7 +14,7 @@ import {
 import { TilbakekrevingEnum } from '../../../filters/types';
 import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
 
-const useTotalStatistics = () => {
+const useTotalStatistics = (): State<IStatisticsResponseTotalV2> => {
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
@@ -48,8 +50,7 @@ export const useFilteredTotalStatisticsV2 = () => {
           (types.length === 0 || types.includes(sakstypeId)) &&
           (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
           (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))) &&
-          (vedtaksinstansgrupper.length === 0 ||
-            vedtaksinstansgrupper.some((id) => vedtaksinstansEnhet?.startsWith(id))),
+          (vedtaksinstansgrupper.length === 0 || filterVedtaksinstans(vedtaksinstansgrupper, vedtaksinstansEnhet)),
       ),
     [rest, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
   );

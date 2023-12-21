@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import { filterVedtaksinstans } from '@app/components/statistikk/filters/vedtaksinstans';
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v2/use-statistics-total';
 import { OptionValue } from '@app/types/statistics/common';
 import { IComparedFullStatisticVurderingV2, IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
@@ -62,8 +63,7 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
           (types.length === 0 || types.includes(sakstypeId)) &&
           (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
           (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))) &&
-          (vedtaksinstansgrupper.length === 0 ||
-            vedtaksinstansgrupper.some((id) => vedtaksinstansEnhet?.startsWith(id))),
+          (vedtaksinstansgrupper.length === 0 || filterVedtaksinstans(vedtaksinstansgrupper, vedtaksinstansEnhet)),
       ),
     [data, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
   );

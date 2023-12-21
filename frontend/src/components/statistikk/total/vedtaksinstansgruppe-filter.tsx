@@ -2,49 +2,64 @@ import React from 'react';
 import { Filter } from '../../filters/common/filter';
 import { FilterType } from '../../filters/types';
 
-export const VEDTAKSINSTANSGRUPPER: FilterType[] = [
-  // Eksisterende fylker per 2022
-  { id: '03', label: 'Oslo' },
-  { id: '11', label: 'Rogaland' },
-  { id: '15', label: 'Møre og Romsdal' },
-  { id: '18', label: 'Nordland' },
-  // { id: '30', label: 'Viken' }, // Ingen enheter
-  // { id: '34', label: 'Innlandet' }, // Ingen enheter
-  // { id: '38', label: 'Vestfold og Telemark' }, // Ingen enheter
-  // { id: '42', label: 'Agder' }, // Ingen enheter
-  // { id: '46', label: 'Vestland' }, // Ingen enheter
-  // { id: '50', label: 'Trøndelag' }, // Ingen enheter
-  // { id: '54', label: 'Troms og Finnmark' }, // Ingen enheter
+export enum Fylke {
+  AKERSHUS = 'akershus',
+  OSLO = 'oslo',
+  VESTLAND = 'vestland',
+  ROGALAND = 'rogaland',
+  TRØNDELAG = 'trøndelag',
+  INNLANDET = 'innlandet',
+  AGDER = 'agder',
+  ØSTFOLD = 'østfold',
+  MØRE_OG_ROMSDAL = 'møre_og_romsdal',
+  BUSKERUD = 'buskerud',
+  VESTFOLD = 'vestfold',
+  NORDLAND = 'nordland',
+  TELEMARK = 'telemark',
+  TROMS = 'troms',
+  FINNMARK = 'finnmark',
+}
 
-  // "Feil" fylker
-  { id: '53', label: 'Vestfold og Telemark' },
-  { id: '57', label: 'Trøndelag' },
+export enum Vedtaksinstans {
+  NAV_ØKONOMI_STØNAD = 'nav_økonomi_stønad',
+  NAV_ARBEID_OG_YTELSER = 'nav_arbeid_og_ytelser',
+  NAV_KONTROLL_FORVALTNING = 'nav_kontroll_forvaltning',
+  NAV_HJELPEMIDDELSENTRAL = 'nav_hjelpemiddelsentral',
+  NAV_FAMILIE_OG_PENSJONSYTELSER = 'nav_familie_og_pensjonsytelser',
+}
 
-  // Gamle fylker
-  { id: '01', label: 'Østfold' },
-  { id: '02', label: 'Akershus' },
-  { id: '04', label: 'Hedmark' },
-  { id: '05', label: 'Oppland' },
-  { id: '06', label: 'Buskerud' },
-  { id: '07', label: 'Vestfold' },
-  { id: '08', label: 'Telemark' },
-  { id: '09', label: 'Aust-Agder' },
-  { id: '10', label: 'Vest-Agder' },
-  { id: '12', label: 'Hordaland' },
-  // { id: '13', label: 'Bergen' }, // Ingen enheter, avviklet i 1971.
-  { id: '14', label: 'Sogn og Fjordane' },
-  { id: '16', label: 'Sør-Trøndelag' },
-  { id: '17', label: 'Nord-Trøndelag' },
-  { id: '19', label: 'Troms' },
-  { id: '20', label: 'Finnmark' },
+export const VEDTAKSINSTANSGRUPPE_FILTERS: FilterType[] = [
+  // Fylker
+  { id: Fylke.AGDER, label: 'Agder' },
+  { id: Fylke.AKERSHUS, label: 'Akershus' },
+  { id: Fylke.BUSKERUD, label: 'Buskerud' },
+  { id: Fylke.FINNMARK, label: 'Finnmark' },
+  { id: Fylke.INNLANDET, label: 'Innlandet' },
+  { id: Fylke.MØRE_OG_ROMSDAL, label: 'Møre og Romsdal' },
+  { id: Fylke.NORDLAND, label: 'Nordland' },
+  { id: Fylke.OSLO, label: 'Oslo' },
+  { id: Fylke.ROGALAND, label: 'Rogaland' },
+  { id: Fylke.TELEMARK, label: 'Telemark' },
+  { id: Fylke.TROMS, label: 'Troms' },
+  { id: Fylke.TRØNDELAG, label: 'Trøndelag' },
+  { id: Fylke.VESTFOLD, label: 'Vestfold' },
+  { id: Fylke.VESTLAND, label: 'Vestland' },
+  { id: Fylke.ØSTFOLD, label: 'Østfold' },
 
   // Vedtaksinstansgrupper
-  { id: '41', label: 'NAV Økonomi Stønad' },
-  { id: '44', label: 'NAV Arbeid og ytelser' },
-  { id: '45', label: 'NAV Kontroll Forvaltning' },
-  { id: '47', label: 'NAV Hjelpemiddelsentral' },
-  { id: '48', label: 'NAV Familie- og pensjonsytelser' },
-].sort((a, b) => a.label.localeCompare(b.label));
+  { id: Vedtaksinstans.NAV_ARBEID_OG_YTELSER, label: 'NAV Arbeid og ytelser' },
+  { id: Vedtaksinstans.NAV_FAMILIE_OG_PENSJONSYTELSER, label: 'NAV Familie- og pensjonsytelser' },
+  { id: Vedtaksinstans.NAV_HJELPEMIDDELSENTRAL, label: 'NAV Hjelpemiddelsentral' },
+  { id: Vedtaksinstans.NAV_KONTROLL_FORVALTNING, label: 'NAV Kontroll Forvaltning' },
+  { id: Vedtaksinstans.NAV_ØKONOMI_STØNAD, label: 'NAV Økonomi Stønad' },
+];
+
+const FYLKE_VALUES = Object.values(Fylke);
+export const isFylke = (fylke: string): fylke is Fylke => FYLKE_VALUES.some((value) => value === fylke);
+
+const VEDTAKSINSTANSGRUPPE_VALUES = Object.values(Vedtaksinstans);
+export const isVedtaksinstansgruppe = (vedtaksinstansgruppe: string): vedtaksinstansgruppe is Vedtaksinstans =>
+  VEDTAKSINSTANSGRUPPE_VALUES.some((value) => value === vedtaksinstansgruppe);
 
 interface Props {
   selected: string[];
@@ -52,5 +67,10 @@ interface Props {
 }
 
 export const VedtaksinstansgruppeFilter = ({ selected, setSelected }: Props) => (
-  <Filter label="Vedtaksinstansgruppe" selected={selected} filters={VEDTAKSINSTANSGRUPPER} setSelected={setSelected} />
+  <Filter
+    label="Vedtaksinstansgruppe"
+    selected={selected}
+    filters={VEDTAKSINSTANSGRUPPE_FILTERS}
+    setSelected={setSelected}
+  />
 );
