@@ -1,5 +1,5 @@
 import { Radio } from '@navikt/ds-react';
-import { skipToken } from '@reduxjs/toolkit/dist/query';
+import { skipToken } from '@reduxjs/toolkit/query';
 import React, { useMemo } from 'react';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useSaksdata } from '@app/hooks/use-saksdata';

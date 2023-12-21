@@ -1,4 +1,4 @@
-import { skipToken } from '@reduxjs/toolkit/dist/query/react';
+import { skipToken } from '@reduxjs/toolkit/query';
 import { IManagerStatisticsQuery, IStatisticsResponseManagerV2 } from '@app/types/statistics/v2';
 import { useSimpleApiState } from '../../simple-api-state';
 import { getStateFactory } from '../../state-factory';

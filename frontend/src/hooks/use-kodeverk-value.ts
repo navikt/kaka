@@ -1,4 +1,4 @@
-import { skipToken } from '@reduxjs/toolkit/dist/query/react';
+import { skipToken } from '@reduxjs/toolkit/query';
 import { State } from '@app/simple-api-state/simple-api-state';
 import { useKlageenheter, useSakstyper, useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { useSortedUtfall } from '@app/simple-api-state/use-utfall';

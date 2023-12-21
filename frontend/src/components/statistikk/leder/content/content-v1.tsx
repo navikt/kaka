@@ -1,4 +1,4 @@
-import { skipToken } from '@reduxjs/toolkit/dist/query';
+import { skipToken } from '@reduxjs/toolkit/query';
 import React, { useMemo } from 'react';
 import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
 import { useUser } from '@app/simple-api-state/use-user';
