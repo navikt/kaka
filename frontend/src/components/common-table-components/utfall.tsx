@@ -1,4 +1,4 @@
-import { skipToken } from '@reduxjs/toolkit/dist/query/react';
+import { skipToken } from '@reduxjs/toolkit/query';
 import React from 'react';
 import { useKodeverkUtfall } from '@app/hooks/use-kodeverk-value';
 

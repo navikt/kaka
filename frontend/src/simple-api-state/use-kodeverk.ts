@@ -1,4 +1,4 @@
-import { skipToken } from '@reduxjs/toolkit/dist/query';
+import { skipToken } from '@reduxjs/toolkit/query';
 import { IKlageenhet, IKodeverkSimpleValue, IKodeverkValue, IYtelse } from '@app/types/kodeverk';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { SakstypeEnum } from '@app/types/sakstype';

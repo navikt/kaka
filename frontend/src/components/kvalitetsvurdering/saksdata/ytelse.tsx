@@ -1,5 +1,5 @@
 import { BodyShort, Label, Select } from '@navikt/ds-react';
-import { skipToken } from '@reduxjs/toolkit/dist/query/react';
+import { skipToken } from '@reduxjs/toolkit/query';
 import React from 'react';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useSimpleYtelserForKlageenhet } from '@app/hooks/use-kodeverk-value';

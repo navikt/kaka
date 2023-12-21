@@ -1,4 +1,4 @@
-import { skipToken } from '@reduxjs/toolkit/dist/query/react';
+import { skipToken } from '@reduxjs/toolkit/query';
 import React from 'react';
 import { ISaksdataListParams, useGetCompleteSaksdataListQuery } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';

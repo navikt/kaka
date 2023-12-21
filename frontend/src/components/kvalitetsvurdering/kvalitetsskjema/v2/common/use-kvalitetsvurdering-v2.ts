@@ -1,4 +1,4 @@
-import { skipToken } from '@reduxjs/toolkit/dist/query';
+import { skipToken } from '@reduxjs/toolkit/query';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import {
   useGetCensoredKvalitetsvurderingQuery,
