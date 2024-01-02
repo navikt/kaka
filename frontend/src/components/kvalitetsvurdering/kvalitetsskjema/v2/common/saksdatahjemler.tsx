@@ -26,7 +26,7 @@ export const Saksdatahjemler = ({ field, parentKey }: SaksdatahjemlerProps) => {
   const selectedHjemmelIdList = isLoading ? undefined : kvalitetsvurdering[field];
 
   useEffect(() => {
-    if (isLoading || selectedHjemmelIdList === undefined || previousSaksdataHjemmelIdList === undefined) {
+    if (!canEdit || isLoading || selectedHjemmelIdList === undefined || previousSaksdataHjemmelIdList === undefined) {
       return;
     }
 
@@ -47,7 +47,7 @@ export const Saksdatahjemler = ({ field, parentKey }: SaksdatahjemlerProps) => {
         update({ [field]: EMPTY_ARRAY });
       }
     }
-  }, [field, isLoading, selectedHjemmelIdList, previousSaksdataHjemmelIdList, hjemler, update]);
+  }, [field, isLoading, selectedHjemmelIdList, previousSaksdataHjemmelIdList, hjemler, update, canEdit]);
 
   if (isLoading || registreringshjemlerMapIsLoading || typeof registreringshjemlerMap === 'undefined') {
     return null;
