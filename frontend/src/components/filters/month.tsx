@@ -107,7 +107,7 @@ const useYears = () => {
     if (version === KvalitetsvurderingVersion.V1) {
       return [2022];
     } else if (version === KvalitetsvurderingVersion.V2) {
-      return generateYears(2023, CURRENT_YEAR);
+      return generateYears(2023, MAX_YEAR);
     }
 
     return [];
