@@ -12,7 +12,7 @@ import { useUser } from '@app/simple-api-state/use-user';
 import { useUtfall } from '@app/simple-api-state/use-utfall';
 import { QueryParams } from '../../filters/filter-query-params';
 import { VEDTAKSINSTANSGRUPPE_FILTERS } from '../../statistikk/total/vedtaksinstansgruppe-filter';
-import { useQueryFilters } from '../hooks/use-query-filter';
+import { useQueryFilters, useVedtaksinstansgruppeQueryFilter } from '../hooks/use-query-filter';
 import { KOMMENTARER_KODEVERK } from '../kommentarer';
 import { MANGELFULLT_KODEVERK } from '../mangelfullt';
 import { PillIcon, StyledLi, StyledPill } from './styled-components';
@@ -152,13 +152,24 @@ export const HjemlerPills = ({ setFilter }: Props) => {
 
 export const KommentarerPills = ({ setFilter }: Props) => {
   const selected = useQueryFilters(QueryParams.KOMMENTARER);
-  const mappedValues = useMemo(() => KOMMENTARER_KODEVERK.filter(({ id }) => selected.includes(id)), [selected]);
+  const mappedValues = useMemo(
+    () => KOMMENTARER_KODEVERK.filter(({ id }) => selected.includes(id.toString())),
+    [selected],
+  );
 
   const c = 'kommentarer';
   const { KOMMENTARER } = QueryParams;
 
   const pills = mappedValues.map(({ id, label }) => (
-    <Pill key={id} id={id} name={label} queryKey={KOMMENTARER} category={c} values={selected} setFilter={setFilter} />
+    <Pill
+      key={id}
+      id={id.toString()}
+      name={label}
+      queryKey={KOMMENTARER}
+      category={c}
+      values={selected}
+      setFilter={setFilter}
+    />
   ));
 
   return <>{pills}</>;
@@ -166,13 +177,24 @@ export const KommentarerPills = ({ setFilter }: Props) => {
 
 export const MangelfulltPills = ({ setFilter }: Props) => {
   const selected = useQueryFilters(QueryParams.MANGELFULLT);
-  const mappedValues = useMemo(() => MANGELFULLT_KODEVERK.filter(({ id }) => selected.includes(id)), [selected]);
+  const mappedValues = useMemo(
+    () => MANGELFULLT_KODEVERK.filter(({ id }) => selected.includes(id.toString())),
+    [selected],
+  );
 
   const c = 'mangelfullt';
   const { MANGELFULLT } = QueryParams;
 
   const pills = mappedValues.map(({ id, label }) => (
-    <Pill key={id} id={id} name={label} queryKey={MANGELFULLT} category={c} values={selected} setFilter={setFilter} />
+    <Pill
+      key={id}
+      id={id.toString()}
+      name={label}
+      queryKey={MANGELFULLT}
+      category={c}
+      values={selected}
+      setFilter={setFilter}
+    />
   ));
 
   return <>{pills}</>;
@@ -197,15 +219,18 @@ export const SaksbehandlerPills = ({ setFilter }: Props) => {
 };
 
 export const VedtaksinstansgrupperPills = ({ setFilter }: Props) => {
-  const selected = useQueryFilters(QueryParams.VEDTAKSINSTANSGRUPPER);
+  const selected = useVedtaksinstansgruppeQueryFilter();
 
   const c = 'vedtaksinstansgrupper';
   const { VEDTAKSINSTANSGRUPPER: V } = QueryParams;
 
-  const pills = selected.map((id) => {
-    const label = VEDTAKSINSTANSGRUPPE_FILTERS.find((v) => v.id === id)?.label ?? id;
+  const pills = selected.map((vg) => {
+    const label = VEDTAKSINSTANSGRUPPE_FILTERS.find((v) => v.id === vg)?.label ?? vg.toString(10);
 
-    return <Pill key={id} id={id} queryKey={V} setFilter={setFilter} name={label} values={selected} category={c} />;
+    const values = selected.map((s) => s.toString(10));
+    const id = vg.toString(10);
+
+    return <Pill key={id} id={id} queryKey={V} setFilter={setFilter} name={label} values={values} category={c} />;
   });
 
   return <>{pills}</>;

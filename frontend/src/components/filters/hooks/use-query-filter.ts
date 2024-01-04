@@ -1,4 +1,8 @@
 import { useSearchParams } from 'react-router-dom';
+import {
+  Vedtaksinstansgruppe,
+  isVedtaksinstansgruppe,
+} from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { QueryParams } from '../../filters/filter-query-params';
 import { TilbakekrevingEnum } from '../types';
@@ -12,6 +16,22 @@ export const useQueryFilter = (filter: QueryParams): string | null => {
 const EMPTY_ARRAY: string[] = [];
 
 export const useQueryFilters = (filter: QueryParams): string[] => useQueryFilter(filter)?.split(',') ?? EMPTY_ARRAY;
+
+export const useVedtaksinstansgruppeQueryFilter = (): Vedtaksinstansgruppe[] => {
+  const values = useQueryFilters(QueryParams.VEDTAKSINSTANSGRUPPER);
+
+  const result: Vedtaksinstansgruppe[] = [];
+
+  for (const value of values) {
+    const parsed = parseInt(value, 10);
+
+    if (!Number.isNaN(parsed) && isVedtaksinstansgruppe(parsed)) {
+      result.push(parsed);
+    }
+  }
+
+  return result;
+};
 
 export const useFromDateQueryFilter = (defaultDate: string): string => {
   const queryValue = useQueryFilter(QueryParams.FROM_DATE);

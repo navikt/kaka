@@ -3,12 +3,18 @@ import { styled } from 'styled-components';
 import { Header } from '../../dropdown/header';
 import { Checkboxes, CheckboxesProps } from './checkboxes';
 
-interface Props extends CheckboxesProps {
+interface Props<T extends string | number> extends CheckboxesProps<T> {
   close: () => void;
   reset: () => void;
 }
 
-export const FilteredCheckboxes = ({ selected, filters, onCheck, close, reset }: Props): JSX.Element => {
+export const FilteredCheckboxes = <T extends string | number>({
+  selected,
+  filters,
+  onCheck,
+  close,
+  reset,
+}: Props<T>): JSX.Element => {
   const [filteredFilters, setFilteredFilters] = useState(filters);
 
   return (

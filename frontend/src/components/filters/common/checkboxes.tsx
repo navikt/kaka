@@ -3,13 +3,17 @@ import React from 'react';
 import { styled } from 'styled-components';
 import { FilterType } from '../types';
 
-export interface CheckboxesProps {
-  selected: string[];
-  filters: FilterType[];
+export interface CheckboxesProps<T extends string | number> {
+  selected: T[];
+  filters: FilterType<T>[];
   onCheck: (id: string, checked: boolean) => void;
 }
 
-export const Checkboxes = ({ selected, filters, onCheck }: CheckboxesProps): JSX.Element => (
+export const Checkboxes = <T extends string | number>({
+  selected,
+  filters,
+  onCheck,
+}: CheckboxesProps<T>): JSX.Element => (
   <Container>
     <CheckboxGroup legend={null} hideLegend size="small" value={selected}>
       {filters.map(({ id, label }) => (

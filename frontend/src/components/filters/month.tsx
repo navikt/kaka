@@ -60,7 +60,7 @@ export const MonthFilter = ({ label, value, onChange }: Props) => {
       }
     }
 
-    return [MAX_YEAR.toString(), MAX_MONTH];
+    return [MAX_YEAR.toString(10), MAX_MONTH];
   }, [value]);
 
   const months = useMonths(Number.parseInt(selectedYear, 10));

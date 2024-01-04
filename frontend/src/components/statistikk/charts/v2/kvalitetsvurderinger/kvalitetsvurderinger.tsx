@@ -131,7 +131,7 @@ const DatasetSelector = ({ datasets, datasetIndexString, onChange }: DatasetSele
     return (
       <ToggleGroup size="small" value={datasetIndexString} onChange={onChange}>
         {datasets.map(({ label }, index) => (
-          <ToggleGroup.Item key={index} value={index.toString()}>
+          <ToggleGroup.Item key={index} value={index.toString(10)}>
             {label}
           </ToggleGroup.Item>
         ))}
@@ -148,7 +148,7 @@ const DatasetSelector = ({ datasets, datasetIndexString, onChange }: DatasetSele
       onChange={({ target }) => onChange(target.value)}
     >
       {datasets.map(({ label }, index) => (
-        <option key={index} value={index.toString()}>
+        <option key={index} value={index.toString(10)}>
           {label}
         </option>
       ))}

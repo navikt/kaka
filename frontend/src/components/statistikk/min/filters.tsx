@@ -82,7 +82,7 @@ export const Filters = () => {
 
   const resetFilters = () =>
     setSearchParams({
-      [QueryParams.VERSION]: KvalitetsvurderingVersion.V2.toString(),
+      [QueryParams.VERSION]: KvalitetsvurderingVersion.V2.toString(10),
       [QueryParams.FROM_DATE]: FORMATTED_START_OF_MONTH,
       [QueryParams.TO_DATE]: FORMATTED_NOW,
     });

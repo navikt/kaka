@@ -1,5 +1,5 @@
-export interface FilterType {
-  id: string;
+export interface FilterType<T extends string | number = string> {
+  id: T;
   label: string;
 }
 

@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { filterVedtaksinstans } from '@app/components/statistikk/filters/vedtaksinstans';
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v1/use-statistics-total';
 import { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
@@ -9,6 +8,7 @@ import {
   useQueryFilters,
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
+  useVedtaksinstansgruppeQueryFilter,
 } from '../../../filters/hooks/use-query-filter';
 import { TilbakekrevingEnum } from '../../../filters/types';
 import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
@@ -35,13 +35,21 @@ export const useFilteredTotalStatisticsV1 = () => {
   const enheter = useQueryFilters(QueryParams.ENHETER);
   const klageenheter = useQueryFilters(QueryParams.KLAGEENHETER);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
-  const vedtaksinstansgrupper = useQueryFilters(QueryParams.VEDTAKSINSTANSGRUPPER);
+  const vedtaksinstansgrupper = useVedtaksinstansgruppeQueryFilter();
   const tilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   return useMemo(
     () =>
       rest.filter(
-        ({ ytelseId, sakstypeId, utfallId, tilknyttetEnhet, vedtaksinstansEnhet, hjemmelIdList }) =>
+        ({
+          ytelseId,
+          sakstypeId,
+          utfallId,
+          tilknyttetEnhet,
+          vedtaksinstansEnhet,
+          hjemmelIdList,
+          vedtaksinstansgruppe,
+        }) =>
           tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
           (klageenheter.length === 0 || klageenheter.includes(tilknyttetEnhet)) &&
           (enheter.length === 0 || vedtaksinstansEnhet === null || enheter.includes(vedtaksinstansEnhet)) &&
@@ -49,7 +57,7 @@ export const useFilteredTotalStatisticsV1 = () => {
           (types.length === 0 || types.includes(sakstypeId)) &&
           (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
           (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))) &&
-          (vedtaksinstansgrupper.length === 0 || filterVedtaksinstans(vedtaksinstansgrupper, vedtaksinstansEnhet)),
+          (vedtaksinstansgrupper.length === 0 || vedtaksinstansgrupper.includes(vedtaksinstansgruppe)),
       ),
     [rest, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
   );

@@ -26,6 +26,7 @@ import {
   useQueryFilters,
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
+  useVedtaksinstansgruppeQueryFilter,
   useVersionQueryFilter,
 } from '../../filters/hooks/use-query-filter';
 import { useValidDateInterval } from '../../filters/hooks/use-valid-date-interval';
@@ -61,7 +62,7 @@ export const Filters = () => {
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
-  const selectedVedtaksinstansgrupper = useQueryFilters(QueryParams.VEDTAKSINSTANSGRUPPER);
+  const selectedVedtaksinstansgrupper = useVedtaksinstansgruppeQueryFilter();
   const selectedTilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   const datePresets = useDatePresets();
@@ -91,7 +92,7 @@ export const Filters = () => {
 
   const resetFilters = () =>
     setSearchParams({
-      [QueryParams.VERSION]: KvalitetsvurderingVersion.V2.toString(),
+      [QueryParams.VERSION]: KvalitetsvurderingVersion.V2.toString(10),
       [QueryParams.FROM_DATE]: FORMATTED_START_OF_MONTH,
       [QueryParams.TO_DATE]: FORMATTED_NOW,
       [QueryParams.KLAGEENHETER]: userData?.ansattEnhet.id ?? '',
