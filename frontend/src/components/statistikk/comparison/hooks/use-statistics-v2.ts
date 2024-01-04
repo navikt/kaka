@@ -1,5 +1,4 @@
 import { useCallback, useMemo } from 'react';
-import { filterVedtaksinstans, mapVedtaksinstans } from '@app/components/statistikk/filters/vedtaksinstans';
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v2/use-statistics-total';
 import { OptionValue } from '@app/types/statistics/common';
 import { IComparedFullStatisticVurderingV2, IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
@@ -13,6 +12,7 @@ import {
   useQueryFilters,
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
+  useVedtaksinstansgruppeQueryFilter,
 } from '../../../filters/hooks/use-query-filter';
 import { TilbakekrevingEnum } from '../../../filters/types';
 import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
@@ -36,7 +36,7 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
   const data = useAllStatistics();
 
   const klageenheter = useQueryFilters(QueryParams.KLAGEENHETER);
-  const vedtaksinstansgrupper = useQueryFilters(QueryParams.VEDTAKSINSTANSGRUPPER);
+  const vedtaksinstansgrupper = useVedtaksinstansgruppeQueryFilter();
   const enheter = useQueryFilters(QueryParams.ENHETER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const types = useQueryFilters(QueryParams.TYPES);
@@ -55,7 +55,15 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
   const prefilteredData = useMemo(
     () =>
       data.filter(
-        ({ ytelseId, sakstypeId, utfallId, tilknyttetEnhet, vedtaksinstansEnhet, hjemmelIdList }) =>
+        ({
+          ytelseId,
+          sakstypeId,
+          utfallId,
+          tilknyttetEnhet,
+          vedtaksinstansEnhet,
+          vedtaksinstansgruppe,
+          hjemmelIdList,
+        }) =>
           tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
           (klageenheter.length === 0 || klageenheter.includes(tilknyttetEnhet)) &&
           (enheter.length === 0 || vedtaksinstansEnhet === null || enheter.includes(vedtaksinstansEnhet)) &&
@@ -63,7 +71,7 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
           (types.length === 0 || types.includes(sakstypeId)) &&
           (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
           (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))) &&
-          (vedtaksinstansgrupper.length === 0 || filterVedtaksinstans(vedtaksinstansgrupper, vedtaksinstansEnhet)),
+          (vedtaksinstansgrupper.length === 0 || vedtaksinstansgrupper.includes(vedtaksinstansgruppe)),
       ),
     [data, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
   );
@@ -136,7 +144,7 @@ const getMatchedValue = (
     case ComparableQueryParams.HJEMLER:
       return comparisonValues.find(([v]) => sak.hjemmelIdList.includes(v));
     case ComparableQueryParams.VEDTAKSINSTANSGRUPPER:
-      return comparisonValues.find(([v]) => mapVedtaksinstans(sak.vedtaksinstansEnhet) === v);
+      return comparisonValues.find(([v]) => sak.vedtaksinstansgruppe.toString(10) === v);
     case ComparableQueryParams.DATE_INTERVALS:
       return comparisonValues.find(([v]) => isInDateInterval(sak.avsluttetAvSaksbehandler.iso, v));
   }

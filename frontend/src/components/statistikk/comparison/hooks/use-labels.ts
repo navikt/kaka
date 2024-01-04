@@ -36,7 +36,7 @@ export const useLabels = (): Record<ComparableQueryParams, (value: string) => st
       [ComparableQueryParams.VEDTAKSINSTANSGRUPPER]: (id) =>
         getLabel(
           id,
-          VEDTAKSINSTANSGRUPPE_FILTERS.map((g) => ({ id: g.id, navn: g.label })),
+          VEDTAKSINSTANSGRUPPE_FILTERS.map((g) => ({ id: g.id.toString(10), navn: g.label })),
         ),
       [ComparableQueryParams.UTFALL]: (id) => getLabel(id, utfall),
       [ComparableQueryParams.DATE_INTERVALS]: (dateInterval) =>

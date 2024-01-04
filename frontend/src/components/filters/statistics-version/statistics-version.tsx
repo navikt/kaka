@@ -31,9 +31,9 @@ export const StatisticsVersionFilter = ({ defaultParamsV1, defaultParamsV2 }: Pr
   };
 
   return (
-    <ToggleGroup onChange={onChange} value={version.toString()} size="small" label={<Label />}>
-      <ToggleGroup.Item value={KvalitetsvurderingVersion.V1.toString()}>t.o.m. 2022</ToggleGroup.Item>
-      <ToggleGroup.Item value={KvalitetsvurderingVersion.V2.toString()}>f.o.m. 2023</ToggleGroup.Item>
+    <ToggleGroup onChange={onChange} value={version.toString(10)} size="small" label={<Label />}>
+      <ToggleGroup.Item value={KvalitetsvurderingVersion.V1.toString(10)}>t.o.m. 2022</ToggleGroup.Item>
+      <ToggleGroup.Item value={KvalitetsvurderingVersion.V2.toString(10)}>f.o.m. 2023</ToggleGroup.Item>
     </ToggleGroup>
   );
 };

@@ -39,7 +39,7 @@ export const FORMATTED_END_OF_LAST_MONTH = format(END_OF_LAST_MONTH, MONTH_FORMA
 export const PRETTY_START_OF_MONTH = format(START_OF_MONTH, PRETTY_FORMAT);
 
 // Other
-export const CENTURY_NUMBER = Number.parseInt(new Date().getFullYear().toString().slice(2), 10);
+export const CENTURY_NUMBER = Number.parseInt(new Date().getFullYear().toString(10).slice(2), 10);
 export const IS_BEFORE_2024 = isBefore(NOW, new Date('2024-01-01'));
 export const IS_BEFORE_SEPTEMBER_2023 = isBefore(NOW, new Date('2023-09-01'));
 export const IS_BEFORE_MAY_2023 = isBefore(NOW, new Date('2023-05-01'));

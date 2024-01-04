@@ -83,7 +83,7 @@ export const Filters = () => {
     );
 
   const setPreset = (fromDate: Date, toDate: Date) => {
-    setFilter(QueryParams.VERSION, DEFAULT_VERSION.toString());
+    setFilter(QueryParams.VERSION, DEFAULT_VERSION.toString(10));
     setFilter(QueryParams.FROM_MONTH, format(fromDate, MONTH_FORMAT));
     setFilter(QueryParams.TO_MONTH, format(toDate, MONTH_FORMAT));
   };

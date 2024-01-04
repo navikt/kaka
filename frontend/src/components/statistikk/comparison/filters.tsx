@@ -29,6 +29,7 @@ import {
   useQueryFilters,
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
+  useVedtaksinstansgruppeQueryFilter,
   useVersionQueryFilter,
 } from '../../filters/hooks/use-query-filter';
 import { useValidDateInterval } from '../../filters/hooks/use-valid-date-interval';
@@ -64,7 +65,7 @@ export const Filters = () => {
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
-  const selectedVedtaksinstansgrupper = useQueryFilters(QueryParams.VEDTAKSINSTANSGRUPPER);
+  const selectedVedtaksinstansgrupper = useVedtaksinstansgruppeQueryFilter();
   const selectedTilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
   const selectedComparisonProp = useComparisonProp();
 

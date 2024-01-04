@@ -1,4 +1,5 @@
 /* eslint-disable import/no-unused-modules */
+import { Vedtaksinstansgruppe } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
 import { Radiovalg, RadiovalgExtended } from '../kvalitetsvurdering/radio';
 import { ISaksdata, UUID } from './common';
 
@@ -55,6 +56,7 @@ export interface IFullStatisticVurderingV2 extends IStatisticVurderingV2 {
   // Saksdata
   readonly tilknyttetEnhet: string;
   readonly vedtaksinstansEnhet: string | null;
+  readonly vedtaksinstansgruppe: Vedtaksinstansgruppe;
 }
 
 export interface IFullStatistics {

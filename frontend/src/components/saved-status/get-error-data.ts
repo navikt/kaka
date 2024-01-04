@@ -44,7 +44,7 @@ const getCustomErrorMessage = (data?: unknown): string | undefined => {
   if (typeof data === 'string') {
     return data;
   } else if (typeof data === 'number') {
-    return data.toString();
+    return data.toString(10);
   } else if (typeof data === 'object') {
     return JSON.stringify(data);
   }
