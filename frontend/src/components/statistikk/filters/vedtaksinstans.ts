@@ -34,7 +34,7 @@ const FÆRDER = '5302';
 const LARVIK = '5303';
 
 // eslint-disable-next-line complexity
-const mapVedtaksinstans = (vedtaksinstans: string | null): Fylke | Vedtaksinstans | null => {
+export const mapVedtaksinstans = (vedtaksinstans: string | null): Fylke | Vedtaksinstans | null => {
   if (vedtaksinstans === null) {
     return null;
   }

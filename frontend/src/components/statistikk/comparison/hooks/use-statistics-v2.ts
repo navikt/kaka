@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { filterVedtaksinstans } from '@app/components/statistikk/filters/vedtaksinstans';
+import { filterVedtaksinstans, mapVedtaksinstans } from '@app/components/statistikk/filters/vedtaksinstans';
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v2/use-statistics-total';
 import { OptionValue } from '@app/types/statistics/common';
 import { IComparedFullStatisticVurderingV2, IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
@@ -136,7 +136,7 @@ const getMatchedValue = (
     case ComparableQueryParams.HJEMLER:
       return comparisonValues.find(([v]) => sak.hjemmelIdList.includes(v));
     case ComparableQueryParams.VEDTAKSINSTANSGRUPPER:
-      return comparisonValues.find(([v]) => sak.vedtaksinstansEnhet !== null && sak.vedtaksinstansEnhet.startsWith(v));
+      return comparisonValues.find(([v]) => mapVedtaksinstans(sak.vedtaksinstansEnhet) === v);
     case ComparableQueryParams.DATE_INTERVALS:
       return comparisonValues.find(([v]) => isInDateInterval(sak.avsluttetAvSaksbehandler.iso, v));
   }
