@@ -2,21 +2,24 @@ import { ChartOptions, TooltipCallbacks } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { styled } from 'styled-components';
+import {
+  StatisticsVedtaketHjemlerList,
+  StatisticsVedtaketHjemlerListBoolean,
+  VEDTAKET_TEXTS,
+} from '@app/components/statistikk/types/vedtaket';
 import { useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
-import { VedtaketTextsKeys } from '@app/types/statistics/legacy/structures';
-import { VEDTAKET_TEXTS } from '@app/types/statistics/legacy/texts';
-import { IKvalitetsvurderingHjemler } from '@app/types/statistics/legacy/v2';
 import { ChartTitle } from '../../styled-components';
 import { DataSet } from './types';
 
 interface Props {
   dataset: DataSet;
-  hjemmelListId: keyof IKvalitetsvurderingHjemler;
-  reasonId: VedtaketTextsKeys;
+  hjemmelListId: StatisticsVedtaketHjemlerList;
+  reasonId: StatisticsVedtaketHjemlerListBoolean;
   index: number;
+  label: React.ReactNode;
 }
 
-export const Hjemler = ({ dataset, hjemmelListId, reasonId, index }: Props) => {
+export const Hjemler = ({ dataset, hjemmelListId, reasonId, label, index }: Props) => {
   const { data: hjemler = {} } = useRegistreringshjemlerMap();
 
   const data = useMemo(() => {
@@ -39,7 +42,7 @@ export const Hjemler = ({ dataset, hjemmelListId, reasonId, index }: Props) => {
         return id;
       }
 
-      const name = `${hjemmel.hjemmelnavn} - ${hjemmel.lovkilde.navn}`;
+      const name = `${hjemmel.hjemmelnavn} - ${hjemmel.lovkilde.beskrivelse}`;
 
       if (name.length <= 15) {
         return name;
@@ -53,17 +56,17 @@ export const Hjemler = ({ dataset, hjemmelListId, reasonId, index }: Props) => {
     return { labels, datasets, ids: top.map(([id]) => id) };
   }, [reasonId, dataset.data, hjemler, hjemmelListId]);
 
-  const tooltipCallback: TooltipCallback = ({ dataIndex, label }) => {
+  const tooltipCallback: TooltipCallback = ({ dataIndex, label: tooltip }) => {
     const id = data.ids[dataIndex];
 
     if (typeof id === 'undefined') {
-      return label;
+      return tooltip;
     }
 
     const hjemmel = hjemler[id];
 
     if (typeof hjemmel === 'undefined') {
-      return label;
+      return tooltip;
     }
 
     return `${hjemmel.hjemmelnavn} - ${hjemmel.lovkilde.navn}`;
@@ -73,7 +76,7 @@ export const Hjemler = ({ dataset, hjemmelListId, reasonId, index }: Props) => {
 
   return (
     <>
-      <HjemlerChartTitle $index={index}>{VEDTAKET_TEXTS[reasonId].label}</HjemlerChartTitle>
+      <HjemlerChartTitle $index={index}>{label}</HjemlerChartTitle>
       <ChartContainer $index={index}>
         <Bar options={options} data={data} />
       </ChartContainer>

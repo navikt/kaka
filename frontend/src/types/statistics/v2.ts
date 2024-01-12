@@ -1,55 +1,14 @@
-/* eslint-disable import/no-unused-modules */
 import { Vedtaksinstansgruppe } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
-import { Radiovalg, RadiovalgExtended } from '../kvalitetsvurdering/radio';
+import { IKvalitetsvurderingData, IKvalitetsvurderingStrings } from '@app/types/kvalitetsvurdering/v2';
 import { ISaksdata, UUID } from './common';
 
-export interface IStatisticVurderingV2 extends ISaksdata {
-  readonly id: UUID; // Anonymized
+interface IKvalitetsvurderingV2 extends Omit<IKvalitetsvurderingData, keyof IKvalitetsvurderingStrings> {
+  vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert: boolean;
+  vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdertHjemlerList: string[];
+}
 
-  // Kvalitetsvurdering
-  readonly klageforberedelsenSakensDokumenter: boolean;
-  readonly klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert: boolean;
-  readonly klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn: boolean;
-  readonly klageforberedelsenSakensDokumenterManglerFysiskSaksmappe: boolean;
-  readonly klageforberedelsen: Radiovalg;
-  readonly klageforberedelsenUnderinstansIkkeSendtAlleRelevanteSaksdokumenterTilParten: boolean;
-  readonly klageforberedelsenOversittetKlagefristIkkeKommentert: boolean;
-  readonly klageforberedelsenKlagersRelevanteAnfoerslerIkkeTilstrekkeligKommentertImoetegaatt: boolean;
-  readonly klageforberedelsenFeilVedBegrunnelsenForHvorforAvslagOpprettholdesKlagerIkkeOppfyllerVilkaar: boolean;
-  readonly klageforberedelsenOversendelsesbrevetsInnholdErIkkeISamsvarMedSakensTema: boolean;
-  readonly klageforberedelsenOversendelsesbrevIkkeSendtKopiTilPartenEllerFeilMottaker: boolean;
-  readonly klageforberedelsenUtredningenUnderKlageforberedelsen: boolean;
-  readonly utredningen: Radiovalg;
-  readonly utredningenAvMedisinskeForhold: boolean;
-  readonly utredningenAvInntektsforhold: boolean;
-  readonly utredningenAvArbeidsaktivitet: boolean;
-  readonly utredningenAvEoesUtenlandsproblematikk: boolean;
-  readonly utredningenAvSivilstandBoforhold: boolean;
-  readonly utredningenAvAndreAktuelleForholdISaken: boolean;
-  readonly vedtaketLovbestemmelsenTolketFeil: boolean;
-  readonly vedtaketLovbestemmelsenTolketFeilHjemlerList: string[];
-  readonly vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert: boolean;
-  readonly vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdertHjemlerList: string[];
-  readonly vedtaketFeilKonkretRettsanvendelse: boolean;
-  readonly vedtaketFeilKonkretRettsanvendelseHjemlerList: string[];
-  readonly vedtaketIkkeKonkretIndividuellBegrunnelse: boolean;
-  readonly vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum: boolean;
-  readonly vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum: boolean;
-  readonly vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst: boolean;
-  readonly vedtaketAutomatiskVedtak: boolean;
-  readonly vedtaket: Radiovalg;
-  readonly vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet: boolean;
-  readonly vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList: string[];
-  readonly vedtaketDetErLagtTilGrunnFeilFaktum: boolean;
-  readonly vedtaketSpraakOgFormidlingErIkkeTydelig: boolean;
-  readonly raadgivendeLegeIkkebrukt: boolean;
-  readonly raadgivendeLegeMangelfullBrukAvRaadgivendeLege: boolean;
-  readonly raadgivendeLegeUttaltSegOmTemaUtoverTrygdemedisin: boolean;
-  readonly raadgivendeLegeBegrunnelseMangelfullEllerIkkeDokumentert: boolean;
-  readonly brukAvRaadgivendeLege: RadiovalgExtended | null;
-  readonly kaBehandlingstidDays: number;
-  readonly vedtaksinstansBehandlingstidDays: number;
-  readonly totalBehandlingstidDays: number;
+export interface IStatisticVurderingV2 extends ISaksdata, IKvalitetsvurderingV2 {
+  readonly id: UUID; // Anonymized
 }
 
 export interface IFullStatisticVurderingV2 extends IStatisticVurderingV2 {
@@ -57,10 +16,6 @@ export interface IFullStatisticVurderingV2 extends IStatisticVurderingV2 {
   readonly tilknyttetEnhet: string;
   readonly vedtaksinstansEnhet: string | null;
   readonly vedtaksinstansgruppe: Vedtaksinstansgruppe;
-}
-
-export interface IFullStatistics {
-  readonly rest: IFullStatisticVurderingV2[];
 }
 
 // Query types

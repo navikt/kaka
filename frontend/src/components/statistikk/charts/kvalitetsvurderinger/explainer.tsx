@@ -5,7 +5,7 @@ import { CardTitle } from '@app/styled-components/cards';
 import { ChartTitle } from '../styled-components';
 
 interface Props {
-  children: string;
+  children: React.ReactNode;
 }
 
 export const TitleWithExplainer = ({ children }: Props) => (

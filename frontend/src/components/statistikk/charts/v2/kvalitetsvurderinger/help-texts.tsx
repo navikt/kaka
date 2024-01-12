@@ -1,16 +1,10 @@
 import { BodyShort, Heading, Label, ReadMore } from '@navikt/ds-react';
 import React from 'react';
 import { styled } from 'styled-components';
-import { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
-
-interface HelpText {
-  label?: string;
-  key: string;
-  texts: Partial<Record<keyof IKvalitetsvurderingData, { label: string; helpText?: string }>>;
-}
+import { HelpTextContainer } from '@app/components/statistikk/types/common';
 
 interface Props {
-  helpTexts: HelpText[];
+  helpTexts: HelpTextContainer[];
 }
 
 export const HelpTexts = ({ helpTexts }: Props) => (
@@ -46,7 +40,7 @@ const ShowHelpTexts = ({ show, helpTexts }: ShowHelpTextsProps) => {
   return <HelpTextsWrapper>{children}</HelpTextsWrapper>;
 };
 
-const HelpText = ({ texts }: Pick<HelpText, 'texts'>) => {
+const HelpText = ({ texts }: Pick<HelpTextContainer, 'texts'>) => {
   const children = Object.entries(texts).map(([key, { label, helpText }]) => {
     if (typeof helpText === 'undefined') {
       return null;
