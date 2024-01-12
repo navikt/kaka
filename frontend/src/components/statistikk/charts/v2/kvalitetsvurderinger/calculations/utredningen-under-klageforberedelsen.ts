@@ -1,11 +1,11 @@
 import { ChartData } from 'chart.js';
 import { NAV_COLORS } from '@app/colors/colors';
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
-import { REASON_TO_SUBREASONS } from '@app/components/statistikk/types/kvalitetsvurdering';
 import {
-  IKKE_KONKRET_BEGRUNNELSE_REASONS,
-  IKKE_KONKRET_BEGRUNNELSE_TEXTS,
-} from '@app/components/statistikk/types/vedtaket';
+  UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_REASONS,
+  UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS,
+} from '@app/components/statistikk/types/klageforberedelsen';
+import { REASON_TO_SUBREASONS } from '@app/components/statistikk/types/kvalitetsvurdering';
 import { toPercent } from '@app/domain/number';
 import { DataSet } from '../types';
 import { calculateMainReasons } from './helpers/main-reasons';
@@ -21,42 +21,41 @@ interface StackedBarPieceCount {
 
 type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
 
-export const getIkkeKonkretBegrunnelseDatasets = (stats: DataSet[], unit: string) => {
+export const getUtredningenUnderKlageforberedelsenDatasets = (stats: DataSet[], unit: string) => {
   const stacks = stats.flatMap(({ data, label }) => {
     const totalMangelfullFactor = calculateTotalMangelfullFactor(data);
 
     const { mainReasons, totalMainReasonsCount } = calculateMainReasons(data);
 
-    const vedtaketMangelfullFactor = mainReasons[MainReason.Vedtaket] / totalMainReasonsCount;
+    const klageforberedelsenMangelfullFactor = mainReasons[MainReason.Klageforberedelsen] / totalMainReasonsCount;
 
-    const reasonIds = REASON_TO_SUBREASONS[MainReason.Vedtaket];
+    const reasonIds = REASON_TO_SUBREASONS[MainReason.Klageforberedelsen];
 
     const { reasons, totalReasonsCount } = calculateReasons(data, reasonIds);
 
-    const sakensDokumenterFactor = (reasons['vedtaketIkkeKonkretIndividuellBegrunnelse'] ?? 0) / totalReasonsCount;
+    const utredningenFactor =
+      (reasons['klageforberedelsenUtredningenUnderKlageforberedelsen'] ?? 0) / totalReasonsCount;
 
     const {
       reasons: subReasons,
       reasonArray: subReasonArray,
-      totalReasonsCount: totalIkkeKonkretBegrunnelseCount,
-    } = calculateReasons(data, IKKE_KONKRET_BEGRUNNELSE_REASONS);
+      totalReasonsCount: totalUtredningenCount,
+    } = calculateReasons(data, UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_REASONS);
 
-    const factor = totalMangelfullFactor * vedtaketMangelfullFactor * sakensDokumenterFactor;
+    const factor = totalMangelfullFactor * klageforberedelsenMangelfullFactor * utredningenFactor;
 
     return {
       label,
-      data: Object.fromEntries(
-        subReasonArray.map(([id, count]) => [id, (count / totalIkkeKonkretBegrunnelseCount) * factor]),
-      ),
-      counts: subReasons,
+      data: Object.fromEntries(subReasonArray.map(([id, count]) => [id, (count / totalUtredningenCount) * factor])),
+      count: subReasons,
     };
   });
 
-  const datasets = IKKE_KONKRET_BEGRUNNELSE_REASONS.map<StackedBarPiece>((reasonId) => ({
-    label: IKKE_KONKRET_BEGRUNNELSE_TEXTS[reasonId].label,
+  const datasets = UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_REASONS.map<StackedBarPiece>((reasonId) => ({
+    label: UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS[reasonId].label,
     data: stacks.map(({ data }) => (data[reasonId] ?? 0) * 100),
-    counts: stacks.map(({ counts: count }) => count[reasonId] ?? 0),
-    backgroundColor: IKKE_KONKRET_BEGRUNNELSE_TEXTS[reasonId].color ?? NAV_COLORS.green[500],
+    counts: stacks.map(({ count }) => count[reasonId] ?? 0),
+    backgroundColor: UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS[reasonId].color ?? NAV_COLORS.blue[500],
     barThickness: BAR_THICKNESS,
   })).filter((dataset) => dataset.data.some((v) => v !== 0)); // Remove empty datasets.
 

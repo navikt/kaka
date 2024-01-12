@@ -1,5 +1,5 @@
+import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
-import { MainReason } from '@app/types/statistics/legacy/v2';
 import { MainReasonsVurdering } from '../../types';
 
 const MAIN_REASON_IDS: Readonly<MainReason[]> = Object.freeze([

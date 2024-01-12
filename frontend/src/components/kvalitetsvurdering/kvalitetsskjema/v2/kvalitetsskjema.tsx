@@ -5,7 +5,7 @@ import { BrukAvRaadgivendeLege } from '@app/components/kvalitetsvurdering/kvalit
 import { Utredningen } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/utredningen/utredningen';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { UtfallEnum } from '@app/types/utfall';
-import { Annet } from './annet';
+import { Annet } from './annet/annet';
 import { useKvalitetsvurderingV2 } from './common/use-kvalitetsvurdering-v2';
 import { Klageforberedelsen } from './klageforberedelsen/klageforberedelsen';
 import { Vedtaket } from './vedtaket/vedtaket';

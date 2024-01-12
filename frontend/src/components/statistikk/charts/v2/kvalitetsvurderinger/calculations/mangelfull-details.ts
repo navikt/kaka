@@ -1,11 +1,11 @@
 import { ChartData } from 'chart.js';
-import { toPercent } from '@app/domain/number';
+import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import {
   KVALITETSVURDERING_V2_TEXTS,
   MAIN_REASON_IDS,
   REASON_TO_SUBREASONS,
-} from '@app/types/statistics/legacy/structures';
-import { MainReason } from '@app/types/statistics/legacy/v2';
+} from '@app/components/statistikk/types/kvalitetsvurdering';
+import { toPercent } from '@app/domain/number';
 import { DataSet } from '../types';
 import { calculateMainReasons } from './helpers/main-reasons';
 import { calculateReasons } from './helpers/reasons';

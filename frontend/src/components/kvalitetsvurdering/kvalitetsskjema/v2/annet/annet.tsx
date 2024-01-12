@@ -1,4 +1,5 @@
 import React from 'react';
+import { DESCRIPTION, HELP_TEXT, LABEL } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/annet/data';
 import { KvalitetsskjemaTextarea } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/textarea';
 import { TypeEnum } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/types';
 import { AnnetFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
@@ -15,9 +16,9 @@ export const Annet = () => {
   return (
     <KvalitetsskjemaTextarea
       field={AnnetFields.annetFritekst}
-      label="Annet (valgfri)"
-      helpText="Det du skriver her er kun for klageinstansens interne bruk og blir ikke synlig for vedtaksinstansen. Har saken andre avvik som ikke passer med noen av de andre registreringsmulighetene i Kaka, kan du skrive dette her. Husk å skrive kort / med stikkord. Ikke skriv personopplysninger eller detaljer om saken. Du kan også skrive stikkord dersom saken gjelder et typetilfelle."
-      description="Det du skriver her er kun synlig for klageinstansen og ikke for vedtaksinstansen. Husk å ikke skrive personopplysninger."
+      label={`${LABEL} (valgfritt)`}
+      helpText={HELP_TEXT}
+      description={DESCRIPTION}
       type={TypeEnum.TEXTAREA}
     />
   );

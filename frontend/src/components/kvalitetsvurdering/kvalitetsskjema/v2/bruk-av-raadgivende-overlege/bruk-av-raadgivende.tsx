@@ -2,12 +2,12 @@ import { Radio } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/query';
 import React, { useMemo } from 'react';
 import {
-  BRUK_AV_RAADGIVENDE_OVERLEGE_LABELS,
+  BrukAvRaadgivendeOverlegeBoolean,
   BrukAvRaadgivendeOverlegeErrorFields,
-  BrukAvRaadgivendeOverlegeFields,
   HEADER,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/bruk-av-raadgivende-overlege/data';
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
+import { getCheckbox } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/helpers';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
@@ -15,7 +15,7 @@ import { RadiovalgExtended } from '@app/types/kvalitetsvurdering/radio';
 import { Checkboxes } from '../common/checkboxes';
 import { ContainerWithHelpText } from '../common/container-with-helptext';
 import { RadioButtonsRow, StyledHeading, StyledRadioGroup } from '../common/styled-components';
-import { CheckboxParams, TypeEnum } from '../common/types';
+import { CheckboxParams } from '../common/types';
 import { useKvalitetsvurderingV2 } from '../common/use-kvalitetsvurdering-v2';
 import { useValidationError } from '../common/use-validation-error';
 
@@ -133,39 +133,8 @@ export const BrukAvRaadgivendeLege = () => {
 };
 
 const CHECKBOXES: CheckboxParams[] = [
-  {
-    field: BrukAvRaadgivendeOverlegeFields.raadgivendeLegeIkkebrukt,
-    type: TypeEnum.CHECKBOX,
-    helpText:
-      'Du registrerer her om rådgivende lege burde vært brukt for å sikre og/eller synliggjøre at det trygdemedisinske er forstått riktig.',
-    label: BRUK_AV_RAADGIVENDE_OVERLEGE_LABELS[BrukAvRaadgivendeOverlegeFields.raadgivendeLegeIkkebrukt],
-  },
-  {
-    field: BrukAvRaadgivendeOverlegeFields.raadgivendeLegeMangelfullBrukAvRaadgivendeLege,
-    type: TypeEnum.CHECKBOX,
-    helpText:
-      'F.eks. har saksbehandler stilt feil spørsmål, eller saksbehandler har lagt for mye vekt på vurdering fra rådgivende lege/brukt som «fasit».',
-    label:
-      BRUK_AV_RAADGIVENDE_OVERLEGE_LABELS[
-        BrukAvRaadgivendeOverlegeFields.raadgivendeLegeMangelfullBrukAvRaadgivendeLege
-      ],
-  },
-  {
-    field: BrukAvRaadgivendeOverlegeFields.raadgivendeLegeUttaltSegOmTemaUtoverTrygdemedisin,
-    type: TypeEnum.CHECKBOX,
-    label:
-      BRUK_AV_RAADGIVENDE_OVERLEGE_LABELS[
-        BrukAvRaadgivendeOverlegeFields.raadgivendeLegeUttaltSegOmTemaUtoverTrygdemedisin
-      ],
-  },
-  {
-    field: BrukAvRaadgivendeOverlegeFields.raadgivendeLegeBegrunnelseMangelfullEllerIkkeDokumentert,
-    type: TypeEnum.CHECKBOX,
-    helpText:
-      'Du registrerer her om begrunnelsen er dokumentert, men for tynn, f.eks. kun inneholder en konklusjon. Du registrerer her om det ikke går frem hva slags dokumentasjon rådgivende lege har sett. Du registrerer også her om vurderingen fra rådgivende lege ikke er dokumentert i det hele tatt.',
-    label:
-      BRUK_AV_RAADGIVENDE_OVERLEGE_LABELS[
-        BrukAvRaadgivendeOverlegeFields.raadgivendeLegeBegrunnelseMangelfullEllerIkkeDokumentert
-      ],
-  },
+  getCheckbox({ field: BrukAvRaadgivendeOverlegeBoolean.raadgivendeLegeIkkebrukt }),
+  getCheckbox({ field: BrukAvRaadgivendeOverlegeBoolean.raadgivendeLegeMangelfullBrukAvRaadgivendeLege }),
+  getCheckbox({ field: BrukAvRaadgivendeOverlegeBoolean.raadgivendeLegeUttaltSegOmTemaUtoverTrygdemedisin }),
+  getCheckbox({ field: BrukAvRaadgivendeOverlegeBoolean.raadgivendeLegeBegrunnelseMangelfullEllerIkkeDokumentert }),
 ];

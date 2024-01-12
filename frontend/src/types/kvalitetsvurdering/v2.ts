@@ -1,86 +1,94 @@
-import { BrukAvRaadgivendeOverlegeFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/bruk-av-raadgivende-overlege/data';
+import { BrukAvRaadgivendeOverlegeBoolean } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/bruk-av-raadgivende-overlege/data';
 import { AnnetFields, MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
-import { KlageforberedelsenFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/klageforberedelsen/data';
-import { UtredningenFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/utredningen/data';
-import { VedtaketFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
+import {
+  KlageforberedelsenBoolean,
+  KlageforberedelsenTextInput,
+} from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/klageforberedelsen/data';
+import { UtredningenBoolean } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/utredningen/data';
+import {
+  VedtaketAllregistreringshjemlerList,
+  VedtaketBoolean,
+  VedtaketHjemlerListBoolean,
+  VedtaketSaksdatahjemlerList,
+} from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
 import { Radiovalg, RadiovalgExtended } from './radio';
 
 interface SakensDokumenter {
-  [KlageforberedelsenFields.klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert]: boolean;
-  [KlageforberedelsenFields.klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn]: boolean;
-  [KlageforberedelsenFields.klageforberedelsenSakensDokumenterManglerFysiskSaksmappe]: boolean;
+  [KlageforberedelsenBoolean.klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert]: boolean;
+  [KlageforberedelsenBoolean.klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn]: boolean;
+  [KlageforberedelsenBoolean.klageforberedelsenSakensDokumenterManglerFysiskSaksmappe]: boolean;
 }
 
 interface UtredningenUnderKlageforberedelsen
   extends KlageforberedelsenUtredningenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysninger,
     KlageforberedelsenUtredningenKlageinstansenHarSelvInnhentetNyeOpplysninger {
-  [KlageforberedelsenFields.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysninger]: boolean;
-  [KlageforberedelsenFields.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarSelvInnhentetNyeOpplysninger]: boolean;
+  [KlageforberedelsenBoolean.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysninger]: boolean;
+  [KlageforberedelsenBoolean.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarSelvInnhentetNyeOpplysninger]: boolean;
 }
 
 interface KlageforberedelsenUtredningenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysninger {
-  [KlageforberedelsenFields.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysningerFritekst]:
+  [KlageforberedelsenTextInput.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysningerFritekst]:
     | string
     | null;
 }
 
 interface KlageforberedelsenUtredningenKlageinstansenHarSelvInnhentetNyeOpplysninger {
-  [KlageforberedelsenFields.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarSelvInnhentetNyeOpplysningerFritekst]:
+  [KlageforberedelsenTextInput.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarSelvInnhentetNyeOpplysningerFritekst]:
     | string
     | null;
 }
 
 interface IKlageforberedelsen extends SakensDokumenter, UtredningenUnderKlageforberedelsen {
   [MainReason.Klageforberedelsen]: Radiovalg | null;
-  [KlageforberedelsenFields.klageforberedelsenSakensDokumenter]: boolean;
-  [KlageforberedelsenFields.klageforberedelsenOversittetKlagefristIkkeKommentert]: boolean;
-  [KlageforberedelsenFields.klageforberedelsenKlagersRelevanteAnfoerslerIkkeTilstrekkeligKommentertImoetegaatt]: boolean;
-  [KlageforberedelsenFields.klageforberedelsenFeilVedBegrunnelsenForHvorforAvslagOpprettholdesKlagerIkkeOppfyllerVilkaar]: boolean;
-  [KlageforberedelsenFields.klageforberedelsenOversendelsesbrevetsInnholdErIkkeISamsvarMedSakensTema]: boolean;
-  [KlageforberedelsenFields.klageforberedelsenOversendelsesbrevIkkeSendtKopiTilPartenEllerFeilMottaker]: boolean;
-  [KlageforberedelsenFields.klageforberedelsenUtredningenUnderKlageforberedelsen]: boolean;
+  [KlageforberedelsenBoolean.klageforberedelsenSakensDokumenter]: boolean;
+  [KlageforberedelsenBoolean.klageforberedelsenOversittetKlagefristIkkeKommentert]: boolean;
+  [KlageforberedelsenBoolean.klageforberedelsenKlagersRelevanteAnfoerslerIkkeTilstrekkeligKommentertImoetegaatt]: boolean;
+  [KlageforberedelsenBoolean.klageforberedelsenFeilVedBegrunnelsenForHvorforAvslagOpprettholdesKlagerIkkeOppfyllerVilkaar]: boolean;
+  [KlageforberedelsenBoolean.klageforberedelsenOversendelsesbrevetsInnholdErIkkeISamsvarMedSakensTema]: boolean;
+  [KlageforberedelsenBoolean.klageforberedelsenOversendelsesbrevIkkeSendtKopiTilPartenEllerFeilMottaker]: boolean;
+  [KlageforberedelsenBoolean.klageforberedelsenUtredningenUnderKlageforberedelsen]: boolean;
 }
 
 interface IUtredningen {
   [MainReason.Utredningen]: Radiovalg | null;
-  [UtredningenFields.utredningenAvMedisinskeForhold]: boolean;
-  [UtredningenFields.utredningenAvInntektsforhold]: boolean;
-  [UtredningenFields.utredningenAvArbeidsaktivitet]: boolean;
-  [UtredningenFields.utredningenAvEoesUtenlandsproblematikk]: boolean;
-  [UtredningenFields.utredningenAvSivilstandBoforhold]: boolean;
-  [UtredningenFields.utredningenAvAndreAktuelleForholdISaken]: boolean;
+  [UtredningenBoolean.utredningenAvMedisinskeForhold]: boolean;
+  [UtredningenBoolean.utredningenAvInntektsforhold]: boolean;
+  [UtredningenBoolean.utredningenAvArbeidsaktivitet]: boolean;
+  [UtredningenBoolean.utredningenAvEoesUtenlandsproblematikk]: boolean;
+  [UtredningenBoolean.utredningenAvSivilstandBoforhold]: boolean;
+  [UtredningenBoolean.utredningenAvAndreAktuelleForholdISaken]: boolean;
 }
 
 interface BruktFeilHjemmel {
-  [VedtaketFields.vedtaketBruktFeilHjemmel]: boolean;
-  [VedtaketFields.vedtaketBruktFeilHjemmelHjemlerList]: string[];
+  [VedtaketHjemlerListBoolean.vedtaketBruktFeilHjemmel]: boolean;
+  [VedtaketAllregistreringshjemlerList.vedtaketBruktFeilHjemmelHjemlerList]: string[];
 }
 
 interface AlleRelevanteHjemlerErIkkeVurdert {
-  [VedtaketFields.vedtaketAlleRelevanteHjemlerErIkkeVurdert]: boolean;
-  [VedtaketFields.vedtaketAlleRelevanteHjemlerErIkkeVurdertHjemlerList]: string[];
+  [VedtaketHjemlerListBoolean.vedtaketAlleRelevanteHjemlerErIkkeVurdert]: boolean;
+  [VedtaketSaksdatahjemlerList.vedtaketAlleRelevanteHjemlerErIkkeVurdertHjemlerList]: string[];
 }
 
 interface LovbestemmelsenTolketFeil {
-  [VedtaketFields.vedtaketLovbestemmelsenTolketFeil]: boolean;
-  [VedtaketFields.vedtaketLovbestemmelsenTolketFeilHjemlerList]: string[];
+  [VedtaketHjemlerListBoolean.vedtaketLovbestemmelsenTolketFeil]: boolean;
+  [VedtaketSaksdatahjemlerList.vedtaketLovbestemmelsenTolketFeilHjemlerList]: string[];
 }
 
 interface InnholdetIRettsreglene {
-  [VedtaketFields.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet]: boolean;
-  [VedtaketFields.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList]: string[];
+  [VedtaketHjemlerListBoolean.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet]: boolean;
+  [VedtaketSaksdatahjemlerList.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList]: string[];
 }
 
 interface FeilKonkretRettsanvendelse {
-  [VedtaketFields.vedtaketFeilKonkretRettsanvendelse]: boolean;
-  [VedtaketFields.vedtaketFeilKonkretRettsanvendelseHjemlerList]: string[];
+  [VedtaketHjemlerListBoolean.vedtaketFeilKonkretRettsanvendelse]: boolean;
+  [VedtaketSaksdatahjemlerList.vedtaketFeilKonkretRettsanvendelseHjemlerList]: string[];
 }
 
 interface KonkretIndividuellBegrunnelse {
-  [VedtaketFields.vedtaketIkkeKonkretIndividuellBegrunnelse]: boolean;
-  [VedtaketFields.vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum]: boolean;
-  [VedtaketFields.vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum]: boolean;
-  [VedtaketFields.vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst]: boolean;
+  [VedtaketBoolean.vedtaketIkkeKonkretIndividuellBegrunnelse]: boolean;
+  [VedtaketBoolean.vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum]: boolean;
+  [VedtaketBoolean.vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum]: boolean;
+  [VedtaketBoolean.vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst]: boolean;
 }
 
 interface IVedtaket
@@ -90,17 +98,17 @@ interface IVedtaket
     InnholdetIRettsreglene,
     FeilKonkretRettsanvendelse,
     KonkretIndividuellBegrunnelse {
-  [VedtaketFields.vedtaketAutomatiskVedtak]: boolean;
+  [VedtaketBoolean.vedtaketAutomatiskVedtak]: boolean;
   [MainReason.Vedtaket]: Radiovalg | null;
-  [VedtaketFields.vedtaketDetErLagtTilGrunnFeilFaktum]: boolean;
-  [VedtaketFields.vedtaketSpraakOgFormidlingErIkkeTydelig]: boolean;
+  [VedtaketBoolean.vedtaketDetErLagtTilGrunnFeilFaktum]: boolean;
+  [VedtaketBoolean.vedtaketSpraakOgFormidlingErIkkeTydelig]: boolean;
 }
 
 interface BrukAvRaadgivendeLegeMangelfullt {
-  [BrukAvRaadgivendeOverlegeFields.raadgivendeLegeIkkebrukt]: boolean;
-  [BrukAvRaadgivendeOverlegeFields.raadgivendeLegeMangelfullBrukAvRaadgivendeLege]: boolean;
-  [BrukAvRaadgivendeOverlegeFields.raadgivendeLegeUttaltSegOmTemaUtoverTrygdemedisin]: boolean;
-  [BrukAvRaadgivendeOverlegeFields.raadgivendeLegeBegrunnelseMangelfullEllerIkkeDokumentert]: boolean;
+  [BrukAvRaadgivendeOverlegeBoolean.raadgivendeLegeIkkebrukt]: boolean;
+  [BrukAvRaadgivendeOverlegeBoolean.raadgivendeLegeMangelfullBrukAvRaadgivendeLege]: boolean;
+  [BrukAvRaadgivendeOverlegeBoolean.raadgivendeLegeUttaltSegOmTemaUtoverTrygdemedisin]: boolean;
+  [BrukAvRaadgivendeOverlegeBoolean.raadgivendeLegeBegrunnelseMangelfullEllerIkkeDokumentert]: boolean;
 }
 
 interface BrukAvRaadgivendeLege extends BrukAvRaadgivendeLegeMangelfullt {
@@ -113,22 +121,22 @@ interface Annet {
 
 export type IKvalitetsvurderingSaksdataHjemler = Pick<
   IVedtaket,
-  | VedtaketFields.vedtaketLovbestemmelsenTolketFeilHjemlerList
-  | VedtaketFields.vedtaketFeilKonkretRettsanvendelseHjemlerList
-  | VedtaketFields.vedtaketAlleRelevanteHjemlerErIkkeVurdertHjemlerList
-  | VedtaketFields.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList
+  | VedtaketSaksdatahjemlerList.vedtaketLovbestemmelsenTolketFeilHjemlerList
+  | VedtaketSaksdatahjemlerList.vedtaketFeilKonkretRettsanvendelseHjemlerList
+  | VedtaketSaksdatahjemlerList.vedtaketAlleRelevanteHjemlerErIkkeVurdertHjemlerList
+  | VedtaketSaksdatahjemlerList.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList
 >;
 
 export type IKvalitetsvurderingAllRegistreringshjemler = Pick<
   IVedtaket,
-  VedtaketFields.vedtaketBruktFeilHjemmelHjemlerList
+  VedtaketAllregistreringshjemlerList.vedtaketBruktFeilHjemmelHjemlerList
 >;
 
 export type IKvalitetsvurderingStrings = Annet &
   Pick<
     IKlageforberedelsen,
-    | KlageforberedelsenFields.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysningerFritekst
-    | KlageforberedelsenFields.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarSelvInnhentetNyeOpplysningerFritekst
+    | KlageforberedelsenTextInput.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysningerFritekst
+    | KlageforberedelsenTextInput.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarSelvInnhentetNyeOpplysningerFritekst
   >;
 
 export type IKvalitetsvurderingData = IKlageforberedelsen & IUtredningen & IVedtaket & BrukAvRaadgivendeLege & Annet;

@@ -1,16 +1,28 @@
-import { Select, ToggleGroup } from '@navikt/ds-react';
+import { Select, Tag, ToggleGroup } from '@navikt/ds-react';
 import React from 'react';
 import { styled } from 'styled-components';
-import { VedtaketHjemlerListTextsKeys, VedtaketTextsKeys } from '@app/types/statistics/legacy/structures';
+import { MAIN_REASON_LABELS, MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import {
-  BRUK_AV_RAADGIVENDE_LEGE_TEXTS,
+  LegacyVedtaketBoolean,
+  LegacyVedtaketHjemlerList,
+  VedtaketAllregistreringshjemlerList,
+  VedtaketHjemlerListBoolean,
+  VedtaketSaksdatahjemlerList,
+} from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
+import { UtredningenUnderKlageforberedelsen } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/utredningen-under-klageforberedelsen';
+import { BRUK_AV_RAADGIVENDE_LEGE_TEXTS } from '@app/components/statistikk/types/bruk-av-raadgivende-lege';
+import {
   KLAGEFORBEREDELSEN_TEXTS,
-  KVALITETSVURDERING_TEXTS,
   SAKENS_DOKUMENTER_TEXTS,
-  UTREDNINGEN_TEXTS,
+  UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS,
+} from '@app/components/statistikk/types/klageforberedelsen';
+import { KVALITETSVURDERING_HELP_TEXTS } from '@app/components/statistikk/types/kvalitetsvurdering';
+import { UTREDNINGEN_TEXTS } from '@app/components/statistikk/types/utredningen';
+import {
+  StatisticsVedtaketHjemlerList,
+  StatisticsVedtaketHjemlerListBoolean,
   VEDTAKET_TEXTS,
-} from '@app/types/statistics/legacy/texts';
-import { MainReason } from '@app/types/statistics/legacy/v2';
+} from '@app/components/statistikk/types/vedtaket';
 import { IStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { QueryParams } from '../../../../filters/filter-query-params';
 import { CardSize, DynamicCard } from '../../../card/card';
@@ -35,22 +47,22 @@ interface Props {
 
 const MAIN_HELP_TEXTS = [
   {
-    label: KVALITETSVURDERING_TEXTS[MainReason.Klageforberedelsen].label,
+    label: MAIN_REASON_LABELS[MainReason.Klageforberedelsen],
     key: MainReason.Klageforberedelsen,
     texts: KLAGEFORBEREDELSEN_TEXTS,
   },
   {
-    label: KVALITETSVURDERING_TEXTS[MainReason.Utredningen].label,
+    label: MAIN_REASON_LABELS[MainReason.Utredningen],
     key: MainReason.Utredningen,
     texts: UTREDNINGEN_TEXTS,
   },
   {
-    label: KVALITETSVURDERING_TEXTS[MainReason.Vedtaket].label,
+    label: MAIN_REASON_LABELS[MainReason.Vedtaket],
     key: MainReason.Vedtaket,
     texts: VEDTAKET_TEXTS,
   },
   {
-    label: KVALITETSVURDERING_TEXTS[MainReason.BrukAvRaadgivendeLege].label,
+    label: MAIN_REASON_LABELS[MainReason.BrukAvRaadgivendeLege],
     key: MainReason.BrukAvRaadgivendeLege,
     texts: BRUK_AV_RAADGIVENDE_LEGE_TEXTS,
   },
@@ -78,19 +90,35 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
       </CardTitleWithExplainer>
       <TitleWithExplainer>Hovedgrunner</TitleWithExplainer>
       <TotalMangelfull stats={datasets} />
-      <HelpTexts helpTexts={[{ texts: KVALITETSVURDERING_TEXTS, key: 'KVALITETSVURDERING_TEXTS' }]} />
+      <HelpTexts helpTexts={KVALITETSVURDERING_HELP_TEXTS} />
 
       <TitleWithExplainer>Grunner</TitleWithExplainer>
       <MangelfullDetails stats={datasets} />
       <HelpTexts helpTexts={MAIN_HELP_TEXTS} />
 
       <CategoryContainer>
-        <ChartContainer $columns={2}>
+        <ChartContainer $columns={3}>
           <TitleWithExplainer>{KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenSakensDokumenter.label}</TitleWithExplainer>
           <SakensDokumenter stats={datasets} />
           <HelpTexts helpTexts={[{ texts: SAKENS_DOKUMENTER_TEXTS, key: 'SAKENS_DOKUMENTER_TEXTS' }]} />
         </ChartContainer>
-        <ChartContainer $columns={2}>
+
+        <ChartContainer $columns={3}>
+          <TitleWithExplainer>
+            <LabelContainer>
+              {KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenUtredningenUnderKlageforberedelsen.label}
+              <Tag2024 />
+            </LabelContainer>
+          </TitleWithExplainer>
+          <UtredningenUnderKlageforberedelsen stats={datasets} />
+          <HelpTexts
+            helpTexts={[
+              { texts: UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS, key: 'UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS' },
+            ]}
+          />
+        </ChartContainer>
+
+        <ChartContainer $columns={3}>
           <TitleWithExplainer>{VEDTAKET_TEXTS.vedtaketIkkeKonkretIndividuellBegrunnelse.label}</TitleWithExplainer>
           <IkkeKonkretBegrunnelse stats={datasets} />
         </ChartContainer>
@@ -102,13 +130,7 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
       <HjemlerContainer>
         {HJEMLER_CHART_PROPS_LIST.map((params, index) => (
           <HjemlerSubContainer key={params.reasonId}>
-            <Hjemler
-              key={params.reasonId}
-              {...params}
-              hjemmelListId={params.hjemmelListId}
-              dataset={focusedDataset}
-              index={index}
-            />
+            <Hjemler key={params.reasonId} {...params} dataset={focusedDataset} index={index} />
           </HjemlerSubContainer>
         ))}
       </HjemlerContainer>
@@ -157,26 +179,73 @@ const DatasetSelector = ({ datasets, datasetIndexString, onChange }: DatasetSele
 };
 
 interface HjemlerChartProps {
-  hjemmelListId: VedtaketHjemlerListTextsKeys;
-  reasonId: VedtaketTextsKeys;
+  hjemmelListId: StatisticsVedtaketHjemlerList;
+  reasonId: StatisticsVedtaketHjemlerListBoolean;
+  label: React.ReactNode;
 }
+const LabelContainer = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: var(--a-spacing-1);
+`;
+
+const Tag2024 = () => (
+  <Tag title="Ny i 2024" variant="alt3-filled" size="xsmall" style={{ cursor: 'help' }}>
+    2024
+  </Tag>
+);
+
+const Tag2023 = () => (
+  <Tag title="Fjernet i 2024" variant="warning-filled" size="xsmall" style={{ cursor: 'help' }}>
+    2023
+  </Tag>
+);
 
 const HJEMLER_CHART_PROPS_LIST: HjemlerChartProps[] = [
   {
-    reasonId: 'vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert',
-    hjemmelListId: 'vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdertHjemlerList',
+    reasonId: VedtaketHjemlerListBoolean.vedtaketBruktFeilHjemmel,
+    hjemmelListId: VedtaketAllregistreringshjemlerList.vedtaketBruktFeilHjemmelHjemlerList,
+    label: (
+      <LabelContainer>
+        {VEDTAKET_TEXTS.vedtaketBruktFeilHjemmel.label}
+        <Tag2024 />
+      </LabelContainer>
+    ),
   },
   {
-    reasonId: 'vedtaketLovbestemmelsenTolketFeil',
-    hjemmelListId: 'vedtaketLovbestemmelsenTolketFeilHjemlerList',
+    reasonId: VedtaketHjemlerListBoolean.vedtaketAlleRelevanteHjemlerErIkkeVurdert,
+    hjemmelListId: VedtaketSaksdatahjemlerList.vedtaketAlleRelevanteHjemlerErIkkeVurdertHjemlerList,
+    label: (
+      <LabelContainer>
+        {VEDTAKET_TEXTS.vedtaketAlleRelevanteHjemlerErIkkeVurdert.label}
+        <Tag2024 />
+      </LabelContainer>
+    ),
   },
   {
-    reasonId: 'vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet',
-    hjemmelListId: 'vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList',
+    reasonId: LegacyVedtaketBoolean.vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert,
+    hjemmelListId: LegacyVedtaketHjemlerList.vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdertHjemlerList,
+    label: (
+      <LabelContainer>
+        {VEDTAKET_TEXTS.vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert.label}
+        <Tag2023 />
+      </LabelContainer>
+    ),
   },
   {
-    reasonId: 'vedtaketFeilKonkretRettsanvendelse',
-    hjemmelListId: 'vedtaketFeilKonkretRettsanvendelseHjemlerList',
+    reasonId: VedtaketHjemlerListBoolean.vedtaketLovbestemmelsenTolketFeil,
+    hjemmelListId: VedtaketSaksdatahjemlerList.vedtaketLovbestemmelsenTolketFeilHjemlerList,
+    label: VEDTAKET_TEXTS.vedtaketLovbestemmelsenTolketFeil.label,
+  },
+  {
+    reasonId: VedtaketHjemlerListBoolean.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet,
+    hjemmelListId: VedtaketSaksdatahjemlerList.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList,
+    label: VEDTAKET_TEXTS.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet.label,
+  },
+  {
+    reasonId: VedtaketHjemlerListBoolean.vedtaketFeilKonkretRettsanvendelse,
+    hjemmelListId: VedtaketSaksdatahjemlerList.vedtaketFeilKonkretRettsanvendelseHjemlerList,
+    label: VEDTAKET_TEXTS.vedtaketFeilKonkretRettsanvendelse.label,
   },
 ];
 
@@ -187,20 +256,16 @@ const CategoryContainer = styled.div`
 `;
 
 const HjemlerContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   row-gap: 16px;
   column-gap: 0;
-  justify-content: space-evenly;
   width: 100%;
 `;
 
 const HjemlerSubContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: 350px;
-  width: 25%;
 `;
 
 const Container = styled.div`
