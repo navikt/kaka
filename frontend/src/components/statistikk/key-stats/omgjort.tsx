@@ -1,5 +1,6 @@
 import { HelpText } from '@navikt/ds-react';
 import React, { useMemo } from 'react';
+import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
 import { toPercent } from '@app/domain/number';
 import { UtfallEnum } from '@app/types/utfall';
 import { HelpTextContent, KeyContent, KeyLabelWithHelpText, RedKeyNumber } from './styled-components';
@@ -29,10 +30,7 @@ export const Omgjort = ({ stats, label }: Props) => {
       <KeyLabelWithHelpText>
         {label}
         <HelpText placement="bottom">
-          <HelpTextContent>
-            Omgjorte saker er saker med utfallene «medhold», «delvis medhold» og «opphevet». Ved utregningen av
-            omgjøringsprosenten er ikke saker med utfallene «retur», «trukket» og «ugunst (ugyldig)» med i grunnlaget.
-          </HelpTextContent>
+          <HelpTextContent>{OMGJORT_HELP_TEXT}</HelpTextContent>
         </HelpText>
       </KeyLabelWithHelpText>
     </KeyContent>
