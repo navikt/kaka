@@ -1,4 +1,4 @@
-import { HelpText } from '@navikt/ds-react';
+import { HelpText, HelpTextProps } from '@navikt/ds-react';
 import React from 'react';
 import { styled } from 'styled-components';
 import { CardTitle } from '@app/styled-components/cards';
@@ -33,14 +33,14 @@ const HelpTextContent = styled.div`
   width: 350px;
 `;
 
-interface CardTitleWithExplainerProps extends Props {
+interface CardTitleWithExplainerProps extends Props, Pick<HelpTextProps, 'placement'> {
   helpText: string;
 }
 
-export const CardTitleWithExplainer = ({ children, helpText }: CardTitleWithExplainerProps) => (
+export const CardTitleWithExplainer = ({ children, helpText, placement }: CardTitleWithExplainerProps) => (
   <StyledCardTitle>
     <span>{children}</span>
-    <HelpText>
+    <HelpText placement={placement}>
       <HelpTextContent>{helpText}</HelpTextContent>
     </HelpText>
   </StyledCardTitle>

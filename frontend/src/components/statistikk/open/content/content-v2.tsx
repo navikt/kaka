@@ -1,4 +1,6 @@
 import React from 'react';
+import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
+import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
 import { ContentArea } from '@app/styled-components/filters-and-content';
 import { IStatisticVurderingV2 } from '@app/types/statistics/v2';
@@ -44,7 +46,9 @@ export const ContentV2 = ({ stats, isLoading }: Props) => {
         </FullWidthStickyContainer>
 
         <DynamicCard size={CardSize.LARGE}>
-          <CardTitle>Omgjøringsprosent</CardTitle>
+          <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
+            Omgjøringsprosent
+          </CardTitleWithExplainer>
           <Omgjoeringsprosent stats={datasets} />
         </DynamicCard>
 

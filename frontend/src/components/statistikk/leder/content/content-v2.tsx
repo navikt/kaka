@@ -1,5 +1,7 @@
 import { skipToken } from '@reduxjs/toolkit/query';
 import React, { useMemo } from 'react';
+import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
+import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
 import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
 import { useUser } from '@app/simple-api-state/use-user';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
@@ -108,7 +110,9 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
         </FullWidthStickyContainer>
 
         <DynamicCard size={CardSize.LARGE}>
-          <CardTitle>Min enhets omgjøringsprosent</CardTitle>
+          <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
+            Min enhets omgjøringsprosent
+          </CardTitleWithExplainer>
           <Omgjoeringsprosent stats={datasets} />
         </DynamicCard>
 
