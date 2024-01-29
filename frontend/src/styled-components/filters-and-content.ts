@@ -6,7 +6,7 @@ export const FiltersAndContentContainer = styled.div`
   width: 100%;
 `;
 
-const FILTER_WIDTH = 350;
+const FILTER_WIDTH = 420;
 
 export const FilterSection = styled.div`
   position: fixed;
