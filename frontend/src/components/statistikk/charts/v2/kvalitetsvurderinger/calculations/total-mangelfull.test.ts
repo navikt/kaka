@@ -1,6 +1,6 @@
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
+import { Dataset, useData } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/mangelfull';
 import { Radiovalg, RadiovalgExtended } from '@app/types/kvalitetsvurdering/radio';
-import { DataSet, getTotalMangelfullDatasets } from './total-mangelfull';
 
 const BRA_VURDERING = {
   [MainReason.Klageforberedelsen]: Radiovalg.BRA,
@@ -16,40 +16,35 @@ const MANGELFULL_VURDERING = {
   [MainReason.BrukAvRaadgivendeLege]: RadiovalgExtended.MANGELFULLT,
 };
 
-const reduceToSum = (acc: number, x: number) => acc + x;
-
 describe('getTotalMangelfullDatasets', () => {
   it('should calculate correctly from 1 fully BRA and 1 fully MANGELFULL vurdering', () => {
     expect.assertions(9);
 
-    const stats: DataSet[] = [{ label: '', data: [BRA_VURDERING, MANGELFULL_VURDERING] }];
+    const stats = [{ label: '', data: [BRA_VURDERING, MANGELFULL_VURDERING] }];
 
-    const [klageforberedelsen, utredningen, vedtaket, brukAvRaadgivendeLege] = getTotalMangelfullDatasets(stats);
+    const result = useData(stats);
+    expect(result.datasets).toHaveLength(1);
+    const [onlyDataset] = result.datasets;
+    const { data, counts } = getCountsAndPercentages(onlyDataset);
 
-    const klageforberedelsenSum = klageforberedelsen.data.reduce(reduceToSum, 0);
-    const utredningenSum = utredningen.data.reduce(reduceToSum, 0);
-    const vedtaketSum = vedtaket.data.reduce(reduceToSum, 0);
-    const brukAvRaadgivendeLegeSum = brukAvRaadgivendeLege.data.reduce(reduceToSum, 0);
+    const [klageforberedelsenPercentage, utredningenPercentage, vedtaketPercentage, brukAvRolPercentage] = data;
+    const [klageforberedelsenCount, utredningenCount, vedtaketCount, brukAvRolCount] = counts;
 
-    const totalMangelfullt = klageforberedelsenSum + utredningenSum + vedtaketSum + brukAvRaadgivendeLegeSum;
+    expect(klageforberedelsenPercentage).toBe(0.5);
+    expect(utredningenPercentage).toBe(0.5);
+    expect(vedtaketPercentage).toBe(0.5);
+    expect(brukAvRolPercentage).toBe(0.5);
 
-    expect(klageforberedelsen.counts).toStrictEqual([1]);
-    expect(utredningen.counts).toStrictEqual([1]);
-    expect(vedtaket.counts).toStrictEqual([1]);
-    expect(brukAvRaadgivendeLege.counts).toStrictEqual([1]);
-
-    expect(vedtaketSum).toBe(12.5);
-    expect(utredningenSum).toBe(12.5);
-    expect(klageforberedelsenSum).toBe(12.5);
-    expect(brukAvRaadgivendeLegeSum).toBe(12.5);
-
-    expect(totalMangelfullt).toBe(50);
+    expect(klageforberedelsenCount).toBe(1);
+    expect(utredningenCount).toBe(1);
+    expect(vedtaketCount).toBe(1);
+    expect(brukAvRolCount).toBe(1);
   });
 
   it('should calculate correctly from 1 fully BRA and one partially MANGELFULL vurdering', () => {
     expect.assertions(9);
 
-    const stats: DataSet[] = [
+    const stats = [
       {
         label: '',
         data: [
@@ -63,33 +58,29 @@ describe('getTotalMangelfullDatasets', () => {
         ],
       },
     ];
+    const result = useData(stats);
+    expect(result.datasets).toHaveLength(1);
+    const [onlyDataset] = result.datasets;
+    const { data, counts } = getCountsAndPercentages(onlyDataset);
 
-    const [klageforberedelsen, utredningen, vedtaket, brukAvRaadgivendeLege] = getTotalMangelfullDatasets(stats);
+    const [klageforberedelsenPercentage, utredningenPercentage, vedtaketPercentage, brukAvRolPercentage] = data;
+    const [klageforberedelsenCount, utredningenCount, vedtaketCount, brukAvRolCount] = counts;
 
-    const klageforberedelsenSum = klageforberedelsen.data.reduce(reduceToSum, 0);
-    const utredningenSum = utredningen.data.reduce(reduceToSum, 0);
-    const vedtaketSum = vedtaket.data.reduce(reduceToSum, 0);
-    const brukAvRaadgivendeLegeSum = brukAvRaadgivendeLege.data.reduce(reduceToSum, 0);
+    expect(klageforberedelsenPercentage).toBe(0);
+    expect(utredningenPercentage).toBe(0);
+    expect(vedtaketPercentage).toBe(0.5);
+    expect(brukAvRolPercentage).toBe(0.5);
 
-    const totalMangelfullt = klageforberedelsenSum + utredningenSum + vedtaketSum + brukAvRaadgivendeLegeSum;
-
-    expect(klageforberedelsen.counts).toStrictEqual([0]);
-    expect(utredningen.counts).toStrictEqual([0]);
-    expect(vedtaket.counts).toStrictEqual([1]);
-    expect(brukAvRaadgivendeLege.counts).toStrictEqual([1]);
-
-    expect(vedtaketSum).toBe(25);
-    expect(utredningenSum).toBe(0);
-    expect(klageforberedelsenSum).toBe(0);
-    expect(brukAvRaadgivendeLegeSum).toBe(25);
-
-    expect(totalMangelfullt).toBe(50);
+    expect(klageforberedelsenCount).toBe(0);
+    expect(utredningenCount).toBe(0);
+    expect(vedtaketCount).toBe(1);
+    expect(brukAvRolCount).toBe(1);
   });
 
   it('should calculate correctly from 2 fully BRA, 1 fully MANGELFULL and 1 partially MANGELFULL (ROL)', () => {
     expect.assertions(9);
 
-    const stats: DataSet[] = [
+    const stats = [
       {
         label: '',
         data: [
@@ -106,25 +97,51 @@ describe('getTotalMangelfullDatasets', () => {
       },
     ];
 
-    const [klageforberedelsen, utredningen, vedtaket, brukAvRaadgivendeLege] = getTotalMangelfullDatasets(stats);
+    const result = useData(stats);
+    expect(result.datasets).toHaveLength(1);
+    const [onlyDataset] = result.datasets;
+    const { data, counts } = getCountsAndPercentages(onlyDataset);
 
-    const klageforberedelsenSum = klageforberedelsen.data.reduce(reduceToSum, 0);
-    const utredningenSum = utredningen.data.reduce(reduceToSum, 0);
-    const vedtaketSum = vedtaket.data.reduce(reduceToSum, 0);
-    const brukAvRaadgivendeLegeSum = brukAvRaadgivendeLege.data.reduce(reduceToSum, 0);
+    const [klageforberedelsenPercentage, utredningenPercentage, vedtaketPercentage, brukAvRolPercentage] = data;
+    const [klageforberedelsenCount, utredningenCount, vedtaketCount, brukAvRolCount] = counts;
 
-    const totalMangelfullt = klageforberedelsenSum + utredningenSum + vedtaketSum + brukAvRaadgivendeLegeSum;
+    expect(klageforberedelsenPercentage).toBe(0.25);
+    expect(utredningenPercentage).toBe(0.25);
+    expect(vedtaketPercentage).toBe(0.25);
+    expect(brukAvRolPercentage).toBe(0.5);
 
-    expect(klageforberedelsen.counts).toStrictEqual([1]);
-    expect(utredningen.counts).toStrictEqual([1]);
-    expect(vedtaket.counts).toStrictEqual([1]);
-    expect(brukAvRaadgivendeLege.counts).toStrictEqual([2]);
-
-    expect(vedtaketSum).toBe(10);
-    expect(utredningenSum).toBe(10);
-    expect(klageforberedelsenSum).toBe(10);
-    expect(brukAvRaadgivendeLegeSum).toBe(20);
-
-    expect(totalMangelfullt).toBe(50);
+    expect(klageforberedelsenCount).toBe(1);
+    expect(utredningenCount).toBe(1);
+    expect(vedtaketCount).toBe(1);
+    expect(brukAvRolCount).toBe(2);
   });
 });
+
+type FourNumbers = [number, number, number, number];
+
+const getCountsAndPercentages = (dataset: Dataset | undefined): { counts: FourNumbers; data: FourNumbers } => {
+  if (dataset === undefined) {
+    throw new Error('dataset is undefined');
+  }
+  const { data, counts } = dataset;
+  const [klageforberedelsenPercentage, utredningenPercentage, vedtaketPercentage, brukAvRolPercentage] = data;
+  const [klageforberedelsenCount, utredningenCount, vedtaketCount, brukAvRolCount] = counts;
+
+  if (
+    klageforberedelsenPercentage === undefined ||
+    utredningenPercentage === undefined ||
+    vedtaketPercentage === undefined ||
+    brukAvRolPercentage === undefined ||
+    klageforberedelsenCount === undefined ||
+    utredningenCount === undefined ||
+    vedtaketCount === undefined ||
+    brukAvRolCount === undefined
+  ) {
+    throw new Error('One of the values is undefined');
+  }
+
+  return {
+    data: [klageforberedelsenPercentage, utredningenPercentage, vedtaketPercentage, brukAvRolPercentage],
+    counts: [klageforberedelsenCount, utredningenCount, vedtaketCount, brukAvRolCount],
+  };
+};

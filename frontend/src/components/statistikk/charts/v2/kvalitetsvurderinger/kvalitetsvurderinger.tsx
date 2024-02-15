@@ -9,6 +9,8 @@ import {
   VedtaketHjemlerListBoolean,
   VedtaketSaksdatahjemlerList,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
+import { TotalMangelfull } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/total-mangelfull';
+import { DataSet } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';
 import { UtredningenUnderKlageforberedelsen } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/utredningen-under-klageforberedelsen';
 import { BRUK_AV_RAADGIVENDE_LEGE_TEXTS } from '@app/components/statistikk/types/bruk-av-raadgivende-lege';
 import {
@@ -23,7 +25,6 @@ import {
   StatisticsVedtaketHjemlerListBoolean,
   VEDTAKET_TEXTS,
 } from '@app/components/statistikk/types/vedtaket';
-import { IStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { QueryParams } from '../../../../filters/filter-query-params';
 import { CardSize, DynamicCard } from '../../../card/card';
 import { useQueryParam } from '../../../hooks/use-query-param';
@@ -32,14 +33,9 @@ import { ChartContainer, ChartTitle } from '../../styled-components';
 import { HelpTexts } from './help-texts';
 import { Hjemler } from './hjemler';
 import { IkkeKonkretBegrunnelse } from './ikke-konkret-begrunnelse';
+import { Mangelfull } from './mangelfull';
 import { MangelfullDetails } from './mangelfull-details';
 import { SakensDokumenter } from './sakens-dokumenter';
-import { TotalMangelfull } from './total-mangelfull';
-
-interface DataSet {
-  label: string;
-  data: IStatisticVurderingV2[];
-}
 
 interface Props {
   datasets: DataSet[];
@@ -83,22 +79,32 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
     <DynamicCard size={CardSize.LARGE}>
       <CardTitleWithExplainer
         helpText="Ved utregningen av hvor mange prosent av sakene som har mangler ved kvaliteten, er ikke saker med utfallene
-          «retur», «trukket» og «ugunst (ugyldig)» med i grunnlaget. Klageinstansen gjør ikke kvalitetsvurderinger i
+          «retur» eller «trukket» med i grunnlaget. Klageinstansen gjør ikke kvalitetsvurderinger i
           saker med disse utfallene."
       >
         Kvalitetsvurderinger
       </CardTitleWithExplainer>
-      <TitleWithExplainer>Hovedgrunner</TitleWithExplainer>
+
+      <TitleWithExplainer>Kvalitetsvurderte saker</TitleWithExplainer>
       <TotalMangelfull stats={datasets} />
+
       <HelpTexts helpTexts={KVALITETSVURDERING_HELP_TEXTS} />
 
-      <TitleWithExplainer>Grunner</TitleWithExplainer>
+      <TitleWithExplainer>Andel mangelfulle saker av total per hovedkategori</TitleWithExplainer>
+      <Mangelfull datasets={datasets} />
+
+      <TitleWithExplainer>
+        Antall spesifikke avvik per underkategori (prosentandel av kvalitetsvurderte saker)
+      </TitleWithExplainer>
       <MangelfullDetails stats={datasets} />
       <HelpTexts helpTexts={MAIN_HELP_TEXTS} />
 
       <CategoryContainer>
         <ChartContainer $columns={3}>
-          <TitleWithExplainer>{KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenSakensDokumenter.label}</TitleWithExplainer>
+          <TitleWithExplainer>
+            Avvik under «{KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenSakensDokumenter.label}»
+          </TitleWithExplainer>
+
           <SakensDokumenter stats={datasets} />
           <HelpTexts helpTexts={[{ texts: SAKENS_DOKUMENTER_TEXTS, key: 'SAKENS_DOKUMENTER_TEXTS' }]} />
         </ChartContainer>
@@ -106,7 +112,7 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
         <ChartContainer $columns={3}>
           <TitleWithExplainer>
             <LabelContainer>
-              {KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenUtredningenUnderKlageforberedelsen.label}
+              Avvik under «{KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenUtredningenUnderKlageforberedelsen.label}»
               <Tag2024 />
             </LabelContainer>
           </TitleWithExplainer>
@@ -119,7 +125,9 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
         </ChartContainer>
 
         <ChartContainer $columns={3}>
-          <TitleWithExplainer>{VEDTAKET_TEXTS.vedtaketIkkeKonkretIndividuellBegrunnelse.label}</TitleWithExplainer>
+          <TitleWithExplainer>
+            Avvik under «{VEDTAKET_TEXTS.vedtaketIkkeKonkretIndividuellBegrunnelse.label}»
+          </TitleWithExplainer>
           <IkkeKonkretBegrunnelse stats={datasets} />
         </ChartContainer>
       </CategoryContainer>

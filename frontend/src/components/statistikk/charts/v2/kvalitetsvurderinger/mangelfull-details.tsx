@@ -19,8 +19,8 @@ const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => 
       x: {
         beginAtZero: true,
         stacked: true,
-        ticks: { callback: (label) => `${label} %` },
-        title: { display: true, text: 'Andel per mangelfull grunn' },
+        ticks: { callback: (label) => label },
+        title: { display: true, text: 'Antall' },
       },
     },
     animation: {
@@ -53,8 +53,8 @@ export const MangelfullDetails = ({ stats }: Props) => {
   const { datasets, labels } = useMemo(() => getMangelfullDetailsDatasets(stats, UNIT), [stats]);
 
   const getAbsoluteValue: GetAbsoluteValue = (datasetIndex, dataIndex) => {
-    const count = datasets[datasetIndex]?.counts[dataIndex] ?? 0;
-    const percent = datasets[datasetIndex]?.data[dataIndex] ?? 0;
+    const count = datasets[datasetIndex]?.data[dataIndex] ?? 0;
+    const percent = datasets[datasetIndex]?.percentages[dataIndex] ?? 0;
 
     return [count, percent];
   };

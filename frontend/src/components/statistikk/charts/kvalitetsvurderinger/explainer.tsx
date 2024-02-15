@@ -13,8 +13,7 @@ export const TitleWithExplainer = ({ children }: Props) => (
     <span>{children}</span>
     <HelpText>
       <HelpTextContent>
-        Antall avvik er det antallet avhukninger som er gjort totalt i kvalitetsvurderingene. Merk at én sak kan ha
-        flere avvik.
+        En sak kan ha ett eller flere avvik. Prosenten er regnet ut fra totalt antall kvalitetsvurderte saker.
       </HelpTextContent>
     </HelpText>
   </StyledHeading>
