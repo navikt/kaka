@@ -21,7 +21,10 @@ export const Finished = ({ stats }: Props) => {
       <KeyLabelWithHelpText>
         Registrerte saker
         <HelpText placement="bottom">
-          <HelpTextContent>Registrerte saker inkluderer alle saker uansett utfall.</HelpTextContent>
+          <HelpTextContent>
+            Registrerte saker inkluderer alle saker, både saker som er behandlet, og saker med utfall «trukket» eller
+            «retur».
+          </HelpTextContent>
         </HelpText>
       </KeyLabelWithHelpText>
     </KeyContent>

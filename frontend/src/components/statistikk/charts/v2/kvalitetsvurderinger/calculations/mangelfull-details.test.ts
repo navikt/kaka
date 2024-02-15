@@ -1,3 +1,4 @@
+/* eslint-disable jest/max-expects */
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import { DataSet } from '../types';
 import { getStats } from './helpers/test-helpers';
@@ -9,6 +10,7 @@ const UTREDNINGEN_FULLY_MANGELFULL = getStats({
   utredningenAvInntektsforhold: true,
   utredningenAvArbeidsaktivitet: true,
   utredningenAvEoesUtenlandsproblematikk: true,
+  utredningenAvSivilstandBoforhold: true,
   utredningenAvAndreAktuelleForholdISaken: true,
 });
 
@@ -18,12 +20,13 @@ const UTREDNINGEN_FULLY_BRA = getStats({
   utredningenAvInntektsforhold: false,
   utredningenAvArbeidsaktivitet: false,
   utredningenAvEoesUtenlandsproblematikk: false,
+  utredningenAvSivilstandBoforhold: false,
   utredningenAvAndreAktuelleForholdISaken: false,
 });
 
 describe('getDatasets', () => {
   it('should calculate one simple dataset', () => {
-    expect.assertions(8);
+    expect.assertions(10);
 
     const stats: DataSet[] = [
       {
@@ -35,6 +38,7 @@ describe('getDatasets', () => {
             utredningenAvInntektsforhold: true,
             utredningenAvArbeidsaktivitet: true,
             utredningenAvEoesUtenlandsproblematikk: true,
+            utredningenAvSivilstandBoforhold: true,
             utredningenAvAndreAktuelleForholdISaken: true,
           }),
         ],
@@ -50,22 +54,25 @@ describe('getDatasets', () => {
       utredningenAvInntektsforhold,
       utredningenAvArbeidsaktivitet,
       utredningenAvEoesUtenlandsproblematikk,
+      utredningenAvSivilstandBoforhold,
       utredningenAvAndreAktuelleForholdISaken,
     ] = datasets;
 
-    expect(utredningenAvInntektsforhold?.data).toStrictEqual([0, 25, 0, 0]);
-    expect(utredningenAvArbeidsaktivitet?.data).toStrictEqual([0, 25, 0, 0]);
-    expect(utredningenAvEoesUtenlandsproblematikk?.data).toStrictEqual([0, 25, 0, 0]);
-    expect(utredningenAvAndreAktuelleForholdISaken?.data).toStrictEqual([0, 25, 0, 0]);
+    expect(utredningenAvInntektsforhold?.percentages).toStrictEqual([0, 100, 0, 0]);
+    expect(utredningenAvArbeidsaktivitet?.percentages).toStrictEqual([0, 100, 0, 0]);
+    expect(utredningenAvEoesUtenlandsproblematikk?.percentages).toStrictEqual([0, 100, 0, 0]);
+    expect(utredningenAvSivilstandBoforhold?.percentages).toStrictEqual([0, 100, 0, 0]);
+    expect(utredningenAvAndreAktuelleForholdISaken?.percentages).toStrictEqual([0, 100, 0, 0]);
 
-    expect(utredningenAvInntektsforhold?.counts).toStrictEqual([0, 1, 0, 0]);
-    expect(utredningenAvArbeidsaktivitet?.counts).toStrictEqual([0, 1, 0, 0]);
-    expect(utredningenAvEoesUtenlandsproblematikk?.counts).toStrictEqual([0, 1, 0, 0]);
-    expect(utredningenAvAndreAktuelleForholdISaken?.counts).toStrictEqual([0, 1, 0, 0]);
+    expect(utredningenAvInntektsforhold?.data).toStrictEqual([0, 1, 0, 0]);
+    expect(utredningenAvArbeidsaktivitet?.data).toStrictEqual([0, 1, 0, 0]);
+    expect(utredningenAvEoesUtenlandsproblematikk?.data).toStrictEqual([0, 1, 0, 0]);
+    expect(utredningenAvSivilstandBoforhold?.data).toStrictEqual([0, 1, 0, 0]);
+    expect(utredningenAvAndreAktuelleForholdISaken?.data).toStrictEqual([0, 1, 0, 0]);
   });
 
   it('should calculate two simple datasets', () => {
-    expect.assertions(10);
+    expect.assertions(12);
 
     const stats: DataSet[] = [
       { label: 'Min', data: [UTREDNINGEN_FULLY_MANGELFULL] },
@@ -79,24 +86,27 @@ describe('getDatasets', () => {
       utredningenAvInntektsforhold,
       utredningenAvArbeidsaktivitet,
       utredningenAvEoesUtenlandsproblematikk,
+      utredningenAvSivilstandBoforhold,
       utredningenAvAndreAktuelleForholdISaken,
     ] = datasets;
 
-    expect(utredningenAvMedisinskeForhold?.data).toStrictEqual([0, 0, 20, 0, 0, 0, 0, 0]);
-    expect(utredningenAvInntektsforhold?.data).toStrictEqual([0, 0, 20, 0, 0, 0, 0, 0]);
-    expect(utredningenAvArbeidsaktivitet?.data).toStrictEqual([0, 0, 20, 0, 0, 0, 0, 0]);
-    expect(utredningenAvEoesUtenlandsproblematikk?.data).toStrictEqual([0, 0, 20, 0, 0, 0, 0, 0]);
-    expect(utredningenAvAndreAktuelleForholdISaken?.data).toStrictEqual([0, 0, 20, 0, 0, 0, 0, 0]);
+    expect(utredningenAvMedisinskeForhold?.percentages).toStrictEqual([0, 0, 100, 0, 0, 0, 0, 0]);
+    expect(utredningenAvInntektsforhold?.percentages).toStrictEqual([0, 0, 100, 0, 0, 0, 0, 0]);
+    expect(utredningenAvArbeidsaktivitet?.percentages).toStrictEqual([0, 0, 100, 0, 0, 0, 0, 0]);
+    expect(utredningenAvEoesUtenlandsproblematikk?.percentages).toStrictEqual([0, 0, 100, 0, 0, 0, 0, 0]);
+    expect(utredningenAvSivilstandBoforhold?.percentages).toStrictEqual([0, 0, 100, 0, 0, 0, 0, 0]);
+    expect(utredningenAvAndreAktuelleForholdISaken?.percentages).toStrictEqual([0, 0, 100, 0, 0, 0, 0, 0]);
 
-    expect(utredningenAvMedisinskeForhold?.counts).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
-    expect(utredningenAvInntektsforhold?.counts).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
-    expect(utredningenAvArbeidsaktivitet?.counts).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
-    expect(utredningenAvEoesUtenlandsproblematikk?.counts).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
-    expect(utredningenAvAndreAktuelleForholdISaken?.counts).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
+    expect(utredningenAvMedisinskeForhold?.data).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
+    expect(utredningenAvInntektsforhold?.data).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
+    expect(utredningenAvArbeidsaktivitet?.data).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
+    expect(utredningenAvEoesUtenlandsproblematikk?.data).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
+    expect(utredningenAvSivilstandBoforhold?.data).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
+    expect(utredningenAvAndreAktuelleForholdISaken?.data).toStrictEqual([0, 0, 1, 0, 0, 0, 0, 0]);
   });
 
   it('should calculate one complex dataset', () => {
-    expect.assertions(10);
+    expect.assertions(12);
 
     const stats: DataSet[] = [
       {
@@ -111,6 +121,7 @@ describe('getDatasets', () => {
             utredningenAvInntektsforhold: true, // Mangelfull
             utredningenAvArbeidsaktivitet: true, // Mangelfull
             utredningenAvEoesUtenlandsproblematikk: false,
+            utredningenAvSivilstandBoforhold: false,
             utredningenAvAndreAktuelleForholdISaken: false,
           }),
         ],
@@ -124,19 +135,22 @@ describe('getDatasets', () => {
       utredningenAvInntektsforhold,
       utredningenAvArbeidsaktivitet,
       utredningenAvEoesUtenlandsproblematikk,
+      utredningenAvSivilstandBoforhold,
       utredningenAvAndreAktuelleForholdISaken,
     ] = datasets;
 
-    expect(utredningenAvMedisinskeForhold?.data).toStrictEqual([0, 12.5, 0, 0]);
-    expect(utredningenAvInntektsforhold?.data).toStrictEqual([0, 12.5, 0, 0]);
-    expect(utredningenAvArbeidsaktivitet?.data).toStrictEqual([0, 12.5, 0, 0]);
-    expect(utredningenAvEoesUtenlandsproblematikk?.data).toStrictEqual([0, 6.25, 0, 0]);
-    expect(utredningenAvAndreAktuelleForholdISaken?.data).toStrictEqual([0, 6.25, 0, 0]);
+    expect(utredningenAvMedisinskeForhold?.percentages).toStrictEqual([0, 50, 0, 0]);
+    expect(utredningenAvInntektsforhold?.percentages).toStrictEqual([0, 50, 0, 0]);
+    expect(utredningenAvArbeidsaktivitet?.percentages).toStrictEqual([0, 50, 0, 0]);
+    expect(utredningenAvEoesUtenlandsproblematikk?.percentages).toStrictEqual([0, 25, 0, 0]);
+    expect(utredningenAvSivilstandBoforhold?.percentages).toStrictEqual([0, 25, 0, 0]);
+    expect(utredningenAvAndreAktuelleForholdISaken?.percentages).toStrictEqual([0, 25, 0, 0]);
 
-    expect(utredningenAvMedisinskeForhold?.counts).toStrictEqual([0, 2, 0, 0]);
-    expect(utredningenAvInntektsforhold?.counts).toStrictEqual([0, 2, 0, 0]);
-    expect(utredningenAvArbeidsaktivitet?.counts).toStrictEqual([0, 2, 0, 0]);
-    expect(utredningenAvEoesUtenlandsproblematikk?.counts).toStrictEqual([0, 1, 0, 0]);
-    expect(utredningenAvAndreAktuelleForholdISaken?.counts).toStrictEqual([0, 1, 0, 0]);
+    expect(utredningenAvMedisinskeForhold?.data).toStrictEqual([0, 2, 0, 0]);
+    expect(utredningenAvInntektsforhold?.data).toStrictEqual([0, 2, 0, 0]);
+    expect(utredningenAvArbeidsaktivitet?.data).toStrictEqual([0, 2, 0, 0]);
+    expect(utredningenAvEoesUtenlandsproblematikk?.data).toStrictEqual([0, 1, 0, 0]);
+    expect(utredningenAvSivilstandBoforhold?.data).toStrictEqual([0, 1, 0, 0]);
+    expect(utredningenAvAndreAktuelleForholdISaken?.data).toStrictEqual([0, 1, 0, 0]);
   });
 });

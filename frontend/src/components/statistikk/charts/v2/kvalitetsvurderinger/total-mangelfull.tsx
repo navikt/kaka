@@ -1,85 +1,83 @@
 import { ChartOptions } from 'chart.js';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Bar } from 'react-chartjs-2';
+import { MAIN_REASONS } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
+import { HorizontalBars } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/horizontal-bars';
+import { MainReasonDataset } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';
 import { toPercent } from '@app/domain/number';
-import { GetAbsoluteValue, useBarTooltipText } from '../../../hooks/use-bar-tooltip-text';
-import { BAR_THICKNESS, DataSet, getTotalMangelfullDatasets } from './calculations/total-mangelfull';
-import { HorizontalBars } from './horizontal-bars';
+import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
+import { GRAPH_COLOR } from '../../colors';
 
-const UNIT = 'avvik';
+const BAR_THICKNESS = 50;
 
-const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => {
-  const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue, UNIT);
-
-  return {
-    maintainAspectRatio: false,
-    indexAxis: 'y',
-    scales: {
-      y: { stacked: true },
-      x: {
-        stacked: true,
-        beginAtZero: true,
-        ticks: { callback: (label) => `${label} %` },
-        title: {
-          display: true,
-          text: 'Mangelfullt',
-        },
-      },
+const useOptions = (): ChartOptions<'bar'> => ({
+  plugins: {
+    legend: { display: false },
+    tooltip: { enabled: false },
+  },
+  maintainAspectRatio: false,
+  indexAxis: 'y',
+  scales: {
+    x: {
+      beginAtZero: true,
+      max: 1,
+      ticks: { callback: (label) => (typeof label === 'number' ? `${label * 100} %` : label) },
     },
-    animation: {
-      onProgress() {
-        renderBarText(this.ctx);
-      },
-      onComplete() {
-        renderBarText(this.ctx);
-      },
-    },
-    plugins: {
-      tooltip: {
-        callbacks: {
-          label: tooltipCallback,
-        },
-        xAlign: 'center',
-        yAlign: 'top',
-        caretPadding: 25,
-      },
-    },
-  };
-};
+  },
+});
 
 interface Props {
-  stats: DataSet[];
+  stats: MainReasonDataset[];
 }
 
 export const TotalMangelfull = ({ stats }: Props) => {
-  const datasets = useMemo(() => getTotalMangelfullDatasets(stats), [stats]);
-
-  const getAbsoluteValue: GetAbsoluteValue = (datasetIndex, dataIndex) => {
-    const count = datasets[datasetIndex]?.counts[dataIndex] ?? 0;
-    const percent = datasets[datasetIndex]?.data[dataIndex] ?? 0;
-
-    return [count, percent];
-  };
-
-  const options = useOptions(getAbsoluteValue);
-
-  const labels = stats.map(({ label }, index) => {
-    let count = 0;
-    let percent = 0;
-
-    for (const { counts, data } of datasets) {
-      count += counts[index] ?? 0;
-      percent += data[index] ?? 0;
-    }
-
-    const percentValue = Number.isNaN(percent) ? '-' : toPercent(percent / 100);
-
-    return `${label} (${percentValue} | ${count} ${UNIT})`;
-  });
+  const data = useDataSets(stats);
+  const options = useOptions();
 
   return (
-    <HorizontalBars barCount={labels.length} chartOptions={options} barThickness={BAR_THICKNESS}>
-      <Bar data={{ labels, datasets }} options={options} />
+    <HorizontalBars barCount={data.labels.length} chartOptions={options} barThickness={BAR_THICKNESS}>
+      <Bar data={data} options={options} />
     </HorizontalBars>
   );
+};
+
+const useDataSets = (stats: MainReasonDataset[]) => {
+  const braBars = stats.flatMap(({ data, label }) => [
+    { label: `${label} - Bra / godt nok`, data, radiovalg: Radiovalg.BRA, color: GRAPH_COLOR.DEEP_BLUE },
+  ]);
+
+  const mangefullBars = stats.flatMap(({ data, label }) => [
+    { label: `${label} - Mangelfullt`, data, radiovalg: Radiovalg.MANGELFULLT, color: GRAPH_COLOR.PURPLE },
+  ]);
+
+  const bars = [...braBars, ...mangefullBars];
+
+  const calculatedData = bars.map(({ data, radiovalg }) => {
+    const mangelfulleSaker = data.filter((stat) => MAIN_REASONS.some((r) => stat[r] === Radiovalg.MANGELFULLT)).length;
+    const braNokSaker = data.length - mangelfulleSaker;
+
+    const mangelfulleSakerPercent = mangelfulleSaker / data.length;
+    const braNokSakerPercent = braNokSaker / data.length;
+
+    return radiovalg === Radiovalg.MANGELFULLT
+      ? { percent: mangelfulleSakerPercent, count: mangelfulleSaker, length: data.length }
+      : { percent: braNokSakerPercent, count: braNokSaker, length: data.length };
+  });
+
+  const labels = bars.map(({ label }, index) => {
+    const data = calculatedData[index];
+    const count = data?.count ?? 0;
+    const percent = toPercent(data?.percent ?? 0);
+    const length = data?.length ?? 0;
+    const unit = length === 1 ? 'sak' : 'saker';
+
+    return `${label} (${percent} | ${count} av ${length} ${unit})`;
+  });
+
+  const backgroundColor = bars.map(({ color }) => color);
+
+  return {
+    datasets: [{ data: calculatedData.map(({ percent }) => percent), backgroundColor, barThickness: BAR_THICKNESS }],
+    labels,
+  };
 };

@@ -5,9 +5,9 @@ export enum MainReason {
   BrukAvRaadgivendeLege = 'brukAvRaadgivendeLege',
 }
 
-const MAIN_REASON = Object.values(MainReason);
+export const MAIN_REASONS = Object.values(MainReason);
 
-export const isMainReason = (value: string): value is MainReason => MAIN_REASON.some((v) => v === value);
+export const isMainReason = (value: string): value is MainReason => MAIN_REASONS.some((v) => v === value);
 
 export const MAIN_REASON_LABELS: Record<MainReason, string> = {
   [MainReason.Klageforberedelsen]: 'Klageforberedelsen',

@@ -4,7 +4,6 @@ type Counts = Partial<Record<keyof IStatisticVurderingV2, number>>;
 
 interface Calculation {
   reasons: Counts;
-  totalReasonsCount: number;
   reasonArray: [string, number][];
 }
 
@@ -25,7 +24,6 @@ export const calculateReasons = (
   }, {});
 
   const reasonArray = Object.entries(reasons);
-  const totalReasonsCount = reasonArray.reduce((total, [, count]) => total + count, 0);
 
-  return { reasons, reasonArray, totalReasonsCount };
+  return { reasons, reasonArray };
 };

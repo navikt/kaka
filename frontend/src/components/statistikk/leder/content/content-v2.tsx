@@ -1,6 +1,7 @@
 import { skipToken } from '@reduxjs/toolkit/query';
 import React, { useMemo } from 'react';
 import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
+import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
 import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
 import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
 import { useUser } from '@app/simple-api-state/use-user';
@@ -102,6 +103,7 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
         <FullWidthStickyContainer>
           <StatsContainer>
             <Finished stats={allData} />
+            <TotalProcessed length={relevantData.length} />
             <Omgjort stats={relevantData} label="Omgjort av vår enhet" />
             <Gjennomsnittstid stats={relevantData} />
             <Processed weeks={12} stats={relevantData} />

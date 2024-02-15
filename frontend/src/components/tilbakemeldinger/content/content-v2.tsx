@@ -1,5 +1,6 @@
 import React from 'react';
 import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
+import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
 import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
 import { ContentArea } from '@app/styled-components/filters-and-content';
@@ -39,6 +40,7 @@ export const ContentV2 = ({ mine, rest, statsIsLoading, saksdata, saksdataIsLoad
         <FullWidthStickyContainer>
           <StatsContainer>
             <Finished stats={mine} />
+            <TotalProcessed length={relevantMine.length} />
             <Omgjort stats={relevantMine} label="Omgjort av vår enhet" />
           </StatsContainer>
         </FullWidthStickyContainer>

@@ -6,7 +6,12 @@ export interface DataSet {
   data: IStatisticVurderingV2[];
 }
 
-export interface MainReasonsVurdering {
+export interface MainReasonDataset {
+  label: string;
+  data: MainReasonsVurdering[];
+}
+
+interface MainReasonsVurdering {
   [MainReason.Klageforberedelsen]: IStatisticVurderingV2[MainReason.Klageforberedelsen];
   [MainReason.Utredningen]: IStatisticVurderingV2[MainReason.Utredningen];
   [MainReason.Vedtaket]: IStatisticVurderingV2[MainReason.Vedtaket];

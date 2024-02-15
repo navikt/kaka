@@ -1,21 +1,19 @@
 import { ChartData } from 'chart.js';
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import {
+  KVALITETSVURDERING_TEXTS,
   KVALITETSVURDERING_V2_TEXTS,
   MAIN_REASON_IDS,
   REASON_TO_SUBREASONS,
 } from '@app/components/statistikk/types/kvalitetsvurdering';
-import { toPercent } from '@app/domain/number';
 import { DataSet } from '../types';
-import { calculateMainReasons } from './helpers/main-reasons';
 import { calculateReasons } from './helpers/reasons';
-import { calculateTotalMangelfullFactor } from './helpers/total-mangelfull-factor';
 
 /* 
   This function calculates the stats given into one chart dataset ({ label: string, data: number[], backgroundColor: string }) per subreason.
   It will also extract the labels from the stats and return them as an array of strings.
-  The data is calculated by first calculating the total mangelfull factor for the given stats.
-
+  The data is calculated as a percentage of the total amount of data in the stats.
+  
   Given the following stats:
   [
     {
@@ -55,7 +53,8 @@ import { calculateTotalMangelfullFactor } from './helpers/total-mangelfull-facto
     datasets: [
       {
         label: 'Feil faktum lagt til grunn',
-        data: [0.5, 0.5],
+        percentages: [50, 50],
+        data: [1, 1],
         backgroundColor: '#ff44cc'
       },
     ]
@@ -68,7 +67,13 @@ type ReturnType = ChartData<'bar', number[], string>;
 
 interface StackedBarPieceCount {
   label: string;
-  counts: number[];
+  percentages: number[];
+}
+
+interface Stack {
+  mainReason: MainReason;
+  data: Record<string, [number, number]>;
+  label: string;
 }
 
 type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
@@ -77,40 +82,26 @@ export const getMangelfullDetailsDatasets = (
   stats: DataSet[],
   unit: string,
 ): { datasets: StackedBarPiece[]; labels: string[] } => {
-  const unsortedBars = stats.flatMap(({ label, data }) => [
-    { label: `${label} - Klageforberedelsen`, data, mainReason: Klageforberedelsen },
-    { label: `${label} - Utredningen`, data, mainReason: Utredningen },
-    { label: `${label} - Vedtaket`, data, mainReason: Vedtaket },
-    { label: `${label} - Bruk av rådgivende lege`, data, mainReason: BrukAvRaadgivendeLege },
-  ]);
-
-  const sortedBars = MAIN_REASON_IDS.flatMap((mainReasonId) =>
-    unsortedBars.filter(({ mainReason }) => mainReason === mainReasonId),
+  const unsortedBars = stats.flatMap(({ data, label }) =>
+    [Klageforberedelsen, Utredningen, Vedtaket, BrukAvRaadgivendeLege].map((mainReason) => ({
+      label:
+        stats.length > 1
+          ? `${label} - ${KVALITETSVURDERING_TEXTS[mainReason].label}`
+          : KVALITETSVURDERING_TEXTS[mainReason].label,
+      data,
+      mainReason,
+    })),
   );
 
-  interface Stack {
-    mainReason: MainReason;
-    data: Record<string, [number, number]>;
-    label: string;
-  }
+  const sortedBars = MAIN_REASON_IDS.flatMap((id) => unsortedBars.filter(({ mainReason }) => mainReason === id));
 
   const stacks = sortedBars.map<Stack>(({ mainReason, data, label }) => {
-    const totalMangelfullFactor = calculateTotalMangelfullFactor(data);
-
-    const { mainReasons, totalMainReasonsCount } = calculateMainReasons(data);
-
-    const mainReasonMangelfullFactor = (mainReasons[mainReason] / totalMainReasonsCount) * totalMangelfullFactor;
-
-    const reasonIds = REASON_TO_SUBREASONS[mainReason];
-
-    const { reasonArray, totalReasonsCount } = calculateReasons(data, reasonIds);
+    const { reasonArray } = calculateReasons(data, REASON_TO_SUBREASONS[mainReason]);
 
     return {
       mainReason,
       label,
-      data: Object.fromEntries(
-        reasonArray.map(([id, count]) => [id, [count, (count / totalReasonsCount) * mainReasonMangelfullFactor]]),
-      ),
+      data: Object.fromEntries(reasonArray.map(([id, count]) => [id, [count, count / data.length]])),
     };
   });
 
@@ -122,8 +113,8 @@ export const getMangelfullDetailsDatasets = (
 
       return {
         label,
-        data: stacks.map(({ data }) => (data[reasonId]?.[1] ?? 0) * 100),
-        counts: stacks.map(({ data }) => data[reasonId]?.[0] ?? 0),
+        percentages: stacks.map(({ data }) => (data[reasonId]?.[1] ?? 0) * 100),
+        data: stacks.map(({ data }) => data[reasonId]?.[0] ?? 0),
         backgroundColor,
         barThickness: BAR_THICKNESS,
       };
@@ -132,16 +123,12 @@ export const getMangelfullDetailsDatasets = (
 
   const labels = stacks.map(({ label }, index) => {
     let count = 0;
-    let percent = 0;
 
-    for (const { counts, data } of datasets) {
-      count += counts[index] ?? 0;
-      percent += data[index] ?? 0;
+    for (const { data } of datasets) {
+      count += data[index] ?? 0;
     }
 
-    const percentValue = Number.isNaN(percent) ? '-' : toPercent(percent / 100);
-
-    return `${label} (${percentValue} | ${count} ${unit})`;
+    return `${label} (${count} ${unit})`;
   });
 
   return { datasets, labels };
