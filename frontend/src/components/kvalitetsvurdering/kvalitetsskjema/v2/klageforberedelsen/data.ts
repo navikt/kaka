@@ -86,7 +86,7 @@ export const KLAGEFORBEREDELSEN_HELP_TEXTS = {
   [KlageforberedelsenBoolean.klageforberedelsenOversendelsesbrevIkkeSendtKopiTilPartenEllerFeilMottaker]:
     'F.eks. er oversendelsesbrevet ikke sendt til fullmektig i saken.',
   [KlageforberedelsenBoolean.klageforberedelsenUtredningenUnderKlageforberedelsen]:
-    'Gjelder kvaliteten på utredningen under klageforberedelsen (fra vedtak ble fattet til saken ble oversendt klageinstansen). Gjelder kvaliteten på utredningen av opplysninger som NAV ikke har tilgang til. Dersom utredningen var mangelfull før vedtak ble fattet og dette ikke ble reparert under klageforberedelsen, huker du av for mangelfull utredning både her og under Utredningen før vedtak.',
+    'Gjelder kvaliteten på utredningen under klageforberedelsen (fra vedtak ble fattet til saken ble oversendt klageinstansen). Gjelder kvaliteten på utredningen av opplysninger som NAV ikke har tilgang til. Dersom utredningen var mangelfull før vedtak ble fattet og dette ikke ble rettet opp under klageforberedelsen, huker du av for mangelfull utredning både her og under Utredningen før vedtak.',
   [KlageforberedelsenTextInput.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysningerFritekst]:
     'Det du skriver her er kun for klageinstansens interne bruk og blir ikke synlig for vedtaksinstansen. Husk å skrive kort / med stikkord. Ikke skriv personopplysninger eller detaljer om saken.',
   [KlageforberedelsenTextInput.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarSelvInnhentetNyeOpplysningerFritekst]:
