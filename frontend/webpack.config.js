@@ -57,13 +57,14 @@ module.exports = {
     host: '0.0.0.0',
     port: 8062,
     historyApiFallback: true,
-    proxy: {
-      '/api': {
+    proxy: [
+      {
+        context: ['/api'],
         target: 'https://kaka.intern.dev.nav.no',
         secure: false,
         changeOrigin: true,
         withCredentials: true,
       },
-    },
+    ],
   },
 };
