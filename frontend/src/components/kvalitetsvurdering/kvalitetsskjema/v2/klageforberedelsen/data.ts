@@ -63,11 +63,11 @@ export const KLAGEFORBEREDELSEN_LABELS: Record<KlageforberedelsenFields, string>
   [KlageforberedelsenBoolean.klageforberedelsenUtredningenUnderKlageforberedelsen]:
     'Utredningen under klageforberedelsen',
   [KlageforberedelsenBoolean.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysninger]:
-    'Klageinstansen har bedt underinstansen om å innhente nye opplysninger',
+    'Klageinstansen har bedt underinstansen om å innhente nye opplysninger (valgfri)',
   [KlageforberedelsenTextInput.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysningerFritekst]:
     'Skriv hvilke opplysninger som måtte hentes inn her (valgfri)',
   [KlageforberedelsenBoolean.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarSelvInnhentetNyeOpplysninger]:
-    'Klageinstansen har selv innhentet nye opplysninger',
+    'Klageinstansen har selv innhentet nye opplysninger (valgfri)',
   [KlageforberedelsenTextInput.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarSelvInnhentetNyeOpplysningerFritekst]:
     'Skriv hvilke opplysninger som måtte hentes inn her (valgfri)',
 };
