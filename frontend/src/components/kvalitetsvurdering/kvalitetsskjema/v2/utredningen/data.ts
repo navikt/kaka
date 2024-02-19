@@ -49,5 +49,5 @@ export const UTREDNINGEN_HELP_TEXTS: Record<UtredningenBoolean, string> = {
   [UtredningenBoolean.utredningenAvSivilstandBoforhold]:
     'Du registrerer også her om boforhold/sivilstand er av betydning, men ikke avklart.',
   [UtredningenBoolean.utredningenAvAndreAktuelleForholdISaken]:
-    'Du kan skrive konkret hvilke feil ved utredningen av andre aktuelle forhold det gjelder i fritekstfeltet nederst.',
+    'Du kan skrive konkret hvilke feil ved utredningen av andre aktuelle forhold det gjelder under «Annet» nederst.',
 };
