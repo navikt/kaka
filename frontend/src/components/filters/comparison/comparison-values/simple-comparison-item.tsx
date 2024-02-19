@@ -7,6 +7,7 @@ import {
   StyledColorPicker,
   StyledComparisonItem,
 } from '@app/components/filters/comparison/comparison-values/styled-components';
+import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
 import { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { SingleSelectDropdown } from '../../../dropdown/single-select-dropdown';
 import { ToggleButton } from '../../../toggle/toggle-button';
@@ -35,15 +36,17 @@ export const SimpleComparisonItem = ({
   testId,
 }: ComparisonItemProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef<HTMLButtonElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const toggleOpen = () => setIsOpen(!isOpen);
   const closeDropdown = () => setIsOpen(false);
 
+  useOnClickOutside(() => setIsOpen(false), containerRef);
+
   return (
     <StyledComparisonItem>
-      <DropdownContainer>
-        <ToggleButton ref={ref} onClick={toggleOpen} $open={isOpen} $size="small">
+      <DropdownContainer ref={containerRef}>
+        <ToggleButton onClick={toggleOpen} $open={isOpen} $size="small">
           <Ellipsis>{selectedLabel}</Ellipsis>
         </ToggleButton>
         <SingleSelectDropdown
@@ -54,8 +57,7 @@ export const SimpleComparisonItem = ({
           testId={testId}
           open={isOpen}
           close={closeDropdown}
-          buttonRef={ref.current}
-          maxHeight="300px"
+          maxHeight="280px"
           width="100%"
         />
       </DropdownContainer>

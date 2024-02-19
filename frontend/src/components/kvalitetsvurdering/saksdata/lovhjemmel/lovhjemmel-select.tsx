@@ -3,6 +3,7 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import React, { useMemo, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
+import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
 import { GroupedDropdown } from '../../../dropdown/grouped-dropdown';
 import { ErrorMessage } from '../../../error-message/error-message';
 
@@ -37,8 +38,11 @@ export const LovhjemmelSelect = ({
 }: LovhjemmelSelectProps) => {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const ytelseParams = useYtelseParams();
   const lovKildeToRegistreringshjemler = useLovkildeToRegistreringshjemmelForYtelse(ytelseParams);
+
+  useOnClickOutside(() => setOpen(false), containerRef);
 
   const options = useMemo(
     () =>
@@ -79,7 +83,7 @@ export const LovhjemmelSelect = ({
   const close = () => setOpen(false);
 
   return (
-    <Container data-testid={testId} data-selected={selected.join(',')}>
+    <Container data-testid={testId} data-selected={selected.join(',')} ref={containerRef}>
       <StyledButton
         ref={buttonRef}
         id={id}
@@ -93,7 +97,6 @@ export const LovhjemmelSelect = ({
       </StyledButton>
 
       <GroupedDropdown
-        anchorEl={buttonRef.current}
         selected={selected}
         options={options}
         open={open}

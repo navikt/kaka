@@ -28,7 +28,6 @@ const ShowGroupedDropdown = ({
   maxHeight,
   width,
   testId,
-  anchorEl,
   showFjernAlle = true,
 }: Omit<DropdownProps, 'open'>): JSX.Element | null => {
   const [filteredGroups, setFilteredGroups] = useState(options);
@@ -38,7 +37,7 @@ const ShowGroupedDropdown = ({
   const reset = () => onChange(null, false);
 
   return (
-    <DropdownContainer maxHeight={maxHeight} width={width} buttonRef={anchorEl} onClose={close} testId={testId}>
+    <DropdownContainer maxHeight={maxHeight} width={width} testId={testId}>
       <Header
         options={allGroups}
         onChange={onHeaderChange}

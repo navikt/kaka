@@ -20,5 +20,4 @@ export interface CommonGroupedDropdownProps {
   testId: string;
   maxHeight?: string;
   width?: string;
-  anchorEl: HTMLButtonElement | null;
 }

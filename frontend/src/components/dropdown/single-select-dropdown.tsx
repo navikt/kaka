@@ -16,7 +16,6 @@ interface DropdownProps {
   testId: string;
   maxHeight?: string | number;
   width?: string | number;
-  buttonRef: HTMLButtonElement | null;
 }
 
 interface Option {
@@ -42,7 +41,6 @@ const ShowSingleSelectDropdown = ({
   testId,
   maxHeight,
   width,
-  buttonRef,
 }: Omit<DropdownProps, 'open'>): JSX.Element | null => {
   const options = useMemo(
     () => kodeverk.map<Option>((kodeverkValue) => ({ value: kodeverkValue[valueKey], label: labelFn(kodeverkValue) })),
@@ -52,7 +50,7 @@ const ShowSingleSelectDropdown = ({
   const [filteredOptions, setFilteredOptions] = useState<Option[]>(options);
 
   return (
-    <DropdownContainer maxHeight={maxHeight} width={width} buttonRef={buttonRef} onClose={close}>
+    <DropdownContainer maxHeight={maxHeight} width={width}>
       <Header options={options} onChange={setFilteredOptions} close={close} />
       <StyledSectionList data-testid={`${testId}-list`}>
         {filteredOptions.map(({ label, value }) => (
