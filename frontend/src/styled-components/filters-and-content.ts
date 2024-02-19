@@ -18,14 +18,14 @@ export const FilterSection = styled.div`
   flex-shrink: 0;
   flex-grow: 0;
   border-right: 1px solid #c6c2bf;
-  padding-top: 32px;
+  padding-top: 124px;
   padding-right: 16px;
+  padding-bottom: 16px;
   padding-left: 4px;
   margin-right: 0;
   width: ${FILTER_WIDTH}px;
   height: 100%;
   overflow-y: auto;
-  padding-top: 124px;
 
   @media (max-width: ${BREAK_POINT}px) {
     position: relative;

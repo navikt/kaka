@@ -13,6 +13,7 @@ import {
 } from '@app/components/filters/comparison/comparison-values/styled-components';
 import { useOnchange } from '@app/components/filters/comparison/comparison-values/use-onchange';
 import { ToggleButton } from '@app/components/toggle/toggle-button';
+import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
 import { useLovkildeToRegistreringshjemler, useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
 import { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { OptionValue } from '@app/types/statistics/common';
@@ -90,7 +91,9 @@ const HjemmelSelect = ({ value, color }: { value: string; color: string }) => {
   const options = useLovkildeToRegistreringshjemlerOptions(selectedValues);
 
   const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef<HTMLButtonElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(() => setIsOpen(false), containerRef);
 
   const toggleOpen = () => setIsOpen(!isOpen);
   const closeDropdown = () => setIsOpen(false);
@@ -100,8 +103,8 @@ const HjemmelSelect = ({ value, color }: { value: string; color: string }) => {
 
   return (
     <StyledComparisonItem>
-      <DropdownContainer>
-        <ToggleButton ref={ref} onClick={toggleOpen} $open={isOpen} $size="small">
+      <DropdownContainer ref={containerRef}>
+        <ToggleButton onClick={toggleOpen} $open={isOpen} $size="small">
           <Ellipsis>{label}</Ellipsis>
         </ToggleButton>
         <GroupedSingleSelect
@@ -111,7 +114,6 @@ const HjemmelSelect = ({ value, color }: { value: string; color: string }) => {
           testId="hjemmel-comparison"
           open={isOpen}
           close={closeDropdown}
-          anchorEl={ref.current}
         />
       </DropdownContainer>
       <StyledColorPicker type="color" value={color} onChange={({ target }) => setColor(value, target.value)} />

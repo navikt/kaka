@@ -1,45 +1,44 @@
-import { Popover } from '@navikt/ds-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
 interface Props {
-  buttonRef: HTMLButtonElement | null;
   children: React.ReactNode;
-  onClose: () => void;
   testId?: string;
   maxHeight?: string | number;
   width?: string | number;
 }
 
-export const DropdownContainer = ({ buttonRef, children, onClose, testId, maxHeight, width }: Props) => (
-  <StyledPopover
-    open
-    anchorEl={buttonRef}
-    arrow={false}
-    placement="bottom-start"
-    onClose={onClose}
-    data-testid={testId}
-    $maxHeight={maxHeight}
-    $width={width}
-  >
-    <StyledPopoverContent>{children}</StyledPopoverContent>
-  </StyledPopover>
-);
+export const DropdownContainer = ({ children, testId, width, maxHeight }: Props) => {
+  const [ref, setRef] = useState<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (ref !== null) {
+      requestAnimationFrame(() => ref.scrollIntoView({ behavior: 'smooth', block: 'nearest' }));
+    }
+  }, [ref]);
+
+  return (
+    <Container ref={setRef} data-testid={testId} $width={width} $maxHeight={maxHeight}>
+      <Wrapper>{children}</Wrapper>
+    </Container>
+  );
+};
 
 interface StyledDropdownProps {
   $maxHeight?: string | number;
   $width?: string | number;
 }
 
-const StyledPopoverContent = styled(Popover.Content)`
+const Container = styled.div<StyledDropdownProps>`
+  position: absolute;
+  z-index: 1;
+  background-color: var(--a-bg-default);
   padding: 0;
-  width: 100%;
-  height: 100%;
+  max-height: ${({ $maxHeight }) => $maxHeight ?? '256px'};
+  width: ${({ $width }) => $width ?? '275px'};
+  overflow: auto;
+  border-radius: 4px;
+  box-shadow: var(--a-shadow-medium);
 `;
 
-const StyledPopover = styled(Popover)<StyledDropdownProps>`
-  max-height: ${({ $maxHeight: maxHeight = '256px' }) => maxHeight};
-  width: ${({ $width: width = '275px' }) => width};
-  overflow: auto;
-  left: 0 !important; // Need to override style.left
-`;
+const Wrapper = styled.div``;

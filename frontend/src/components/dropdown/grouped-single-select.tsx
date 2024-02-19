@@ -29,14 +29,13 @@ const ShowGroupedSingleSelectDropdown = ({
   maxHeight,
   width,
   testId,
-  anchorEl,
 }: Omit<Props, 'open'>): JSX.Element | null => {
   const [filteredGroups, setFilteredGroups] = useState(options);
   const allGroups = useMemo(() => options.flatMap(({ sectionOptions }) => sectionOptions), [options]);
   const onHeaderChange = useOnHeaderChange(options, setFilteredGroups);
 
   return (
-    <DropdownContainer maxHeight={maxHeight} width={width} buttonRef={anchorEl} onClose={close} testId={testId}>
+    <DropdownContainer maxHeight={maxHeight} width={width} testId={testId}>
       <Header options={allGroups} onChange={onHeaderChange} close={close} />
       <DropdownContent>
         {filteredGroups.map(({ sectionHeader, sectionOptions }) => (

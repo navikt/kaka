@@ -3,6 +3,7 @@ import React, { useMemo, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useEnheterForYtelse, useKlageenheterForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
+import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { useSaksdataId } from '@app/hooks/use-saksdata-id';
 import { useValidationError } from '@app/hooks/use-validation-error';
@@ -23,7 +24,9 @@ export const FraVedtaksenhet = () => {
   const klageenheter = useKlageenheterForYtelse(ytelseParams); // Sakstype anke uses klageenheter
   const validationError = useValidationError('vedtaksinstansEnhet');
   const [open, setOpen] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(() => setOpen(false), containerRef);
 
   const options = useMemo(() => {
     if (saksdata?.sakstypeId === SakstypeEnum.ANKE) {
@@ -95,7 +98,7 @@ export const FraVedtaksenhet = () => {
   const close = () => setOpen(false);
 
   return (
-    <Container>
+    <Container ref={containerRef}>
       <StyledLabel size="medium" spacing htmlFor="vedtaksinstansEnhet">
         Fra vedtaksenhet
       </StyledLabel>
@@ -105,12 +108,10 @@ export const FraVedtaksenhet = () => {
         onClick={() => setOpen(!open)}
         $error={typeof validationError !== 'undefined'}
         data-value={saksdata.vedtaksinstansEnhet}
-        ref={buttonRef}
       >
         {selectedEnhetName ?? 'Ingen enhet'}
       </ToggleButton>
       <SingleSelectDropdown
-        buttonRef={buttonRef.current}
         selected={saksdata.vedtaksinstansEnhet}
         kodeverk={options}
         open={open}
