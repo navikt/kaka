@@ -9,17 +9,11 @@ import { FullfoerteVurderingerTable } from './fullfoerte-vurderinger-table';
 import { PaabegynteVurderingerTable } from './paabegynte-vurderinger-table';
 
 export const Kvalitetsvurderinger = () => {
-  const { data: userData, isLoading } = useUser();
+  const userData = useUser();
   const [createSaksdata] = useCreateSaksdataMutation();
   const navigate = useNavigate();
 
-  const disabled = isLoading || typeof userData === 'undefined';
-
   const createNewSaksdata = () => {
-    if (disabled) {
-      return;
-    }
-
     createSaksdata({
       saksbehandlerIdent: userData.ident,
     })
@@ -31,7 +25,6 @@ export const Kvalitetsvurderinger = () => {
     <StyledKvalitetsvurderinger>
       <Button
         onClick={() => createNewSaksdata()}
-        disabled={disabled}
         data-testid="new-kvalitetsvurdering-button"
         icon={<DocPencilIcon aria-hidden />}
       >

@@ -6,7 +6,6 @@ import { useSearchParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
-import { useUser } from '@app/simple-api-state/use-user';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
 import { DateContainer, FilterPanelContainer, StyledHr } from '../../filters/common/styled-components';
 import { ComparisonProp } from '../../filters/comparison/comparison-prop';
@@ -56,7 +55,6 @@ import { YtelseFilter } from '../../filters/ytelser';
 import { VedtaksinstansgruppeFilter } from '../total/vedtaksinstansgruppe-filter';
 
 export const Filters = () => {
-  const { data: userData } = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedEnheter = useQueryFilters(QueryParams.ENHETER);
@@ -107,13 +105,7 @@ export const Filters = () => {
 
   return (
     <FilterPanelContainer>
-      <Button
-        variant="secondary"
-        size="small"
-        icon={<ArrowUndoIcon aria-hidden />}
-        onClick={resetFilters}
-        disabled={typeof userData === 'undefined'}
-      >
+      <Button variant="secondary" size="small" icon={<ArrowUndoIcon aria-hidden />} onClick={resetFilters}>
         Nullstill filter
       </Button>
 

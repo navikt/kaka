@@ -1,7 +1,5 @@
-import { skipToken } from '@reduxjs/toolkit/query';
 import { useSaksdatalisteLederVedtaksinstans } from '@app/simple-api-state/statistics/v1/use-saksdataliste-leder-vedtaksinstans';
 import { useUser } from '@app/simple-api-state/use-user';
-import { ISaksdatalisteLederVedtaksinstansParamsV1 } from '@app/types/saksdata';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../filters/date-presets/constants';
 import { QueryParams } from '../../filters/filter-query-params';
 import {
@@ -14,7 +12,7 @@ import { TilbakekrevingEnum } from '../../filters/types';
 import { tilbakekrevingFilter } from '../../statistikk/filters/tilbakekreving';
 
 const useSaksdata = () => {
-  const { data: userData } = useUser();
+  const userData = useUser();
 
   // Dates
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
@@ -23,12 +21,7 @@ const useSaksdata = () => {
   const mangelfullt = useQueryFilters(QueryParams.MANGELFULLT);
   const kommentarer = useQueryFilters(QueryParams.KOMMENTARER);
 
-  const query: ISaksdatalisteLederVedtaksinstansParamsV1 | typeof skipToken =
-    typeof userData === 'undefined'
-      ? skipToken
-      : { navIdent: userData.ident, fromDate, toDate, mangelfullt, kommentarer };
-
-  return useSaksdatalisteLederVedtaksinstans(query);
+  return useSaksdatalisteLederVedtaksinstans({ navIdent: userData.ident, fromDate, toDate, mangelfullt, kommentarer });
 };
 
 export const useFilteredSaksdataV1 = () => {

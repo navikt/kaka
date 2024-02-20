@@ -10,14 +10,14 @@ import { useUser } from '@app/simple-api-state/use-user';
 import { SakstypeEnum } from '@app/types/sakstype';
 
 export const Sakstype = () => {
-  const { data: user } = useUser();
+  const user = useUser();
   const { data: saksdata } = useSaksdata();
   const [updateSakstype] = useSetSakstypeMutation();
   const { data: sakstyper = [] } = useSakstyper();
   const canEdit = useCanEdit();
   const validationError = useValidationError('sakstypeId');
 
-  if (typeof saksdata === 'undefined' || sakstyper.length === 0 || typeof user === 'undefined') {
+  if (typeof saksdata === 'undefined' || sakstyper.length === 0) {
     return null;
   }
 

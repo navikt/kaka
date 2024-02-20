@@ -2,16 +2,12 @@ import { Button } from '@navikt/ds-react';
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDefaultQueryTilbakemeldinger } from '@app/hooks/use-default-query-params';
-import { useUserHasRole } from '@app/hooks/use-user-access';
+import { useUserAccess } from '@app/hooks/use-user-access';
 
 export const BackLink = () => {
   const location = useLocation();
-  const { isLoading, roles } = useUserHasRole();
+  const access = useUserAccess();
   const defaultQuery = useDefaultQueryTilbakemeldinger();
-
-  if (isLoading) {
-    return null;
-  }
 
   if (typeof location.state === 'string' && location.state.startsWith('/')) {
     return (
@@ -21,7 +17,7 @@ export const BackLink = () => {
     );
   }
 
-  if (roles.KAKA_KVALITETSTILBAKEMELDINGER) {
+  if (access.KAKA_KVALITETSTILBAKEMELDINGER) {
     return (
       <Button to={`/tilbakemeldinger?${defaultQuery}`} as={Link} size="small" variant="secondary">
         Tilbakemeldinger

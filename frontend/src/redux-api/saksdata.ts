@@ -9,7 +9,7 @@ type Updatable = Omit<ISaksdataIncomplete, 'id' | 'created' | 'modified'>;
 type SaksdataUpdate<K extends keyof Updatable> = Pick<Updatable, K> & WithId;
 type SaksdataAndListUpdate<K extends keyof Updatable> = SaksdataUpdate<K> & { saksbehandlerIdent: string };
 
-export interface ISaksdataListParams {
+interface ISaksdataListParams {
   saksbehandlerIdent: string;
   sidenDager?: number;
 }

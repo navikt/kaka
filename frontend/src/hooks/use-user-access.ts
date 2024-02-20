@@ -6,11 +6,6 @@ type Access = {
   [key in Role]: boolean;
 };
 
-interface ReturnValue {
-  isLoading: boolean;
-  roles: Access;
-}
-
 const INITIAL_ACCESS: Access = {
   [Role.KAKA_KVALITETSVURDERING]: false,
   [Role.KAKA_TOTALSTATISTIKK]: false,
@@ -23,20 +18,16 @@ const INITIAL_ACCESS: Access = {
   [Role.ROLE_KLAGE_LEDER]: false,
 };
 
-export const useUserHasRole = (): ReturnValue => {
-  const { data: user, isLoading } = useUser();
+export const useUserAccess = (): Access => {
+  const user = useUser();
 
   return useMemo(() => {
-    if (isLoading || typeof user === 'undefined') {
-      return { isLoading: true, roles: INITIAL_ACCESS };
-    }
-
     const roles: Access = user.roller.reduce<Access>((acc, role) => {
       acc[role] = true;
 
       return acc;
     }, INITIAL_ACCESS);
 
-    return { isLoading: false, roles };
-  }, [isLoading, user]);
+    return roles;
+  }, [user]);
 };

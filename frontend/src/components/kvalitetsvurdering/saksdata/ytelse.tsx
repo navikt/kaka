@@ -11,7 +11,7 @@ import { useUser } from '@app/simple-api-state/use-user';
 import { EmptyOption } from './empty-option';
 
 export const Ytelse = () => {
-  const { data: user } = useUser();
+  const user = useUser();
   const saksId = useSaksdataId();
   const { data: saksdata } = useSaksdata();
   const [setYtelse] = useSetYtelseMutation();
@@ -19,7 +19,7 @@ export const Ytelse = () => {
   const validationError = useValidationError('ytelseId');
   const ytelser = useSimpleYtelserForKlageenhet(saksdata?.tilknyttetEnhet ?? skipToken);
 
-  if (typeof saksdata === 'undefined' || typeof user === 'undefined') {
+  if (typeof saksdata === 'undefined') {
     return null;
   }
 

@@ -53,7 +53,7 @@ import { YtelseFilter } from '../../filters/ytelser';
 import { VedtaksinstansgruppeFilter } from './vedtaksinstansgruppe-filter';
 
 export const Filters = () => {
-  const { data: userData } = useUser();
+  const userData = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedEnheter = useQueryFilters(QueryParams.ENHETER);
@@ -95,7 +95,7 @@ export const Filters = () => {
       [QueryParams.VERSION]: KvalitetsvurderingVersion.V2.toString(10),
       [QueryParams.FROM_DATE]: FORMATTED_START_OF_MONTH,
       [QueryParams.TO_DATE]: FORMATTED_NOW,
-      [QueryParams.KLAGEENHETER]: userData?.ansattEnhet.id ?? '',
+      [QueryParams.KLAGEENHETER]: userData.ansattEnhet.id,
     });
 
   const setPreset = (from: Date, to: Date) => {
@@ -105,7 +105,7 @@ export const Filters = () => {
 
   return (
     <FilterPanelContainer>
-      <Button variant="secondary" size="small" onClick={resetFilters} disabled={typeof userData === 'undefined'}>
+      <Button variant="secondary" size="small" onClick={resetFilters}>
         Nullstill filter
       </Button>
 

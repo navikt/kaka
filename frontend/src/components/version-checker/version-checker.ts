@@ -1,9 +1,12 @@
+import { ENVIRONMENT } from '@app/environment';
+import { getQueryParams } from '@app/headers';
+
 type OnVersionFn = (isDifferent: boolean) => void;
 
 export class VersionChecker {
   private events: EventSource | undefined;
   private onVersion: OnVersionFn;
-  private version: string | undefined = process.env.VERSION;
+  private version: string | undefined = ENVIRONMENT.version;
 
   constructor(onVersion: OnVersionFn) {
     this.onVersion = onVersion;
@@ -16,7 +19,7 @@ export class VersionChecker {
   private delay = 0;
 
   private getEventSource() {
-    const events = new EventSource('/version');
+    const events = new EventSource(`/version?${getQueryParams()}`);
 
     events.addEventListener('error', () => {
       if (events.readyState === EventSource.CLOSED) {
@@ -26,7 +29,7 @@ export class VersionChecker {
           setTimeout(this.getEventSource.bind(this), this.delay);
         }
 
-        this.delay = this.delay === 0 ? 500 : Math.min(this.delay + 500, 10000);
+        this.delay = this.delay === 0 ? 500 : Math.min(this.delay + 500, 10_000);
       }
     });
 

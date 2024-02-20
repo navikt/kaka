@@ -9,7 +9,7 @@ import { useSetSakenGjelderMutation } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';
 
 export const SakenGjelder = () => {
-  const { data: user } = useUser();
+  const user = useUser();
   const id = useSaksdataId();
   const { data: saksdata } = useSaksdata();
   const [updateSakenGjelder] = useSetSakenGjelderMutation();
@@ -20,12 +20,7 @@ export const SakenGjelder = () => {
   const validationError = useValidationError('sakenGjelder');
 
   useEffect(() => {
-    if (
-      typeof user === 'undefined' ||
-      typeof saksdata === 'undefined' ||
-      saksdata.sakenGjelder === value ||
-      value === initialValue
-    ) {
+    if (typeof saksdata === 'undefined' || saksdata.sakenGjelder === value || value === initialValue) {
       return;
     }
 

@@ -18,7 +18,7 @@ import {
   useDefaultQueryTilbakemeldinger,
   useDefaultQueryTotal,
 } from '@app/hooks/use-default-query-params';
-import { useUserHasRole } from '@app/hooks/use-user-access';
+import { useUserAccess } from '@app/hooks/use-user-access';
 
 export const Nav = () => {
   const defaultQueryAapen = useDefaultQueryAapen();
@@ -28,11 +28,7 @@ export const Nav = () => {
   const defaultQueryTilbakemeldinger = useDefaultQueryTilbakemeldinger();
   const defauleQueryComparison = useDefaultQueryComparison();
 
-  const { isLoading, roles } = useUserHasRole();
-
-  if (isLoading) {
-    return null;
-  }
+  const access = useUserAccess();
 
   return (
     <StyledNav role="navigation" aria-label="Meny" data-testid="kaka-nav">
@@ -44,7 +40,7 @@ export const Nav = () => {
         <NavItem
           to={`/statistikk/total?${defaultQueryTotal}`}
           testId="statistikk-total-nav-link"
-          hasAccess={roles.KAKA_TOTALSTATISTIKK}
+          hasAccess={access.KAKA_TOTALSTATISTIKK}
         >
           <BarChartFillIcon aria-hidden /> Totalstatistikk
         </NavItem>
@@ -52,7 +48,7 @@ export const Nav = () => {
         <NavItem
           to={`/statistikk/leder?${defaultQueryLeder}`}
           testId="statistikk-leder-nav-link"
-          hasAccess={roles.KAKA_LEDERSTATISTIKK}
+          hasAccess={access.KAKA_LEDERSTATISTIKK}
         >
           <PieChartFillIcon aria-hidden /> Lederstatistikk
         </NavItem>
@@ -60,7 +56,7 @@ export const Nav = () => {
         <NavItem
           to={`/statistikk/min?${defaultQueryMin}`}
           testId="statistikk-min-nav-link"
-          hasAccess={roles.KAKA_KVALITETSVURDERING}
+          hasAccess={access.KAKA_KVALITETSVURDERING}
         >
           <PieChartIcon aria-hidden /> Min statistikk
         </NavItem>
@@ -68,7 +64,7 @@ export const Nav = () => {
         <NavItem
           to="/kvalitetsvurderinger"
           testId="kvalitetsvurdering-nav-link"
-          hasAccess={roles.KAKA_KVALITETSVURDERING}
+          hasAccess={access.KAKA_KVALITETSVURDERING}
         >
           <BulletListIcon aria-hidden /> Kvalitetsvurderinger
         </NavItem>
@@ -76,14 +72,14 @@ export const Nav = () => {
         <NavItem
           to={`/tilbakemeldinger?${defaultQueryTilbakemeldinger}`}
           testId="tilbakemeldinger-nav-link"
-          hasAccess={roles.KAKA_KVALITETSTILBAKEMELDINGER}
+          hasAccess={access.KAKA_KVALITETSTILBAKEMELDINGER}
         >
           <TasklistIcon aria-hidden /> Tilbakemeldinger
         </NavItem>
         <NavItem
           to={`/sammenlikning?${defauleQueryComparison}`}
           testId="sammenlikning-nav-link"
-          hasAccess={roles.KAKA_TOTALSTATISTIKK}
+          hasAccess={access.KAKA_TOTALSTATISTIKK}
         >
           <LineGraphStackedIcon aria-hidden /> Sammenlikning
         </NavItem>

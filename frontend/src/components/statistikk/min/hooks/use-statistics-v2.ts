@@ -1,8 +1,6 @@
-import { skipToken } from '@reduxjs/toolkit/query/react';
 import { useCallback, useMemo } from 'react';
 import { useStatisticsMy } from '@app/simple-api-state/statistics/v2/use-statistics-my';
-import { useUser } from '@app/simple-api-state/use-user';
-import { IFullStatisticVurderingV2, IStatisticsQuery } from '@app/types/statistics/v2';
+import { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
@@ -15,13 +13,10 @@ import { TilbakekrevingEnum } from '../../../filters/types';
 import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
 
 const useStatistics = () => {
-  const { data: userData } = useUser();
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
   const toDate = useToDateQueryFilter(FORMATTED_NOW);
 
-  const query: IStatisticsQuery | typeof skipToken = typeof userData === 'undefined' ? skipToken : { fromDate, toDate };
-
-  return useStatisticsMy(query);
+  return useStatisticsMy({ fromDate, toDate });
 };
 
 export const useMyStatisticsV2IsLoading = (): boolean => useStatistics().isLoading;
