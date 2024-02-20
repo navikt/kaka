@@ -25,10 +25,10 @@ export const Annet = () => {
 };
 
 const useIsInKlageenhet = () => {
-  const { data: user, isLoading: userIsLoading } = useUser();
+  const user = useUser();
   const { data: klageenheter, isLoading: klageenheterIsLoading } = useKlageenheter();
 
-  if (userIsLoading || klageenheterIsLoading || typeof user === 'undefined' || typeof klageenheter === 'undefined') {
+  if (klageenheterIsLoading || typeof klageenheter === 'undefined') {
     return false;
   }
 

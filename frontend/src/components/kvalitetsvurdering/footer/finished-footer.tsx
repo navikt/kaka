@@ -17,11 +17,11 @@ export const FinishedFooter = () => (
 
 const Reopen = () => {
   const id = useSaksdataId();
-  const { data: userData } = useUser();
+  const userData = useUser();
   const { data: saksdata } = useGetSaksdataQuery(id);
   const [reopenVurdering, { isLoading: isReopening }] = useReopenSaksdataMutation();
 
-  if (typeof userData === 'undefined' || typeof saksdata === 'undefined') {
+  if (typeof saksdata === 'undefined') {
     return null;
   }
 

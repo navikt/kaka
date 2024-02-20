@@ -18,7 +18,7 @@ export const LoadingOverlay = ({ isLoading }: Props) => {
   return null;
 };
 
-export const Overlay = styled.div`
+const Overlay = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 30vh;

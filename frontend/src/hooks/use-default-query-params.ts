@@ -14,9 +14,8 @@ import { useUser } from '@app/simple-api-state/use-user';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 
 const DEFAULT_VERSION = `${QueryParams.VERSION}=${KvalitetsvurderingVersion.V2}`;
-const DEFAULT_VERSION_LEDER = `${QueryParams.VERSION}=${
-  IS_BEFORE_FEBRUARY_2023 ? KvalitetsvurderingVersion.V1 : KvalitetsvurderingVersion.V2
-}`;
+const version = IS_BEFORE_FEBRUARY_2023 ? KvalitetsvurderingVersion.V1 : KvalitetsvurderingVersion.V2;
+const DEFAULT_VERSION_LEDER = `${QueryParams.VERSION}=${version}`;
 
 export const useDefaultQueryAapen = () =>
   useMemo(() => {
@@ -27,7 +26,7 @@ export const useDefaultQueryAapen = () =>
   }, []);
 
 export const useDefaultQueryTotal = () => {
-  const { data: user } = useUser();
+  const user = useUser();
 
   const { data: vedtaksinstansenheter = [] } = useVedtaksenheter();
   const { data: klageenheter = [] } = useKlageenheter();

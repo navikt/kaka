@@ -5,7 +5,6 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
-import { useUser } from '@app/simple-api-state/use-user';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
 import { DateContainer, FilterPanelContainer, StyledHr } from '../../filters/common/styled-components';
@@ -36,7 +35,6 @@ import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
 
 export const Filters = () => {
-  const { data: userData } = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedTypes = useQueryFilters(QueryParams.TYPES);
@@ -82,13 +80,7 @@ export const Filters = () => {
 
   return (
     <FilterPanelContainer>
-      <Button
-        variant="secondary"
-        size="small"
-        icon={<ArrowUndoIcon aria-hidden />}
-        onClick={resetFilters}
-        disabled={typeof userData === 'undefined'}
-      >
+      <Button variant="secondary" size="small" icon={<ArrowUndoIcon aria-hidden />} onClick={resetFilters}>
         Nullstill filter
       </Button>
 

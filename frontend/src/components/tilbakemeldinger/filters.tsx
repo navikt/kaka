@@ -1,5 +1,4 @@
 import { Button, Label, Select } from '@navikt/ds-react';
-import { skipToken } from '@reduxjs/toolkit/query';
 import { format, parse } from 'date-fns';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -48,7 +47,7 @@ import { UtfallFilter } from '../filters/utfall';
 import { YtelseFilter } from '../filters/ytelser';
 
 export const Filters = () => {
-  const { data: userData } = useUser();
+  const userData = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
@@ -66,7 +65,7 @@ export const Filters = () => {
 
   const version = useVersionQueryFilter();
 
-  const ytelser = useYtelserForVedtaksinstansenhet(userData?.ansattEnhet.id ?? skipToken, version);
+  const ytelser = useYtelserForVedtaksinstansenhet(userData.ansattEnhet.id, version);
 
   const { defaultFrom, defaultTo } = useDefaultDates();
   const { validFrom, validTo } = useValidDateInterval();
@@ -97,7 +96,7 @@ export const Filters = () => {
 
   return (
     <FilterPanelContainer>
-      <Button variant="secondary" size="small" onClick={resetFilters} disabled={typeof userData === 'undefined'}>
+      <Button variant="secondary" size="small" onClick={resetFilters}>
         Nullstill filter
       </Button>
 
@@ -155,7 +154,7 @@ export const Filters = () => {
       />
 
       <Select disabled size="small" label="">
-        <option>{userData?.ansattEnhet.navn}</option>
+        <option>{userData.ansattEnhet.navn}</option>
       </Select>
 
       <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />

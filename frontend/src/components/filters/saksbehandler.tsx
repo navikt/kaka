@@ -1,4 +1,3 @@
-import { skipToken } from '@reduxjs/toolkit/query';
 import React from 'react';
 import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
 import { useUser } from '@app/simple-api-state/use-user';
@@ -11,8 +10,8 @@ interface Props {
 }
 
 export const SaksbehandlerFilter = ({ selected, setSelected }: Props) => {
-  const { data: user } = useUser();
-  const { data } = useSaksbehandlere(typeof user === 'undefined' ? skipToken : user.ansattEnhet.id);
+  const user = useUser();
+  const { data } = useSaksbehandlere(user.ansattEnhet.id);
 
   const saksbehandlere: FilterType[] = data?.map(({ navIdent, navn }) => ({ id: navIdent, label: navn })) ?? [];
 

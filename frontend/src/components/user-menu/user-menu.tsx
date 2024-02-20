@@ -6,11 +6,11 @@ import { useUser } from '@app/simple-api-state/use-user';
 import { CopyButton } from '../copy-button/copy-button';
 
 export const UserMenu = () => {
-  const { data: user } = useUser();
+  const user = useUser();
 
   return (
     <Dropdown>
-      <Header.UserButton as={Dropdown.Toggle} name={user?.navn.sammensattNavn ?? 'Laster...'} />
+      <Header.UserButton as={Dropdown.Toggle} name={user.navn.sammensattNavn ?? 'Navn mangler'} />
       <UserDropdown />
     </Dropdown>
   );

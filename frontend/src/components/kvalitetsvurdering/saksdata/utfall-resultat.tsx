@@ -11,7 +11,7 @@ import { isUtfall } from '@app/types/utfall';
 import { EmptyOption } from './empty-option';
 
 export const UtfallResultat = () => {
-  const { data: user } = useUser();
+  const user = useUser();
   const id = useSaksdataId();
   const { data: saksdata } = useSaksdata();
   const [setUtfallResultat] = useSetUtfallMutation();
@@ -19,7 +19,7 @@ export const UtfallResultat = () => {
   const [utfall] = useUtfallFromSakstype(saksdata?.sakstypeId);
   const validationError = useValidationError('utfallId');
 
-  if (typeof saksdata === 'undefined' || typeof user === 'undefined') {
+  if (typeof saksdata === 'undefined') {
     return null;
   }
 

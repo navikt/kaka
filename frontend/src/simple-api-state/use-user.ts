@@ -1,6 +1,8 @@
-import { IUser } from '@app/types/user';
-import { SimpleApiState, useSimpleApiState } from './simple-api-state';
+import { useContext } from 'react';
+import { StaticDataContext } from '@app/components/app/static-data-context';
 
-const metadataApi = new SimpleApiState<IUser>(`/api/kaka-api/metadata/userdata`);
+export const useUser = () => {
+  const { user } = useContext(StaticDataContext);
 
-export const useUser = () => useSimpleApiState(metadataApi);
+  return user;
+};

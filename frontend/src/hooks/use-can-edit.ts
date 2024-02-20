@@ -3,13 +3,13 @@ import { useKvalitetsvurderingIsFinished } from './use-kvalitetsvurdering-is-fin
 import { useSaksdata } from './use-saksdata';
 
 export const useCanEdit = () => {
-  const { data } = useUser();
+  const user = useUser();
   const { data: saksdata, isLoading } = useSaksdata();
   const finished = useKvalitetsvurderingIsFinished();
 
-  if (finished || isLoading || typeof saksdata === 'undefined' || typeof data === 'undefined') {
+  if (finished || isLoading || typeof saksdata === 'undefined') {
     return false;
   }
 
-  return saksdata.avsluttetAvSaksbehandler === null && saksdata.utfoerendeSaksbehandler === data.ident;
+  return saksdata.avsluttetAvSaksbehandler === null && saksdata.utfoerendeSaksbehandler === user.ident;
 };

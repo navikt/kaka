@@ -12,7 +12,7 @@ import { LovhjemmelSelect } from './lovhjemmel-select';
 import { SelectedHjemlerList } from './selected-hjemler-list';
 
 export const Lovhjemmel = () => {
-  const { data: user } = useUser();
+  const user = useUser();
   const [updateHjemler] = useSetHjemlerMutation();
   const saksdataId = useSaksdataId();
   const { data: saksdata } = useSaksdata();
@@ -30,13 +30,8 @@ export const Lovhjemmel = () => {
     );
   }
 
-  const onLovhjemmelChange = (hjemmelIdList: string[]) => {
-    if (typeof user === 'undefined') {
-      return;
-    }
-
+  const onLovhjemmelChange = (hjemmelIdList: string[]) =>
     updateHjemler({ id: saksdataId, hjemmelIdList, saksbehandlerIdent: user.ident });
-  };
 
   return (
     <section>

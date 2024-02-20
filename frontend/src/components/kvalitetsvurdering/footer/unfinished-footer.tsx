@@ -15,14 +15,14 @@ export const UnfinishedFooter = () => {
   const id = useSaksdataId();
   const canEdit = useCanEdit();
   const navigate = useNavigate();
-  const { data: userData } = useUser();
+  const userData = useUser();
   const { data: saksdata } = useSaksdata();
   const [finishVurdering, { isLoading: isFinishing, error }] = useFullfoerMutation({
     fixedCacheKey: id,
   });
   const [deleteVurdering, { isLoading: isDeleting }] = useDeleteSaksdataMutation();
 
-  if (typeof userData === 'undefined' || typeof saksdata === 'undefined') {
+  if (typeof saksdata === 'undefined') {
     return null;
   }
 

@@ -1,5 +1,5 @@
-import { skipToken } from '@reduxjs/toolkit/query';
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
+import { StaticDataContext } from '@app/components/app/static-data-context';
 import {
   useEnheter,
   useKlageenheter,
@@ -8,7 +8,6 @@ import {
   useYtelser,
 } from '@app/simple-api-state/use-kodeverk';
 import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
-import { useUser } from '@app/simple-api-state/use-user';
 import { useUtfall } from '@app/simple-api-state/use-utfall';
 import { QueryParams } from '../../filters/filter-query-params';
 import { VEDTAKSINSTANSGRUPPE_FILTERS } from '../../statistikk/total/vedtaksinstansgruppe-filter';
@@ -201,8 +200,8 @@ export const MangelfulltPills = ({ setFilter }: Props) => {
 };
 
 export const SaksbehandlerPills = ({ setFilter }: Props) => {
-  const { data: user } = useUser();
-  const { data } = useSaksbehandlere(typeof user === 'undefined' ? skipToken : user.ansattEnhet.id);
+  const { user } = useContext(StaticDataContext);
+  const { data } = useSaksbehandlere(user.ansattEnhet.id);
 
   const saksbehandlere = data ?? [];
   const selected = useQueryFilters(QueryParams.SAKSBEHANDLERE);

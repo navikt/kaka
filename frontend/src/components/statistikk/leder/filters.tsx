@@ -47,7 +47,7 @@ import { YtelseFilter } from '../../filters/ytelser';
 const DEFAULT_VERSION = IS_BEFORE_FEBRUARY_2023 ? KvalitetsvurderingVersion.V1 : KvalitetsvurderingVersion.V2;
 
 export const Filters = () => {
-  const { data: userData } = useUser();
+  const userData = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedTypes = useQueryFilters(QueryParams.TYPES);
@@ -111,7 +111,7 @@ export const Filters = () => {
       />
 
       <Select disabled aria-readonly label="Enhet" hideLabel size="small">
-        <option>{userData?.ansattEnhet.navn}</option>
+        <option>{userData.ansattEnhet.navn}</option>
       </Select>
 
       <SaksbehandlerFilter

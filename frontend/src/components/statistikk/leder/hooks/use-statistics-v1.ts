@@ -1,8 +1,7 @@
-import { skipToken } from '@reduxjs/toolkit/query/react';
 import { useCallback, useMemo } from 'react';
 import { useStatisticsManager } from '@app/simple-api-state/statistics/v1/use-statistics-manager';
 import { useUser } from '@app/simple-api-state/use-user';
-import { IFullStatisticVurderingV1, IManagerStatisticsQuery } from '@app/types/statistics/v1';
+import { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { FORMATTED_END_OF_LAST_MONTH, FORMATTED_START_OF_LAST_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
@@ -15,18 +14,12 @@ import { TilbakekrevingEnum } from '../../../filters/types';
 import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
 
 const useStatistics = () => {
-  const { data: userData } = useUser();
+  const userData = useUser();
   const fromMonth = useFromMonthQueryFilter(FORMATTED_START_OF_LAST_MONTH);
   const toMonth = useToMonthQueryFilter(FORMATTED_END_OF_LAST_MONTH);
-
   const saksbehandlere = useQueryFilters(QueryParams.SAKSBEHANDLERE);
 
-  const query: IManagerStatisticsQuery | typeof skipToken =
-    typeof userData === 'undefined'
-      ? skipToken
-      : { fromMonth, toMonth, saksbehandlere, enhetId: userData.ansattEnhet.id };
-
-  return useStatisticsManager(query);
+  return useStatisticsManager({ fromMonth, toMonth, saksbehandlere, enhetId: userData.ansattEnhet.id });
 };
 
 export const useManagerStatisticsV1IsLoading = (): boolean => useStatistics().isLoading;

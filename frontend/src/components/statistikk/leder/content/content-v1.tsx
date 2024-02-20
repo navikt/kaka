@@ -1,4 +1,3 @@
-import { skipToken } from '@reduxjs/toolkit/query';
 import React, { useMemo } from 'react';
 import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
 import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
@@ -37,8 +36,8 @@ interface Props {
 }
 
 export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
-  const { data: userData } = useUser();
-  const { data: saksbehandlerList = [] } = useSaksbehandlere(userData?.ansattEnhet.id ?? skipToken);
+  const userData = useUser();
+  const { data: saksbehandlerList = [] } = useSaksbehandlere(userData.ansattEnhet.id);
   const selectedSaksbehandlere = useQueryFilters(QueryParams.SAKSBEHANDLERE);
 
   const relevantSaksbehandlereStats = useMemo(

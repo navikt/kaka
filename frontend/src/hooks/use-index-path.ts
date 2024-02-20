@@ -5,7 +5,7 @@ import {
   useDefaultQueryTilbakemeldinger,
   useDefaultQueryTotal,
 } from './use-default-query-params';
-import { useUserHasRole } from './use-user-access';
+import { useUserAccess } from './use-user-access';
 
 export const useIndexPath = () => {
   const defaultQueryAapen = useDefaultQueryAapen();
@@ -13,29 +13,25 @@ export const useIndexPath = () => {
   const defaultQueryTotal = useDefaultQueryTotal();
   const defaultQueryTilbakemeldinger = useDefaultQueryTilbakemeldinger();
 
-  const { isLoading, roles } = useUserHasRole();
+  const access = useUserAccess();
 
   return useMemo(() => {
-    if (isLoading) {
-      return '/';
-    }
-
-    if (roles.KAKA_KVALITETSTILBAKEMELDINGER) {
+    if (access.KAKA_KVALITETSTILBAKEMELDINGER) {
       return `/tilbakemeldinger?${defaultQueryTilbakemeldinger}`;
     }
 
-    if (roles.KAKA_LEDERSTATISTIKK) {
+    if (access.KAKA_LEDERSTATISTIKK) {
       return `/statistikk/leder?${defaultQueryLeder}`;
     }
 
-    if (roles.KAKA_KVALITETSVURDERING) {
+    if (access.KAKA_KVALITETSVURDERING) {
       return '/kvalitetsvurderinger';
     }
 
-    if (roles.KAKA_TOTALSTATISTIKK) {
+    if (access.KAKA_TOTALSTATISTIKK) {
       return `/statistikk/total?${defaultQueryTotal}`;
     }
 
     return `/statistikk/aapen?${defaultQueryAapen}`;
-  }, [defaultQueryAapen, defaultQueryLeder, defaultQueryTilbakemeldinger, defaultQueryTotal, isLoading, roles]);
+  }, [defaultQueryAapen, defaultQueryLeder, defaultQueryTilbakemeldinger, defaultQueryTotal, access]);
 };

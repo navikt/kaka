@@ -1,5 +1,4 @@
 import { Button, Label } from '@navikt/ds-react';
-import { skipToken } from '@reduxjs/toolkit/query';
 import { format, parse } from 'date-fns';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -47,7 +46,7 @@ import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
 
 export const Filters = () => {
-  const { data: userData } = useUser();
+  const userData = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedTypes = useQueryFilters(QueryParams.TYPES);
@@ -63,7 +62,7 @@ export const Filters = () => {
   const version = useVersionQueryFilter();
   const datePresets = useDatePresets();
 
-  const ytelser = useYtelserForKlageenhet(userData?.ansattEnhet.id ?? skipToken, version);
+  const ytelser = useYtelserForKlageenhet(userData.ansattEnhet.id, version);
 
   const { defaultFrom, defaultTo } = useDefaultDates();
   const { validFrom, validTo } = useValidDateInterval();
