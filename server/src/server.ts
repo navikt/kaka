@@ -58,14 +58,4 @@ server.use(
 server.get('/isAlive', (req, res) => res.status(200).send('Alive'));
 server.get('/isReady', (req, res) => res.status(200).send('Ready'));
 
-// morganBody(server, {
-//   noColors: true,
-//   prettify: false,
-//   includeNewLine: false,
-//   logReqUserAgent: false,
-//   logRequestBody: false, // så slipper vi å se tokens i loggen
-//   maxBodyLength: 5000,
-//   logIP: false,
-// });
-
 init(server);
