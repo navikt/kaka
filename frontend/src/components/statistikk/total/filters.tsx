@@ -200,6 +200,8 @@ export const Filters = () => {
         setSelected={(value) => setFilter(QueryParams.TILBAKEKREVING, value)}
       />
 
+      <StyledHr />
+
       <ExcelExport />
     </FilterPanelContainer>
   );
