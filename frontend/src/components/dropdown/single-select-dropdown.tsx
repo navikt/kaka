@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { DropdownContainer } from './dropdown-container';
-import { Header } from './header';
+import { SingleHeader } from './header/single';
 import { SingleSelectOption } from './single-select-option';
 import { StyledListItem, StyledSectionList } from './styled-components';
 
@@ -51,7 +51,7 @@ const ShowSingleSelectDropdown = ({
 
   return (
     <DropdownContainer maxHeight={maxHeight} width={width}>
-      <Header options={options} onChange={setFilteredOptions} close={close} />
+      <SingleHeader options={options} onChange={setFilteredOptions} close={close} />
       <StyledSectionList data-testid={`${testId}-list`}>
         {filteredOptions.map(({ label, value }) => (
           <StyledListItem key={value}>

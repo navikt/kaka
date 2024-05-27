@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
-import { Header } from '../../dropdown/header';
+import { SingleHeader } from '@app/components/dropdown/header/single';
 import { Checkboxes, CheckboxesProps } from './checkboxes';
 
 interface Props<T extends string | number> extends CheckboxesProps<T> {
@@ -19,7 +19,7 @@ export const FilteredCheckboxes = <T extends string | number>({
 
   return (
     <>
-      <Header options={filters} onChange={setFilteredFilters} onReset={reset} close={close} />
+      <SingleHeader options={filters} onChange={setFilteredFilters} onReset={reset} close={close} />
       <Container>
         <Checkboxes selected={selected} filters={filteredFilters} onCheck={onCheck} />
       </Container>
