@@ -1,12 +1,11 @@
 import { Heading } from '@navikt/ds-react';
-import React, { Fragment, useMemo, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { styled } from 'styled-components';
-import { useOnHeaderChange } from '@app/components/dropdown/hooks/use-on-header-change';
 import { SingleSelectOption } from '@app/components/dropdown/single-select-option';
 import { DropdownContent, StyledListItem } from '@app/components/dropdown/styled-components';
 import { CommonGroupedDropdownProps } from '@app/components/dropdown/types';
 import { DropdownContainer } from './dropdown-container';
-import { Header } from './header';
+import { GroupedHeader } from './header/grouped';
 
 interface Props extends CommonGroupedDropdownProps {
   selected: string;
@@ -31,12 +30,10 @@ const ShowGroupedSingleSelectDropdown = ({
   testId,
 }: Omit<Props, 'open'>): JSX.Element | null => {
   const [filteredGroups, setFilteredGroups] = useState(options);
-  const allGroups = useMemo(() => options.flatMap(({ sectionOptions }) => sectionOptions), [options]);
-  const onHeaderChange = useOnHeaderChange(options, setFilteredGroups);
 
   return (
     <DropdownContainer maxHeight={maxHeight} width={width} testId={testId}>
-      <Header options={allGroups} onChange={onHeaderChange} close={close} />
+      <GroupedHeader options={options} onChange={setFilteredGroups} close={close} />
       <DropdownContent>
         {filteredGroups.map(({ sectionHeader, sectionOptions }) => (
           <Fragment key={sectionHeader.id}>

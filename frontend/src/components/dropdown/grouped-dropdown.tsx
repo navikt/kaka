@@ -1,10 +1,9 @@
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
-import React, { useMemo, useState } from 'react';
-import { useOnHeaderChange } from '@app/components/dropdown/hooks/use-on-header-change';
+import React, { useState } from 'react';
 import { DropdownContent } from '@app/components/dropdown/styled-components';
 import { CommonGroupedDropdownProps } from '@app/components/dropdown/types';
 import { DropdownContainer } from './dropdown-container';
-import { Header } from './header';
+import { GroupedHeader } from './header/grouped';
 
 interface DropdownProps extends CommonGroupedDropdownProps {
   selected: string[];
@@ -31,16 +30,14 @@ const ShowGroupedDropdown = ({
   showFjernAlle = true,
 }: Omit<DropdownProps, 'open'>): JSX.Element | null => {
   const [filteredGroups, setFilteredGroups] = useState(options);
-  const allGroups = useMemo(() => options.flatMap(({ sectionOptions }) => sectionOptions), [options]);
-  const onHeaderChange = useOnHeaderChange(options, setFilteredGroups);
 
   const reset = () => onChange(null, false);
 
   return (
     <DropdownContainer maxHeight={maxHeight} width={width} testId={testId}>
-      <Header
-        options={allGroups}
-        onChange={onHeaderChange}
+      <GroupedHeader
+        options={options}
+        onChange={setFilteredGroups}
         onReset={showFjernAlle === true ? reset : undefined}
         close={close}
       />
