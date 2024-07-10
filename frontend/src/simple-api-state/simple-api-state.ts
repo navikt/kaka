@@ -1,5 +1,6 @@
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useEffect, useState } from 'react';
+import { getHeaders } from '@app/headers';
 
 export interface State<T> {
   data: T | undefined;
@@ -45,7 +46,7 @@ export class SimpleApiState<T> {
     this.onChange();
 
     try {
-      const response = await fetch(this.url, { method: 'GET' });
+      const response = await fetch(this.url, { method: 'GET', headers: getHeaders() });
 
       if (!response.ok) {
         throw new Error(`${response.status} ${response.statusText}`);
