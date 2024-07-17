@@ -1,6 +1,6 @@
 import { Alert, Button, ButtonProps } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/query';
-import React, { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { styled } from 'styled-components';
 import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
 import { useOnClickOutside } from '@app/hooks/use-on-click-outside';

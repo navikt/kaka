@@ -1,5 +1,4 @@
 import { Button } from '@navikt/ds-react';
-import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDefaultQueryTilbakemeldinger } from '@app/hooks/use-default-query-params';
 import { useUserAccess } from '@app/hooks/use-user-access';

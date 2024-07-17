@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { Filter } from './common/filter';
 import { useVersionQueryFilter } from './hooks/use-query-filter';

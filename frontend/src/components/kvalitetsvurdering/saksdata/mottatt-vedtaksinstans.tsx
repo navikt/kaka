@@ -1,6 +1,5 @@
 import { HelpText } from '@navikt/ds-react';
 import { parse, subDays } from 'date-fns';
-import React from 'react';
 import { styled } from 'styled-components';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useSaksdata } from '@app/hooks/use-saksdata';

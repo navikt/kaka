@@ -1,5 +1,5 @@
 import { ChartOptions } from 'chart.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { GetAbsoluteValue, useBarTooltipText } from '../../../hooks/use-bar-tooltip-text';
 import { BAR_THICKNESS, getSakensDokumenterDatasets } from './calculations/sakens-dokumenter';

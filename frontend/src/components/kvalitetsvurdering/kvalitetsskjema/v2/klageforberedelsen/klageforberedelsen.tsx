@@ -1,5 +1,4 @@
 import { Radio } from '@navikt/ds-react';
-import React from 'react';
 import { MAIN_REASON_HELPTEXTS, MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import { getCheckbox, getTextInput } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/helpers';
 import {

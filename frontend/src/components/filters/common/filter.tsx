@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useUpdateFilters } from '../../filters/hooks/use-update-filters';
 import { FilterType } from '../types';
 import { Checkboxes } from './checkboxes';

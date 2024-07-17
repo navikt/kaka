@@ -1,4 +1,3 @@
-import React from 'react';
 import { DESCRIPTION, HELP_TEXT, LABEL } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/annet/data';
 import { KvalitetsskjemaTextarea } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/textarea';
 import { TypeEnum } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/types';

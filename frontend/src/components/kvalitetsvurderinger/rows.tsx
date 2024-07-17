@@ -1,5 +1,4 @@
 import { Table } from '@navikt/ds-react';
-import React from 'react';
 import { ISaksdataComplete, ISaksdataIncomplete } from '@app/types/saksdata';
 import { RowLoader } from '../loader/row-loader';
 import { Row } from './row';

@@ -1,7 +1,6 @@
 import { TrashIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import { parse } from 'date-fns';
-import React from 'react';
 import { styled } from 'styled-components';
 import { DatepickerWithValidation } from '../../../date-picker/date-picker';
 import { FORMAT } from '../../date-presets/constants';

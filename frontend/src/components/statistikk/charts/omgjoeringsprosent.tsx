@@ -1,5 +1,4 @@
 import { ChartOptions } from 'chart.js';
-import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { UTFALL_COLOR_MAP } from '@app/colors/colors';
 import { toPercent } from '@app/domain/number';

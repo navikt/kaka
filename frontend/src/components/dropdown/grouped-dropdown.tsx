@@ -1,5 +1,5 @@
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { DropdownContent } from '@app/components/dropdown/styled-components';
 import { CommonGroupedDropdownProps } from '@app/components/dropdown/types';
 import { DropdownContainer } from './dropdown-container';

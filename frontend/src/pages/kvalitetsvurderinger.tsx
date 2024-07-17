@@ -1,4 +1,3 @@
-import React from 'react';
 import { Kvalitetsvurderinger } from '@app/components/kvalitetsvurderinger/kvalitetsvurderinger';
 import { PageWrapper } from './page-wrapper';
 

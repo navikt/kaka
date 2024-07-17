@@ -1,4 +1,3 @@
-import React from 'react';
 import { Lederstatistikk } from '@app/components/statistikk/leder/lederstatistikk';
 import { PageWrapper } from '../page-wrapper';
 

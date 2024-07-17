@@ -1,6 +1,6 @@
 import { TrashIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
-import React, { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { GroupedSingleSelect } from '@app/components/dropdown/grouped-single-select';
 import { OptionGroup } from '@app/components/dropdown/types';
 import { AddOptionButton } from '@app/components/filters/comparison/comparison-values/add-option-button';

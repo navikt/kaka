@@ -1,6 +1,6 @@
 import { ChartOptions } from 'chart.js';
 import { getISOWeeksInYear } from 'date-fns';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
 import { CardTitle } from '@app/styled-components/cards';
 import { StatsDate } from '@app/types/statistics/common';

@@ -1,5 +1,4 @@
 import { ChartOptions } from 'chart.js';
-import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import { MainReasonDataset } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';

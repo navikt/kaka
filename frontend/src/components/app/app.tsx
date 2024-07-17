@@ -1,4 +1,4 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { StaticDataLoader } from '@app/components/app/static-data-context';
@@ -10,7 +10,7 @@ import { ScrollReset } from './scroll-reset';
 import './chartjs-default-config';
 
 export const App = () => (
-  <React.StrictMode>
+  <StrictMode>
     <Provider store={reduxStore}>
       <StaticDataLoader>
         <BrowserRouter>
@@ -21,5 +21,5 @@ export const App = () => (
         </BrowserRouter>
       </StaticDataLoader>
     </Provider>
-  </React.StrictMode>
+  </StrictMode>
 );

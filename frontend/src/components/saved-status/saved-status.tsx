@@ -1,7 +1,6 @@
 import { Loader, Tooltip } from '@navikt/ds-react';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import React from 'react';
 import { styled } from 'styled-components';
 import { ErrorMessage, getErrorData } from '@app/components/saved-status/get-error-data';
 import { CheckmarkCircleFillIconColored, XMarkOctagonFillIconColored } from '../colored-icons/colored-icons';

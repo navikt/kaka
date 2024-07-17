@@ -1,6 +1,6 @@
 import { Alert, DatePicker } from '@navikt/ds-react';
 import { addYears, format, isAfter, isBefore, isValid, parse, subDays, subYears } from 'date-fns';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { styled } from 'styled-components';
 import { isoDateToPretty } from '@app/domain/date';
 import { FORMAT, PRETTY_FORMAT } from '../filters/date-presets/constants';

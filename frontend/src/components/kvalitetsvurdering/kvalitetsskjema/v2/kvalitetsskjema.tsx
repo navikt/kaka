@@ -1,5 +1,4 @@
 import { Heading, Loader } from '@navikt/ds-react';
-import React from 'react';
 import { styled } from 'styled-components';
 import { BrukAvRaadgivendeLege } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/bruk-av-raadgivende-overlege/bruk-av-raadgivende';
 import { Utredningen } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/utredningen/utredningen';

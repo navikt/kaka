@@ -1,5 +1,4 @@
 import { CopyButton, Table } from '@navikt/ds-react';
-import React from 'react';
 import { isoDateTimeToPrettyDate } from '@app/domain/date';
 import { formatId } from '@app/functions/format-id';
 import { ISaksdataComplete, ISaksdataIncomplete } from '@app/types/saksdata';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const NONE_SELECTED = 'NONE_SELECTED';
 
 export const NoneSelected = ({ value }: { value: string | undefined }) =>

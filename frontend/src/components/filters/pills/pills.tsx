@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import { StaticDataContext } from '@app/components/app/static-data-context';
 import {
   useEnheter,

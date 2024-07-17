@@ -1,5 +1,5 @@
 import { ChartOptions } from 'chart.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { NAV_COLORS } from '@app/colors/colors';
 import { ISaksdata } from '@app/types/statistics/common';

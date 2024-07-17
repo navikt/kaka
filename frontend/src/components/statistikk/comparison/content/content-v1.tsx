@@ -1,4 +1,3 @@
-import React from 'react';
 import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
 import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
 import { CardTitle } from '@app/styled-components/cards';

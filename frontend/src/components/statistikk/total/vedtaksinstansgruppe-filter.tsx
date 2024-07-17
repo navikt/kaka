@@ -1,4 +1,3 @@
-import React from 'react';
 import { Filter } from '../../filters/common/filter';
 import { FilterType } from '../../filters/types';
 

@@ -1,5 +1,4 @@
 import { BodyShort, Heading, Label, ReadMore } from '@navikt/ds-react';
-import React from 'react';
 import { styled } from 'styled-components';
 import { HelpTextContainer } from '@app/components/statistikk/types/common';
 

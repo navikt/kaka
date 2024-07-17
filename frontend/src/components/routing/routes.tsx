@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useIndexPath } from '@app/hooks/use-index-path';
 import { useUserAccess } from '@app/hooks/use-user-access';

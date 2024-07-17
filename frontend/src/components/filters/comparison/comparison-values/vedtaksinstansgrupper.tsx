@@ -1,4 +1,3 @@
-import React from 'react';
 import { VEDTAKSINSTANSGRUPPE_FILTERS } from '../../../statistikk/total/vedtaksinstansgruppe-filter';
 import { ComparisonOption } from './comparison-option';
 

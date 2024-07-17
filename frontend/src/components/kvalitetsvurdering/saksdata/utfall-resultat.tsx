@@ -1,5 +1,4 @@
 import { Select } from '@navikt/ds-react';
-import React from 'react';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { useSaksdataId } from '@app/hooks/use-saksdata-id';

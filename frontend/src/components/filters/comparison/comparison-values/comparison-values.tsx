@@ -1,4 +1,3 @@
-import React from 'react';
 import { ComparableQueryParams } from '../../filter-query-params';
 import { DateIntervals } from './date-intervals';
 import { Enheter } from './enheter';

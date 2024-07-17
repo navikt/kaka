@@ -1,6 +1,6 @@
 import { Radio } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/query';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import {
   BrukAvRaadgivendeOverlegeBoolean,
   BrukAvRaadgivendeOverlegeErrorFields,

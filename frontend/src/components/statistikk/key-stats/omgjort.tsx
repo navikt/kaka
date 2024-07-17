@@ -1,5 +1,5 @@
 import { HelpText } from '@navikt/ds-react';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
 import { toPercent } from '@app/domain/number';
 import { UtfallEnum } from '@app/types/utfall';

@@ -1,5 +1,5 @@
 import { ChartOptions, TooltipCallbacks } from 'chart.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useSearchParams } from 'react-router-dom';
 import { QueryParams } from '../../filters/filter-query-params';

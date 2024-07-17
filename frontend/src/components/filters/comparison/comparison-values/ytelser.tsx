@@ -1,4 +1,3 @@
-import React from 'react';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { ComparisonOption } from './comparison-option';
 
