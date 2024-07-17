@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'bun:test';
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import { Dataset, useData } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/mangelfull';
 import { Radiovalg, RadiovalgExtended } from '@app/types/kvalitetsvurdering/radio';

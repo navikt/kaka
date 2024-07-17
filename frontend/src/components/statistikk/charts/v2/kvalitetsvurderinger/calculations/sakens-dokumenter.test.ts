@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'bun:test';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import { getStats } from './helpers/test-helpers';
 import { getSakensDokumenterDatasets } from './sakens-dokumenter';
