@@ -1,6 +1,7 @@
 import { CogRotationIcon, LeaveIcon } from '@navikt/aksel-icons';
 import { Dropdown, Header } from '@navikt/ds-react-internal';
 import { css, styled } from 'styled-components';
+import { ENVIRONMENT } from '@app/environment';
 import { useUser } from '@app/simple-api-state/use-user';
 import { CopyButton } from '../copy-button/copy-button';
 
@@ -16,7 +17,7 @@ export const UserMenu = () => {
 };
 
 const UserDropdown = () => {
-  const version = process.env.VERSION ?? 'UKJENT';
+  const { version } = ENVIRONMENT;
 
   return (
     <Menu>
