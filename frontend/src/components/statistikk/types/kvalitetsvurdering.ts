@@ -77,7 +77,7 @@ export const REASON_TO_SUBREASONS: {
   [MainReason.BrukAvRaadgivendeLege]: BRUK_AV_RAADGIVENDE_LEGE_REASONS,
 };
 
-export const MAIN_REASON_IDS: Readonly<MainReason[]> = Object.freeze([
+export const MAIN_REASON_IDS: readonly MainReason[] = Object.freeze([
   MainReason.Klageforberedelsen,
   MainReason.Utredningen,
   MainReason.Vedtaket,

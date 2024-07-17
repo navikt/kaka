@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from 'react';
+import { createRef, useEffect } from 'react';
 import { usePrevious } from '@app/hooks/use-previous';
 import { Checkboxes, CheckboxesProps } from './checkboxes';
 

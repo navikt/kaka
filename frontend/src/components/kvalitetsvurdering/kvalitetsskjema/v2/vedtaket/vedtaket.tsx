@@ -1,5 +1,4 @@
 import { Alert, Checkbox, Radio } from '@navikt/ds-react';
-import React from 'react';
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import { getCheckbox } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/helpers';
 import {

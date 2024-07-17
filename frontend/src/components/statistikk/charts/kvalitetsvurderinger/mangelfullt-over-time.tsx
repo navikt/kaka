@@ -1,5 +1,5 @@
 import { ChartOptions, TooltipCallbacks } from 'chart.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
 import { isNotUndefined } from '@app/functions/is-not';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';

@@ -1,7 +1,6 @@
 import { ArrowUndoIcon } from '@navikt/aksel-icons';
 import { Button, Label } from '@navikt/ds-react';
 import { format, parse } from 'date-fns';
-import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';

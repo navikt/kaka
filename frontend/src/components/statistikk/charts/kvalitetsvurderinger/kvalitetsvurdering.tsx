@@ -1,5 +1,5 @@
 import { ChartOptions } from 'chart.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import { styled } from 'styled-components';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';

@@ -1,5 +1,5 @@
 import { ChartOptions } from 'chart.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
 import { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { UtfallEnum } from '@app/types/utfall';

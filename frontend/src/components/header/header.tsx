@@ -1,5 +1,4 @@
 import { Header } from '@navikt/ds-react-internal';
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { useIndexPath } from '@app/hooks/use-index-path';

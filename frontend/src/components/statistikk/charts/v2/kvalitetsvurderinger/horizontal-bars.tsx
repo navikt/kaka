@@ -1,5 +1,4 @@
 import { Chart, ChartOptions } from 'chart.js';
-import React from 'react';
 import { styled } from 'styled-components';
 
 // Above graph

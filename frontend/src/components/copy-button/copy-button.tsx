@@ -1,5 +1,4 @@
 import { CopyToClipboard, CopyToClipboardProps } from '@navikt/ds-react-internal';
-import React from 'react';
 
 interface Props {
   children: React.ReactNode;

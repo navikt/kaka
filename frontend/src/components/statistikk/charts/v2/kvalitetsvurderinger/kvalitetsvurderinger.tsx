@@ -1,5 +1,4 @@
 import { Select, Tag, ToggleGroup } from '@navikt/ds-react';
-import React from 'react';
 import { styled } from 'styled-components';
 import { MAIN_REASON_LABELS, MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import {

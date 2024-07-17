@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSortedUtfall } from '@app/simple-api-state/use-utfall';
 import { ComparisonOption } from './comparison-option';
 

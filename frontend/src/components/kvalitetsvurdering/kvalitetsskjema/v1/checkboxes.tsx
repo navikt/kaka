@@ -1,5 +1,5 @@
 import { Checkbox, CheckboxGroup, HelpText } from '@navikt/ds-react';
-import React, { Fragment, forwardRef } from 'react';
+import { Fragment, forwardRef } from 'react';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useKvalitetsvurdering } from '@app/hooks/use-kvalitetsvurdering';
 import { useUpdateKvalitetsvurderingMutation } from '@app/redux-api/kvalitetsvurdering/v1';

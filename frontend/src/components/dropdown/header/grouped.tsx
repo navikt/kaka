@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { BaseProps, InternalHeader, getFilters } from '@app/components/dropdown/header/common';
 import { OptionGroup } from '@app/components/dropdown/types';
 

@@ -1,5 +1,4 @@
 import { ToggleGroup } from '@navikt/ds-react';
-import React from 'react';
 import { styled } from 'styled-components';
 import { KvalitetsvurderingProps } from './charts/kvalitetsvurderinger/kvalitetsvurdering';
 import { KVALITETSVURDERING_OPTIONS, isAllowedKey } from './charts/kvalitetsvurderinger/kvalitetsvurdering-options';

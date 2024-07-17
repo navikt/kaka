@@ -1,5 +1,4 @@
 import { Button } from '@navikt/ds-react';
-import React from 'react';
 import { useNavigate } from 'react-router';
 import { isReduxValidationResponse } from '@app/functions/error-type-guard';
 import { useCanEdit } from '@app/hooks/use-can-edit';

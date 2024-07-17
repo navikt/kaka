@@ -1,5 +1,5 @@
 import { Heading } from '@navikt/ds-react';
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { styled } from 'styled-components';
 import { SingleSelectOption } from '@app/components/dropdown/single-select-option';
 import { DropdownContent, StyledListItem } from '@app/components/dropdown/styled-components';

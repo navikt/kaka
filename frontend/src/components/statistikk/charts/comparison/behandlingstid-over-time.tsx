@@ -1,4 +1,3 @@
-import React from 'react';
 import { ISaksdata } from '@app/types/statistics/common';
 import { useBehandlingstidParam } from '../../hooks/use-behandlingstid-param';
 import { ToggleTotalOrKA } from '../../toggle-ka-total';

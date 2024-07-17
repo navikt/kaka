@@ -1,5 +1,5 @@
 import { ChartOptions } from 'chart.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useBehandlingstidField } from '../hooks/use-behandlingstid-param';
 import { useBuckets } from '../hooks/use-buckets';

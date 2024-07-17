@@ -1,5 +1,4 @@
 import { ToggleGroup } from '@navikt/ds-react';
-import React from 'react';
 import { styled } from 'styled-components';
 import { useBehandlingstidParam } from './hooks/use-behandlingstid-param';
 import { BehandlingstidEnum, isBehandlingstidEnum } from './types';

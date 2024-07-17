@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { DropdownContainer } from './dropdown-container';
 import { SingleHeader } from './header/single';

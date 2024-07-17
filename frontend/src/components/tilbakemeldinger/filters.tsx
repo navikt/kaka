@@ -1,6 +1,5 @@
 import { Button, Label, Select } from '@navikt/ds-react';
 import { format, parse } from 'date-fns';
-import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelserForVedtaksinstansenhet } from '@app/hooks/use-kodeverk-value';

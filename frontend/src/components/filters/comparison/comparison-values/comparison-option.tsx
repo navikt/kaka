@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { AddOptionButton } from './add-option-button';
 import { AVERAGE, AVERAGE_LABEL, GLOBAL_AVERAGE, GLOBAL_AVERAGE_LABEL, REST, REST_LABEL } from './default-options';

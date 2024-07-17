@@ -1,5 +1,4 @@
 import { Alert, Link } from '@navikt/ds-react';
-import React from 'react';
 import { styled } from 'styled-components';
 import { IValidationErrorV1, IValidationSection } from '@app/functions/error-type-guard';
 import { useFieldName } from '@app/hooks/use-field-name';

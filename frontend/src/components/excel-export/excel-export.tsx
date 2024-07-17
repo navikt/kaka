@@ -1,7 +1,7 @@
 import { DownloadIcon } from '@navikt/aksel-icons';
 import { Button, Heading, Select, ToggleGroup } from '@navikt/ds-react';
 import { getYear, parseISO } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CURRENT_YEAR } from '@app/components/filters/date-presets/constants';
 import { useHasRole } from '@app/hooks/use-has-role';
 import { Role } from '@app/types/user';

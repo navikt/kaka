@@ -1,5 +1,5 @@
 import { Button, Search } from '@navikt/ds-react';
-import React, { KeyboardEventHandler } from 'react';
+import { KeyboardEventHandler } from 'react';
 import { styled } from 'styled-components';
 
 export interface BaseProps {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { ISaksdata } from '@app/types/statistics/common';
 import { useBehandlingstidField } from '../hooks/use-behandlingstid-param';
 import { cleanNumberDisplay } from './formatting';

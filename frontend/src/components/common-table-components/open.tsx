@@ -1,5 +1,4 @@
 import { Button } from '@navikt/ds-react';
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface Props {

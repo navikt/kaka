@@ -1,5 +1,4 @@
 import { HelpText, Radio, RadioGroup } from '@navikt/ds-react';
-import React from 'react';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useKvalitetsvurdering } from '@app/hooks/use-kvalitetsvurdering';
 import { useSaksdata } from '@app/hooks/use-saksdata';

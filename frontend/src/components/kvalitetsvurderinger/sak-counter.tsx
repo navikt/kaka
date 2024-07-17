@@ -1,5 +1,4 @@
 import { Detail } from '@navikt/ds-react';
-import React from 'react';
 import { ISaksdataBase } from '@app/types/saksdata';
 
 interface SaksCounterProps {

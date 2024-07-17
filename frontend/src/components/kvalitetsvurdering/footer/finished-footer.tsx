@@ -1,5 +1,4 @@
 import { Button } from '@navikt/ds-react';
-import React from 'react';
 import { useSaksdataId } from '@app/hooks/use-saksdata-id';
 import { useGetSaksdataQuery, useReopenSaksdataMutation } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';

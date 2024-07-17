@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useUtfallForStats } from '@app/simple-api-state/use-utfall';
 import { Filter } from './common/filter';
 import { FilterType } from './types';

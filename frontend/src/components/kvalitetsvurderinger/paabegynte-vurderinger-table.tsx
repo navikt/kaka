@@ -1,4 +1,3 @@
-import React from 'react';
 import { useGetIncompleteSaksdataListQuery } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';
 import { VurderingerTable } from './table';

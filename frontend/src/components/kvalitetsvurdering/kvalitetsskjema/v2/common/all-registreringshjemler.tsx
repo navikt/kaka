@@ -1,4 +1,3 @@
-import React from 'react';
 import { LovhjemmelSelect } from '@app/components/kvalitetsvurdering/saksdata/lovhjemmel/lovhjemmel-select';
 import { SelectedHjemlerList } from '@app/components/kvalitetsvurdering/saksdata/lovhjemmel/selected-hjemler-list';
 import { useCanEdit } from '@app/hooks/use-can-edit';
