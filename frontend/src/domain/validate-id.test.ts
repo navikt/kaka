@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'bun:test';
 import { validateId } from './validate-id';
 
 describe('validateId', () => {

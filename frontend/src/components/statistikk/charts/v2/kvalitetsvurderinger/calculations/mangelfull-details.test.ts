@@ -1,4 +1,4 @@
-/* eslint-disable jest/max-expects */
+import { describe, expect, it } from 'bun:test';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import { DataSet } from '../types';
 import { getStats } from './helpers/test-helpers';

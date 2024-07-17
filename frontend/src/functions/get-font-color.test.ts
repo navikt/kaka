@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'bun:test';
 import { NAV_COLORS } from '@app/colors/colors';
 import { FontColor, getFontColor } from './get-font-color';
 

@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'bun:test';
 import { formatIdOrNull } from './format-id';
 
 describe('format IDs', () => {
