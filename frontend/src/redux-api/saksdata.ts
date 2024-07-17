@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { ISaksdataBase, ISaksdataComplete, ISaksdataIncomplete, KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { baseQuery } from './common';
@@ -114,7 +115,7 @@ export const saksdataApi = createApi({
         params: { ...params, fullfoert: false },
       }),
       transformResponse: ({ searchHits }) => searchHits,
-      onQueryStarted: async (params, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
         data.forEach((saksdata) => {
           dispatch(saksdataApi.util.updateQueryData('getSaksdata', saksdata.id, () => saksdata));
@@ -127,7 +128,7 @@ export const saksdataApi = createApi({
         params: { ...params, fullfoert: true },
       }),
       transformResponse: ({ searchHits }) => searchHits,
-      onQueryStarted: async (params, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
         data.forEach((saksdata) => {
           dispatch(saksdataApi.util.updateQueryData('getSaksdata', saksdata.id, () => saksdata));

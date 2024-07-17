@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Button, Label } from '@navikt/ds-react';
 import { format, parse } from 'date-fns';
 import { useSearchParams } from 'react-router-dom';

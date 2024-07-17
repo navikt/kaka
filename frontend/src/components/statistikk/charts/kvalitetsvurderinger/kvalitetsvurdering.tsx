@@ -20,7 +20,7 @@ const useDoughnutOptions = (): ChartOptions<'doughnut'> => ({
   },
 });
 
-const useBarOptions = (labels: string[], data: number[], total = 1): ChartOptions<'bar'> => ({
+const useBarOptions = (_: string[], __: number[], total = 1): ChartOptions<'bar'> => ({
   responsive: true,
   aspectRatio: 4,
   indexAxis: 'y',
