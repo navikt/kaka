@@ -1,6 +1,6 @@
-import { createRef, useEffect } from 'react';
 import { usePrevious } from '@app/hooks/use-previous';
-import { Checkboxes, CheckboxesProps } from './checkboxes';
+import { createRef, useEffect } from 'react';
+import { Checkboxes, type CheckboxesProps } from './checkboxes';
 
 interface ReasonsProps extends CheckboxesProps {
   show: boolean;

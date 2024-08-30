@@ -1,15 +1,15 @@
-import { ChartOptions, TooltipCallbacks } from 'chart.js';
-import { useMemo } from 'react';
-import { Bar } from 'react-chartjs-2';
-import { styled } from 'styled-components';
 import {
-  StatisticsVedtaketHjemlerList,
-  StatisticsVedtaketHjemlerListBoolean,
+  type StatisticsVedtaketHjemlerList,
+  type StatisticsVedtaketHjemlerListBoolean,
   VEDTAKET_TEXTS,
 } from '@app/components/statistikk/types/vedtaket';
 import { useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
+import type { ChartOptions, TooltipCallbacks } from 'chart.js';
+import { useMemo } from 'react';
+import { Bar } from 'react-chartjs-2';
+import { styled } from 'styled-components';
 import { ChartTitle } from '../../styled-components';
-import { DataSet } from './types';
+import type { DataSet } from './types';
 
 interface Props {
   dataset: DataSet;

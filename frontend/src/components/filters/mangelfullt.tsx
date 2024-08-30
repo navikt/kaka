@@ -1,5 +1,5 @@
 import { Filter } from './common/filter';
-import { FilterType } from './types';
+import type { FilterType } from './types';
 
 export const MANGELFULLT_KODEVERK: FilterType[] = [
   {

@@ -1,4 +1,4 @@
-import { OptionValue } from '@app/types/statistics/common';
+import type { OptionValue } from '@app/types/statistics/common';
 
 export const getDefaultColor = (options: OptionValue[]): string => {
   const usedColors = options.map(([, color]) => color);

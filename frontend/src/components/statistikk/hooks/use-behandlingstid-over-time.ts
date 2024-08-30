@@ -1,5 +1,5 @@
 import { NAV_COLORS } from '@app/colors/colors';
-import { StatsDate } from '@app/types/statistics/common';
+import type { StatsDate } from '@app/types/statistics/common';
 
 interface Stat {
   avsluttetAvSaksbehandler: StatsDate;

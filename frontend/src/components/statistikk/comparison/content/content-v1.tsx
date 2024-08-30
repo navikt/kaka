@@ -2,7 +2,7 @@ import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalit
 import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
 import { CardTitle } from '@app/styled-components/cards';
 import { ContentArea } from '@app/styled-components/filters-and-content';
-import { IComparedFullStatisticVurderingV1 } from '@app/types/statistics/v1';
+import type { IComparedFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { LoadingOverlay } from '../../../loader/overlay';
 import { CardSize, DynamicCard } from '../../card/card';
 import { BehandlingstidComparison } from '../../charts/comparison/behandlingstid';

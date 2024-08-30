@@ -1,10 +1,10 @@
-import { ChartData } from 'chart.js';
 import { NAV_COLORS } from '@app/colors/colors';
 import {
   IKKE_KONKRET_BEGRUNNELSE_REASONS,
   IKKE_KONKRET_BEGRUNNELSE_TEXTS,
 } from '@app/components/statistikk/types/vedtaket';
-import { DataSet } from '../types';
+import type { ChartData } from 'chart.js';
+import type { DataSet } from '../types';
 import { calculateReasons } from './helpers/reasons';
 
 type ReturnType = ChartData<'bar', number[], string>;

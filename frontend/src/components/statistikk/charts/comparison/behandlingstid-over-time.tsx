@@ -1,4 +1,4 @@
-import { ISaksdata } from '@app/types/statistics/common';
+import type { ISaksdata } from '@app/types/statistics/common';
 import { useBehandlingstidParam } from '../../hooks/use-behandlingstid-param';
 import { ToggleTotalOrKA } from '../../toggle-ka-total';
 import { BehandlingstidEnum } from '../../types';

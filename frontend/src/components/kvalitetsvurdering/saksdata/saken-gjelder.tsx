@@ -1,5 +1,3 @@
-import { TextField } from '@navikt/ds-react';
-import { useEffect, useState } from 'react';
 import { validateId } from '@app/domain/validate-id';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useSaksdata } from '@app/hooks/use-saksdata';
@@ -7,6 +5,8 @@ import { useSaksdataId } from '@app/hooks/use-saksdata-id';
 import { useValidationError } from '@app/hooks/use-validation-error';
 import { useSetSakenGjelderMutation } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';
+import { TextField } from '@navikt/ds-react';
+import { useEffect, useState } from 'react';
 
 export const SakenGjelder = () => {
   const user = useUser();

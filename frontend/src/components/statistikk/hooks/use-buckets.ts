@@ -14,7 +14,7 @@ export const useBuckets = (data: number[], bucketSize: number, restBucket?: numb
 
     const values = buckets.map((bucket) => normalizedData.filter((v) => v <= bucket && v > bucket - 1).length);
 
-    const lastBucket = buckets[buckets.length - 1] ?? Infinity;
+    const lastBucket = buckets[buckets.length - 1] ?? Number.POSITIVE_INFINITY;
 
     if (typeof restBucket === 'number' && realMax > max) {
       labels[labels.length - 1] = `${labels[labels.length - 1] ?? ''}+`;

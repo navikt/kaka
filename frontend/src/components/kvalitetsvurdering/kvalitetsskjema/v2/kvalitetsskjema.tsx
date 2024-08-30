@@ -1,9 +1,9 @@
-import { Heading, Loader } from '@navikt/ds-react';
-import { styled } from 'styled-components';
 import { BrukAvRaadgivendeLege } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/bruk-av-raadgivende-overlege/bruk-av-raadgivende';
 import { Utredningen } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/utredningen/utredningen';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { UtfallEnum } from '@app/types/utfall';
+import { Heading, Loader } from '@navikt/ds-react';
+import { styled } from 'styled-components';
 import { Annet } from './annet/annet';
 import { useKvalitetsvurderingV2 } from './common/use-kvalitetsvurdering-v2';
 import { Klageforberedelsen } from './klageforberedelsen/klageforberedelsen';

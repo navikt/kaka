@@ -1,9 +1,9 @@
+import { isoDateToPretty } from '@app/domain/date';
 /* eslint-disable max-lines */
 import { Alert, DatePicker } from '@navikt/ds-react';
 import { addYears, format, isAfter, isBefore, isValid, parse, subDays, subYears } from 'date-fns';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { styled } from 'styled-components';
-import { isoDateToPretty } from '@app/domain/date';
 import { FORMAT, PRETTY_FORMAT } from '../filters/date-presets/constants';
 
 interface Props {
@@ -36,10 +36,10 @@ export const DatepickerWithValidation = ({
   className,
 }: Props) => {
   const [inputError, setInputError] = useState<string>();
-  const [input, setInput] = useState<string>(value === null ? '' : (isoDateToPretty(value) ?? ''));
+  const [input, setInput] = useState<string>(value === null ? '' : isoDateToPretty(value) ?? '');
 
   useEffect(() => {
-    setInput(value === null ? '' : (isoDateToPretty(value) ?? ''));
+    setInput(value === null ? '' : isoDateToPretty(value) ?? '');
     setInputError(undefined);
   }, [value]);
 

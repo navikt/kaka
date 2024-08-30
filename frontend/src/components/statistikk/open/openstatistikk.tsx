@@ -1,5 +1,5 @@
-import { Alert } from '@navikt/ds-react';
 import { FilterSection, FiltersAndContentContainer } from '@app/styled-components/filters-and-content';
+import { Alert } from '@navikt/ds-react';
 import { useVersionQueryFilter } from '../../filters/hooks/use-query-filter';
 import { ContentLoader } from '../content-loader';
 import { ContentV1 } from './content/content-v1';

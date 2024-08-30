@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { QueryParams } from '../../filters/filter-query-params';
+import type { QueryParams } from '../../filters/filter-query-params';
 
 export const useQueryParam = (param: QueryParams, defaultValue = ''): [string, (value: string) => void] => {
   const [searchParams, setSearchParams] = useSearchParams();

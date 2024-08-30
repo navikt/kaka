@@ -1,11 +1,11 @@
-/* eslint-disable max-lines */
-import { Button, Label } from '@navikt/ds-react';
-import { format, parse } from 'date-fns';
-import { useSearchParams } from 'react-router-dom';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+/* eslint-disable max-lines */
+import { Button, Label } from '@navikt/ds-react';
+import { format, parse } from 'date-fns';
+import { useSearchParams } from 'react-router-dom';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
 import { ExcelExport } from '../../excel-export/excel-export';
 import { DateContainer, FilterPanelContainer, StyledHr } from '../../filters/common/styled-components';

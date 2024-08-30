@@ -1,4 +1,4 @@
-import { IKodeverkSimpleValue } from './kodeverk';
+import type { IKodeverkSimpleValue } from './kodeverk';
 
 interface Navn {
   fornavn?: string;

@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
 import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
 import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
@@ -6,7 +5,8 @@ import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
 import { useUser } from '@app/simple-api-state/use-user';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
 import { ContentArea } from '@app/styled-components/filters-and-content';
-import { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
+import type { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
+import { useMemo } from 'react';
 import { QueryParams } from '../../../filters/filter-query-params';
 import { useQueryFilters } from '../../../filters/hooks/use-query-filter';
 import { LoadingOverlay } from '../../../loader/overlay';

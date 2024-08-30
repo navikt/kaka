@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
-import { IKodeverkSimpleValue, ISakstyperToUtfall } from '@app/types/kodeverk';
+import type { IKodeverkSimpleValue, ISakstyperToUtfall } from '@app/types/kodeverk';
 import { SakstypeEnum } from '@app/types/sakstype';
 import { UtfallEnum } from '@app/types/utfall';
+import { useMemo } from 'react';
 import { SimpleApiState, useSimpleApiState } from './simple-api-state';
 import { API_PREFIX } from './use-kodeverk';
 

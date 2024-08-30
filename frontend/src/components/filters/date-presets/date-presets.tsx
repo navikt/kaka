@@ -1,7 +1,7 @@
 import { Button } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import { styled } from 'styled-components';
-import { IOption } from './types';
+import type { IOption } from './types';
 
 interface Props {
   selectedFromDate: string;

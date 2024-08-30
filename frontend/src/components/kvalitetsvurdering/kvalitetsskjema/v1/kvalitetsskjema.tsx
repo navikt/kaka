@@ -1,11 +1,11 @@
-import { Heading, Loader } from '@navikt/ds-react';
-import { skipToken } from '@reduxjs/toolkit/query';
-import { useMemo } from 'react';
-import { styled } from 'styled-components';
 import { useKvalitetsvurdering } from '@app/hooks/use-kvalitetsvurdering';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { UtfallEnum } from '@app/types/utfall';
+import { Heading, Loader } from '@navikt/ds-react';
+import { skipToken } from '@reduxjs/toolkit/query';
+import { useMemo } from 'react';
+import { styled } from 'styled-components';
 import { Annet } from './annet';
 import { BrukAvRaadgivendeLege } from './bruk-av-raadgivende-lege';
 import { Klageforberedelsen } from './klageforberedelsen';

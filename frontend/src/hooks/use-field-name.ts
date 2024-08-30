@@ -23,7 +23,7 @@ import {
   isVedtaketErrorField,
   isVedtaketField,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
-import { ISaksdataComplete } from '@app/types/saksdata';
+import type { ISaksdataComplete } from '@app/types/saksdata';
 
 type SaksdataKeys = keyof Pick<
   ISaksdataComplete,

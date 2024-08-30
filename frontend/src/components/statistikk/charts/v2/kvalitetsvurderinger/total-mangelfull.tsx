@@ -1,10 +1,10 @@
-import { ChartOptions } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
 import { MAIN_REASONS } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import { HorizontalBars } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/horizontal-bars';
-import { MainReasonDataset } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';
+import type { MainReasonDataset } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';
 import { toPercent } from '@app/domain/number';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
+import type { ChartOptions } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 import { GRAPH_COLOR } from '../../colors';
 
 const BAR_THICKNESS = 50;

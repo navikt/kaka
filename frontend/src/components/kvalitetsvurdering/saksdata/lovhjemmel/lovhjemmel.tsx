@@ -1,12 +1,12 @@
-import { MagnifyingGlassIcon } from '@navikt/aksel-icons';
-import { HelpText, Label } from '@navikt/ds-react';
-import { styled } from 'styled-components';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { useSaksdataId } from '@app/hooks/use-saksdata-id';
 import { useValidationError } from '@app/hooks/use-validation-error';
 import { useSetHjemlerMutation } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';
+import { MagnifyingGlassIcon } from '@navikt/aksel-icons';
+import { HelpText, Label } from '@navikt/ds-react';
+import { styled } from 'styled-components';
 import { LovhjemmelSelect } from './lovhjemmel-select';
 import { SelectedHjemlerList } from './selected-hjemler-list';
 

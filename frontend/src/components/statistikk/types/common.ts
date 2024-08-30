@@ -1,4 +1,4 @@
-import { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
+import type { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
 
 type HelpTexts = Partial<Record<keyof IKvalitetsvurderingData, { label: string; helpText?: string }>>;
 

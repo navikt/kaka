@@ -1,7 +1,7 @@
-import { Chart, TooltipCallbacks } from 'chart.js';
 import { LOCALE } from '@app/domain/intl';
 import { toPercent } from '@app/domain/number';
 import { getFontColor } from '@app/functions/get-font-color';
+import { Chart, type TooltipCallbacks } from 'chart.js';
 
 export type GetAbsoluteValue = (datasetIndex: number, dataIndex: number) => [number, number];
 
@@ -24,7 +24,7 @@ export const useBarTooltipText = (getAbsoluteValue: GetAbsoluteValue, unit = 'st
       meta.data.forEach((bar, index) => {
         const props = bar.getProps(['height', 'width', 'horizontal', 'options', '$context'], true);
 
-        if (typeof props['$context'] === 'object' && props['$context']['mode'] === 'hide') {
+        if (typeof props.$context === 'object' && props.$context.mode === 'hide') {
           return;
         }
 

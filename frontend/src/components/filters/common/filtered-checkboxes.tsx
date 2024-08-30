@@ -1,7 +1,7 @@
+import { SingleHeader } from '@app/components/dropdown/header/single';
 import { useState } from 'react';
 import { styled } from 'styled-components';
-import { SingleHeader } from '@app/components/dropdown/header/single';
-import { Checkboxes, CheckboxesProps } from './checkboxes';
+import { Checkboxes, type CheckboxesProps } from './checkboxes';
 
 interface Props<T extends string | number> extends CheckboxesProps<T> {
   close: () => void;

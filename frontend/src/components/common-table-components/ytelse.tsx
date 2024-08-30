@@ -1,7 +1,7 @@
-import { skipToken } from '@reduxjs/toolkit/query';
 import { useFullYtelseNameFromId } from '@app/hooks/use-kodeverk-value';
 import { LabelYtelse } from '@app/styled-components/labels';
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import type { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { skipToken } from '@reduxjs/toolkit/query';
 
 interface Props {
   ytelseId: string | null;

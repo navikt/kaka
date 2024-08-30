@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
 import { useUser } from '@app/simple-api-state/use-user';
 import { Role } from '@app/types/user';
+import { useMemo } from 'react';
 
 type Access = {
   [key in Role]: boolean;

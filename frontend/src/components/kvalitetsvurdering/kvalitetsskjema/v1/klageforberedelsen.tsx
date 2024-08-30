@@ -1,4 +1,3 @@
-import { HelpText, Radio, RadioGroup } from '@navikt/ds-react';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useKvalitetsvurdering } from '@app/hooks/use-kvalitetsvurdering';
 import { useSaksdata } from '@app/hooks/use-saksdata';
@@ -6,10 +5,11 @@ import { useValidationError } from '@app/hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '@app/redux-api/kvalitetsvurdering/v1';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import { SakstypeEnum } from '@app/types/sakstype';
+import { HelpText, Radio, RadioGroup } from '@navikt/ds-react';
 import { Reasons } from './reasons';
 import { klageforberedelsenReasons } from './reasons-labels';
 import { RadioButtonsRow, StyledHeading } from './styled-components';
-import { Reason } from './types';
+import type { Reason } from './types';
 import { useKvalitetsvurderingV1FieldName } from './use-field-name';
 
 export const Klageforberedelsen = () => {

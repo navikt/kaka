@@ -1,5 +1,5 @@
-import { subMonths } from 'date-fns';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { subMonths } from 'date-fns';
 import {
   END_OF_LAST_MONTH,
   IS_BEFORE_2024,
@@ -15,7 +15,7 @@ import {
   START_OF_YEAR,
 } from '../date-presets/constants';
 import { getLastTertial } from '../date-presets/get-last-tertial';
-import { IOption } from '../date-presets/types';
+import type { IOption } from '../date-presets/types';
 import { useVersionQueryFilter } from './use-query-filter';
 
 export const useDatePresets = (): IOption[] => {

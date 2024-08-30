@@ -1,5 +1,3 @@
-import { SerializedError } from '@reduxjs/toolkit';
-import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import {
   useGetCensoredKvalitetsvurderingQuery,
@@ -8,8 +6,10 @@ import {
 } from '@app/redux-api/kvalitetsvurdering/v2';
 import { useKlageenheter } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';
-import { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
-import { ISaksdataComplete, ISaksdataIncomplete } from '@app/types/saksdata';
+import type { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
+import type { ISaksdataComplete, ISaksdataIncomplete } from '@app/types/saksdata';
+import type { SerializedError } from '@reduxjs/toolkit';
+import { type FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query';
 
 interface UpdateStatus {
   isLoading: boolean;

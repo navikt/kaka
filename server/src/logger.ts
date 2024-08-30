@@ -1,5 +1,5 @@
-import { performance } from 'perf_hooks';
-import { RequestHandler } from 'express';
+import { performance } from 'node:perf_hooks';
+import type { RequestHandler } from 'express';
 
 const VERSION = process.env.VERSION ?? 'unknown';
 

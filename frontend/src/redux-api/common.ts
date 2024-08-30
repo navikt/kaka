@@ -1,6 +1,6 @@
-import { FetchArgs, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { queryStringify } from '@app/functions/query-string';
 import { setHeaders } from '@app/headers';
+import { type FetchArgs, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 
 const isLocalhost = window.location.hostname === 'localhost';
 const mode: RequestMode | undefined = isLocalhost ? 'cors' : undefined;

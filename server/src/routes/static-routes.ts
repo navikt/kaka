@@ -1,7 +1,7 @@
-import fs from 'fs';
-import { Request, Response, Router, static as expressStatic } from 'express';
+import fs from 'node:fs';
 import { VERSION, frontendDistDirectoryPath } from '@app/config/config';
 import { ENVIRONMENT } from '@app/config/env';
+import { type Request, type Response, Router, static as expressStatic } from 'express';
 
 const router = Router();
 

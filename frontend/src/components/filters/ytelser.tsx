@@ -1,7 +1,7 @@
+import type { IYtelse } from '@app/types/kodeverk';
 import { useMemo } from 'react';
-import { IYtelse } from '@app/types/kodeverk';
 import { Filter } from './common/filter';
-import { FilterType } from './types';
+import type { FilterType } from './types';
 
 interface YtelseFilterProps {
   selected: string[];

@@ -1,5 +1,5 @@
 import { Filter } from '../../filters/common/filter';
-import { FilterType } from '../../filters/types';
+import type { FilterType } from '../../filters/types';
 
 export enum Vedtaksinstansgruppe {
   AKERSHUS = 0,

@@ -1,4 +1,4 @@
-import { ISaksdataComplete } from '@app/types/saksdata';
+import type { ISaksdataComplete } from '@app/types/saksdata';
 
 export interface TilbakemeldingerCommonProps {
   saksdata: ISaksdataComplete[];

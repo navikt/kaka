@@ -1,8 +1,8 @@
+import { ENVIRONMENT } from '@app/environment';
+import { useUser } from '@app/simple-api-state/use-user';
 import { CogRotationIcon, LeaveIcon } from '@navikt/aksel-icons';
 import { Dropdown, Header } from '@navikt/ds-react-internal';
 import { css, styled } from 'styled-components';
-import { ENVIRONMENT } from '@app/environment';
-import { useUser } from '@app/simple-api-state/use-user';
 import { CopyButton } from '../copy-button/copy-button';
 
 export const UserMenu = () => {
@@ -59,7 +59,7 @@ const getShortVersion = (version: string): string => {
     return version;
   }
 
-  return version.substring(0, 7) + '...';
+  return `${version.substring(0, 7)}...`;
 };
 
 const linkStyle = css`

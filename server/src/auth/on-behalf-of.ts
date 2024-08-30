@@ -1,6 +1,6 @@
-import { Client, GrantBody } from 'openid-client';
 import { AZURE_APP_CLIENT_ID, NAIS_CLUSTER_NAME } from '@app/config/config';
 import { getLogger } from '@app/logger';
+import type { Client, GrantBody } from 'openid-client';
 import { now, oboCache } from './on-behalf-of-cache';
 
 const log = getLogger('auth');
@@ -25,7 +25,7 @@ export const getOnBehalfOfAccessToken = async (
   }
 
   if (typeof authClient.issuer.metadata.token_endpoint !== 'string') {
-    const error = new Error(`OpenID issuer misconfigured. Missing token endpoint.`);
+    const error = new Error('OpenID issuer misconfigured. Missing token endpoint.');
     log.error({ msg: 'On-Behalf-Of error', error });
     throw error;
   }

@@ -1,15 +1,4 @@
 import {
-  BarChartFillIcon,
-  BarChartIcon,
-  BulletListIcon,
-  LineGraphStackedIcon,
-  PieChartFillIcon,
-  PieChartIcon,
-  TasklistIcon,
-} from '@navikt/aksel-icons';
-import { NavLink, NavLinkProps } from 'react-router-dom';
-import { styled } from 'styled-components';
-import {
   useDefaultQueryAapen,
   useDefaultQueryComparison,
   useDefaultQueryLeder,
@@ -18,6 +7,17 @@ import {
   useDefaultQueryTotal,
 } from '@app/hooks/use-default-query-params';
 import { useUserAccess } from '@app/hooks/use-user-access';
+import {
+  BarChartFillIcon,
+  BarChartIcon,
+  BulletListIcon,
+  LineGraphStackedIcon,
+  PieChartFillIcon,
+  PieChartIcon,
+  TasklistIcon,
+} from '@navikt/aksel-icons';
+import { NavLink, type NavLinkProps } from 'react-router-dom';
+import { styled } from 'styled-components';
 
 export const Nav = () => {
   const defaultQueryAapen = useDefaultQueryAapen();

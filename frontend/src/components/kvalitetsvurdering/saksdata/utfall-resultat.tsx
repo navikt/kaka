@@ -1,4 +1,3 @@
-import { Select } from '@navikt/ds-react';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { useSaksdataId } from '@app/hooks/use-saksdata-id';
@@ -7,6 +6,7 @@ import { useSetUtfallMutation } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';
 import { useUtfallFromSakstype } from '@app/simple-api-state/use-utfall';
 import { isUtfall } from '@app/types/utfall';
+import { Select } from '@navikt/ds-react';
 import { EmptyOption } from './empty-option';
 
 export const UtfallResultat = () => {

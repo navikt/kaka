@@ -1,6 +1,6 @@
-import { styled } from 'styled-components';
 import { Nav } from '@app/components/routing/nav';
 import { GAP } from '@app/styled-components/constants';
+import { styled } from 'styled-components';
 
 interface Props {
   children: React.ReactNode;

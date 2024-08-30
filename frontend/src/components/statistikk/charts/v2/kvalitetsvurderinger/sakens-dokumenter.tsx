@@ -1,10 +1,10 @@
-import { ChartOptions } from 'chart.js';
+import type { ChartOptions } from 'chart.js';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { GetAbsoluteValue, useBarTooltipText } from '../../../hooks/use-bar-tooltip-text';
+import { type GetAbsoluteValue, useBarTooltipText } from '../../../hooks/use-bar-tooltip-text';
 import { BAR_THICKNESS, getSakensDokumenterDatasets } from './calculations/sakens-dokumenter';
 import { HorizontalBars } from './horizontal-bars';
-import { DataSet } from './types';
+import type { DataSet } from './types';
 
 const UNIT = 'avvik';
 

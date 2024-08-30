@@ -1,6 +1,3 @@
-/* eslint-disable max-lines */
-import { Select, Tag, ToggleGroup } from '@navikt/ds-react';
-import { styled } from 'styled-components';
 import { MAIN_REASON_LABELS, MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import {
   LegacyVedtaketBoolean,
@@ -10,7 +7,7 @@ import {
   VedtaketSaksdatahjemlerList,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
 import { TotalMangelfull } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/total-mangelfull';
-import { DataSet } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';
+import type { DataSet } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';
 import { UtredningenUnderKlageforberedelsen } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/utredningen-under-klageforberedelsen';
 import { BRUK_AV_RAADGIVENDE_LEGE_TEXTS } from '@app/components/statistikk/types/bruk-av-raadgivende-lege';
 import {
@@ -21,10 +18,13 @@ import {
 import { KVALITETSVURDERING_HELP_TEXTS } from '@app/components/statistikk/types/kvalitetsvurdering';
 import { UTREDNINGEN_TEXTS } from '@app/components/statistikk/types/utredningen';
 import {
-  StatisticsVedtaketHjemlerList,
-  StatisticsVedtaketHjemlerListBoolean,
+  type StatisticsVedtaketHjemlerList,
+  type StatisticsVedtaketHjemlerListBoolean,
   VEDTAKET_TEXTS,
 } from '@app/components/statistikk/types/vedtaket';
+/* eslint-disable max-lines */
+import { Select, Tag, ToggleGroup } from '@navikt/ds-react';
+import { styled } from 'styled-components';
 import { QueryParams } from '../../../../filters/filter-query-params';
 import { CardSize, DynamicCard } from '../../../card/card';
 import { useQueryParam } from '../../../hooks/use-query-param';
@@ -67,7 +67,7 @@ const MAIN_HELP_TEXTS = [
 export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
   const [datasetIndexString, setDatasetIndex] = useQueryParam(QueryParams.DATASET_INDEX, '0');
 
-  const datasetIndex = parseInt(datasetIndexString, 10);
+  const datasetIndex = Number.parseInt(datasetIndexString, 10);
 
   const focusedDataset = datasets[datasetIndex];
 

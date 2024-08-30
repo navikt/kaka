@@ -1,4 +1,4 @@
-import { ChartOptions } from 'chart.js';
+import type { ChartOptions } from 'chart.js';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useBehandlingstidField } from '../hooks/use-behandlingstid-param';

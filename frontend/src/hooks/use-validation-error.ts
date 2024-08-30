@@ -1,8 +1,8 @@
-import { useMemo } from 'react';
 import { isReduxValidationResponse } from '@app/functions/error-type-guard';
 import { useFullfoerMutation } from '@app/redux-api/saksdata';
-import { IKvalitetsvurderingV1 } from '@app/types/kvalitetsvurdering/v1';
-import { ISaksdataIncomplete } from '@app/types/saksdata';
+import type { IKvalitetsvurderingV1 } from '@app/types/kvalitetsvurdering/v1';
+import type { ISaksdataIncomplete } from '@app/types/saksdata';
+import { useMemo } from 'react';
 import { useSaksdataId } from './use-saksdata-id';
 
 type Field = keyof IKvalitetsvurderingV1 | keyof ISaksdataIncomplete;

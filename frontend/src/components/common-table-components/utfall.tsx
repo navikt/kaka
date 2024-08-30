@@ -1,5 +1,5 @@
-import { skipToken } from '@reduxjs/toolkit/query';
 import { useKodeverkUtfall } from '@app/hooks/use-kodeverk-value';
+import { skipToken } from '@reduxjs/toolkit/query';
 
 interface Props {
   utfall: string | null;

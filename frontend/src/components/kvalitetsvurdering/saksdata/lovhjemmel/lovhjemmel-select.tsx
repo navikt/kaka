@@ -1,9 +1,9 @@
-import { Alert, Button, ButtonProps } from '@navikt/ds-react';
+import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
+import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
+import { Alert, Button, type ButtonProps } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useMemo, useRef, useState } from 'react';
 import { styled } from 'styled-components';
-import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
-import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
 import { GroupedDropdown } from '../../../dropdown/grouped-dropdown';
 import { ErrorMessage } from '../../../error-message/error-message';
 

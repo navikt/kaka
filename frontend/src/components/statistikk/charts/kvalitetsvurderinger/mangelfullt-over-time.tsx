@@ -1,13 +1,13 @@
-import { ChartOptions, TooltipCallbacks } from 'chart.js';
-import { useMemo } from 'react';
-import { Line } from 'react-chartjs-2';
 import { isNotUndefined } from '@app/functions/is-not';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
-import { IKvalitetsvurderingBooleans } from '@app/types/kvalitetsvurdering/v1';
-import { IStatisticVurderingV1, RadiovalgField } from '@app/types/statistics/v1';
-import { ReasonLabel, getReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
+import type { IKvalitetsvurderingBooleans } from '@app/types/kvalitetsvurdering/v1';
+import type { IStatisticVurderingV1, RadiovalgField } from '@app/types/statistics/v1';
+import type { ChartOptions, TooltipCallbacks } from 'chart.js';
+import { useMemo } from 'react';
+import { Line } from 'react-chartjs-2';
+import { type ReasonLabel, getReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
 import { useKvalitetsvurderingParam } from '../../hooks/use-kvalitetsvurdering-param';
-import { StatisticsPropsV1 } from '../../types';
+import type { StatisticsPropsV1 } from '../../types';
 import { KVALITETSVURDERING_OPTIONS } from './kvalitetsvurdering-options';
 
 type TooltipCallback = TooltipCallbacks<'line'>['label'];

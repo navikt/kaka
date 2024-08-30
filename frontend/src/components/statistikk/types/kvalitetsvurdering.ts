@@ -7,7 +7,7 @@ import {
 import { ANNET_TEXTS } from '@app/components/statistikk/types/annet';
 import { AUTOMATISK_VEDTAK_TEXTS } from '@app/components/statistikk/types/automatisk-vedtak';
 import { BRUK_AV_RAADGIVENDE_LEGE_TEXTS } from '@app/components/statistikk/types/bruk-av-raadgivende-lege';
-import { HelpTextContainer } from '@app/components/statistikk/types/common';
+import type { HelpTextContainer } from '@app/components/statistikk/types/common';
 import { KLAGEFORBEREDELSEN_TEXTS, SAKENS_DOKUMENTER_TEXTS } from '@app/components/statistikk/types/klageforberedelsen';
 import { UTREDNINGEN_TEXTS } from '@app/components/statistikk/types/utredningen';
 import {

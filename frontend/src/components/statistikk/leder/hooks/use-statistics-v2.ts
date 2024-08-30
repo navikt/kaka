@@ -1,7 +1,7 @@
-import { useCallback, useMemo } from 'react';
 import { useStatisticsManager } from '@app/simple-api-state/statistics/v2/use-statistics-manager';
 import { useUser } from '@app/simple-api-state/use-user';
-import { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
+import type { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
+import { useCallback, useMemo } from 'react';
 import { FORMATTED_END_OF_LAST_MONTH, FORMATTED_START_OF_LAST_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {

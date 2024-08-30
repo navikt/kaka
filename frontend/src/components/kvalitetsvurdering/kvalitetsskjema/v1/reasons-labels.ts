@@ -1,4 +1,4 @@
-import { IKvalitetsvurderingBooleans, IKvalitetsvurderingTexts } from '@app/types/kvalitetsvurdering/v1';
+import type { IKvalitetsvurderingBooleans, IKvalitetsvurderingTexts } from '@app/types/kvalitetsvurdering/v1';
 
 export interface ReasonLabel {
   id: keyof IKvalitetsvurderingBooleans;

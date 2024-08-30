@@ -1,4 +1,3 @@
-import { Radio } from '@navikt/ds-react';
 import { MAIN_REASON_HELPTEXTS, MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import { getCheckbox, getTextInput } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/helpers';
 import {
@@ -10,10 +9,11 @@ import {
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import { SakstypeEnum } from '@app/types/sakstype';
+import { Radio } from '@navikt/ds-react';
 import { Checkboxes } from '../common/checkboxes';
 import { HeadingWithHelpText } from '../common/heading-with-helptext';
 import { RadioButtonsRow, StyledRadioGroup } from '../common/styled-components';
-import { CheckboxParams } from '../common/types';
+import type { CheckboxParams } from '../common/types';
 import { useKvalitetsvurderingV2 } from '../common/use-kvalitetsvurdering-v2';
 import { useValidationError } from '../common/use-validation-error';
 

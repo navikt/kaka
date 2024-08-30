@@ -1,7 +1,7 @@
 import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
 import { useUser } from '@app/simple-api-state/use-user';
 import { Filter } from './common/filter';
-import { FilterType } from './types';
+import type { FilterType } from './types';
 
 interface Props {
   selected: string[];

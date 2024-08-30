@@ -1,13 +1,13 @@
-import { BodyLong, Label, Textarea } from '@navikt/ds-react';
-import { useEffect, useState } from 'react';
-import { styled } from 'styled-components';
 import { ContainerWithHelpText } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/container-with-helptext';
-import { TextParams } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/types';
+import type { TextParams } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/types';
 import { useKvalitetsvurderingV2 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/use-kvalitetsvurdering-v2';
 import { useValidationError } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/use-validation-error';
 import { SavedStatus } from '@app/components/saved-status/saved-status';
 import { useCanEdit } from '@app/hooks/use-can-edit';
-import { IKvalitetsvurderingBooleans } from '@app/types/kvalitetsvurdering/v2';
+import type { IKvalitetsvurderingBooleans } from '@app/types/kvalitetsvurdering/v2';
+import { BodyLong, Label, Textarea } from '@navikt/ds-react';
+import { useEffect, useState } from 'react';
+import { styled } from 'styled-components';
 
 interface Props extends TextParams {
   parentKey?: keyof IKvalitetsvurderingBooleans;

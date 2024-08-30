@@ -11,7 +11,7 @@ import {
   VedtaketHjemlerListBoolean,
   VedtaketSaksdatahjemlerList,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
-import { Radiovalg, RadiovalgExtended } from './radio';
+import type { Radiovalg, RadiovalgExtended } from './radio';
 
 interface SakensDokumenter {
   [KlageforberedelsenBoolean.klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert]: boolean;

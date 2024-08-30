@@ -1,35 +1,40 @@
 import {
   BRUK_AV_RAADGIVENDE_OVERLEGE_HELP_TEXTS,
   BRUK_AV_RAADGIVENDE_OVERLEGE_LABELS,
-  BrukAvRaadgivendeOverlegeBoolean,
+  type BrukAvRaadgivendeOverlegeBoolean,
   isBrukAvRaadgivendeOverlegeField,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/bruk-av-raadgivende-overlege/data';
 import {
-  CheckboxParams,
-  InputParams,
-  TextParams,
+  type CheckboxParams,
+  type InputParams,
+  type TextParams,
   TypeEnum,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/types';
 import {
   KLAGEFORBEREDELSEN_DESCRIPTIONS,
   KLAGEFORBEREDELSEN_HELP_TEXTS,
   KLAGEFORBEREDELSEN_LABELS,
-  KlageforberedelsenBoolean,
-  KlageforberedelsenErrorFields,
-  KlageforberedelsenTextInput,
+  type KlageforberedelsenBoolean,
+  type KlageforberedelsenErrorFields,
+  type KlageforberedelsenTextInput,
   isKlageforberedelsenField,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/klageforberedelsen/data';
 import {
   VEDTAKET_HELP_TEXTS,
   VEDTAKET_LABELS,
-  VedtaketAllregistreringshjemlerList,
-  VedtaketBoolean,
-  VedtaketErrorFields,
-  VedtaketHjemlerListBoolean,
-  VedtaketSaksdatahjemlerList,
+  type VedtaketAllregistreringshjemlerList,
+  type VedtaketBoolean,
+  type VedtaketErrorFields,
+  type VedtaketHjemlerListBoolean,
+  type VedtaketSaksdatahjemlerList,
   isVedtaketField,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
-import { UTREDNINGEN_HELP_TEXTS, UTREDNINGEN_LABELS, UtredningenBoolean, isUtredningenField } from './utredningen/data';
+import {
+  UTREDNINGEN_HELP_TEXTS,
+  UTREDNINGEN_LABELS,
+  type UtredningenBoolean,
+  isUtredningenField,
+} from './utredningen/data';
 
 type Booleans =
   | KlageforberedelsenBoolean

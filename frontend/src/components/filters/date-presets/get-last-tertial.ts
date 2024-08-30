@@ -1,5 +1,5 @@
 import { endOfMonth, startOfMonth, subMonths } from 'date-fns';
-import { DateRange } from './types';
+import type { DateRange } from './types';
 
 export const getLastTertial = (now: Date): DateRange => {
   const offset = now.getMonth() % 4; // now.getMonth() is zero-based.

@@ -1,5 +1,5 @@
+import type { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { useMemo, useState } from 'react';
-import { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { DropdownContainer } from './dropdown-container';
 import { SingleHeader } from './header/single';
 import { SingleSelectOption } from './single-select-option';

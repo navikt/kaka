@@ -1,10 +1,10 @@
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { Select } from '@navikt/ds-react';
 import { useMemo } from 'react';
 import { styled } from 'styled-components';
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { useVersionQueryFilter } from './hooks/use-query-filter';
 
-const MONTH_REGEX = new RegExp('^\\d{4}-\\d{2}$');
+const MONTH_REGEX = /^\d{4}-\d{2}$/;
 
 const NOW = new Date();
 
@@ -106,7 +106,8 @@ const useYears = () => {
   return useMemo(() => {
     if (version === KvalitetsvurderingVersion.V1) {
       return [2022];
-    } else if (version === KvalitetsvurderingVersion.V2) {
+    }
+    if (version === KvalitetsvurderingVersion.V2) {
       return generateYears(2023, MAX_YEAR);
     }
 

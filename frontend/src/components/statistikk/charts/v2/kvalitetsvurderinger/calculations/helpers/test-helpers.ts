@@ -1,7 +1,7 @@
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import { SakstypeEnum } from '@app/types/sakstype';
-import { StatsDate } from '@app/types/statistics/common';
-import { IStatisticVurderingV2 } from '@app/types/statistics/v2';
+import type { StatsDate } from '@app/types/statistics/common';
+import type { IStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { UtfallEnum } from '@app/types/utfall';
 
 const DEFAULT_DATE: StatsDate = {
@@ -29,8 +29,7 @@ const DEFAULT_STAT: IStatisticVurderingV2 = {
   klageforberedelsenOversendelsesbrevetsInnholdErIkkeISamsvarMedSakensTema: false,
   klageforberedelsenOversendelsesbrevIkkeSendtKopiTilPartenEllerFeilMottaker: false,
   klageforberedelsenUtredningenUnderKlageforberedelsen: false,
-  klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysninger:
-    false,
+  klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysninger: false,
   klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarSelvInnhentetNyeOpplysninger: false,
   utredningen: Radiovalg.BRA,
   utredningenAvMedisinskeForhold: false,
