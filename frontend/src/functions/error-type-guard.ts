@@ -1,7 +1,7 @@
-import { KVALITETESVURDERING_V1_FIELD_NAMES } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v1/use-field-name';
-import { SAKSDATA_FIELD_NAMES } from '@app/hooks/use-field-name';
-import { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
-import { GenericObject, isGenericObject } from '@app/types/types';
+import type { KVALITETESVURDERING_V1_FIELD_NAMES } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v1/use-field-name';
+import type { SAKSDATA_FIELD_NAMES } from '@app/hooks/use-field-name';
+import type { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
+import { type GenericObject, isGenericObject } from '@app/types/types';
 
 export interface IValidationErrorV1 {
   reason: string;
@@ -44,7 +44,7 @@ export const isReduxValidationResponse = (error: unknown): error is IReduxError<
 };
 
 const isValidationSection = (error: GenericObject): error is IValidationSection =>
-  typeof error['section'] === 'string' && Array.isArray(error['properties']);
+  typeof error.section === 'string' && Array.isArray(error.properties);
 
 interface IReduxError<T = unknown> {
   status: number;
@@ -52,4 +52,4 @@ interface IReduxError<T = unknown> {
 }
 
 const isReduxError = <T>(error: unknown): error is IReduxError<T> =>
-  isGenericObject(error) && typeof error['status'] === 'number';
+  isGenericObject(error) && typeof error.status === 'number';

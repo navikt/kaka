@@ -16,7 +16,7 @@ const isConfigured = typeof url === 'string' && url.length !== 0;
 export const sendToSlack = async (message: string, icon_emoji: EmojiIcons) => {
   const text = `[${ENVIRONMENT}] ${messagePrefix} ${message}`;
 
-  if (!isDeployed || !isConfigured) {
+  if (!(isDeployed && isConfigured)) {
     return;
   }
 

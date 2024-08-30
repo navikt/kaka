@@ -1,10 +1,10 @@
+import { isNotNull } from '@app/functions/is-not';
+import { useYtelser } from '@app/simple-api-state/use-kodeverk';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { ArrowUndoIcon } from '@navikt/aksel-icons';
 import { Button, Label } from '@navikt/ds-react';
 import { format, parse } from 'date-fns';
 import { useSearchParams } from 'react-router-dom';
-import { isNotNull } from '@app/functions/is-not';
-import { useYtelser } from '@app/simple-api-state/use-kodeverk';
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
 import { DateContainer, FilterPanelContainer, StyledHr } from '../../filters/common/styled-components';
 import {

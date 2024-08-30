@@ -1,11 +1,11 @@
-import http from 'http';
-import { Socket } from 'net';
-import { Router } from 'express';
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import type http from 'node:http';
+import type { Socket } from 'node:net';
 import { getAzureADClient } from '@app/auth/get-auth-client';
 import { getOnBehalfOfAccessToken } from '@app/auth/on-behalf-of';
 import { API_CLIENT_IDS } from '@app/config/config';
 import { getLogger } from '@app/logger';
+import { Router } from 'express';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const log = getLogger('proxy');
 
@@ -22,10 +22,10 @@ export const setupProxy = async () => {
       if (typeof authHeader === 'string') {
         try {
           const obo_access_token = await getOnBehalfOfAccessToken(authClient, authHeader, appName);
-          req.headers['authorization'] = `Bearer ${obo_access_token}`;
+          req.headers.authorization = `Bearer ${obo_access_token}`;
           req.headers['azure-ad-token'] = authHeader;
         } catch (error) {
-          log.warn({ msg: `Failed to prepare request with OBO token.`, error, data: { route } });
+          log.warn({ msg: 'Failed to prepare request with OBO token.', error, data: { route } });
         }
       }
 

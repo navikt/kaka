@@ -1,5 +1,5 @@
+import type { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
 import { baseQuery } from '../common';
 
 type Argument = Partial<IKvalitetsvurderingData> & { id: string };

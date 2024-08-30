@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { useEffect } from 'react';
 import { Filter } from './common/filter';
 import { useVersionQueryFilter } from './hooks/use-query-filter';
-import { FilterType } from './types';
+import type { FilterType } from './types';
 
 export const KOMMENTARER_KODEVERK: FilterType[] = [
   {

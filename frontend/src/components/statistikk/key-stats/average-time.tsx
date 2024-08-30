@@ -1,4 +1,4 @@
-import { ISaksdata } from '@app/types/statistics/common';
+import type { ISaksdata } from '@app/types/statistics/common';
 import { useBehandlingstidField } from '../hooks/use-behandlingstid-param';
 import { cleanNumberDisplay } from './formatting';
 import { KeyContent, KeyNumber, RedKeyNumber } from './styled-components';

@@ -1,5 +1,5 @@
-import path from 'path';
-import { JWK } from 'jose';
+import path from 'node:path';
+import type { JWK } from 'jose';
 import { requiredEnvJson, requiredEnvString, requiredEnvUrl } from './env-var';
 
 export const slack = {

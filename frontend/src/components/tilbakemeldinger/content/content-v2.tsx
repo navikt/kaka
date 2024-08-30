@@ -3,7 +3,7 @@ import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvu
 import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
 import { ContentArea } from '@app/styled-components/filters-and-content';
-import { IStatisticVurderingV2 } from '@app/types/statistics/v2';
+import type { IStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { VurderingerTable } from '../../kvalitetsvurderinger/table';
 import { LoadingOverlay } from '../../loader/overlay';
 import { CardSize, DynamicCard } from '../../statistikk/card/card';
@@ -14,7 +14,7 @@ import { KvalitetsvurderingerV2 } from '../../statistikk/charts/v2/kvalitetsvurd
 import { useRelevantStatistics } from '../../statistikk/hooks/use-relevant-statistics';
 import { Finished } from '../../statistikk/key-stats/finished';
 import { Omgjort } from '../../statistikk/key-stats/omgjort';
-import { TilbakemeldingerCommonProps } from '../types';
+import type { TilbakemeldingerCommonProps } from '../types';
 
 interface Props extends TilbakemeldingerCommonProps {
   mine: IStatisticVurderingV2[];

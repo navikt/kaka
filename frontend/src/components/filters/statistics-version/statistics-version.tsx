@@ -1,10 +1,10 @@
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { HelpText, ToggleGroup } from '@navikt/ds-react';
 import { useSearchParams } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { QueryParams } from '../filter-query-params';
 import { useVersionQueryFilter } from '../hooks/use-query-filter';
-import { DefaultParams } from './default-params';
+import type { DefaultParams } from './default-params';
 
 interface Props {
   defaultParamsV1: DefaultParams;
@@ -18,7 +18,7 @@ export const StatisticsVersionFilter = ({ defaultParamsV1, defaultParamsV2 }: Pr
   const onChange = (kvVersion: string) => {
     searchParams.set(QueryParams.VERSION, kvVersion);
 
-    const versionAsNumber = parseInt(kvVersion, 10);
+    const versionAsNumber = Number.parseInt(kvVersion, 10);
 
     if (versionAsNumber === KvalitetsvurderingVersion.V1) {
       Object.entries(defaultParamsV1).forEach(([key, value]) => searchParams.set(key, value));

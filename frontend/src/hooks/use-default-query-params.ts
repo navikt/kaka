@@ -1,5 +1,3 @@
-import { format, subMonths } from 'date-fns';
-import { useMemo } from 'react';
 import {
   FORMATTED_NOW,
   FORMATTED_START_OF_MONTH,
@@ -12,6 +10,8 @@ import { TilbakekrevingEnum } from '@app/components/filters/types';
 import { useKlageenheter, useVedtaksenheter } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { format, subMonths } from 'date-fns';
+import { useMemo } from 'react';
 
 const DEFAULT_VERSION = `${QueryParams.VERSION}=${KvalitetsvurderingVersion.V2}`;
 const version = IS_BEFORE_FEBRUARY_2023 ? KvalitetsvurderingVersion.V1 : KvalitetsvurderingVersion.V2;

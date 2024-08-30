@@ -1,9 +1,9 @@
+import { SingleSelectOption } from '@app/components/dropdown/single-select-option';
+import { DropdownContent, StyledListItem } from '@app/components/dropdown/styled-components';
+import type { CommonGroupedDropdownProps } from '@app/components/dropdown/types';
 import { Heading } from '@navikt/ds-react';
 import { Fragment, useState } from 'react';
 import { styled } from 'styled-components';
-import { SingleSelectOption } from '@app/components/dropdown/single-select-option';
-import { DropdownContent, StyledListItem } from '@app/components/dropdown/styled-components';
-import { CommonGroupedDropdownProps } from '@app/components/dropdown/types';
 import { DropdownContainer } from './dropdown-container';
 import { GroupedHeader } from './header/grouped';
 

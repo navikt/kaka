@@ -1,5 +1,5 @@
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
-import { IStatisticVurderingV2 } from '@app/types/statistics/v2';
+import type { IStatisticVurderingV2 } from '@app/types/statistics/v2';
 
 export interface DataSet {
   label: string;

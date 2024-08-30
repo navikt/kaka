@@ -1,11 +1,11 @@
-import { ChartOptions } from 'chart.js';
+import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
+import type { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
+import type { ChartOptions } from 'chart.js';
 import { useMemo } from 'react';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import { styled } from 'styled-components';
-import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
-import { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
-import { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
-import { StatisticsPropsV1 } from '../../types';
+import type { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
+import type { StatisticsPropsV1 } from '../../types';
 import { GRAPH_COLOR } from '../colors';
 import { percent, tickCallback } from '../formatting';
 import { ChartContainer, ChartTitle } from '../styled-components';

@@ -1,10 +1,10 @@
+import { CURRENT_YEAR } from '@app/components/filters/date-presets/constants';
+import { useHasRole } from '@app/hooks/use-has-role';
+import { Role } from '@app/types/user';
 import { DownloadIcon } from '@navikt/aksel-icons';
 import { Button, Heading, Select, ToggleGroup } from '@navikt/ds-react';
 import { getYear, parseISO } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { CURRENT_YEAR } from '@app/components/filters/date-presets/constants';
-import { useHasRole } from '@app/hooks/use-has-role';
-import { Role } from '@app/types/user';
 import { QueryParams } from '../filters/filter-query-params';
 import { useQueryFilter } from '../filters/hooks/use-query-filter';
 

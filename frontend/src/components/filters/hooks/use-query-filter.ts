@@ -1,9 +1,9 @@
-import { useSearchParams } from 'react-router-dom';
 import {
-  Vedtaksinstansgruppe,
+  type Vedtaksinstansgruppe,
   isVedtaksinstansgruppe,
 } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { useSearchParams } from 'react-router-dom';
 import { QueryParams } from '../../filters/filter-query-params';
 import { TilbakekrevingEnum } from '../types';
 
@@ -23,7 +23,7 @@ export const useVedtaksinstansgruppeQueryFilter = (): Vedtaksinstansgruppe[] => 
   const result: Vedtaksinstansgruppe[] = [];
 
   for (const value of values) {
-    const parsed = parseInt(value, 10);
+    const parsed = Number.parseInt(value, 10);
 
     if (!Number.isNaN(parsed) && isVedtaksinstansgruppe(parsed)) {
       result.push(parsed);
@@ -94,7 +94,7 @@ export const useVersionQueryFilter = (defaultVersion?: KvalitetsvurderingVersion
     return defaultVersion ?? KvalitetsvurderingVersion.V2;
   }
 
-  const version = parseInt(queryValue, 10);
+  const version = Number.parseInt(queryValue, 10);
 
   if (!isKvalitetsvurderingVersion(version)) {
     return defaultVersion ?? KvalitetsvurderingVersion.V2;

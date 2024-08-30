@@ -1,7 +1,7 @@
-import { useCallback, useMemo } from 'react';
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v1/use-statistics-total';
-import { OptionValue } from '@app/types/statistics/common';
-import { IComparedFullStatisticVurderingV1, IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
+import type { OptionValue } from '@app/types/statistics/common';
+import type { IComparedFullStatisticVurderingV1, IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
+import { useCallback, useMemo } from 'react';
 import { AVERAGE, GLOBAL_AVERAGE, REST } from '../../../filters/comparison/comparison-values/default-options';
 import { useComparisonProp } from '../../../filters/comparison/comparison-values/use-prop';
 import { useComparisonValues } from '../../../filters/comparison/comparison-values/use-values';
@@ -119,7 +119,7 @@ const getMatchedValue = (
     case ComparableQueryParams.HJEMLER:
       return comparisonValues.find(([v]) => sak.hjemmelIdList.includes(v));
     case ComparableQueryParams.VEDTAKSINSTANSGRUPPER:
-      return comparisonValues.find(([v]) => sak.vedtaksinstansEnhet !== null && sak.vedtaksinstansEnhet.startsWith(v));
+      return comparisonValues.find(([v]) => sak.vedtaksinstansEnhet?.startsWith(v));
     case ComparableQueryParams.DATE_INTERVALS:
       return comparisonValues.find(([v]) => isInDateInterval(sak.avsluttetAvSaksbehandler.iso, v));
   }

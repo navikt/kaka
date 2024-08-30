@@ -1,13 +1,13 @@
-import { ChartOptions } from 'chart.js';
-import { useMemo } from 'react';
-import { Bar } from 'react-chartjs-2';
 import {
   BAR_THICKNESS,
   getUtredningenUnderKlageforberedelsenDatasets,
 } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/calculations/utredningen-under-klageforberedelsen';
-import { GetAbsoluteValue, useBarTooltipText } from '../../../hooks/use-bar-tooltip-text';
+import type { ChartOptions } from 'chart.js';
+import { useMemo } from 'react';
+import { Bar } from 'react-chartjs-2';
+import { type GetAbsoluteValue, useBarTooltipText } from '../../../hooks/use-bar-tooltip-text';
 import { HorizontalBars } from './horizontal-bars';
-import { DataSet } from './types';
+import type { DataSet } from './types';
 
 const UNIT = 'avvik';
 

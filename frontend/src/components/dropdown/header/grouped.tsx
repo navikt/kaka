@@ -1,6 +1,6 @@
+import { type BaseProps, InternalHeader, getFilters } from '@app/components/dropdown/header/common';
+import type { OptionGroup } from '@app/components/dropdown/types';
 import { useCallback } from 'react';
-import { BaseProps, InternalHeader, getFilters } from '@app/components/dropdown/header/common';
-import { OptionGroup } from '@app/components/dropdown/types';
 
 interface GroupedHeaderProps extends BaseProps {
   options: OptionGroup[];
@@ -58,8 +58,6 @@ const groupedFilterOptions = (
 
     if (sectionOptions.length > 0) {
       filtered.push({ ...option, sectionOptions });
-
-      continue;
     }
   }
 

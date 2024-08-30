@@ -1,5 +1,5 @@
-import { useContext } from 'react';
 import { StaticDataContext } from '@app/components/app/static-data-context';
+import { useContext } from 'react';
 
 export const useUser = () => {
   const { user } = useContext(StaticDataContext);

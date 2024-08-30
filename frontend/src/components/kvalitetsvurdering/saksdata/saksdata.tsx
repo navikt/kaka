@@ -1,6 +1,6 @@
+import { useSaksdata } from '@app/hooks/use-saksdata';
 import { Heading, Loader } from '@navikt/ds-react';
 import { styled } from 'styled-components';
-import { useSaksdata } from '@app/hooks/use-saksdata';
 import { FraVedtaksenhet } from './fra-vedtaksenhet';
 import { Lovhjemmel } from './lovhjemmel/lovhjemmel';
 import { MottattKlageinstans } from './mottatt-klageinstans';

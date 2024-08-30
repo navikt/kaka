@@ -1,5 +1,5 @@
-import { SakstypeEnum } from './sakstype';
-import { UtfallEnum } from './utfall';
+import type { SakstypeEnum } from './sakstype';
+import type { UtfallEnum } from './utfall';
 
 export interface IKodeverkSimpleValue<T extends string = string> {
   id: T;

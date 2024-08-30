@@ -1,5 +1,5 @@
+import type { StatsDate } from '@app/types/statistics/common';
 import { HelpText } from '@navikt/ds-react';
-import { StatsDate } from '@app/types/statistics/common';
 import { cleanNumberDisplay } from './formatting';
 import { HelpTextContent, KeyContent, KeyLabelWithHelpText, KeyNumber } from './styled-components';
 

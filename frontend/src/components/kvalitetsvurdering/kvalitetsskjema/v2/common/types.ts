@@ -1,8 +1,8 @@
-import { BrukAvRaadgivendeOverlegeErrorFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/bruk-av-raadgivende-overlege/data';
-import { KlageforberedelsenErrorFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/klageforberedelsen/data';
-import { UtredningenErrorFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/utredningen/data';
-import { VedtaketErrorFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
-import {
+import type { BrukAvRaadgivendeOverlegeErrorFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/bruk-av-raadgivende-overlege/data';
+import type { KlageforberedelsenErrorFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/klageforberedelsen/data';
+import type { UtredningenErrorFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/utredningen/data';
+import type { VedtaketErrorFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
+import type {
   IKvalitetsvurderingAllRegistreringshjemler,
   IKvalitetsvurderingBooleans,
   IKvalitetsvurderingSaksdataHjemler,
@@ -38,6 +38,6 @@ export interface TextParams extends BaseParams {
 export type InputParams = CheckboxParams | TextParams;
 
 export enum TypeEnum {
-  CHECKBOX,
-  TEXTAREA,
+  CHECKBOX = 0,
+  TEXTAREA = 1,
 }

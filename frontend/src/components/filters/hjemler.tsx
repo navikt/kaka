@@ -1,7 +1,7 @@
-import { useMemo, useRef, useState } from 'react';
-import { OptionGroup } from '@app/components/dropdown/types';
+import type { OptionGroup } from '@app/components/dropdown/types';
 import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
 import { useLovkildeToRegistreringshjemler } from '@app/simple-api-state/use-kodeverk';
+import { useMemo, useRef, useState } from 'react';
 import { GroupedDropdown } from '../dropdown/grouped-dropdown';
 import { formatMetadata } from './common/dropdown';
 import { StyledDropdownButton } from './common/styled-components';

@@ -1,4 +1,4 @@
-import { IKodeverkSimpleValue } from './../../../../types/kodeverk';
+import type { IKodeverkSimpleValue } from './../../../../types/kodeverk';
 
 export const REST = 'REST';
 export const AVERAGE = 'AVERAGE';

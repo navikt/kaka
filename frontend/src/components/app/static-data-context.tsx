@@ -1,7 +1,7 @@
-import { createContext, useEffect, useState } from 'react';
 import { AppLoader } from '@app/components/app/loader';
 import { user } from '@app/static-data/static-data';
-import { IUser } from '@app/types/user';
+import type { IUser } from '@app/types/user';
+import { createContext, useEffect, useState } from 'react';
 
 interface Props {
   children: React.ReactNode;

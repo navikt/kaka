@@ -1,5 +1,5 @@
-import { ISaksdata } from '@app/types/statistics/common';
-import { IStatisticVurderingV1 } from '@app/types/statistics/v1';
+import type { ISaksdata } from '@app/types/statistics/common';
+import type { IStatisticVurderingV1 } from '@app/types/statistics/v1';
 
 export interface StatisticsPropsV1 {
   stats: IStatisticVurderingV1[];

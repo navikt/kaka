@@ -1,5 +1,5 @@
+import { type BaseProps, InternalHeader, getFilters } from '@app/components/dropdown/header/common';
 import { useCallback } from 'react';
-import { BaseProps, InternalHeader, getFilters } from '@app/components/dropdown/header/common';
 
 interface Option {
   label: string;

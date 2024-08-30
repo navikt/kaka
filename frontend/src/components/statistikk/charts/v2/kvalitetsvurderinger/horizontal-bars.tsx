@@ -1,4 +1,4 @@
-import { Chart, ChartOptions } from 'chart.js';
+import { Chart, type ChartOptions } from 'chart.js';
 import { styled } from 'styled-components';
 
 // Above graph

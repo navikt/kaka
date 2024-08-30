@@ -1,11 +1,11 @@
-import { skipToken } from '@reduxjs/toolkit/query';
-import { State } from '@app/simple-api-state/simple-api-state';
+import type { State } from '@app/simple-api-state/simple-api-state';
 import { useKlageenheter, useSakstyper, useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { useSortedUtfall } from '@app/simple-api-state/use-utfall';
-import { IKlageenhet, IKodeverkSimpleValue, ILovKildeToRegistreringshjemmel, IYtelse } from '@app/types/kodeverk';
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
-import { SakstypeEnum } from '@app/types/sakstype';
-import { UtfallEnum } from '@app/types/utfall';
+import type { IKlageenhet, IKodeverkSimpleValue, ILovKildeToRegistreringshjemmel, IYtelse } from '@app/types/kodeverk';
+import type { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import type { SakstypeEnum } from '@app/types/sakstype';
+import type { UtfallEnum } from '@app/types/utfall';
+import { skipToken } from '@reduxjs/toolkit/query';
 import { useSaksdata } from './use-saksdata';
 
 type YtelseParams = typeof skipToken | { ytelseId: string; version: KvalitetsvurderingVersion };
@@ -98,7 +98,7 @@ export const useSimpleYtelserForKlageenhet = (
 };
 
 export const useYtelserForVedtaksinstansenhet = (
-  enhetId: string | typeof skipToken = skipToken,
+  enhetId: string | typeof skipToken,
   version: KvalitetsvurderingVersion,
 ): IYtelse[] => {
   const { data: ytelser = [] } = useYtelser(version);
@@ -111,7 +111,7 @@ export const useYtelserForVedtaksinstansenhet = (
 };
 
 export const useYtelserForKlageenhet = (
-  enhetId: string | typeof skipToken = skipToken,
+  enhetId: string | typeof skipToken,
   version: KvalitetsvurderingVersion,
 ): IYtelse[] => {
   const { data: ytelser = [] } = useYtelser(version);

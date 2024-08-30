@@ -1,8 +1,8 @@
-import { ChartOptions } from 'chart.js';
+import type { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
+import { UtfallEnum } from '@app/types/utfall';
+import type { ChartOptions } from 'chart.js';
 import { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
-import { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
-import { UtfallEnum } from '@app/types/utfall';
 
 const useOptions = (): ChartOptions<'line'> => ({
   aspectRatio: 3,

@@ -1,6 +1,6 @@
+import type { HelpTextContainer } from '@app/components/statistikk/types/common';
 import { BodyShort, Heading, Label, ReadMore } from '@navikt/ds-react';
 import { styled } from 'styled-components';
-import { HelpTextContainer } from '@app/components/statistikk/types/common';
 
 interface Props {
   helpTexts: HelpTextContainer[];

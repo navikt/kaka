@@ -1,12 +1,12 @@
-import { Radio, RadioGroup } from '@navikt/ds-react';
-import { styled } from 'styled-components';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { useValidationError } from '@app/hooks/use-validation-error';
 import { useSetSakstypeMutation } from '@app/redux-api/saksdata';
 import { useSakstyper } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';
-import { SakstypeEnum } from '@app/types/sakstype';
+import type { SakstypeEnum } from '@app/types/sakstype';
+import { Radio, RadioGroup } from '@navikt/ds-react';
+import { styled } from 'styled-components';
 
 export const Sakstype = () => {
   const user = useUser();

@@ -1,5 +1,5 @@
+import type { ISaksdatalisteLederVedtaksinstans, ISaksdatalisteLederVedtaksinstansParamsV1 } from '@app/types/saksdata';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { ISaksdatalisteLederVedtaksinstans, ISaksdatalisteLederVedtaksinstansParamsV1 } from '@app/types/saksdata';
 import { useSimpleApiState } from '../../simple-api-state';
 import { getStateFactory } from '../../state-factory';
 

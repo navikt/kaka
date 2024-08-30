@@ -1,5 +1,5 @@
-import { Router } from 'express';
 import { VERSION } from '@app/config/config';
+import { Router } from 'express';
 
 const router = Router();
 

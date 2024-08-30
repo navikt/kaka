@@ -1,8 +1,8 @@
-import { ChartOptions } from 'chart.js';
+import { NAV_COLORS } from '@app/colors/colors';
+import type { ISaksdata } from '@app/types/statistics/common';
+import type { ChartOptions } from 'chart.js';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { NAV_COLORS } from '@app/colors/colors';
-import { ISaksdata } from '@app/types/statistics/common';
 import { HorizontalBars } from '../v2/kvalitetsvurderinger/horizontal-bars';
 
 const BAR_THICKNESS = 50;

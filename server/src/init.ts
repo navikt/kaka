@@ -1,4 +1,4 @@
-import { Express } from 'express';
+import type { Express } from 'express';
 import { PORT } from './config/config';
 import { getLogger } from './logger';
 import { setupProxy } from './routes/setup-proxy';

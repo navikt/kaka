@@ -1,6 +1,11 @@
+import {
+  type ISaksdataBase,
+  type ISaksdataComplete,
+  type ISaksdataIncomplete,
+  KvalitetsvurderingVersion,
+} from '@app/types/saksdata';
 /* eslint-disable max-lines */
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { ISaksdataBase, ISaksdataComplete, ISaksdataIncomplete, KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { baseQuery } from './common';
 import { kvalitetsvurderingV1Api } from './kvalitetsvurdering/v1';
 import { kvalitetsvurderingV2Api } from './kvalitetsvurdering/v2';
@@ -111,7 +116,7 @@ export const saksdataApi = createApi({
     }),
     getIncompleteSaksdataList: builder.query<ISaksdataIncomplete[], ISaksdataListParams>({
       query: (params) => ({
-        url: `/api/kaka-api/saksdataliste`,
+        url: '/api/kaka-api/saksdataliste',
         params: { ...params, fullfoert: false },
       }),
       transformResponse: ({ searchHits }) => searchHits,
@@ -124,7 +129,7 @@ export const saksdataApi = createApi({
     }),
     getCompleteSaksdataList: builder.query<ISaksdataComplete[], ISaksdataListParams>({
       query: (params) => ({
-        url: `/api/kaka-api/saksdataliste`,
+        url: '/api/kaka-api/saksdataliste',
         params: { ...params, fullfoert: true },
       }),
       transformResponse: ({ searchHits }) => searchHits,

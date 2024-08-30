@@ -1,8 +1,5 @@
-import { TrashIcon } from '@navikt/aksel-icons';
-import { Button } from '@navikt/ds-react';
-import { useMemo, useRef, useState } from 'react';
 import { GroupedSingleSelect } from '@app/components/dropdown/grouped-single-select';
-import { OptionGroup } from '@app/components/dropdown/types';
+import type { OptionGroup } from '@app/components/dropdown/types';
 import { AddOptionButton } from '@app/components/filters/comparison/comparison-values/add-option-button';
 import { DEFAULT_OPTIONS } from '@app/components/filters/comparison/comparison-values/default-options';
 import {
@@ -15,8 +12,11 @@ import { useOnchange } from '@app/components/filters/comparison/comparison-value
 import { ToggleButton } from '@app/components/toggle/toggle-button';
 import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
 import { useLovkildeToRegistreringshjemler, useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
-import { IKodeverkSimpleValue } from '@app/types/kodeverk';
-import { OptionValue } from '@app/types/statistics/common';
+import type { IKodeverkSimpleValue } from '@app/types/kodeverk';
+import type { OptionValue } from '@app/types/statistics/common';
+import { TrashIcon } from '@navikt/aksel-icons';
+import { Button } from '@navikt/ds-react';
+import { useMemo, useRef, useState } from 'react';
 
 const useNextOption = (data: IKodeverkSimpleValue[]): string | undefined => {
   const { selectedValues } = useOnchange();

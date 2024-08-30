@@ -45,11 +45,10 @@ describe('get font color for background', () => {
 });
 
 const rgbToHex = (rgbString: string) =>
-  '#' +
-  rgbString
+  `#${rgbString
     .replace('rgb(', '')
     .replace(')', '')
     .split(',')
     .map((x) => Number.parseInt(x, 10))
     .map((x) => x.toString(16).padStart(2, '0'))
-    .join('');
+    .join('')}`;

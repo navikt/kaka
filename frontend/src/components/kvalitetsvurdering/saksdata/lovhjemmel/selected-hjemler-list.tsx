@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
 import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
-import { ILovKildeToRegistreringshjemmel } from '@app/types/kodeverk';
+import type { ILovKildeToRegistreringshjemmel } from '@app/types/kodeverk';
+import { useMemo } from 'react';
 import {
   StyledNoneSelected,
   StyledSelectedHjemler,

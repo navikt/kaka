@@ -1,6 +1,6 @@
-import { HelpText, HelpTextProps } from '@navikt/ds-react';
-import { styled } from 'styled-components';
 import { CardTitle } from '@app/styled-components/cards';
+import { HelpText, type HelpTextProps } from '@navikt/ds-react';
+import { styled } from 'styled-components';
 import { ChartTitle } from '../styled-components';
 
 interface Props {

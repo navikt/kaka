@@ -1,11 +1,11 @@
-import { useMemo } from 'react';
 import { CardExtraSmall, CardLarge, CardMedium, CardSmall } from '@app/styled-components/cards';
+import { useMemo } from 'react';
 
 export enum CardSize {
-  EXTRA_SMALL,
-  SMALL,
-  MEDIUM,
-  LARGE,
+  EXTRA_SMALL = 0,
+  SMALL = 1,
+  MEDIUM = 2,
+  LARGE = 3,
 }
 
 interface Props {

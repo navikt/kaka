@@ -1,5 +1,5 @@
+import type { ISaksbehandler } from '@app/types/statistics/common';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { ISaksbehandler } from '@app/types/statistics/common';
 import { useSimpleApiState } from './simple-api-state';
 import { getStateFactory } from './state-factory';
 

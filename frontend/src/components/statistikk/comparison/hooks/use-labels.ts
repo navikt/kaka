@@ -1,14 +1,14 @@
-import { useMemo } from 'react';
 import { isoDateToPretty } from '@app/domain/date';
 import {
-  RegistreringshjemlerMap,
+  type RegistreringshjemlerMap,
   useEnheter,
   useKlageenheter,
   useRegistreringshjemlerMap,
   useYtelser,
 } from '@app/simple-api-state/use-kodeverk';
 import { useSortedUtfall } from '@app/simple-api-state/use-utfall';
-import { IKodeverkSimpleValue } from '@app/types/kodeverk';
+import type { IKodeverkSimpleValue } from '@app/types/kodeverk';
+import { useMemo } from 'react';
 import {
   AVERAGE,
   AVERAGE_LABEL,

@@ -1,11 +1,11 @@
-import { ChartOptions } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
 import { UTFALL_COLOR_MAP } from '@app/colors/colors';
 import { toPercent } from '@app/domain/number';
 import { useUtfall } from '@app/simple-api-state/use-utfall';
 import { UtfallEnum } from '@app/types/utfall';
-import { GetAbsoluteValue, useBarTooltipText } from '../hooks/use-bar-tooltip-text';
-import { ComparisonPropsV2 } from '../types';
+import type { ChartOptions } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import { type GetAbsoluteValue, useBarTooltipText } from '../hooks/use-bar-tooltip-text';
+import type { ComparisonPropsV2 } from '../types';
 import { HorizontalBars } from './v2/kvalitetsvurderinger/horizontal-bars';
 
 const UNIT = 'saker';

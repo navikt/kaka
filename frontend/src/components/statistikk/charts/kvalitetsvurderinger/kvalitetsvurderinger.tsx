@@ -1,6 +1,6 @@
 import { useKvalitetsvurderingParam } from '../../hooks/use-kvalitetsvurdering-param';
 import { ToggleKvalitetsvurdering } from '../../toggle-kvalitetsvurdering';
-import { StatisticsPropsV1 } from '../../types';
+import type { StatisticsPropsV1 } from '../../types';
 import { Kvalitetsvurdering } from './kvalitetsvurdering';
 import { KVALITETSVURDERING_OPTIONS } from './kvalitetsvurdering-options';
 

@@ -1,12 +1,12 @@
-import { Heading, Radio, RadioGroup } from '@navikt/ds-react';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useKvalitetsvurdering } from '@app/hooks/use-kvalitetsvurdering';
 import { useValidationError } from '@app/hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '@app/redux-api/kvalitetsvurdering/v1';
 import { RadiovalgExtended } from '@app/types/kvalitetsvurdering/radio';
+import { Heading, Radio, RadioGroup } from '@navikt/ds-react';
 import { Reasons } from './reasons';
 import { brukAvRaadgivendeLegeReasons } from './reasons-labels';
-import { Reason } from './types';
+import type { Reason } from './types';
 import { useKvalitetsvurderingV1FieldName } from './use-field-name';
 
 export const BrukAvRaadgivendeLege = () => {

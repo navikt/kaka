@@ -1,6 +1,6 @@
-import { useCallback, useMemo } from 'react';
 import { useStatisticsMy } from '@app/simple-api-state/statistics/v1/use-statistics-my';
-import { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
+import type { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
+import { useCallback, useMemo } from 'react';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {

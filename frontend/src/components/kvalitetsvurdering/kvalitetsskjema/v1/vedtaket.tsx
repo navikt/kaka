@@ -1,13 +1,13 @@
-import { Heading, Radio, RadioGroup } from '@navikt/ds-react';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useKvalitetsvurdering } from '@app/hooks/use-kvalitetsvurdering';
 import { useValidationError } from '@app/hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '@app/redux-api/kvalitetsvurdering/v1';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
+import { Heading, Radio, RadioGroup } from '@navikt/ds-react';
 import { Reasons } from './reasons';
 import { vedtaketReasons } from './reasons-labels';
 import { RadioButtonsRow } from './styled-components';
-import { Reason } from './types';
+import type { Reason } from './types';
 import { useKvalitetsvurderingV1FieldName } from './use-field-name';
 
 export const Vedtaket = () => {

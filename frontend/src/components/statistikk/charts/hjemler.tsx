@@ -1,4 +1,4 @@
-import { ChartOptions, TooltipCallbacks } from 'chart.js';
+import type { ChartOptions, TooltipCallbacks } from 'chart.js';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useSearchParams } from 'react-router-dom';

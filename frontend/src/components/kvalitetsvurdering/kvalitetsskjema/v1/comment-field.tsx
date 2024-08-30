@@ -1,10 +1,10 @@
-import { Textarea } from '@navikt/ds-react';
-import { useEffect, useState } from 'react';
-import { styled } from 'styled-components';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useKvalitetsvurdering } from '@app/hooks/use-kvalitetsvurdering';
 import { useUpdateKvalitetsvurderingMutation } from '@app/redux-api/kvalitetsvurdering/v1';
-import { IKvalitetsvurderingTexts, IKvalitetsvurderingV1 } from '@app/types/kvalitetsvurdering/v1';
+import type { IKvalitetsvurderingTexts, IKvalitetsvurderingV1 } from '@app/types/kvalitetsvurdering/v1';
+import { Textarea } from '@navikt/ds-react';
+import { useEffect, useState } from 'react';
+import { styled } from 'styled-components';
 
 interface Props {
   textareaId: keyof IKvalitetsvurderingTexts;

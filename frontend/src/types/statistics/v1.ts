@@ -1,6 +1,6 @@
-import { Vedtaksinstansgruppe } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
-import { Radiovalg, RadiovalgExtended } from '../kvalitetsvurdering/radio';
-import { ISaksdata, UUID } from './common';
+import type { Vedtaksinstansgruppe } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
+import type { Radiovalg, RadiovalgExtended } from '../kvalitetsvurdering/radio';
+import type { ISaksdata, UUID } from './common';
 
 export interface IStatisticVurderingV1 extends ISaksdata {
   readonly id: UUID; // Anonymized

@@ -3,7 +3,7 @@ import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvu
 import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
 import { ContentArea } from '@app/styled-components/filters-and-content';
-import { IStatisticVurderingV2 } from '@app/types/statistics/v2';
+import type { IStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { LoadingOverlay } from '../../../loader/overlay';
 import { CardSize, DynamicCard } from '../../card/card';
 import { BehandlingstidHistogram } from '../../charts/behandlingstid-histogram';

@@ -1,6 +1,6 @@
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import { styled } from 'styled-components';
-import { FilterType } from '../types';
+import type { FilterType } from '../types';
 
 export interface CheckboxesProps<T extends string | number> {
   selected: T[];

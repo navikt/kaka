@@ -1,6 +1,6 @@
-import { Vedtaksinstansgruppe } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
-import { IKvalitetsvurderingData, IKvalitetsvurderingStrings } from '@app/types/kvalitetsvurdering/v2';
-import { ISaksdata, UUID } from './common';
+import type { Vedtaksinstansgruppe } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
+import type { IKvalitetsvurderingData, IKvalitetsvurderingStrings } from '@app/types/kvalitetsvurdering/v2';
+import type { ISaksdata, UUID } from './common';
 
 interface IKvalitetsvurderingV2 extends Omit<IKvalitetsvurderingData, keyof IKvalitetsvurderingStrings> {
   vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert: boolean;

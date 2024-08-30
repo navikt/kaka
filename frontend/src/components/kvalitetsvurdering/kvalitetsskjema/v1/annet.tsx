@@ -1,10 +1,10 @@
-import { Heading } from '@navikt/ds-react';
 import { useKvalitetsvurdering } from '@app/hooks/use-kvalitetsvurdering';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import { SakstypeEnum } from '@app/types/sakstype';
+import { Heading } from '@navikt/ds-react';
 import { Reasons } from './reasons';
-import { Reason } from './types';
+import type { Reason } from './types';
 
 export const Annet = () => {
   const [kvalitetsvurdering] = useKvalitetsvurdering();

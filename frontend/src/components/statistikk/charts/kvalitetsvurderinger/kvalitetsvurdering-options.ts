@@ -1,6 +1,6 @@
-import { RadiovalgField } from '@app/types/statistics/v1';
+import type { RadiovalgField } from '@app/types/statistics/v1';
 import {
-  ReasonLabel,
+  type ReasonLabel,
   brukAvRaadgivendeLegeReasons,
   klageforberedelsenReasons,
   utredningenReasons,

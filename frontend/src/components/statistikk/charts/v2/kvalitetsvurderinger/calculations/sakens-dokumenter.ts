@@ -1,10 +1,10 @@
-import { ChartData } from 'chart.js';
 import { NAV_COLORS } from '@app/colors/colors';
 import {
   SAKENS_DOKUMENTER_REASONS,
   SAKENS_DOKUMENTER_TEXTS,
 } from '@app/components/statistikk/types/klageforberedelsen';
-import { DataSet } from '../types';
+import type { ChartData } from 'chart.js';
+import type { DataSet } from '../types';
 import { calculateReasons } from './helpers/reasons';
 
 type ReturnType = ChartData<'bar', number[], string>;

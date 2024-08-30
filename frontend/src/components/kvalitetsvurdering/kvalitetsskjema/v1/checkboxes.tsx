@@ -1,12 +1,12 @@
-import { Checkbox, CheckboxGroup, HelpText } from '@navikt/ds-react';
-import { Fragment, forwardRef } from 'react';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useKvalitetsvurdering } from '@app/hooks/use-kvalitetsvurdering';
 import { useUpdateKvalitetsvurderingMutation } from '@app/redux-api/kvalitetsvurdering/v1';
-import { IKvalitetsvurderingTexts } from '@app/types/kvalitetsvurdering/v1';
+import type { IKvalitetsvurderingTexts } from '@app/types/kvalitetsvurdering/v1';
+import { Checkbox, CheckboxGroup, HelpText } from '@navikt/ds-react';
+import { Fragment, forwardRef } from 'react';
 import { CommentField } from './comment-field';
 import { StyledCheckboxContainer } from './styled-components';
-import { Reason } from './types';
+import type { Reason } from './types';
 
 export interface CheckboxesProps {
   reasons: Reason[];

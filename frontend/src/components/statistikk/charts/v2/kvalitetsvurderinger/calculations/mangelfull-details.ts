@@ -1,4 +1,3 @@
-import { ChartData } from 'chart.js';
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import {
   KVALITETSVURDERING_TEXTS,
@@ -6,7 +5,8 @@ import {
   MAIN_REASON_IDS,
   REASON_TO_SUBREASONS,
 } from '@app/components/statistikk/types/kvalitetsvurdering';
-import { DataSet } from '../types';
+import type { ChartData } from 'chart.js';
+import type { DataSet } from '../types';
 import { calculateReasons } from './helpers/reasons';
 
 /* 

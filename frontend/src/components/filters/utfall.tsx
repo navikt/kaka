@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
 import { useUtfallForStats } from '@app/simple-api-state/use-utfall';
+import { useMemo } from 'react';
 import { Filter } from './common/filter';
-import { FilterType } from './types';
+import type { FilterType } from './types';
 
 interface UtfallFilterProps {
   selected: string[];

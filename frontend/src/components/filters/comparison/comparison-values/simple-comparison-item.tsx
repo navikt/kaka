@@ -1,6 +1,3 @@
-import { TrashIcon } from '@navikt/aksel-icons';
-import { Button } from '@navikt/ds-react';
-import { useRef, useState } from 'react';
 import {
   DropdownContainer,
   Ellipsis,
@@ -8,7 +5,10 @@ import {
   StyledComparisonItem,
 } from '@app/components/filters/comparison/comparison-values/styled-components';
 import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
-import { IKodeverkSimpleValue } from '@app/types/kodeverk';
+import type { IKodeverkSimpleValue } from '@app/types/kodeverk';
+import { TrashIcon } from '@navikt/aksel-icons';
+import { Button } from '@navikt/ds-react';
+import { useRef, useState } from 'react';
 import { SingleSelectDropdown } from '../../../dropdown/single-select-dropdown';
 import { ToggleButton } from '../../../toggle/toggle-button';
 

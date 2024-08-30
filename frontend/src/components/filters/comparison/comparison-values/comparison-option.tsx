@@ -1,5 +1,5 @@
+import type { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { useMemo } from 'react';
-import { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { AddOptionButton } from './add-option-button';
 import { AVERAGE, AVERAGE_LABEL, GLOBAL_AVERAGE, GLOBAL_AVERAGE_LABEL, REST, REST_LABEL } from './default-options';
 import { SimpleComparisonItem } from './simple-comparison-item';
