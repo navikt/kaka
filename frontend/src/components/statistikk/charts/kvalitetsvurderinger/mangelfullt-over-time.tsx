@@ -124,21 +124,19 @@ const useMangelfulleSaker = (stats: IStatisticVurderingV1[], field: RadiovalgFie
 
     const sorted = new Map([...unsorted.entries()].sort(([aKey], [bKey]) => COLLATOR.compare(aKey, bKey)));
 
-    sorted.forEach((period) => {
-      const periodTotal = Array.from(period.values()).reduce((acc, stat) => acc + stat.quantity, 0);
+    for (const period of sorted) {
+      const periodTotal = Array.from(period[1].values()).reduce((acc, stat) => acc + stat.quantity, 0);
 
       if (periodTotal === 0) {
-        return;
+        continue;
       }
 
-      period.forEach((_, key) => {
-        const stat = period.get(key);
-
+      for (const [key, stat] of period[1]) {
         if (typeof stat !== 'undefined') {
-          period.set(key, { ...stat, percentage: (stat.quantity / periodTotal) * 100 });
+          period[1].set(key, { ...stat, percentage: (stat.quantity / periodTotal) * 100 });
         }
-      });
-    });
+      }
+    }
 
     return sorted;
   }, [stats, field, relevantReasons]);

@@ -22,7 +22,6 @@ import {
   type StatisticsVedtaketHjemlerListBoolean,
   VEDTAKET_TEXTS,
 } from '@app/components/statistikk/types/vedtaket';
-/* eslint-disable max-lines */
 import { Select, Tag, ToggleGroup } from '@navikt/ds-react';
 import { styled } from 'styled-components';
 import { QueryParams } from '../../../../filters/filter-query-params';
@@ -161,7 +160,7 @@ const DatasetSelector = ({ datasets, datasetIndexString, onChange }: DatasetSele
     return (
       <ToggleGroup size="small" value={datasetIndexString} onChange={onChange}>
         {datasets.map(({ label }, index) => (
-          <ToggleGroup.Item key={index} value={index.toString(10)}>
+          <ToggleGroup.Item key={label} value={index.toString(10)}>
             {label}
           </ToggleGroup.Item>
         ))}
@@ -178,7 +177,7 @@ const DatasetSelector = ({ datasets, datasetIndexString, onChange }: DatasetSele
       onChange={({ target }) => onChange(target.value)}
     >
       {datasets.map(({ label }, index) => (
-        <option key={index} value={index.toString(10)}>
+        <option key={label} value={index.toString(10)}>
           {label}
         </option>
       ))}

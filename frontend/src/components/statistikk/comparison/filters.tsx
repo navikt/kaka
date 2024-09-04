@@ -1,6 +1,5 @@
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
-/* eslint-disable max-lines */
 import { ArrowUndoIcon } from '@navikt/aksel-icons';
 import { Button, HelpText, Label } from '@navikt/ds-react';
 import { format, parse } from 'date-fns';

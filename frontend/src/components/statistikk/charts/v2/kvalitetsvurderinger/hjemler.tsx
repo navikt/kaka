@@ -24,9 +24,9 @@ export const Hjemler = ({ dataset, hjemmelListId, reasonId, label, index }: Prop
 
   const data = useMemo(() => {
     const hjemlerCount = dataset.data.reduce<Record<string, number>>((counts, sak) => {
-      sak[hjemmelListId]?.forEach((hjemmelId) => {
+      for (const hjemmelId of sak[hjemmelListId] ?? []) {
         counts[hjemmelId] = (counts[hjemmelId] ?? 0) + 1;
-      });
+      }
 
       return counts;
     }, {});

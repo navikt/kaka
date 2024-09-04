@@ -142,5 +142,7 @@ const SHADE_ORDER = [5, 9, 2, 7, 3, 8, 4, 1, 6, 0];
 export const COLORS = SHADE_ORDER.reduce<string[]>((acc, shade) => {
   const colors = RGB_COLORS.map((mainColor) => mainColor[shade] ?? []).map(rgbToHex);
 
-  return [...acc, ...colors];
+  acc.push(...colors);
+
+  return acc;
 }, []);

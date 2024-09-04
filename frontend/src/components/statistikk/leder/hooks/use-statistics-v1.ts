@@ -55,7 +55,10 @@ export const useFilteredManagerStatisticsV1 = () => {
       mine: mine.filter(filter),
       rest: rest.filter(filter),
       saksbehandlere: Object.entries(saksbehandlere).reduce<Record<string, IFullStatisticVurderingV1[]>>(
-        (acc, [saksbehandler, vurderinger]) => ({ ...acc, [saksbehandler]: vurderinger.filter(filter) }),
+        (acc, [saksbehandler, vurderinger]) => {
+          acc[saksbehandler] = vurderinger.filter(filter);
+          return acc;
+        },
         {},
       ),
     }),

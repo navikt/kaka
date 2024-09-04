@@ -9,7 +9,6 @@ type prettyDate = string;
 type prettyDateTime = string;
 type prettyTime = string;
 
-// eslint-disable-next-line import/no-unused-modules
 export const isoDateTimeToPretty = (isoDateTime: ISODateTime | null): prettyDateTime | null => {
   if (isoDateTime === null || !isoDateTimeRegex.test(isoDateTime)) {
     return null;
@@ -37,7 +36,6 @@ export const isoDateTimeToPrettyDate = (isoDateTime: ISODateTime | null | undefi
   return isoDateToPretty(isoDate);
 };
 
-// eslint-disable-next-line import/no-unused-modules
 export const isoTimeToPretty = (isoTime: ISOTime | null | undefined): prettyTime | null => {
   if (isoTime === null || typeof isoTime === 'undefined' || !isoTimeRegex.test(isoTime)) {
     return null;
@@ -46,7 +44,6 @@ export const isoTimeToPretty = (isoTime: ISOTime | null | undefined): prettyTime
   return isoTime.split('.')[0] ?? null;
 };
 
-// eslint-disable-next-line import/no-unused-modules
 export const isoDateToPretty = (isoDate: ISODate | null | undefined): prettyDate | null => {
   if (isoDate === null || typeof isoDate === 'undefined' || !isoDateRegex.test(isoDate)) {
     return null;
@@ -57,7 +54,6 @@ export const isoDateToPretty = (isoDate: ISODate | null | undefined): prettyDate
 
 const prettyRegex = /^\d{2}.\d{2}.\d{4}$/;
 
-// eslint-disable-next-line import/no-unused-modules
 export const prettyDateToISO = (prettyDate: prettyDate | null): ISODate | null => {
   if (prettyDate === null || !prettyRegex.test(prettyDate)) {
     return null;

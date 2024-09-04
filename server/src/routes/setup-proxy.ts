@@ -13,7 +13,7 @@ export const setupProxy = async () => {
   const authClient = await getAzureADClient();
   const router = Router();
 
-  API_CLIENT_IDS.forEach((appName) => {
+  for (const appName of API_CLIENT_IDS) {
     const route = `/api/${appName}`;
 
     router.use(route, async (req, _, next) => {
@@ -79,7 +79,7 @@ export const setupProxy = async () => {
         changeOrigin: true,
       }),
     );
-  });
+  }
 
   return router;
 };

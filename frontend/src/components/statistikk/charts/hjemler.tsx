@@ -57,9 +57,9 @@ export const Hjemler = ({ stats }: Props) => {
   const hjemmelStats = useMemo(
     () =>
       stats.reduce((acc, stat) => {
-        stat.hjemmelIdList.forEach((hjemmelId) => {
+        for (const hjemmelId of stat.hjemmelIdList) {
           acc.set(hjemmelId, (acc.get(hjemmelId) ?? 0) + 1);
-        });
+        }
 
         return acc;
       }, new Map<string, number>()),

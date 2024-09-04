@@ -81,13 +81,13 @@ const getLog = (module: string, level: Level, { msg, error, data }: LogArgs) => 
     if (Array.isArray(data)) {
       log.data = JSON.stringify(data, null, 2);
     } else {
-      Object.entries(data).forEach(([key, value]) => {
+      for (const [key, value] of Object.entries(data)) {
         if (typeof value !== 'object' && value !== null) {
           log[key] = value;
         } else {
           log[key] = JSON.stringify(value, null, 2);
         }
-      });
+      }
     }
   } else {
     log.data = data;
