@@ -24,5 +24,4 @@ export const reduxStore = configureStore({
 
 type AppDispatch = typeof reduxStore.dispatch;
 
-// eslint-disable-next-line import/no-unused-modules
 export const useAppDispatch = () => useDispatch<AppDispatch>();

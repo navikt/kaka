@@ -4,7 +4,6 @@ import {
   type ISaksdataIncomplete,
   KvalitetsvurderingVersion,
 } from '@app/types/saksdata';
-/* eslint-disable max-lines */
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQuery } from './common';
 import { kvalitetsvurderingV1Api } from './kvalitetsvurdering/v1';
@@ -122,9 +121,9 @@ export const saksdataApi = createApi({
       transformResponse: ({ searchHits }) => searchHits,
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
-        data.forEach((saksdata) => {
+        for (const saksdata of data) {
           dispatch(saksdataApi.util.updateQueryData('getSaksdata', saksdata.id, () => saksdata));
-        });
+        }
       },
     }),
     getCompleteSaksdataList: builder.query<ISaksdataComplete[], ISaksdataListParams>({
@@ -135,9 +134,9 @@ export const saksdataApi = createApi({
       transformResponse: ({ searchHits }) => searchHits,
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
-        data.forEach((saksdata) => {
+        for (const saksdata of data) {
           dispatch(saksdataApi.util.updateQueryData('getSaksdata', saksdata.id, () => saksdata));
-        });
+        }
       },
     }),
     fullfoer: builder.mutation<ISaksdataComplete, { saksdata: ISaksdataIncomplete; saksbehandlerIdent: string }>({

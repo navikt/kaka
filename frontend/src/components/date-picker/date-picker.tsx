@@ -1,5 +1,4 @@
 import { isoDateToPretty } from '@app/domain/date';
-/* eslint-disable max-lines */
 import { Alert, DatePicker } from '@navikt/ds-react';
 import { addYears, format, isAfter, isBefore, isValid, parse, subDays, subYears } from 'date-fns';
 import { useCallback, useEffect, useMemo, useState } from 'react';

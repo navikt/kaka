@@ -15,9 +15,9 @@ export const calculateReasons = (
     const mangelfulleIds = reasonIds.filter((id) => sak[id] === true);
 
     if (mangelfulleIds.length !== 0) {
-      mangelfulleIds.forEach((id) => {
+      for (const id of mangelfulleIds) {
         acc[id] = (acc[id] ?? 0) + 1;
-      });
+      }
     }
 
     return acc;

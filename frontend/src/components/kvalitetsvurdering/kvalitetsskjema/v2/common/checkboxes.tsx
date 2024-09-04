@@ -35,6 +35,7 @@ export const Checkboxes = ({
 
   const onChange = (fields: string[]) => {
     for (let i = allFields.length - 1; i >= 0; i--) {
+      // biome-ignore lint/style/noNonNullAssertion: Is always defined
       const field = allFields[i]!;
       const isFieldChecked = fields.includes(field);
       const hasChange = kvalitetsvurdering[field] !== isFieldChecked;

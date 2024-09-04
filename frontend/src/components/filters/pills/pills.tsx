@@ -8,7 +8,6 @@ import {
 } from '@app/simple-api-state/use-kodeverk';
 import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
 import { useUtfall } from '@app/simple-api-state/use-utfall';
-/* eslint-disable max-lines */
 import { useContext, useMemo } from 'react';
 import { QueryParams } from '../../filters/filter-query-params';
 import { VEDTAKSINSTANSGRUPPE_FILTERS } from '../../statistikk/total/vedtaksinstansgruppe-filter';

@@ -21,9 +21,13 @@ export const StatisticsVersionFilter = ({ defaultParamsV1, defaultParamsV2 }: Pr
     const versionAsNumber = Number.parseInt(kvVersion, 10);
 
     if (versionAsNumber === KvalitetsvurderingVersion.V1) {
-      Object.entries(defaultParamsV1).forEach(([key, value]) => searchParams.set(key, value));
+      for (const [key, value] of Object.entries(defaultParamsV1)) {
+        searchParams.set(key, value);
+      }
     } else if (versionAsNumber === KvalitetsvurderingVersion.V2) {
-      Object.entries(defaultParamsV2).forEach(([key, value]) => searchParams.set(key, value));
+      for (const [key, value] of Object.entries(defaultParamsV2)) {
+        searchParams.set(key, value);
+      }
     }
 
     setSearchParams(searchParams, { replace: true });
