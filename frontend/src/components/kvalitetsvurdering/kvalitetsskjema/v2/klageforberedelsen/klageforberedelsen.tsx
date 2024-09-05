@@ -23,11 +23,7 @@ export const Klageforberedelsen = () => {
   const canEdit = useCanEdit();
   const validationError = useValidationError(MainReason.Klageforberedelsen);
 
-  if (
-    isLoading ||
-    saksdata.sakstypeId === SakstypeEnum.ANKE ||
-    saksdata.sakstypeId === SakstypeEnum.ANKE_I_TRYGDERETTEN
-  ) {
+  if (isLoading || saksdata.sakstypeId !== SakstypeEnum.KLAGE) {
     return null;
   }
 

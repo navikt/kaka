@@ -4,15 +4,22 @@ import { useValidationError } from '@app/hooks/use-validation-error';
 import { useSetSakstypeMutation } from '@app/redux-api/saksdata';
 import { useSakstyper } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';
-import type { SakstypeEnum } from '@app/types/sakstype';
+import { SakstypeEnum } from '@app/types/sakstype';
 import { Radio, RadioGroup } from '@navikt/ds-react';
+import { useMemo } from 'react';
 import { styled } from 'styled-components';
+
+const useKvalitetsvurderingSakstyper = () => {
+  const { data = [] } = useSakstyper();
+
+  return useMemo(() => data.filter((sakstype) => sakstype.id !== SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET), [data]);
+};
 
 export const Sakstype = () => {
   const user = useUser();
   const { data: saksdata } = useSaksdata();
   const [updateSakstype] = useSetSakstypeMutation();
-  const { data: sakstyper = [] } = useSakstyper();
+  const sakstyper = useKvalitetsvurderingSakstyper();
   const canEdit = useCanEdit();
   const validationError = useValidationError('sakstypeId');
 
