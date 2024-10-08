@@ -30,7 +30,7 @@ export const Nav = () => {
   const access = useUserAccess();
 
   return (
-    <StyledNav role="navigation" aria-label="Meny" data-testid="kaka-nav">
+    <StyledNav aria-label="Meny" data-testid="kaka-nav">
       <StyledNavLinkList>
         <NavItem to={`/statistikk/aapen?${defaultQueryAapen}`} testId="statistikk-aapen-nav-link" hasAccess>
           <BarChartIcon aria-hidden /> Åpen statistikk
