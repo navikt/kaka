@@ -5,8 +5,9 @@ import { useValidationError } from '@app/hooks/use-validation-error';
 import { useSetUtfallMutation } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';
 import { useUtfallFromSakstype } from '@app/simple-api-state/use-utfall';
-import { isUtfall } from '@app/types/utfall';
-import { Select } from '@navikt/ds-react';
+import { UtfallEnum, isUtfall } from '@app/types/utfall';
+import { Alert, Select } from '@navikt/ds-react';
+import { styled } from 'styled-components';
 import { EmptyOption } from './empty-option';
 
 export const UtfallResultat = () => {
@@ -34,18 +35,34 @@ export const UtfallResultat = () => {
   ));
 
   return (
-    <Select
-      error={validationError}
-      label="Utfall/resultat"
-      onChange={onChange}
-      disabled={!canEdit}
-      value={saksdata.utfallId ?? ''}
-      data-testid="utfallId"
-      size="medium"
-      id="utfallId"
-    >
-      <EmptyOption show={saksdata.utfallId === null} />
-      {options}
-    </Select>
+    <Container>
+      <Select
+        error={validationError}
+        label="Utfall/resultat"
+        onChange={onChange}
+        disabled={!canEdit}
+        value={saksdata.utfallId ?? ''}
+        data-testid="utfallId"
+        size="medium"
+        id="utfallId"
+      >
+        <EmptyOption show={saksdata.utfallId === null} />
+        {options}
+      </Select>
+
+      {saksdata.utfallId === UtfallEnum.RETUR ? (
+        <Alert variant="warning">
+          Husk at retur ikke er det samme som opphevet. Etter forvaltningsloven § 33 kan NAV Klageinstans returnere en
+          klagesak uten avgjørelse dersom det er formelle feil ved forberedelsen av klagesaken. Retur er ingen
+          avgjørelse og gjøres svært sjelden.
+        </Alert>
+      ) : null}
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex ;
+  flex-direction: column;
+  gap: var(--a-spacing-3);
+`;
