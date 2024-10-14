@@ -73,6 +73,7 @@ const DEFAULT_STAT: IStatisticVurderingV2 = {
   ytelseId: '',
   utfallId: UtfallEnum.MEDHOLD,
   sakstypeId: SakstypeEnum.KLAGE,
+  tilbakekreving: false,
 };
 
 interface IPartialStats

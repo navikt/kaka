@@ -25,6 +25,7 @@ export interface ISaksdata {
   readonly ytelseId: string;
   readonly createdDate: StatsDate;
   readonly modifiedDate: StatsDate;
+  readonly tilbakekreving: boolean;
 }
 
 export interface ISaksbehandler {

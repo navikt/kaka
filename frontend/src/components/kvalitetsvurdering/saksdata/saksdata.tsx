@@ -1,3 +1,4 @@
+import { Tilbakekreving } from '@app/components/kvalitetsvurdering/saksdata/tilbakekreving';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { Heading, Loader } from '@navikt/ds-react';
 import { styled } from 'styled-components';
@@ -30,6 +31,7 @@ export const Saksdata = () => {
       <FraVedtaksenhet />
       <UtfallResultat />
       <Lovhjemmel />
+      <Tilbakekreving />
     </StyledSaksdata>
   );
 };

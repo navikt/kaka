@@ -33,16 +33,16 @@ export const useFilteredMyStatisticsV2 = () => {
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
-  const tilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
+  const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   const filter = useCallback(
-    ({ ytelseId, sakstypeId, utfallId, hjemmelIdList }: IFullStatisticVurderingV2) =>
-      tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
+    ({ ytelseId, sakstypeId, utfallId, hjemmelIdList, tilbakekreving }: IFullStatisticVurderingV2) =>
+      tilbakekrevingFilter(tilbakekreving, tilbakekrevingQuery) &&
       (utfall.length === 0 || utfall.includes(utfallId)) &&
       (types.length === 0 || types.includes(sakstypeId)) &&
       (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
       (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))),
-    [hjemler, tilbakekreving, types, utfall, ytelser],
+    [hjemler, tilbakekrevingQuery, types, utfall, ytelser],
   );
 
   return useMemo(() => ({ mine: mine.filter(filter), rest: rest.filter(filter) }), [mine, filter, rest]);

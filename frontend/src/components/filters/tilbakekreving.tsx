@@ -18,9 +18,9 @@ export const TilbakekrevingFilter = ({ selected, setSelected }: Props) => (
     size="small"
     label={<ToggleGroupLabel />}
   >
-    <ToggleGroup.Item value={TilbakekrevingEnum.INCLUDE}>Med §22-15</ToggleGroup.Item>
-    <ToggleGroup.Item value={TilbakekrevingEnum.EXCLUDE}>Uten §22-15</ToggleGroup.Item>
-    <ToggleGroup.Item value={TilbakekrevingEnum.ONLY}>Kun §22-15</ToggleGroup.Item>
+    <ToggleGroup.Item value={TilbakekrevingEnum.INCLUDE}>Med tilbakekreving</ToggleGroup.Item>
+    <ToggleGroup.Item value={TilbakekrevingEnum.EXCLUDE}>Uten tilbakekreving</ToggleGroup.Item>
+    <ToggleGroup.Item value={TilbakekrevingEnum.ONLY}>Kun tilbakekreving</ToggleGroup.Item>
   </ToggleGroup>
 );
 
@@ -33,22 +33,12 @@ const ToggleGroupLabel = () => (
   <StyledLabel>
     Tilbakekreving
     <HelpText placement="right">
-      <Label>Med §22-15</Label>
-      <BodyShort spacing>Vis alle saker, også med tilbakekrevingshjemler.</BodyShort>
-      <Label>Uten §22-15</Label>
-      <BodyShort spacing>Vis alle saker uten tilbakekrevingshjemler.</BodyShort>
-      <Label>Kun §22-15</Label>
-      <BodyShort spacing>Vis kun saker med tilbakekrevingshjemler.</BodyShort>
-      <StyledTitle>Gjelder følgende hjemler:</StyledTitle>
-      <StyledList>
-        <StyledListItem>§22-15 første ledd første punktum</StyledListItem>
-        <StyledListItem>§22-15 første ledd andre punktum</StyledListItem>
-        <StyledListItem>§22-15 andre ledd</StyledListItem>
-        <StyledListItem>§22-15 tredje ledd</StyledListItem>
-        <StyledListItem>§22-15 fjerde ledd</StyledListItem>
-        <StyledListItem>§22-15 femte ledd</StyledListItem>
-        <StyledListItem>§22-15 sjette ledd</StyledListItem>
-      </StyledList>
+      <Label>Med tilbakekreving</Label>
+      <BodyShort spacing>Vis alle saker, også saker som er registrert som tilbakekrevingssak.</BodyShort>
+      <Label>Uten tilbakekreving</Label>
+      <BodyShort spacing>Vis alle saker, uten de som er registrert som tilbakekrevingssak.</BodyShort>
+      <Label>Kun tilbakekreving</Label>
+      <BodyShort spacing>Vis kun saker som er registrert som tilbakekrevingssak.</BodyShort>
     </HelpText>
   </StyledLabel>
 );
@@ -57,21 +47,4 @@ const StyledLabel = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-`;
-
-const StyledList = styled.ul`
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-left: 16px;
-`;
-
-const StyledListItem = styled.li`
-  font-size: 16px;
-`;
-
-const StyledTitle = styled.p`
-  font-size: 16px;
-  font-style: italic;
-  margin-top: 16px;
-  margin-bottom: 4px;
 `;
