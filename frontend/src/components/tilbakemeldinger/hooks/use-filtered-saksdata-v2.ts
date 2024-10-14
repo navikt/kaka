@@ -29,12 +29,12 @@ export const useFilteredSaksdataV2 = () => {
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
-  const tilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
+  const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   const filtered =
     data?.searchHits.filter(
-      ({ ytelseId, utfallId, hjemmelIdList }) =>
-        tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
+      ({ ytelseId, utfallId, hjemmelIdList, tilbakekreving }) =>
+        tilbakekrevingFilter(tilbakekreving, tilbakekrevingQuery) &&
         (ytelser.length === 0 || ytelser.includes(ytelseId)) &&
         (utfall.length === 0 || utfall.includes(utfallId)) &&
         (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))),

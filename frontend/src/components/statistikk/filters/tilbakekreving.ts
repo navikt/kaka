@@ -1,16 +1,16 @@
 import { TilbakekrevingEnum } from '../../filters/types';
 
-const TILBAKEKREVING_IDS = ['144', '145', '146', '147', '148', '149', '268'];
-
 export const tilbakekrevingFilter = (
-  hjemmelIdList: string[],
-  tilbakekreving: TilbakekrevingEnum | undefined,
+  tilbakekrevingSaksdata: boolean | null,
+  tilbakekrevingQuery: TilbakekrevingEnum,
 ): boolean => {
-  if (tilbakekreving === TilbakekrevingEnum.INCLUDE) {
+  if (tilbakekrevingQuery === TilbakekrevingEnum.INCLUDE) {
     return true;
   }
 
-  const only = tilbakekreving === TilbakekrevingEnum.ONLY;
+  if (tilbakekrevingQuery === TilbakekrevingEnum.EXCLUDE) {
+    return tilbakekrevingSaksdata === false;
+  }
 
-  return TILBAKEKREVING_IDS.some((id) => hjemmelIdList.includes(id)) === only;
+  return tilbakekrevingSaksdata === true;
 };

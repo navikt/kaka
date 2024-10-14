@@ -36,7 +36,7 @@ export const useFilteredTotalStatisticsV1 = () => {
   const klageenheter = useQueryFilters(QueryParams.KLAGEENHETER);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const vedtaksinstansgrupper = useVedtaksinstansgruppeQueryFilter();
-  const tilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
+  const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   return useMemo(
     () =>
@@ -49,8 +49,9 @@ export const useFilteredTotalStatisticsV1 = () => {
           vedtaksinstansEnhet,
           hjemmelIdList,
           vedtaksinstansgruppe,
+          tilbakekreving,
         }) =>
-          tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
+          tilbakekrevingFilter(tilbakekreving, tilbakekrevingQuery) &&
           (klageenheter.length === 0 || klageenheter.includes(tilknyttetEnhet)) &&
           (enheter.length === 0 || vedtaksinstansEnhet === null || enheter.includes(vedtaksinstansEnhet)) &&
           (utfall.length === 0 || utfall.includes(utfallId)) &&
@@ -59,6 +60,6 @@ export const useFilteredTotalStatisticsV1 = () => {
           (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))) &&
           (vedtaksinstansgrupper.length === 0 || vedtaksinstansgrupper.includes(vedtaksinstansgruppe)),
       ),
-    [rest, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
+    [rest, tilbakekrevingQuery, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
   );
 };

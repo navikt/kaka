@@ -42,7 +42,7 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
   const types = useQueryFilters(QueryParams.TYPES);
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
-  const tilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
+  const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   const comparisonProp = useComparisonProp();
   const comparisonValues = useComparisonValues();
@@ -63,8 +63,9 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
           vedtaksinstansEnhet,
           vedtaksinstansgruppe,
           hjemmelIdList,
+          tilbakekreving,
         }) =>
-          tilbakekrevingFilter(hjemmelIdList, tilbakekreving) &&
+          tilbakekrevingFilter(tilbakekreving, tilbakekrevingQuery) &&
           (klageenheter.length === 0 || klageenheter.includes(tilknyttetEnhet)) &&
           (enheter.length === 0 || vedtaksinstansEnhet === null || enheter.includes(vedtaksinstansEnhet)) &&
           (utfall.length === 0 || utfall.includes(utfallId)) &&
@@ -73,7 +74,7 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
           (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))) &&
           (vedtaksinstansgrupper.length === 0 || vedtaksinstansgrupper.includes(vedtaksinstansgruppe)),
       ),
-    [data, tilbakekreving, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
+    [data, tilbakekrevingQuery, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
   );
 
   return useMemo(() => {

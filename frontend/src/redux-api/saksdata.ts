@@ -378,6 +378,26 @@ export const saksdataApi = createApi({
         }
       },
     }),
+    setTilbakekreving: builder.mutation<ISaksdataIncomplete, SaksdataUpdate<'tilbakekreving'>>({
+      query: ({ id, tilbakekreving }) => ({
+        url: `/api/kaka-api/saksdata/${id}/tilbakekreving`,
+        method: 'PUT',
+        body: { value: tilbakekreving },
+      }),
+      onQueryStarted: async ({ id, tilbakekreving }, { dispatch, queryFulfilled }) => {
+        const patchResult = dispatch(
+          saksdataApi.util.updateQueryData('getSaksdata', id, (draft) => {
+            draft.tilbakekreving = tilbakekreving;
+          }),
+        );
+
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+    }),
   }),
 });
 
@@ -397,4 +417,5 @@ export const {
   useSetVedtaksinstansenhetMutation,
   useDeleteSaksdataMutation,
   useReopenSaksdataMutation,
+  useSetTilbakekrevingMutation,
 } = saksdataApi;

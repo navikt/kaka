@@ -21,6 +21,7 @@ export interface ISaksdataBase {
     id: UUID;
     version: KvalitetsvurderingVersion;
   };
+  tilbakekreving: boolean;
 }
 
 export interface ISaksdataComplete extends ISaksdataBase {
