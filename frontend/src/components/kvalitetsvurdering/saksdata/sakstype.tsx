@@ -12,7 +12,14 @@ import { styled } from 'styled-components';
 const useKvalitetsvurderingSakstyper = () => {
   const { data = [] } = useSakstyper();
 
-  return useMemo(() => data.filter((sakstype) => sakstype.id !== SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET), [data]);
+  return useMemo(
+    () =>
+      data.filter(
+        (sakstype) =>
+          sakstype.id !== SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET && sakstype.id !== SakstypeEnum.OMGJØRINGSKRAV,
+      ),
+    [data],
+  );
 };
 
 export const Sakstype = () => {

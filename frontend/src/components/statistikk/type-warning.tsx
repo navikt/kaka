@@ -20,7 +20,9 @@ export const TypeWarning = () => {
     (type) => type === SakstypeEnum.KLAGE || type === SakstypeEnum.ANKE,
   );
 
-  const noKvalitetsvurdering = filteredSakstyper.filter((type) => type === SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET); // TODO: Add omgjøringskrav here
+  const noKvalitetsvurdering = filteredSakstyper.filter(
+    (type) => type === SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET || type === SakstypeEnum.OMGJØRINGSKRAV,
+  );
 
   if (hasKvalitetsvurdering.length === 0 || noKvalitetsvurdering.length === 0) {
     return null;
