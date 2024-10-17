@@ -25,6 +25,7 @@ import { useDatePresets } from '../../filters/hooks/use-date-presets';
 import {
   useFromDateQueryFilter,
   useQueryFilters,
+  useSakstypeFilter,
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
   useVedtaksinstansgruppeQueryFilter,
@@ -58,7 +59,7 @@ export const Filters = () => {
 
   const selectedEnheter = useQueryFilters(QueryParams.ENHETER);
   const selectedKlageenheter = useQueryFilters(QueryParams.KLAGEENHETER);
-  const selectedTypes = useQueryFilters(QueryParams.TYPES);
+  const selectedTypes = useSakstypeFilter();
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);

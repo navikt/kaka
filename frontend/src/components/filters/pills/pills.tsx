@@ -11,7 +11,7 @@ import { useUtfall } from '@app/simple-api-state/use-utfall';
 import { useContext, useMemo } from 'react';
 import { QueryParams } from '../../filters/filter-query-params';
 import { VEDTAKSINSTANSGRUPPE_FILTERS } from '../../statistikk/total/vedtaksinstansgruppe-filter';
-import { useQueryFilters, useVedtaksinstansgruppeQueryFilter } from '../hooks/use-query-filter';
+import { useQueryFilters, useSakstypeFilter, useVedtaksinstansgruppeQueryFilter } from '../hooks/use-query-filter';
 import { KOMMENTARER_KODEVERK } from '../kommentarer';
 import { MANGELFULLT_KODEVERK } from '../mangelfullt';
 import { PillIcon, StyledLi, StyledPill } from './styled-components';
@@ -65,7 +65,7 @@ export const YtelserPills = ({ setFilter }: Props) => {
 
 export const SakstyperPills = ({ setFilter }: Props) => {
   const { data: sakstyper = [] } = useSakstyper();
-  const selected = useQueryFilters(QueryParams.TYPES);
+  const selected = useSakstypeFilter();
 
   const c = 'sakstyper';
   const { TYPES } = QueryParams;

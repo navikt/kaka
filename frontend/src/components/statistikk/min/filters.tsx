@@ -22,6 +22,7 @@ import { useDefaultDates } from '../../filters/hooks/use-default-dates';
 import {
   useFromDateQueryFilter,
   useQueryFilters,
+  useSakstypeFilter,
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
   useVersionQueryFilter,
@@ -48,7 +49,7 @@ export const Filters = () => {
   const userData = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const selectedTypes = useQueryFilters(QueryParams.TYPES);
+  const selectedTypes = useSakstypeFilter();
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);

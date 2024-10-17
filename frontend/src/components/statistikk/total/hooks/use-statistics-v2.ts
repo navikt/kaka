@@ -7,6 +7,7 @@ import { QueryParams } from '../../../filters/filter-query-params';
 import {
   useFromDateQueryFilter,
   useQueryFilters,
+  useSakstypeFilter,
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
   useVedtaksinstansgruppeQueryFilter,
@@ -30,7 +31,7 @@ export const useFilteredTotalStatisticsV2 = () => {
 
   const rest = data?.rest ?? EMPTY_STATISTICS;
 
-  const types = useQueryFilters(QueryParams.TYPES);
+  const types = useSakstypeFilter();
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const enheter = useQueryFilters(QueryParams.ENHETER);
