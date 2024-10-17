@@ -10,12 +10,14 @@ import { TilbakekrevingEnum } from '@app/components/filters/types';
 import { useKlageenheter, useVedtaksenheter } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { SakstypeEnum } from '@app/types/sakstype';
 import { format, subMonths } from 'date-fns';
 import { useMemo } from 'react';
 
 const DEFAULT_VERSION = `${QueryParams.VERSION}=${KvalitetsvurderingVersion.V2}`;
 const version = IS_BEFORE_FEBRUARY_2023 ? KvalitetsvurderingVersion.V1 : KvalitetsvurderingVersion.V2;
 const DEFAULT_VERSION_LEDER = `${QueryParams.VERSION}=${version}`;
+const DEFAULT_TYPES = `${QueryParams.TYPES}=${SakstypeEnum.KLAGE},${SakstypeEnum.ANKE}`;
 
 export const useDefaultQueryAapen = () =>
   useMemo(() => {
@@ -37,7 +39,7 @@ export const useDefaultQueryTotal = () => {
 
   const ansattEnhetId: string | undefined = user?.ansattEnhet?.id;
 
-  const query = `${DEFAULT_VERSION}&${QueryParams.FROM_DATE}=${fromDate}&${QueryParams.TO_DATE}=${toDate}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}`;
+  const query = `${DEFAULT_VERSION}&${QueryParams.FROM_DATE}=${fromDate}&${QueryParams.TO_DATE}=${toDate}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}&${DEFAULT_TYPES}`;
 
   if (typeof ansattEnhetId === 'undefined') {
     return query;
@@ -59,7 +61,7 @@ export const useDefaultQueryLeder = () =>
     const prevMonth = format(subMonths(NOW, 1), MONTH_FORMAT);
     const tilbakekreving = TilbakekrevingEnum.INCLUDE;
 
-    return `${DEFAULT_VERSION_LEDER}&${QueryParams.FROM_MONTH}=${prevMonth}&${QueryParams.TO_MONTH}=${prevMonth}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}`;
+    return `${DEFAULT_VERSION_LEDER}&${QueryParams.FROM_MONTH}=${prevMonth}&${QueryParams.TO_MONTH}=${prevMonth}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}&${DEFAULT_TYPES}`;
   }, []);
 
 export const useDefaultQueryMin = () => {
@@ -76,7 +78,7 @@ export const useDefaultQueryComparison = () => {
   const comparisonValues = encodeURIComponent(JSON.stringify([['AVERAGE', '#0067c5']]));
   const defaultComparison = `comparisonProp=${ComparableQueryParams.ENHETER}&comparisonValues=${comparisonValues}`;
 
-  return `${defaultQuery}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}&${defaultComparison}`;
+  return `${defaultQuery}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}&${defaultComparison}&${DEFAULT_TYPES}`;
 };
 
 export const useDefaultQueryTilbakemeldinger = useDefaultQueryMin;
