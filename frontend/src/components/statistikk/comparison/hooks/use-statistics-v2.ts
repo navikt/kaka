@@ -10,6 +10,7 @@ import { ComparableQueryParams, QueryParams } from '../../../filters/filter-quer
 import {
   useFromDateQueryFilter,
   useQueryFilters,
+  useSakstypeFilter,
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
   useVedtaksinstansgruppeQueryFilter,
@@ -39,7 +40,7 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
   const vedtaksinstansgrupper = useVedtaksinstansgruppeQueryFilter();
   const enheter = useQueryFilters(QueryParams.ENHETER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
-  const types = useQueryFilters(QueryParams.TYPES);
+  const types = useSakstypeFilter();
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);

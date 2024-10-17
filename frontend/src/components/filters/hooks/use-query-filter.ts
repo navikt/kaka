@@ -3,6 +3,7 @@ import {
   isVedtaksinstansgruppe,
 } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { type SakstypeEnum, isSakstype } from '@app/types/sakstype';
 import { useSearchParams } from 'react-router-dom';
 import { QueryParams } from '../../filters/filter-query-params';
 import { TilbakekrevingEnum } from '../types';
@@ -16,6 +17,12 @@ export const useQueryFilter = (filter: QueryParams): string | null => {
 const EMPTY_ARRAY: string[] = [];
 
 export const useQueryFilters = (filter: QueryParams): string[] => useQueryFilter(filter)?.split(',') ?? EMPTY_ARRAY;
+
+export const useSakstypeFilter = (): SakstypeEnum[] => {
+  const values = useQueryFilters(QueryParams.TYPES);
+
+  return values.filter(isSakstype);
+};
 
 export const useVedtaksinstansgruppeQueryFilter = (): Vedtaksinstansgruppe[] => {
   const values = useQueryFilters(QueryParams.VEDTAKSINSTANSGRUPPER);

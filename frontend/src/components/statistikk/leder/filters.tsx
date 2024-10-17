@@ -20,6 +20,7 @@ import { useDatePresetsLeder } from '../../filters/hooks/use-date-presets';
 import {
   useFromMonthQueryFilter,
   useQueryFilters,
+  useSakstypeFilter,
   useTilbakekrevingQueryFilter,
   useToMonthQueryFilter,
   useVersionQueryFilter,
@@ -49,7 +50,7 @@ export const Filters = () => {
   const userData = useUser();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const selectedTypes = useQueryFilters(QueryParams.TYPES);
+  const selectedTypes = useSakstypeFilter();
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);

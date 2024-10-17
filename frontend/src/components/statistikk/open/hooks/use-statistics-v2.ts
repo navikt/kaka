@@ -3,7 +3,12 @@ import type { IStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { useMemo } from 'react';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
-import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../../filters/hooks/use-query-filter';
+import {
+  useFromDateQueryFilter,
+  useQueryFilters,
+  useSakstypeFilter,
+  useToDateQueryFilter,
+} from '../../../filters/hooks/use-query-filter';
 
 const useStatistics = () => {
   const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
@@ -23,7 +28,7 @@ const useAllStatisticsV2 = (): IStatisticVurderingV2[] => {
 export const useFilteredStatisticsV2 = () => {
   const data = useAllStatisticsV2();
 
-  const types = useQueryFilters(QueryParams.TYPES);
+  const types = useSakstypeFilter();
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
 

@@ -7,7 +7,12 @@ import { useComparisonProp } from '../../../filters/comparison/comparison-values
 import { useComparisonValues } from '../../../filters/comparison/comparison-values/use-values';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { ComparableQueryParams, QueryParams } from '../../../filters/filter-query-params';
-import { useFromDateQueryFilter, useQueryFilters, useToDateQueryFilter } from '../../../filters/hooks/use-query-filter';
+import {
+  useFromDateQueryFilter,
+  useQueryFilters,
+  useSakstypeFilter,
+  useToDateQueryFilter,
+} from '../../../filters/hooks/use-query-filter';
 import { useLabels } from './use-labels';
 
 const useStatistics = () => {
@@ -27,7 +32,7 @@ const useAllStatistics = (): IFullStatisticVurderingV1[] => {
 export const useFilteredStatisticsV1 = (): IComparedFullStatisticVurderingV1[] => {
   const data = useAllStatistics();
 
-  const types = useQueryFilters(QueryParams.TYPES);
+  const types = useSakstypeFilter();
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
 

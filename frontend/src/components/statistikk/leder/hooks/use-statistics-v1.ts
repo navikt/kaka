@@ -7,6 +7,7 @@ import { QueryParams } from '../../../filters/filter-query-params';
 import {
   useFromMonthQueryFilter,
   useQueryFilters,
+  useSakstypeFilter,
   useTilbakekrevingQueryFilter,
   useToMonthQueryFilter,
 } from '../../../filters/hooks/use-query-filter';
@@ -34,7 +35,7 @@ export const useFilteredManagerStatisticsV1 = () => {
   const rest = useMemo(() => data?.rest ?? EMPTY_ARRAY, [data]);
   const saksbehandlere = useMemo(() => data?.saksbehandlere ?? EMPTY_SAKSBEHANDLERE, [data]);
 
-  const types = useQueryFilters(QueryParams.TYPES);
+  const types = useSakstypeFilter();
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
