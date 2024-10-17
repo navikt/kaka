@@ -1,5 +1,6 @@
 import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
 import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
+import { TypeWarning } from '@app/components/statistikk/type-warning';
 import { CardTitle } from '@app/styled-components/cards';
 import { ContentArea } from '@app/styled-components/filters-and-content';
 import type { IComparedFullStatisticVurderingV2 } from '@app/types/statistics/v2';
@@ -36,6 +37,7 @@ export const ContentV2 = ({ stats, isLoading }: Props) => {
           <Omgjoeringsprosent stats={datasets} />
         </DynamicCard>
 
+        <TypeWarning />
         <KvalitetsvurderingerV2 datasets={datasets} />
 
         <DynamicCard size={CardSize.LARGE}>

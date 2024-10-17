@@ -1,3 +1,4 @@
+import { useSakstypeFilter } from '@app/components/filters/hooks/use-query-filter';
 import { MAIN_REASON_LABELS, MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import {
   LegacyVedtaketBoolean,
@@ -22,6 +23,7 @@ import {
   type StatisticsVedtaketHjemlerListBoolean,
   VEDTAKET_TEXTS,
 } from '@app/components/statistikk/types/vedtaket';
+import { SakstypeEnum } from '@app/types/sakstype';
 import { Select, Tag, ToggleGroup } from '@navikt/ds-react';
 import { styled } from 'styled-components';
 import { QueryParams } from '../../../../filters/filter-query-params';
@@ -64,13 +66,15 @@ const MAIN_HELP_TEXTS = [
 ];
 
 export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
+  const types = useSakstypeFilter();
+  const hide = types.every((type) => type === SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET); // TODO: Add omgjøringskrav here
   const [datasetIndexString, setDatasetIndex] = useQueryParam(QueryParams.DATASET_INDEX, '0');
 
   const datasetIndex = Number.parseInt(datasetIndexString, 10);
 
   const focusedDataset = datasets[datasetIndex];
 
-  if (datasets.length === 0 || typeof focusedDataset === 'undefined') {
+  if (hide || datasets.length === 0 || typeof focusedDataset === 'undefined') {
     return null;
   }
 

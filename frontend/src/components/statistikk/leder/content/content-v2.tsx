@@ -1,6 +1,7 @@
 import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
 import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
 import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
+import { TypeWarning } from '@app/components/statistikk/type-warning';
 import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
 import { useUser } from '@app/simple-api-state/use-user';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
@@ -117,6 +118,7 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
           <Omgjoeringsprosent stats={datasets} />
         </DynamicCard>
 
+        <TypeWarning />
         <KvalitetsvurderingerV2 datasets={datasets} />
 
         <DynamicCard size={CardSize.MEDIUM}>

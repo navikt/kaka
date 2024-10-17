@@ -1,6 +1,7 @@
 import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
 import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
 import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
+import { TypeWarning } from '@app/components/statistikk/type-warning';
 import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
 import { useUser } from '@app/simple-api-state/use-user';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
@@ -119,6 +120,7 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
 
         <DynamicCard size={CardSize.LARGE}>
           <CardTitle>Kvalitetsvurderinger</CardTitle>
+          <TypeWarning />
           <KvalitetsvurderingerV1 stats={relevantData} />
         </DynamicCard>
 
