@@ -28,6 +28,9 @@ export class SimpleApiState<T> {
     prefetch: false,
     cacheTime: 60000,
   };
+  private retryCount = 0;
+  private dataTimeout: Timer | undefined;
+  private retryTimeout: Timer | undefined;
 
   constructor(
     private url: string,
@@ -53,6 +56,7 @@ export class SimpleApiState<T> {
       }
 
       this.data = (await response.json()) as T;
+      this.retryCount = 0;
     } catch (e) {
       this.data = undefined;
       this.isError = true;
@@ -63,8 +67,11 @@ export class SimpleApiState<T> {
         this.error = new Error('Unknown error');
       }
 
-      // Retry after 1 minute.
-      setTimeout(this.fetchData, 60000);
+      if (this.retryCount < 2) {
+        this.retryCount++;
+
+        this.retryTimeout = setTimeout(this.fetchData, 2 ** this.retryCount * 2_000);
+      }
     }
 
     this.isLoading = false;
@@ -100,10 +107,9 @@ export class SimpleApiState<T> {
     }
   };
 
-  private dataTimeout: Timer | undefined;
-
   public unlisten = (listener: Listener<T>): void => {
     clearTimeout(this.dataTimeout);
+    clearTimeout(this.retryTimeout);
 
     this.listeners = this.listeners.filter((l) => l !== listener);
 
