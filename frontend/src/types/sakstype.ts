@@ -3,6 +3,7 @@ export enum SakstypeEnum {
   ANKE = '2',
   ANKE_I_TRYGDERETTEN = '3',
   BEHANDLING_ETTER_TR_OPPHEVET = '4',
+  OMGJØRINGSKRAV = '5',
 }
 
 const SAKSTYPER = Object.values(SakstypeEnum);
