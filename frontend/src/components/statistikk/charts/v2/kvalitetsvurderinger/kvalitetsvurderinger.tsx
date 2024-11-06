@@ -67,7 +67,9 @@ const MAIN_HELP_TEXTS = [
 
 export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
   const types = useSakstypeFilter();
-  const hide = types.every((type) => type === SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET); // TODO: Add omgjøringskrav here
+  const hide = types.every(
+    (type) => type === SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET || type === SakstypeEnum.OMGJØRINGSKRAV,
+  );
   const [datasetIndexString, setDatasetIndex] = useQueryParam(QueryParams.DATASET_INDEX, '0');
 
   const datasetIndex = Number.parseInt(datasetIndexString, 10);
