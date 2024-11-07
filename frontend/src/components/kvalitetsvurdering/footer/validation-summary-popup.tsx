@@ -23,7 +23,7 @@ export const ValidationSummaryPopup = ({ hasErrors }: Props) => {
       return;
     }
 
-    if (error.data.sections.length !== 0) {
+    if (error.data.sections.length > 0) {
       setOpen(true);
     }
   }, [error]);

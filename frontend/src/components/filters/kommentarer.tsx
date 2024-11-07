@@ -28,7 +28,7 @@ export const KommentarerFilter = ({ selected, setSelected }: KommentarerFilterPr
   const version = useVersionQueryFilter();
 
   useEffect(() => {
-    if (version !== KvalitetsvurderingVersion.V1 && selected.length !== 0) {
+    if (version !== KvalitetsvurderingVersion.V1 && selected.length > 0) {
       setSelected([]);
     }
   }, [selected.length, setSelected, version]);

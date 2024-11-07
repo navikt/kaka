@@ -21,6 +21,8 @@ export const useBarTooltipText = (getAbsoluteValue: GetAbsoluteValue, unit = 'st
 
     for (let i = 0; i < chart.data.datasets.length; i++) {
       const meta = chart.getDatasetMeta(i);
+
+      // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: ¯\_(ツ)_/¯
       meta.data.forEach((bar, index) => {
         const props = bar.getProps(['height', 'width', 'horizontal', 'options', '$context'], true);
 

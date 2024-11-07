@@ -20,7 +20,7 @@ const parseValues = (values: string | null): OptionValue[] => {
 
   try {
     return JSON.parse(values);
-  } catch (e) {
+  } catch {
     return EMPTY_ARRAY;
   }
 };

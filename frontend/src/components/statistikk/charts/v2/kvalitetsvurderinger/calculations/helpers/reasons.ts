@@ -14,7 +14,7 @@ export const calculateReasons = (
   const reasons = data.reduce<Partial<Record<keyof IStatisticVurderingV2, number>>>((acc, sak) => {
     const mangelfulleIds = reasonIds.filter((id) => sak[id] === true);
 
-    if (mangelfulleIds.length !== 0) {
+    if (mangelfulleIds.length > 0) {
       for (const id of mangelfulleIds) {
         acc[id] = (acc[id] ?? 0) + 1;
       }

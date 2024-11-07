@@ -78,6 +78,7 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
     [data, tilbakekrevingQuery, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
   );
 
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: ¯\_(ツ)_/¯
   return useMemo(() => {
     if (comparisonProp === null) {
       return EMPTY_ARRAY;

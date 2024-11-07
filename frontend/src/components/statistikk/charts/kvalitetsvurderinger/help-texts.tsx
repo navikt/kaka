@@ -15,7 +15,7 @@ export const HelpTexts = ({ relevantReasons }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const relevantReasonHelpTexts = useMemo(() => relevantReasons.filter(hasHelpText), [relevantReasons]);
 
-  const hasHelpTexts = relevantReasonHelpTexts.length !== 0;
+  const hasHelpTexts = relevantReasonHelpTexts.length > 0;
 
   return (
     <div>

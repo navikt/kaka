@@ -56,6 +56,7 @@ export const useFilteredStatisticsV1 = (): IComparedFullStatisticVurderingV1[] =
     [data, utfall, types, ytelser],
   );
 
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: ¯\_(ツ)_/¯
   return useMemo(() => {
     if (comparisonProp === null) {
       return EMPTY_ARRAY;

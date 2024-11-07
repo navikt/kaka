@@ -40,7 +40,7 @@ export const UnfinishedFooter = () => {
     }
   };
 
-  const hasErrors = isReduxValidationResponse(error) && error.data.sections.length !== 0;
+  const hasErrors = isReduxValidationResponse(error) && error.data.sections.length > 0;
 
   if (!canEdit) {
     return (

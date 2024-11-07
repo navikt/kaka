@@ -1,3 +1,4 @@
+import { PillContainer } from '@app/components/filters/pills/styled-components';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';
@@ -35,7 +36,6 @@ import {
   EnheterPills,
   HjemlerPills,
   KlageenheterPills,
-  PillContainer,
   SakstyperPills,
   UtfallPills,
   VedtaksinstansgrupperPills,
