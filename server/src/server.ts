@@ -55,7 +55,7 @@ server.use(
   }),
 );
 
-server.get('/isAlive', (req, res) => res.status(200).send('Alive'));
-server.get('/isReady', (req, res) => res.status(200).send('Ready'));
+server.get('/isAlive', (_req, res) => res.status(200).send('Alive'));
+server.get('/isReady', (_req, res) => res.status(200).send('Ready'));
 
 init(server);

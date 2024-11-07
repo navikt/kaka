@@ -40,7 +40,7 @@ export const Saksdatahjemler = ({ field, parentKey }: SaksdatahjemlerProps) => {
       return;
     }
 
-    if (selectedHjemmelIdList.length !== 0) {
+    if (selectedHjemmelIdList.length > 0) {
       const isUnchanged = hjemmelIdListsEquals(previousSaksdataHjemmelIdList, hjemler);
 
       if (!isUnchanged) {

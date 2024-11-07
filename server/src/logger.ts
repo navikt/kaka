@@ -69,6 +69,7 @@ export const getLogger = (module: string): Logger => {
   return logger;
 };
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: ¯\_(ツ)_/¯
 const getLog = (module: string, level: Level, { msg, error, data }: LogArgs) => {
   const log: Log = {
     level,

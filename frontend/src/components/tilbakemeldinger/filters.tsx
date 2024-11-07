@@ -1,3 +1,4 @@
+import { PillContainer } from '@app/components/filters/pills/styled-components';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelserForVedtaksinstansenhet } from '@app/hooks/use-kodeverk-value';
 import { useUser } from '@app/simple-api-state/use-user';
@@ -29,14 +30,7 @@ import {
 import { useValidDateInterval } from '../filters/hooks/use-valid-date-interval';
 import { KommentarerFilter } from '../filters/kommentarer';
 import { MangelfulltFilter } from '../filters/mangelfullt';
-import {
-  HjemlerPills,
-  KommentarerPills,
-  MangelfulltPills,
-  PillContainer,
-  UtfallPills,
-  YtelserPills,
-} from '../filters/pills/pills';
+import { HjemlerPills, KommentarerPills, MangelfulltPills, UtfallPills, YtelserPills } from '../filters/pills/pills';
 import { ResetDateButton } from '../filters/reset-date';
 import { DEFAULT_PARAMS_V1, DEFAULT_PARAMS_V2 } from '../filters/statistics-version/default-params';
 import { StatisticsVersionFilter } from '../filters/statistics-version/statistics-version';

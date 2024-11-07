@@ -1,3 +1,4 @@
+import { PillContainer } from '@app/components/filters/pills/styled-components';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
@@ -26,7 +27,7 @@ import {
   useVersionQueryFilter,
 } from '../../filters/hooks/use-query-filter';
 import { useValidDateInterval } from '../../filters/hooks/use-valid-date-interval';
-import { PillContainer, SakstyperPills, UtfallPills, YtelserPills } from '../../filters/pills/pills';
+import { SakstyperPills, UtfallPills, YtelserPills } from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { DEFAULT_PARAMS_V1, DEFAULT_PARAMS_V2 } from '../../filters/statistics-version/default-params';

@@ -22,7 +22,7 @@ export const processErrors = () => {
       log.error({ error });
       process.exit(1);
     })
-    .on('beforeExit', async (code) => {
+    .on('beforeExit', (code) => {
       const msg = `Crash ${JSON.stringify(code)}`;
       log.error({ msg });
       sendToSlack(msg, EmojiIcons.Scream);

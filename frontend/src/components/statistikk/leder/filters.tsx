@@ -1,3 +1,4 @@
+import { PillContainer } from '@app/components/filters/pills/styled-components';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
@@ -29,7 +30,6 @@ import { MonthFilter } from '../../filters/month';
 import {
   EnheterPills,
   HjemlerPills,
-  PillContainer,
   SaksbehandlerPills,
   SakstyperPills,
   UtfallPills,

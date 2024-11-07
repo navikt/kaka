@@ -82,7 +82,7 @@ const Checkbox = ({ checkbox }: CheckboxProps) => {
     return null;
   }
 
-  const show = childList !== undefined && childList.length !== 0 && kvalitetsvurdering[field] === true;
+  const show = childList !== undefined && childList.length > 0 && kvalitetsvurdering[field] === true;
 
   return (
     <>

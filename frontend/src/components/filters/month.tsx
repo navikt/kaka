@@ -52,7 +52,7 @@ interface Props {
 
 export const MonthFilter = ({ label, value, onChange }: Props) => {
   const [selectedYear, selectedMonth] = useMemo<[string, string]>(() => {
-    if (value !== null && value.length !== 0 && MONTH_REGEX.test(value)) {
+    if (value !== null && value.length > 0 && MONTH_REGEX.test(value)) {
       const yearAndMonth = value.split('-');
 
       if (isYearAndMonth(yearAndMonth)) {

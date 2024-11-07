@@ -16,8 +16,6 @@ import { KOMMENTARER_KODEVERK } from '../kommentarer';
 import { MANGELFULLT_KODEVERK } from '../mangelfullt';
 import { PillIcon, StyledLi, StyledPill } from './styled-components';
 
-export { PillContainer } from './styled-components';
-
 interface CommonProps<Q extends QueryParams> {
   queryKey: Q;
   setFilter: (filter: QueryParams, ...values: string[]) => void;

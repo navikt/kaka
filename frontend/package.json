@@ -21,7 +21,7 @@
     "vite-tsconfig-paths": "5.0.1"
   },
   "dependencies": {
-    "@biomejs/biome": "^1.9.3",
+    "@biomejs/biome": "^1.9.4",
     "@navikt/aksel-icons": "7.1.2",
     "@navikt/ds-css": "7.1.2",
     "@navikt/ds-css-internal": "3.4.3",

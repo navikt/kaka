@@ -1,3 +1,5 @@
+const DIGITS_REGEX = /^\d+$/;
+
 export const validateId = (inputValue: string): string | null => {
   const cleanedValue = inputValue.replaceAll(' ', '');
 
@@ -5,7 +7,7 @@ export const validateId = (inputValue: string): string | null => {
     return null;
   }
 
-  const hasValidCharacters = /^\d+$/.test(cleanedValue);
+  const hasValidCharacters = DIGITS_REGEX.test(cleanedValue);
 
   if (!hasValidCharacters) {
     return 'Fnr. og orgnr. kan kun bestå av siffer';
