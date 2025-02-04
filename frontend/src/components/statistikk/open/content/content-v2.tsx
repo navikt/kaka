@@ -59,7 +59,7 @@ export const ContentV2 = ({ stats, isLoading }: Props) => {
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Utfall</CardTitle>
-          <UtfallGraph stats={relevantStats} />
+          <UtfallGraph stats={stats} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.MEDIUM}>

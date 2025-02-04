@@ -64,7 +64,7 @@ export const ContentV1 = ({ mine, rest, statsIsLoading, saksdata, saksdataIsLoad
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Utfall</CardTitle>
-          <UtfallGraph stats={relevantMine} />
+          <UtfallGraph stats={mine} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.MEDIUM}>

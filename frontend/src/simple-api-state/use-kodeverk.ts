@@ -1,6 +1,7 @@
 import type { IKlageenhet, IKodeverkSimpleValue, IKodeverkValue, IYtelse } from '@app/types/kodeverk';
 import type { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { SakstypeEnum } from '@app/types/sakstype';
+import type { UtfallEnum } from '@app/types/utfall';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { SimpleApiState, type State, useSimpleApiState } from './simple-api-state';
 
@@ -15,6 +16,12 @@ interface IHjemmelNameWithLovkilde {
   hjemmelnavn: string;
 }
 
+interface SakstypeToUtfall {
+  id: SakstypeEnum;
+  navn: string;
+  utfall: IKodeverkSimpleValue<UtfallEnum>[];
+}
+
 export type RegistreringshjemlerMap = Record<string, IHjemmelNameWithLovkilde>;
 
 const registreringshjemlerMap = new SimpleApiState<RegistreringshjemlerMap>(`${API_PREFIX}/registreringshjemlermap`);
@@ -27,6 +34,7 @@ const klageenheter = new SimpleApiState<IKlageenhet[]>(`${API_PREFIX}/klageenhet
 const enheter = new SimpleApiState<IKodeverkSimpleValue[]>(`${API_PREFIX}/enheter`);
 const sakstyper = new SimpleApiState<IKodeverkSimpleValue<SakstypeEnum>[]>(`${API_PREFIX}/sakstyper`);
 const vedtaksenheter = new SimpleApiState<IKodeverkSimpleValue[]>(`${API_PREFIX}/vedtaksenheter`);
+const sakstypeToUtfall = new SimpleApiState<SakstypeToUtfall[]>(`${API_PREFIX}/sakstypertoutfall`);
 
 export const useYtelser = (version: KvalitetsvurderingVersion | typeof skipToken = skipToken) =>
   useSimpleApiState(version === 1 ? ytelserV1 : ytelserV2);
@@ -34,6 +42,7 @@ export const useLovkildeToRegistreringshjemler = () => useSimpleApiState(lovkild
 export const useRegistreringshjemlerMap = () => useSimpleApiState(registreringshjemlerMap);
 export const useKlageenheter = () => useSimpleApiState(klageenheter);
 export const useEnheter = () => useSimpleApiState(enheter);
+export const useSakstypeToUtfall = () => useSimpleApiState(sakstypeToUtfall);
 
 export const useVedtaksenheter = () => useSimpleApiState(vedtaksenheter);
 
