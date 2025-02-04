@@ -1,6 +1,9 @@
 import { UTFALL_COLOR_MAP } from '@app/colors/colors';
-import { isNotUndefined } from '@app/functions/is-not';
-import { UTFALL_VALUES_FOR_STATS, useSortedUtfall } from '@app/simple-api-state/use-utfall';
+import { useSakstypeFilter } from '@app/components/filters/hooks/use-query-filter';
+import { isRelevantSakstype } from '@app/components/statistikk/filters/relevant';
+import { useSakstypeToUtfall } from '@app/simple-api-state/use-kodeverk';
+import { useSortedUtfall } from '@app/simple-api-state/use-utfall';
+import type { SakstypeEnum } from '@app/types/sakstype';
 import type { StatsDate } from '@app/types/statistics/common';
 import type { UtfallEnum } from '@app/types/utfall';
 import type { ChartOptions } from 'chart.js';
@@ -28,6 +31,7 @@ const useOptions = (total = 1): ChartOptions<'bar'> => ({
 
 interface Stat {
   utfallId: UtfallEnum;
+  sakstypeId: SakstypeEnum;
   avsluttetAvSaksbehandler: StatsDate;
 }
 
@@ -35,27 +39,43 @@ interface Props {
   stats: Stat[];
 }
 
+const useSelectedUtfall = () => {
+  const selectedSakstyper = useSakstypeFilter();
+  const { data: sakstypeToUtfall = [] } = useSakstypeToUtfall();
+  const { data: sortedUtfallKodeverk = [] } = useSortedUtfall();
+
+  return useMemo(() => {
+    const relevantUtfall = sakstypeToUtfall
+      .filter(({ id }) => selectedSakstyper.includes(id))
+      .flatMap(({ utfall }) => utfall);
+
+    return sortedUtfallKodeverk.filter(({ id }) => relevantUtfall.map((u) => u.id).includes(id));
+  }, [selectedSakstyper, sakstypeToUtfall, sortedUtfallKodeverk]);
+};
+
 export const UtfallGraph = ({ stats: allStats }: Props) => {
-  const finishedStats = useMemo(
-    () => allStats.filter(({ avsluttetAvSaksbehandler }) => avsluttetAvSaksbehandler !== null),
+  const selectedUtfall = useSelectedUtfall();
+
+  const relevantStats = useMemo(
+    () =>
+      allStats.filter(
+        ({ avsluttetAvSaksbehandler, sakstypeId }) =>
+          avsluttetAvSaksbehandler !== null && isRelevantSakstype(sakstypeId),
+      ),
     [allStats],
   );
-
-  const { data: utfall = [] } = useSortedUtfall();
 
   const stats = useMemo(
     () =>
       new Map<UtfallEnum, number>(
-        UTFALL_VALUES_FOR_STATS.map((id) => [id, finishedStats.filter(({ utfallId }) => utfallId === id).length]),
+        selectedUtfall.map(({ id }) => [id, relevantStats.filter(({ utfallId }) => utfallId === id).length]),
       ),
-    [finishedStats],
+    [relevantStats, selectedUtfall],
   );
 
-  const labels: string[] = UTFALL_VALUES_FOR_STATS.map((key) => utfall.find(({ id }) => id === key)?.navn).filter(
-    isNotUndefined,
-  );
+  const labels: string[] = selectedUtfall.map(({ navn }) => navn);
 
-  const backgroundColor: string[] = UTFALL_VALUES_FOR_STATS.map((key) => UTFALL_COLOR_MAP[key]);
+  const backgroundColor: string[] = selectedUtfall.map(({ id }) => UTFALL_COLOR_MAP[id]);
 
   const values = Array.from(stats.values());
 

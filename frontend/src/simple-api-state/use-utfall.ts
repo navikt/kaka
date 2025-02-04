@@ -25,7 +25,7 @@ const ANKE_ORDER = [
   UtfallEnum.TRUKKET,
 ];
 
-const KLAGE_AND_ANKE_ORDER = [
+const ALL_ORDER = [
   UtfallEnum.STADFESTELSE,
   UtfallEnum.INNSTILLING_STADFESTELSE,
   UtfallEnum.MEDHOLD,
@@ -36,6 +36,9 @@ const KLAGE_AND_ANKE_ORDER = [
   UtfallEnum.TRUKKET,
   UtfallEnum.RETUR,
   UtfallEnum.UGUNST,
+  UtfallEnum.MEDHOLD_ETTER_FORVALTNINGSLOVEN_35,
+  UtfallEnum.BESLUTNING_OM_IKKE_Å_OMGJØRE,
+  UtfallEnum.STADFESTET_MED_EN_ANNEN_BEGRUNNELSE,
 ];
 
 const sortUtfallKlage = (a: IKodeverkSimpleValue<UtfallEnum>, b: IKodeverkSimpleValue<UtfallEnum>) =>
@@ -44,21 +47,10 @@ const sortUtfallKlage = (a: IKodeverkSimpleValue<UtfallEnum>, b: IKodeverkSimple
 const sortUtfallAnke = (a: IKodeverkSimpleValue<UtfallEnum>, b: IKodeverkSimpleValue<UtfallEnum>) =>
   ANKE_ORDER.indexOf(a.id) - ANKE_ORDER.indexOf(b.id);
 
-const sortUtfallKlageAndAnke = (a: IKodeverkSimpleValue<UtfallEnum>, b: IKodeverkSimpleValue<UtfallEnum>) =>
-  KLAGE_AND_ANKE_ORDER.indexOf(a.id) - KLAGE_AND_ANKE_ORDER.indexOf(b.id);
+const sortUtfallAll = (a: IKodeverkSimpleValue<UtfallEnum>, b: IKodeverkSimpleValue<UtfallEnum>) =>
+  ALL_ORDER.indexOf(a.id) - ALL_ORDER.indexOf(b.id);
 
-const UTFALL_VALUES = Object.values(UtfallEnum).sort(
-  (a, b) => KLAGE_AND_ANKE_ORDER.indexOf(a) - KLAGE_AND_ANKE_ORDER.indexOf(b),
-);
-
-export const UTFALL_VALUES_FOR_STATS = UTFALL_VALUES.filter(
-  (v) =>
-    v !== UtfallEnum.RETUR &&
-    v !== UtfallEnum.TRUKKET &&
-    v !== UtfallEnum.UGUNST &&
-    v !== UtfallEnum.HEVET &&
-    v !== UtfallEnum.HENVIST,
-);
+const UTFALL_VALUES = Object.values(UtfallEnum).sort((a, b) => ALL_ORDER.indexOf(a) - ALL_ORDER.indexOf(b));
 
 const isUtfall = (value: string): value is UtfallEnum => UTFALL_VALUES.some((v) => v === value);
 
@@ -94,7 +86,7 @@ export const useUtfall = () => useSimpleApiState(utfall);
 export const useSortedUtfall = () => {
   const { data = [], ...rest } = useUtfall();
 
-  const sorted = useMemo(() => data.filter(filterAnkeITrygderetten).sort(sortUtfallKlageAndAnke), [data]);
+  const sorted = useMemo(() => data.filter(filterAnkeITrygderetten).sort(sortUtfallAll), [data]);
 
   return { data: sorted, ...rest };
 };
@@ -106,11 +98,7 @@ export const useUtfallForStats = () => {
     () =>
       data.filter(
         ({ id }) =>
-          id !== UtfallEnum.RETUR &&
-          id !== UtfallEnum.TRUKKET &&
-          id !== UtfallEnum.UGUNST &&
-          id !== UtfallEnum.HEVET &&
-          id !== UtfallEnum.HENVIST,
+          id !== UtfallEnum.RETUR && id !== UtfallEnum.TRUKKET && id !== UtfallEnum.HEVET && id !== UtfallEnum.HENVIST,
       ),
     [data],
   );

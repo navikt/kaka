@@ -123,7 +123,7 @@ export const ContentV2 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
 
         <DynamicCard size={CardSize.MEDIUM}>
           <CardTitle>Utfall</CardTitle>
-          <UtfallGraph stats={relevantData} />
+          <UtfallGraph stats={allData} />
         </DynamicCard>
 
         <DynamicCard size={CardSize.MEDIUM}>
