@@ -36,7 +36,6 @@ spec:
         - application: kaka-e2e-tests
     outbound:
       rules:
-        - application: kaka-redis-fe
         - application: kaka-api
         - application: klage-kodeverk-api
       external:
