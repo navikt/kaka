@@ -2,7 +2,7 @@ const hex = '[a-f0-9]';
 const uuid = `${hex}{8}-${hex}{4}-${hex}{4}-${hex}{4}-${hex}{12}`;
 const number = '\\d+';
 const navIdent = '[a-z][0-9]{6}';
-const idRegex = new RegExp(`\\/${uuid}|\\/${number}`, 'gi');
+const idRegex = new RegExp(`\\/${uuid}|\\/${number}|\\/${navIdent}`, 'gi');
 const navIdentRegex = new RegExp(navIdent, 'gi');
 
 const API_PREFIX = '/api';

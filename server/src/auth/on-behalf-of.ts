@@ -1,32 +1,58 @@
+import { getCacheKey, oboCache } from '@app/auth/cache/cache';
 import { AZURE_APP_CLIENT_ID, NAIS_CLUSTER_NAME } from '@app/config/config';
+import { parseTokenPayload } from '@app/helpers/token-parser';
 import { getLogger } from '@app/logger';
 import type { Client, GrantBody } from 'openid-client';
-import { now, oboCache } from './on-behalf-of-cache';
 
-const log = getLogger('auth');
+const log = getLogger('obo-token');
 
 export const getOnBehalfOfAccessToken = async (
   authClient: Client,
-  authHeader: string,
+  accessToken: string,
+  navIdent: string,
   appName: string,
+  trace_id: string,
+  span_id: string,
 ): Promise<string> => {
-  const cacheKey = `${authHeader}-${appName}`;
+  const cacheKey = getCacheKey(navIdent, appName);
+  const token = await oboCache.get(cacheKey);
 
-  const cacheHit = oboCache.get(cacheKey);
-
-  if (typeof cacheHit !== 'undefined') {
-    const [cached_obo_access_token, expires_at] = cacheHit;
-
-    if (expires_at > now()) {
-      return cached_obo_access_token;
-    }
-
-    oboCache.delete(cacheKey);
+  if (token === null) {
+    return refreshOnBehalfOfAccessToken(authClient, accessToken, cacheKey, appName, trace_id, span_id);
   }
 
+  const parsed = parseTokenPayload(token);
+
+  if (parsed === undefined) {
+    return refreshOnBehalfOfAccessToken(authClient, accessToken, cacheKey, appName, trace_id, span_id);
+  }
+
+  const now = Math.ceil(Date.now() / 1_000);
+
+  if (parsed.exp < now) {
+    return refreshOnBehalfOfAccessToken(authClient, accessToken, cacheKey, appName, trace_id, span_id);
+  }
+
+  if (parsed.exp - now < 30) {
+    log.debug({ msg: `Refreshing OBO token for ${appName}`, trace_id, span_id, data: { navIdent, appName } });
+
+    refreshOnBehalfOfAccessToken(authClient, accessToken, cacheKey, appName, trace_id, span_id);
+  }
+
+  return token;
+};
+
+export const refreshOnBehalfOfAccessToken = async (
+  authClient: Client,
+  accessToken: string,
+  cacheKey: string,
+  appName: string,
+  trace_id: string,
+  span_id: string,
+): Promise<string> => {
   if (typeof authClient.issuer.metadata.token_endpoint !== 'string') {
     const error = new Error('OpenID issuer misconfigured. Missing token endpoint.');
-    log.error({ msg: 'On-Behalf-Of error', error });
+    log.error({ msg: 'On-Behalf-Of error', error, trace_id, span_id });
     throw error;
   }
 
@@ -39,7 +65,7 @@ export const getOnBehalfOfAccessToken = async (
       grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
       client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
       requested_token_use: 'on_behalf_of',
-      assertion: getSubjectAccessToken(authHeader),
+      assertion: accessToken,
     };
 
     const { access_token: obo_access_token, expires_at } = await authClient.grant(params, {
@@ -53,23 +79,13 @@ export const getOnBehalfOfAccessToken = async (
     }
 
     if (typeof expires_at === 'number') {
-      oboCache.set(cacheKey, [obo_access_token, expires_at]);
+      oboCache.set(cacheKey, obo_access_token, expires_at);
     }
 
     return obo_access_token;
   } catch (error) {
-    log.error({ msg: 'On-Behalf-Of error', error });
+    log.error({ msg: 'On-Behalf-Of error', error, trace_id, span_id });
 
     throw error;
   }
-};
-
-const getSubjectAccessToken = (authHeader: string) => {
-  const parts = authHeader.split(' ');
-
-  if (parts.length !== 2) {
-    throw new Error('Error while splitting bearer token');
-  }
-
-  return parts[1];
 };
