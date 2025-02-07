@@ -22,18 +22,26 @@ spec:
         extra:
           - NAVident
     sidecar:
-      enabled: true 
+      enabled: true
       autoLogin: true
       autoLoginIgnorePaths: 
         - /isAlive
         - /isReady
         - /version
+        - /assets/*
+        - /favicon/*
+        - /site.webmanifest
+        - /*.js
+        - /*.js.map
+        - /*.html
+        - /*.txt
+        - /*.css
+        - /*.ico
+        - /*.png
   prometheus:
     enabled: true
+    path: /metrics
   accessPolicy:
-    inbound:
-      rules:
-        - application: kaka-e2e-tests
     outbound:
       rules:
         - application: kaka-api
@@ -45,9 +53,23 @@ spec:
     - {{url}}
   {{/each}}
   envFrom:
-    - secret: kaka-session-key
     - secret: slack-url
+  valkey:
+    - instance: obo-cache-kaka
+      access: readwrite
   liveness:
     path: /isAlive
+    initialDelay: 3
+    periodSeconds: 1
+    timeout: 1
+    failureThreshold: 10
   readiness:
     path: /isReady
+    initialDelay: 3
+    periodSeconds: 1
+    timeout: 1
+    failureThreshold: 10
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: nodejs

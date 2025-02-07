@@ -1,7 +1,9 @@
-import { getLogger } from './logger';
-import { EmojiIcons, sendToSlack } from './slack';
+import { isDeployed } from '@app/config/env';
+import { getLogger } from '@app/logger';
+import { resetClientsAndUniqueUsersMetrics } from '@app/plugins/version/unique-users-gauge';
+import { EmojiIcons, sendToSlack } from '@app/slack';
 
-const log = getLogger('');
+const log = getLogger('process-errors');
 
 export const processErrors = () => {
   process
@@ -13,18 +15,30 @@ export const processErrors = () => {
     .on('uncaughtException', (error) =>
       log.error({ error, msg: `Process ${process.pid} received a uncaughtException signal` }),
     )
-    .on('SIGTERM', (signal) => {
-      log.info({ msg: `Process ${process.pid} received a ${signal} signal.` });
+    .on('SIGTERM', async (signal) => {
+      if (isDeployed) {
+        log.info({ msg: `Process ${process.pid} received a ${signal} signal. Shutting down in 2 seconds.` });
+        await resetClientsAndUniqueUsersMetrics();
+      } else {
+        log.info({ msg: `Process ${process.pid} received a ${signal} signal. Shutting down now.` });
+      }
       process.exit(0);
     })
-    .on('SIGINT', (signal) => {
-      const error = new Error(`Process ${process.pid} has been interrupted, ${signal}.`);
-      log.error({ error });
-      process.exit(1);
+    .on('SIGINT', async (signal) => {
+      if (isDeployed) {
+        const error = new Error(`Process ${process.pid} has been interrupted, ${signal}. Shutting down in 2 seconds.`);
+        log.error({ error });
+        await resetClientsAndUniqueUsersMetrics();
+      } else {
+        const error = new Error(`Process ${process.pid} has been interrupted, ${signal}. Shutting down now.`);
+        log.error({ error });
+      }
+      process.exit(0);
     })
-    .on('beforeExit', (code) => {
+    .on('beforeExit', async (code) => {
       const msg = `Crash ${JSON.stringify(code)}`;
       log.error({ msg });
-      sendToSlack(msg, EmojiIcons.Scream);
+      await resetClientsAndUniqueUsersMetrics();
+      await sendToSlack(msg, EmojiIcons.Broken);
     });
 };

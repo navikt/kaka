@@ -1,6 +1,3 @@
-import { performance } from 'node:perf_hooks';
-import type { RequestHandler } from 'express';
-
 const VERSION = process.env.VERSION ?? 'unknown';
 
 const LOGGERS: Map<string, Logger> = new Map();
@@ -15,22 +12,32 @@ type SerializableValue =
   | null
   | null[]
   | undefined
-  | undefined[];
+  | undefined[]
+  | AnyObject
+  | AnyObject[];
 
-interface AnyObject {
+export interface AnyObject {
   [key: string]: SerializableValue;
 }
 
 type LogArgs =
   | {
       msg?: string;
+      trace_id?: string;
+      span_id?: string;
+      client_version?: string;
+      tab_id?: string;
       error: Error | unknown;
-      data?: SerializableValue | AnyObject;
+      data?: SerializableValue;
     }
   | {
       msg: string;
+      trace_id?: string;
+      span_id?: string;
+      client_version?: string;
+      tab_id?: string;
       error?: Error | unknown;
-      data?: SerializableValue | AnyObject;
+      data?: SerializableValue;
     };
 
 interface Logger {
@@ -42,7 +49,10 @@ interface Logger {
 
 interface Log extends AnyObject {
   '@timestamp': string;
-  version: string;
+  trace_id?: string;
+  span_id?: string;
+  proxy_version: string;
+  client_version?: string;
   module: string;
   message?: string;
   stacktrace?: string;
@@ -69,30 +79,22 @@ export const getLogger = (module: string): Logger => {
   return logger;
 };
 
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: ¯\_(ツ)_/¯
-const getLog = (module: string, level: Level, { msg, error, data }: LogArgs) => {
+const getLog = (
+  module: string,
+  level: Level,
+  { msg, trace_id, span_id, client_version, tab_id, error, data }: LogArgs,
+) => {
   const log: Log = {
+    ...(typeof data === 'object' && data !== null && !Array.isArray(data) ? data : { data }),
     level,
     '@timestamp': new Date().toISOString(),
-    version: VERSION,
+    proxy_version: VERSION,
+    client_version,
     module,
+    tab_id,
+    trace_id,
+    span_id,
   };
-
-  if (typeof data === 'object' && data !== null) {
-    if (Array.isArray(data)) {
-      log.data = JSON.stringify(data, null, 2);
-    } else {
-      for (const [key, value] of Object.entries(data)) {
-        if (typeof value !== 'object' && value !== null) {
-          log[key] = value;
-        } else {
-          log[key] = JSON.stringify(value, null, 2);
-        }
-      }
-    }
-  } else {
-    log.data = data;
-  }
 
   if (error instanceof Error) {
     log.stacktrace = error.stack;
@@ -102,52 +104,4 @@ const getLog = (module: string, level: Level, { msg, error, data }: LogArgs) => 
   }
 
   return JSON.stringify(log);
-};
-
-const httpLogger = getLogger('http');
-
-export const httpLoggingMiddleware: RequestHandler = (req, res, next) => {
-  const start = performance.now();
-
-  res.once('finish', () => {
-    const { method, url } = req;
-
-    if (url.endsWith('/isAlive') || url.endsWith('/isReady')) {
-      return;
-    }
-
-    const { statusCode } = res;
-
-    const responseTime = Math.round(performance.now() - start);
-
-    logHttpRequest({
-      method,
-      url,
-      statusCode,
-      responseTime,
-    });
-  });
-
-  next();
-};
-
-interface HttpData extends AnyObject {
-  method: string;
-  url: string;
-  statusCode: number;
-  responseTime: number;
-}
-
-const logHttpRequest = (data: HttpData) => {
-  const msg = `${data.statusCode} ${data.method} ${data.url}`;
-
-  if (data.statusCode >= 500) {
-    httpLogger.error({ msg, data });
-
-    return;
-  }
-
-  if (data.statusCode >= 400) {
-    httpLogger.warn({ msg, data });
-  }
 };
