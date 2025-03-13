@@ -11,11 +11,10 @@ const Label = styled.div<LabelProps>`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  max-width: 13em;
   width: ${({ fixedWidth }) => (fixedWidth === true ? '13em' : 'auto')};
 `;
 
-export const LabelAnke = styled(Label)`
+export const LabelOther = styled(Label)`
   color: white;
   background-color: black;
   border: 1px solid #ba3a26;
@@ -32,4 +31,5 @@ export const LabelYtelse = styled(Label)`
   border: 1px solid #0067c5;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 13em;
 `;
