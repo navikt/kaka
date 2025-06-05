@@ -35,7 +35,7 @@ export const AllRegistreringshjemler = ({ field, parentKey }: AllRegistreringshj
   return (
     <div style={{ width: 400 }}>
       {canEdit ? (
-        <LovhjemmelSelect onChange={onChange} selected={selected} showFjernAlle show size="small" variant="secondary">
+        <LovhjemmelSelect onChange={onChange} selected={selected} show size="small" variant="secondary">
           Velg hjemmel/hjemler
         </LovhjemmelSelect>
       ) : null}
