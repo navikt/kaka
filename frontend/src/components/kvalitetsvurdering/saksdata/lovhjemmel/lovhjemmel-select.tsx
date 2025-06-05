@@ -28,7 +28,7 @@ export const LovhjemmelSelect = ({
   disabled,
   error,
   'data-testid': testId,
-  showFjernAlle,
+
   show,
   id,
   size = 'medium',
@@ -65,20 +65,6 @@ export const LovhjemmelSelect = ({
     );
   }
 
-  const setSelected = (selectedId: string | null, active: boolean) => {
-    if (selectedId === null) {
-      onChange([]);
-
-      return;
-    }
-
-    const newList = active
-      ? [...selected, selectedId]
-      : selected.filter((selectedValue: string) => selectedValue !== selectedId);
-
-    onChange(newList);
-  };
-
   const toggleOpen = () => setOpen(!open);
   const close = () => setOpen(false);
 
@@ -100,9 +86,8 @@ export const LovhjemmelSelect = ({
         selected={selected}
         options={options}
         open={open}
-        onChange={setSelected}
+        onChange={onChange}
         close={close}
-        showFjernAlle={showFjernAlle}
         maxHeight="400px"
         width="100%"
         testId="lovhjemmel-dropdown"

@@ -1,14 +1,14 @@
 import { DropdownContent } from '@app/components/dropdown/styled-components';
 import type { CommonGroupedDropdownProps } from '@app/components/dropdown/types';
+import { useUpdateFilters } from '@app/components/filters/hooks/use-update-filters';
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { DropdownContainer } from './dropdown-container';
 import { GroupedHeader } from './header/grouped';
 
 interface DropdownProps extends CommonGroupedDropdownProps {
   selected: string[];
-  onChange: (id: string | null, active: boolean) => void;
-  showFjernAlle?: boolean;
+  onChange: (ids: string[]) => void;
 }
 
 export const GroupedDropdown = ({ open, ...rest }: DropdownProps) => {
@@ -27,18 +27,24 @@ const ShowGroupedDropdown = ({
   maxHeight,
   width,
   testId,
-  showFjernAlle = true,
 }: Omit<DropdownProps, 'open'>): JSX.Element | null => {
   const [filteredGroups, setFilteredGroups] = useState(options);
+  const updateFilters = useUpdateFilters<string>(selected, onChange);
 
-  const reset = () => onChange(null, false);
+  const allIds = useMemo(
+    () => options.flatMap(({ sectionOptions }) => sectionOptions.map(({ value }) => value)),
+    [options],
+  );
+  const selectAll = () => onChange(allIds);
+  const reset = () => onChange([]);
 
   return (
     <DropdownContainer maxHeight={maxHeight} width={width} testId={testId}>
       <GroupedHeader
         options={options}
         onChange={setFilteredGroups}
-        onReset={showFjernAlle === true ? reset : undefined}
+        onReset={reset}
+        onSelectAll={selectAll}
         close={close}
       />
       <DropdownContent>
@@ -54,7 +60,7 @@ const ShowGroupedDropdown = ({
                 key={`${sectionHeader.id}-${value}`}
                 size="small"
                 value={value}
-                onChange={(event) => onChange(value, event.target.checked)}
+                onChange={(event) => updateFilters(value, event.target.checked)}
                 data-testid={`${testId}-${value}`}
               >
                 {label}
