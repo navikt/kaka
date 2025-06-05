@@ -5,15 +5,14 @@ import { styled } from 'styled-components';
 export interface BaseProps {
   close: () => void;
   onReset?: () => void;
+  onSelectAll?: () => void;
 }
 
-interface InternalHeaderProps {
+interface InternalHeaderProps extends BaseProps {
   onChange: (search: string) => void;
-  close: () => void;
-  onReset?: () => void;
 }
 
-export const InternalHeader = ({ onChange, close, onReset }: InternalHeaderProps): JSX.Element | null => {
+export const InternalHeader = ({ onChange, close, onReset, onSelectAll }: InternalHeaderProps): JSX.Element | null => {
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.key === 'Escape') {
       return close();
@@ -24,6 +23,13 @@ export const InternalHeader = ({ onChange, close, onReset }: InternalHeaderProps
     typeof onReset === 'function' ? (
       <Button variant="secondary" onClick={onReset} size="small">
         Fjern alle
+      </Button>
+    ) : null;
+
+  const VelgAlle = () =>
+    typeof onSelectAll === 'function' ? (
+      <Button variant="secondary" onClick={onSelectAll} size="small">
+        Velg alle
       </Button>
     ) : null;
 
@@ -39,6 +45,7 @@ export const InternalHeader = ({ onChange, close, onReset }: InternalHeaderProps
         onKeyDown={onKeyDown}
         autoFocus
       />
+      <VelgAlle />
       <FjernAlle />
     </StyledHeader>
   );
@@ -46,7 +53,7 @@ export const InternalHeader = ({ onChange, close, onReset }: InternalHeaderProps
 
 const StyledHeader = styled.div`
   display: grid;
-  grid-template-columns: 1fr max-content;
+  grid-template-columns: auto min-content min-content;
   white-space: nowrap;
   padding: 8px;
   top: 0;

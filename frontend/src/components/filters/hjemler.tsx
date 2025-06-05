@@ -40,18 +40,6 @@ const HjemmelSelect = ({ onChange, options, selected, disabled, metadata }: Hjem
 
   useOnClickOutside(() => setOpen(false), containerRef);
 
-  const setSelected = (id: string | null, active: boolean) => {
-    if (id === null) {
-      onChange([]);
-
-      return;
-    }
-
-    const newList = active ? [...selected, id] : selected.filter((selectedValue: string) => selectedValue !== id);
-
-    onChange(newList);
-  };
-
   const toggleOpen = () => setOpen(!open);
   const close = () => setOpen(false);
 
@@ -66,9 +54,8 @@ const HjemmelSelect = ({ onChange, options, selected, disabled, metadata }: Hjem
         selected={selected}
         options={options}
         open={open}
-        onChange={setSelected}
+        onChange={onChange}
         close={close}
-        showFjernAlle
         maxHeight="400px"
         width="100%"
         testId="hjemmel-filter"
