@@ -36,7 +36,7 @@ const Container = styled.div<StyledDropdownProps>`
   padding: 0;
   max-height: ${({ $maxHeight }) => $maxHeight ?? '256px'};
   width: ${({ $width }) => $width ?? '275px'};
-  overflow: auto;
+  overflow: hidden;
   border-radius: 4px;
   box-shadow: var(--a-shadow-medium);
 `;

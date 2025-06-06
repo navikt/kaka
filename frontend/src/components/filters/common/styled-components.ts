@@ -41,6 +41,7 @@ export const StyledDropdownButton = styled.button<StyledLabelProps>`
   font-weight: 700;
   position: relative;
   width: 100%;
+  background-color: var(--a-bg-default);
 
   ::before,
   ::after {

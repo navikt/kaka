@@ -48,8 +48,6 @@ const DropdownContent = styled.div`
   left: 0;
   width: 100%;
   max-height: 400px;
-  padding: 0;
-  padding-bottom: 0;
   background-color: white;
   z-index: 3;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px 0px;
