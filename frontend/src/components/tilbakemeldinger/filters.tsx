@@ -152,11 +152,7 @@ export const Filters = () => {
 
       <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
 
-      <YtelseFilter
-        selected={selectedYtelser}
-        setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)}
-        ytelser={ytelser}
-      />
+      <YtelseFilter selected={selectedYtelser} ytelser={ytelser} />
 
       <HjemmelFilter selected={selectedHjemler} setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)} />
 

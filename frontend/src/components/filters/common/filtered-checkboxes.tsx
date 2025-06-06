@@ -6,6 +6,7 @@ import { Checkboxes, type CheckboxesProps } from './checkboxes';
 interface Props<T extends string | number> extends CheckboxesProps<T> {
   close: () => void;
   reset: () => void;
+  selectAll: () => void;
 }
 
 export const FilteredCheckboxes = <T extends string | number>({
@@ -14,12 +15,19 @@ export const FilteredCheckboxes = <T extends string | number>({
   onCheck,
   close,
   reset,
+  selectAll,
 }: Props<T>): JSX.Element => {
   const [filteredFilters, setFilteredFilters] = useState(filters);
 
   return (
     <>
-      <SingleHeader options={filters} onChange={setFilteredFilters} onReset={reset} close={close} />
+      <SingleHeader
+        options={filters}
+        onChange={setFilteredFilters}
+        onReset={reset}
+        close={close}
+        onSelectAll={selectAll}
+      />
       <Container>
         <Checkboxes selected={selected} filters={filteredFilters} onCheck={onCheck} />
       </Container>

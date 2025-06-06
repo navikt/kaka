@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useUpdateFilters } from '../../filters/hooks/use-update-filters';
 import type { FilterType } from '../types';
 import { Checkboxes } from './checkboxes';
@@ -17,10 +17,13 @@ export const Filter = <T extends string | number>({ label, filters, selected, se
 
   const updateFilters = useUpdateFilters<T>(selected, setSelected);
 
+  const allIds = useMemo(() => filters.map(({ id }) => id.toString()), [filters]);
+
+  const selectAll = () => setSelected(allIds);
   const close = () => setOpen(false);
   const reset = () => setSelected([]);
 
-  if (filters.length >= 10) {
+  if (filters.length >= 5) {
     return (
       <Dropdown label={label} metadata={selected.length} open={open} setOpen={setOpen}>
         <FilteredCheckboxes<T>
@@ -29,6 +32,7 @@ export const Filter = <T extends string | number>({ label, filters, selected, se
           onCheck={updateFilters}
           close={close}
           reset={reset}
+          selectAll={selectAll}
         />
       </Dropdown>
     );

@@ -41,7 +41,6 @@ export const Lovhjemmel = () => {
         onChange={onLovhjemmelChange}
         error={validationError}
         data-testid="lovhjemmel"
-        showFjernAlle={false}
         show={canEdit}
         id="hjemmelIdList"
         icon={<MagnifyingGlassIcon aria-hidden />}
