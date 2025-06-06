@@ -3,6 +3,7 @@ import type { CommonGroupedDropdownProps } from '@app/components/dropdown/types'
 import { useUpdateFilters } from '@app/components/filters/hooks/use-update-filters';
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import { useMemo, useState } from 'react';
+import { styled } from 'styled-components';
 import { DropdownContainer } from './dropdown-container';
 import { GroupedHeader } from './header/grouped';
 
@@ -47,7 +48,7 @@ const ShowGroupedDropdown = ({
         onSelectAll={selectAll}
         close={close}
       />
-      <DropdownContent>
+      <StyledDropdownContent $maxHeight={maxHeight}>
         {filteredGroups.map(({ sectionHeader, sectionOptions }) => (
           <CheckboxGroup
             key={sectionHeader.id}
@@ -68,7 +69,12 @@ const ShowGroupedDropdown = ({
             ))}
           </CheckboxGroup>
         ))}
-      </DropdownContent>
+      </StyledDropdownContent>
     </DropdownContainer>
   );
 };
+
+const StyledDropdownContent = styled(DropdownContent)<{ $maxHeight?: string }>`
+  overflow-y: scroll;
+  max-height: ${({ $maxHeight }) => $maxHeight};
+`;

@@ -1,4 +1,5 @@
 import { PillContainer } from '@app/components/filters/pills/styled-components';
+import { YtelserAndHjemler } from '@app/components/filters/ytelser-and-hjemler';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelserForKlageenhet } from '@app/hooks/use-kodeverk-value';
 import { useUser } from '@app/simple-api-state/use-user';
@@ -17,7 +18,6 @@ import {
 } from '../../filters/date-presets/constants';
 import { DatePresets } from '../../filters/date-presets/date-presets';
 import { QueryParams } from '../../filters/filter-query-params';
-import { HjemmelFilter } from '../../filters/hjemler';
 import { useDatePresets } from '../../filters/hooks/use-date-presets';
 import { useDefaultDates } from '../../filters/hooks/use-default-dates';
 import {
@@ -37,7 +37,6 @@ import { StatisticsVersionFilter } from '../../filters/statistics-version/statis
 import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
 import { TilbakekrevingEnum } from '../../filters/types';
 import { UtfallFilter } from '../../filters/utfall';
-import { YtelseFilter } from '../../filters/ytelser';
 
 export const Filters = () => {
   const userData = useUser();
@@ -143,13 +142,12 @@ export const Filters = () => {
       />
       <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
       <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
-      <YtelseFilter
-        selected={selectedYtelser}
-        setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)}
+      <YtelserAndHjemler
+        selectedYtelser={selectedYtelser}
+        selectedHjemler={selectedHjemler}
+        setFilter={setFilter}
         ytelser={ytelser}
       />
-      <HjemmelFilter selected={selectedHjemler} setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)} />
-
       <PillContainer>
         <EnheterPills setFilter={setFilter} />
         <UtfallPills setFilter={setFilter} />

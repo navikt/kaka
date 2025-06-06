@@ -1,4 +1,5 @@
 import { PillContainer } from '@app/components/filters/pills/styled-components';
+import { YtelserAndHjemler } from '@app/components/filters/ytelser-and-hjemler';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { ArrowUndoIcon } from '@navikt/aksel-icons';
@@ -21,7 +22,6 @@ import {
 } from '../../filters/date-presets/constants';
 import { DatePresets } from '../../filters/date-presets/date-presets';
 import { ComparableQueryParams, QueryParams } from '../../filters/filter-query-params';
-import { HjemmelFilter } from '../../filters/hjemler';
 import { useDatePresets } from '../../filters/hooks/use-date-presets';
 import {
   useFromDateQueryFilter,
@@ -51,7 +51,6 @@ import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
 import { TilbakekrevingEnum } from '../../filters/types';
 import { UtfallFilter } from '../../filters/utfall';
 import { VedtaksenheterFilter } from '../../filters/vedtaksenheter';
-import { YtelseFilter } from '../../filters/ytelser';
 import { VedtaksinstansgruppeFilter } from '../total/vedtaksinstansgruppe-filter';
 
 export const Filters = () => {
@@ -186,13 +185,12 @@ export const Filters = () => {
       />
       <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
       <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
-      <YtelseFilter
-        selected={selectedYtelser}
-        setSelected={(values) => setFilter(QueryParams.YTELSER, ...values)}
+      <YtelserAndHjemler
+        selectedYtelser={selectedYtelser}
+        selectedHjemler={selectedHjemler}
+        setFilter={setFilter}
         ytelser={ytelser}
       />
-      <HjemmelFilter selected={selectedHjemler} setSelected={(values) => setFilter(QueryParams.HJEMLER, ...values)} />
-
       <PillContainer>
         <KlageenheterPills setFilter={setFilter} />
         <VedtaksinstansgrupperPills setFilter={setFilter} />

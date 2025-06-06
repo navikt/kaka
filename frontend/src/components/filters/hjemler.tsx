@@ -1,6 +1,9 @@
 import type { OptionGroup } from '@app/components/dropdown/types';
+import { QueryParams } from '@app/components/filters/filter-query-params';
+import { useQueryFilters, useVersionQueryFilter } from '@app/components/filters/hooks/use-query-filter';
+import { sortWithOrdinals } from '@app/functions/sort-with-ordinals';
 import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
-import { useLovkildeToRegistreringshjemler } from '@app/simple-api-state/use-kodeverk';
+import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { useMemo, useRef, useState } from 'react';
 import { GroupedDropdown } from '../dropdown/grouped-dropdown';
 import { formatMetadata } from './common/dropdown';
@@ -12,16 +15,39 @@ interface Props {
 }
 
 export const HjemmelFilter = ({ selected, setSelected }: Props) => {
-  const { data = [] } = useLovkildeToRegistreringshjemler();
+  const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
+  const version = useVersionQueryFilter();
 
-  const options = useMemo<OptionGroup[]>(
-    () =>
-      data.map(({ id, navn, registreringshjemler }) => ({
-        sectionHeader: { id, name: navn },
-        sectionOptions: registreringshjemler.map((h) => ({ value: h.id, label: h.navn })),
-      })),
-    [data],
-  );
+  const { data: ytelser = [] } = useYtelser(version);
+
+  const options = useMemo<OptionGroup[]>(() => {
+    const lovkilder = ytelser
+      .filter(({ id }) => selectedYtelser.length === 0 || selectedYtelser.includes(id))
+      .reduce<Record<string, OptionGroup>>((acc, { lovKildeToRegistreringshjemler }) => {
+        for (const { lovkilde, registreringshjemler } of lovKildeToRegistreringshjemler) {
+          const { id, navn } = lovkilde;
+          const entry = acc[id];
+          const sectionOptions = registreringshjemler.map(({ id, navn }) => ({ value: id, label: navn }));
+
+          if (entry === undefined) {
+            acc[id] = { sectionHeader: { id, name: navn }, sectionOptions };
+          } else {
+            for (const option of sectionOptions) {
+              if (!entry.sectionOptions.some((o) => o.value === option.value)) {
+                entry.sectionOptions.push(option);
+              }
+            }
+          }
+        }
+
+        return acc;
+      }, {});
+
+    return Object.values(lovkilder).map(({ sectionHeader, sectionOptions }) => ({
+      sectionHeader,
+      sectionOptions: sectionOptions.toSorted((a, b) => sortWithOrdinals(a.label, b.label)),
+    }));
+  }, [ytelser, selectedYtelser]);
 
   return <HjemmelSelect options={options} selected={selected} onChange={setSelected} metadata={selected.length} />;
 };
@@ -44,7 +70,7 @@ const HjemmelSelect = ({ onChange, options, selected, disabled, metadata }: Hjem
   const close = () => setOpen(false);
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} style={{ position: 'relative' }}>
       <StyledDropdownButton onClick={toggleOpen} disabled={disabled} open={open}>
         Hjemmel
         {formatMetadata(metadata)}
