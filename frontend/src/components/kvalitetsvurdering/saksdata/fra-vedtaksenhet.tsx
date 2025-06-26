@@ -1,50 +1,61 @@
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useEnheterForYtelse, useKlageenheterForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
-import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { useSaksdataId } from '@app/hooks/use-saksdata-id';
 import { useValidationError } from '@app/hooks/use-validation-error';
 import { useSetVedtaksinstansenhetMutation } from '@app/redux-api/saksdata';
 import type { IKodeverkSimpleValue } from '@app/types/kodeverk';
+import type { ISaksdataComplete, ISaksdataIncomplete } from '@app/types/saksdata';
 import { SakstypeEnum } from '@app/types/sakstype';
-import { Label } from '@navikt/ds-react';
-import { useMemo, useRef, useState } from 'react';
+import { Label, UNSAFE_Combobox } from '@navikt/ds-react';
+import { useEffect, useMemo, useState } from 'react';
 import { styled } from 'styled-components';
-import { SingleSelectDropdown } from '../../dropdown/single-select-dropdown';
 import { ErrorMessage } from '../../error-message/error-message';
-import { ToggleButton } from '../../toggle/toggle-button';
 
 export const FraVedtaksenhet = () => {
+  const { data } = useSaksdata();
+
+  if (data === undefined) {
+    return null;
+  }
+
+  return <FraVedtaksenhetLoaded saksdata={data} />;
+};
+
+const FraVedtaksenhetLoaded = ({ saksdata }: { saksdata: ISaksdataComplete | ISaksdataIncomplete }) => {
   const saksdataId = useSaksdataId();
-  const { data: saksdata } = useSaksdata();
   const [setVedtaksenhet] = useSetVedtaksinstansenhetMutation();
   const canEdit = useCanEdit();
   const ytelseParams = useYtelseParams();
   const enheter = useEnheterForYtelse(ytelseParams); // Sakstype klage uses enheter
   const klageenheter = useKlageenheterForYtelse(ytelseParams); // Sakstype anke uses klageenheter
   const validationError = useValidationError('vedtaksinstansEnhet');
-  const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [localValue, setLocalValue] = useState<string | null>(saksdata.vedtaksinstansEnhet);
 
-  useOnClickOutside(() => setOpen(false), containerRef);
+  useEffect(() => {
+    if (localValue !== null && localValue !== saksdata.vedtaksinstansEnhet) {
+      setVedtaksenhet({ id: saksdataId, vedtaksinstansEnhet: localValue });
+    }
+  }, [localValue, saksdata.vedtaksinstansEnhet, saksdataId, setVedtaksenhet]);
 
-  const options = useMemo(() => {
-    if (saksdata?.sakstypeId === SakstypeEnum.ANKE) {
+  const enhetOptions = useMemo(() => {
+    if (saksdata.sakstypeId === SakstypeEnum.ANKE) {
       return klageenheter;
     }
 
-    if (saksdata?.sakstypeId === SakstypeEnum.KLAGE) {
+    if (saksdata.sakstypeId === SakstypeEnum.KLAGE) {
       return enheter;
     }
 
     return [];
-  }, [saksdata?.sakstypeId, klageenheter, enheter]);
+  }, [saksdata.sakstypeId, klageenheter, enheter]);
 
-  const selectedEnhetName = useEnhetName(options, saksdata?.vedtaksinstansEnhet);
+  const options = useMemo(
+    () => enhetOptions.map(({ id, navn }) => ({ label: `${id} - ${navn}`, value: id })),
+    [enhetOptions],
+  );
 
-  if (typeof saksdata === 'undefined') {
-    return null;
-  }
+  const selectedEnhetName = useEnhetName(enhetOptions, saksdata.vedtaksinstansEnhet);
 
   if (typeof saksdata === 'undefined') {
     return null;
@@ -90,39 +101,23 @@ export const FraVedtaksenhet = () => {
     );
   }
 
-  const onChange = (vedtaksinstansEnhet: string) => {
-    setVedtaksenhet({ id: saksdataId, vedtaksinstansEnhet });
-    close();
-  };
-
-  const close = () => setOpen(false);
+  const selected = localValue === null ? [] : options.filter((option) => option.value === localValue);
 
   return (
-    <Container ref={containerRef}>
-      <StyledLabel size="medium" spacing htmlFor="vedtaksinstansEnhet">
-        Fra vedtaksenhet
-      </StyledLabel>
-      <ToggleButton
-        id="vedtaksinstansEnhet"
-        $open={open}
-        onClick={() => setOpen(!open)}
-        $error={typeof validationError !== 'undefined'}
-        data-value={saksdata.vedtaksinstansEnhet}
-      >
-        {selectedEnhetName ?? 'Ingen enhet'}
-      </ToggleButton>
-      <SingleSelectDropdown
-        selected={saksdata.vedtaksinstansEnhet}
-        kodeverk={options}
-        open={open}
-        onChange={onChange}
-        close={close}
-        labelFn={({ id, navn }) => `${id} - ${navn}`}
-        testId="fra-vedtaksenhet-dropdown"
-        width="100%"
-      />
-      <ErrorMessage error={validationError} />
-    </Container>
+    <UNSAFE_Combobox
+      label="Fra vedtaksenhet"
+      options={options}
+      shouldAutocomplete
+      selectedOptions={selected}
+      onToggleSelected={setLocalValue}
+      data-testid="fra-vedtaksenhet-dropdown"
+      error={validationError}
+      onKeyDownCapture={(event) => {
+        if (event.key === 'Backspace' && selected.length > 0) {
+          setLocalValue(null);
+        }
+      }}
+    />
   );
 };
 
@@ -148,8 +143,4 @@ const SelectedEnhet = styled.section`
 
 const StyledLabel = styled(Label)`
   display: block;
-`;
-
-const Container = styled.div`
-  position: relative;
 `;

@@ -1,21 +1,21 @@
 import {
-  DropdownContainer,
-  Ellipsis,
   StyledColorPicker,
   StyledComparisonItem,
 } from '@app/components/filters/comparison/comparison-values/styled-components';
-import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
-import type { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import { TrashIcon } from '@navikt/aksel-icons';
-import { Button } from '@navikt/ds-react';
-import { useRef, useState } from 'react';
-import { SingleSelectDropdown } from '../../../dropdown/single-select-dropdown';
-import { ToggleButton } from '../../../toggle/toggle-button';
+import { Button, UNSAFE_Combobox } from '@navikt/ds-react';
+import { useEffect, useState } from 'react';
+import { styled } from 'styled-components';
+
+interface Option {
+  value: string;
+  label: string;
+}
 
 interface ComparisonItemProps {
   value: string;
-  currentOption: IKodeverkSimpleValue;
-  availableOptions: IKodeverkSimpleValue[];
+  currentOption: Option;
+  availableOptions: Option[];
   onChangeId: (oldId: string, newId: string) => void;
   onChangeColor: (id: string, color: string) => void;
   onRemove: (id: string) => void;
@@ -35,34 +35,40 @@ export const SimpleComparisonItem = ({
   selectedLabel,
   testId,
 }: ComparisonItemProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [localValue, setLocalValue] = useState<string | null>(value);
 
-  const toggleOpen = () => setIsOpen(!isOpen);
-  const closeDropdown = () => setIsOpen(false);
+  useEffect(() => {
+    if (localValue !== null && localValue !== value) {
+      onChangeId(value, localValue);
+    }
+  }, [localValue, value, onChangeId]);
 
-  useOnClickOutside(() => setIsOpen(false), containerRef);
+  const options = [currentOption, ...availableOptions];
+  const selected = localValue === null ? [] : options.filter((option) => option.value === localValue);
 
   return (
     <StyledComparisonItem>
-      <DropdownContainer ref={containerRef}>
-        <ToggleButton onClick={toggleOpen} $open={isOpen} $size="small">
-          <Ellipsis>{selectedLabel}</Ellipsis>
-        </ToggleButton>
-        <SingleSelectDropdown
-          selected={value}
-          kodeverk={[currentOption, ...availableOptions]}
-          onChange={(selected) => onChangeId(value, selected)}
-          labelFn={({ navn }) => navn}
-          testId={testId}
-          open={isOpen}
-          close={closeDropdown}
-          maxHeight="280px"
-          width="100%"
-        />
-      </DropdownContainer>
+      <StyledCombobox
+        size="small"
+        label={selectedLabel}
+        shouldAutocomplete
+        data-testid={testId}
+        hideLabel
+        options={options}
+        selectedOptions={selected}
+        onToggleSelected={setLocalValue}
+        onKeyDownCapture={(event) => {
+          if (event.key === 'Backspace' && selected.length > 0) {
+            setLocalValue(null);
+          }
+        }}
+      />
       <StyledColorPicker type="color" value={color} onChange={({ target }) => onChangeColor(value, target.value)} />
       <Button onClick={() => onRemove(value)} size="small" icon={<TrashIcon aria-hidden />} variant="danger" />
     </StyledComparisonItem>
   );
 };
+
+const StyledCombobox = styled(UNSAFE_Combobox)`
+  flex-grow: 1;
+`;

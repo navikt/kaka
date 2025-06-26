@@ -14,18 +14,18 @@ export const ComparisonOption = ({ data, testId }: Props) => {
   const { selectedValues, add, remove, setId, setColor } = useOnchange();
   const options = useMemo(
     () => [
-      { id: AVERAGE, navn: AVERAGE_LABEL },
-      { id: GLOBAL_AVERAGE, navn: GLOBAL_AVERAGE_LABEL },
-      ...data,
-      { id: REST, navn: REST_LABEL },
+      { value: AVERAGE, label: AVERAGE_LABEL },
+      { value: GLOBAL_AVERAGE, label: GLOBAL_AVERAGE_LABEL },
+      ...data.map(({ id, navn }) => ({ value: id, label: navn })),
+      { value: REST, label: REST_LABEL },
     ],
     [data],
   );
   const availableOptions = useMemo(
-    () => options.filter((e) => !selectedValues.some(([id]) => id === e.id)),
+    () => options.filter((e) => !selectedValues.some(([id]) => id === e.value)),
     [options, selectedValues],
   );
-  const availableOptionIds = availableOptions.map((e) => e.id);
+  const availableOptionIds = availableOptions.map((e) => e.value);
   const [nextOption] = availableOptionIds;
 
   return (
@@ -37,12 +37,12 @@ export const ComparisonOption = ({ data, testId }: Props) => {
           key={id}
           value={id}
           color={color}
-          currentOption={{ id, navn: options.find((e) => e.id === id)?.navn ?? id }}
+          currentOption={{ value: id, label: options.find((e) => e.value === id)?.label ?? id }}
           availableOptions={availableOptions}
           onRemove={remove}
           onChangeId={setId}
           onChangeColor={setColor}
-          selectedLabel={options.find((e) => e.id === id)?.navn ?? id}
+          selectedLabel={options.find((e) => e.value === id)?.label ?? id}
         />
       ))}
     </>
