@@ -16,7 +16,7 @@ export const FilteredCheckboxes = <T extends string | number>({
   close,
   reset,
   selectAll,
-}: Props<T>): JSX.Element => {
+}: Props<T>) => {
   const [filteredFilters, setFilteredFilters] = useState(filters);
 
   return (

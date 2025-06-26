@@ -25,6 +25,6 @@ interface MangelfulltFilterProps {
   setSelected: (mangelfullt: string[]) => void;
 }
 
-export const MangelfulltFilter = ({ selected, setSelected }: MangelfulltFilterProps): JSX.Element => (
+export const MangelfulltFilter = ({ selected, setSelected }: MangelfulltFilterProps) => (
   <Filter label="Mangelfullt" filters={MANGELFULLT_KODEVERK} selected={selected} setSelected={setSelected} />
 );

@@ -98,7 +98,6 @@ export const BehandlingstidOverTime = ({ stats, children }: Props) => {
 
   const options = useOptions();
 
-  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: ¯\_(ツ)_/¯
   const labels = useMemo(() => {
     const flatStats = stats.flatMap(({ data }) => data);
     const [initial] = flatStats;

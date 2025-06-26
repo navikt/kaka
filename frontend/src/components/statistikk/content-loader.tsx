@@ -1,4 +1,5 @@
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import type { JSX } from 'react';
 
 interface Props {
   version: KvalitetsvurderingVersion;

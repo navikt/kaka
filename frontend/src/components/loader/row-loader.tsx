@@ -5,7 +5,7 @@ interface LoaderProps {
   children: string;
 }
 
-export const RowLoader = ({ children }: LoaderProps): JSX.Element => (
+export const RowLoader = ({ children }: LoaderProps) => (
   <Container>
     <Loader />
     <span>{children}</span>

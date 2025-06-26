@@ -28,7 +28,7 @@ const ShowGroupedSingleSelectDropdown = ({
   maxHeight,
   width,
   testId,
-}: Omit<Props, 'open'>): JSX.Element | null => {
+}: Omit<Props, 'open'>) => {
   const [filteredGroups, setFilteredGroups] = useState(options);
 
   return (

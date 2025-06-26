@@ -7,7 +7,7 @@ interface GroupedHeaderProps extends BaseProps {
   onChange: (filtered: OptionGroup[]) => void;
 }
 
-export const GroupedHeader = ({ options, onChange, ...props }: GroupedHeaderProps): JSX.Element | null => {
+export const GroupedHeader = ({ options, onChange, ...props }: GroupedHeaderProps) => {
   const onInputChange = useCallback(
     (search: string) => {
       if (search.length === 0) {

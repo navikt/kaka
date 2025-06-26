@@ -8,6 +8,7 @@ import { StatistikkMinPage } from '@app/pages/statistikk/min';
 import { StatistikkOpenPage } from '@app/pages/statistikk/open';
 import { StatistikkTotalPage } from '@app/pages/statistikk/total';
 import { TilbakemeldingerPage } from '@app/pages/tilbakemeldinger';
+import type { JSX } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 export const Router = () => {

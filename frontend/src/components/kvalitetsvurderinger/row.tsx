@@ -20,7 +20,7 @@ export const Row = ({
   utfallId,
   testId,
   kvalitetsvurderingReference,
-}: Props & (ISaksdataIncomplete | ISaksdataComplete)): JSX.Element => (
+}: Props & (ISaksdataIncomplete | ISaksdataComplete)) => (
   <Table.Row data-testid={`${testId}-row`} data-saksdata-id={id}>
     <Table.DataCell>
       <Type type={sakstypeId} />

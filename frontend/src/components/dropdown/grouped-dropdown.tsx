@@ -28,7 +28,7 @@ const ShowGroupedDropdown = ({
   maxHeight,
   width,
   testId,
-}: Omit<DropdownProps, 'open'>): JSX.Element | null => {
+}: Omit<DropdownProps, 'open'>) => {
   const [filteredGroups, setFilteredGroups] = useState(options);
   const updateFilters = useUpdateFilters<string>(selected, onChange);
 
