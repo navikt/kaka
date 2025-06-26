@@ -10,7 +10,7 @@ interface Props<T extends Option> extends BaseProps {
   onChange: (filtered: T[]) => void;
 }
 
-export const SingleHeader = <T extends Option>({ options, onChange, ...props }: Props<T>): JSX.Element | null => {
+export const SingleHeader = <T extends Option>({ options, onChange, ...props }: Props<T>) => {
   const onInputChange = useCallback(
     (search: string) => {
       if (search.length === 0) {

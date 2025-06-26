@@ -8,7 +8,7 @@ interface OptionProps {
   testId?: string;
 }
 
-export const SingleSelectOption = ({ active, filterId, children, onSelect, testId }: OptionProps): JSX.Element => (
+export const SingleSelectOption = ({ active, filterId, children, onSelect, testId }: OptionProps) => (
   <StyledButton onClick={() => onSelect(filterId)} theme={{ active }} title={children} data-testid={testId}>
     <StyledChecked>{active ? '✓' : ''}</StyledChecked>
     {children}

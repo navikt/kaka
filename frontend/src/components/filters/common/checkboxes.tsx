@@ -8,11 +8,7 @@ export interface CheckboxesProps<T extends string | number> {
   onCheck: (id: string, checked: boolean) => void;
 }
 
-export const Checkboxes = <T extends string | number>({
-  selected,
-  filters,
-  onCheck,
-}: CheckboxesProps<T>): JSX.Element => (
+export const Checkboxes = <T extends string | number>({ selected, filters, onCheck }: CheckboxesProps<T>) => (
   <Container>
     <CheckboxGroup legend={null} hideLegend size="small" value={selected}>
       {filters.map(({ id, label }) => (

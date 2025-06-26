@@ -12,7 +12,7 @@ interface InternalHeaderProps extends BaseProps {
   onChange: (search: string) => void;
 }
 
-export const InternalHeader = ({ onChange, close, onReset, onSelectAll }: InternalHeaderProps): JSX.Element | null => {
+export const InternalHeader = ({ onChange, close, onReset, onSelectAll }: InternalHeaderProps) => {
   const onKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.key === 'Escape') {
       return close();

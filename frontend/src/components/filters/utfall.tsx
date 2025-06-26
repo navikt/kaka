@@ -8,7 +8,7 @@ interface UtfallFilterProps {
   setSelected: (utfall: string[]) => void;
 }
 
-export const UtfallFilter = ({ selected, setSelected }: UtfallFilterProps): JSX.Element => {
+export const UtfallFilter = ({ selected, setSelected }: UtfallFilterProps) => {
   const { data: utfall = [] } = useUtfallForStats();
   const filters = useMemo<FilterType[]>(() => utfall.map(({ id, navn }) => ({ label: navn, id })), [utfall]);
 

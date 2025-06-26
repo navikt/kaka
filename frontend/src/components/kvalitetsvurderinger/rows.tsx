@@ -9,7 +9,7 @@ interface Props {
   testId: string;
 }
 
-export const VurderingRows = ({ vurderinger, columnCount, testId }: Props): JSX.Element => {
+export const VurderingRows = ({ vurderinger, columnCount, testId }: Props) => {
   if (typeof vurderinger === 'undefined') {
     return (
       <Table.Body data-testid={`${testId}-table-loading`}>
