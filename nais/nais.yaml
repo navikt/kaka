@@ -54,9 +54,6 @@ spec:
   {{/each}}
   envFrom:
     - secret: slack-url
-  valkey:
-    - instance: obo-cache-kaka
-      access: readwrite
   liveness:
     path: /isAlive
     initialDelay: 3
