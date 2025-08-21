@@ -1,3 +1,4 @@
+import { useAppTheme } from '@app/app-theme';
 import type { ChartOptions } from 'chart.js';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
@@ -56,7 +57,8 @@ interface Props {
 }
 
 export const IkkeKonkretBegrunnelse = ({ stats }: Props) => {
-  const data = useMemo(() => getIkkeKonkretBegrunnelseDatasets(stats, UNIT), [stats]);
+  const theme = useAppTheme();
+  const data = useMemo(() => getIkkeKonkretBegrunnelseDatasets(stats, UNIT, theme), [stats, theme]);
 
   const getAbsoluteValue: GetAbsoluteValue = (datasetIndex, dataIndex) => {
     const count = data.datasets[datasetIndex]?.data[dataIndex] ?? 0;

@@ -66,6 +66,6 @@ const Container = styled.div`
 `;
 
 const StatusText = styled.span`
-  color: var(--a-text-subtle);
-  font-size: var(--a-font-size-small);
+  color: var(--ax-text-neutral-subtle);
+  font-size: var(--ax-font-size-small);
 `;

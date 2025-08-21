@@ -1,46 +1,53 @@
+import { useColor } from '@app/components/statistikk/colors/get-color';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import type { ChartOptions } from 'chart.js';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { useBehandlingstidField } from '../hooks/use-behandlingstid-param';
 import { useBuckets } from '../hooks/use-buckets';
-import { GRAPH_COLOR } from './colors';
 
-const useOptions = (): ChartOptions<'bar'> => ({
-  aspectRatio: 3,
-  scales: {
-    y: {
-      title: { display: true, text: 'Antall' },
-      beginAtZero: true,
-      bounds: 'ticks',
+const useOptions = (): ChartOptions<'bar'> => {
+  const neutral = useColor(ColorToken.Info500);
+  const warning = useColor(ColorToken.Warning500);
+  const danger = useColor(ColorToken.Danger500);
+
+  return {
+    aspectRatio: 3,
+    scales: {
+      y: {
+        title: { display: true, text: 'Antall' },
+        beginAtZero: true,
+        bounds: 'ticks',
+      },
+      x: {
+        title: { display: true, text: 'Innen uke' },
+        stacked: true,
+      },
     },
-    x: {
-      title: { display: true, text: 'Innen uke' },
-      stacked: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
     },
-  },
-  plugins: {
-    legend: {
-      display: false,
+    backgroundColor: (ctx) => {
+      if (typeof ctx?.parsed === 'undefined') {
+        return neutral;
+      }
+
+      const { x } = ctx.parsed;
+
+      if (x < 12) {
+        return neutral;
+      }
+
+      if (x > 15) {
+        return danger;
+      }
+
+      return warning;
     },
-  },
-  backgroundColor: (ctx) => {
-    if (typeof ctx?.parsed === 'undefined') {
-      return GRAPH_COLOR.BLUE;
-    }
-
-    const { x } = ctx.parsed;
-
-    if (x < 12) {
-      return GRAPH_COLOR.BLUE;
-    }
-
-    if (x > 15) {
-      return GRAPH_COLOR.RED;
-    }
-
-    return GRAPH_COLOR.YELLOW;
-  },
-});
+  };
+};
 
 interface Stat {
   kaBehandlingstidDays: number;

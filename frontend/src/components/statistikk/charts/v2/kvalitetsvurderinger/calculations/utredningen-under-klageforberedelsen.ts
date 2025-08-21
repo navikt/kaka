@@ -1,4 +1,5 @@
-import { NAV_COLORS } from '@app/colors/colors';
+import type { AppTheme } from '@app/app-theme';
+import { getColorMap } from '@app/components/statistikk/colors/get-color';
 import {
   UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_REASONS,
   UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS,
@@ -16,7 +17,9 @@ interface StackedBarPieceCount {
 
 type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
 
-export const getUtredningenUnderKlageforberedelsenDatasets = (stats: DataSet[], unit: string) => {
+export const getUtredningenUnderKlageforberedelsenDatasets = (stats: DataSet[], unit: string, theme: AppTheme) => {
+  const colorMap = getColorMap(theme);
+
   const stacks = stats.flatMap(({ data, label }) => {
     const { reasons, reasonArray } = calculateReasons(data, UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_REASONS);
 
@@ -31,7 +34,7 @@ export const getUtredningenUnderKlageforberedelsenDatasets = (stats: DataSet[], 
     label: UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS[reasonId].label,
     percentages: stacks.map(({ data }) => (data[reasonId] ?? 0) * 100),
     data: stacks.map(({ count }) => count[reasonId] ?? 0),
-    backgroundColor: UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS[reasonId].color ?? NAV_COLORS.blue[500],
+    backgroundColor: colorMap[UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS[reasonId].color],
     barThickness: BAR_THICKNESS,
   })).filter((dataset) => dataset.data.some((v) => v !== 0)); // Remove empty datasets.
 

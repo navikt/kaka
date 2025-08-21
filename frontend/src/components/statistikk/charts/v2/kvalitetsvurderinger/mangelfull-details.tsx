@@ -1,3 +1,4 @@
+import { useAppTheme } from '@app/app-theme';
 import type { ChartOptions } from 'chart.js';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
@@ -50,7 +51,8 @@ interface Props {
 }
 
 export const MangelfullDetails = ({ stats }: Props) => {
-  const { datasets, labels } = useMemo(() => getMangelfullDetailsDatasets(stats, UNIT), [stats]);
+  const theme = useAppTheme();
+  const { datasets, labels } = useMemo(() => getMangelfullDetailsDatasets(stats, UNIT, theme), [stats, theme]);
 
   const getAbsoluteValue: GetAbsoluteValue = (datasetIndex, dataIndex) => {
     const count = datasets[datasetIndex]?.data[dataIndex] ?? 0;

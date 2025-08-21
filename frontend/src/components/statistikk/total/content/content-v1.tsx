@@ -33,52 +33,50 @@ export const ContentV1 = ({ rest, isLoading }: Props) => {
   const datasets = [{ label: 'Totalt', data: relevantRest }];
 
   return (
-    <>
+    <ContentArea>
       <LoadingOverlay isLoading={isLoading} />
 
-      <ContentArea>
-        <FullWidthStickyContainer>
-          <StatsContainer>
-            <Finished stats={rest} />
-            <TotalProcessed length={relevantRest.length} />
-            <Omgjort stats={relevantRest} label="Omgjort av klageinstansen" />
-            <Gjennomsnittstid stats={relevantRest} />
-            <Processed weeks={12} stats={relevantRest} />
-            <Processed weeks={15} stats={relevantRest} />
-          </StatsContainer>
-        </FullWidthStickyContainer>
+      <FullWidthStickyContainer>
+        <StatsContainer>
+          <Finished stats={rest} />
+          <TotalProcessed length={relevantRest.length} />
+          <Omgjort stats={relevantRest} label="Omgjort av klageinstansen" />
+          <Gjennomsnittstid stats={relevantRest} />
+          <Processed weeks={12} stats={relevantRest} />
+          <Processed weeks={15} stats={relevantRest} />
+        </StatsContainer>
+      </FullWidthStickyContainer>
 
-        <DynamicCard size={CardSize.LARGE}>
-          <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
-            Omgjøringsprosent
-          </CardTitleWithExplainer>
-          <Omgjoeringsprosent stats={datasets} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.LARGE}>
+        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
+          Omgjøringsprosent
+        </CardTitleWithExplainer>
+        <Omgjoeringsprosent stats={datasets} />
+      </DynamicCard>
 
-        <DynamicCard size={CardSize.LARGE}>
-          <CardTitle>Kvalitetsvurderinger</CardTitle>
-          <TypeWarning />
-          <KvalitetsvurderingerV1 stats={relevantRest} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.LARGE}>
+        <CardTitle>Kvalitetsvurderinger</CardTitle>
+        <TypeWarning />
+        <KvalitetsvurderingerV1 stats={relevantRest} />
+      </DynamicCard>
 
-        <DynamicCard size={CardSize.MEDIUM}>
-          <CardTitle>Utfall</CardTitle>
-          <UtfallGraph stats={rest} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.MEDIUM}>
+        <CardTitle>Utfall</CardTitle>
+        <UtfallGraph stats={rest} />
+      </DynamicCard>
 
-        <DynamicCard size={CardSize.MEDIUM}>
-          <CardTitle>Hjemler</CardTitle>
-          <Hjemler stats={relevantRest} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.MEDIUM}>
+        <CardTitle>Hjemler</CardTitle>
+        <Hjemler stats={relevantRest} />
+      </DynamicCard>
 
-        <DynamicCard size={CardSize.LARGE}>
-          <CardTitle>Behandlingstid</CardTitle>
-          <ToggleTotalOrKA />
-          <BehandlingstidHistogram stats={relevantRest} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.LARGE}>
+        <CardTitle>Behandlingstid</CardTitle>
+        <ToggleTotalOrKA />
+        <BehandlingstidHistogram stats={relevantRest} />
+      </DynamicCard>
 
-        <BehandlingstidOverTime stats={behandlingstidOverTime} />
-      </ContentArea>
-    </>
+      <BehandlingstidOverTime stats={behandlingstidOverTime} />
+    </ContentArea>
   );
 };

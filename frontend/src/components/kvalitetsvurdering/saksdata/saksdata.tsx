@@ -40,5 +40,4 @@ const StyledSaksdata = styled.section`
   display: flex;
   flex-direction: column;
   row-gap: 32px;
-  padding-top: 32px;
 `;

@@ -1,5 +1,6 @@
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import type { MainReasonDataset } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';
+import { useColorMap } from '@app/components/statistikk/colors/get-color';
 import { KVALITETSVURDERING_TEXTS, MAIN_REASON_IDS } from '@app/components/statistikk/types/kvalitetsvurdering';
 import { toPercent } from '@app/domain/number';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
@@ -19,6 +20,8 @@ export interface Dataset {
 const { Klageforberedelsen, Utredningen, Vedtaket, BrukAvRaadgivendeLege } = MainReason;
 
 export const useData = (stats: MainReasonDataset[]) => {
+  const colorMap = useColorMap();
+
   const unsortedBars = stats.flatMap(({ data, label }) =>
     [Klageforberedelsen, Utredningen, Vedtaket, BrukAvRaadgivendeLege].map((field) => ({
       label:
@@ -46,7 +49,7 @@ export const useData = (stats: MainReasonDataset[]) => {
     return `${label} (${toPercent(percent)} | ${count} av ${length} ${unit})`;
   });
 
-  const backgroundColor = calculatedData.map(({ color }) => color);
+  const backgroundColor = calculatedData.map(({ color }) => colorMap[color]);
   const percentages = calculatedData.map(({ percent }) => percent);
   const counts = calculatedData.map(({ count }) => count); // For testing purposes
 

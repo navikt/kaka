@@ -9,7 +9,7 @@ export const StyledButtons = styled.div`
 
 const StyledFooter = styled.div`
   display: flex;
-  position: sticky;
+  /* position: sticky; */
   bottom: 0;
   left: 0;
   width: 100%;
@@ -21,19 +21,20 @@ const StyledFooter = styled.div`
   align-items: center;
   align-content: center;
   z-index: 5;
+  flex-shrink: 1;
 `;
 
 export const StyledFinishedFooter = styled(StyledFooter)`
-  border-top: 1px solid #06893a;
-  background-color: #cde7d8;
+  border-top: 1px solid var(--ax-border-success);
+  background-color: var(--ax-bg-success-moderate)
 `;
 
 export const StyledUnfinishedFooter = styled(StyledFooter)`
-  border-top: 1px solid #368da8;
-  background-color: #e0f5fb;
+  border-top: 1px solid var(--ax-border-info);
+  background-color: var(--ax-bg-info-moderate);
 `;
 
 export const StyledUnfinishedErrorFooter = styled(StyledFooter)`
-  border-top: 1px solid #d47b00;
-  background-color: #ffe9cc;
+  border-top: 1px solid var(--ax-border-warning);
+  background-color: var(--ax-bg-warning-moderate);
 `;

@@ -7,6 +7,7 @@ export const StyledListItem = styled.li`
 `;
 
 export const DropdownContent = styled.div`
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   row-gap: 8px;

@@ -1,4 +1,3 @@
-import { NAV_COLORS } from '@app/colors/colors';
 import {
   LEGACY_VEDTAKET_HELP_TEXTS,
   LEGACY_VEDTAKET_LABELS,
@@ -11,57 +10,58 @@ import {
   VedtaketHjemlerListBoolean,
   VedtaketSaksdatahjemlerList,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
 
 // TODO: Decide color for new fields
 export const VEDTAKET_TEXTS = {
   // New in 2024
   [VedtaketHjemlerListBoolean.vedtaketBruktFeilHjemmel]: {
-    color: NAV_COLORS.green[100],
+    color: ColorToken.Success300,
     label: VEDTAKET_LABELS[VedtaketHjemlerListBoolean.vedtaketBruktFeilHjemmel],
     helpText: VEDTAKET_HELP_TEXTS[VedtaketHjemlerListBoolean.vedtaketBruktFeilHjemmel],
   },
   // New in 2024
   [VedtaketHjemlerListBoolean.vedtaketAlleRelevanteHjemlerErIkkeVurdert]: {
-    color: NAV_COLORS.green[100],
+    color: ColorToken.Success400,
     label: VEDTAKET_LABELS[VedtaketHjemlerListBoolean.vedtaketAlleRelevanteHjemlerErIkkeVurdert],
     helpText: VEDTAKET_HELP_TEXTS[VedtaketHjemlerListBoolean.vedtaketAlleRelevanteHjemlerErIkkeVurdert],
   },
   // NOT in 2024
   [LegacyVedtaketBoolean.vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert]: {
-    color: NAV_COLORS.green[100],
+    color: ColorToken.Success200,
     label: LEGACY_VEDTAKET_LABELS[LegacyVedtaketBoolean.vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert],
     helpText:
       LEGACY_VEDTAKET_HELP_TEXTS[LegacyVedtaketBoolean.vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert],
     hjemler: LegacyVedtaketHjemlerList.vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdertHjemlerList,
   },
   [VedtaketHjemlerListBoolean.vedtaketLovbestemmelsenTolketFeil]: {
-    color: NAV_COLORS.green[200],
+    color: ColorToken.Success500,
     label: VEDTAKET_LABELS[VedtaketHjemlerListBoolean.vedtaketLovbestemmelsenTolketFeil],
     helpText: VEDTAKET_HELP_TEXTS[VedtaketHjemlerListBoolean.vedtaketLovbestemmelsenTolketFeil],
   },
   [VedtaketHjemlerListBoolean.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet]: {
-    color: NAV_COLORS.green[300],
+    color: ColorToken.Success600,
     label: VEDTAKET_LABELS[VedtaketHjemlerListBoolean.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet],
     helpText:
       VEDTAKET_HELP_TEXTS[VedtaketHjemlerListBoolean.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet],
   },
   [VedtaketBoolean.vedtaketDetErLagtTilGrunnFeilFaktum]: {
-    color: NAV_COLORS.green[400],
+    color: ColorToken.Success700,
     label: VEDTAKET_LABELS[VedtaketBoolean.vedtaketDetErLagtTilGrunnFeilFaktum],
     helpText: VEDTAKET_HELP_TEXTS[VedtaketBoolean.vedtaketDetErLagtTilGrunnFeilFaktum],
   },
   [VedtaketHjemlerListBoolean.vedtaketFeilKonkretRettsanvendelse]: {
-    color: NAV_COLORS.green[500],
+    color: ColorToken.Success800,
     label: VEDTAKET_LABELS[VedtaketHjemlerListBoolean.vedtaketFeilKonkretRettsanvendelse],
     helpText: VEDTAKET_HELP_TEXTS[VedtaketHjemlerListBoolean.vedtaketFeilKonkretRettsanvendelse],
   },
   [VedtaketBoolean.vedtaketIkkeKonkretIndividuellBegrunnelse]: {
-    color: NAV_COLORS.green[600],
+    color: ColorToken.Success900,
     label: VEDTAKET_LABELS[VedtaketBoolean.vedtaketIkkeKonkretIndividuellBegrunnelse],
     helpText: VEDTAKET_HELP_TEXTS[VedtaketBoolean.vedtaketIkkeKonkretIndividuellBegrunnelse],
   },
   [VedtaketBoolean.vedtaketSpraakOgFormidlingErIkkeTydelig]: {
-    color: NAV_COLORS.green[700],
+    color: ColorToken.Success1000,
     label: VEDTAKET_LABELS[VedtaketBoolean.vedtaketSpraakOgFormidlingErIkkeTydelig],
     helpText: VEDTAKET_HELP_TEXTS[VedtaketBoolean.vedtaketSpraakOgFormidlingErIkkeTydelig],
   },
@@ -69,18 +69,18 @@ export const VEDTAKET_TEXTS = {
 
 export const IKKE_KONKRET_BEGRUNNELSE_TEXTS = {
   [VedtaketBoolean.vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum]: {
-    color: NAV_COLORS.green[400],
+    color: ColorToken.Success500,
     label: VEDTAKET_LABELS[VedtaketBoolean.vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremFaktum],
   },
   [VedtaketBoolean.vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum]: {
-    color: NAV_COLORS.green[500],
+    color: ColorToken.Success600,
     label:
       VEDTAKET_LABELS[
         VedtaketBoolean.vedtaketIkkeKonkretIndividuellBegrunnelseIkkeGodtNokFremHvordanRettsregelenErAnvendtPaaFaktum
       ],
   },
   [VedtaketBoolean.vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst]: {
-    color: NAV_COLORS.green[600],
+    color: ColorToken.Success700,
     label: VEDTAKET_LABELS[VedtaketBoolean.vedtaketIkkeKonkretIndividuellBegrunnelseMyeStandardtekst],
   },
 };

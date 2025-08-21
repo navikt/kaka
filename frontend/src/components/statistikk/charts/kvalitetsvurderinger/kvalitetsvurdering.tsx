@@ -1,3 +1,6 @@
+import { useAppTheme } from '@app/app-theme';
+import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import type { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import type { ChartOptions } from 'chart.js';
@@ -6,7 +9,6 @@ import { Bar, Doughnut } from 'react-chartjs-2';
 import { styled } from 'styled-components';
 import type { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
 import type { StatisticsPropsV1 } from '../../types';
-import { GRAPH_COLOR } from '../colors';
 import { percent, tickCallback } from '../formatting';
 import { ChartContainer, ChartTitle } from '../styled-components';
 import { HelpTexts } from './help-texts';
@@ -54,6 +56,7 @@ export interface KvalitetsvurderingProps extends StatisticsPropsV1 {
 export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: KvalitetsvurderingProps) => {
   const mangelfulleSaker = useMemo(() => stats.filter((stat) => stat[field] === Radiovalg.MANGELFULLT), [stats, field]);
   const braNokSaker = useMemo(() => stats.filter((stat) => stat[field] === Radiovalg.BRA), [stats, field]);
+  const theme = useAppTheme();
 
   const numberOfMangelfulleSaker = mangelfulleSaker.length;
 
@@ -86,7 +89,10 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: Kva
                   label: 'Kvalitetsavviket i vedtaket',
                   hoverOffset: 4,
                   data: doughnutData,
-                  backgroundColor: [GRAPH_COLOR.BLUE, GRAPH_COLOR.RED],
+                  backgroundColor: [
+                    getColorFromTheme(ColorToken.Info500, theme),
+                    getColorFromTheme(ColorToken.Danger500, theme),
+                  ],
                 },
               ],
             }}
@@ -121,6 +127,7 @@ interface KvalitetsavvikChartProps {
 
 const KvalitetsavvikChart = ({ barLabels, barData, numberOfMangelfulleSaker }: KvalitetsavvikChartProps) => {
   const barOptions = useBarOptions(barLabels, barData, numberOfMangelfulleSaker);
+  const theme = useAppTheme();
 
   if (barData.length === 0 || barData.every((value) => value === 0)) {
     return <TextChart>Ingen data</TextChart>;
@@ -134,7 +141,7 @@ const KvalitetsavvikChart = ({ barLabels, barData, numberOfMangelfulleSaker }: K
         datasets: [
           {
             data: barData,
-            backgroundColor: GRAPH_COLOR.RED,
+            backgroundColor: getColorFromTheme(ColorToken.Danger500, theme),
             barPercentage: 0.95,
             categoryPercentage: 0.95,
           },
@@ -152,7 +159,6 @@ const TextChart = styled.span`
   padding: 16px;
   justify-content: center;
   align-items: center;
-  border: 1px solid #e6e6e6;
 `;
 
 const Container = styled.section`

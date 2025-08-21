@@ -1,7 +1,6 @@
-import {
-  StyledColorPicker,
-  StyledComparisonItem,
-} from '@app/components/filters/comparison/comparison-values/styled-components';
+import { ColorPicker } from '@app/components/filters/comparison/comparison-values/color-picker';
+import { StyledComparisonItem } from '@app/components/filters/comparison/comparison-values/styled-components';
+import type { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { TrashIcon } from '@navikt/aksel-icons';
 import { Button, UNSAFE_Combobox } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
@@ -17,9 +16,9 @@ interface ComparisonItemProps {
   currentOption: Option;
   availableOptions: Option[];
   onChangeId: (oldId: string, newId: string) => void;
-  onChangeColor: (id: string, color: string) => void;
+  onChangeColor: (id: string, color: ColorToken) => void;
   onRemove: (id: string) => void;
-  color: string;
+  color: ColorToken;
   selectedLabel: string;
   testId: string;
 }
@@ -63,7 +62,7 @@ export const SimpleComparisonItem = ({
           }
         }}
       />
-      <StyledColorPicker type="color" value={color} onChange={({ target }) => onChangeColor(value, target.value)} />
+      <ColorPicker color={color} onChange={(newColor) => onChangeColor(value, newColor)} />
       <Button onClick={() => onRemove(value)} size="small" icon={<TrashIcon aria-hidden />} variant="danger" />
     </StyledComparisonItem>
   );

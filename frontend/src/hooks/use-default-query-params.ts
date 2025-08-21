@@ -7,6 +7,7 @@ import {
 } from '@app/components/filters/date-presets/constants';
 import { ComparableQueryParams, QueryParams } from '@app/components/filters/filter-query-params';
 import { TilbakekrevingEnum } from '@app/components/filters/types';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { useKlageenheter, useVedtaksenheter } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
@@ -73,7 +74,7 @@ export const useDefaultQueryComparison = () => {
   const defaultQuery = useDefaultQueryAapen();
   const tilbakekreving = TilbakekrevingEnum.INCLUDE;
 
-  const comparisonValues = encodeURIComponent(JSON.stringify([['AVERAGE', '#0067c5']]));
+  const comparisonValues = encodeURIComponent(JSON.stringify([['AVERAGE', ColorToken.Accent500]]));
   const defaultComparison = `comparisonProp=${ComparableQueryParams.ENHETER}&comparisonValues=${comparisonValues}`;
 
   return `${defaultQuery}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}&${defaultComparison}`;

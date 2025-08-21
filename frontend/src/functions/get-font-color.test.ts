@@ -1,12 +1,14 @@
 import { describe, expect, it } from 'bun:test';
-import { NAV_COLORS } from '@app/colors/colors';
-import { FontColor, getFontColor } from './get-font-color';
+import { AppTheme } from '@app/app-theme';
+import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
+import { DARK_COLOR, LIGHT_COLOR, getFontColor } from './get-font-color';
 
 describe('get font color for background', () => {
   it('should return black for white', () => {
     expect.assertions(1);
 
-    const expected = FontColor.BLACK;
+    const expected = DARK_COLOR;
     const actual = getFontColor('#FFFFFF');
     expect(actual).toBe(expected);
   });
@@ -14,7 +16,7 @@ describe('get font color for background', () => {
   it('should return white for black', () => {
     expect.assertions(1);
 
-    const expected = FontColor.WHITE;
+    const expected = LIGHT_COLOR;
     const actual = getFontColor('#000000');
     expect(actual).toBe(expected);
   });
@@ -22,33 +24,24 @@ describe('get font color for background', () => {
   it('should return white for NAV blue 900', () => {
     expect.assertions(1);
 
-    const expected = FontColor.WHITE;
-    const actual = getFontColor(rgbToHex(NAV_COLORS.blue[900]));
+    const expected = LIGHT_COLOR;
+    const actual = getFontColor(getColorFromTheme(ColorToken.Accent900, AppTheme.LIGHT));
     expect(actual).toBe(expected);
   });
 
   it('should return white for NAV blue 800', () => {
     expect.assertions(1);
 
-    const expected = FontColor.WHITE;
-    const actual = getFontColor(rgbToHex(NAV_COLORS.blue[800]));
+    const expected = LIGHT_COLOR;
+    const actual = getFontColor(getColorFromTheme(ColorToken.Accent800, AppTheme.LIGHT));
     expect(actual).toBe(expected);
   });
 
   it('should return white for NAV green 800', () => {
     expect.assertions(1);
 
-    const expected = FontColor.WHITE;
-    const actual = getFontColor(rgbToHex(NAV_COLORS.green[800]));
+    const expected = LIGHT_COLOR;
+    const actual = getFontColor(getColorFromTheme(ColorToken.Success800, AppTheme.LIGHT));
     expect(actual).toBe(expected);
   });
 });
-
-const rgbToHex = (rgbString: string) =>
-  `#${rgbString
-    .replace('rgb(', '')
-    .replace(')', '')
-    .split(',')
-    .map((x) => Number.parseInt(x, 10))
-    .map((x) => x.toString(16).padStart(2, '0'))
-    .join('')}`;

@@ -1,8 +1,8 @@
 import { Kvalitetsvurderinger } from '@app/components/kvalitetsvurderinger/kvalitetsvurderinger';
-import { PageWrapper } from './page-wrapper';
+import { KvalitetsvurderingPageWrapper } from '@app/pages/page-wrapper';
 
 export const KvalitetsvurderingerPage = () => (
-  <PageWrapper>
+  <KvalitetsvurderingPageWrapper>
     <Kvalitetsvurderinger />
-  </PageWrapper>
+  </KvalitetsvurderingPageWrapper>
 );

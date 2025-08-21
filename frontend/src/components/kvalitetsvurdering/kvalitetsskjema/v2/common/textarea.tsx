@@ -101,7 +101,7 @@ const StatusContainer = styled.div`
 `;
 
 const StyledBodyLong = styled(BodyLong)`
-  border-left: 2px solid var(--a-border-subtle);
+  border-left: 2px solid var(--ax-border-neutral-subtle);
   padding-left: 8px;
   margin-top: 4px;
 `;

@@ -47,6 +47,7 @@ const SubHeader = styled.h2`
 `;
 
 const StyledKvalitetsvurderinger = styled.section`
-  padding-top: 2em;
+  padding: var(--ax-space-24);
   width: 100%;
+  overflow-y: auto;
 `;

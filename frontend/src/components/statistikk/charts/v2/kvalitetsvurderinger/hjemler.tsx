@@ -1,3 +1,4 @@
+import { useColor } from '@app/components/statistikk/colors/get-color';
 import {
   type StatisticsVedtaketHjemlerList,
   type StatisticsVedtaketHjemlerListBoolean,
@@ -21,6 +22,7 @@ interface Props {
 
 export const Hjemler = ({ dataset, hjemmelListId, reasonId, label, index }: Props) => {
   const { data: hjemler = {} } = useRegistreringshjemlerMap();
+  const backgroundColor = useColor(VEDTAKET_TEXTS[reasonId].color);
 
   const data = useMemo(() => {
     const hjemlerCount = dataset.data.reduce<Record<string, number>>((counts, sak) => {
@@ -51,10 +53,10 @@ export const Hjemler = ({ dataset, hjemmelListId, reasonId, label, index }: Prop
       return name.substring(0, 15);
     });
 
-    const datasets = [{ data: top.map(([, value]) => value), backgroundColor: VEDTAKET_TEXTS[reasonId].color }];
+    const datasets = [{ data: top.map(([, value]) => value), backgroundColor }];
 
     return { labels, datasets, ids: top.map(([id]) => id) };
-  }, [reasonId, dataset.data, hjemler, hjemmelListId]);
+  }, [dataset.data, hjemler, hjemmelListId, backgroundColor]);
 
   const tooltipCallback: TooltipCallback = ({ dataIndex, label: tooltip }) => {
     const id = data.ids[dataIndex];

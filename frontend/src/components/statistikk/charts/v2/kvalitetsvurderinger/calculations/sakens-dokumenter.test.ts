@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test';
+import { AppTheme } from '@app/app-theme';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import { getStats } from './helpers/test-helpers';
 import { getSakensDokumenterDatasets } from './sakens-dokumenter';
@@ -20,7 +21,7 @@ describe('getSakensDokumenterDatasets', () => {
       },
     ];
 
-    const result = getSakensDokumenterDatasets(stats, 'avvik');
+    const result = getSakensDokumenterDatasets(stats, 'avvik', AppTheme.LIGHT);
 
     expect(result.datasets?.[0]?.percentages).toStrictEqual([100]);
     expect(result.datasets?.[0]?.data).toStrictEqual([1]);
@@ -43,7 +44,7 @@ describe('getSakensDokumenterDatasets', () => {
       },
     ];
 
-    const result = getSakensDokumenterDatasets(stats, 'avvik');
+    const result = getSakensDokumenterDatasets(stats, 'avvik', AppTheme.LIGHT);
 
     expect(result.datasets?.[0]?.percentages).toStrictEqual([50]);
     expect(result.datasets?.[0]?.data).toStrictEqual([1]);
@@ -70,7 +71,7 @@ describe('getSakensDokumenterDatasets', () => {
       },
     ];
 
-    const result = getSakensDokumenterDatasets(stats, 'avvik');
+    const result = getSakensDokumenterDatasets(stats, 'avvik', AppTheme.LIGHT);
 
     expect(result.datasets?.[0]?.percentages).toStrictEqual([50]);
     expect(result.datasets?.[0]?.data).toStrictEqual([1]);
@@ -95,7 +96,7 @@ describe('getSakensDokumenterDatasets', () => {
       },
     ];
 
-    const result = getSakensDokumenterDatasets(stats, 'avvik');
+    const result = getSakensDokumenterDatasets(stats, 'avvik', AppTheme.LIGHT);
 
     expect(result.datasets?.[0]?.percentages).toStrictEqual([50]);
     expect(result.datasets?.[0]?.data).toStrictEqual([1]);
@@ -118,7 +119,7 @@ describe('getSakensDokumenterDatasets', () => {
       },
     ];
 
-    const result = getSakensDokumenterDatasets(stats, 'avvik');
+    const result = getSakensDokumenterDatasets(stats, 'avvik', AppTheme.LIGHT);
 
     expect(result.datasets?.[0]?.percentages).toStrictEqual([100]);
     expect(result.datasets?.[1]?.percentages).toStrictEqual([100]);

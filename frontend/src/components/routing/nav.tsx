@@ -108,7 +108,7 @@ const StyledNav = styled.nav`
   padding-top: 16px;
   position: sticky;
   top: 0;
-  background-color: white;
+  background-color: var(--ax-bg-default);
   z-index: 10;
 `;
 
@@ -120,7 +120,7 @@ const StyledNavLinkList = styled.ul`
   padding: 0;
   padding-top: 0;
   margin: 0 1em;
-  border-bottom: 1px solid #3e3832;
+  border-bottom: 1px solid var(--ax-border-neutral);
 `;
 
 const StyledNavListItem = styled.li`
@@ -136,7 +136,7 @@ const StyledNavLink = styled(NavLink)`
   font-size: 1.2em;
   font-weight: bold;
   text-decoration: none;
-  color: #54483f;
+  color: var(--ax-text-neutral);
   border-bottom: 5px solid transparent;
   margin: 0;
   padding-top: 4px;
@@ -149,7 +149,7 @@ const StyledNavLink = styled(NavLink)`
   &.active,
   &:hover {
     text-decoration: none;
-    color: #0067c5;
-    border-bottom: 5px solid #0067c5;
+    color: var(--ax-text-accent-subtle);
+    border-bottom: 5px solid var(--ax-border-accent)
   }
 `;

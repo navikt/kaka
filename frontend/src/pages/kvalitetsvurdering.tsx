@@ -1,16 +1,10 @@
 import { Footer } from '@app/components/kvalitetsvurdering/footer/footer';
 import { Kvalitetsvurdering } from '@app/components/kvalitetsvurdering/kvalitetsvurdering';
-import { styled } from 'styled-components';
+import { KvalitetsvurderingPageWrapper } from '@app/pages/page-wrapper';
 
 export const KvalitetsvurderingPage = () => (
-  <StyledKvalitetsvurderingPage>
+  <KvalitetsvurderingPageWrapper>
     <Kvalitetsvurdering />
     <Footer />
-  </StyledKvalitetsvurderingPage>
+  </KvalitetsvurderingPageWrapper>
 );
-
-const StyledKvalitetsvurderingPage = styled.section`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-`;

@@ -1,8 +1,9 @@
+import { useColor } from '@app/components/statistikk/colors/get-color';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
 import type { ChartOptions, TooltipCallbacks } from 'chart.js';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { GRAPH_COLOR } from './colors';
 
 type TooltipCallback = TooltipCallbacks<'bar'>['label'];
 
@@ -72,6 +73,7 @@ const useLabelledRegistreringshjemler = () => {
 
 export const Hjemler = ({ stats }: Props) => {
   const { withIdKey, withLabelKey } = useLabelledRegistreringshjemler();
+  const color = useColor(ColorToken.Accent500);
 
   const tooltipCallback: TooltipCallback = ({ parsed, label }) => {
     const found = withLabelKey[label];
@@ -113,12 +115,12 @@ export const Hjemler = ({ stats }: Props) => {
       datasets: [
         {
           data,
-          backgroundColor: GRAPH_COLOR.BLUE,
-          borderColor: GRAPH_COLOR.BLUE,
+          backgroundColor: color,
+          borderColor: color,
         },
       ],
     };
-  }, [hjemmelStats, withIdKey]);
+  }, [hjemmelStats, withIdKey, color]);
 
   return <Bar options={options} data={barData} />;
 };

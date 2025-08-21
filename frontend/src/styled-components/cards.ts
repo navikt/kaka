@@ -4,7 +4,7 @@ import { BREAK_POINT, COLUMN_WIDTH, GAP } from './constants';
 const BaseCard = styled.section`
   padding: 16px;
   border-radius: 4px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--ax-shadow-dialog);
 `;
 
 const Card = styled(BaseCard)`
@@ -33,7 +33,7 @@ export const CardExtraSmall = styled(Card)`
 
 const StickyContainer = styled.div`
   position: sticky;
-  top: 75px;
+  top: 0px;
   z-index: 3;
 `;
 
@@ -47,7 +47,7 @@ export const StatsContainer = styled(BaseCard)`
   flex-wrap: wrap;
   gap: ${GAP * 2}px;
   justify-content: center;
-  background-color: #fff;
+  background-color: var(--ax-bg-default);
   height: fit-content;
   width: fit-content;
   margin-left: auto;
@@ -59,7 +59,7 @@ export const StatsContainer = styled(BaseCard)`
 `;
 
 export const CardTitle = styled.h1`
-  background-color: #fff;
+  background-color: var(--ax-bg-default);
   padding: 0;
   margin: 0;
   z-index: 2;

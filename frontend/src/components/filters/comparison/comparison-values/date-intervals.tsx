@@ -1,3 +1,4 @@
+import { ColorToken, isToken } from '@app/components/statistikk/colors/token-name';
 import { TrashIcon } from '@navikt/aksel-icons';
 import { Button } from '@navikt/ds-react';
 import { parse } from 'date-fns';
@@ -48,7 +49,9 @@ export const DateIntervals = () => {
               <StyledColorPicker
                 type="color"
                 value={color}
-                onChange={({ target }) => setColor(stringInterval, target.value)}
+                onChange={({ target }) =>
+                  setColor(stringInterval, isToken(target.value) ? target.value : ColorToken.Beige500)
+                }
               />
 
               <Button

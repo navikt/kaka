@@ -1,8 +1,8 @@
 import { Lederstatistikk } from '@app/components/statistikk/leder/lederstatistikk';
-import { PageWrapper } from '../page-wrapper';
+import { StatisticsPageWrapper } from '../page-wrapper';
 
 export const StatistikkLederPage = () => (
-  <PageWrapper>
+  <StatisticsPageWrapper>
     <Lederstatistikk />
-  </PageWrapper>
+  </StatisticsPageWrapper>
 );

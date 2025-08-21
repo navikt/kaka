@@ -1,33 +1,13 @@
-import { useIndexPath } from '@app/hooks/use-index-path';
-import { Header } from '@navikt/ds-react-internal';
-import { Link } from 'react-router-dom';
-import { styled } from 'styled-components';
-import { UserMenu } from '../user-menu/user-menu';
-import { VersionCheckerStatus } from '../version-checker/version-checker-status';
+import { User } from '@app/components/user-menu/user-menu';
+import { InternalHeader, Spacer } from '@navikt/ds-react';
+import { NavLink } from 'react-router-dom';
 
-export const KakaHeader = () => {
-  const path = useIndexPath();
-
-  return (
-    <StyledHeader>
-      <Header.Title as={Link} to={path}>
-        Kaka
-      </Header.Title>
-      <MainContent>
-        <VersionCheckerStatus />
-      </MainContent>
-      <UserMenu />
-    </StyledHeader>
-  );
-};
-
-const MainContent = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-`;
-
-const StyledHeader = styled(Header)`
-  z-index: 11;
-`;
+export const NavHeader = () => (
+  <InternalHeader className="z-1">
+    <InternalHeader.Title as={NavLink} to="/">
+      Kaka
+    </InternalHeader.Title>
+    <Spacer />
+    <User />
+  </InternalHeader>
+);

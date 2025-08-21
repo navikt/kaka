@@ -1,4 +1,5 @@
 import { UTFALL_COLOR_MAP } from '@app/colors/colors';
+import { useColorMap } from '@app/components/statistikk/colors/get-color';
 import { toPercent } from '@app/domain/number';
 import { useUtfall } from '@app/simple-api-state/use-utfall';
 import { UtfallEnum } from '@app/types/utfall';
@@ -47,6 +48,8 @@ const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => 
 };
 
 const useData = (stats: ComparisonPropsV2['stats']) => {
+  const colorMap = useColorMap();
+
   const { data: utfallMap = [] } = useUtfall();
 
   const datasets = [UtfallEnum.MEDHOLD, UtfallEnum.DELVIS_MEDHOLD, UtfallEnum.OPPHEVET].map((utfall) => {
@@ -66,7 +69,7 @@ const useData = (stats: ComparisonPropsV2['stats']) => {
       label: utfallMap.find((u) => u.id === utfall)?.navn ?? utfall,
       data,
       counts,
-      backgroundColor: UTFALL_COLOR_MAP[utfall],
+      backgroundColor: colorMap[UTFALL_COLOR_MAP[utfall]],
       barThickness: BAR_THICKNESS,
     };
   });

@@ -24,7 +24,8 @@
       "@app/*": ["*"]
     },
     "incremental": true,
-    "tsBuildInfoFile": ".tsbuildinfo"
+    "tsBuildInfoFile": ".tsbuildinfo",
+    "types": ["@navikt/ds-react/types/theme", "bun"]
   },
   "include": ["src"]
 }

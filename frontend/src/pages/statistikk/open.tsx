@@ -1,8 +1,8 @@
 import { OpenStatistikk } from '@app/components/statistikk/open/openstatistikk';
-import { PageWrapper } from '../page-wrapper';
+import { StatisticsPageWrapper } from '../page-wrapper';
 
 export const StatistikkOpenPage = () => (
-  <PageWrapper>
+  <StatisticsPageWrapper>
     <OpenStatistikk />
-  </PageWrapper>
+  </StatisticsPageWrapper>
 );

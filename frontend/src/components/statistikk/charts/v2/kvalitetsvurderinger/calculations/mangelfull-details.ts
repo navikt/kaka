@@ -1,4 +1,6 @@
+import type { AppTheme } from '@app/app-theme';
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
+import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
 import {
   KVALITETSVURDERING_TEXTS,
   KVALITETSVURDERING_V2_TEXTS,
@@ -10,7 +12,7 @@ import type { DataSet } from '../types';
 import { calculateReasons } from './helpers/reasons';
 
 /* 
-  This function calculates the stats given into one chart dataset ({ label: string, data: number[], backgroundColor: string }) per subreason.
+  This function calculates the stats given into one chart dataset ({ label: string, data: number[], backgroundColor: ColorToken }) per subreason.
   It will also extract the labels from the stats and return them as an array of strings.
   The data is calculated as a percentage of the total amount of data in the stats.
   
@@ -55,7 +57,7 @@ import { calculateReasons } from './helpers/reasons';
         label: 'Feil faktum lagt til grunn',
         percentages: [50, 50],
         data: [1, 1],
-        backgroundColor: '#ff44cc'
+        backgroundColor: ColorToken.Danger500,
       },
     ]
   }
@@ -81,6 +83,7 @@ type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
 export const getMangelfullDetailsDatasets = (
   stats: DataSet[],
   unit: string,
+  theme: AppTheme,
 ): { datasets: StackedBarPiece[]; labels: string[] } => {
   const unsortedBars = stats.flatMap(({ data, label }) =>
     [Klageforberedelsen, Utredningen, Vedtaket, BrukAvRaadgivendeLege].map((mainReason) => ({
@@ -109,7 +112,7 @@ export const getMangelfullDetailsDatasets = (
     REASON_TO_SUBREASONS[mainReason].map<StackedBarPiece>((reasonId) => {
       const text = KVALITETSVURDERING_V2_TEXTS[reasonId];
       const { label } = text;
-      const backgroundColor = 'color' in text ? text.color : 'red';
+      const backgroundColor = getColorFromTheme(text.color, theme);
 
       return {
         label,

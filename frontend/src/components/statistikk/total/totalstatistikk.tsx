@@ -16,6 +16,7 @@ export const TotalStatistikk = () => {
         <FilterSection>
           <Filters />
         </FilterSection>
+
         <ContentLoader version={version} V1Content={<V1Content />} V2Content={<V2Content />} />
       </FiltersAndContentContainer>
     </>

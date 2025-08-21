@@ -1,8 +1,8 @@
 import { TotalStatistikk } from '@app/components/statistikk/total/totalstatistikk';
-import { PageWrapper } from '../page-wrapper';
+import { StatisticsPageWrapper } from '../page-wrapper';
 
 export const StatistikkTotalPage = () => (
-  <PageWrapper>
+  <StatisticsPageWrapper>
     <TotalStatistikk />
-  </PageWrapper>
+  </StatisticsPageWrapper>
 );

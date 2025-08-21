@@ -57,8 +57,7 @@ const StyledHeader = styled.div`
   white-space: nowrap;
   padding: 8px;
   top: 0;
-  border-bottom: 1px solid #c6c2bf;
-  background-color: white;
+  border-bottom: 1px solid var(--ax-border-neutral);
   z-index: 1;
   gap: 8px;
 `;

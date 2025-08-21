@@ -1,3 +1,6 @@
+import { useAppTheme } from '@app/app-theme';
+import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { isNotUndefined } from '@app/functions/is-not';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import type { IKvalitetsvurderingBooleans } from '@app/types/kvalitetsvurdering/v1';
@@ -35,6 +38,7 @@ const COLLATOR = new Intl.Collator(undefined, { numeric: true });
 
 export const MangelfulltOverTime = ({ stats }: StatisticsPropsV1) => {
   const [field] = useKvalitetsvurderingParam();
+  const theme = useAppTheme();
 
   const { relevantReasons } = KVALITETSVURDERING_OPTIONS[field];
 
@@ -65,23 +69,35 @@ export const MangelfulltOverTime = ({ stats }: StatisticsPropsV1) => {
   const labels = Array.from(mangelfulleSaker.keys());
   const datasets = useMemo(
     () => [
-      ...relevantReasons.map(({ id, label }, i) => ({
-        label,
-        data: Array.from(mangelfulleSaker.values())
-          .map((dataValues) => dataValues.get(id)?.percentage)
-          .filter(isNotUndefined),
-        backgroundColor: getColor(i),
-        borderColor: getColor(i),
-        borderWidth: 2,
-      })),
+      ...relevantReasons.map(({ id, label }, i) => {
+        const color = getColorFromTheme(getColor(i) ?? ColorToken.Beige500, theme);
+
+        return {
+          label,
+          data: Array.from(mangelfulleSaker.values())
+            .map((dataValues) => dataValues.get(id)?.percentage)
+            .filter(isNotUndefined),
+          backgroundColor: color,
+          borderColor: color,
+          borderWidth: 2,
+        };
+      }),
     ],
-    [relevantReasons, mangelfulleSaker],
+    [relevantReasons, mangelfulleSaker, theme],
   );
 
   return <Line options={options} data={{ datasets, labels }} />;
 };
 
-const COLORS = ['#7CDAF8', '#FFAA33', '#C1CB33', '#3386E0', '#33AA5F', '#A0A0A0', '#8269A2'];
+const COLORS = [
+  ColorToken.Accent500,
+  ColorToken.Warning500,
+  ColorToken.Lime500,
+  ColorToken.Info500,
+  ColorToken.Success500,
+  ColorToken.Neutral500,
+  ColorToken.Purple500,
+];
 const getColor = (index: number) => COLORS[index % COLORS.length];
 
 const useMangelfulleSaker = (stats: IStatisticVurderingV1[], field: RadiovalgField, relevantReasons: ReasonLabel[]) => {

@@ -1,3 +1,4 @@
+import type { ColorToken } from '@app/components/statistikk/colors/token-name';
 import type { SakstypeEnum } from '../sakstype';
 import type { UtfallEnum } from '../utfall';
 
@@ -33,4 +34,4 @@ export interface ISaksbehandler {
   navn: string;
 }
 
-export type OptionValue = [string, string];
+export type OptionValue = [string, ColorToken];

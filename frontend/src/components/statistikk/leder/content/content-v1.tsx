@@ -1,4 +1,5 @@
 import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
 import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
 import { TypeWarning } from '@app/components/statistikk/type-warning';
@@ -86,7 +87,7 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
     () =>
       datasets.map(({ label, data }, i) => ({
         label,
-        color: COLORS[i] ?? 'red',
+        color: COLORS[i] ?? ColorToken.Beige500,
         data: data.map(({ avsluttetAvSaksbehandler, kaBehandlingstidDays }) => ({
           avsluttetAvSaksbehandler,
           behandlingstidDays: kaBehandlingstidDays,
@@ -96,52 +97,50 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
   );
 
   return (
-    <>
+    <ContentArea>
       <LoadingOverlay isLoading={isLoading} />
 
-      <ContentArea>
-        <FullWidthStickyContainer>
-          <StatsContainer>
-            <Finished stats={allData} />
-            <TotalProcessed length={relevantData.length} />
-            <Omgjort stats={relevantData} label="Omgjort av vår enhet" />
-            <Gjennomsnittstid stats={relevantData} />
-            <Processed weeks={12} stats={relevantData} />
-            <Processed weeks={15} stats={relevantData} />
-          </StatsContainer>
-        </FullWidthStickyContainer>
+      <FullWidthStickyContainer>
+        <StatsContainer>
+          <Finished stats={allData} />
+          <TotalProcessed length={relevantData.length} />
+          <Omgjort stats={relevantData} label="Omgjort av vår enhet" />
+          <Gjennomsnittstid stats={relevantData} />
+          <Processed weeks={12} stats={relevantData} />
+          <Processed weeks={15} stats={relevantData} />
+        </StatsContainer>
+      </FullWidthStickyContainer>
 
-        <DynamicCard size={CardSize.LARGE}>
-          <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
-            Min enhets omgjøringsprosent
-          </CardTitleWithExplainer>
-          <Omgjoeringsprosent stats={datasets} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.LARGE}>
+        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
+          Min enhets omgjøringsprosent
+        </CardTitleWithExplainer>
+        <Omgjoeringsprosent stats={datasets} />
+      </DynamicCard>
 
-        <DynamicCard size={CardSize.LARGE}>
-          <CardTitle>Kvalitetsvurderinger</CardTitle>
-          <TypeWarning />
-          <KvalitetsvurderingerV1 stats={relevantData} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.LARGE}>
+        <CardTitle>Kvalitetsvurderinger</CardTitle>
+        <TypeWarning />
+        <KvalitetsvurderingerV1 stats={relevantData} />
+      </DynamicCard>
 
-        <DynamicCard size={CardSize.MEDIUM}>
-          <CardTitle>Utfall</CardTitle>
-          <UtfallGraph stats={allData} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.MEDIUM}>
+        <CardTitle>Utfall</CardTitle>
+        <UtfallGraph stats={allData} />
+      </DynamicCard>
 
-        <DynamicCard size={CardSize.MEDIUM}>
-          <CardTitle>Hjemler</CardTitle>
-          <Hjemler stats={relevantData} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.MEDIUM}>
+        <CardTitle>Hjemler</CardTitle>
+        <Hjemler stats={relevantData} />
+      </DynamicCard>
 
-        <DynamicCard size={CardSize.LARGE}>
-          <CardTitle>Behandlingstid</CardTitle>
-          <ToggleTotalOrKA />
-          <BehandlingstidHistogram stats={relevantData} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.LARGE}>
+        <CardTitle>Behandlingstid</CardTitle>
+        <ToggleTotalOrKA />
+        <BehandlingstidHistogram stats={relevantData} />
+      </DynamicCard>
 
-        <BehandlingstidOverTime stats={behandlingstidStats} />
-      </ContentArea>
-    </>
+      <BehandlingstidOverTime stats={behandlingstidStats} />
+    </ContentArea>
   );
 };

@@ -1,3 +1,4 @@
+import type { ColorToken } from '@app/components/statistikk/colors/token-name';
 import type { OptionValue } from '@app/types/statistics/common';
 import { useSearchParams } from 'react-router-dom';
 import { getDefaultColor } from '../../../statistikk/comparison/get-default-color';
@@ -10,7 +11,7 @@ interface OnChange {
   removeIndex: (index: number) => void;
   setId: (id: string, newId: string) => void;
   setIdByIndex: (index: number, newId: string) => void;
-  setColor: (id: string, newColor: string) => void;
+  setColor: (id: string, newColor: ColorToken) => void;
   selectedValues: OptionValue[];
 }
 
@@ -38,7 +39,7 @@ export const useOnchange = (): OnChange => {
   const remove = (id: string) => setValues(selectedValues.filter(([e]) => e !== id));
   const removeIndex = (index: number) => setValues(selectedValues.filter((_, i) => i !== index));
 
-  const setColor = (id: string, newColor: string) =>
+  const setColor = (id: string, newColor: ColorToken) =>
     setQueryParams(selectedValues.map<OptionValue>(([e, c]) => (e === id ? [e, newColor] : [e, c])));
 
   const setId = (id: string, newId: string) =>

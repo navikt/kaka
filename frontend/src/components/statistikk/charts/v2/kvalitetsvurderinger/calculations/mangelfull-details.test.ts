@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test';
+import { AppTheme } from '@app/app-theme';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import type { DataSet } from '../types';
 import { getStats } from './helpers/test-helpers';
@@ -45,7 +46,7 @@ describe('getDatasets', () => {
       },
     ];
 
-    const { datasets } = getMangelfullDetailsDatasets(stats, 'avvik');
+    const { datasets } = getMangelfullDetailsDatasets(stats, 'avvik', AppTheme.LIGHT);
 
     // utredningenAvMedisinskeForhold is false, therefore 0 in the dataset, therefore excluded in the results
 
@@ -79,7 +80,7 @@ describe('getDatasets', () => {
       { label: 'Andre', data: [UTREDNINGEN_FULLY_BRA] },
     ];
 
-    const { datasets } = getMangelfullDetailsDatasets(stats, 'avvik');
+    const { datasets } = getMangelfullDetailsDatasets(stats, 'avvik', AppTheme.LIGHT);
 
     const [
       utredningenAvMedisinskeForhold,
@@ -128,7 +129,7 @@ describe('getDatasets', () => {
       },
     ];
 
-    const { datasets } = getMangelfullDetailsDatasets(stats, 'avvik');
+    const { datasets } = getMangelfullDetailsDatasets(stats, 'avvik', AppTheme.LIGHT);
 
     const [
       utredningenAvMedisinskeForhold,

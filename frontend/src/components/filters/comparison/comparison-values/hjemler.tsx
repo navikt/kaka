@@ -1,14 +1,15 @@
 import { GroupedSingleSelect } from '@app/components/dropdown/grouped-single-select';
 import type { OptionGroup } from '@app/components/dropdown/types';
 import { AddOptionButton } from '@app/components/filters/comparison/comparison-values/add-option-button';
+import { ColorPicker } from '@app/components/filters/comparison/comparison-values/color-picker';
 import { DEFAULT_OPTIONS } from '@app/components/filters/comparison/comparison-values/default-options';
 import {
   DropdownContainer,
   Ellipsis,
-  StyledColorPicker,
   StyledComparisonItem,
 } from '@app/components/filters/comparison/comparison-values/styled-components';
 import { useOnchange } from '@app/components/filters/comparison/comparison-values/use-onchange';
+import type { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { ToggleButton } from '@app/components/toggle/toggle-button';
 import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
 import { useLovkildeToRegistreringshjemler, useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
@@ -86,7 +87,7 @@ const useLovkildeToRegistreringshjemlerOptions = (selectedValues: OptionValue[])
   return [...hjemmelOptions, { sectionHeader: { id: 'default', name: 'Statistikk' }, sectionOptions: defaultOptions }];
 };
 
-const HjemmelSelect = ({ value, color }: { value: string; color: string }) => {
+const HjemmelSelect = ({ value, color }: { value: string; color: ColorToken }) => {
   const { selectedValues, remove, setId, setColor } = useOnchange();
   const options = useLovkildeToRegistreringshjemlerOptions(selectedValues);
 
@@ -116,7 +117,7 @@ const HjemmelSelect = ({ value, color }: { value: string; color: string }) => {
           close={closeDropdown}
         />
       </DropdownContainer>
-      <StyledColorPicker type="color" value={color} onChange={({ target }) => setColor(value, target.value)} />
+      <ColorPicker color={color} onChange={(newColor) => setColor(value, newColor)} />
       <Button onClick={() => remove(value)} size="small" icon={<TrashIcon aria-hidden />} variant="danger" />
     </StyledComparisonItem>
   );

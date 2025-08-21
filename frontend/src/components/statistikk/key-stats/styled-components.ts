@@ -10,7 +10,7 @@ export const KeyNumber = styled(KeyContent)`
 `;
 
 export const RedKeyNumber = styled(KeyNumber)`
-  color: #c30000;
+  color: var(--ax-text-danger-subtle);
 `;
 
 export const KeyLabelWithHelpText = styled(KeyContent)`
