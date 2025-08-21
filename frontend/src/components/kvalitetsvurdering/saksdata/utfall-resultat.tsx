@@ -64,5 +64,5 @@ export const UtfallResultat = () => {
 const Container = styled.div`
   display: flex ;
   flex-direction: column;
-  gap: var(--a-spacing-3);
+  gap: var(--ax-space-12);
 `;

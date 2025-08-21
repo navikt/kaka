@@ -1,3 +1,6 @@
+import { useAppTheme } from '@app/app-theme';
+import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
+import type { ColorToken } from '@app/components/statistikk/colors/token-name';
 import type { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { UtfallEnum } from '@app/types/utfall';
 import type { ChartOptions } from 'chart.js';
@@ -14,7 +17,7 @@ const useOptions = (): ChartOptions<'line'> => ({
 type MinimalVurdering = Pick<IFullStatisticVurderingV2, 'avsluttetAvSaksbehandler' | 'utfallId'>;
 
 interface Stat {
-  color: string;
+  color: ColorToken;
   label: string;
   data: MinimalVurdering[];
 }
@@ -28,6 +31,7 @@ const isOmjoering = (utfallId: UtfallEnum) =>
 
 export const OmgjoeringsprosentOverTime = ({ stats }: Props) => {
   const options = useOptions();
+  const theme = useAppTheme();
 
   const datasets = useMemo(
     () =>
@@ -71,11 +75,11 @@ export const OmgjoeringsprosentOverTime = ({ stats }: Props) => {
           label: s.label,
           labels,
           data,
-          backgroundColor: s.color,
-          borderColor: s.color,
+          backgroundColor: getColorFromTheme(s.color, theme),
+          borderColor: getColorFromTheme(s.color, theme),
         };
       }),
-    [stats],
+    [stats, theme],
   );
 
   const [first] = datasets;

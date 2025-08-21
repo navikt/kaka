@@ -195,7 +195,7 @@ interface HjemlerChartProps {
 const LabelContainer = styled.span`
   display: inline-flex;
   align-items: center;
-  gap: var(--a-spacing-1);
+  gap: var(--ax-space-4);
 `;
 
 const Tag2024 = () => (

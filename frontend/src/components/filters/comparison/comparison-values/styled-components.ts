@@ -6,11 +6,6 @@ export const StyledComparisonItem = styled.div`
   gap: 8px;
 `;
 
-export const StyledColorPicker = styled.input`
-  width: 30px;
-  min-width: 30px;
-`;
-
 export const Ellipsis = styled.div`
   width: 100%;
   overflow: hidden;

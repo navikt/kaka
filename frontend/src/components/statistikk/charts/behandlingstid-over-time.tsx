@@ -1,3 +1,6 @@
+import { useAppTheme } from '@app/app-theme';
+import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
+import type { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { CardTitle } from '@app/styled-components/cards';
 import type { StatsDate } from '@app/types/statistics/common';
 import type { ChartOptions } from 'chart.js';
@@ -23,7 +26,7 @@ interface Data {
 interface Stat {
   label: string;
   data: Data[];
-  color: string;
+  color: ColorToken;
 }
 
 interface Props {
@@ -39,6 +42,7 @@ interface Dataset {
 }
 
 export const BehandlingstidOverTime = ({ stats, children }: Props) => {
+  const theme = useAppTheme();
   const datasets = useMemo(
     () =>
       stats.map(({ label, color, data: rawData }) => {
@@ -85,15 +89,17 @@ export const BehandlingstidOverTime = ({ stats, children }: Props) => {
           data[key] = Math.round(behandlingstidDays / count);
         }
 
+        const c = getColorFromTheme(color, theme);
+
         return {
           label,
-          backgroundColor: color,
-          borderColor: color,
+          backgroundColor: c,
+          borderColor: c,
           borderWidth: 2,
           data,
         };
       }),
-    [stats],
+    [stats, theme],
   );
 
   const options = useOptions();

@@ -1,8 +1,8 @@
 import { Comparison } from '@app/components/statistikk/comparison/comparison';
-import { PageWrapper } from '../page-wrapper';
+import { StatisticsPageWrapper } from '../page-wrapper';
 
 export const ComparisonPage = () => (
-  <PageWrapper>
+  <StatisticsPageWrapper>
     <Comparison />
-  </PageWrapper>
+  </StatisticsPageWrapper>
 );

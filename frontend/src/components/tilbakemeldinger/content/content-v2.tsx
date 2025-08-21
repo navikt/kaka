@@ -33,42 +33,40 @@ export const ContentV2 = ({ mine, rest, statsIsLoading, saksdata, saksdataIsLoad
   ];
 
   return (
-    <>
+    <ContentArea>
       <LoadingOverlay isLoading={saksdataIsLoading || statsIsLoading} />
 
-      <ContentArea>
-        <FullWidthStickyContainer>
-          <StatsContainer>
-            <Finished stats={mine} />
-            <TotalProcessed length={relevantMine.length} />
-            <Omgjort stats={relevantMine} label="Omgjort av vår enhet" />
-          </StatsContainer>
-        </FullWidthStickyContainer>
+      <FullWidthStickyContainer>
+        <StatsContainer>
+          <Finished stats={mine} />
+          <TotalProcessed length={relevantMine.length} />
+          <Omgjort stats={relevantMine} label="Omgjort av vår enhet" />
+        </StatsContainer>
+      </FullWidthStickyContainer>
 
-        <DynamicCard size={CardSize.LARGE}>
-          <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
-            Vår enhets omgjøringsprosent
-          </CardTitleWithExplainer>
-          <Omgjoeringsprosent stats={datasets} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.LARGE}>
+        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
+          Vår enhets omgjøringsprosent
+        </CardTitleWithExplainer>
+        <Omgjoeringsprosent stats={datasets} />
+      </DynamicCard>
 
-        <TypeWarning />
-        <KvalitetsvurderingerV2 datasets={datasets} />
+      <TypeWarning />
+      <KvalitetsvurderingerV2 datasets={datasets} />
 
-        <DynamicCard size={CardSize.LARGE}>
-          <VurderingerTable data={saksdata} testId="fullfoerte-vurderinger" />
-        </DynamicCard>
+      <DynamicCard size={CardSize.LARGE}>
+        <VurderingerTable data={saksdata} testId="fullfoerte-vurderinger" />
+      </DynamicCard>
 
-        <DynamicCard size={CardSize.MEDIUM}>
-          <CardTitle>Utfall</CardTitle>
-          <UtfallGraph stats={mine} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.MEDIUM}>
+        <CardTitle>Utfall</CardTitle>
+        <UtfallGraph stats={mine} />
+      </DynamicCard>
 
-        <DynamicCard size={CardSize.MEDIUM}>
-          <CardTitle>Hjemler</CardTitle>
-          <Hjemler stats={relevantMine} />
-        </DynamicCard>
-      </ContentArea>
-    </>
+      <DynamicCard size={CardSize.MEDIUM}>
+        <CardTitle>Hjemler</CardTitle>
+        <Hjemler stats={relevantMine} />
+      </DynamicCard>
+    </ContentArea>
   );
 };

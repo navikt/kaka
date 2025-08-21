@@ -48,9 +48,9 @@ const DropdownContent = styled.div`
   left: 0;
   width: 100%;
   max-height: 400px;
-  background-color: white;
+  background-color: var(--ax-bg-raised);
   z-index: 3;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px 0px;
+  box-shadow: var(--ax-shadow-dialog);
   border-radius: 0.25rem;
-  border: 1px solid rgb(198, 194, 191);
+  border: 1px solid var(--ax-border-neutral);
 `;

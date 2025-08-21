@@ -4,9 +4,7 @@ export const FilterPanelContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
-  position: relative;
   width: 100%;
-  z-index: 1;
 `;
 
 export const Container = styled.div`
@@ -26,7 +24,7 @@ interface StyledLabelProps {
 }
 
 export const StyledDropdownButton = styled.button<StyledLabelProps>`
-  border: 1px solid rgb(120, 112, 106);
+  border: 1px solid var(--ax-border-accent);
   border-radius: 4px;
   min-height: 32px;
   line-height: 24px;
@@ -41,34 +39,11 @@ export const StyledDropdownButton = styled.button<StyledLabelProps>`
   font-weight: 700;
   position: relative;
   width: 100%;
-  background-color: var(--a-bg-default);
-
-  ::before,
-  ::after {
-    content: '';
-    position: absolute;
-    width: 8px;
-    border-radius: 2px;
-    height: 2px;
-    background: #59514b;
-    right: 8px;
-    top: 50%;
-    transition: transform 0.1s ease;
-  }
-
-  ::before {
-    transform: ${({ open }) =>
-      open ? 'translateX(-3px) translateY(-50%) rotate(-45deg)' : 'translateX(-3px) translateY(-50%) rotate(45deg)'};
-  }
-
-  ::after {
-    transform: ${({ open }) =>
-      open ? 'translateX(1.5px) translateY(-50%) rotate(45deg)' : 'translateX(1.5px) translateY(-50%) rotate(-45deg)'};
-  }
+  background-color: var(--ax-bg-default);
 `;
 
 export const StyledHr = styled.hr`
-  color: var(--a-border-divider);
+  color: var(--ax-border-neutral-subtle);
   width: 100%;
   height: 1px;
 `;

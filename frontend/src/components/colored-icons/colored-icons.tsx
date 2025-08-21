@@ -4,30 +4,25 @@ import {
   InformationSquareFillIcon,
   XMarkOctagonFillIcon,
 } from '@navikt/aksel-icons';
-import { forwardRef } from 'react';
 
-type Props = React.SVGProps<SVGSVGElement> & React.RefAttributes<SVGSVGElement> & { title?: string };
+type Props = React.SVGProps<SVGSVGElement> &
+  React.RefAttributes<SVGSVGElement> & {
+    title?: string;
+    ref?: React.RefObject<SVGSVGElement | null>;
+  };
 
-export const CheckmarkCircleFillIconColored = forwardRef<SVGSVGElement, Props>((props, ref) => (
-  <CheckmarkCircleFillIcon aria-hidden {...props} color="var(--a-icon-success)" ref={ref} />
-));
+export const CheckmarkCircleFillIconColored = ({ className, ...rest }: Props) => (
+  <CheckmarkCircleFillIcon aria-hidden {...rest} className={`${className} text-ax-success-700`} />
+);
 
-CheckmarkCircleFillIconColored.displayName = 'CheckmarkCircleFillIconColored';
+export const XMarkOctagonFillIconColored = ({ className, ...rest }: Props) => (
+  <XMarkOctagonFillIcon aria-hidden {...rest} className={`${className} text-ax-danger-700`} />
+);
 
-export const XMarkOctagonFillIconColored = forwardRef<SVGSVGElement, Props>((props, ref) => (
-  <XMarkOctagonFillIcon aria-hidden {...props} color="var(--a-icon-danger)" ref={ref} />
-));
+export const ExclamationmarkTriangleFillIconColored = ({ className, ...rest }: Props) => (
+  <ExclamationmarkTriangleFillIcon aria-hidden {...rest} className={`${className} text-ax-warning-700`} />
+);
 
-XMarkOctagonFillIconColored.displayName = 'XMarkOctagonFillIconColored';
-
-export const ExclamationmarkTriangleFillIconColored = forwardRef<SVGSVGElement, Props>((props, ref) => (
-  <ExclamationmarkTriangleFillIcon aria-hidden {...props} color="var(--a-icon-warning)" ref={ref} />
-));
-
-ExclamationmarkTriangleFillIconColored.displayName = 'ExclamationmarkTriangleFillIconColored';
-
-export const InformationSquareFillIconColored = forwardRef<SVGSVGElement, Props>((props, ref) => (
-  <InformationSquareFillIcon aria-hidden {...props} color="var(--a-icon-info)" ref={ref} />
-));
-
-InformationSquareFillIconColored.displayName = 'InformationSquareFillIconColored';
+export const InformationSquareFillIconColored = ({ className, ...rest }: Props) => (
+  <InformationSquareFillIcon aria-hidden {...rest} className={`${className} text-ax-info-700`} />
+);

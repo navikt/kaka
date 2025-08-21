@@ -1,3 +1,4 @@
+import type { ColorToken } from '@app/components/statistikk/colors/token-name';
 import type { Vedtaksinstansgruppe } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
 import type { Radiovalg, RadiovalgExtended } from '../kvalitetsvurdering/radio';
 import type { ISaksdata, UUID } from './common';
@@ -79,7 +80,7 @@ export type RadiovalgField = keyof Pick<
 >;
 
 export interface IComparedFullStatisticVurderingV1 {
-  color: string;
+  color: ColorToken;
   vurderinger: IFullStatisticVurderingV1[];
   label: string;
 }

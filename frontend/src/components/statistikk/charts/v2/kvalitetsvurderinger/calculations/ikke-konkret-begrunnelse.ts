@@ -1,4 +1,5 @@
-import { NAV_COLORS } from '@app/colors/colors';
+import type { AppTheme } from '@app/app-theme';
+import { getColorMap } from '@app/components/statistikk/colors/get-color';
 import {
   IKKE_KONKRET_BEGRUNNELSE_REASONS,
   IKKE_KONKRET_BEGRUNNELSE_TEXTS,
@@ -16,7 +17,9 @@ interface StackedBarPieceCount {
 
 type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
 
-export const getIkkeKonkretBegrunnelseDatasets = (stats: DataSet[], unit: string) => {
+export const getIkkeKonkretBegrunnelseDatasets = (stats: DataSet[], unit: string, theme: AppTheme) => {
+  const colorMap = getColorMap(theme);
+
   const stacks = stats.flatMap(({ data, label }) => {
     const { reasons, reasonArray } = calculateReasons(data, IKKE_KONKRET_BEGRUNNELSE_REASONS);
 
@@ -31,7 +34,7 @@ export const getIkkeKonkretBegrunnelseDatasets = (stats: DataSet[], unit: string
     label: IKKE_KONKRET_BEGRUNNELSE_TEXTS[reasonId].label,
     percentages: stacks.map(({ data }) => (data[reasonId] ?? 0) * 100),
     data: stacks.map(({ counts: count }) => count[reasonId] ?? 0),
-    backgroundColor: IKKE_KONKRET_BEGRUNNELSE_TEXTS[reasonId].color ?? NAV_COLORS.green[500],
+    backgroundColor: colorMap[IKKE_KONKRET_BEGRUNNELSE_TEXTS[reasonId].color],
     barThickness: BAR_THICKNESS,
   })).filter((dataset) => dataset.data.some((v) => v !== 0)); // Remove empty datasets.
 

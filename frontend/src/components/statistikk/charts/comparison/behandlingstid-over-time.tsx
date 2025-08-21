@@ -1,3 +1,4 @@
+import type { ColorToken } from '@app/components/statistikk/colors/token-name';
 import type { ISaksdata } from '@app/types/statistics/common';
 import { useBehandlingstidParam } from '../../hooks/use-behandlingstid-param';
 import { ToggleTotalOrKA } from '../../toggle-ka-total';
@@ -14,7 +15,7 @@ const KEY_MAP: Record<BehandlingstidEnum, keyof Subset> = {
 
 interface DataSet {
   label: string;
-  color: string;
+  color: ColorToken;
   data: ISaksdata[];
 }
 

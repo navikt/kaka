@@ -24,29 +24,27 @@ export const ContentV1 = ({ stats, isLoading }: Props) => {
   }));
 
   return (
-    <>
+    <ContentArea>
       <LoadingOverlay isLoading={isLoading} />
 
-      <ContentArea>
-        <DynamicCard size={CardSize.LARGE}>
-          <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
-            Omgjøringsprosent
-          </CardTitleWithExplainer>
-          <Omgjoeringsprosent stats={datasets} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.LARGE}>
+        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
+          Omgjøringsprosent
+        </CardTitleWithExplainer>
+        <Omgjoeringsprosent stats={datasets} />
+      </DynamicCard>
 
-        <DynamicCard size={CardSize.LARGE}>
-          <CardTitle>Omgjøringsprosent per uke</CardTitle>
-          <OmgjoeringsprosentOverTime stats={datasets} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.LARGE}>
+        <CardTitle>Omgjøringsprosent per uke</CardTitle>
+        <OmgjoeringsprosentOverTime stats={datasets} />
+      </DynamicCard>
 
-        <DynamicCard size={CardSize.LARGE}>
-          <CardTitle>Gjennomsnittlig behandlingstid</CardTitle>
-          <BehandlingstidComparison stats={datasets} />
-        </DynamicCard>
+      <DynamicCard size={CardSize.LARGE}>
+        <CardTitle>Gjennomsnittlig behandlingstid</CardTitle>
+        <BehandlingstidComparison stats={datasets} />
+      </DynamicCard>
 
-        <BehandlingstidOverTime datasets={datasets} />
-      </ContentArea>
-    </>
+      <BehandlingstidOverTime datasets={datasets} />
+    </ContentArea>
   );
 };

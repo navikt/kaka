@@ -1,12 +1,11 @@
 import { Nav } from '@app/components/routing/nav';
-import { GAP } from '@app/styled-components/constants';
 import { styled } from 'styled-components';
 
 interface Props {
   children: React.ReactNode;
 }
 
-export const PageWrapper = ({ children }: Props) => (
+export const StatisticsPageWrapper = ({ children }: Props) => (
   <>
     <Nav />
     <StyledPageWrapper>
@@ -20,12 +19,25 @@ const StyledPageWrapper = styled.article`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  overflow: auto;
 `;
 
 const StyledPagePadding = styled.div`
-  padding-left: ${GAP}px;
-  padding-right: ${GAP}px;
   flex-grow: 1;
   display: flex;
+  overflow: hidden;
+`;
+
+export const KvalitetsvurderingPageWrapper = ({ children }: Props) => (
+  <StyledKvalitetsvurderingPage>
+    <Nav />
+    {children}
+  </StyledKvalitetsvurderingPage>
+);
+
+const StyledKvalitetsvurderingPage = styled.section`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
 `;

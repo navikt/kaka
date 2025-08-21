@@ -1,3 +1,5 @@
+import { useAppTheme } from '@app/app-theme';
+import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
 import { LOCALE } from '@app/domain/intl';
 import { toPercent } from '@app/domain/number';
 import { getFontColor } from '@app/functions/get-font-color';
@@ -6,6 +8,7 @@ import { Chart, type TooltipCallbacks } from 'chart.js';
 export type GetAbsoluteValue = (datasetIndex: number, dataIndex: number) => [number, number];
 
 export const useBarTooltipText = (getAbsoluteValue: GetAbsoluteValue, unit = 'stk') => {
+  const theme = useAppTheme();
   const renderBarText = (ctx: CanvasRenderingContext2D) => {
     const chart = Chart.getChart(ctx);
 
@@ -32,7 +35,7 @@ export const useBarTooltipText = (getAbsoluteValue: GetAbsoluteValue, unit = 'st
 
         const [sum, percent] = getAbsoluteValue(i, index);
 
-        ctx.fillStyle = getFontColor(props.options.backgroundColor);
+        ctx.fillStyle = getColorFromTheme(getFontColor(props.options.backgroundColor), theme);
 
         if (percent === 0 || typeof props.width !== 'number') {
           return;

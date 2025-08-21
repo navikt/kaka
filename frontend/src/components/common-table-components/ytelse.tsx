@@ -1,6 +1,6 @@
 import { useFullYtelseNameFromId } from '@app/hooks/use-kodeverk-value';
-import { LabelYtelse } from '@app/styled-components/labels';
 import type { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { Tag } from '@navikt/ds-react';
 import { skipToken } from '@reduxjs/toolkit/query';
 
 interface Props {
@@ -13,5 +13,5 @@ export const Ytelse = ({ ytelseId, ytelserVersion }: Props) => {
     typeof ytelseId !== 'string' ? skipToken : { ytelseId, version: ytelserVersion },
   );
 
-  return <LabelYtelse>{ytelse}</LabelYtelse>;
+  return <Tag variant="alt3">{ytelse}</Tag>;
 };

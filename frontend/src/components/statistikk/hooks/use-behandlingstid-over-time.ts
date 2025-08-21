@@ -1,4 +1,4 @@
-import { NAV_COLORS } from '@app/colors/colors';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import type { StatsDate } from '@app/types/statistics/common';
 
 interface Stat {
@@ -11,7 +11,7 @@ interface Stat {
 export const useBehandlingstidOverTime = (stats: Stat[]) => [
   {
     label: 'Vedtaksinstans',
-    color: NAV_COLORS.lightblue[200],
+    color: ColorToken.BrandBlue500,
     data: stats.map(({ avsluttetAvSaksbehandler, vedtaksinstansBehandlingstidDays }) => ({
       avsluttetAvSaksbehandler,
       behandlingstidDays: vedtaksinstansBehandlingstidDays,
@@ -19,7 +19,7 @@ export const useBehandlingstidOverTime = (stats: Stat[]) => [
   },
   {
     label: 'Klageinstans',
-    color: NAV_COLORS.purple[200],
+    color: ColorToken.Purple500,
     data: stats.map(({ avsluttetAvSaksbehandler, kaBehandlingstidDays }) => ({
       avsluttetAvSaksbehandler,
       behandlingstidDays: kaBehandlingstidDays,
@@ -27,7 +27,7 @@ export const useBehandlingstidOverTime = (stats: Stat[]) => [
   },
   {
     label: 'Totalt',
-    color: NAV_COLORS.green[200],
+    color: ColorToken.Success500,
     data: stats.map(({ avsluttetAvSaksbehandler, totalBehandlingstidDays }) => ({
       avsluttetAvSaksbehandler,
       behandlingstidDays: totalBehandlingstidDays,

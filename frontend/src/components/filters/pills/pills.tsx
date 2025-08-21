@@ -8,13 +8,13 @@ import {
 } from '@app/simple-api-state/use-kodeverk';
 import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
 import { useUtfall } from '@app/simple-api-state/use-utfall';
+import { Chips } from '@navikt/ds-react';
 import { useContext, useMemo } from 'react';
 import { QueryParams } from '../../filters/filter-query-params';
 import { VEDTAKSINSTANSGRUPPE_FILTERS } from '../../statistikk/total/vedtaksinstansgruppe-filter';
 import { useQueryFilters, useSakstypeFilter, useVedtaksinstansgruppeQueryFilter } from '../hooks/use-query-filter';
 import { KOMMENTARER_KODEVERK } from '../kommentarer';
 import { MANGELFULLT_KODEVERK } from '../mangelfullt';
-import { PillIcon, StyledLi, StyledPill } from './styled-components';
 
 interface CommonProps<Q extends QueryParams> {
   queryKey: Q;
@@ -29,14 +29,12 @@ interface PillProps<Q extends QueryParams> extends CommonProps<Q> {
 }
 
 const Pill = <Q extends QueryParams>({ name, category, queryKey, setFilter, id, values }: PillProps<Q>) => (
-  <StyledLi>
-    <StyledPill
-      title={`Fjern ${name} fra filter for ${category}`}
-      onClick={() => setFilter(queryKey, ...values.filter((v) => v !== id))}
-    >
-      {name} <PillIcon />
-    </StyledPill>
-  </StyledLi>
+  <Chips.Removable
+    title={`Fjern ${name} fra filter for ${category}`}
+    onClick={() => setFilter(queryKey, ...values.filter((v) => v !== id))}
+  >
+    {name}
+  </Chips.Removable>
 );
 
 interface Props {
@@ -58,7 +56,7 @@ export const YtelserPills = ({ setFilter }: Props) => {
     );
   });
 
-  return <>{pills}</>;
+  return <Chips>{pills}</Chips>;
 };
 
 export const SakstyperPills = ({ setFilter }: Props) => {
@@ -74,7 +72,7 @@ export const SakstyperPills = ({ setFilter }: Props) => {
     return <Pill key={id} id={id} queryKey={TYPES} setFilter={setFilter} name={name} values={selected} category={c} />;
   });
 
-  return <>{pills}</>;
+  return <Chips>{pills}</Chips>;
 };
 
 export const UtfallPills = ({ setFilter }: Props) => {
@@ -90,7 +88,7 @@ export const UtfallPills = ({ setFilter }: Props) => {
     return <Pill key={id} id={id} queryKey={UTFALL} setFilter={setFilter} name={name} values={selected} category={c} />;
   });
 
-  return <>{pills}</>;
+  return <Chips>{pills}</Chips>;
 };
 
 export const EnheterPills = ({ setFilter }: Props) => {
@@ -105,7 +103,7 @@ export const EnheterPills = ({ setFilter }: Props) => {
     <Pill key={id} id={id} queryKey={ENHETER} setFilter={setFilter} name={navn} values={selected} category={c} />
   ));
 
-  return <>{pills}</>;
+  return <Chips>{pills}</Chips>;
 };
 
 export const KlageenheterPills = ({ setFilter }: Props) => {
@@ -120,7 +118,7 @@ export const KlageenheterPills = ({ setFilter }: Props) => {
     <Pill key={id} id={id} queryKey={KLAGEENHETER} setFilter={setFilter} name={navn} values={selected} category={c} />
   ));
 
-  return <>{pills}</>;
+  return <Chips>{pills}</Chips>;
 };
 
 export const HjemlerPills = ({ setFilter }: Props) => {
@@ -144,7 +142,7 @@ export const HjemlerPills = ({ setFilter }: Props) => {
     );
   });
 
-  return <>{pills}</>;
+  return <Chips>{pills}</Chips>;
 };
 
 export const KommentarerPills = ({ setFilter }: Props) => {
@@ -169,7 +167,7 @@ export const KommentarerPills = ({ setFilter }: Props) => {
     />
   ));
 
-  return <>{pills}</>;
+  return <Chips>{pills}</Chips>;
 };
 
 export const MangelfulltPills = ({ setFilter }: Props) => {
@@ -194,7 +192,7 @@ export const MangelfulltPills = ({ setFilter }: Props) => {
     />
   ));
 
-  return <>{pills}</>;
+  return <Chips>{pills}</Chips>;
 };
 
 export const SaksbehandlerPills = ({ setFilter }: Props) => {
@@ -212,7 +210,7 @@ export const SaksbehandlerPills = ({ setFilter }: Props) => {
     return <Pill key={id} id={id} queryKey={S} setFilter={setFilter} name={label} values={selected} category={c} />;
   });
 
-  return <>{pills}</>;
+  return <Chips>{pills}</Chips>;
 };
 
 export const VedtaksinstansgrupperPills = ({ setFilter }: Props) => {
@@ -230,5 +228,5 @@ export const VedtaksinstansgrupperPills = ({ setFilter }: Props) => {
     return <Pill key={id} id={id} queryKey={V} setFilter={setFilter} name={label} values={values} category={c} />;
   });
 
-  return <>{pills}</>;
+  return <Chips>{pills}</Chips>;
 };

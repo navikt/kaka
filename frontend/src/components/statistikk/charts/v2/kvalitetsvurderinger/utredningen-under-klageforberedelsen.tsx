@@ -1,3 +1,4 @@
+import { useAppTheme } from '@app/app-theme';
 import {
   BAR_THICKNESS,
   getUtredningenUnderKlageforberedelsenDatasets,
@@ -57,7 +58,8 @@ interface Props {
 }
 
 export const UtredningenUnderKlageforberedelsen = ({ stats }: Props) => {
-  const data = useMemo(() => getUtredningenUnderKlageforberedelsenDatasets(stats, UNIT), [stats]);
+  const theme = useAppTheme();
+  const data = useMemo(() => getUtredningenUnderKlageforberedelsenDatasets(stats, UNIT, theme), [stats, theme]);
 
   const getAbsoluteValue: GetAbsoluteValue = (datasetIndex, dataIndex) => {
     const count = data.datasets[datasetIndex]?.data[dataIndex] ?? 0;

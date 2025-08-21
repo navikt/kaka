@@ -1,3 +1,6 @@
+import { AppTheme, appThemeStore, getAppTheme } from '@app/app-theme';
+import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import {
   ArcElement,
   BarElement,
@@ -10,6 +13,8 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
+const DARK_ON_LIGHT_TEXT_COLOR = getColorFromTheme(ColorToken.Neutral1000, AppTheme.LIGHT);
+const LIGHT_ON_DARK_TEXT_COLOR = getColorFromTheme(ColorToken.Neutral1000, AppTheme.DARK);
 
 Chart.register(CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Title, Tooltip, Legend);
 
@@ -30,3 +35,15 @@ Chart.defaults.elements.bar.borderRadius = 4;
 Chart.defaults.elements.line.tension = 0.3;
 Chart.defaults.datasets.bar.maxBarThickness = 80;
 Chart.defaults.animation = { ...Chart.defaults.animation, duration: 200, easing: 'easeOutQuart' };
+Chart.defaults.color = getAppTheme() === AppTheme.DARK ? LIGHT_ON_DARK_TEXT_COLOR : DARK_ON_LIGHT_TEXT_COLOR;
+
+appThemeStore.subscribe((theme) => {
+  switch (theme) {
+    case AppTheme.DARK:
+      Chart.defaults.color = LIGHT_ON_DARK_TEXT_COLOR;
+      break;
+    case AppTheme.LIGHT:
+      Chart.defaults.color = DARK_ON_LIGHT_TEXT_COLOR;
+      break;
+  }
+});

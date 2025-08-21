@@ -1,4 +1,5 @@
-import { NAV_COLORS } from '@app/colors/colors';
+import { useColor } from '@app/components/statistikk/colors/get-color';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import type { ISaksdata } from '@app/types/statistics/common';
 import type { ChartOptions } from 'chart.js';
 import { useMemo } from 'react';
@@ -27,7 +28,7 @@ type Data = Pick<
 interface Stat {
   label: string;
   data: Data[];
-  color: string;
+  color: ColorToken;
 }
 
 interface Props {
@@ -36,6 +37,8 @@ interface Props {
 
 export const BehandlingstidComparison = ({ stats }: Props) => {
   const options = useOptions();
+  const vedtaksinstansColor = useColor(ColorToken.Info500);
+  const klageinstansColor = useColor(ColorToken.Purple500);
 
   const [vedtaksinstansData, klageinstansData] = useMemo(() => {
     const vedtaksinstans: number[] = [];
@@ -70,14 +73,14 @@ export const BehandlingstidComparison = ({ stats }: Props) => {
     {
       label: 'Vedtaksinstans',
       data: vedtaksinstansData,
-      backgroundColor: NAV_COLORS.lightblue[500],
-      borderColor: NAV_COLORS.lightblue[500],
+      backgroundColor: vedtaksinstansColor,
+      borderColor: vedtaksinstansColor,
     },
     {
       label: 'Klageinstans',
       data: klageinstansData,
-      backgroundColor: NAV_COLORS.purple[500],
-      borderColor: NAV_COLORS.purple[500],
+      backgroundColor: klageinstansColor,
+      borderColor: klageinstansColor,
     },
   ];
 

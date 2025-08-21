@@ -1,11 +1,12 @@
 import { MAIN_REASONS } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import { HorizontalBars } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/horizontal-bars';
 import type { MainReasonDataset } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';
+import { useColorMap } from '@app/components/statistikk/colors/get-color';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { toPercent } from '@app/domain/number';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import type { ChartOptions } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { GRAPH_COLOR } from '../../colors';
 
 const BAR_THICKNESS = 50;
 
@@ -41,12 +42,14 @@ export const TotalMangelfull = ({ stats }: Props) => {
 };
 
 const useDataSets = (stats: MainReasonDataset[]) => {
+  const colorMap = useColorMap();
+
   const braBars = stats.flatMap(({ data, label }) => [
-    { label: `${label} - Bra / godt nok`, data, radiovalg: Radiovalg.BRA, color: GRAPH_COLOR.DEEP_BLUE },
+    { label: `${label} - Bra / godt nok`, data, radiovalg: Radiovalg.BRA, color: ColorToken.Accent500 },
   ]);
 
   const mangefullBars = stats.flatMap(({ data, label }) => [
-    { label: `${label} - Mangelfullt`, data, radiovalg: Radiovalg.MANGELFULLT, color: GRAPH_COLOR.PURPLE },
+    { label: `${label} - Mangelfullt`, data, radiovalg: Radiovalg.MANGELFULLT, color: ColorToken.Purple500 },
   ]);
 
   const bars = [...braBars, ...mangefullBars];
@@ -73,7 +76,7 @@ const useDataSets = (stats: MainReasonDataset[]) => {
     return `${label} (${percent} | ${count} av ${length} ${unit})`;
   });
 
-  const backgroundColor = bars.map(({ color }) => color);
+  const backgroundColor = bars.map(({ color }) => colorMap[color]);
 
   return {
     datasets: [{ data: calculatedData.map(({ percent }) => percent), backgroundColor, barThickness: BAR_THICKNESS }],

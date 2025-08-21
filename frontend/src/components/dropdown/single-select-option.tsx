@@ -26,15 +26,15 @@ const StyledButton = styled.button`
   padding-bottom: 0.5em;
   padding-right: 1em;
   background: transparent;
-  color: black;
+  color: var(--ax-text-neutral);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
 
-  :hover {
-    background: #0074df;
-    color: white;
+  &:hover {
+    background: var(--ax-bg-accent-moderate-hover);
+    color: var(--ax-text-accent);
   }
 `;
 

@@ -1,22 +1,22 @@
-import { NAV_COLORS } from '@app/colors/colors';
 import {
   KLAGEFORBEREDELSEN_HELP_TEXTS,
   KLAGEFORBEREDELSEN_LABELS,
   KlageforberedelsenBoolean,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/klageforberedelsen/data';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
 
 export const KLAGEFORBEREDELSEN_TEXTS = {
   [KlageforberedelsenBoolean.klageforberedelsenSakensDokumenter]: {
-    color: NAV_COLORS.blue[100],
+    color: ColorToken.Accent400,
     label: KLAGEFORBEREDELSEN_LABELS[KlageforberedelsenBoolean.klageforberedelsenSakensDokumenter],
     helpText: KLAGEFORBEREDELSEN_HELP_TEXTS[KlageforberedelsenBoolean.klageforberedelsenSakensDokumenter],
   },
   [KlageforberedelsenBoolean.klageforberedelsenOversittetKlagefristIkkeKommentert]: {
-    color: NAV_COLORS.blue[200],
+    color: ColorToken.Accent500,
     label: KLAGEFORBEREDELSEN_LABELS[KlageforberedelsenBoolean.klageforberedelsenOversittetKlagefristIkkeKommentert],
   },
   [KlageforberedelsenBoolean.klageforberedelsenKlagersRelevanteAnfoerslerIkkeTilstrekkeligKommentertImoetegaatt]: {
-    color: NAV_COLORS.blue[300],
+    color: ColorToken.Accent600,
     label:
       KLAGEFORBEREDELSEN_LABELS[
         KlageforberedelsenBoolean.klageforberedelsenKlagersRelevanteAnfoerslerIkkeTilstrekkeligKommentertImoetegaatt
@@ -24,7 +24,7 @@ export const KLAGEFORBEREDELSEN_TEXTS = {
   },
   [KlageforberedelsenBoolean.klageforberedelsenFeilVedBegrunnelsenForHvorforAvslagOpprettholdesKlagerIkkeOppfyllerVilkaar]:
     {
-      color: NAV_COLORS.blue[400],
+      color: ColorToken.Accent700,
       label:
         KLAGEFORBEREDELSEN_LABELS[
           KlageforberedelsenBoolean
@@ -37,14 +37,14 @@ export const KLAGEFORBEREDELSEN_TEXTS = {
         ],
     },
   [KlageforberedelsenBoolean.klageforberedelsenOversendelsesbrevetsInnholdErIkkeISamsvarMedSakensTema]: {
-    color: NAV_COLORS.blue[500],
+    color: ColorToken.Accent800,
     label:
       KLAGEFORBEREDELSEN_LABELS[
         KlageforberedelsenBoolean.klageforberedelsenOversendelsesbrevetsInnholdErIkkeISamsvarMedSakensTema
       ],
   },
   [KlageforberedelsenBoolean.klageforberedelsenOversendelsesbrevIkkeSendtKopiTilPartenEllerFeilMottaker]: {
-    color: NAV_COLORS.blue[600],
+    color: ColorToken.Accent900,
     label:
       KLAGEFORBEREDELSEN_LABELS[
         KlageforberedelsenBoolean.klageforberedelsenOversendelsesbrevIkkeSendtKopiTilPartenEllerFeilMottaker
@@ -55,7 +55,7 @@ export const KLAGEFORBEREDELSEN_TEXTS = {
       ],
   },
   [KlageforberedelsenBoolean.klageforberedelsenUtredningenUnderKlageforberedelsen]: {
-    color: NAV_COLORS.blue[700],
+    color: ColorToken.Accent1000,
     label: KLAGEFORBEREDELSEN_LABELS[KlageforberedelsenBoolean.klageforberedelsenUtredningenUnderKlageforberedelsen],
     helpText:
       KLAGEFORBEREDELSEN_HELP_TEXTS[KlageforberedelsenBoolean.klageforberedelsenUtredningenUnderKlageforberedelsen],
@@ -65,7 +65,7 @@ export const KLAGEFORBEREDELSEN_TEXTS = {
 export const SAKENS_DOKUMENTER_TEXTS = {
   [KlageforberedelsenBoolean.klageforberedelsenSakensDokumenterRelevanteOpplysningerFraAndreFagsystemerErIkkeJournalfoert]:
     {
-      color: NAV_COLORS.blue[300],
+      color: ColorToken.Accent500,
       label:
         KLAGEFORBEREDELSEN_LABELS[
           KlageforberedelsenBoolean
@@ -78,7 +78,7 @@ export const SAKENS_DOKUMENTER_TEXTS = {
         ],
     },
   [KlageforberedelsenBoolean.klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn]: {
-    color: NAV_COLORS.blue[400],
+    color: ColorToken.Accent600,
     label:
       KLAGEFORBEREDELSEN_LABELS[
         KlageforberedelsenBoolean.klageforberedelsenSakensDokumenterJournalfoerteDokumenterFeilNavn
@@ -89,7 +89,7 @@ export const SAKENS_DOKUMENTER_TEXTS = {
       ],
   },
   [KlageforberedelsenBoolean.klageforberedelsenSakensDokumenterManglerFysiskSaksmappe]: {
-    color: NAV_COLORS.blue[500],
+    color: ColorToken.Accent700,
 
     label:
       KLAGEFORBEREDELSEN_LABELS[KlageforberedelsenBoolean.klageforberedelsenSakensDokumenterManglerFysiskSaksmappe],
@@ -107,7 +107,7 @@ export const SAKENS_DOKUMENTER_REASONS = Object.keys(SAKENS_DOKUMENTER_TEXTS).fi
 export const UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS = {
   [KlageforberedelsenBoolean.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarBedtUnderinstansenOmAaInnhenteNyeOpplysninger]:
     {
-      color: NAV_COLORS.blue[300],
+      color: ColorToken.Accent500,
 
       label:
         KLAGEFORBEREDELSEN_LABELS[
@@ -117,7 +117,7 @@ export const UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS = {
     },
   [KlageforberedelsenBoolean.klageforberedelsenUtredningenUnderKlageforberedelsenKlageinstansenHarSelvInnhentetNyeOpplysninger]:
     {
-      color: NAV_COLORS.blue[400],
+      color: ColorToken.Accent600,
 
       label:
         KLAGEFORBEREDELSEN_LABELS[

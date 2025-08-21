@@ -1,9 +1,9 @@
-import { NAV_COLORS } from '@app/colors/colors';
 import {
   MAIN_REASON_HELPTEXTS,
   MAIN_REASON_LABELS,
   MainReason,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
+import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { ANNET_TEXTS } from '@app/components/statistikk/types/annet';
 import { AUTOMATISK_VEDTAK_TEXTS } from '@app/components/statistikk/types/automatisk-vedtak';
 import { BRUK_AV_RAADGIVENDE_LEGE_TEXTS } from '@app/components/statistikk/types/bruk-av-raadgivende-lege';
@@ -18,22 +18,22 @@ import {
 
 export const KVALITETSVURDERING_TEXTS = {
   [MainReason.Klageforberedelsen]: {
-    color: NAV_COLORS.blue[400],
+    color: ColorToken.Info500,
     label: MAIN_REASON_LABELS[MainReason.Klageforberedelsen],
     helpText: MAIN_REASON_HELPTEXTS[MainReason.Klageforberedelsen] ?? undefined,
   },
   [MainReason.Utredningen]: {
-    color: NAV_COLORS.orange[400],
+    color: ColorToken.Warning500,
     label: MAIN_REASON_LABELS[MainReason.Utredningen],
     helpText: MAIN_REASON_HELPTEXTS[MainReason.Utredningen] ?? undefined,
   },
   [MainReason.Vedtaket]: {
-    color: NAV_COLORS.green[400],
+    color: ColorToken.Success500,
     label: MAIN_REASON_LABELS[MainReason.Vedtaket],
     helpText: MAIN_REASON_HELPTEXTS[MainReason.Vedtaket] ?? undefined,
   },
   [MainReason.BrukAvRaadgivendeLege]: {
-    color: NAV_COLORS.red[400],
+    color: ColorToken.Danger500,
     label: MAIN_REASON_LABELS[MainReason.BrukAvRaadgivendeLege],
     helpText: MAIN_REASON_HELPTEXTS[MainReason.BrukAvRaadgivendeLege] ?? undefined,
   },

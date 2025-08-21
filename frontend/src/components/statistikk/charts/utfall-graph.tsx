@@ -1,5 +1,6 @@
 import { UTFALL_COLOR_MAP } from '@app/colors/colors';
 import { useSakstypeFilter } from '@app/components/filters/hooks/use-query-filter';
+import { useColorMap } from '@app/components/statistikk/colors/get-color';
 import { isRelevantSakstype } from '@app/components/statistikk/filters/relevant';
 import { useSakstypeToUtfall } from '@app/simple-api-state/use-kodeverk';
 import { useSortedUtfall } from '@app/simple-api-state/use-utfall';
@@ -55,6 +56,7 @@ const useSelectedUtfall = () => {
 
 export const UtfallGraph = ({ stats: allStats }: Props) => {
   const selectedUtfall = useSelectedUtfall();
+  const colorMap = useColorMap();
 
   const relevantStats = useMemo(
     () =>
@@ -75,7 +77,7 @@ export const UtfallGraph = ({ stats: allStats }: Props) => {
 
   const labels: string[] = selectedUtfall.map(({ navn }) => navn);
 
-  const backgroundColor: string[] = selectedUtfall.map(({ id }) => UTFALL_COLOR_MAP[id]);
+  const backgroundColor: string[] = selectedUtfall.map(({ id }) => colorMap[UTFALL_COLOR_MAP[id]]);
 
   const values = Array.from(stats.values());
 

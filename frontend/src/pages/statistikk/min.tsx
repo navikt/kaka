@@ -1,8 +1,8 @@
 import { MinStatistikk } from '@app/components/statistikk/min/min-statistikk';
-import { PageWrapper } from '../page-wrapper';
+import { StatisticsPageWrapper } from '../page-wrapper';
 
 export const StatistikkMinPage = () => (
-  <PageWrapper>
+  <StatisticsPageWrapper>
     <MinStatistikk />
-  </PageWrapper>
+  </StatisticsPageWrapper>
 );

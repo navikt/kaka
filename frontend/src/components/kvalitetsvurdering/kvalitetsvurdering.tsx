@@ -1,17 +1,16 @@
 import { useSaksdata } from '@app/hooks/use-saksdata';
-import { PageWrapper } from '@app/pages/page-wrapper';
-import { styled } from 'styled-components';
+import { BoxNew } from '@navikt/ds-react';
 import { KvalitetsskjemaV1 } from './kvalitetsskjema/v1/kvalitetsskjema';
 import { KvalitetsskjemaV2 } from './kvalitetsskjema/v2/kvalitetsskjema';
 import { Saksdata } from './saksdata/saksdata';
 
 export const Kvalitetsvurdering = () => (
-  <PageWrapper>
-    <StyledKvalitetsvurdering>
+  <BoxNew className="grow overflow-y-scroll" padding="space-24">
+    <BoxNew className="flex max-w-[800px] flex-col gap-12">
       <Saksdata />
       <Kvalitetsskjema />
-    </StyledKvalitetsvurdering>
-  </PageWrapper>
+    </BoxNew>
+  </BoxNew>
 );
 
 const Kvalitetsskjema = () => {
@@ -26,11 +25,3 @@ const Kvalitetsskjema = () => {
       return null;
   }
 };
-
-const StyledKvalitetsvurdering = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 32px;
-  padding-bottom: 64px;
-  width: 800px;
-`;

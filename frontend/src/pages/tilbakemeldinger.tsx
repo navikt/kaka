@@ -1,8 +1,8 @@
 import { Tilbakemeldinger } from '@app/components/tilbakemeldinger/tilbakemeldinger';
-import { PageWrapper } from './page-wrapper';
+import { StatisticsPageWrapper } from './page-wrapper';
 
 export const TilbakemeldingerPage = () => (
-  <PageWrapper>
+  <StatisticsPageWrapper>
     <Tilbakemeldinger />
-  </PageWrapper>
+  </StatisticsPageWrapper>
 );
