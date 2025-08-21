@@ -1,9 +1,7 @@
+import { useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
 import type { ChartOptions, TooltipCallbacks } from 'chart.js';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { useSearchParams } from 'react-router-dom';
-import { QueryParams } from '../../filters/filter-query-params';
-import { useHjemmelTexts } from '../../filters/hooks/use-hjemmel-texts';
 import { GRAPH_COLOR } from './colors';
 
 type TooltipCallback = TooltipCallbacks<'bar'>['label'];
@@ -39,18 +37,47 @@ interface Props {
   stats: Stat[];
 }
 
-const useFilteredYtelser = () => {
-  const [searchParams] = useSearchParams();
+interface RegistreringshjemmelWithLabel {
+  id: string;
+  label: string;
+}
 
-  return searchParams.get(QueryParams.YTELSER)?.split(',') ?? [];
+interface RegistreringshjemmelWithTooltip {
+  id: string;
+  tooltip: string;
+}
+
+const useLabelledRegistreringshjemler = () => {
+  const { data: hjemlerMap = {} } = useRegistreringshjemlerMap();
+
+  return useMemo(() => {
+    const withIdKey: Record<string, RegistreringshjemmelWithLabel> = {};
+    const withLabelKey: Record<string, RegistreringshjemmelWithTooltip> = {};
+
+    for (const key of Object.keys(hjemlerMap)) {
+      const found = hjemlerMap[key];
+
+      if (found) {
+        const label = `${found.hjemmelnavn} - ${found.lovkilde.beskrivelse}`;
+        const tooltip = `${found.hjemmelnavn} - ${found.lovkilde.navn}`;
+
+        withIdKey[key] = { id: key, label };
+        withLabelKey[label] = { id: key, tooltip };
+      }
+    }
+
+    return { withIdKey, withLabelKey };
+  }, [hjemlerMap]);
 };
 
 export const Hjemler = ({ stats }: Props) => {
-  const filteredYtelser = useFilteredYtelser();
-  const hjemmelTexts = useHjemmelTexts(filteredYtelser);
+  const { withIdKey, withLabelKey } = useLabelledRegistreringshjemler();
 
-  const tooltipCallback: TooltipCallback = ({ parsed, label }) =>
-    `${hjemmelTexts.find((hjemmel) => hjemmel.label === label)?.tooltip ?? label}: ${parsed.x}`;
+  const tooltipCallback: TooltipCallback = ({ parsed, label }) => {
+    const found = withLabelKey[label];
+
+    return found ? `${found.tooltip}: ${parsed.x}` : `${label}: ${parsed.x}`;
+  };
 
   const options = useOptions(tooltipCallback);
 
@@ -73,7 +100,11 @@ export const Hjemler = ({ stats }: Props) => {
 
     const labels = top20
       .map(([key]) => key)
-      .map((hjemmelId) => hjemmelTexts.find(({ id }) => hjemmelId === id)?.label ?? hjemmelId);
+      .map((hjemmelId) => {
+        const found = withIdKey[hjemmelId];
+
+        return found === undefined ? hjemmelId : found.label;
+      });
 
     const data = top20.map(([, value]) => value);
 
@@ -87,7 +118,7 @@ export const Hjemler = ({ stats }: Props) => {
         },
       ],
     };
-  }, [hjemmelStats, hjemmelTexts]);
+  }, [hjemmelStats, withIdKey]);
 
   return <Bar options={options} data={barData} />;
 };
