@@ -5,12 +5,14 @@ import { useSetTilbakekrevingMutation } from '@app/redux-api/saksdata';
 import { Alert, BodyShort, Checkbox, CheckboxGroup, Heading, HelpText } from '@navikt/ds-react';
 import { styled } from 'styled-components';
 
+const PARTSINNSYN_YTELSE_ID = '53';
+
 export const Tilbakekreving = () => {
   const { data: saksdata } = useSaksdata();
   const [setTilbakekreving] = useSetTilbakekrevingMutation();
   const canEdit = useCanEdit();
 
-  if (saksdata === undefined) {
+  if (saksdata === undefined || saksdata.ytelseId === PARTSINNSYN_YTELSE_ID) {
     return null;
   }
 
