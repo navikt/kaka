@@ -9,7 +9,7 @@ import { useBuckets } from '../hooks/use-buckets';
 const useOptions = (): ChartOptions<'bar'> => {
   const neutral = useColor(ColorToken.Info500);
   const warning = useColor(ColorToken.Warning500);
-  const danger = useColor(ColorToken.Danger500);
+  const danger = useColor(ColorToken.Danger900);
 
   return {
     aspectRatio: 3,
