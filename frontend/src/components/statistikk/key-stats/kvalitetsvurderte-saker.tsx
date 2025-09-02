@@ -15,7 +15,7 @@ export const TotalProcessed = ({ length }: Props) => (
       <HelpText placement="bottom">
         <HelpTextContent>
           Kvalitetsvurderte saker inkluderer kun saker som er kvalitetsvurdert. Sakene inkluderer ikke saker med utfall
-          «trukket», «retur» eller «ugunst (ugyldig)».
+          «henlagt», «trukket», «retur» eller «ugunst (ugyldig)».
         </HelpTextContent>
       </HelpText>
     </KeyLabelWithHelpText>

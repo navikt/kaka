@@ -21,8 +21,8 @@ export const Finished = ({ stats }: Props) => {
         Registrerte saker
         <HelpText placement="bottom">
           <HelpTextContent>
-            Registrerte saker inkluderer alle saker, både saker som er behandlet, og saker med utfall «trukket», «retur»
-            eller «ugunst (ugyldig)».
+            Registrerte saker inkluderer alle saker, både saker som er behandlet, og saker med utfall «henlagt»,
+            «trukket», «retur» eller «ugunst (ugyldig)».
           </HelpTextContent>
         </HelpText>
       </KeyLabelWithHelpText>
