@@ -21,4 +21,5 @@ export const UTFALL_COLOR_MAP = Object.freeze<Record<UtfallEnum, ColorToken>>({
 
   [UtfallEnum.HEVET]: ColorToken.Neutral500, // Not used
   [UtfallEnum.HENVIST]: ColorToken.Neutral500, // Not used
+  [UtfallEnum.HENLAGT]: ColorToken.Neutral500, // Not used
 });
