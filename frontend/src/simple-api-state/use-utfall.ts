@@ -14,6 +14,7 @@ const KLAGE_ORDER = [
   UtfallEnum.TRUKKET,
   UtfallEnum.RETUR,
   UtfallEnum.UGUNST,
+  UtfallEnum.HENLAGT,
 ];
 
 const ANKE_ORDER = [
@@ -23,6 +24,7 @@ const ANKE_ORDER = [
   UtfallEnum.OPPHEVET,
   UtfallEnum.INNSTILLING_AVVIST,
   UtfallEnum.TRUKKET,
+  UtfallEnum.HENLAGT,
 ];
 
 const ALL_ORDER = [
@@ -39,6 +41,7 @@ const ALL_ORDER = [
   UtfallEnum.MEDHOLD_ETTER_FORVALTNINGSLOVEN_35,
   UtfallEnum.BESLUTNING_OM_IKKE_Å_OMGJØRE,
   UtfallEnum.STADFESTET_MED_EN_ANNEN_BEGRUNNELSE,
+  UtfallEnum.HENLAGT,
 ];
 
 const sortUtfallKlage = (a: IKodeverkSimpleValue<UtfallEnum>, b: IKodeverkSimpleValue<UtfallEnum>) =>
