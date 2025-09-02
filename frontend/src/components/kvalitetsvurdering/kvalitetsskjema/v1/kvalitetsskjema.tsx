@@ -26,6 +26,7 @@ export const KvalitetsskjemaV1 = () => {
     saksdata.utfallId === UtfallEnum.TRUKKET ||
     saksdata.utfallId === UtfallEnum.RETUR ||
     saksdata.utfallId === UtfallEnum.UGUNST ||
+    saksdata.utfallId === UtfallEnum.HENLAGT ||
     isError
   ) {
     return null;
