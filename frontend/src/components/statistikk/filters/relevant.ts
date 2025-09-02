@@ -14,5 +14,6 @@ export const filterIrrelevant = <T extends ISaksdata>(stats: T[]): T[] =>
       isRelevantSakstype(sakstypeId) &&
       utfallId !== UtfallEnum.RETUR &&
       utfallId !== UtfallEnum.TRUKKET &&
-      utfallId !== UtfallEnum.UGUNST,
+      utfallId !== UtfallEnum.UGUNST &&
+      utfallId !== UtfallEnum.HENLAGT,
   );
