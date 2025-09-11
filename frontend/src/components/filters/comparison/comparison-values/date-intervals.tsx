@@ -11,19 +11,16 @@ import { useOnchange } from './use-onchange';
 export const DateIntervals = () => {
   const { selectedValues, add, removeIndex, setIdByIndex, setColor } = useOnchange();
 
-  const onChange = (index: number, from: string | null, to: string | null) => {
-    if (from === null || to === null) {
-      return;
-    }
-
-    return setIdByIndex(index, `${from};${to}`);
-  };
+  const onChange = (index: number, from: string | null, to: string | null) =>
+    setIdByIndex(index, `${from ?? 'null'};${to ?? 'null'}`);
 
   return (
     <>
-      <AddOptionButton option="2023-01-15;2023-01-24" onAdd={add} />
+      <AddOptionButton option="null;null" onAdd={add} />
       {selectedValues.map(([stringInterval, color], index) => {
-        const [fromDate = null, toDate = null] = stringInterval.split(';');
+        const [fromDate = null, toDate = null] = stringInterval
+          .split(';')
+          .map((date) => (date === 'null' ? null : date));
 
         return (
           <Container key={`${stringInterval}-${color}`}>
