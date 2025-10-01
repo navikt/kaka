@@ -1,16 +1,18 @@
-import { useSakstyper } from '@app/simple-api-state/use-kodeverk';
+import { SakstypeEnum } from '@app/types/sakstype';
 import { Filter } from './common/filter';
-import type { FilterType } from './types';
 
 interface SakstypeFilterProps {
   selected: string[];
   setSelected: (types: string[]) => void;
 }
 
-export const SakstypeFilter = ({ selected, setSelected }: SakstypeFilterProps) => {
-  const { data = [] } = useSakstyper();
+const SAKSTYPER = [
+  { id: SakstypeEnum.KLAGE, label: 'Klage' },
+  { id: SakstypeEnum.ANKE, label: 'Anke' },
+  { id: SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET, label: 'Behandling etter Trygderetten opphevet' },
+  { id: SakstypeEnum.OMGJØRINGSKRAV, label: 'Omgjøringskrav' },
+];
 
-  const sakstyper = data?.map<FilterType>(({ id, navn }) => ({ id, label: navn })) ?? [];
-
-  return <Filter label="Type" filters={sakstyper} selected={selected} setSelected={setSelected} />;
-};
+export const SakstypeFilter = ({ selected, setSelected }: SakstypeFilterProps) => (
+  <Filter label="Type" filters={SAKSTYPER} selected={selected} setSelected={setSelected} />
+);
