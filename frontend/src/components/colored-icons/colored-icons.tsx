@@ -19,10 +19,12 @@ export const XMarkOctagonFillIconColored = ({ className, ...rest }: Props) => (
   <XMarkOctagonFillIcon aria-hidden {...rest} className={`${className} text-ax-danger-700`} />
 );
 
+/** @public */
 export const ExclamationmarkTriangleFillIconColored = ({ className, ...rest }: Props) => (
   <ExclamationmarkTriangleFillIcon aria-hidden {...rest} className={`${className} text-ax-warning-700`} />
 );
 
+/** @public */
 export const InformationSquareFillIconColored = ({ className, ...rest }: Props) => (
   <InformationSquareFillIcon aria-hidden {...rest} className={`${className} text-ax-info-700`} />
 );

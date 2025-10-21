@@ -50,6 +50,12 @@ jobs:
           cd ${{ matrix.apps }}
           npm run lint
 
+      - name: Knip ${{ matrix.apps }}
+        shell: bash
+        run: |
+          cd ${{ matrix.apps }}
+          npm run knip
+
       - name: Test ${{ matrix.apps }}
         shell: bash
         run: |

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema-jsonc.json",
+  "project": ["src/**"],
+  "ignore": ["**/*.test.ts"],
+  "rules": {
+    "duplicates": "off"
+  }
+}
