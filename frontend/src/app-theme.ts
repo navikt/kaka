@@ -14,11 +14,11 @@ const hasMatchMedia = typeof window !== 'undefined' && typeof window.matchMedia 
 const INITIAL_SYSTEM_THEME =
   hasMatchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? AppTheme.DARK : AppTheme.LIGHT;
 
-export const systemThemeStore = new Observable<AppTheme>(INITIAL_SYSTEM_THEME);
+const systemThemeStore = new Observable<AppTheme>(INITIAL_SYSTEM_THEME);
 
 const setSystemTheme = (theme: AppTheme) => systemThemeStore.set(theme);
 
-export const getSystemTheme = () => systemThemeStore.get();
+const getSystemTheme = () => systemThemeStore.get();
 
 if (hasMatchMedia) {
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
@@ -67,11 +67,11 @@ const getLocalStorageTheme = async (): Promise<UserTheme> => {
   return UserTheme.SYSTEM;
 };
 
-export const userThemeStore = new Observable<UserTheme>(await getLocalStorageTheme());
+const userThemeStore = new Observable<UserTheme>(await getLocalStorageTheme());
 
 export const setUserTheme = (theme: UserTheme) => userThemeStore.set(theme);
 
-export const getUserTheme = () => userThemeStore.get();
+const getUserTheme = () => userThemeStore.get();
 
 window.addEventListener('storage', async (event) => {
   if (event.key === LOCALSTORAGE_KEY) {

@@ -9,12 +9,6 @@ enum HeaderKeys {
   TAB_ID = 'x-tab-id',
 }
 
-enum QueryKeys {
-  TRACEPARENT = 'traceparent',
-  VERSION = 'version',
-  TAB_ID = 'tabId',
-}
-
 export const getHeaders = () => ({
   [HeaderKeys.TRACEPARENT]: generateTraceParent(),
   [HeaderKeys.VERSION]: ENVIRONMENT.version,
@@ -27,11 +21,4 @@ export const setHeaders = (headers: Headers): Headers => {
   headers.set(HeaderKeys.TAB_ID, tabId);
 
   return headers;
-};
-
-export const getQueryParams = () => {
-  const { version } = ENVIRONMENT;
-  const traceParent = generateTraceParent();
-
-  return `${QueryKeys.VERSION}=${version}&${QueryKeys.TAB_ID}=${tabId}&${QueryKeys.TRACEPARENT}=${traceParent}`;
 };

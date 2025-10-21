@@ -9,6 +9,7 @@ type prettyDate = string;
 type prettyDateTime = string;
 type prettyTime = string;
 
+/** @public */
 export const isoDateTimeToPretty = (isoDateTime: ISODateTime | null): prettyDateTime | null => {
   if (isoDateTime === null || !isoDateTimeRegex.test(isoDateTime)) {
     return null;
@@ -36,6 +37,7 @@ export const isoDateTimeToPrettyDate = (isoDateTime: ISODateTime | null | undefi
   return isoDateToPretty(isoDate);
 };
 
+/** @public */
 export const isoTimeToPretty = (isoTime: ISOTime | null | undefined): prettyTime | null => {
   if (isoTime === null || typeof isoTime === 'undefined' || !isoTimeRegex.test(isoTime)) {
     return null;
@@ -54,6 +56,7 @@ export const isoDateToPretty = (isoDate: ISODate | null | undefined): prettyDate
 
 const prettyRegex = /^\d{2}.\d{2}.\d{4}$/;
 
+/** @public */
 export const prettyDateToISO = (prettyDate: prettyDate | null): ISODate | null => {
   if (prettyDate === null || !prettyRegex.test(prettyDate)) {
     return null;

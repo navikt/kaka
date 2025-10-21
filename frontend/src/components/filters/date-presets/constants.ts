@@ -1,14 +1,4 @@
-import {
-  endOfMonth,
-  endOfYear,
-  format,
-  getYear,
-  isBefore,
-  startOfMonth,
-  startOfYear,
-  subMonths,
-  subYears,
-} from 'date-fns';
+import { endOfMonth, endOfYear, format, isBefore, startOfMonth, startOfYear, subMonths, subYears } from 'date-fns';
 
 // Formats
 export const FORMAT = 'yyyy-MM-dd';
@@ -29,7 +19,6 @@ export const START_OF_LAST_MONTH = startOfMonth(LAST_MONTH);
 export const END_OF_LAST_MONTH = endOfMonth(LAST_MONTH);
 
 // Years
-export const CURRENT_YEAR = getYear(NOW);
 export const START_OF_YEAR = startOfYear(NOW);
 export const ONE_YEAR_AGO = subYears(NOW, 1);
 export const LAST_YEAR_START = startOfYear(ONE_YEAR_AGO);
