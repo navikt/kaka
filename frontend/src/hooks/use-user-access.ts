@@ -15,7 +15,8 @@ const INITIAL_ACCESS: Access = {
   [Role.EGEN_ANSATT]: false,
   [Role.FORTROLIG]: false,
   [Role.STRENGT_FORTROLIG]: false,
-  [Role.ROLE_KLAGE_LEDER]: false,
+  [Role.KAKA_EXCEL_UTTREKK_MED_FRITEKST]: false,
+  [Role.KAKA_EXCEL_UTTREKK_UTEN_FRITEKST]: false,
 };
 
 export const useUserAccess = (): Access => {
