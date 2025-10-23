@@ -1,6 +1,6 @@
 import { type HeadingProps, HelpText, type HelpTextProps } from '@navikt/ds-react';
 import { styled } from 'styled-components';
-import { StyledHeading } from './styled-components';
+import { StyledHeading } from '../../common/styled-components';
 
 interface Props {
   children: string;

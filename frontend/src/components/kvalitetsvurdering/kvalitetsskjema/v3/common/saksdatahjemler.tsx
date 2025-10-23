@@ -1,23 +1,26 @@
 import { SubSection } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/styled-components';
+import { useKvalitetsvurderingV3 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/use-kvalitetsvurdering-v3';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { usePrevious } from '@app/hooks/use-previous';
 import { useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
-import type { IKvalitetsvurderingBooleans, IKvalitetsvurderingSaksdataHjemler } from '@app/types/kvalitetsvurdering/v2';
+import type {
+  KvalitetsvurderingSaksdataHjemlerV3,
+  KvalitetsvurderingV3Boolean,
+} from '@app/types/kvalitetsvurdering/v3';
 import { BodyShort, Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import { useEffect } from 'react';
 import { styled } from 'styled-components';
-import { useKvalitetsvurderingV2 } from './use-kvalitetsvurdering-v2';
 import { useValidationError } from './use-validation-error';
 
 const EMPTY_ARRAY: string[] = [];
 
 interface SaksdatahjemlerProps {
-  field: keyof IKvalitetsvurderingSaksdataHjemler;
-  parentKey?: keyof IKvalitetsvurderingBooleans;
+  field: keyof KvalitetsvurderingSaksdataHjemlerV3;
+  parentKey?: keyof KvalitetsvurderingV3Boolean;
 }
 
 export const Saksdatahjemler = ({ field, parentKey }: SaksdatahjemlerProps) => {
-  const { hjemler, kvalitetsvurdering, update, isLoading } = useKvalitetsvurderingV2();
+  const { hjemler, kvalitetsvurdering, update, isLoading } = useKvalitetsvurderingV3();
   const { data: registreringshjemlerMap, isLoading: registreringshjemlerMapIsLoading } = useRegistreringshjemlerMap();
   const canEdit = useCanEdit();
   const validationError = useValidationError(field);

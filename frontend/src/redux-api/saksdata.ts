@@ -27,7 +27,7 @@ export const saksdataApi = createApi({
       query: () => ({
         url: '/api/kaka-api/saksdata',
         method: 'POST',
-        body: { kvalitsvurderingVersion: 2 },
+        body: { kvalitsvurderingVersion: 3 },
       }),
       onQueryStarted: async ({ saksbehandlerIdent, sidenDager }, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;

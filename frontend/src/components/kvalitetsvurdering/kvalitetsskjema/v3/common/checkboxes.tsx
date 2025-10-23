@@ -1,23 +1,28 @@
-import { KvalitetsskjemaTextarea } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/textarea';
-import type { IKvalitetsvurderingBooleans, IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
+import { SubSection } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/styled-components';
+import { KvalitetsskjemaCheckbox } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/kvalitetsvurdering-checkbox';
+import { AllRegistreringshjemler } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/all-registreringshjemler';
+import { Saksdatahjemler } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/saksdatahjemler';
+import { KvalitetsskjemaTextarea } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/textarea';
+import {
+  type CheckboxParams,
+  type GroupErrorField,
+  type InputParams,
+  TypeEnum,
+} from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/types';
+import { useKvalitetsvurderingV3 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/use-kvalitetsvurdering-v3';
+import { useValidationError } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/use-validation-error';
+import type { KvalitetsvurderingDataV3, KvalitetsvurderingV3Boolean } from '@app/types/kvalitetsvurdering/v3';
 import { CheckboxGroup } from '@navikt/ds-react';
 import { useMemo } from 'react';
-import { SubSection } from '../../common/styled-components';
-import { AllRegistreringshjemler } from './all-registreringshjemler';
-import { KvalitetsskjemaCheckbox } from './kvalitetsvurdering-checkbox';
-import { Saksdatahjemler } from './saksdatahjemler';
-import { type CheckboxParams, type GroupErrorField, type InputParams, TypeEnum } from './types';
-import { useKvalitetsvurderingV2 } from './use-kvalitetsvurdering-v2';
-import { useValidationError } from './use-validation-error';
 
 interface Props {
-  kvalitetsvurdering: IKvalitetsvurderingData;
-  update: (data: Partial<IKvalitetsvurderingData>) => void;
+  kvalitetsvurdering: KvalitetsvurderingDataV3;
+  update: (data: Partial<KvalitetsvurderingDataV3>) => void;
   childList: InputParams[];
   groupErrorField?: GroupErrorField;
   hideLegend?: boolean;
   label: string;
-  parentKey?: keyof IKvalitetsvurderingBooleans;
+  parentKey?: keyof KvalitetsvurderingV3Boolean;
 }
 
 export const Checkboxes = ({
@@ -76,7 +81,7 @@ interface CheckboxProps {
 const Checkbox = ({ checkbox }: CheckboxProps) => {
   const { field, label, helpText, saksdatahjemler, allRegistreringshjemler, childList, groupErrorField } = checkbox;
 
-  const { kvalitetsvurdering, isLoading, update } = useKvalitetsvurderingV2();
+  const { kvalitetsvurdering, isLoading, update } = useKvalitetsvurderingV3();
 
   if (isLoading) {
     return null;
@@ -108,7 +113,7 @@ const Checkbox = ({ checkbox }: CheckboxProps) => {
   );
 };
 
-const getFields = (checkboxes: InputParams[]): (keyof IKvalitetsvurderingBooleans)[] =>
+const getFields = (checkboxes: InputParams[]): (keyof KvalitetsvurderingV3Boolean)[] =>
   checkboxes.filter(isCheckbox).flatMap((checkbox) => [checkbox.field, ...getFields(checkbox.childList ?? [])]);
 
 const isCheckbox = (checkbox: InputParams): checkbox is CheckboxParams => checkbox.type === TypeEnum.CHECKBOX;

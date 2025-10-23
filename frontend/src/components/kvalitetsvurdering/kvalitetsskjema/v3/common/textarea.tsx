@@ -1,20 +1,20 @@
 import { ContainerWithHelpText } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/container-with-helptext';
-import type { TextParams } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/types';
-import { useKvalitetsvurderingV2 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/use-kvalitetsvurdering-v2';
-import { useValidationError } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/use-validation-error';
+import type { TextParams } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/types';
+import { useKvalitetsvurderingV3 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/use-kvalitetsvurdering-v3';
+import { useValidationError } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/use-validation-error';
 import { SavedStatus } from '@app/components/saved-status/saved-status';
 import { useCanEdit } from '@app/hooks/use-can-edit';
-import type { IKvalitetsvurderingBooleans } from '@app/types/kvalitetsvurdering/v2';
+import type { KvalitetsvurderingV3Boolean } from '@app/types/kvalitetsvurdering/v3';
 import { BodyLong, Label, Textarea } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
 interface Props extends TextParams {
-  parentKey?: keyof IKvalitetsvurderingBooleans;
+  parentKey?: keyof KvalitetsvurderingV3Boolean;
 }
 
 export const KvalitetsskjemaTextarea = (props: Props) => {
-  const { kvalitetsvurdering, isLoading } = useKvalitetsvurderingV2();
+  const { kvalitetsvurdering, isLoading } = useKvalitetsvurderingV3();
   const canEdit = useCanEdit();
 
   if (isLoading) {
@@ -49,7 +49,7 @@ const KvalitetsskjemaTextareaInternal = ({
   description,
   initialValue,
 }: InternalProps) => {
-  const { kvalitetsvurdering, isLoading, update, updateStatus } = useKvalitetsvurderingV2();
+  const { kvalitetsvurdering, isLoading, update, updateStatus } = useKvalitetsvurderingV3();
   const [localValue, setLocalValue] = useState<string>(initialValue);
   const error = useValidationError(field);
 
@@ -101,7 +101,7 @@ const StatusContainer = styled.div`
 `;
 
 const StyledBodyLong = styled(BodyLong)`
-  border-left: 2px solid var(--ax-border-neutral-subtle);
+  border-left: 3px solid var(--ax-border-neutral-subtle);
   padding-left: 8px;
   margin-top: 4px;
 `;
