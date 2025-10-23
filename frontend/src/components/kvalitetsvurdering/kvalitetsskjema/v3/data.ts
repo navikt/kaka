@@ -1,6 +1,6 @@
 export enum MainReason {
-  Særregelverket = 'saerregelverket',
-  Saksbehandlingsreglene = 'saksbehandlingsreglene',
+  Særregelverket = 'saerregelverk',
+  Saksbehandlingsreglene = 'saksbehandlingsregler',
   Trygdemedisin = 'brukAvRaadgivendeLege', // Reuse of field name from v2
 }
 

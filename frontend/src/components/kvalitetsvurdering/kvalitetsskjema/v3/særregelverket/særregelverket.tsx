@@ -31,9 +31,9 @@ export const Særregelverket = () => {
     return null;
   }
 
-  const { saerregelverkAutomatiskVedtak, saerregelverket } = kvalitetsvurdering;
+  const { saerregelverkAutomatiskVedtak, saerregelverk } = kvalitetsvurdering;
 
-  const onChange = (value: Radiovalg) => update({ saerregelverket: value });
+  const onChange = (value: Radiovalg) => update({ saerregelverk: value });
 
   return (
     <section>
@@ -54,7 +54,7 @@ export const Særregelverket = () => {
       <StyledRadioGroup
         legend={HEADER}
         hideLegend
-        value={saerregelverket}
+        value={saerregelverk}
         error={validationError}
         onChange={onChange}
         id="saerregelverket"
@@ -69,7 +69,7 @@ export const Særregelverket = () => {
         </RadioButtonsRow>
       </StyledRadioGroup>
 
-      {saerregelverket === Radiovalg.MANGELFULLT ? (
+      {saerregelverk === Radiovalg.MANGELFULLT ? (
         <Checkboxes
           kvalitetsvurdering={kvalitetsvurdering}
           update={update}
