@@ -31,9 +31,9 @@ export const Trygdemedisin = () => {
     return null;
   }
 
-  const { trygdemedisin } = kvalitetsvurdering;
+  const { brukAvRaadgivendeLege } = kvalitetsvurdering;
 
-  const onChange = (value: RadiovalgExtended) => update({ trygdemedisin: value });
+  const onChange = (value: RadiovalgExtended) => update({ brukAvRaadgivendeLege: value });
 
   return (
     <section>
@@ -41,7 +41,7 @@ export const Trygdemedisin = () => {
       <StyledRadioGroup
         legend={HEADER}
         hideLegend
-        value={trygdemedisin}
+        value={brukAvRaadgivendeLege}
         error={validationError}
         onChange={onChange}
         id="trygdemedisin"
@@ -65,7 +65,7 @@ export const Trygdemedisin = () => {
         </RadioButtonsRow>
       </StyledRadioGroup>
 
-      {trygdemedisin === RadiovalgExtended.MANGELFULLT ? (
+      {brukAvRaadgivendeLege === RadiovalgExtended.MANGELFULLT ? (
         <Checkboxes
           kvalitetsvurdering={kvalitetsvurdering}
           childList={CHECKBOXES}

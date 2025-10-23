@@ -1,7 +1,7 @@
 export enum MainReason {
   Særregelverket = 'saerregelverket',
   Saksbehandlingsreglene = 'saksbehandlingsreglene',
-  Trygdemedisin = 'brukAvRaadgivendeLege',
+  Trygdemedisin = 'brukAvRaadgivendeLege', // Reuse of field name from v2
 }
 
 export const MAIN_REASONS = Object.values(MainReason);

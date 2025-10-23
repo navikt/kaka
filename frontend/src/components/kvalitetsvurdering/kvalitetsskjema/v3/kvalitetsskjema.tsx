@@ -1,5 +1,6 @@
 import { Annet } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/annet/annet';
 import { useKvalitetsvurderingV3 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/use-kvalitetsvurdering-v3';
+import { Særregelverket } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/særregelverket/særregelverket';
 import { Trygdemedisin } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/trygdemedisin/trygdemedisin';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { UtfallEnum } from '@app/types/utfall';
@@ -30,6 +31,7 @@ export const KvalitetsskjemaV3 = () => {
       <Heading level="1" size="medium">
         Kvalitetsvurdering
       </Heading>
+      <Særregelverket />
       <Trygdemedisin />
       <Annet />
     </StyledKvalitetsskjema>
