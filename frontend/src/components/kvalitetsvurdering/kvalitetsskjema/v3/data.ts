@@ -1,7 +1,7 @@
 export enum MainReason {
   Særregelverket = 'saerregelverket',
   Saksbehandlingsreglene = 'saksbehandlingsreglene',
-  Trygdemedisin = 'trygdemedisin',
+  Trygdemedisin = 'brukAvRaadgivendeLege',
 }
 
 export const MAIN_REASONS = Object.values(MainReason);
