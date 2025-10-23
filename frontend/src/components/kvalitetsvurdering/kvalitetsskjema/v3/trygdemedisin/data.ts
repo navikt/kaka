@@ -19,7 +19,7 @@ export enum TrygdemedisinErrorFields {
 
 const ERROR_FIELDS = Object.values(TrygdemedisinErrorFields);
 
-export const isBrukAvRaadgivendeOverlegeErrorField = (value: string): value is TrygdemedisinErrorFields =>
+export const isTrygdemedisinErrorField = (value: string): value is TrygdemedisinErrorFields =>
   ERROR_FIELDS.some((f) => f === value);
 
 export const TRYGDEMEDISIN_LABELS: Record<TrygdemedisinBoolean, string> = {

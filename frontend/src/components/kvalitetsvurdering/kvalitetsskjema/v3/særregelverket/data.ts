@@ -41,7 +41,7 @@ const ERROR_FIELDS = Object.values(SærregelverketErrorFields);
 export const isSærregelverketErrorField = (value: string): value is SærregelverketErrorFields =>
   ERROR_FIELDS.some((f) => f === value);
 
-export const SÆRREGELVERKET_LABELS: Record<SærregelverketBoolean, string> = {
+export const SÆRREGELVERKET_LABELS: Record<Fields, string> = {
   [SærregelverketBoolean.saerregelverkAutomatiskVedtak]: 'Automatisk vedtak',
   [SærregelverketBoolean.saerregelverkLovenErTolketEllerAnvendtFeil]: 'Loven er tolket eller anvendt feil i vedtaket',
   [SærregelverketBoolean.saerregelverkVedtaketByggerPaaFeilHjemmelEllerLovtolkning]:
@@ -49,6 +49,12 @@ export const SÆRREGELVERKET_LABELS: Record<SærregelverketBoolean, string> = {
   [SærregelverketBoolean.saerregelverkVedtaketByggerPaaFeilKonkretRettsanvendelseEllerSkjoenn]:
     'Vedtaket bygger på feil konkret rettsanvendelse eller skjønnsutøvelse',
   [SærregelverketBoolean.saerregelverkDetErLagtTilGrunnFeilFaktum]: 'Det er lagt til grunn feil faktum i vedtaket',
+  [SærregelverketHjemlerFromYtelseList.saerregelverkVedtaketByggerPaaFeilHjemmelEllerLovtolkningHjemlerList]:
+    'Vedtaket bygger på feil hjemmel eller lovtolkning',
+  [SærregelverketSaksdataHjemlerList.saerregelverkVedtaketByggerPaaFeilKonkretRettsanvendelseEllerSkjoennHjemlerList]:
+    'Vedtaket bygger på feil konkret rettsanvendelse eller skjønnsutøvelse',
+  [SærregelverketSaksdataHjemlerList.saerregelverkDetErLagtTilGrunnFeilFaktumHjemlerList]:
+    'Vedtaket er lagt til grunn feil faktum i vedtaket',
 };
 
 export const SÆRREGELVERKET_ERROR_LABELS: Record<SærregelverketErrorFields, string> = {
