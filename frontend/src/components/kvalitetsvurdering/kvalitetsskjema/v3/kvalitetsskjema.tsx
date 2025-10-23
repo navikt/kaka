@@ -1,5 +1,6 @@
 import { Annet } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/annet/annet';
 import { useKvalitetsvurderingV3 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/use-kvalitetsvurdering-v3';
+import { Saksbehandlingsreglene } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/saksbehandlingsreglene/saksbehandlingsreglene';
 import { Særregelverket } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/særregelverket/særregelverket';
 import { Trygdemedisin } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/trygdemedisin/trygdemedisin';
 import { useSaksdata } from '@app/hooks/use-saksdata';
@@ -32,6 +33,7 @@ export const KvalitetsskjemaV3 = () => {
         Kvalitetsvurdering
       </Heading>
       <Særregelverket />
+      <Saksbehandlingsreglene />
       <Trygdemedisin />
       <Annet />
     </StyledKvalitetsskjema>

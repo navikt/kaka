@@ -1,10 +1,10 @@
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/data';
 import { getCheckbox } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/helpers';
-import { SaksbehandlingsregleneErrorFields } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/saksbehandlingsreglene/data';
 import {
   HEADER,
   SÆRREGELVERKET_LABELS,
   SærregelverketBoolean,
+  SærregelverketErrorFields,
   SærregelverketHjemlerFromYtelseList,
   SærregelverketSaksdataHjemlerList,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/særregelverket/data';
@@ -57,7 +57,7 @@ export const Særregelverket = () => {
         value={saerregelverk}
         error={validationError}
         onChange={onChange}
-        id="saerregelverket"
+        id={MainReason.Særregelverket}
       >
         <RadioButtonsRow>
           <Radio value={Radiovalg.BRA} disabled={!canEdit}>
@@ -74,7 +74,7 @@ export const Særregelverket = () => {
           kvalitetsvurdering={kvalitetsvurdering}
           update={update}
           childList={CHECKBOXES}
-          groupErrorField={SaksbehandlingsregleneErrorFields.saksbehandlingsreglerGroup}
+          groupErrorField={SærregelverketErrorFields.saerregelverkGroup}
           label="Hva er mangelfullt/kvalitetsavvik?"
         />
       ) : null}

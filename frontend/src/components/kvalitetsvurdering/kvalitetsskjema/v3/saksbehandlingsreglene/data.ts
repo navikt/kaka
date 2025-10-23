@@ -67,6 +67,7 @@ export type AllSaksbehandlingsregleneBoolean =
   | VeiledningspliktenBoolean
   | UtredningspliktenBoolean
   | ForeleggelsespliktenBoolean
+  | BegrunnelsespliktenBoolean
   | JournalfoeringspliktenBoolean
   | KlageOgKlageforberedelsenBoolean
   | OmgjoeringBoolean
