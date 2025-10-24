@@ -1,5 +1,5 @@
 import type { IKlageenhet, IKodeverkSimpleValue, IKodeverkValue, IYtelse } from '@app/types/kodeverk';
-import type { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { type KvalitetsvurderingVersion, StatisticsVersion } from '@app/types/saksdata';
 import { SakstypeEnum } from '@app/types/sakstype';
 import type { UtfallEnum } from '@app/types/utfall';
 import { skipToken } from '@reduxjs/toolkit/query';
@@ -36,8 +36,8 @@ const sakstyper = new SimpleApiState<IKodeverkSimpleValue<SakstypeEnum>[]>(`${AP
 const vedtaksenheter = new SimpleApiState<IKodeverkSimpleValue[]>(`${API_PREFIX}/vedtaksenheter`);
 const sakstypeToUtfall = new SimpleApiState<SakstypeToUtfall[]>(`${API_PREFIX}/sakstypertoutfall`);
 
-export const useYtelser = (version: KvalitetsvurderingVersion | typeof skipToken = skipToken) =>
-  useSimpleApiState(version === 1 ? ytelserV1 : ytelserV2);
+export const useYtelser = (version: StatisticsVersion | KvalitetsvurderingVersion | typeof skipToken = skipToken) =>
+  useSimpleApiState(version === StatisticsVersion.V1 ? ytelserV1 : ytelserV2);
 export const useLovkildeToRegistreringshjemler = () => useSimpleApiState(lovkildeToRegistreringshjemler);
 export const useRegistreringshjemlerMap = () => useSimpleApiState(registreringshjemlerMap);
 export const useKlageenheter = () => useSimpleApiState(klageenheter);

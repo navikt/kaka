@@ -2,7 +2,7 @@ import type { State } from '@app/simple-api-state/simple-api-state';
 import { useKlageenheter, useSakstyper, useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { useSortedUtfall } from '@app/simple-api-state/use-utfall';
 import type { IKlageenhet, IKodeverkSimpleValue, ILovKildeToRegistreringshjemmel, IYtelse } from '@app/types/kodeverk';
-import type { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import type { KvalitetsvurderingVersion, StatisticsVersion } from '@app/types/saksdata';
 import type { SakstypeEnum } from '@app/types/sakstype';
 import type { UtfallEnum } from '@app/types/utfall';
 import { skipToken } from '@reduxjs/toolkit/query';
@@ -99,7 +99,7 @@ export const useSimpleYtelserForKlageenhet = (
 
 export const useYtelserForVedtaksinstansenhet = (
   enhetId: string | typeof skipToken,
-  version: KvalitetsvurderingVersion,
+  version: StatisticsVersion,
 ): IYtelse[] => {
   const { data: ytelser = [] } = useYtelser(version);
 
@@ -110,10 +110,7 @@ export const useYtelserForVedtaksinstansenhet = (
   return ytelser.filter(({ enheter }) => enheter.some(({ id }) => id === enhetId));
 };
 
-export const useYtelserForKlageenhet = (
-  enhetId: string | typeof skipToken,
-  version: KvalitetsvurderingVersion,
-): IYtelse[] => {
+export const useYtelserForKlageenhet = (enhetId: string | typeof skipToken, version: StatisticsVersion): IYtelse[] => {
   const { data: ytelser = [] } = useYtelser(version);
 
   if (enhetId === skipToken) {

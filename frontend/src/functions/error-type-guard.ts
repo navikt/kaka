@@ -1,14 +1,10 @@
-import type { KVALITETESVURDERING_V1_FIELD_NAMES } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v1/use-field-name';
 import type { SAKSDATA_FIELD_NAMES } from '@app/hooks/use-field-name';
 import type { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
 import { type GenericObject, isGenericObject } from '@app/types/types';
 
 export interface IValidationErrorV1 {
   reason: string;
-  field:
-    | keyof typeof SAKSDATA_FIELD_NAMES
-    | keyof typeof KVALITETESVURDERING_V1_FIELD_NAMES
-    | keyof IKvalitetsvurderingData;
+  field: keyof typeof SAKSDATA_FIELD_NAMES | keyof IKvalitetsvurderingData;
 }
 
 interface IValidationErrorV2 {

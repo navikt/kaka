@@ -1,4 +1,4 @@
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { StatisticsVersion } from '@app/types/saksdata';
 import { HelpText, ToggleGroup } from '@navikt/ds-react';
 import { useSearchParams } from 'react-router-dom';
 import { styled } from 'styled-components';
@@ -20,11 +20,11 @@ export const StatisticsVersionFilter = ({ defaultParamsV1, defaultParamsV2 }: Pr
 
     const versionAsNumber = Number.parseInt(kvVersion, 10);
 
-    if (versionAsNumber === KvalitetsvurderingVersion.V1) {
+    if (versionAsNumber === StatisticsVersion.V1) {
       for (const [key, value] of Object.entries(defaultParamsV1)) {
         searchParams.set(key, value);
       }
-    } else if (versionAsNumber === KvalitetsvurderingVersion.V2) {
+    } else if (versionAsNumber === StatisticsVersion.V2) {
       for (const [key, value] of Object.entries(defaultParamsV2)) {
         searchParams.set(key, value);
       }
@@ -35,8 +35,8 @@ export const StatisticsVersionFilter = ({ defaultParamsV1, defaultParamsV2 }: Pr
 
   return (
     <ToggleGroup onChange={onChange} value={version.toString(10)} size="small" label={<Label />}>
-      <ToggleGroup.Item value={KvalitetsvurderingVersion.V1.toString(10)}>t.o.m. 2022</ToggleGroup.Item>
-      <ToggleGroup.Item value={KvalitetsvurderingVersion.V2.toString(10)}>f.o.m. 2023</ToggleGroup.Item>
+      <ToggleGroup.Item value={StatisticsVersion.V1.toString(10)}>t.o.m. 2022</ToggleGroup.Item>
+      <ToggleGroup.Item value={StatisticsVersion.V2.toString(10)}>f.o.m. 2023</ToggleGroup.Item>
     </ToggleGroup>
   );
 };

@@ -1,4 +1,4 @@
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { StatisticsVersion } from '@app/types/saksdata';
 import { Select } from '@navikt/ds-react';
 import { useMemo } from 'react';
 import { styled } from 'styled-components';
@@ -104,10 +104,10 @@ const useYears = () => {
   const version = useVersionQueryFilter();
 
   return useMemo(() => {
-    if (version === KvalitetsvurderingVersion.V1) {
+    if (version === StatisticsVersion.V1) {
       return [2022];
     }
-    if (version === KvalitetsvurderingVersion.V2) {
+    if (version === StatisticsVersion.V2) {
       return generateYears(2023, MAX_YEAR);
     }
 

@@ -1,4 +1,4 @@
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { StatisticsVersion } from '@app/types/saksdata';
 import { subMonths } from 'date-fns';
 import {
   END_OF_LAST_MONTH,
@@ -22,9 +22,9 @@ export const useDatePresets = (): IOption[] => {
   const version = useVersionQueryFilter();
 
   switch (version) {
-    case KvalitetsvurderingVersion.V1:
+    case StatisticsVersion.V1:
       return [];
-    case KvalitetsvurderingVersion.V2: {
+    case StatisticsVersion.V2: {
       const presets: IOption[] = [];
 
       if (IS_BEFORE_MAY_2026) {
@@ -41,7 +41,7 @@ export const useDatePresets = (): IOption[] => {
 
       return presets;
     }
-    case KvalitetsvurderingVersion.V3: {
+    case StatisticsVersion.V3: {
       const presets: IOption[] = [{ label: 'Denne måneden', fromDate: START_OF_MONTH, toDate: NOW }];
 
       if (!IS_BEFORE_MAY_2026) {
@@ -71,10 +71,10 @@ export const useDatePresetsLeder = (): IOption[] => {
   const version = useVersionQueryFilter();
 
   switch (version) {
-    case KvalitetsvurderingVersion.V1: {
+    case StatisticsVersion.V1: {
       return [];
     }
-    case KvalitetsvurderingVersion.V2: {
+    case StatisticsVersion.V2: {
       const presets: IOption[] = [];
 
       if (IS_BEFORE_FEBRUARY_2026) {
@@ -91,7 +91,7 @@ export const useDatePresetsLeder = (): IOption[] => {
 
       return presets;
     }
-    case KvalitetsvurderingVersion.V3: {
+    case StatisticsVersion.V3: {
       const presets: IOption[] = [];
 
       if (!IS_BEFORE_FEBRUARY_2026) {

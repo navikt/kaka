@@ -1,4 +1,3 @@
-import { kvalitetsvurderingV1Api } from '@app/redux-api/kvalitetsvurdering/v1';
 import { kvalitetsvurderingV2Api } from '@app/redux-api/kvalitetsvurdering/v2';
 import { kvalitetsvurderingV3Api } from '@app/redux-api/kvalitetsvurdering/v3';
 import { saksdataApi } from '@app/redux-api/saksdata';
@@ -19,10 +18,5 @@ export const reduxStore = configureStore({
           'meta.baseQueryMeta.response',
         ],
       },
-    }).concat([
-      kvalitetsvurderingV1Api.middleware,
-      kvalitetsvurderingV2Api.middleware,
-      kvalitetsvurderingV3Api.middleware,
-      saksdataApi.middleware,
-    ]),
+    }).concat([kvalitetsvurderingV2Api.middleware, kvalitetsvurderingV3Api.middleware, saksdataApi.middleware]),
 });

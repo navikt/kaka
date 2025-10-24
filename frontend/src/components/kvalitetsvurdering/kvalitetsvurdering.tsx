@@ -2,7 +2,6 @@ import { KvalitetsskjemaV2 } from '@app/components/kvalitetsvurdering/kvalitetss
 import { KvalitetsskjemaV3 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/kvalitetsskjema';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { BoxNew } from '@navikt/ds-react';
-import { KvalitetsskjemaV1 } from './kvalitetsskjema/v1/kvalitetsskjema';
 import { Saksdata } from './saksdata/saksdata';
 
 export const Kvalitetsvurdering = () => (
@@ -18,8 +17,6 @@ const Kvalitetsskjema = () => {
   const { data } = useSaksdata();
 
   switch (data?.kvalitetsvurderingReference.version) {
-    case 1:
-      return <KvalitetsskjemaV1 />;
     case 2:
       return <KvalitetsskjemaV2 />;
     case 3:

@@ -54,12 +54,12 @@ export interface IKvalitetsvurderingTexts {
   veiledningFraNavText: string | null;
 }
 
-export interface IKvalitetsvurderingRadio {
+interface IKvalitetsvurderingRadio {
   klageforberedelsenRadioValg: Radiovalg | null;
   utredningenRadioValg: Radiovalg | null;
   vedtaketRadioValg: Radiovalg | null;
 }
 
-export interface IKvalitetsvurderingRadioExtended {
+interface IKvalitetsvurderingRadioExtended {
   brukAvRaadgivendeLegeRadioValg: RadiovalgExtended | null;
 }

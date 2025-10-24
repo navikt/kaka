@@ -2,7 +2,7 @@ import { PillContainer } from '@app/components/filters/pills/styled-components';
 import { YtelserAndHjemler } from '@app/components/filters/ytelser-and-hjemler';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { StatisticsVersion } from '@app/types/saksdata';
 import { Button, Select } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import { useSearchParams } from 'react-router-dom';
@@ -43,7 +43,7 @@ import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
 import { TilbakekrevingEnum } from '../../filters/types';
 import { UtfallFilter } from '../../filters/utfall';
 
-const DEFAULT_VERSION = IS_BEFORE_FEBRUARY_2023 ? KvalitetsvurderingVersion.V1 : KvalitetsvurderingVersion.V2;
+const DEFAULT_VERSION = IS_BEFORE_FEBRUARY_2023 ? StatisticsVersion.V1 : StatisticsVersion.V2;
 
 export const Filters = () => {
   const userData = useUser();

@@ -2,7 +2,7 @@ import {
   type Vedtaksinstansgruppe,
   isVedtaksinstansgruppe,
 } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { StatisticsVersion } from '@app/types/saksdata';
 import { type SakstypeEnum, isSakstype } from '@app/types/sakstype';
 import { useSearchParams } from 'react-router-dom';
 import { QueryParams } from '../../filters/filter-query-params';
@@ -94,17 +94,17 @@ export const useTilbakekrevingQueryFilter = (defaultTilbakekreving: Tilbakekrevi
   return queryValue;
 };
 
-export const useVersionQueryFilter = (defaultVersion?: KvalitetsvurderingVersion): KvalitetsvurderingVersion => {
+export const useVersionQueryFilter = (defaultVersion?: StatisticsVersion): StatisticsVersion => {
   const queryValue = useQueryFilter(QueryParams.VERSION);
 
   if (queryValue === null || queryValue.length === 0) {
-    return defaultVersion ?? KvalitetsvurderingVersion.V2;
+    return defaultVersion ?? StatisticsVersion.V2;
   }
 
   const version = Number.parseInt(queryValue, 10);
 
-  if (!isKvalitetsvurderingVersion(version)) {
-    return defaultVersion ?? KvalitetsvurderingVersion.V2;
+  if (!isStatisticsVersion(version)) {
+    return defaultVersion ?? StatisticsVersion.V2;
   }
 
   return version;
@@ -113,7 +113,7 @@ export const useVersionQueryFilter = (defaultVersion?: KvalitetsvurderingVersion
 const isTilbakekrevingEnum = (value: string): value is TilbakekrevingEnum =>
   Object.values(TilbakekrevingEnum).includes(value as TilbakekrevingEnum);
 
-const KVALITETSVURDERING_VERSION_VALUES = Object.values(KvalitetsvurderingVersion);
+const STATISTICS_VERSION_VALUES = Object.values(StatisticsVersion);
 
-const isKvalitetsvurderingVersion = (value: number): value is KvalitetsvurderingVersion =>
-  KVALITETSVURDERING_VERSION_VALUES.some((v) => v === value);
+const isStatisticsVersion = (value: number): value is StatisticsVersion =>
+  STATISTICS_VERSION_VALUES.some((v) => v === value);

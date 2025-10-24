@@ -1,4 +1,4 @@
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { StatisticsVersion } from '@app/types/saksdata';
 import { useEffect } from 'react';
 import { Filter } from './common/filter';
 import { useVersionQueryFilter } from './hooks/use-query-filter';
@@ -28,12 +28,12 @@ export const KommentarerFilter = ({ selected, setSelected }: KommentarerFilterPr
   const version = useVersionQueryFilter();
 
   useEffect(() => {
-    if (version !== KvalitetsvurderingVersion.V1 && selected.length > 0) {
+    if (version !== StatisticsVersion.V1 && selected.length > 0) {
       setSelected([]);
     }
   }, [selected.length, setSelected, version]);
 
-  if (version !== KvalitetsvurderingVersion.V1) {
+  if (version !== StatisticsVersion.V1) {
     return null;
   }
 

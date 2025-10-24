@@ -4,6 +4,11 @@ import type { UtfallEnum } from './utfall';
 type UUID = string;
 
 export enum KvalitetsvurderingVersion {
+  V2 = 2,
+  V3 = 3,
+}
+
+export enum StatisticsVersion {
   V1 = 1,
   V2 = 2,
   V3 = 3,
