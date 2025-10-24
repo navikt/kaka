@@ -1,3 +1,4 @@
+import { kvalitetsvurderingV3Api } from '@app/redux-api/kvalitetsvurdering/v3';
 import {
   type ISaksdataBase,
   type ISaksdataComplete,
@@ -79,6 +80,9 @@ export const saksdataApi = createApi({
                 break;
               case KvalitetsvurderingVersion.V2:
                 kvalitetsvurderingV2Api.util.updateQueryData('getKvalitetsvurdering', data.id, () => undefined);
+                break;
+              case KvalitetsvurderingVersion.V3:
+                kvalitetsvurderingV3Api.util.updateQueryData('getKvalitetsvurdering', data.id, () => undefined);
                 break;
             }
           }
@@ -162,6 +166,12 @@ export const saksdataApi = createApi({
 
           dispatch(
             kvalitetsvurderingV1Api.util.invalidateTags([
+              { type: 'kvalitetsvurdering', id: saksdata.kvalitetsvurderingReference.id },
+            ]),
+          );
+
+          dispatch(
+            kvalitetsvurderingV3Api.util.invalidateTags([
               { type: 'kvalitetsvurdering', id: saksdata.kvalitetsvurderingReference.id },
             ]),
           );
