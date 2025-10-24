@@ -1,3 +1,4 @@
+import { sortWithOrdinals } from '@app/functions/sort-with-ordinals';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import {
   useGetCensoredKvalitetsvurderingQuery,
@@ -79,7 +80,7 @@ export const useKvalitetsvurderingV3 = (): Loading | Loaded => {
 
   return {
     saksdata,
-    hjemler: saksdata.hjemmelIdList,
+    hjemler: saksdata.hjemmelIdList.toSorted(sortWithOrdinals),
     kvalitetsvurdering,
     update: (patch) => update({ ...patch, id: saksdata.kvalitetsvurderingReference.id }).unwrap(),
     isLoading: false,
