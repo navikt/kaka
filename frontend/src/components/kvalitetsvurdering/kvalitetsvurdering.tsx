@@ -1,7 +1,8 @@
+import { KvalitetsskjemaV2 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/kvalitetsskjema';
+import { KvalitetsskjemaV3 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/kvalitetsskjema';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { BoxNew } from '@navikt/ds-react';
 import { KvalitetsskjemaV1 } from './kvalitetsskjema/v1/kvalitetsskjema';
-import { KvalitetsskjemaV2 } from './kvalitetsskjema/v2/kvalitetsskjema';
 import { Saksdata } from './saksdata/saksdata';
 
 export const Kvalitetsvurdering = () => (
@@ -21,6 +22,8 @@ const Kvalitetsskjema = () => {
       return <KvalitetsskjemaV1 />;
     case 2:
       return <KvalitetsskjemaV2 />;
+    case 3:
+      return <KvalitetsskjemaV3 />;
     default:
       return null;
   }
