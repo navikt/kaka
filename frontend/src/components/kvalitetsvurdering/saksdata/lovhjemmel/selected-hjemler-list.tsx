@@ -1,3 +1,4 @@
+import { sortWithOrdinals } from '@app/functions/sort-with-ordinals';
 import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
 import type { ILovKildeToRegistreringshjemmel } from '@app/types/kodeverk';
 import { useMemo } from 'react';
@@ -46,19 +47,23 @@ const SelectedChildren = ({
 
   return (
     <>
-      {registreringshjemmelIdList.map(({ lovkilde, registreringshjemler }) => (
-        <div key={lovkilde.id}>
-          <StyledSelectedSectionHeader>{lovkilde.navn}</StyledSelectedSectionHeader>
+      {registreringshjemmelIdList
+        .toSorted((a, b) => sortWithOrdinals(a.lovkilde.navn, b.lovkilde.navn))
+        .map(({ lovkilde, registreringshjemler }) => (
+          <div key={lovkilde.id}>
+            <StyledSelectedSectionHeader>{lovkilde.navn}</StyledSelectedSectionHeader>
 
-          <StyledSelectedList>
-            {registreringshjemler.map(({ navn, id }) => (
-              <li key={id} data-testid={`selected-hjemmel-${id}`}>
-                {navn}
-              </li>
-            ))}
-          </StyledSelectedList>
-        </div>
-      ))}
+            <StyledSelectedList>
+              {registreringshjemler
+                .toSorted((a, b) => sortWithOrdinals(a.navn, b.navn))
+                .map(({ navn, id }) => (
+                  <li key={id} data-testid={`selected-hjemmel-${id}`}>
+                    {navn}
+                  </li>
+                ))}
+            </StyledSelectedList>
+          </div>
+        ))}
     </>
   );
 };

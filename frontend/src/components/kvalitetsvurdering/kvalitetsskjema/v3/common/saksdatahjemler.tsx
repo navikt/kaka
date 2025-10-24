@@ -1,5 +1,6 @@
 import { SubSection } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/styled-components';
 import { useKvalitetsvurderingV3 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/use-kvalitetsvurdering-v3';
+import { sortWithOrdinals } from '@app/functions/sort-with-ordinals';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { usePrevious } from '@app/hooks/use-previous';
 import { useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
@@ -7,8 +8,8 @@ import type {
   KvalitetsvurderingSaksdataHjemlerV3,
   KvalitetsvurderingV3Boolean,
 } from '@app/types/kvalitetsvurdering/v3';
-import { BodyShort, Checkbox, CheckboxGroup } from '@navikt/ds-react';
-import { useEffect } from 'react';
+import { BodyShort, Checkbox, CheckboxGroup, Heading, VStack } from '@navikt/ds-react';
+import { useEffect, useMemo } from 'react';
 import { styled } from 'styled-components';
 import { useValidationError } from './use-validation-error';
 
@@ -93,21 +94,51 @@ interface HjemmelCheckboxesProps {
 }
 
 const HjemmelCheckboxes = ({ hjemmelIdList }: HjemmelCheckboxesProps) => {
-  const { data: registreringshjemlerMap, isLoading } = useRegistreringshjemlerMap();
+  const { data: registreringshjemlerMap = {} } = useRegistreringshjemlerMap();
 
-  if (hjemmelIdList.length === 0 || isLoading || typeof registreringshjemlerMap === 'undefined') {
-    return <ItalicBodyShort>Ingen hjemler valgt under saksdata.</ItalicBodyShort>;
-  }
+  const children = useMemo(() => {
+    if (hjemmelIdList.length === 0) {
+      return <ItalicBodyShort>Ingen hjemler valgt under saksdata.</ItalicBodyShort>;
+    }
 
-  return (
-    <>
-      {hjemmelIdList.map((hjemmelId) => (
-        <Checkbox key={hjemmelId} value={hjemmelId}>
-          {registreringshjemlerMap[hjemmelId]?.hjemmelnavn ?? hjemmelId}
-        </Checkbox>
-      ))}
-    </>
-  );
+    const map: Record<string, { hjemler: { id: string; label: string }[]; lovkildeLabel: string }> = {};
+
+    for (const hjemmelId of hjemmelIdList) {
+      const hjemmel = registreringshjemlerMap[hjemmelId];
+
+      if (hjemmel === undefined) {
+        map[UNKNOWN] = map[UNKNOWN] || { hjemler: [], lovkildeLabel: 'Ukjent lovkilde' };
+        map[UNKNOWN].hjemler.push({ id: hjemmelId, label: hjemmelId });
+
+        continue;
+      }
+
+      const { id } = hjemmel.lovkilde;
+
+      map[id] = map[id] || { hjemler: [], lovkildeLabel: hjemmel.lovkilde.navn };
+      map[id].hjemler.push({ id: hjemmelId, label: hjemmel.hjemmelnavn });
+    }
+
+    return Object.entries(map)
+      .toSorted(([, a], [, b]) => sortWithOrdinals(a.lovkildeLabel, b.lovkildeLabel))
+      .map(([lovkildeId, details]) => (
+        <div key={lovkildeId} className="ml-4">
+          <Heading size="xsmall">{lovkildeId === UNKNOWN ? 'Ukjent lovkilde' : details.lovkildeLabel}</Heading>
+
+          <div>
+            {details.hjemler
+              .toSorted((a, b) => sortWithOrdinals(a.label, b.label))
+              .map(({ id: hjemmelId, label }) => (
+                <Checkbox key={hjemmelId} value={hjemmelId}>
+                  {label}
+                </Checkbox>
+              ))}
+          </div>
+        </div>
+      ));
+  }, [hjemmelIdList, registreringshjemlerMap]);
+
+  return <VStack gap="4">{children}</VStack>;
 };
 
 const hjemmelIdListsEquals = (a: string[] = [], b: string[] = []) => {
@@ -121,3 +152,5 @@ const hjemmelIdListsEquals = (a: string[] = [], b: string[] = []) => {
 const ItalicBodyShort = styled(BodyShort)`
   font-style: italic;
 `;
+
+const UNKNOWN = 'UNKNOWN';
