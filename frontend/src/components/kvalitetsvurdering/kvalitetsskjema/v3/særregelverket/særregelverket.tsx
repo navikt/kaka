@@ -75,7 +75,7 @@ export const Særregelverket = () => {
           update={update}
           childList={CHECKBOXES}
           groupErrorField={SærregelverketErrorFields.saerregelverkGroup}
-          label="Hva er mangelfullt/kvalitetsavvik?"
+          label="Hva er mangelfullt/kvalitetsavviket?"
         />
       ) : null}
     </section>

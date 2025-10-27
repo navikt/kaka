@@ -7,7 +7,7 @@ import { Saksdata } from './saksdata/saksdata';
 
 export const Kvalitetsvurdering = () => (
   <BoxNew className="grow overflow-y-scroll" padding="space-24">
-    <BoxNew className="flex max-w-[800px] flex-col gap-12">
+    <BoxNew className="flex max-w-[850px] flex-col gap-12">
       <Saksdata />
       <Kvalitetsskjema />
     </BoxNew>

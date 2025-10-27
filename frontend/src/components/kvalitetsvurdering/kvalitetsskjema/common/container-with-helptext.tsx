@@ -1,5 +1,4 @@
-import { HelpText, type HelpTextProps } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { HStack, HelpText, type HelpTextProps } from '@navikt/ds-react';
 
 interface Props {
   children: React.ReactNode;
@@ -8,15 +7,8 @@ interface Props {
 }
 
 export const ContainerWithHelpText = ({ children, helpText, placement = 'right' }: Props) => (
-  <Container>
-    {children}
+  <HStack gap="1" wrap={false} align="center" justify="start" className="w-min">
+    <span className="whitespace-nowrap">{children}</span>
     {helpText !== undefined ? <HelpText placement={placement}>{helpText}</HelpText> : null}
-  </Container>
+  </HStack>
 );
-
-const Container = styled.span`
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
-`;
