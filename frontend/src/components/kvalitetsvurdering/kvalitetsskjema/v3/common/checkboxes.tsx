@@ -1,5 +1,5 @@
+import { KvalitetsskjemaCheckbox } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/kvalitetsvurdering-checkbox';
 import { SubSection } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/styled-components';
-import { KvalitetsskjemaCheckbox } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/kvalitetsvurdering-checkbox';
 import { AllRegistreringshjemler } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/all-registreringshjemler';
 import { Saksdatahjemler } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/saksdatahjemler';
 import { KvalitetsskjemaTextarea } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/textarea';

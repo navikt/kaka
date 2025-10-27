@@ -1,10 +1,10 @@
 import { ContainerWithHelpText } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/container-with-helptext';
-import { useIsRolYtelse } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/relevant-rol-ytelser';
 import {
   RadioButtonsRow,
   StyledHeading,
   StyledRadioGroup,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/styled-components';
+import { useIsRolYtelse } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/use-is-rol-ytelse';
 import { Checkboxes } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/checkboxes';
 import type { CheckboxParams } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/types';
 import { useKvalitetsvurderingV3 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/use-kvalitetsvurdering-v3';

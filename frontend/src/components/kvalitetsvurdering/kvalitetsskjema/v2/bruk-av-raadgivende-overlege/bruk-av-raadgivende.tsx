@@ -1,4 +1,4 @@
-import { useIsRolYtelse } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/relevant-rol-ytelser';
+import { useIsRolYtelse } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/use-is-rol-ytelse';
 import {
   BrukAvRaadgivendeOverlegeBoolean,
   BrukAvRaadgivendeOverlegeErrorFields,

@@ -2,9 +2,9 @@ import { KvalitetsskjemaTextarea } from '@app/components/kvalitetsvurdering/kval
 import type { IKvalitetsvurderingBooleans, IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
 import { CheckboxGroup } from '@navikt/ds-react';
 import { useMemo } from 'react';
+import { KvalitetsskjemaCheckbox } from '../../common/kvalitetsvurdering-checkbox';
 import { SubSection } from '../../common/styled-components';
 import { AllRegistreringshjemler } from './all-registreringshjemler';
-import { KvalitetsskjemaCheckbox } from './kvalitetsvurdering-checkbox';
 import { Saksdatahjemler } from './saksdatahjemler';
 import { type CheckboxParams, type GroupErrorField, type InputParams, TypeEnum } from './types';
 import { useKvalitetsvurderingV2 } from './use-kvalitetsvurdering-v2';

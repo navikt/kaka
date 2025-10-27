@@ -3,7 +3,7 @@ import type { IKvalitetsvurderingBooleans } from '@app/types/kvalitetsvurdering/
 import type { KvalitetsvurderingV3Boolean } from '@app/types/kvalitetsvurdering/v3';
 import { Checkbox } from '@navikt/ds-react';
 import { useMemo } from 'react';
-import { ContainerWithHelpText } from '../../common/container-with-helptext';
+import { ContainerWithHelpText } from './container-with-helptext';
 
 interface Props {
   children: React.ReactNode;
