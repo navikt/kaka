@@ -1,3 +1,4 @@
+import { filterHjemler } from '@app/components/statistikk/filters/filter-hjemler';
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v2/use-statistics-total';
 import type { OptionValue } from '@app/types/statistics/common';
 import type { IComparedFullStatisticVurderingV2, IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
@@ -9,13 +10,14 @@ import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-p
 import { ComparableQueryParams, QueryParams } from '../../../filters/filter-query-params';
 import {
   useFromDateQueryFilter,
+  useHjemlerModeFilter,
   useQueryFilters,
   useSakstypeFilter,
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
   useVedtaksinstansgruppeQueryFilter,
 } from '../../../filters/hooks/use-query-filter';
-import { TilbakekrevingEnum } from '../../../filters/types';
+import { HjemlerModeFilter, TilbakekrevingEnum } from '../../../filters/types';
 import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
 import { useLabels } from './use-labels';
 
@@ -44,6 +46,7 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
   const ytelser = useQueryFilters(QueryParams.YTELSER);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
+  const hjemlerMode = useHjemlerModeFilter(HjemlerModeFilter.INCLUDE_FOR_SOME);
 
   const comparisonProp = useComparisonProp();
   const comparisonValues = useComparisonValues();
@@ -72,10 +75,21 @@ export const useFilteredStatisticsV2 = (): IComparedFullStatisticVurderingV2[] =
           (utfall.length === 0 || utfall.includes(utfallId)) &&
           (types.length === 0 || types.includes(sakstypeId)) &&
           (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
-          (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))) &&
+          filterHjemler(hjemmelIdList, hjemler, hjemlerMode) &&
           (vedtaksinstansgrupper.length === 0 || vedtaksinstansgrupper.includes(vedtaksinstansgruppe)),
       ),
-    [data, tilbakekrevingQuery, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
+    [
+      data,
+      tilbakekrevingQuery,
+      klageenheter,
+      enheter,
+      utfall,
+      types,
+      ytelser,
+      hjemler,
+      vedtaksinstansgrupper,
+      hjemlerMode,
+    ],
   );
 
   // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: ¯\_(ツ)_/¯
