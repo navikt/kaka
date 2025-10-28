@@ -1,27 +1,31 @@
-import { useIsRolYtelse } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/use-is-rol-ytelse';
+import { ContainerWithHelpText } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/container-with-helptext';
 import {
-  BrukAvRaadgivendeOverlegeBoolean,
-  BrukAvRaadgivendeOverlegeErrorFields,
+  RadioButtonsRow,
+  StyledHeading,
+  StyledRadioGroup,
+} from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/styled-components';
+import { useIsRolYtelse } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/use-is-rol-ytelse';
+import { Checkboxes } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/checkboxes';
+import type { CheckboxParams } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/types';
+import { useKvalitetsvurderingV3 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/use-kvalitetsvurdering-v3';
+import { useValidationError } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/use-validation-error';
+import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/data';
+import { getCheckbox } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/helpers';
+import {
   HEADER,
-} from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/bruk-av-raadgivende-overlege/data';
-import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
-import { getCheckbox } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/helpers';
+  TrygdemedisinBoolean,
+  TrygdemedisinErrorFields,
+} from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/trygdemedisin/data';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { RadiovalgExtended } from '@app/types/kvalitetsvurdering/radio';
 import { Radio } from '@navikt/ds-react';
-import { ContainerWithHelpText } from '../../common/container-with-helptext';
-import { RadioButtonsRow, StyledHeading, StyledRadioGroup } from '../../common/styled-components';
-import { Checkboxes } from '../common/checkboxes';
-import type { CheckboxParams } from '../common/types';
-import { useKvalitetsvurderingV2 } from '../common/use-kvalitetsvurdering-v2';
-import { useValidationError } from '../common/use-validation-error';
 
-export const BrukAvRaadgivendeLege = () => {
-  const { isLoading, kvalitetsvurdering, update, saksdata } = useKvalitetsvurderingV2();
+export const Trygdemedisin = () => {
+  const { isLoading, kvalitetsvurdering, update, saksdata } = useKvalitetsvurderingV3();
   const show = useIsRolYtelse(saksdata?.ytelseId);
 
   const canEdit = useCanEdit();
-  const validationError = useValidationError(MainReason.BrukAvRaadgivendeLege);
+  const validationError = useValidationError(MainReason.Trygdemedisin);
 
   if (!show || isLoading) {
     return null;
@@ -40,7 +44,7 @@ export const BrukAvRaadgivendeLege = () => {
         value={brukAvRaadgivendeLege}
         error={validationError}
         onChange={onChange}
-        id="brukAvRaadgivendeLege"
+        id="trygdemedisin"
       >
         <RadioButtonsRow>
           <ContainerWithHelpText helpText="Du registrerer her dersom den konkrete saken ikke gjelder trygdemedisinske spørsmål.">
@@ -51,12 +55,12 @@ export const BrukAvRaadgivendeLege = () => {
 
           <ContainerWithHelpText helpText="Du registrerer her om den konkrete saken gjelder trygdemedisinske spørsmål og det er ok at rådgivende lege ikke er brukt, eller bruken av rådgivende lege er god nok.">
             <Radio value={RadiovalgExtended.BRA} disabled={!canEdit}>
-              Bra/godt nok
+              Riktig / ikke kvalitetsavvik
             </Radio>
           </ContainerWithHelpText>
 
           <Radio value={RadiovalgExtended.MANGELFULLT} disabled={!canEdit}>
-            Mangelfullt
+            Mangelfullt/kvalitetsavvik
           </Radio>
         </RadioButtonsRow>
       </StyledRadioGroup>
@@ -66,8 +70,8 @@ export const BrukAvRaadgivendeLege = () => {
           kvalitetsvurdering={kvalitetsvurdering}
           childList={CHECKBOXES}
           update={update}
-          groupErrorField={BrukAvRaadgivendeOverlegeErrorFields.brukAvRaadgivendeLegeGroup}
-          label="Hva er mangelfullt?"
+          groupErrorField={TrygdemedisinErrorFields.brukAvRaadgivendeLegeGroup}
+          label="Hva er mangelfullt/kvalitetsavviket?"
         />
       ) : null}
     </section>
@@ -75,8 +79,8 @@ export const BrukAvRaadgivendeLege = () => {
 };
 
 const CHECKBOXES: CheckboxParams[] = [
-  getCheckbox({ field: BrukAvRaadgivendeOverlegeBoolean.raadgivendeLegeIkkebrukt }),
-  getCheckbox({ field: BrukAvRaadgivendeOverlegeBoolean.raadgivendeLegeMangelfullBrukAvRaadgivendeLege }),
-  getCheckbox({ field: BrukAvRaadgivendeOverlegeBoolean.raadgivendeLegeUttaltSegOmTemaUtoverTrygdemedisin }),
-  getCheckbox({ field: BrukAvRaadgivendeOverlegeBoolean.raadgivendeLegeBegrunnelseMangelfullEllerIkkeDokumentert }),
+  getCheckbox({ field: TrygdemedisinBoolean.raadgivendeLegeIkkebrukt }),
+  getCheckbox({ field: TrygdemedisinBoolean.raadgivendeLegeMangelfullBrukAvRaadgivendeLege }),
+  getCheckbox({ field: TrygdemedisinBoolean.raadgivendeLegeUttaltSegOmTemaUtoverTrygdemedisin }),
+  getCheckbox({ field: TrygdemedisinBoolean.raadgivendeLegeBegrunnelseMangelfullEllerIkkeDokumentert }),
 ];
