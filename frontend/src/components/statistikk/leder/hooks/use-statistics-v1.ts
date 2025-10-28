@@ -1,3 +1,4 @@
+import { filterHjemler } from '@app/components/statistikk/filters/filter-hjemler';
 import { useStatisticsManager } from '@app/simple-api-state/statistics/v1/use-statistics-manager';
 import { useUser } from '@app/simple-api-state/use-user';
 import type { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
@@ -6,12 +7,13 @@ import { FORMATTED_END_OF_LAST_MONTH, FORMATTED_START_OF_LAST_MONTH } from '../.
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
   useFromMonthQueryFilter,
+  useHjemlerModeFilter,
   useQueryFilters,
   useSakstypeFilter,
   useTilbakekrevingQueryFilter,
   useToMonthQueryFilter,
 } from '../../../filters/hooks/use-query-filter';
-import { TilbakekrevingEnum } from '../../../filters/types';
+import { HjemlerModeFilter, TilbakekrevingEnum } from '../../../filters/types';
 import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
 
 const useStatistics = () => {
@@ -40,6 +42,7 @@ export const useFilteredManagerStatisticsV1 = () => {
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
+  const hjemlerMode = useHjemlerModeFilter(HjemlerModeFilter.INCLUDE_FOR_SOME);
 
   const filter = useCallback(
     ({ ytelseId, sakstypeId, utfallId, hjemmelIdList, tilbakekreving }: IFullStatisticVurderingV1) =>
@@ -47,8 +50,8 @@ export const useFilteredManagerStatisticsV1 = () => {
       (utfall.length === 0 || utfall.includes(utfallId)) &&
       (types.length === 0 || types.includes(sakstypeId)) &&
       (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
-      (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))),
-    [hjemler, tilbakekrevingQuery, types, utfall, ytelser],
+      filterHjemler(hjemmelIdList, hjemler, hjemlerMode),
+    [hjemler, tilbakekrevingQuery, types, utfall, ytelser, hjemlerMode],
   );
 
   return useMemo(

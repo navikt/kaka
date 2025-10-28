@@ -6,7 +6,7 @@ import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { type SakstypeEnum, isSakstype } from '@app/types/sakstype';
 import { useSearchParams } from 'react-router-dom';
 import { QueryParams } from '../../filters/filter-query-params';
-import { TilbakekrevingEnum } from '../types';
+import { HjemlerModeFilter, TilbakekrevingEnum } from '../types';
 
 export const useQueryFilter = (filter: QueryParams): string | null => {
   const [searchParams] = useSearchParams();
@@ -94,6 +94,20 @@ export const useTilbakekrevingQueryFilter = (defaultTilbakekreving: Tilbakekrevi
   return queryValue;
 };
 
+export const useHjemlerModeFilter = (defaultMode: HjemlerModeFilter): HjemlerModeFilter => {
+  const queryValue = useQueryFilter(QueryParams.HJEMLER_MODE);
+
+  if (queryValue === null || queryValue.length === 0) {
+    return defaultMode;
+  }
+
+  if (!isHjemlerModeFilter(queryValue)) {
+    return defaultMode;
+  }
+
+  return queryValue;
+};
+
 export const useVersionQueryFilter = (defaultVersion?: KvalitetsvurderingVersion): KvalitetsvurderingVersion => {
   const queryValue = useQueryFilter(QueryParams.VERSION);
 
@@ -117,3 +131,7 @@ const KVALITETSVURDERING_VERSION_VALUES = Object.values(KvalitetsvurderingVersio
 
 const isKvalitetsvurderingVersion = (value: number): value is KvalitetsvurderingVersion =>
   KVALITETSVURDERING_VERSION_VALUES.some((v) => v === value);
+
+const HJEMLER_MODE_VALUES = Object.values(HjemlerModeFilter);
+
+const isHjemlerModeFilter = (value: string): value is HjemlerModeFilter => HJEMLER_MODE_VALUES.some((v) => v === value);

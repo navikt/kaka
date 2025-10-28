@@ -1,3 +1,4 @@
+import { filterHjemler } from '@app/components/statistikk/filters/filter-hjemler';
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v1/use-statistics-total';
 import type { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { useMemo } from 'react';
@@ -5,13 +6,14 @@ import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-p
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
   useFromDateQueryFilter,
+  useHjemlerModeFilter,
   useQueryFilters,
   useSakstypeFilter,
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
   useVedtaksinstansgruppeQueryFilter,
 } from '../../../filters/hooks/use-query-filter';
-import { TilbakekrevingEnum } from '../../../filters/types';
+import { HjemlerModeFilter, TilbakekrevingEnum } from '../../../filters/types';
 import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
 
 const useTotalStatistics = () => {
@@ -38,6 +40,7 @@ export const useFilteredTotalStatisticsV1 = () => {
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const vedtaksinstansgrupper = useVedtaksinstansgruppeQueryFilter();
   const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
+  const hjemlerMode = useHjemlerModeFilter(HjemlerModeFilter.INCLUDE_FOR_SOME);
 
   return useMemo(
     () =>
@@ -58,9 +61,20 @@ export const useFilteredTotalStatisticsV1 = () => {
           (utfall.length === 0 || utfall.includes(utfallId)) &&
           (types.length === 0 || types.includes(sakstypeId)) &&
           (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
-          (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))) &&
+          filterHjemler(hjemmelIdList, hjemler, hjemlerMode) &&
           (vedtaksinstansgrupper.length === 0 || vedtaksinstansgrupper.includes(vedtaksinstansgruppe)),
       ),
-    [rest, tilbakekrevingQuery, klageenheter, enheter, utfall, types, ytelser, hjemler, vedtaksinstansgrupper],
+    [
+      rest,
+      tilbakekrevingQuery,
+      klageenheter,
+      enheter,
+      utfall,
+      types,
+      ytelser,
+      hjemler,
+      vedtaksinstansgrupper,
+      hjemlerMode,
+    ],
   );
 };
