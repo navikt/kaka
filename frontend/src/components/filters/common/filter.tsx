@@ -1,9 +1,7 @@
+import type { FilterType } from '@app/components/filters/types';
+import { ChevronDownIcon } from '@navikt/aksel-icons';
+import { ActionMenu, Button, Checkbox, CheckboxGroup, HStack, TextField } from '@navikt/ds-react';
 import { useMemo, useState } from 'react';
-import { useUpdateFilters } from '../../filters/hooks/use-update-filters';
-import type { FilterType } from '../types';
-import { Checkboxes } from './checkboxes';
-import { Dropdown } from './dropdown';
-import { FilteredCheckboxes } from './filtered-checkboxes';
 
 interface Props<T extends string | number> {
   label: string;
@@ -12,35 +10,68 @@ interface Props<T extends string | number> {
   setSelected: (filters: string[]) => void;
 }
 
-export const Filter = <T extends string | number>({ label, filters, selected, setSelected }: Props<T>) => {
-  const [open, setOpen] = useState(false);
+export const Filter = <T extends string | number>({ selected, setSelected, filters, label }: Props<T>) => {
+  const [value, setValue] = useState('');
 
-  const updateFilters = useUpdateFilters<T>(selected, setSelected);
+  const selectedOptions = useMemo(
+    () => (selected || []).map((id) => filters.find((option) => option.id === id)).filter((v) => v !== undefined),
+    [filters, selected],
+  );
 
-  const allIds = useMemo(() => filters.map(({ id }) => id.toString()), [filters]);
+  const filteredOptions = useMemo(
+    () => filters.filter((option) => option.label.toLowerCase().includes(value.toLowerCase())),
+    [filters, value],
+  );
 
-  const selectAll = () => setSelected(allIds);
-  const close = () => setOpen(false);
-  const reset = () => setSelected([]);
-
-  if (filters.length >= 5) {
-    return (
-      <Dropdown label={label} metadata={selected.length} open={open} setOpen={setOpen}>
-        <FilteredCheckboxes<T>
-          selected={selected}
-          filters={filters}
-          onCheck={updateFilters}
-          close={close}
-          reset={reset}
-          selectAll={selectAll}
-        />
-      </Dropdown>
-    );
-  }
+  const all = useMemo(() => filters.map((option) => option.id.toString()), [filters]);
 
   return (
-    <Dropdown label={label} metadata={selected.length} open={open} setOpen={setOpen}>
-      <Checkboxes<T> selected={selected} filters={filters} onCheck={updateFilters} />
-    </Dropdown>
+    <ActionMenu>
+      <ActionMenu.Trigger>
+        <Button
+          size="small"
+          variant="secondary-neutral"
+          icon={<ChevronDownIcon aria-hidden />}
+          iconPosition="right"
+          className="!justify-between"
+        >
+          {label} ({selectedOptions.length})
+        </Button>
+      </ActionMenu.Trigger>
+
+      <ActionMenu.Content className="relative">
+        <HStack wrap={false} className="sticky top-0 z-1 bg-ax-bg-default">
+          <TextField
+            size="small"
+            autoFocus
+            className="grow"
+            placeholder="Filtrer"
+            label={label}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            hideLabel
+          />
+
+          <Button onClick={() => setSelected(all)} size="small" variant="secondary" style={{ marginLeft: 8 }}>
+            Velg alle
+          </Button>
+
+          <Button onClick={() => setSelected([])} size="small" variant="danger" style={{ marginLeft: 8 }}>
+            Fjern alle
+          </Button>
+        </HStack>
+
+        <ActionMenu.Divider />
+
+        <CheckboxGroup legend={label} hideLegend value={selected} onChange={setSelected}>
+          {filteredOptions.map(({ id, label }) => (
+            // <Checkbox> renders much faster than <ActionMenu.CheckboxItem>
+            <Checkbox key={id} size="small" value={id.toString()}>
+              {label}
+            </Checkbox>
+          ))}
+        </CheckboxGroup>
+      </ActionMenu.Content>
+    </ActionMenu>
   );
 };
