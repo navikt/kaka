@@ -1,14 +1,16 @@
+import { filterHjemler } from '@app/components/statistikk/filters/filter-hjemler';
 import { useSaksdatalisteLederVedtaksinstans } from '@app/simple-api-state/statistics/v1/use-saksdataliste-leder-vedtaksinstans';
 import { useUser } from '@app/simple-api-state/use-user';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../filters/date-presets/constants';
 import { QueryParams } from '../../filters/filter-query-params';
 import {
   useFromDateQueryFilter,
+  useHjemlerModeFilter,
   useQueryFilters,
   useTilbakekrevingQueryFilter,
   useToDateQueryFilter,
 } from '../../filters/hooks/use-query-filter';
-import { TilbakekrevingEnum } from '../../filters/types';
+import { HjemlerModeFilter, TilbakekrevingEnum } from '../../filters/types';
 import { tilbakekrevingFilter } from '../../statistikk/filters/tilbakekreving';
 
 const useSaksdata = () => {
@@ -31,6 +33,7 @@ export const useFilteredSaksdataV1 = () => {
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
+  const hjemlerMode = useHjemlerModeFilter(HjemlerModeFilter.INCLUDE_FOR_SOME);
 
   const filtered =
     data?.searchHits.filter(
@@ -38,7 +41,7 @@ export const useFilteredSaksdataV1 = () => {
         tilbakekrevingFilter(tilbakekreving, tilbakekrevingQuery) &&
         (ytelser.length === 0 || ytelser.includes(ytelseId)) &&
         (utfall.length === 0 || utfall.includes(utfallId)) &&
-        (hjemler.length === 0 || hjemmelIdList.some((id) => hjemler.includes(id))),
+        filterHjemler(hjemmelIdList, hjemler, hjemlerMode),
     ) ?? [];
 
   return filtered;
