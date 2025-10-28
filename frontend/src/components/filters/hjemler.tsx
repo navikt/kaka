@@ -6,7 +6,6 @@ import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { useMemo, useRef, useState } from 'react';
 import { GroupedDropdown } from '../dropdown/grouped-dropdown';
-import { formatMetadata } from './common/dropdown';
 import { StyledDropdownButton } from './common/styled-components';
 
 interface Props {
@@ -89,3 +88,6 @@ const HjemmelSelect = ({ onChange, options, selected, disabled, metadata }: Hjem
     </div>
   );
 };
+
+export const formatMetadata = (metadata?: number | string) =>
+  typeof metadata !== 'undefined' ? ` (${metadata})` : null;
