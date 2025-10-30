@@ -1,11 +1,9 @@
-import { useLovkildeToRegistreringshjemmelForYtelse, useYtelseParams } from '@app/hooks/use-kodeverk-value';
-import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
-import { Alert, Button, type ButtonProps } from '@navikt/ds-react';
-import { skipToken } from '@reduxjs/toolkit/query';
-import { useMemo, useRef, useState } from 'react';
-import { styled } from 'styled-components';
-import { GroupedDropdown } from '../../../dropdown/grouped-dropdown';
-import { ErrorMessage } from '../../../error-message/error-message';
+import { ErrorMessage } from '@app/components/error-message/error-message';
+import { SelectHjemler } from '@app/components/filters/common/select-hjemler';
+import { useSaksdata } from '@app/hooks/use-saksdata';
+import { useYtelserLatest } from '@app/simple-api-state/use-kodeverk';
+import { Alert, Button, type ButtonProps, VStack } from '@navikt/ds-react';
+import { useMemo } from 'react';
 
 interface LovhjemmelSelectProps {
   selected: string[];
@@ -17,7 +15,7 @@ interface LovhjemmelSelectProps {
   show: boolean;
   id?: string;
   size?: ButtonProps['size'];
-  variant?: ButtonProps['variant'];
+  variant: ButtonProps['variant'];
   children: string;
   icon?: React.ReactNode;
 }
@@ -28,36 +26,23 @@ export const LovhjemmelSelect = ({
   disabled,
   error,
   'data-testid': testId,
-
   show,
   id,
   size = 'medium',
-  variant = 'primary',
+  variant,
   children,
   icon,
 }: LovhjemmelSelectProps) => {
-  const [open, setOpen] = useState(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const ytelseParams = useYtelseParams();
-  const lovKildeToRegistreringshjemler = useLovkildeToRegistreringshjemmelForYtelse(ytelseParams);
+  const { data } = useSaksdata();
+  const { data: ytelser = [] } = useYtelserLatest();
 
-  useOnClickOutside(() => setOpen(false), containerRef);
-
-  const options = useMemo(
-    () =>
-      lovKildeToRegistreringshjemler.map(({ lovkilde, registreringshjemler }) => ({
-        sectionHeader: { id: lovkilde.id, name: lovkilde.navn },
-        sectionOptions: registreringshjemler.map(({ id: value, navn }) => ({ value, label: navn })),
-      })),
-    [lovKildeToRegistreringshjemler],
-  );
+  const ytelse = useMemo(() => ytelser.find((ytelse) => ytelse.id === data?.ytelseId), [data?.ytelseId, ytelser]);
 
   if (!show) {
     return null;
   }
 
-  if (ytelseParams === skipToken) {
+  if (ytelse === undefined) {
     return (
       <Alert inline variant="warning">
         Velg en ytelse for å se hjemler
@@ -65,42 +50,19 @@ export const LovhjemmelSelect = ({
     );
   }
 
-  const toggleOpen = () => setOpen(!open);
-  const close = () => setOpen(false);
-
   return (
-    <Container data-testid={testId} data-selected={selected.join(',')} ref={containerRef}>
-      <StyledButton
-        ref={buttonRef}
-        id={id}
-        variant={variant}
-        size={size}
-        onClick={toggleOpen}
-        disabled={options.length === 0 || disabled}
-        icon={icon}
-      >
-        {children}
-      </StyledButton>
-
-      <GroupedDropdown
-        selected={selected}
-        options={options}
-        open={open}
-        onChange={onChange}
-        close={close}
-        maxHeight="400px"
-        width="100%"
-        testId="lovhjemmel-dropdown"
+    <VStack gap="1">
+      <SelectHjemler
+        trigger={
+          <Button variant={variant} icon={icon} size={size} data-testid={testId} id={id} disabled={disabled}>
+            {children}
+          </Button>
+        }
+        relevantYtelser={[ytelse]}
+        selectedHjemler={selected}
+        setSelectedHjemler={onChange}
       />
       <ErrorMessage error={error} />
-    </Container>
+    </VStack>
   );
 };
-
-const Container = styled.div`
-  position: relative;
-`;
-
-const StyledButton = styled(Button)`
-  width: 100%;
-`;
