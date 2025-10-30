@@ -30,6 +30,7 @@ const lovkildeToRegistreringshjemler = new SimpleApiState<AllLovKilderToRegistre
 );
 const ytelserV1 = new SimpleApiState<IYtelse[]>(`${API_PREFIX}/ytelser/v1`);
 const ytelserV2 = new SimpleApiState<IYtelse[]>(`${API_PREFIX}/ytelser/v2`);
+const ytelserLatest = new SimpleApiState<IYtelse[]>(`${API_PREFIX}/ytelser/latest`);
 const klageenheter = new SimpleApiState<IKlageenhet[]>(`${API_PREFIX}/klageenheter`);
 const enheter = new SimpleApiState<IKodeverkSimpleValue[]>(`${API_PREFIX}/enheter`);
 const sakstyper = new SimpleApiState<IKodeverkSimpleValue<SakstypeEnum>[]>(`${API_PREFIX}/sakstyper`);
@@ -38,6 +39,7 @@ const sakstypeToUtfall = new SimpleApiState<SakstypeToUtfall[]>(`${API_PREFIX}/s
 
 export const useYtelser = (version: KvalitetsvurderingVersion | typeof skipToken = skipToken) =>
   useSimpleApiState(version === 1 ? ytelserV1 : ytelserV2);
+export const useYtelserLatest = () => useSimpleApiState(ytelserLatest);
 export const useLovkildeToRegistreringshjemler = () => useSimpleApiState(lovkildeToRegistreringshjemler);
 export const useRegistreringshjemlerMap = () => useSimpleApiState(registreringshjemlerMap);
 export const useKlageenheter = () => useSimpleApiState(klageenheter);
