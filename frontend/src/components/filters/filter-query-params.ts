@@ -24,6 +24,7 @@ enum UncomparableQueryParams {
   FROM_DATE = 'fromDate',
   TO_DATE = 'toDate',
   DATASET_INDEX = 'dataset',
+  HJEMLER_MODE = 'hjemlerMode',
 }
 
 export const QueryParams = {
