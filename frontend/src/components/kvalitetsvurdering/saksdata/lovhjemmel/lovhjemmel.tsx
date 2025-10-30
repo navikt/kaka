@@ -44,6 +44,7 @@ export const Lovhjemmel = () => {
         show={canEdit}
         id="hjemmelIdList"
         icon={<MagnifyingGlassIcon aria-hidden />}
+        variant="secondary"
       >
         Hjemmel
       </LovhjemmelSelect>
