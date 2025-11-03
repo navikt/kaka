@@ -26,6 +26,12 @@ const ShowHelpTexts = ({ show, helpTexts }: ShowHelpTextsProps) => {
       return <HelpText key={key} texts={texts} />;
     }
 
+    const hasTexts = Object.values(texts).some(({ helpText }) => helpText !== undefined);
+
+    if (!hasTexts) {
+      return null;
+    }
+
     return (
       <section key={key}>
         <Heading size="medium" spacing>

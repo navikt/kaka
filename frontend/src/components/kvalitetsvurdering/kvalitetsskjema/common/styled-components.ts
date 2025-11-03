@@ -4,7 +4,6 @@ import { styled } from 'styled-components';
 export const RadioButtonsRow = styled.div`
   display: flex;
   gap: 16px;
-  width: 700px;
 `;
 
 export const SubSection = styled.div`

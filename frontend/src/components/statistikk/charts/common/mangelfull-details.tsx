@@ -1,11 +1,8 @@
-import { useAppTheme } from '@app/app-theme';
 import type { ChartOptions } from 'chart.js';
-import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { type GetAbsoluteValue, useBarTooltipText } from '../../../hooks/use-bar-tooltip-text';
-import { BAR_THICKNESS, getMangelfullDetailsDatasets } from './calculations/mangelfull-details';
+import { type GetAbsoluteValue, useBarTooltipText } from '../../hooks/use-bar-tooltip-text';
+import { BAR_THICKNESS, type StackedBarPiece } from '../v2/kvalitetsvurderinger/calculations/mangelfull-details';
 import { HorizontalBars } from './horizontal-bars';
-import type { DataSet } from './types';
 
 const UNIT = 'avvik';
 
@@ -47,13 +44,11 @@ const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => 
 };
 
 interface Props {
-  stats: DataSet[];
+  datasets: StackedBarPiece[];
+  labels: string[];
 }
 
-export const MangelfullDetails = ({ stats }: Props) => {
-  const theme = useAppTheme();
-  const { datasets, labels } = useMemo(() => getMangelfullDetailsDatasets(stats, UNIT, theme), [stats, theme]);
-
+export const MangelfullDetails = ({ datasets, labels }: Props) => {
   const getAbsoluteValue: GetAbsoluteValue = (datasetIndex, dataIndex) => {
     const count = datasets[datasetIndex]?.data[dataIndex] ?? 0;
     const percent = datasets[datasetIndex]?.percentages[dataIndex] ?? 0;

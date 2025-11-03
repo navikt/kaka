@@ -1,4 +1,9 @@
 import { PillContainer } from '@app/components/filters/pills/styled-components';
+import {
+  DEFAULT_PARAMS_V1_LEDER,
+  DEFAULT_PARAMS_V2_LEDER,
+  DEFAULT_PARAMS_V3_LEDER,
+} from '@app/components/filters/statistics-version/default-params';
 import { YtelserAndHjemler } from '@app/components/filters/ytelser-and-hjemler';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';
@@ -37,7 +42,6 @@ import {
 } from '../../filters/pills/pills';
 import { SaksbehandlerFilter } from '../../filters/saksbehandler';
 import { SakstypeFilter } from '../../filters/sakstyper';
-import { DEFAULT_PARAMS_V1_LEDER, DEFAULT_PARAMS_V2_LEDER } from '../../filters/statistics-version/default-params';
 import { StatisticsVersionFilter } from '../../filters/statistics-version/statistics-version';
 import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
 import { TilbakekrevingEnum } from '../../filters/types';
@@ -93,7 +97,13 @@ export const Filters = () => {
         Nullstill filter
       </Button>
 
-      <StatisticsVersionFilter defaultParamsV1={DEFAULT_PARAMS_V1_LEDER} defaultParamsV2={DEFAULT_PARAMS_V2_LEDER} />
+      <StatisticsVersionFilter
+        defaultParams={{
+          [KvalitetsvurderingVersion.V1]: DEFAULT_PARAMS_V1_LEDER,
+          [KvalitetsvurderingVersion.V2]: DEFAULT_PARAMS_V2_LEDER,
+          [KvalitetsvurderingVersion.V3]: DEFAULT_PARAMS_V3_LEDER,
+        }}
+      />
 
       <StyledHr />
 

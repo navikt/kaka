@@ -2,10 +2,10 @@ import { KvalitetsskjemaTextarea } from '@app/components/kvalitetsvurdering/kval
 import type { IKvalitetsvurderingBooleans, IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
 import { CheckboxGroup } from '@navikt/ds-react';
 import { useMemo } from 'react';
+import { KvalitetsskjemaCheckbox } from '../../common/kvalitetsvurdering-checkbox';
+import { SubSection } from '../../common/styled-components';
 import { AllRegistreringshjemler } from './all-registreringshjemler';
-import { KvalitetsskjemaCheckbox } from './kvalitetsvurdering-checkbox';
 import { Saksdatahjemler } from './saksdatahjemler';
-import { SubSection } from './styled-components';
 import { type CheckboxParams, type GroupErrorField, type InputParams, TypeEnum } from './types';
 import { useKvalitetsvurderingV2 } from './use-kvalitetsvurdering-v2';
 import { useValidationError } from './use-validation-error';
@@ -34,9 +34,7 @@ export const Checkboxes = ({
   const error = useValidationError(groupErrorField);
 
   const onChange = (fields: string[]) => {
-    for (let i = allFields.length - 1; i >= 0; i--) {
-      // biome-ignore lint/style/noNonNullAssertion: Is always defined
-      const field = allFields[i]!;
+    for (const field of allFields) {
       const isFieldChecked = fields.includes(field);
       const hasChange = kvalitetsvurdering[field] !== isFieldChecked;
 

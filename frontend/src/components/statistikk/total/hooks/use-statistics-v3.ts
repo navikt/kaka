@@ -1,0 +1,81 @@
+import { HjemlerModeFilter, TilbakekrevingEnum } from '@app/components/filters/types';
+import { filterHjemler } from '@app/components/statistikk/filters/filter-hjemler';
+import { tilbakekrevingFilter } from '@app/components/statistikk/filters/tilbakekreving';
+import type { State } from '@app/simple-api-state/simple-api-state';
+import { useStatisticsTotal } from '@app/simple-api-state/statistics/v3/use-statistics-total';
+import type { IFullStatisticVurderingV3, IStatisticsResponseTotalV3 } from '@app/types/statistics/v3';
+import { useMemo } from 'react';
+import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
+import { QueryParams } from '../../../filters/filter-query-params';
+import {
+  useFromDateQueryFilter,
+  useHjemlerModeFilter,
+  useQueryFilters,
+  useSakstypeFilter,
+  useTilbakekrevingQueryFilter,
+  useToDateQueryFilter,
+  useVedtaksinstansgruppeQueryFilter,
+} from '../../../filters/hooks/use-query-filter';
+
+const useTotalStatistics = (): State<IStatisticsResponseTotalV3> => {
+  const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
+  const toDate = useToDateQueryFilter(FORMATTED_NOW);
+
+  return useStatisticsTotal({ fromDate, toDate });
+};
+
+export const useTotalStatisticsV3IsLoading = (): boolean => useTotalStatistics().isLoading;
+
+const EMPTY_STATISTICS: IFullStatisticVurderingV3[] = [];
+
+export const useFilteredTotalStatisticsV3 = () => {
+  const { data } = useTotalStatistics();
+
+  const rest = data?.rest ?? EMPTY_STATISTICS;
+
+  const types = useSakstypeFilter();
+  const ytelser = useQueryFilters(QueryParams.YTELSER);
+  const utfall = useQueryFilters(QueryParams.UTFALL);
+  const enheter = useQueryFilters(QueryParams.ENHETER);
+  const klageenheter = useQueryFilters(QueryParams.KLAGEENHETER);
+  const hjemler = useQueryFilters(QueryParams.HJEMLER);
+  const vedtaksinstansgrupper = useVedtaksinstansgruppeQueryFilter();
+  const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
+  const hjemlerMode = useHjemlerModeFilter(HjemlerModeFilter.INCLUDE_FOR_SOME);
+
+  return useMemo(
+    () =>
+      rest.filter(
+        ({
+          ytelseId,
+          sakstypeId,
+          utfallId,
+          tilknyttetEnhet,
+          vedtaksinstansEnhet,
+          hjemmelIdList,
+          vedtaksinstansgruppe,
+          tilbakekreving,
+        }) =>
+          tilbakekrevingFilter(tilbakekreving, tilbakekrevingQuery) &&
+          (klageenheter.length === 0 || klageenheter.includes(tilknyttetEnhet)) &&
+          (enheter.length === 0 || vedtaksinstansEnhet === null || enheter.includes(vedtaksinstansEnhet)) &&
+          (utfall.length === 0 || utfall.includes(utfallId)) &&
+          (types.length === 0 || types.includes(sakstypeId)) &&
+          (ytelser.length === 0 || ytelseId === null || ytelser.includes(ytelseId)) &&
+          filterHjemler(hjemmelIdList, hjemler, hjemlerMode) &&
+          (vedtaksinstansgrupper.length === 0 || vedtaksinstansgrupper.includes(vedtaksinstansgruppe)),
+      ),
+    [
+      rest,
+      tilbakekrevingQuery,
+      klageenheter,
+      enheter,
+      utfall,
+      types,
+      ytelser,
+      hjemler,
+      vedtaksinstansgrupper,
+      hjemlerMode,
+    ],
+  );
+};

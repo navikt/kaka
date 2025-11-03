@@ -23,6 +23,24 @@ import {
   isVedtaketErrorField,
   isVedtaketField,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
+import {
+  SAKSBEHANDLINGSREGLENE_ERROR_LABELS,
+  SAKSBEHANDLINGSREGLENE_LABELS,
+  isSaksbehandlingsregleneErrorField,
+  isSaksbehandlingsregleneField,
+} from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/saksbehandlingsreglene/data';
+import {
+  SÆRREGELVERKET_ERROR_LABELS,
+  SÆRREGELVERKET_LABELS,
+  isSærregelverketErrorField,
+  isSærregelverketField,
+} from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/særregelverket/data';
+import {
+  TRYGDEMEDISIN_ERROR_LABELS,
+  TRYGDEMEDISIN_LABELS,
+  isTrygdemedisinErrorField,
+  isTrygdemedisinField,
+} from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/trygdemedisin/data';
 import type { ISaksdataComplete } from '@app/types/saksdata';
 
 type SaksdataKeys = keyof Pick<
@@ -59,6 +77,7 @@ export const useFieldName = (field: string): string => {
     return MAIN_REASON_LABELS[field];
   }
 
+  // V2 fields
   if (isKlageforberedelsenField(field)) {
     return KLAGEFORBEREDELSEN_LABELS[field];
   }
@@ -75,6 +94,7 @@ export const useFieldName = (field: string): string => {
     return BRUK_AV_RAADGIVENDE_OVERLEGE_LABELS[field];
   }
 
+  // V2 error fields
   if (isKlageForberedelsenErrorFields(field)) {
     return KLAGEFORBEREDELSEN_ERROR_LABELS[field];
   }
@@ -89,6 +109,32 @@ export const useFieldName = (field: string): string => {
 
   if (isBrukAvRaadgivendeOverlegeErrorField(field)) {
     return BRUK_AV_RAADGIVENDE_OVERLEGE_ERROR_LABELS[field];
+  }
+
+  // V3 fields
+  if (isSaksbehandlingsregleneField(field)) {
+    return SAKSBEHANDLINGSREGLENE_LABELS[field];
+  }
+
+  if (isSærregelverketField(field)) {
+    return SÆRREGELVERKET_LABELS[field];
+  }
+
+  if (isTrygdemedisinField(field)) {
+    return TRYGDEMEDISIN_LABELS[field];
+  }
+
+  // V3 error fields
+  if (isSaksbehandlingsregleneErrorField(field)) {
+    return SAKSBEHANDLINGSREGLENE_ERROR_LABELS[field];
+  }
+
+  if (isSærregelverketErrorField(field)) {
+    return SÆRREGELVERKET_ERROR_LABELS[field];
+  }
+
+  if (isTrygdemedisinErrorField(field)) {
+    return TRYGDEMEDISIN_ERROR_LABELS[field];
   }
 
   return field;

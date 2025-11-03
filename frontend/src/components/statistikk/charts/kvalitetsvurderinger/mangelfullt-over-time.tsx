@@ -45,23 +45,27 @@ export const MangelfulltOverTime = ({ stats }: StatisticsPropsV1) => {
   const mangelfulleSaker = useMangelfulleSaker(stats, field, relevantReasons);
   const mangelfulleSakerArray = useMemo(() => Array.from(mangelfulleSaker.values()), [mangelfulleSaker]);
 
-  const tooltipCallback: TooltipCallback = ({ parsed, dataIndex, datasetIndex, label }) => {
+  const tooltipCallback: TooltipCallback = ({ parsed: { y }, dataIndex, datasetIndex, label }) => {
     const data = mangelfulleSakerArray[dataIndex];
 
+    if (y === null) {
+      return `${label}: Ukjent`;
+    }
+
     if (typeof data === 'undefined') {
-      return `${label}: ${parsed.y}%`;
+      return `${label}: ${y}%`;
     }
 
     const dataSet = Array.from(data.entries())[datasetIndex];
 
     if (typeof dataSet === 'undefined') {
-      return `${label}: ${parsed.y}%`;
+      return `${label}: ${y}%`;
     }
 
     const [reasonId, { quantity }] = dataSet;
     const reasonName = getReasonLabel(reasonId);
 
-    return `${reasonName}: ${Math.round(parsed.y * 100) / 100} % (${quantity})`;
+    return `${reasonName}: ${Math.round(y * 100) / 100} % (${quantity})`;
   };
 
   const options = useOptions(tooltipCallback);

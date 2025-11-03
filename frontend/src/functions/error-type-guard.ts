@@ -1,6 +1,7 @@
 import type { KVALITETESVURDERING_V1_FIELD_NAMES } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v1/use-field-name';
 import type { SAKSDATA_FIELD_NAMES } from '@app/hooks/use-field-name';
 import type { IKvalitetsvurderingData } from '@app/types/kvalitetsvurdering/v2';
+import type { KvalitetsvurderingDataV3 } from '@app/types/kvalitetsvurdering/v3';
 import { type GenericObject, isGenericObject } from '@app/types/types';
 
 export interface IValidationErrorV1 {
@@ -11,12 +12,17 @@ export interface IValidationErrorV1 {
     | keyof IKvalitetsvurderingData;
 }
 
-interface IValidationErrorV2 {
+export interface IValidationErrorV2 {
   field: keyof IKvalitetsvurderingData;
   reason: string;
 }
 
-type IValidationError = IValidationErrorV1 | IValidationErrorV2;
+export interface IValidationErrorV3 {
+  field: keyof KvalitetsvurderingDataV3;
+  reason: string;
+}
+
+type IValidationError = IValidationErrorV1 | IValidationErrorV2 | IValidationErrorV3;
 
 export interface IValidationSection extends GenericObject {
   section: 'kvalitetsvurdering' | 'saksdata';

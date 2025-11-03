@@ -30,7 +30,6 @@ import { useValidDateInterval } from '../../filters/hooks/use-valid-date-interva
 import { SakstyperPills, UtfallPills, YtelserPills } from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
-import { DEFAULT_PARAMS_V1, DEFAULT_PARAMS_V2 } from '../../filters/statistics-version/default-params';
 import { StatisticsVersionFilter } from '../../filters/statistics-version/statistics-version';
 import { UtfallFilter } from '../../filters/utfall';
 import { YtelseFilter } from '../../filters/ytelser';
@@ -85,7 +84,7 @@ export const Filters = () => {
         Nullstill filter
       </Button>
 
-      <StatisticsVersionFilter defaultParamsV1={DEFAULT_PARAMS_V1} defaultParamsV2={DEFAULT_PARAMS_V2} />
+      <StatisticsVersionFilter />
 
       <StyledHr />
 

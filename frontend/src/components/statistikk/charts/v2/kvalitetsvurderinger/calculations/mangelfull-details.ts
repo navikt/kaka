@@ -78,7 +78,7 @@ interface Stack {
   label: string;
 }
 
-type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
+export type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
 
 export const getMangelfullDetailsDatasets = (
   stats: DataSet[],
