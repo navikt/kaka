@@ -12,9 +12,9 @@ import {
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import { Alert, Checkbox, Radio } from '@navikt/ds-react';
+import { ContainerWithHelpText } from '../../common/container-with-helptext';
+import { RadioButtonsRow, StyledHeading, StyledRadioGroup } from '../../common/styled-components';
 import { Checkboxes } from '../common/checkboxes';
-import { ContainerWithHelpText } from '../common/container-with-helptext';
-import { RadioButtonsRow, StyledHeading, StyledRadioGroup } from '../common/styled-components';
 import type { CheckboxParams } from '../common/types';
 import { useKvalitetsvurderingV2 } from '../common/use-kvalitetsvurdering-v2';
 import { useValidationError } from '../common/use-validation-error';
