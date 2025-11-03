@@ -7,7 +7,7 @@ import type { ChartOptions } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { type GetAbsoluteValue, useBarTooltipText } from '../hooks/use-bar-tooltip-text';
 import type { ComparisonPropsV2 } from '../types';
-import { HorizontalBars } from './v2/kvalitetsvurderinger/horizontal-bars';
+import { HorizontalBars } from './common/horizontal-bars';
 
 const UNIT = 'saker';
 

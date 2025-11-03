@@ -1,3 +1,12 @@
+import { ContentV3 } from '@app/components/tilbakemeldinger/content/content-v3';
+import {
+  useFilteredSaksdataV3,
+  useSaksdataV3IsLoading,
+} from '@app/components/tilbakemeldinger/hooks/use-filtered-saksdata-v3';
+import {
+  useFilteredStatisticsV3,
+  useTilbakemeldingerStatisticsV3IsLoading,
+} from '@app/components/tilbakemeldinger/hooks/use-filtered-statistics-v3';
 import { FilterSection, FiltersAndContentContainer } from '@app/styled-components/filters-and-content';
 import { useVersionQueryFilter } from '../filters/hooks/use-query-filter';
 import { ContentLoader } from '../statistikk/content-loader';
@@ -18,7 +27,7 @@ export const Tilbakemeldinger = () => {
         <Filters />
       </FilterSection>
 
-      <ContentLoader version={version} V1Content={<V1Content />} V2Content={<V2Content />} />
+      <ContentLoader version={version} V1Content={<V1Content />} V2Content={<V2Content />} V3Content={<V3Content />} />
     </FiltersAndContentContainer>
   );
 };
@@ -37,5 +46,13 @@ const V2Content = () => (
     statsIsLoading={useTilbakemeldingerStatisticsV2IsLoading()}
     saksdata={useFilteredSaksdataV2()}
     saksdataIsLoading={useSaksdataV2IsLoading()}
+  />
+);
+const V3Content = () => (
+  <ContentV3
+    {...useFilteredStatisticsV3()}
+    statsIsLoading={useTilbakemeldingerStatisticsV3IsLoading()}
+    saksdata={useFilteredSaksdataV3()}
+    saksdataIsLoading={useSaksdataV3IsLoading()}
   />
 );

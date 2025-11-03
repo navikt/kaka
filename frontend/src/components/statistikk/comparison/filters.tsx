@@ -45,7 +45,6 @@ import {
 } from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
-import { DEFAULT_PARAMS_V1, DEFAULT_PARAMS_V2 } from '../../filters/statistics-version/default-params';
 import { StatisticsVersionFilter } from '../../filters/statistics-version/statistics-version';
 import { TilbakekrevingFilter } from '../../filters/tilbakekreving';
 import { TilbakekrevingEnum } from '../../filters/types';
@@ -108,7 +107,7 @@ export const Filters = () => {
         Nullstill filter
       </Button>
 
-      <StatisticsVersionFilter defaultParamsV1={DEFAULT_PARAMS_V1} defaultParamsV2={DEFAULT_PARAMS_V2} />
+      <StatisticsVersionFilter />
 
       <StyledHr />
 
