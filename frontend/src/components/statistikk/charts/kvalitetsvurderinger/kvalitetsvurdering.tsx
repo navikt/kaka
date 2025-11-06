@@ -38,7 +38,7 @@ const useBarOptions = (_: string[], __: number[], total = 1): ChartOptions<'bar'
     title: { display: false },
     tooltip: {
       callbacks: {
-        label: ({ parsed, label }) => `${label}: ${percent(parsed.x, total)}`,
+        label: ({ parsed: { x }, label }) => `${label}:  ${x === null ? 'Ukjent' : percent(x, total)}`,
       },
     },
   },

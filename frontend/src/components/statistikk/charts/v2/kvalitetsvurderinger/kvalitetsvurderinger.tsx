@@ -1,3 +1,4 @@
+import { useAppTheme } from '@app/app-theme';
 import { useSakstypeFilter } from '@app/components/filters/hooks/use-query-filter';
 import { MAIN_REASON_LABELS, MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import {
@@ -7,9 +8,12 @@ import {
   VedtaketHjemlerListBoolean,
   VedtaketSaksdatahjemlerList,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
+import { DatasetSelector } from '@app/components/statistikk/charts/common/dataset-selector';
+import { getMangelfullDetailsDatasets } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/calculations/mangelfull-details';
 import { TotalMangelfull } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/total-mangelfull';
 import type { DataSet } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';
 import { UtredningenUnderKlageforberedelsen } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/utredningen-under-klageforberedelsen';
+import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
 import { BRUK_AV_RAADGIVENDE_LEGE_TEXTS } from '@app/components/statistikk/types/bruk-av-raadgivende-lege';
 import {
   KLAGEFORBEREDELSEN_TEXTS,
@@ -24,18 +28,18 @@ import {
   VEDTAKET_TEXTS,
 } from '@app/components/statistikk/types/vedtaket';
 import { SakstypeEnum } from '@app/types/sakstype';
-import { Select, Tag, ToggleGroup } from '@navikt/ds-react';
+import { Tag } from '@navikt/ds-react';
 import { styled } from 'styled-components';
 import { QueryParams } from '../../../../filters/filter-query-params';
 import { CardSize, DynamicCard } from '../../../card/card';
 import { useQueryParam } from '../../../hooks/use-query-param';
+import { HelpTexts } from '../../common/help-texts';
+import { Hjemler } from '../../common/hjemler';
+import { MangelfullDetails } from '../../common/mangelfull-details';
 import { CardTitleWithExplainer, TitleWithExplainer } from '../../kvalitetsvurderinger/explainer';
 import { ChartContainer, ChartTitle } from '../../styled-components';
-import { HelpTexts } from './help-texts';
-import { Hjemler } from './hjemler';
 import { IkkeKonkretBegrunnelse } from './ikke-konkret-begrunnelse';
 import { Mangelfull } from './mangelfull';
-import { MangelfullDetails } from './mangelfull-details';
 import { SakensDokumenter } from './sakens-dokumenter';
 
 interface Props {
@@ -66,7 +70,9 @@ const MAIN_HELP_TEXTS = [
 ];
 
 export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
+  const theme = useAppTheme();
   const types = useSakstypeFilter();
+
   const hide = types.every(
     (type) => type === SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET || type === SakstypeEnum.OMGJØRINGSKRAV,
   );
@@ -79,6 +85,8 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
   if (hide || datasets.length === 0 || typeof focusedDataset === 'undefined') {
     return null;
   }
+
+  const mangellfullDetailsDatasets = getMangelfullDetailsDatasets(datasets, 'avvik', theme);
 
   return (
     <DynamicCard size={CardSize.LARGE}>
@@ -97,7 +105,7 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
       <TitleWithExplainer>
         Antall spesifikke avvik per underkategori (prosentandel av kvalitetsvurderte saker)
       </TitleWithExplainer>
-      <MangelfullDetails stats={datasets} />
+      <MangelfullDetails {...mangellfullDetailsDatasets} />
       <HelpTexts helpTexts={MAIN_HELP_TEXTS} />
 
       <CategoryContainer>
@@ -137,53 +145,18 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
         <DatasetSelector datasets={datasets} onChange={setDatasetIndex} datasetIndexString={datasetIndexString} />
       </Container>
       <HjemlerContainer>
-        {HJEMLER_CHART_PROPS_LIST.map((params, index) => (
+        {HJEMLER_CHART_PROPS_LIST.map((params) => (
           <HjemlerSubContainer key={params.reasonId}>
-            <Hjemler key={params.reasonId} {...params} dataset={focusedDataset} index={index} />
+            <Hjemler
+              key={params.reasonId}
+              {...params}
+              hjemlerCount={getHjemlerCount(focusedDataset, params.hjemmelListId)}
+              backgroundColor={getColorFromTheme(VEDTAKET_TEXTS[params.reasonId].color, theme)}
+            />
           </HjemlerSubContainer>
         ))}
       </HjemlerContainer>
     </DynamicCard>
-  );
-};
-
-interface DatasetSelectorProps {
-  datasets: DataSet[];
-  onChange: (value: string) => void;
-  datasetIndexString: string;
-}
-
-const DatasetSelector = ({ datasets, datasetIndexString, onChange }: DatasetSelectorProps) => {
-  if (datasets.length === 1) {
-    return null;
-  }
-
-  if (datasets.length < 8) {
-    return (
-      <ToggleGroup size="small" value={datasetIndexString} onChange={onChange}>
-        {datasets.map(({ label }, index) => (
-          <ToggleGroup.Item key={label} value={index.toString(10)}>
-            {label}
-          </ToggleGroup.Item>
-        ))}
-      </ToggleGroup>
-    );
-  }
-
-  return (
-    <Select
-      size="small"
-      label="Velg datasett"
-      hideLabel
-      value={datasetIndexString}
-      onChange={({ target }) => onChange(target.value)}
-    >
-      {datasets.map(({ label }, index) => (
-        <option key={label} value={index.toString(10)}>
-          {label}
-        </option>
-      ))}
-    </Select>
   );
 };
 
@@ -281,3 +254,12 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+const getHjemlerCount = (dataset: DataSet, hjemmelListId: StatisticsVedtaketHjemlerList): Record<string, number> =>
+  dataset.data.reduce<Record<string, number>>((counts, sak) => {
+    for (const hjemmelId of sak[hjemmelListId] ?? []) {
+      counts[hjemmelId] = (counts[hjemmelId] ?? 0) + 1;
+    }
+
+    return counts;
+  }, {});

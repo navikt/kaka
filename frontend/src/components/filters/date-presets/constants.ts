@@ -11,7 +11,7 @@ export const JAN_1_2022 = new Date('2022-01-01');
 export const DEC_1_2022 = new Date('2022-12-01');
 export const DEC_31_2022 = new Date('2022-12-31');
 export const JAN_1_2023 = new Date('2023-01-01');
-const DEC_1_2025 = new Date('2025-12-1');
+export const DEC_1_2025 = new Date('2025-12-1');
 export const DEC_31_2025 = new Date('2025-12-31');
 export const JAN_1_2025 = new Date('2025-01-01');
 

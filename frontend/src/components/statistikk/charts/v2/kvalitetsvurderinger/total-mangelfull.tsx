@@ -1,5 +1,5 @@
 import { MAIN_REASONS } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
-import { HorizontalBars } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/horizontal-bars';
+import { HorizontalBars } from '@app/components/statistikk/charts/common/horizontal-bars';
 import type { MainReasonDataset } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';
 import { useColorMap } from '@app/components/statistikk/colors/get-color';
 import { ColorToken } from '@app/components/statistikk/colors/token-name';

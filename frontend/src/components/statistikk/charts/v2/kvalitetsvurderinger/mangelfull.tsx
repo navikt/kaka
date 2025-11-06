@@ -6,7 +6,7 @@ import { toPercent } from '@app/domain/number';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import type { ChartOptions } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { HorizontalBars } from './horizontal-bars';
+import { HorizontalBars } from '../../common/horizontal-bars';
 
 const BAR_THICKNESS = 50;
 

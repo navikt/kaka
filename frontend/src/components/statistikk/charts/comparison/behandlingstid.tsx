@@ -4,7 +4,7 @@ import type { ISaksdata } from '@app/types/statistics/common';
 import type { ChartOptions } from 'chart.js';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { HorizontalBars } from '../v2/kvalitetsvurderinger/horizontal-bars';
+import { HorizontalBars } from '../common/horizontal-bars';
 
 const BAR_THICKNESS = 50;
 
