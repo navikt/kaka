@@ -3,6 +3,7 @@ import { subMonths } from 'date-fns';
 import {
   END_OF_LAST_MONTH,
   IS_BEFORE_2026,
+  IS_BEFORE_2027,
   IS_BEFORE_FEBRUARY_2026,
   IS_BEFORE_MAY_2026,
   IS_BEFORE_SEPTEMBER_2026,
@@ -27,6 +28,10 @@ export const useDatePresets = (): IOption[] => {
     case KvalitetsvurderingVersion.V2: {
       const presets: IOption[] = [];
 
+      if (IS_BEFORE_2026) {
+        presets.push({ label: 'Denne måneden', fromDate: START_OF_MONTH, toDate: NOW });
+      }
+
       if (IS_BEFORE_MAY_2026) {
         presets.push({ label: 'Siste tertial', ...getLastTertial(NOW) });
       }
@@ -35,7 +40,15 @@ export const useDatePresets = (): IOption[] => {
         presets.push({ label: 'Nest siste tertial', ...getLastTertial(subMonths(NOW, 4)) });
       }
 
+      if (IS_BEFORE_2027) {
+        presets.push({ label: 'Siste 12 mnd', fromDate: ONE_YEAR_AGO, toDate: NOW });
+      }
+
       if (IS_BEFORE_2026) {
+        presets.push({ label: 'I år', fromDate: START_OF_YEAR, toDate: NOW });
+      }
+
+      if (IS_BEFORE_2027) {
         presets.push({ label: 'I fjor', fromDate: LAST_YEAR_START, toDate: LAST_YEAR_END });
       }
 
@@ -52,9 +65,7 @@ export const useDatePresets = (): IOption[] => {
         presets.push({ label: 'Nest siste tertial', ...getLastTertial(subMonths(NOW, 4)) });
       }
 
-      if (!IS_BEFORE_2026) {
-        presets.push({ label: 'Siste 12 mnd', fromDate: ONE_YEAR_AGO, toDate: NOW });
-      }
+      presets.push({ label: 'Siste 12 mnd', fromDate: ONE_YEAR_AGO, toDate: NOW });
 
       presets.push({ label: 'I år', fromDate: START_OF_YEAR, toDate: NOW });
 

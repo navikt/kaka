@@ -1,3 +1,5 @@
+import { IS_BEFORE_2026 } from '@app/components/filters/date-presets/constants';
+import { ENVIRONMENT } from '@app/environment';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { HelpText, List, ToggleGroup } from '@navikt/ds-react';
 import { useSearchParams } from 'react-router-dom';
@@ -38,7 +40,9 @@ export const StatisticsVersionFilter = ({ defaultParams = DEFAULT_PARAMS }: Prop
     <ToggleGroup onChange={onChange} value={version.toString(10)} size="small" label={<Label />}>
       <ToggleGroup.Item value={KvalitetsvurderingVersion.V1.toString(10)}>t.o.m. 2022</ToggleGroup.Item>
       <ToggleGroup.Item value={KvalitetsvurderingVersion.V2.toString(10)}>2023-2025</ToggleGroup.Item>
-      <ToggleGroup.Item value={KvalitetsvurderingVersion.V3.toString(10)}>f.o.m. 2026</ToggleGroup.Item>
+      {IS_BEFORE_2026 && ENVIRONMENT.isProduction ? null : (
+        <ToggleGroup.Item value={KvalitetsvurderingVersion.V3.toString(10)}>f.o.m. 2026</ToggleGroup.Item>
+      )}
     </ToggleGroup>
   );
 };

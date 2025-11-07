@@ -48,5 +48,6 @@ export const CENTURY_NUMBER = Number.parseInt(new Date().getFullYear().toString(
 export const IS_BEFORE_FEBRUARY_2023 = isBefore(NOW, new Date('2023-02-01'));
 export const IS_BEFORE_FEBRUARY_2026 = isBefore(NOW, new Date('2026-02-01'));
 export const IS_BEFORE_2026 = isBefore(NOW, new Date('2026-01-01'));
+export const IS_BEFORE_2027 = isBefore(NOW, new Date('2027-01-01'));
 export const IS_BEFORE_SEPTEMBER_2026 = isBefore(NOW, new Date('2026-09-01'));
 export const IS_BEFORE_MAY_2026 = isBefore(NOW, new Date('2026-05-01'));
