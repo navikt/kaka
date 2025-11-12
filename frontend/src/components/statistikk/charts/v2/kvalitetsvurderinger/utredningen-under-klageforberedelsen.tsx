@@ -7,7 +7,7 @@ import type { ChartOptions } from 'chart.js';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { type GetAbsoluteValue, useBarTooltipText } from '../../../hooks/use-bar-tooltip-text';
-import { HorizontalBars } from './horizontal-bars';
+import { HorizontalBars } from '../../common/horizontal-bars';
 import type { DataSet } from './types';
 
 const UNIT = 'avvik';

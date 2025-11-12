@@ -1,0 +1,89 @@
+import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/data';
+import type { MainReasonV3Dataset } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/types';
+import { useColorMap } from '@app/components/statistikk/colors/get-color';
+import { KVALITETSVURDERING_TEXTS, MAIN_REASON_IDS } from '@app/components/statistikk/types/v3/kvalitetsvurdering';
+import { toPercent } from '@app/domain/number';
+import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
+import type { ChartOptions } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import { HorizontalBars } from '../../common/horizontal-bars';
+
+const BAR_THICKNESS = 50;
+
+interface Dataset {
+  data: number[];
+  counts: number[];
+  backgroundColor: string[];
+  barThickness: number;
+}
+
+const { Saksbehandlingsreglene, Særregelverket, Trygdemedisin } = MainReason;
+
+const useData = (stats: MainReasonV3Dataset[]) => {
+  const colorMap = useColorMap();
+
+  const unsortedBars = stats.flatMap(({ data, label }) =>
+    [Saksbehandlingsreglene, Særregelverket, Trygdemedisin].map((field) => ({
+      label:
+        stats.length > 1
+          ? `${label} - ${KVALITETSVURDERING_TEXTS[field].label}`
+          : KVALITETSVURDERING_TEXTS[field].label,
+      data,
+      color: KVALITETSVURDERING_TEXTS[field].color,
+      field,
+    })),
+  );
+
+  const sortedBars = MAIN_REASON_IDS.flatMap((id) => unsortedBars.filter(({ field }) => field === id));
+
+  const calculatedData = sortedBars.map(({ data, label, color, field }) => {
+    const count = data.filter((stat) => stat[field] === Radiovalg.MANGELFULLT).length;
+    const percent = count / data.length;
+
+    return { label, count, percent, color, length: data.length };
+  });
+
+  const labels = calculatedData.map(({ label, count, percent, length }) => {
+    const unit = length === 1 ? 'sak' : 'saker';
+
+    return `${label} (${toPercent(percent)} | ${count} av ${length} ${unit})`;
+  });
+
+  const backgroundColor = calculatedData.map(({ color }) => colorMap[color]);
+  const percentages = calculatedData.map(({ percent }) => percent);
+  const counts = calculatedData.map(({ count }) => count); // For testing purposes
+
+  const datasets: Dataset[] = [{ data: percentages, counts, backgroundColor, barThickness: BAR_THICKNESS }];
+
+  return { datasets, labels };
+};
+
+interface Props {
+  datasets: MainReasonV3Dataset[];
+}
+
+export const Mangelfull = ({ datasets }: Props) => {
+  const data = useData(datasets);
+
+  const options: ChartOptions<'bar'> = {
+    maintainAspectRatio: false,
+    indexAxis: 'y',
+    scales: {
+      x: {
+        beginAtZero: true,
+        max: 1,
+        ticks: { callback: (label) => (typeof label === 'number' ? `${label * 100} %` : label) },
+      },
+    },
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false },
+    },
+  };
+
+  return (
+    <HorizontalBars barCount={data.labels.length} chartOptions={options} barThickness={BAR_THICKNESS}>
+      <Bar data={data} options={options} />
+    </HorizontalBars>
+  );
+};

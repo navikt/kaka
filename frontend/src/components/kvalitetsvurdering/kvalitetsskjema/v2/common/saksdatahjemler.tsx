@@ -1,3 +1,4 @@
+import { SubSection } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/styled-components';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { usePrevious } from '@app/hooks/use-previous';
 import { useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
@@ -5,7 +6,6 @@ import type { IKvalitetsvurderingBooleans, IKvalitetsvurderingSaksdataHjemler } 
 import { BodyShort, Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import { useEffect } from 'react';
 import { styled } from 'styled-components';
-import { SubSection } from './styled-components';
 import { useKvalitetsvurderingV2 } from './use-kvalitetsvurdering-v2';
 import { useValidationError } from './use-validation-error';
 

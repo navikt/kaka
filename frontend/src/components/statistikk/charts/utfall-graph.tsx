@@ -25,7 +25,7 @@ const useOptions = (total = 1): ChartOptions<'bar'> => ({
     legend: { display: false, position: 'top' as const },
     title: { display: false },
     tooltip: {
-      callbacks: { label: ({ parsed, label }) => `${label}: ${percent(parsed.x, total)}` },
+      callbacks: { label: ({ parsed: { x }, label }) => `${label}: ${x === null ? 'Ukjent' : percent(x, total)}` },
     },
   },
 });

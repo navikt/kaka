@@ -1,4 +1,4 @@
-import { ContainerWithHelpText } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/container-with-helptext';
+import { ContainerWithHelpText } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/container-with-helptext';
 import type { TextParams } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/types';
 import { useKvalitetsvurderingV2 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/use-kvalitetsvurdering-v2';
 import { useValidationError } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/use-validation-error';

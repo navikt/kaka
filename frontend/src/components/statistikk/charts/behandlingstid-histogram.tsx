@@ -30,11 +30,11 @@ const useOptions = (): ChartOptions<'bar'> => {
       },
     },
     backgroundColor: (ctx) => {
-      if (typeof ctx?.parsed === 'undefined') {
+      const x = ctx?.parsed?.x;
+
+      if (typeof x === 'undefined' || x === null) {
         return neutral;
       }
-
-      const { x } = ctx.parsed;
 
       if (x < 12) {
         return neutral;

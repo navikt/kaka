@@ -1,3 +1,8 @@
+import { ContentV3 } from '@app/components/statistikk/leder/content/content-v3';
+import {
+  useFilteredManagerStatisticsV3,
+  useManagerStatisticsV3IsLoading,
+} from '@app/components/statistikk/leder/hooks/use-statistics-v3';
 import { FilterSection, FiltersAndContentContainer } from '@app/styled-components/filters-and-content';
 import { useVersionQueryFilter } from '../../filters/hooks/use-query-filter';
 import { ContentLoader } from '../content-loader';
@@ -16,7 +21,12 @@ export const Lederstatistikk = () => {
         <FilterSection>
           <Filters />
         </FilterSection>
-        <ContentLoader version={version} V1Content={<V1Content />} V2Content={<V2Content />} />
+        <ContentLoader
+          version={version}
+          V1Content={<V1Content />}
+          V2Content={<V2Content />}
+          V3Content={<V3Content />}
+        />
       </FiltersAndContentContainer>
     </>
   );
@@ -27,4 +37,7 @@ const V1Content = () => (
 );
 const V2Content = () => (
   <ContentV2 {...useFilteredManagerStatisticsV2()} isLoading={useManagerStatisticsV2IsLoading()} />
+);
+const V3Content = () => (
+  <ContentV3 {...useFilteredManagerStatisticsV3()} isLoading={useManagerStatisticsV3IsLoading()} />
 );
