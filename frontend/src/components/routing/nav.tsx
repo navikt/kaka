@@ -53,6 +53,14 @@ export const Nav = () => {
         </NavItem>
 
         <NavItem
+          to={`/sammenlikning?${defauleQueryComparison}`}
+          testId="sammenlikning-nav-link"
+          hasAccess={access.KAKA_TOTALSTATISTIKK}
+        >
+          <LineGraphStackedIcon aria-hidden /> Sammenlikning
+        </NavItem>
+
+        <NavItem
           to={`/statistikk/min?${defaultQueryMin}`}
           testId="statistikk-min-nav-link"
           hasAccess={access.KAKA_KVALITETSVURDERING}
@@ -74,13 +82,6 @@ export const Nav = () => {
           hasAccess={access.KAKA_KVALITETSTILBAKEMELDINGER}
         >
           <TasklistIcon aria-hidden /> Tilbakemeldinger
-        </NavItem>
-        <NavItem
-          to={`/sammenlikning?${defauleQueryComparison}`}
-          testId="sammenlikning-nav-link"
-          hasAccess={access.KAKA_TOTALSTATISTIKK}
-        >
-          <LineGraphStackedIcon aria-hidden /> Sammenlikning
         </NavItem>
       </StyledNavLinkList>
     </StyledNav>
