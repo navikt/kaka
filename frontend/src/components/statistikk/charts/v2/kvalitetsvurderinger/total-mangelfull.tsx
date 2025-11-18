@@ -45,11 +45,11 @@ const useDataSets = (stats: MainReasonDataset[]) => {
   const colorMap = useColorMap();
 
   const braBars = stats.flatMap(({ data, label }) => [
-    { label: `${label} - Bra / godt nok`, data, radiovalg: Radiovalg.BRA, color: ColorToken.Accent500 },
+    { label: `${label} - Bra / godt nok`, data, radiovalg: Radiovalg.BRA, color: ColorToken.Success500 },
   ]);
 
   const mangefullBars = stats.flatMap(({ data, label }) => [
-    { label: `${label} - Mangelfullt`, data, radiovalg: Radiovalg.MANGELFULLT, color: ColorToken.Purple500 },
+    { label: `${label} - Mangelfullt`, data, radiovalg: Radiovalg.MANGELFULLT, color: ColorToken.Danger500 },
   ]);
 
   const bars = [...braBars, ...mangefullBars];
