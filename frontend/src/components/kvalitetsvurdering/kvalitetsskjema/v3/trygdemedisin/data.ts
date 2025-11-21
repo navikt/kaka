@@ -1,4 +1,5 @@
 import { MAIN_REASON_LABELS, MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/data';
+import { RadiovalgExtended } from '@app/types/kvalitetsvurdering/radio';
 
 export const HEADER = MAIN_REASON_LABELS[MainReason.Trygdemedisin];
 
@@ -44,5 +45,12 @@ export const TRYGDEMEDISIN_HELP_TEXTS: Partial<Record<TrygdemedisinBoolean, stri
   [TrygdemedisinBoolean.raadgivendeLegeUttaltSegOmTemaUtoverTrygdemedisin]:
     'Du velger denne dersom rådgivende lege har uttalt seg om tema utover trygdemedisin, og dette kan ha påvirket utredningen eller vurderingen av de trygdemedisinske forhold i saken.',
   [TrygdemedisinBoolean.raadgivendeLegeBegrunnelseMangelfullEllerIkkeDokumentert]:
-    'Du velger denne dersom rådgivende lege har gitt en uttalelse som ikke er god nok for å oppnå en riktig utredning eller vurdering av de trygdemedisinske forhold i saken. Du velger også denne dersom uttalelsen fra rådgivende lege ikke er journalført. ',
+    'Du velger denne dersom rådgivende lege har gitt en uttalelse som ikke er god nok for å oppnå en riktig utredning eller vurdering av de trygdemedisinske forhold i saken. Du velger også denne dersom uttalelsen fra rådgivende lege ikke er journalført.',
+};
+
+export const TRYGDEMEDISIN_RADIO_HELP_TEXTS: Partial<Record<RadiovalgExtended, string>> = {
+  [RadiovalgExtended.IKKE_AKTUELT]:
+    'Du registrerer her dersom den konkrete saken ikke gjelder trygdemedisinske spørsmål.',
+  [RadiovalgExtended.BRA]:
+    'Du registrerer her om den konkrete saken gjelder trygdemedisinske spørsmål og det er ok at rådgivende lege ikke er brukt, eller bruken av rådgivende lege er god nok.',
 };
