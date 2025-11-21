@@ -64,6 +64,8 @@ export const SÆRREGELVERKET_ERROR_LABELS: Record<SærregelverketErrorFields, st
 };
 
 export const SÆRREGELVERKET_HELP_TEXTS: Partial<Record<SærregelverketBoolean, string>> = {
+  [SærregelverketBoolean.saerregelverkAutomatiskVedtak]:
+    'Du skal gjøre de samme kvalitetsvurderingene for automatiske vedtak som for andre vedtak. Du kan krysse av for automatisk vedtak dersom det er tydelig merket i vedtaket.',
   [SærregelverketBoolean.saerregelverkVedtaketByggerPaaFeilHjemmelEllerLovtolkning]:
     'Du velger denne dersom det er brukt feil hjemmel i vedtaket, alle relevante hjemler ikke er vurdert i vedtaket, eller vedtaket bygger på feil i lovtolkningen. For eksempel dersom vedtaket mangler hjemmel i lov fordi lovbestemmelsen er tolket i strid med ordlyden. Se også spørsmål om begrunnelsesplikt, hvis vedtaket ikke presenterer innholdet av reglene på en forståelig nok måte.',
   [SærregelverketBoolean.saerregelverkVedtaketByggerPaaFeilKonkretRettsanvendelseEllerSkjoenn]:

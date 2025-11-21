@@ -1,3 +1,5 @@
+import { Heading } from '@navikt/ds-react';
+import type { ReactNode } from 'react';
 import { styled } from 'styled-components';
 
 interface ChartContainerProps {
@@ -9,8 +11,8 @@ export const ChartContainer = styled.div<ChartContainerProps>`
   width: ${({ $columns = 4 }) => $columns * 25}%;
 `;
 
-export const ChartTitle = styled.h2`
-  font-size: 16px;
-  margin: 0;
-  text-align: center;
-`;
+export const ChartTitle = ({ children }: { children: ReactNode }) => (
+  <Heading size="xsmall" align="center">
+    {children}
+  </Heading>
+);

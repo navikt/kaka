@@ -62,7 +62,7 @@ export const Saksbehandlingsreglene = () => {
         <Checkboxes
           kvalitetsvurdering={kvalitetsvurdering}
           update={update}
-          childList={CHECKBOXES}
+          childList={SAKSBEHANDLINGSREGLENE_CHECKBOXES}
           groupErrorField={SaksbehandlingsregleneErrorFields.saksbehandlingsreglerGroup}
           label="Hva er mangelfullt/kvalitetsavviket?"
         />
@@ -71,7 +71,7 @@ export const Saksbehandlingsreglene = () => {
   );
 };
 
-const CHECKBOXES: CheckboxParams[] = [
+export const SAKSBEHANDLINGSREGLENE_CHECKBOXES: CheckboxParams[] = [
   // Veiledningsplikten
   getCheckbox({
     field: VeiledningspliktenBoolean.saksbehandlingsreglerBruddPaaVeiledningsplikten,
