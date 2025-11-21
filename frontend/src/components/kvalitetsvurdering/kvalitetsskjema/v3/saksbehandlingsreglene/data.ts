@@ -119,9 +119,9 @@ export const SAKSBEHANDLINGSREGLENE_LABELS: Record<Fields, string> = {
   [VeiledningspliktenBoolean.saksbehandlingsreglerBruddPaaVeiledningsplikten]:
     'Brudd på veiledningsplikten, forvaltningsloven § 11',
   [VeiledningspliktenBoolean.saksbehandlingsreglerVeiledningspliktenPartenHarIkkeFaattSvarPaaHenvendelser]:
-    'Parten har ikke fått svar på henvendelser i saken, eller har fått feil svar.',
+    'Parten har ikke fått svar på henvendelser i saken, eller har fått feil svar',
   [VeiledningspliktenBoolean.saksbehandlingsreglerVeiledningspliktenNavHarIkkeGittGodNokVeiledning]:
-    'Nav har ikke gitt god nok veiledning i saken av eget tiltak.',
+    'Nav har ikke gitt god nok veiledning i saken av eget tiltak',
 
   // Utredningsplikten
   [UtredningspliktenBoolean.saksbehandlingsreglerBruddPaaUtredningsplikten]:
