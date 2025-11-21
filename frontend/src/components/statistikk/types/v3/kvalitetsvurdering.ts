@@ -31,7 +31,7 @@ import { TRYGDEMEDISIN_TEXTS } from '@app/components/statistikk/types/v3/trygdem
 
 export const KVALITETSVURDERING_TEXTS = {
   [MainReason.Særregelverket]: {
-    color: ColorToken.Info500,
+    color: ColorToken.Accent500,
     label: MAIN_REASON_LABELS[MainReason.Særregelverket],
     helpText: MAIN_REASON_HELPTEXTS[MainReason.Særregelverket] ?? undefined,
   },

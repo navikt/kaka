@@ -45,7 +45,7 @@ const useDataSets = (stats: MainReasonV3Dataset[]) => {
   const colorMap = useColorMap();
 
   const braBars = stats.flatMap(({ data, label }) => [
-    { label: `${label} - Riktig / ikke kvalitetsavvik`, data, radiovalg: Radiovalg.BRA, color: ColorToken.Accent500 },
+    { label: `${label} - Riktig / ikke kvalitetsavvik`, data, radiovalg: Radiovalg.BRA, color: ColorToken.Success500 },
   ]);
 
   const mangefullBars = stats.flatMap(({ data, label }) => [
@@ -53,7 +53,7 @@ const useDataSets = (stats: MainReasonV3Dataset[]) => {
       label: `${label} - Mangelfullt/kvalitetsavvik`,
       data,
       radiovalg: Radiovalg.MANGELFULLT,
-      color: ColorToken.Purple500,
+      color: ColorToken.Danger500,
     },
   ]);
 

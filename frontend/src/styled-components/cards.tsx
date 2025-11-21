@@ -1,3 +1,4 @@
+import { Heading } from '@navikt/ds-react';
 import { styled } from 'styled-components';
 import { BREAK_POINT, COLUMN_WIDTH, GAP } from './constants';
 
@@ -58,12 +59,8 @@ export const StatsContainer = styled(BaseCard)`
   }
 `;
 
-export const CardTitle = styled.h1`
-  background-color: var(--ax-bg-default);
-  padding: 0;
-  margin: 0;
-  z-index: 2;
-  font-size: 32px;
-  line-height: 1;
-  text-align: center;
-`;
+export const CardTitle = ({ children }: { children: React.ReactNode }) => (
+  <Heading size="medium" align="center">
+    {children}
+  </Heading>
+);
