@@ -90,7 +90,7 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: Kva
                   hoverOffset: 4,
                   data: doughnutData,
                   backgroundColor: [
-                    getColorFromTheme(ColorToken.Info500, theme),
+                    getColorFromTheme(ColorToken.Success500, theme),
                     getColorFromTheme(ColorToken.Danger500, theme),
                   ],
                 },

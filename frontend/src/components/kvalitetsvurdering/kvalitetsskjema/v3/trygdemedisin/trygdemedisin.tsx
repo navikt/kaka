@@ -13,6 +13,7 @@ import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v
 import { getCheckbox } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/helpers';
 import {
   HEADER,
+  TRYGDEMEDISIN_RADIO_HELP_TEXTS,
   TrygdemedisinBoolean,
   TrygdemedisinErrorFields,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/trygdemedisin/data';
@@ -47,13 +48,13 @@ export const Trygdemedisin = () => {
         id="trygdemedisin"
       >
         <RadioButtonsRow>
-          <ContainerWithHelpText helpText="Du registrerer her dersom den konkrete saken ikke gjelder trygdemedisinske spørsmål.">
+          <ContainerWithHelpText helpText={TRYGDEMEDISIN_RADIO_HELP_TEXTS[RadiovalgExtended.IKKE_AKTUELT]}>
             <Radio value={RadiovalgExtended.IKKE_AKTUELT} disabled={!canEdit}>
               Ikke aktuelt for den konkrete saken
             </Radio>
           </ContainerWithHelpText>
 
-          <ContainerWithHelpText helpText="Du registrerer her om den konkrete saken gjelder trygdemedisinske spørsmål og det er ok at rådgivende lege ikke er brukt, eller bruken av rådgivende lege er god nok.">
+          <ContainerWithHelpText helpText={TRYGDEMEDISIN_RADIO_HELP_TEXTS[RadiovalgExtended.BRA]}>
             <Radio value={RadiovalgExtended.BRA} disabled={!canEdit}>
               Riktig / ikke kvalitetsavvik
             </Radio>
@@ -68,7 +69,7 @@ export const Trygdemedisin = () => {
       {brukAvRaadgivendeLege === RadiovalgExtended.MANGELFULLT ? (
         <Checkboxes
           kvalitetsvurdering={kvalitetsvurdering}
-          childList={CHECKBOXES}
+          childList={TRYGDEMEDISIN_CHECKBOXES}
           update={update}
           groupErrorField={TrygdemedisinErrorFields.brukAvRaadgivendeLegeGroup}
           label="Hva er mangelfullt/kvalitetsavviket?"
@@ -78,7 +79,7 @@ export const Trygdemedisin = () => {
   );
 };
 
-const CHECKBOXES: CheckboxParams[] = [
+export const TRYGDEMEDISIN_CHECKBOXES: CheckboxParams[] = [
   getCheckbox({ field: TrygdemedisinBoolean.raadgivendeLegeIkkebrukt }),
   getCheckbox({ field: TrygdemedisinBoolean.raadgivendeLegeMangelfullBrukAvRaadgivendeLege }),
   getCheckbox({ field: TrygdemedisinBoolean.raadgivendeLegeUttaltSegOmTemaUtoverTrygdemedisin }),

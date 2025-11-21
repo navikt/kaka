@@ -28,7 +28,8 @@ import {
   VEDTAKET_TEXTS,
 } from '@app/components/statistikk/types/vedtaket';
 import { SakstypeEnum } from '@app/types/sakstype';
-import { Tag } from '@navikt/ds-react';
+import { HStack, Heading, HelpText, Tag } from '@navikt/ds-react';
+import type { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import { QueryParams } from '../../../../filters/filter-query-params';
 import { CardSize, DynamicCard } from '../../../card/card';
@@ -36,7 +37,7 @@ import { useQueryParam } from '../../../hooks/use-query-param';
 import { HelpTexts } from '../../common/help-texts';
 import { Hjemler } from '../../common/hjemler';
 import { MangelfullDetails } from '../../common/mangelfull-details';
-import { CardTitleWithExplainer, TitleWithExplainer } from '../../kvalitetsvurderinger/explainer';
+import { CardTitleWithExplainer } from '../../kvalitetsvurderinger/explainer';
 import { ChartContainer, ChartTitle } from '../../styled-components';
 import { IkkeKonkretBegrunnelse } from './ikke-konkret-begrunnelse';
 import { Mangelfull } from './mangelfull';
@@ -263,3 +264,14 @@ const getHjemlerCount = (dataset: DataSet, hjemmelListId: StatisticsVedtaketHjem
 
     return counts;
   }, {});
+
+const TitleWithExplainer = ({ children }: { children: ReactNode }) => (
+  <Heading size="small">
+    <HStack gap="2" justify="center" align="center">
+      {children}
+      <HelpText>
+        En sak kan ha ett eller flere avvik. Prosenten er regnet ut fra totalt antall kvalitetsvurderte saker.
+      </HelpText>
+    </HStack>
+  </Heading>
+);

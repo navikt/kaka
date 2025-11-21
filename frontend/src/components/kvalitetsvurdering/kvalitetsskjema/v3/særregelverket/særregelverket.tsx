@@ -2,6 +2,7 @@ import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v
 import { getCheckbox } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/helpers';
 import {
   HEADER,
+  SÆRREGELVERKET_HELP_TEXTS,
   SÆRREGELVERKET_LABELS,
   SærregelverketBoolean,
   SærregelverketErrorFields,
@@ -17,9 +18,6 @@ import { Checkboxes } from '../common/checkboxes';
 import type { CheckboxParams } from '../common/types';
 import { useKvalitetsvurderingV3 } from '../common/use-kvalitetsvurdering-v3';
 import { useValidationError } from '../common/use-validation-error';
-
-const vedtaketAutomatiskVedtakhelpText =
-  'Du skal gjøre de samme kvalitetsvurderingene for automatiske vedtak som for andre vedtak. Du kan krysse av for automatisk vedtak dersom det er tydelig merket i vedtaket.';
 
 export const Særregelverket = () => {
   const { isLoading, kvalitetsvurdering, update } = useKvalitetsvurderingV3();
@@ -39,8 +37,10 @@ export const Særregelverket = () => {
     <section>
       <StyledHeading size="small">{HEADER}</StyledHeading>
 
-      {saerregelverkAutomatiskVedtak === true ? <Alert variant="info">{vedtaketAutomatiskVedtakhelpText}</Alert> : null}
-      <ContainerWithHelpText helpText={vedtaketAutomatiskVedtakhelpText}>
+      {saerregelverkAutomatiskVedtak === true ? (
+        <Alert variant="info">{SÆRREGELVERKET_HELP_TEXTS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}</Alert>
+      ) : null}
+      <ContainerWithHelpText helpText={SÆRREGELVERKET_HELP_TEXTS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}>
         <Checkbox
           value={SærregelverketBoolean.saerregelverkAutomatiskVedtak}
           checked={saerregelverkAutomatiskVedtak}
@@ -73,7 +73,7 @@ export const Særregelverket = () => {
         <Checkboxes
           kvalitetsvurdering={kvalitetsvurdering}
           update={update}
-          childList={CHECKBOXES}
+          childList={SÆRREGELVERKET_CHECKBOXES}
           groupErrorField={SærregelverketErrorFields.saerregelverkGroup}
           label="Hva er mangelfullt/kvalitetsavviket?"
         />
@@ -82,7 +82,7 @@ export const Særregelverket = () => {
   );
 };
 
-const CHECKBOXES: CheckboxParams[] = [
+export const SÆRREGELVERKET_CHECKBOXES: CheckboxParams[] = [
   getCheckbox({
     field: SærregelverketBoolean.saerregelverkLovenErTolketEllerAnvendtFeil,
     childList: [
