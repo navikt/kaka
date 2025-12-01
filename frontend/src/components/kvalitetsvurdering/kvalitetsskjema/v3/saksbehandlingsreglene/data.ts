@@ -151,11 +151,11 @@ export const SAKSBEHANDLINGSREGLENE_LABELS: Record<Fields, string> = {
   [BegrunnelsespliktenBoolean.saksbehandlingsreglerBruddPaaBegrunnelsesplikten]:
     'Brudd på begrunnelsesplikten, forvaltningsloven §§ 24 og 25',
   [BegrunnelsespliktenBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenViserIkkeTilRegelverket]:
-    'Begrunnelsen viser ikke til regelverket som vedtaket bygger på',
+    'Begrunnelsen forklarer ikke godt nok regelverket som vedtaket bygger på',
   [BegrunnelsespliktenBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeFaktum]:
-    'Begrunnelsen nevner ikke hvilket faktum som vedtaket bygger på',
+    'Begrunnelsen forklarer ikke godt nok hvilket faktum som vedtaket bygger på',
   [BegrunnelsespliktenBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeAvgjoerendeHensyn]:
-    'Begrunnelsen nevner ikke de hensyn som har vært avgjørende for den konkrete rettsanvendelsen eller skjønnsutøvelsen som vedtaket bygger på',
+    'Begrunnelsen forklarer ikke godt nok de hensyn som har vært avgjørende for den konkrete rettsanvendelsen eller skjønnsutøvelsen som vedtaket bygger på',
 
   // Klage og klageforberedelse
   [KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaRegleneOmKlageOgKlageforberedelse]:
@@ -243,11 +243,11 @@ export const SAKSBEHANDLINGSREGLENE_HELP_TEXTS: Partial<Record<Fields, string>> 
 
   // Begrunnelsesplikten
   [BegrunnelsespliktenBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenViserIkkeTilRegelverket]:
-    'Du velger denne dersom vedtaket ikke viser til relevant regelverk eller ikke presenterer innholdet av reglene eller de rettslige problemstillingene på en forståelig nok måte. Jo mer komplisert regelverket eller problemstillingene er, desto mer kreves for å presentere regelinnholdet på en forsvarlig måte.',
+    'Du velger denne dersom vedtaket ikke forklarer godt nok relevant regelverk, eller ikke presenterer innholdet av reglene eller de rettslige problemstillingene på en forståelig nok måte. Jo mer komplisert regelverket eller problemstillingene er, desto mer kreves for å presentere regelinnholdet på en forsvarlig måte.',
   [BegrunnelsespliktenBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeFaktum]:
-    'Du velger denne dersom vedtaket ikke nevner det faktum som er viktig for å ta stilling til de rettslige problemstillingene. Selv om faktum er beskrevet av parten selv i en tidligere framstilling eller i et dokument som parten allerede er gjort kjent med, kan det være uenighet eller tvil om hvordan faktum skal tolkes. Begrunnelsen vil være mangelfull dersom den ikke gjør parten i stand til å forstå hvordan forvaltningen selv har vurdert faktum.',
+    'Du velger denne dersom vedtaket ikke forklarer godt nok det faktum som er viktig for å ta stilling til de rettslige problemstillingene. Selv om faktum er beskrevet av parten selv i en tidligere framstilling eller i et dokument som parten allerede er gjort kjent med, kan det være uenighet eller tvil om hvordan faktum skal tolkes. Begrunnelsen vil være mangelfull dersom den ikke gjør parten i stand til å forstå hvordan forvaltningen selv har vurdert faktum.',
   [BegrunnelsespliktenBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeAvgjoerendeHensyn]:
-    'Du velger denne dersom vedtaket ikke nevner de hensyn som er avgjørende for den lovbundne skjønnsutøvelsen. Enten ved at det ikke vises til relevante deler av rundskriv, eller ved at det ikke er nevnt andre avgjørende hensyn. Dersom vedtaket er negativt for parten, men det er vektige hensyn som taler for og mot partens syn, er det feil å ikke nevne begge deler.',
+    'Du velger denne dersom vedtaket ikke forklarer godt nok de hensyn som er avgjørende for den lovbundne skjønnsutøvelsen. Enten ved at det ikke vises til relevante deler av rundskriv, eller ved at det ikke er nevnt andre avgjørende hensyn. Dersom vedtaket er negativt for parten, men det er vektige hensyn som taler for og mot partens syn, er det feil å ikke nevne begge deler.',
 
   // Klage og klageforberedelse
   [KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageKlagefristenEllerOppreisningErIkkeVurdertEllerFeilVurdert]:
