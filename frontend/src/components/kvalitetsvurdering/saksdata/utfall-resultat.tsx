@@ -52,7 +52,7 @@ export const UtfallResultat = () => {
 
       {saksdata.utfallId === UtfallEnum.RETUR ? (
         <Alert variant="warning">
-          Husk at retur ikke er det samme som opphevet. Etter forvaltningsloven § 33 kan NAV Klageinstans returnere en
+          Husk at retur ikke er det samme som opphevet. Etter forvaltningsloven § 33 kan Nav klageinstans returnere en
           klagesak uten avgjørelse dersom det er formelle feil ved forberedelsen av klagesaken. Retur er ingen
           avgjørelse og gjøres svært sjelden.
         </Alert>
