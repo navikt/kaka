@@ -53,7 +53,7 @@ const useDataSets = (stats: MainReasonV3Dataset[]) => {
       label: `${label} - Mangelfullt/kvalitetsavvik`,
       data,
       radiovalg: Radiovalg.MANGELFULLT,
-      color: ColorToken.Danger500,
+      color: ColorToken.Danger600,
     },
   ]);
 
