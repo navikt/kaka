@@ -20,7 +20,7 @@ export const OpenStatistikk = () => {
     <FiltersAndContentContainer>
       <FilterSection>
         <Alert variant="info" size="medium" fullWidth>
-          Denne statistikken baserer seg på resultater av klage- og ankebehandlinger som er fullført i Nav klageinstans.
+          Denne statistikken baserer seg på resultater av klage- og ankebehandlinger som er fullført i klageinstansen.
           Statistikken kan derfor avvike fra offisiell statistikk på området.
         </Alert>
         <Filters />
