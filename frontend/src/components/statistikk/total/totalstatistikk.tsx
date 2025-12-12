@@ -16,20 +16,13 @@ export const TotalStatistikk = () => {
   const version = useVersionQueryFilter();
 
   return (
-    <>
-      <FiltersAndContentContainer>
-        <FilterSection>
-          <Filters />
-        </FilterSection>
+    <FiltersAndContentContainer>
+      <FilterSection>
+        <Filters />
+      </FilterSection>
 
-        <ContentLoader
-          version={version}
-          V1Content={<V1Content />}
-          V2Content={<V2Content />}
-          V3Content={<V3Content />}
-        />
-      </FiltersAndContentContainer>
-    </>
+      <ContentLoader version={version} V1Content={<V1Content />} V2Content={<V2Content />} V3Content={<V3Content />} />
+    </FiltersAndContentContainer>
   );
 };
 

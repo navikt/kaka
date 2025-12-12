@@ -5,7 +5,7 @@ import { useValidationError } from '@app/hooks/use-validation-error';
 import { useSetUtfallMutation } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';
 import { useUtfallFromSakstype } from '@app/simple-api-state/use-utfall';
-import { UtfallEnum, isUtfall } from '@app/types/utfall';
+import { isUtfall, UtfallEnum } from '@app/types/utfall';
 import { Alert, Select } from '@navikt/ds-react';
 import { styled } from 'styled-components';
 import { EmptyOption } from './empty-option';

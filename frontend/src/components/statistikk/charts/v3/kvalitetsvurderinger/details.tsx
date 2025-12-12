@@ -1,9 +1,9 @@
 import { useAppTheme } from '@app/app-theme';
 import {
   BAR_THICKNESS,
+  getDatasets,
   type ReasonIds,
   type ReasonTexts,
-  getDatasets,
 } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/calculations/get-datasets';
 import type { ChartOptions } from 'chart.js';
 import { useMemo } from 'react';

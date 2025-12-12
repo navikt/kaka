@@ -5,7 +5,7 @@ import { DEFAULT_COLORS } from '@app/components/statistikk/comparison/get-defaul
 import { getFontColor } from '@app/functions/get-font-color';
 import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
 import { CheckmarkIcon } from '@navikt/aksel-icons';
-import { BoxNew, Button, HStack, Heading, VStack } from '@navikt/ds-react';
+import { BoxNew, Button, Heading, HStack, VStack } from '@navikt/ds-react';
 import { useRef, useState } from 'react';
 
 interface ColorPickerProps {

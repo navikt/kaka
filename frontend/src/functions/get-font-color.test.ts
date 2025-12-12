@@ -2,7 +2,7 @@ import { describe, expect, it } from 'bun:test';
 import { AppTheme } from '@app/app-theme';
 import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
 import { ColorToken } from '@app/components/statistikk/colors/token-name';
-import { DARK_COLOR, LIGHT_COLOR, getFontColor } from './get-font-color';
+import { DARK_COLOR, getFontColor, LIGHT_COLOR } from './get-font-color';
 
 describe('get font color for background', () => {
   it('should return black for white', () => {

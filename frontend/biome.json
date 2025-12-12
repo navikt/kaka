@@ -4,12 +4,12 @@
   "extends": "//",
   "linter": {
     "domains": {
-      "project": "recommended"
-    },
-    "rules": {
-      "correctness": {
-        "noNodejsModules": "off"
-      }
+      "react": "recommended"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   }
 }

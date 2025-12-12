@@ -1,9 +1,9 @@
 import {
-  type Vedtaksinstansgruppe,
   isVedtaksinstansgruppe,
+  type Vedtaksinstansgruppe,
 } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
-import { type SakstypeEnum, isSakstype } from '@app/types/sakstype';
+import { isSakstype, type SakstypeEnum } from '@app/types/sakstype';
 import { useSearchParams } from 'react-router-dom';
 import { QueryParams } from '../../filters/filter-query-params';
 import { HjemlerModeFilter, TilbakekrevingEnum } from '../types';

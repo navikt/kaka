@@ -1,7 +1,7 @@
 import { QueryParams } from '@app/components/filters/filter-query-params';
 import { useHjemlerModeFilter } from '@app/components/filters/hooks/use-query-filter';
 import { HjemlerModeFilter } from '@app/components/filters/types';
-import { BodyLong, HStack, Heading, HelpText, ToggleGroup } from '@navikt/ds-react';
+import { BodyLong, Heading, HelpText, HStack, ToggleGroup } from '@navikt/ds-react';
 import { useSearchParams } from 'react-router';
 
 export const HjemlerMode = () => {

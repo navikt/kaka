@@ -8,7 +8,7 @@ import type { IStatisticVurderingV1, RadiovalgField } from '@app/types/statistic
 import type { ChartOptions, TooltipCallbacks } from 'chart.js';
 import { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
-import { type ReasonLabel, getReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
+import { getReasonLabel, type ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
 import { useKvalitetsvurderingParam } from '../../hooks/use-kvalitetsvurdering-param';
 import type { StatisticsPropsV1 } from '../../types';
 import { KVALITETSVURDERING_OPTIONS } from './kvalitetsvurdering-options';

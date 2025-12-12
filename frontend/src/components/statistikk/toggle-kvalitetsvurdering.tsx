@@ -1,7 +1,7 @@
 import { ToggleGroup } from '@navikt/ds-react';
 import { styled } from 'styled-components';
 import type { KvalitetsvurderingProps } from './charts/kvalitetsvurderinger/kvalitetsvurdering';
-import { KVALITETSVURDERING_OPTIONS, isAllowedKey } from './charts/kvalitetsvurderinger/kvalitetsvurdering-options';
+import { isAllowedKey, KVALITETSVURDERING_OPTIONS } from './charts/kvalitetsvurderinger/kvalitetsvurdering-options';
 import { useKvalitetsvurderingParam } from './hooks/use-kvalitetsvurdering-param';
 
 export const ToggleKvalitetsvurdering = () => {
