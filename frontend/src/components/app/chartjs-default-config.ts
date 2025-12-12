@@ -7,12 +7,13 @@ import {
   CategoryScale,
   Chart,
   Legend,
-  LineElement,
   LinearScale,
+  LineElement,
   PointElement,
   Title,
   Tooltip,
 } from 'chart.js';
+
 const DARK_ON_LIGHT_TEXT_COLOR = getColorFromTheme(ColorToken.Neutral1000, AppTheme.LIGHT);
 const LIGHT_ON_DARK_TEXT_COLOR = getColorFromTheme(ColorToken.Neutral1000, AppTheme.DARK);
 

@@ -2,8 +2,8 @@ import { useAppTheme } from '@app/app-theme';
 import { useSakstypeFilter } from '@app/components/filters/hooks/use-query-filter';
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/data';
 import {
-  BegrunnelsespliktenBoolean as BPBoolean,
   BegrunnelsespliktenSaksdataHjemlerLists,
+  BegrunnelsespliktenBoolean as BPBoolean,
   ForeleggelsespliktenBoolean,
   JournalfoeringspliktenBoolean,
   KlageOgKlageforberedelsenBoolean,
@@ -54,7 +54,7 @@ import {
 } from '@app/components/statistikk/types/v3/særregelverket';
 import type { KvalitetsvurderingV3Boolean } from '@app/types/kvalitetsvurdering/v3';
 import { SakstypeEnum } from '@app/types/sakstype';
-import { HGrid, HStack, Heading, HelpText, VStack } from '@navikt/ds-react';
+import { Heading, HelpText, HGrid, HStack, VStack } from '@navikt/ds-react';
 import type { ReactNode } from 'react';
 import { QueryParams } from '../../../../filters/filter-query-params';
 import { CardSize, DynamicCard } from '../../../card/card';
@@ -275,7 +275,10 @@ const getHjemlerCount = (dataset: DataSetV3, hjemmelListId: KvalitetsvurderingV3
 const TitleWithExplainer = ({
   children,
   boolean,
-}: { children: ReactNode; boolean?: keyof KvalitetsvurderingV3Boolean }) => (
+}: {
+  children: ReactNode;
+  boolean?: keyof KvalitetsvurderingV3Boolean;
+}) => (
   <VStack>
     <HStack align="center" justify="center" gap="2">
       <Heading size="small">Avvik under «{children}»</Heading>

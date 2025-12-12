@@ -28,7 +28,7 @@ import {
   VEDTAKET_TEXTS,
 } from '@app/components/statistikk/types/vedtaket';
 import { SakstypeEnum } from '@app/types/sakstype';
-import { HStack, Heading, HelpText, Tag } from '@navikt/ds-react';
+import { Heading, HelpText, HStack, Tag } from '@navikt/ds-react';
 import type { ReactNode } from 'react';
 import { styled } from 'styled-components';
 import { QueryParams } from '../../../../filters/filter-query-params';

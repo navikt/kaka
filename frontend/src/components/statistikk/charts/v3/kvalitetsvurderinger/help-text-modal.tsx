@@ -21,7 +21,7 @@ import { TRYGDEMEDISIN_CHECKBOXES } from '@app/components/kvalitetsvurdering/kva
 import { Radiovalg, RadiovalgExtended } from '@app/types/kvalitetsvurdering/radio';
 import type { KvalitetsvurderingV3Boolean } from '@app/types/kvalitetsvurdering/v3';
 import { BulletListIcon, GavelIcon, ParagraphIcon } from '@navikt/aksel-icons';
-import { Button, Checkbox, HStack, Heading, HelpText, Modal, Radio, RadioGroup, Tag, VStack } from '@navikt/ds-react';
+import { Button, Checkbox, Heading, HelpText, HStack, Modal, Radio, RadioGroup, Tag, VStack } from '@navikt/ds-react';
 import { type ReactNode, useRef } from 'react';
 
 export const KvalitetsvurderingModal = ({ focus }: { focus?: keyof KvalitetsvurderingV3Boolean | MainReason }) => {

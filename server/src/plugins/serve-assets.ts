@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { getMimeType } from '@app/helpers/mime-type';
 import { getLogger } from '@app/logger';
 import fastifyPlugin from 'fastify-plugin';
@@ -34,7 +34,6 @@ export const SERVE_ASSETS_PLUGIN_ID = 'serve-assets';
 
 export const serveAssetsPlugin = fastifyPlugin(
   (app, _, pluginDone) => {
-    // biome-ignore lint/suspicious/useAwait: Needs to be a promise
     app.get('/assets/*', async (req, res) => {
       const fileEntry = files.get(req.url);
 

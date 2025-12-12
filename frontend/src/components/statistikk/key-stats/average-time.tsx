@@ -17,13 +17,11 @@ export const Gjennomsnittstid = ({ stats }: Props) => {
   const Wrapper = averageDays > 7 * 15 ? RedKeyNumber : KeyNumber;
 
   return (
-    <>
-      <KeyContent>
-        <Wrapper>
-          {cleanNumberDisplay(averageDays)} {averageDays === 1 ? 'dag' : 'dager'}
-        </Wrapper>
-        <span>Gjennomsnittlig saksbehandlingstid</span>
-      </KeyContent>
-    </>
+    <KeyContent>
+      <Wrapper>
+        {cleanNumberDisplay(averageDays)} {averageDays === 1 ? 'dag' : 'dager'}
+      </Wrapper>
+      <span>Gjennomsnittlig saksbehandlingstid</span>
+    </KeyContent>
   );
 };

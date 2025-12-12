@@ -4,42 +4,42 @@ import {
   isBrukAvRaadgivendeOverlegeErrorField,
   isBrukAvRaadgivendeOverlegeField,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/bruk-av-raadgivende-overlege/data';
-import { MAIN_REASON_LABELS, isMainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
+import { isMainReason, MAIN_REASON_LABELS } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import {
-  KLAGEFORBEREDELSEN_ERROR_LABELS,
-  KLAGEFORBEREDELSEN_LABELS,
   isKlageForberedelsenErrorFields,
   isKlageforberedelsenField,
+  KLAGEFORBEREDELSEN_ERROR_LABELS,
+  KLAGEFORBEREDELSEN_LABELS,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/klageforberedelsen/data';
 import {
-  UTREDNINGEN_ERROR_LABELS,
-  UTREDNINGEN_LABELS,
   isUtredningenErrorFields,
   isUtredningenField,
+  UTREDNINGEN_ERROR_LABELS,
+  UTREDNINGEN_LABELS,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/utredningen/data';
 import {
-  VEDTAKET_ERROR_LABELS,
-  VEDTAKET_LABELS,
   isVedtaketErrorField,
   isVedtaketField,
+  VEDTAKET_ERROR_LABELS,
+  VEDTAKET_LABELS,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
 import {
-  SAKSBEHANDLINGSREGLENE_ERROR_LABELS,
-  SAKSBEHANDLINGSREGLENE_LABELS,
   isSaksbehandlingsregleneErrorField,
   isSaksbehandlingsregleneField,
+  SAKSBEHANDLINGSREGLENE_ERROR_LABELS,
+  SAKSBEHANDLINGSREGLENE_LABELS,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/saksbehandlingsreglene/data';
 import {
-  SÆRREGELVERKET_ERROR_LABELS,
-  SÆRREGELVERKET_LABELS,
   isSærregelverketErrorField,
   isSærregelverketField,
+  SÆRREGELVERKET_ERROR_LABELS,
+  SÆRREGELVERKET_LABELS,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/særregelverket/data';
 import {
-  TRYGDEMEDISIN_ERROR_LABELS,
-  TRYGDEMEDISIN_LABELS,
   isTrygdemedisinErrorField,
   isTrygdemedisinField,
+  TRYGDEMEDISIN_ERROR_LABELS,
+  TRYGDEMEDISIN_LABELS,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/trygdemedisin/data';
 import type { ISaksdataComplete } from '@app/types/saksdata';
 

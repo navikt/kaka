@@ -1,11 +1,12 @@
 import type { RadiovalgField } from '@app/types/statistics/v1';
 import {
-  type ReasonLabel,
   brukAvRaadgivendeLegeReasons,
   klageforberedelsenReasons,
+  type ReasonLabel,
   utredningenReasons,
   vedtaketReasons,
 } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
+
 // import { KvalitetsvurderingProps } from './kvalitetsvurdering';
 
 interface IOption {

@@ -6,26 +6,26 @@ import {
 import {
   type AllSaksbehandlingsregleneBoolean,
   type BegrunnelsespliktenSaksdataHjemlerLists,
+  isSaksbehandlingsregleneField,
   SAKSBEHANDLINGSREGLENE_HELP_TEXTS,
   SAKSBEHANDLINGSREGLENE_LABELS,
   type SaksbehandlingsregleneErrorFields,
-  isSaksbehandlingsregleneField,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/saksbehandlingsreglene/data';
 import {
+  isSærregelverketField,
   SÆRREGELVERKET_HELP_TEXTS,
   SÆRREGELVERKET_LABELS,
   type SærregelverketBoolean,
   type SærregelverketErrorFields,
   type SærregelverketHjemlerFromYtelseList,
   type SærregelverketSaksdataHjemlerList,
-  isSærregelverketField,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/særregelverket/data';
 import {
+  isTrygdemedisinField,
   TRYGDEMEDISIN_HELP_TEXTS,
   TRYGDEMEDISIN_LABELS,
   type TrygdemedisinBoolean,
   type TrygdemedisinErrorFields,
-  isTrygdemedisinField,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/trygdemedisin/data';
 
 type Booleans = TrygdemedisinBoolean | AllSaksbehandlingsregleneBoolean | SærregelverketBoolean;

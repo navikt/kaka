@@ -16,19 +16,12 @@ export const Comparison = () => {
   const version = useVersionQueryFilter();
 
   return (
-    <>
-      <FiltersAndContentContainer>
-        <FilterSection>
-          <Filters />
-        </FilterSection>
-        <ContentLoader
-          version={version}
-          V1Content={<V1Content />}
-          V2Content={<V2Content />}
-          V3Content={<V3Content />}
-        />
-      </FiltersAndContentContainer>
-    </>
+    <FiltersAndContentContainer>
+      <FilterSection>
+        <Filters />
+      </FilterSection>
+      <ContentLoader version={version} V1Content={<V1Content />} V2Content={<V2Content />} V3Content={<V3Content />} />
+    </FiltersAndContentContainer>
   );
 };
 

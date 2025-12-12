@@ -11,15 +11,16 @@ import {
   TypeEnum,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/common/types';
 import {
+  isKlageforberedelsenField,
   KLAGEFORBEREDELSEN_DESCRIPTIONS,
   KLAGEFORBEREDELSEN_HELP_TEXTS,
   KLAGEFORBEREDELSEN_LABELS,
   type KlageforberedelsenBoolean,
   type KlageforberedelsenErrorFields,
   type KlageforberedelsenTextInput,
-  isKlageforberedelsenField,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/klageforberedelsen/data';
 import {
+  isVedtaketField,
   VEDTAKET_HELP_TEXTS,
   VEDTAKET_LABELS,
   type VedtaketAllregistreringshjemlerList,
@@ -27,13 +28,12 @@ import {
   type VedtaketErrorFields,
   type VedtaketHjemlerListBoolean,
   type VedtaketSaksdatahjemlerList,
-  isVedtaketField,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
 import {
+  isUtredningenField,
   UTREDNINGEN_HELP_TEXTS,
   UTREDNINGEN_LABELS,
   type UtredningenBoolean,
-  isUtredningenField,
 } from './utredningen/data';
 
 type Booleans =
