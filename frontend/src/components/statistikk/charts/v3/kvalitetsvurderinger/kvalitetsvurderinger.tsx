@@ -274,13 +274,14 @@ const getHjemlerCount = (dataset: DataSetV3, hjemmelListId: KvalitetsvurderingV3
 
 const TitleWithExplainer = ({
   children,
-  helpText,
   boolean,
-}: { children: ReactNode; helpText?: string; boolean?: keyof KvalitetsvurderingV3Boolean }) => (
+}: { children: ReactNode; boolean?: keyof KvalitetsvurderingV3Boolean }) => (
   <VStack>
     <HStack align="center" justify="center" gap="2">
       <Heading size="small">Avvik under «{children}»</Heading>
-      {helpText ? <HelpText>{helpText}</HelpText> : null}
+      <HelpText>
+        En sak kan ha ett eller flere avvik. Prosenten er regnet ut fra totalt antall kvalitetsvurderte saker.
+      </HelpText>
     </HStack>
     {boolean ? <KvalitetsvurderingModal focus={boolean} /> : null}
   </VStack>
