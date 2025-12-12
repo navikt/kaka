@@ -91,7 +91,7 @@ export const Kvalitetsvurdering = ({ field, title, relevantReasons, stats }: Kva
                   data: doughnutData,
                   backgroundColor: [
                     getColorFromTheme(ColorToken.Success500, theme),
-                    getColorFromTheme(ColorToken.Danger500, theme),
+                    getColorFromTheme(ColorToken.Danger600, theme),
                   ],
                 },
               ],

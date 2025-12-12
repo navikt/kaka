@@ -49,7 +49,7 @@ const useDataSets = (stats: MainReasonDataset[]) => {
   ]);
 
   const mangefullBars = stats.flatMap(({ data, label }) => [
-    { label: `${label} - Mangelfullt`, data, radiovalg: Radiovalg.MANGELFULLT, color: ColorToken.Danger500 },
+    { label: `${label} - Mangelfullt`, data, radiovalg: Radiovalg.MANGELFULLT, color: ColorToken.Danger600 },
   ]);
 
   const bars = [...braBars, ...mangefullBars];
