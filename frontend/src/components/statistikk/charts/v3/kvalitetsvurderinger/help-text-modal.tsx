@@ -1,3 +1,4 @@
+import { useSakstypeFilter } from '@app/components/filters/hooks/use-query-filter';
 import {
   type CheckboxParams,
   type InputParams,
@@ -5,7 +6,7 @@ import {
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/common/types';
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/data';
 import { HEADER as SAKSBEHANDLINGSREGLENE_HEADER } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/saksbehandlingsreglene/data';
-import { SAKSBEHANDLINGSREGLENE_CHECKBOXES } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/saksbehandlingsreglene/saksbehandlingsreglene';
+import { getSaksbehandlingsregeleneCheckboxes } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/saksbehandlingsreglene/saksbehandlingsreglene';
 import {
   HEADER as SÆRREGELVERKET_HEADER,
   SÆRREGELVERKET_HELP_TEXTS,
@@ -20,9 +21,22 @@ import {
 import { TRYGDEMEDISIN_CHECKBOXES } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/trygdemedisin/trygdemedisin';
 import { Radiovalg, RadiovalgExtended } from '@app/types/kvalitetsvurdering/radio';
 import type { KvalitetsvurderingV3Boolean } from '@app/types/kvalitetsvurdering/v3';
+import { SakstypeEnum } from '@app/types/sakstype';
 import { BulletListIcon, GavelIcon, ParagraphIcon } from '@navikt/aksel-icons';
-import { Button, Checkbox, Heading, HelpText, HStack, Modal, Radio, RadioGroup, Tag, VStack } from '@navikt/ds-react';
-import { type ReactNode, useRef } from 'react';
+import {
+  Button,
+  Checkbox,
+  Heading,
+  HelpText,
+  HStack,
+  Modal,
+  Radio,
+  RadioGroup,
+  Tag,
+  ToggleGroup,
+  VStack,
+} from '@navikt/ds-react';
+import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 
 export const KvalitetsvurderingModal = ({ focus }: { focus?: keyof KvalitetsvurderingV3Boolean | MainReason }) => {
   const ref = useRef<HTMLDialogElement>(null);
@@ -69,59 +83,87 @@ export const KvalitetsvurderingModal = ({ focus }: { focus?: keyof Kvalitetsvurd
   );
 };
 
-const Content = ({ ref }: { ref: React.Ref<HTMLDialogElement> }) => (
-  <Modal
-    ref={ref}
-    header={{ heading: 'Struktur og hjelpetekster i kvalitetsvurdering' }}
-    width="1000px"
-    closeOnBackdropClick
-  >
-    <Modal.Body>
-      <HStack gap="8">
-        <section>
-          <Heading size="small" spacing>
-            {SÆRREGELVERKET_HEADER}
-          </Heading>
+const isKlageOrAnke = (value: string) => value === SakstypeEnum.KLAGE || value === SakstypeEnum.ANKE;
 
-          <ReadOnlyCheckbox
-            checked={false}
-            helpText={SÆRREGELVERKET_HELP_TEXTS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}
-          >
-            {SÆRREGELVERKET_LABELS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}
-          </ReadOnlyCheckbox>
+const Content = ({ ref }: { ref: React.Ref<HTMLDialogElement> }) => {
+  const types = useSakstypeFilter();
+  const showsOnlyAnke = useMemo(() => types.length === 1 && types[0] === SakstypeEnum.ANKE, [types]);
+  const [selectedType, setSelectedType] = useState<SakstypeEnum.KLAGE | SakstypeEnum.ANKE>(
+    showsOnlyAnke ? SakstypeEnum.ANKE : SakstypeEnum.KLAGE,
+  );
 
-          <ReadOnlyRadioGroup mainReason={MainReason.Særregelverket}>
-            <VStack gap="2">
-              <Checkboxes checkboxes={SÆRREGELVERKET_CHECKBOXES} />
-            </VStack>
-          </ReadOnlyRadioGroup>
-        </section>
+  useEffect(() => {
+    setSelectedType(showsOnlyAnke ? SakstypeEnum.ANKE : SakstypeEnum.KLAGE);
+  }, [showsOnlyAnke]);
 
-        <section>
-          <Heading size="small" spacing>
-            {SAKSBEHANDLINGSREGLENE_HEADER}
-          </Heading>
-          <ReadOnlyRadioGroup mainReason={MainReason.Saksbehandlingsreglene}>
-            <VStack gap="2">
-              <Checkboxes checkboxes={SAKSBEHANDLINGSREGLENE_CHECKBOXES} />
-            </VStack>
-          </ReadOnlyRadioGroup>
-        </section>
+  return (
+    <Modal
+      ref={ref}
+      header={{ heading: 'Struktur og hjelpetekster i kvalitetsvurdering' }}
+      width="1000px"
+      closeOnBackdropClick
+    >
+      <Modal.Body className="flex flex-col gap-6">
+        <ToggleGroup
+          className="self-center"
+          size="small"
+          value={selectedType}
+          onChange={(v) => {
+            if (isKlageOrAnke(v)) {
+              setSelectedType(v);
+            }
+          }}
+        >
+          <ToggleGroup.Item value={SakstypeEnum.KLAGE}>Klage</ToggleGroup.Item>
+          <ToggleGroup.Item value={SakstypeEnum.ANKE}>Anke</ToggleGroup.Item>
+        </ToggleGroup>
 
-        <section>
-          <Heading size="small" spacing>
-            {TRYGDEMEDISIN_HEADER}
-          </Heading>
-          <TrygdemedisinRadioGroup>
-            <VStack gap="2">
-              <Checkboxes checkboxes={TRYGDEMEDISIN_CHECKBOXES} />
-            </VStack>
-          </TrygdemedisinRadioGroup>
-        </section>
-      </HStack>
-    </Modal.Body>
-  </Modal>
-);
+        <HStack gap="8">
+          <section>
+            <Heading size="small" spacing>
+              {SÆRREGELVERKET_HEADER}
+            </Heading>
+
+            <ReadOnlyCheckbox
+              checked={false}
+              helpText={SÆRREGELVERKET_HELP_TEXTS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}
+            >
+              {SÆRREGELVERKET_LABELS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}
+            </ReadOnlyCheckbox>
+
+            <ReadOnlyRadioGroup mainReason={MainReason.Særregelverket}>
+              <VStack gap="2">
+                <Checkboxes checkboxes={SÆRREGELVERKET_CHECKBOXES} />
+              </VStack>
+            </ReadOnlyRadioGroup>
+          </section>
+
+          <section>
+            <Heading size="small" spacing>
+              {SAKSBEHANDLINGSREGLENE_HEADER}
+            </Heading>
+            <ReadOnlyRadioGroup mainReason={MainReason.Saksbehandlingsreglene}>
+              <VStack gap="2">
+                <Checkboxes checkboxes={getSaksbehandlingsregeleneCheckboxes(selectedType)} />
+              </VStack>
+            </ReadOnlyRadioGroup>
+          </section>
+
+          <section>
+            <Heading size="small" spacing>
+              {TRYGDEMEDISIN_HEADER}
+            </Heading>
+            <TrygdemedisinRadioGroup>
+              <VStack gap="2">
+                <Checkboxes checkboxes={TRYGDEMEDISIN_CHECKBOXES} />
+              </VStack>
+            </TrygdemedisinRadioGroup>
+          </section>
+        </HStack>
+      </Modal.Body>
+    </Modal>
+  );
+};
 
 interface ReadOnlyCheckboxProps {
   children: string;

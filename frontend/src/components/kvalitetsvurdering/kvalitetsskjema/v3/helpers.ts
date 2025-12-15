@@ -7,6 +7,7 @@ import {
   type AllSaksbehandlingsregleneBoolean,
   type BegrunnelsespliktenSaksdataHjemlerLists,
   isSaksbehandlingsregleneField,
+  KlartSpraakBoolean,
   SAKSBEHANDLINGSREGLENE_HELP_TEXTS,
   SAKSBEHANDLINGSREGLENE_LABELS,
   type SaksbehandlingsregleneErrorFields,
@@ -27,6 +28,7 @@ import {
   type TrygdemedisinBoolean,
   type TrygdemedisinErrorFields,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/trygdemedisin/data';
+import { SakstypeEnum } from '@app/types/sakstype';
 
 type Booleans = TrygdemedisinBoolean | AllSaksbehandlingsregleneBoolean | SærregelverketBoolean;
 
@@ -38,6 +40,7 @@ interface Params<T, U> {
   groupErrorField?: U;
   saksdatahjemler?: BegrunnelsespliktenSaksdataHjemlerLists | SærregelverketSaksdataHjemlerList;
   allRegistreringshjemler?: SærregelverketHjemlerFromYtelseList;
+  sakstypeId?: SakstypeEnum;
 }
 
 export const getCheckbox = <T extends Booleans, U extends ErrorFields>({
@@ -46,11 +49,12 @@ export const getCheckbox = <T extends Booleans, U extends ErrorFields>({
   groupErrorField,
   saksdatahjemler,
   allRegistreringshjemler,
+  sakstypeId,
 }: Params<T, U>): CheckboxParams => ({
   field,
   label: getLabel(field),
   type: TypeEnum.CHECKBOX,
-  helpText: getHelpText(field),
+  helpText: getHelpText(field, sakstypeId),
   groupErrorField,
   childList,
   saksdatahjemler,
@@ -73,13 +77,15 @@ const getLabel = (field: Booleans): string => {
   return field;
 };
 
-const getHelpText = (field: Booleans): string | undefined => {
+const getHelpText = (field: Booleans, sakstypeId?: SakstypeEnum): string | undefined => {
   if (isSærregelverketField(field)) {
     return SÆRREGELVERKET_HELP_TEXTS[field];
   }
 
   if (isSaksbehandlingsregleneField(field)) {
-    return SAKSBEHANDLINGSREGLENE_HELP_TEXTS[field];
+    return sakstypeId === SakstypeEnum.ANKE
+      ? { ...SAKSBEHANDLINGSREGLENE_HELP_TEXTS, ...BRUDD_PÅ_PLIKT_TIL_Å_KOMMUNISERE }[field]
+      : SAKSBEHANDLINGSREGLENE_HELP_TEXTS[field];
   }
 
   if (isTrygdemedisinField(field)) {
@@ -87,4 +93,11 @@ const getHelpText = (field: Booleans): string | undefined => {
   }
 
   return undefined;
+};
+
+const BRUDD_PÅ_PLIKT_TIL_Å_KOMMUNISERE = {
+  [KlartSpraakBoolean.saksbehandlingsreglerBruddPaaPliktTilAaKommuniserePaaEtKlartSpraak]:
+    SAKSBEHANDLINGSREGLENE_HELP_TEXTS[
+      KlartSpraakBoolean.saksbehandlingsreglerBruddPaaKlartSprakSpraketIVedtaketErIkkeKlartNok
+    ],
 };

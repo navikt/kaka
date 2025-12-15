@@ -4,11 +4,12 @@ import { calculateReasons } from '@app/components/statistikk/charts/v3/kvalitets
 import type { DataSetV3 } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/types';
 import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
 import {
+  getKvalitetsvurderingV3Texts,
   KVALITETSVURDERING_TEXTS,
-  KVALITETSVURDERING_V3_TEXTS,
   MAIN_REASON_IDS,
   REASON_TO_SUBREASONS,
 } from '@app/components/statistikk/types/v3/kvalitetsvurdering';
+import type { SakstypeEnum } from '@app/types/sakstype';
 import type { ChartData } from 'chart.js';
 
 const { Saksbehandlingsreglene, Særregelverket, Trygdemedisin } = MainReason;
@@ -30,6 +31,7 @@ type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
 
 export const getMangelfullDetailsDatasets = (
   stats: DataSetV3[],
+  sakstypeIds: SakstypeEnum[],
   unit: string,
   theme: AppTheme,
 ): { datasets: StackedBarPiece[]; labels: string[] } => {
@@ -58,7 +60,7 @@ export const getMangelfullDetailsDatasets = (
 
   const datasets: StackedBarPiece[] = MAIN_REASON_IDS.flatMap<StackedBarPiece>((mainReason) =>
     REASON_TO_SUBREASONS[mainReason].map<StackedBarPiece>((reasonId) => {
-      const text = KVALITETSVURDERING_V3_TEXTS[reasonId];
+      const text = getKvalitetsvurderingV3Texts(sakstypeIds)[reasonId];
       const { label } = text;
       const backgroundColor = getColorFromTheme(text.color, theme);
 
