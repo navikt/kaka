@@ -66,7 +66,7 @@ export const Filter = <T extends string | number>({ selected, setSelected, filte
         <CheckboxGroup legend={label} hideLegend value={selected} onChange={setSelected}>
           {filteredOptions.map(({ id, label }) => (
             // <Checkbox> renders much faster than <ActionMenu.CheckboxItem>
-            <Checkbox key={id} size="small" value={id.toString()}>
+            <Checkbox key={id} size="small" value={id}>
               {label}
             </Checkbox>
           ))}
