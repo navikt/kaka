@@ -84,7 +84,9 @@ export const KvalitetsvurderingerV3 = ({ datasets }: Props) => {
     return null;
   }
 
-  const mangellfullDetailsDatasets = getMangelfullDetailsDatasets(datasets, 'avvik', theme);
+  const showsOnlyAnke = types.length === 1 && types[0] === SakstypeEnum.ANKE;
+
+  const mangellfullDetailsDatasets = getMangelfullDetailsDatasets(datasets, types, 'avvik', theme);
 
   return (
     <DynamicCard size={CardSize.LARGE}>
@@ -231,19 +233,23 @@ export const KvalitetsvurderingerV3 = ({ datasets }: Props) => {
         />
       </HGrid>
 
-      <TitleWithExplainer
-        boolean={KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaRegleneOmKlageOgKlageforberedelse}
-      >
-        {
-          SBR_TEXTS[KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaRegleneOmKlageOgKlageforberedelse]
-            .label
-        }
-      </TitleWithExplainer>
-      <Details
-        stats={datasets}
-        reasonIds={KLAGE_OG_KLAGEFORBEREDELSEN_REASONS}
-        reasonTexts={KLAGE_OG_KLAGEFORBEREDELSEN_TEXTS}
-      />
+      {showsOnlyAnke ? null : (
+        <>
+          <TitleWithExplainer
+            boolean={KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaRegleneOmKlageOgKlageforberedelse}
+          >
+            {
+              SBR_TEXTS[KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaRegleneOmKlageOgKlageforberedelse]
+                .label
+            }
+          </TitleWithExplainer>
+          <Details
+            stats={datasets}
+            reasonIds={KLAGE_OG_KLAGEFORBEREDELSEN_REASONS}
+            reasonTexts={KLAGE_OG_KLAGEFORBEREDELSEN_TEXTS}
+          />
+        </>
+      )}
 
       <TitleWithExplainer
         boolean={OmgjoeringBoolean.saksbehandlingsreglerBruddPaaRegleneOmOmgjoeringUtenforKlageOgAnke}
@@ -256,13 +262,16 @@ export const KvalitetsvurderingerV3 = ({ datasets }: Props) => {
         {SBR_TEXTS[JournalfoeringspliktenBoolean.saksbehandlingsreglerBruddPaaJournalfoeringsplikten].label}
       </TitleWithExplainer>
       <Details stats={datasets} reasonIds={JOURNALFØRINGSPLIKTEN_REASONS} reasonTexts={JOURNALFØRINGSPLIKTEN_TEXTS} />
-
-      <TitleWithExplainer
-        boolean={KlartSpraakBoolean.saksbehandlingsreglerBruddPaaPliktTilAaKommuniserePaaEtKlartSpraak}
-      >
-        {SBR_TEXTS[KlartSpraakBoolean.saksbehandlingsreglerBruddPaaPliktTilAaKommuniserePaaEtKlartSpraak].label}
-      </TitleWithExplainer>
-      <Details stats={datasets} reasonIds={KLART_SPRÅK_REASONS} reasonTexts={KLART_SPRÅK_TEXTS} />
+      {showsOnlyAnke ? null : (
+        <>
+          <TitleWithExplainer
+            boolean={KlartSpraakBoolean.saksbehandlingsreglerBruddPaaPliktTilAaKommuniserePaaEtKlartSpraak}
+          >
+            {SBR_TEXTS[KlartSpraakBoolean.saksbehandlingsreglerBruddPaaPliktTilAaKommuniserePaaEtKlartSpraak].label}
+          </TitleWithExplainer>
+          <Details stats={datasets} reasonIds={KLART_SPRÅK_REASONS} reasonTexts={KLART_SPRÅK_TEXTS} />
+        </>
+      )}
     </DynamicCard>
   );
 };

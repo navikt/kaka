@@ -28,6 +28,7 @@ import {
   SÆRREGELVERKET_TEXTS,
 } from '@app/components/statistikk/types/v3/særregelverket';
 import { TRYGDEMEDISIN_TEXTS } from '@app/components/statistikk/types/v3/trygdemedisin';
+import { SakstypeEnum } from '@app/types/sakstype';
 
 export const KVALITETSVURDERING_TEXTS = {
   [MainReason.Særregelverket]: {
@@ -84,7 +85,16 @@ export type KvalitetsvurderingV3HjemlerList =
   | SærregelverketSaksdataHjemlerList
   | BegrunnelsespliktenSaksdataHjemlerLists;
 
-export const KVALITETSVURDERING_V3_TEXTS = {
+export const getKvalitetsvurderingV3Texts = (sakstypeIds: SakstypeEnum[]) =>
+  sakstypeIds.length === 1 && sakstypeIds[0] === SakstypeEnum.ANKE
+    ? { ...KVALITETSVURDERING_V3_TEXTS_START, ...KVALITETSVURDERING_V3_TEXTS_END }
+    : {
+        ...KVALITETSVURDERING_V3_TEXTS_START,
+        ...KLAGE_OG_KLAGEFORBEREDELSEN_TEXTS,
+        ...KVALITETSVURDERING_V3_TEXTS_END,
+      };
+
+const KVALITETSVURDERING_V3_TEXTS_START = {
   ...KVALITETSVURDERING_TEXTS,
 
   ...SÆRREGELVERKET_TEXTS,
@@ -97,7 +107,9 @@ export const KVALITETSVURDERING_V3_TEXTS = {
   ...UTREDNINGSPLIKTEN_TEXTS,
   ...FORELEGGELSESPLIKTEN_TEXTS,
   ...BEGRUNNELSESPLIKTEN_TEXTS,
-  ...KLAGE_OG_KLAGEFORBEREDELSEN_TEXTS,
+};
+
+const KVALITETSVURDERING_V3_TEXTS_END = {
   ...OMGJØRING_TEXTS,
   ...JOURNALFØRINGSPLIKTEN_TEXTS,
   ...KLART_SPRÅK_TEXTS,
