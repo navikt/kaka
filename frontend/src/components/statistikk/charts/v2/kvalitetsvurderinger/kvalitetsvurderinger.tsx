@@ -1,5 +1,4 @@
 import { useAppTheme } from '@app/app-theme';
-import { useSakstypeFilter } from '@app/components/filters/hooks/use-query-filter';
 import { MAIN_REASON_LABELS, MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import {
   LegacyVedtaketBoolean,
@@ -9,11 +8,13 @@ import {
   VedtaketSaksdatahjemlerList,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
 import { DatasetSelector } from '@app/components/statistikk/charts/common/dataset-selector';
+import { NoKvalitetsvurderingWarning } from '@app/components/statistikk/charts/common/no-kvalitetsvurdering-warning';
 import { getMangelfullDetailsDatasets } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/calculations/mangelfull-details';
 import { TotalMangelfull } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/total-mangelfull';
 import type { DataSet } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';
 import { UtredningenUnderKlageforberedelsen } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/utredningen-under-klageforberedelsen';
 import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
+import { useCanShowKvalitetsvurderingStats } from '@app/components/statistikk/hooks/use-can-show-kvalitetsvurdering-stats';
 import { BRUK_AV_RAADGIVENDE_LEGE_TEXTS } from '@app/components/statistikk/types/bruk-av-raadgivende-lege';
 import {
   KLAGEFORBEREDELSEN_TEXTS,
@@ -27,7 +28,6 @@ import {
   type StatisticsVedtaketHjemlerListBoolean,
   VEDTAKET_TEXTS,
 } from '@app/components/statistikk/types/vedtaket';
-import { SakstypeEnum } from '@app/types/sakstype';
 import { Heading, HelpText, HStack, Tag } from '@navikt/ds-react';
 import type { ReactNode } from 'react';
 import { styled } from 'styled-components';
@@ -72,18 +72,19 @@ const MAIN_HELP_TEXTS = [
 
 export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
   const theme = useAppTheme();
-  const types = useSakstypeFilter();
-
-  const hide = types.every(
-    (type) => type === SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET || type === SakstypeEnum.OMGJØRINGSKRAV,
-  );
   const [datasetIndexString, setDatasetIndex] = useQueryParam(QueryParams.DATASET_INDEX, '0');
 
   const datasetIndex = Number.parseInt(datasetIndexString, 10);
 
   const focusedDataset = datasets[datasetIndex];
 
-  if (hide || datasets.length === 0 || typeof focusedDataset === 'undefined') {
+  const canShow = useCanShowKvalitetsvurderingStats();
+
+  if (!canShow) {
+    return <NoKvalitetsvurderingWarning />;
+  }
+
+  if (datasets.length === 0 || typeof focusedDataset === 'undefined') {
     return null;
   }
 

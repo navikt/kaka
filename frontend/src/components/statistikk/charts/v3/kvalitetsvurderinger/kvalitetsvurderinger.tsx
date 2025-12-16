@@ -20,6 +20,7 @@ import {
 import { DatasetSelector } from '@app/components/statistikk/charts/common/dataset-selector';
 import { Hjemler } from '@app/components/statistikk/charts/common/hjemler';
 import { MangelfullDetails } from '@app/components/statistikk/charts/common/mangelfull-details';
+import { NoKvalitetsvurderingWarning } from '@app/components/statistikk/charts/common/no-kvalitetsvurdering-warning';
 import { getMangelfullDetailsDatasets } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/calculations/mangelfull-details';
 import { Details } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/details';
 import { KvalitetsvurderingModal } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/help-text-modal';
@@ -27,6 +28,7 @@ import { Mangelfull } from '@app/components/statistikk/charts/v3/kvalitetsvurder
 import { TotalMangelfull } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/total-mangelfull';
 import type { DataSetV3 } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/types';
 import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
+import { useCanShowKvalitetsvurderingStats } from '@app/components/statistikk/hooks/use-can-show-kvalitetsvurdering-stats';
 import type { KvalitetsvurderingV3HjemlerList } from '@app/components/statistikk/types/v3/kvalitetsvurdering';
 import {
   BEGRUNNELSESPLIKTEN_REASONS,
@@ -67,16 +69,18 @@ interface Props {
 export const KvalitetsvurderingerV3 = ({ datasets }: Props) => {
   const theme = useAppTheme();
   const types = useSakstypeFilter();
-  const hide = types.every(
-    (type) => type === SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET || type === SakstypeEnum.OMGJØRINGSKRAV,
-  );
   const [datasetIndexString, setDatasetIndex] = useQueryParam(QueryParams.DATASET_INDEX, '0');
+  const canShow = useCanShowKvalitetsvurderingStats();
+
+  if (!canShow) {
+    return <NoKvalitetsvurderingWarning />;
+  }
 
   const datasetIndex = Number.parseInt(datasetIndexString, 10);
 
   const focusedDataset = datasets[datasetIndex];
 
-  if (hide || datasets.length === 0 || typeof focusedDataset === 'undefined') {
+  if (datasets.length === 0 || typeof focusedDataset === 'undefined') {
     return null;
   }
 
