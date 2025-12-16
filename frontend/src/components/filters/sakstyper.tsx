@@ -14,5 +14,5 @@ const SAKSTYPER = [
 ];
 
 export const SakstypeFilter = ({ selected, setSelected }: SakstypeFilterProps) => (
-  <Filter label="Type" filters={SAKSTYPER} selected={selected} setSelected={setSelected} />
+  <Filter label="Sakstype" filters={SAKSTYPER} selected={selected} setSelected={setSelected} />
 );
