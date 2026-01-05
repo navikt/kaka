@@ -112,13 +112,13 @@ export const useVersionQueryFilter = (defaultVersion?: KvalitetsvurderingVersion
   const queryValue = useQueryFilter(QueryParams.VERSION);
 
   if (queryValue === null || queryValue.length === 0) {
-    return defaultVersion ?? KvalitetsvurderingVersion.V2;
+    return defaultVersion ?? KvalitetsvurderingVersion.V3;
   }
 
   const version = Number.parseInt(queryValue, 10);
 
   if (!isKvalitetsvurderingVersion(version)) {
-    return defaultVersion ?? KvalitetsvurderingVersion.V2;
+    return defaultVersion ?? KvalitetsvurderingVersion.V3;
   }
 
   return version;

@@ -14,8 +14,8 @@ import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { format, subMonths } from 'date-fns';
 import { useMemo } from 'react';
 
-const DEFAULT_VERSION = `${QueryParams.VERSION}=${KvalitetsvurderingVersion.V2}`;
-const version = IS_BEFORE_FEBRUARY_2023 ? KvalitetsvurderingVersion.V1 : KvalitetsvurderingVersion.V2;
+const DEFAULT_VERSION = `${QueryParams.VERSION}=${KvalitetsvurderingVersion.V3}`;
+const version = IS_BEFORE_FEBRUARY_2023 ? KvalitetsvurderingVersion.V1 : KvalitetsvurderingVersion.V3;
 const DEFAULT_VERSION_LEDER = `${QueryParams.VERSION}=${version}`;
 
 export const useDefaultQueryAapen = () =>
