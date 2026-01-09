@@ -1,12 +1,20 @@
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
-import { subMonths } from 'date-fns';
+import { subMonths, subYears } from 'date-fns';
 import {
+  DEC_31_2022,
+  DEC_31_2023,
+  DEC_31_2024,
+  DEC_31_2025,
   END_OF_LAST_MONTH,
   IS_BEFORE_2026,
   IS_BEFORE_2027,
   IS_BEFORE_FEBRUARY_2026,
   IS_BEFORE_MAY_2026,
   IS_BEFORE_SEPTEMBER_2026,
+  JAN_1_2022,
+  JAN_1_2023,
+  JAN_1_2024,
+  JAN_1_2025,
   LAST_YEAR_END,
   LAST_YEAR_START,
   NOW,
@@ -24,7 +32,7 @@ export const useDatePresets = (): IOption[] => {
 
   switch (version) {
     case KvalitetsvurderingVersion.V1:
-      return [];
+      return [{ label: 'Hele 2022', fromDate: JAN_1_2022, toDate: DEC_31_2022 }];
     case KvalitetsvurderingVersion.V2: {
       const presets: IOption[] = [];
 
@@ -52,6 +60,10 @@ export const useDatePresets = (): IOption[] => {
         presets.push({ label: 'I fjor', fromDate: LAST_YEAR_START, toDate: LAST_YEAR_END });
       }
 
+      presets.push({ label: 'Hele 2023', fromDate: JAN_1_2023, toDate: DEC_31_2023 });
+      presets.push({ label: 'Hele 2024', fromDate: JAN_1_2024, toDate: DEC_31_2024 });
+      presets.push({ label: 'Hele 2025', fromDate: JAN_1_2025, toDate: DEC_31_2025 });
+
       return presets;
     }
     case KvalitetsvurderingVersion.V3: {
@@ -73,9 +85,31 @@ export const useDatePresets = (): IOption[] => {
         presets.push({ label: 'I fjor', fromDate: LAST_YEAR_START, toDate: LAST_YEAR_END });
       }
 
-      return presets;
+      return presets.concat(getUpToLast3Years(2026));
     }
   }
+};
+
+const getUpToLast3Years = (startYear: number): IOption[] => {
+  const lastFullYear = subYears(NOW, 1).getFullYear();
+
+  if (lastFullYear < startYear) {
+    return [];
+  }
+
+  const firstYear: number = Math.max(startYear, lastFullYear - 2);
+
+  return Array(lastFullYear - firstYear + 1)
+    .fill(null)
+    .map((_, index) => {
+      const year = firstYear + index;
+
+      return {
+        label: `Hele ${year}`,
+        fromDate: new Date(`${year}-01-01`),
+        toDate: new Date(`${year}-12-31`),
+      };
+    });
 };
 
 export const useDatePresetsLeder = (): IOption[] => {
