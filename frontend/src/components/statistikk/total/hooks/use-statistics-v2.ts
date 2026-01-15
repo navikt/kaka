@@ -1,6 +1,7 @@
 import { HjemlerModeFilter, TilbakekrevingEnum } from '@app/components/filters/types';
 import { filterHjemler } from '@app/components/statistikk/filters/filter-hjemler';
 import { tilbakekrevingFilter } from '@app/components/statistikk/filters/tilbakekreving';
+import { useYtelserQueryFilter } from '@app/components/statistikk/hooks/use-ytelser-query-filter';
 import type { State } from '@app/simple-api-state/simple-api-state';
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v2/use-statistics-total';
 import type { IFullStatisticVurderingV2, IStatisticsResponseTotalV2 } from '@app/types/statistics/v2';
@@ -34,7 +35,7 @@ export const useFilteredTotalStatisticsV2 = () => {
   const rest = data?.rest ?? EMPTY_STATISTICS;
 
   const types = useSakstypeFilter();
-  const ytelser = useQueryFilters(QueryParams.YTELSER);
+  const ytelser = useYtelserQueryFilter();
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const enheter = useQueryFilters(QueryParams.ENHETER);
   const klageenheter = useQueryFilters(QueryParams.KLAGEENHETER);

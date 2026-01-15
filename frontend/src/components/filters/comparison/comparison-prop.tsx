@@ -46,7 +46,7 @@ const getDefaultValue = (value: string) => {
   }
 };
 
-const getComparisonLabel = (value: ComparableQueryParams) => {
+const getComparisonLabel = (value: ComparableQueryParams): string => {
   switch (value) {
     case ComparableQueryParams.ENHETER:
       return 'Enheter';
@@ -58,6 +58,8 @@ const getComparisonLabel = (value: ComparableQueryParams) => {
       return 'Utfall';
     case ComparableQueryParams.VEDTAKSINSTANSGRUPPER:
       return 'Vedtaksinstansgrupper';
+    case ComparableQueryParams.YTELSEGRUPPER:
+      return 'Ytelsegrupper';
     case ComparableQueryParams.YTELSER:
       return 'Ytelser';
     case ComparableQueryParams.DATE_INTERVALS:

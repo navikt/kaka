@@ -38,6 +38,7 @@ import {
   SaksbehandlerPills,
   SakstyperPills,
   UtfallPills,
+  YtelsegrupperPills,
   YtelserPills,
 } from '../../filters/pills/pills';
 import { SaksbehandlerFilter } from '../../filters/saksbehandler';
@@ -55,6 +56,7 @@ export const Filters = () => {
 
   const selectedTypes = useSakstypeFilter();
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
+  const selectedYtelsegrupper = useQueryFilters(QueryParams.YTELSEGRUPPER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedSaksbehandlere = useQueryFilters(QueryParams.SAKSBEHANDLERE);
@@ -132,6 +134,7 @@ export const Filters = () => {
       <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
       <YtelserAndHjemler
         selectedYtelser={selectedYtelser}
+        selectedYtelsegrupper={selectedYtelsegrupper}
         selectedHjemler={selectedHjemler}
         setFilter={setFilter}
         ytelser={ytelser}
@@ -140,6 +143,7 @@ export const Filters = () => {
         <EnheterPills setFilter={setFilter} />
         <UtfallPills setFilter={setFilter} />
         <SakstyperPills setFilter={setFilter} />
+        <YtelsegrupperPills setFilter={setFilter} />
         <YtelserPills setFilter={setFilter} />
         <HjemlerPills setFilter={setFilter} />
         <SaksbehandlerPills setFilter={setFilter} />

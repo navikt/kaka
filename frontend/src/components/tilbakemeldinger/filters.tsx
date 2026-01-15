@@ -30,7 +30,14 @@ import {
 import { useValidDateInterval } from '../filters/hooks/use-valid-date-interval';
 import { KommentarerFilter } from '../filters/kommentarer';
 import { MangelfulltFilter } from '../filters/mangelfullt';
-import { HjemlerPills, KommentarerPills, MangelfulltPills, UtfallPills, YtelserPills } from '../filters/pills/pills';
+import {
+  HjemlerPills,
+  KommentarerPills,
+  MangelfulltPills,
+  UtfallPills,
+  YtelsegrupperPills,
+  YtelserPills,
+} from '../filters/pills/pills';
 import { ResetDateButton } from '../filters/reset-date';
 import { StatisticsVersionFilter } from '../filters/statistics-version/statistics-version';
 import { TilbakekrevingFilter } from '../filters/tilbakekreving';
@@ -42,6 +49,7 @@ export const Filters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
+  const selectedYtelsegrupper = useQueryFilters(QueryParams.YTELSEGRUPPER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedMangelfullt = useQueryFilters(QueryParams.MANGELFULLT);
@@ -152,6 +160,7 @@ export const Filters = () => {
 
       <YtelserAndHjemler
         selectedYtelser={selectedYtelser}
+        selectedYtelsegrupper={selectedYtelsegrupper}
         selectedHjemler={selectedHjemler}
         setFilter={setFilter}
         ytelser={ytelser}
@@ -170,6 +179,7 @@ export const Filters = () => {
       <PillContainer>
         <UtfallPills setFilter={setFilter} />
         <YtelserPills setFilter={setFilter} />
+        <YtelsegrupperPills setFilter={setFilter} />
         <MangelfulltPills setFilter={setFilter} />
         <KommentarerPills setFilter={setFilter} />
         <HjemlerPills setFilter={setFilter} />

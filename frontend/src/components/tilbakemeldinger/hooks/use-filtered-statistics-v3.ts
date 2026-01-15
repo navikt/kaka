@@ -1,4 +1,5 @@
 import { filterHjemler } from '@app/components/statistikk/filters/filter-hjemler';
+import { useYtelserQueryFilter } from '@app/components/statistikk/hooks/use-ytelser-query-filter';
 import { useStatisticsVedtaksinstansleder } from '@app/simple-api-state/statistics/v3/use-statistics-vedtaksinstansleder';
 import { SakstypeEnum } from '@app/types/sakstype';
 import type { IStatisticVurderingV3 } from '@app/types/statistics/v3';
@@ -33,7 +34,7 @@ export const useFilteredStatisticsV3 = () => {
   const mine = useMemo(() => data?.mine ?? EMPTY_ARRAY, [data]);
   const rest = useMemo(() => data?.rest ?? EMPTY_ARRAY, [data]);
 
-  const ytelser = useQueryFilters(QueryParams.YTELSER);
+  const ytelser = useYtelserQueryFilter();
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
