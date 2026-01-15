@@ -1,4 +1,5 @@
 import { PillContainer } from '@app/components/filters/pills/styled-components';
+import { YtelseFilter, YtelsegrupperFilter } from '@app/components/filters/ytelser-and-hjemler';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
@@ -27,18 +28,18 @@ import {
   useVersionQueryFilter,
 } from '../../filters/hooks/use-query-filter';
 import { useValidDateInterval } from '../../filters/hooks/use-valid-date-interval';
-import { SakstyperPills, UtfallPills, YtelserPills } from '../../filters/pills/pills';
+import { SakstyperPills, UtfallPills, YtelsegrupperPills, YtelserPills } from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { StatisticsVersionFilter } from '../../filters/statistics-version/statistics-version';
 import { UtfallFilter } from '../../filters/utfall';
-import { YtelseFilter } from '../../filters/ytelser';
 
 export const Filters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedTypes = useSakstypeFilter();
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
+  const selectedYtelsegrupper = useQueryFilters(QueryParams.YTELSEGRUPPER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
 
   // Dates
@@ -139,11 +140,13 @@ export const Filters = () => {
 
       <UtfallFilter selected={selectedUtfall} setSelected={(values) => setFilter(QueryParams.UTFALL, ...values)} />
       <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
-      <YtelseFilter selected={selectedYtelser} ytelser={ytelser} />
+      <YtelsegrupperFilter selected={selectedYtelsegrupper} setFilter={setFilter} />
+      <YtelseFilter selected={selectedYtelser} setFilter={setFilter} ytelser={ytelser} />
 
       <PillContainer>
         <UtfallPills setFilter={setFilter} />
         <SakstyperPills setFilter={setFilter} />
+        <YtelsegrupperPills setFilter={setFilter} />
         <YtelserPills setFilter={setFilter} />
       </PillContainer>
     </FilterPanelContainer>

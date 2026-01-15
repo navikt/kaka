@@ -39,6 +39,7 @@ import {
   SakstyperPills,
   UtfallPills,
   VedtaksinstansgrupperPills,
+  YtelsegrupperPills,
   YtelserPills,
 } from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
@@ -58,6 +59,7 @@ export const Filters = () => {
   const selectedKlageenheter = useQueryFilters(QueryParams.KLAGEENHETER);
   const selectedTypes = useSakstypeFilter();
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
+  const selectedYtelsegrupper = useQueryFilters(QueryParams.YTELSEGRUPPER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedVedtaksinstansgrupper = useVedtaksinstansgruppeQueryFilter();
@@ -176,6 +178,7 @@ export const Filters = () => {
       <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
       <YtelserAndHjemler
         selectedYtelser={selectedYtelser}
+        selectedYtelsegrupper={selectedYtelsegrupper}
         selectedHjemler={selectedHjemler}
         setFilter={setFilter}
         ytelser={ytelser}
@@ -187,6 +190,7 @@ export const Filters = () => {
         <EnheterPills setFilter={setFilter} />
         <UtfallPills setFilter={setFilter} />
         <SakstyperPills setFilter={setFilter} />
+        <YtelsegrupperPills setFilter={setFilter} />
         <YtelserPills setFilter={setFilter} />
         <HjemlerPills setFilter={setFilter} />
       </PillContainer>

@@ -1,4 +1,5 @@
 import { filterHjemler } from '@app/components/statistikk/filters/filter-hjemler';
+import { useYtelserQueryFilter } from '@app/components/statistikk/hooks/use-ytelser-query-filter';
 import { useSaksdatalisteLederVedtaksinstans } from '@app/simple-api-state/statistics/v2/use-saksdataliste-leder-vedtaksinstans';
 import { useUser } from '@app/simple-api-state/use-user';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../filters/date-presets/constants';
@@ -28,7 +29,7 @@ const useSaksdata = () => {
 export const useFilteredSaksdataV2 = () => {
   const { data } = useSaksdata();
 
-  const ytelser = useQueryFilters(QueryParams.YTELSER);
+  const ytelser = useYtelserQueryFilter();
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);

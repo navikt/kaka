@@ -10,25 +10,23 @@ interface Props {
   setSelectedHjemler: (hjemler: string[]) => void;
 }
 
-export const Hjemler = (props: Props) => {
-  return (
-    <VStack gap="1" className="grow">
-      <HjemlerMode />
+export const Hjemler = (props: Props) => (
+  <VStack gap="1" className="grow">
+    <HjemlerMode />
 
-      <SelectHjemler
-        {...props}
-        trigger={
-          <Button
-            size="small"
-            variant="secondary-neutral"
-            icon={<ChevronDownIcon aria-hidden />}
-            iconPosition="right"
-            className="!justify-between grow"
-          >
-            Hjemler ({props.selectedHjemler.length})
-          </Button>
-        }
-      />
-    </VStack>
-  );
-};
+    <SelectHjemler
+      {...props}
+      trigger={
+        <Button
+          size="small"
+          variant="secondary-neutral"
+          icon={<ChevronDownIcon aria-hidden />}
+          iconPosition="right"
+          className="justify-between! grow"
+        >
+          Hjemler ({props.selectedHjemler.length})
+        </Button>
+      }
+    />
+  </VStack>
+);

@@ -1,3 +1,4 @@
+import { useYtelserQueryFilter } from '@app/components/statistikk/hooks/use-ytelser-query-filter';
 import { useStatisticsOpen } from '@app/simple-api-state/statistics/v1/use-statistics-open';
 import type { IStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { useMemo } from 'react';
@@ -29,7 +30,7 @@ export const useFilteredStatisticsV1 = () => {
   const data = useAllStatisticsV1();
 
   const types = useSakstypeFilter();
-  const ytelser = useQueryFilters(QueryParams.YTELSER);
+  const ytelser = useYtelserQueryFilter();
   const utfall = useQueryFilters(QueryParams.UTFALL);
 
   return useMemo(

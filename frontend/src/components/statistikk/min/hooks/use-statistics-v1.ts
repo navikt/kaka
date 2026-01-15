@@ -1,4 +1,5 @@
 import { filterHjemler } from '@app/components/statistikk/filters/filter-hjemler';
+import { useYtelserQueryFilter } from '@app/components/statistikk/hooks/use-ytelser-query-filter';
 import { useStatisticsMy } from '@app/simple-api-state/statistics/v1/use-statistics-my';
 import type { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { useCallback, useMemo } from 'react';
@@ -33,7 +34,7 @@ export const useFilteredMyStatisticsV1 = () => {
   const rest = useMemo(() => data?.rest ?? EMPTY_ARRAY, [data]);
 
   const types = useSakstypeFilter();
-  const ytelser = useQueryFilters(QueryParams.YTELSER);
+  const ytelser = useYtelserQueryFilter();
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);

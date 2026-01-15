@@ -29,7 +29,14 @@ import {
   useVersionQueryFilter,
 } from '../../filters/hooks/use-query-filter';
 import { useValidDateInterval } from '../../filters/hooks/use-valid-date-interval';
-import { EnheterPills, HjemlerPills, SakstyperPills, UtfallPills, YtelserPills } from '../../filters/pills/pills';
+import {
+  EnheterPills,
+  HjemlerPills,
+  SakstyperPills,
+  UtfallPills,
+  YtelsegrupperPills,
+  YtelserPills,
+} from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { StatisticsVersionFilter } from '../../filters/statistics-version/statistics-version';
@@ -43,6 +50,7 @@ export const Filters = () => {
 
   const selectedTypes = useSakstypeFilter();
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
+  const selectedYtelsegrupper = useQueryFilters(QueryParams.YTELSEGRUPPER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedTilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
@@ -143,6 +151,7 @@ export const Filters = () => {
       <SakstypeFilter selected={selectedTypes} setSelected={(values) => setFilter(QueryParams.TYPES, ...values)} />
       <YtelserAndHjemler
         selectedYtelser={selectedYtelser}
+        selectedYtelsegrupper={selectedYtelsegrupper}
         selectedHjemler={selectedHjemler}
         setFilter={setFilter}
         ytelser={ytelser}
@@ -151,6 +160,7 @@ export const Filters = () => {
         <EnheterPills setFilter={setFilter} />
         <UtfallPills setFilter={setFilter} />
         <SakstyperPills setFilter={setFilter} />
+        <YtelsegrupperPills setFilter={setFilter} />
         <YtelserPills setFilter={setFilter} />
         <HjemlerPills setFilter={setFilter} />
       </PillContainer>
