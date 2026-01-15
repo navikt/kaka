@@ -1,4 +1,5 @@
 import { filterHjemler } from '@app/components/statistikk/filters/filter-hjemler';
+import { useYtelserQueryFilter } from '@app/components/statistikk/hooks/use-ytelser-query-filter';
 import { useStatisticsManager } from '@app/simple-api-state/statistics/v2/use-statistics-manager';
 import { useUser } from '@app/simple-api-state/use-user';
 import type { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
@@ -38,7 +39,7 @@ export const useFilteredManagerStatisticsV2 = () => {
   const saksbehandlere = useMemo(() => data?.saksbehandlere ?? EMPTY_SAKSBEHANDLERE, [data]);
 
   const types = useSakstypeFilter();
-  const ytelser = useQueryFilters(QueryParams.YTELSER);
+  const ytelser = useYtelserQueryFilter();
   const utfall = useQueryFilters(QueryParams.UTFALL);
   const hjemler = useQueryFilters(QueryParams.HJEMLER);
   const tilbakekrevingQuery = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);

@@ -1,3 +1,5 @@
+import { ComparisonOption } from '@app/components/filters/comparison/comparison-values/comparison-option';
+import { YTELSESGRUPPE_KODEVERK } from '@app/components/statistikk/types';
 import { ComparableQueryParams } from '../../filter-query-params';
 import { DateIntervals } from './date-intervals';
 import { Enheter } from './enheter';
@@ -26,6 +28,8 @@ export const ComparisonValues = () => {
       return <Utfall />;
     case ComparableQueryParams.VEDTAKSINSTANSGRUPPER:
       return <Vedtaksinstansgrupper />;
+    case ComparableQueryParams.YTELSESGRUPPER:
+      return <ComparisonOption data={YTELSESGRUPPE_KODEVERK} />;
     case ComparableQueryParams.YTELSER:
       return <Ytelser />;
     case ComparableQueryParams.DATE_INTERVALS:

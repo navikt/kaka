@@ -3,6 +3,7 @@ export enum ComparableQueryParams {
   KLAGEENHETER = 'klageenheter',
   VEDTAKSINSTANSGRUPPER = 'vedtaksinstansgrupper',
   YTELSER = 'ytelser',
+  YTELSESGRUPPER = 'ytelsesgrupper',
   UTFALL = 'utfall',
   DATE_INTERVALS = 'dateIntervals',
   HJEMLER = 'hjemler',

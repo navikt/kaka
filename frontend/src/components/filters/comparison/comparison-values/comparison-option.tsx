@@ -7,7 +7,7 @@ import { useOnchange } from './use-onchange';
 
 interface Props {
   data: IKodeverkSimpleValue[];
-  testId: string;
+  testId?: string;
 }
 
 export const ComparisonOption = ({ data, testId }: Props) => {

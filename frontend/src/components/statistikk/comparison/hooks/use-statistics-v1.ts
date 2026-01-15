@@ -1,3 +1,5 @@
+import { useYtelserQueryFilter } from '@app/components/statistikk/hooks/use-ytelser-query-filter';
+import { isYtelsegruppe, YTELSESGRUPPER } from '@app/components/statistikk/types';
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v1/use-statistics-total';
 import type { OptionValue } from '@app/types/statistics/common';
 import type { IComparedFullStatisticVurderingV1, IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
@@ -33,7 +35,7 @@ export const useFilteredStatisticsV1 = (): IComparedFullStatisticVurderingV1[] =
   const data = useAllStatistics();
 
   const types = useSakstypeFilter();
-  const ytelser = useQueryFilters(QueryParams.YTELSER);
+  const ytelser = useYtelserQueryFilter();
   const utfall = useQueryFilters(QueryParams.UTFALL);
 
   const comparisonProp = useComparisonProp();
@@ -120,6 +122,8 @@ const getMatchedValue = (
       return comparisonValues.find(([v]) => v === sak.vedtaksinstansEnhet);
     case ComparableQueryParams.UTFALL:
       return comparisonValues.find(([v]) => v === sak.utfallId);
+    case ComparableQueryParams.YTELSESGRUPPER:
+      return comparisonValues.find(([v]) => (isYtelsegruppe(v) ? YTELSESGRUPPER[v].includes(sak.ytelseId) : []));
     case ComparableQueryParams.YTELSER:
       return comparisonValues.find(([v]) => v === sak.ytelseId);
     case ComparableQueryParams.HJEMLER:

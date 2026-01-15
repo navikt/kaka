@@ -1,3 +1,4 @@
+import { YTELSESGRUPPE_KODEVERK } from '@app/components/statistikk/types';
 import { isoDateToPretty } from '@app/domain/date';
 import {
   type RegistreringshjemlerMap,
@@ -32,6 +33,7 @@ export const useLabels = (): Record<ComparableQueryParams, (value: string) => st
       [ComparableQueryParams.ENHETER]: (id) => getLabel(id, enheter),
       [ComparableQueryParams.KLAGEENHETER]: (id) => getLabel(id, klageenheter),
       [ComparableQueryParams.YTELSER]: (id) => getLabel(id, ytelser),
+      [ComparableQueryParams.YTELSESGRUPPER]: (id) => getLabel(id, YTELSESGRUPPE_KODEVERK),
       [ComparableQueryParams.HJEMLER]: (id) => getHjemmelLabel(id, hjemler),
       [ComparableQueryParams.VEDTAKSINSTANSGRUPPER]: (id) =>
         getLabel(

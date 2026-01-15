@@ -1,4 +1,5 @@
 import { StaticDataContext } from '@app/components/app/static-data-context';
+import { YTELSESGRUPPE_OPTIONS } from '@app/components/statistikk/types';
 import {
   useEnheter,
   useKlageenheter,
@@ -226,6 +227,21 @@ export const VedtaksinstansgrupperPills = ({ setFilter }: Props) => {
     const id = vg.toString(10);
 
     return <Pill key={id} id={id} queryKey={V} setFilter={setFilter} name={label} values={values} category={c} />;
+  });
+
+  return <Chips>{pills}</Chips>;
+};
+
+export const YtelsegrupperPills = ({ setFilter }: Props) => {
+  const selected = useQueryFilters(QueryParams.YTELSESGRUPPER);
+
+  const c = 'ytelsesgrupper';
+  const { YTELSESGRUPPER: Y } = QueryParams;
+
+  const pills = selected.map((id) => {
+    const label = YTELSESGRUPPE_OPTIONS.find((y) => y.id === id)?.label ?? id;
+
+    return <Pill key={id} id={id} queryKey={Y} setFilter={setFilter} name={label} values={selected} category={c} />;
   });
 
   return <Chips>{pills}</Chips>;
