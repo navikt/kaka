@@ -38,7 +38,7 @@ enum Ytelsegruppe {
   Yrkesskade = '9',
 }
 
-const YTELSEGRUPPE_NAMES: Record<Ytelsegruppe, string> = {
+const YTELSESGRUPPE_NAMES: Record<Ytelsegruppe, string> = {
   [Ytelsegruppe.Bidragsområdet]: 'Bidragsområdet',
   [Ytelsegruppe.Foreldrepenger]: 'Foreldrepenger',
   [Ytelsegruppe.Etterlatteytelser]: 'Etterlatteytelser',
@@ -50,17 +50,17 @@ const YTELSEGRUPPE_NAMES: Record<Ytelsegruppe, string> = {
   [Ytelsegruppe.Yrkesskade]: 'Yrkesskade',
 };
 
-export const YTELSEGRUPPE_OPTIONS = Object.entries(YTELSEGRUPPE_NAMES).map(([key, label]) => ({
+export const YTELSESGRUPPE_OPTIONS = Object.entries(YTELSESGRUPPE_NAMES).map(([key, label]) => ({
   label,
   id: key,
 }));
 
-export const YTELSEGRUPPE_KODEVERK: IKodeverkSimpleValue[] = YTELSEGRUPPE_OPTIONS.map(({ id, label }) => ({
+export const YTELSESGRUPPE_KODEVERK: IKodeverkSimpleValue[] = YTELSESGRUPPE_OPTIONS.map(({ id, label }) => ({
   id,
   navn: label,
 }));
 
-export const YTELSEGRUPPER: Record<Ytelsegruppe, string[]> = {
+export const YTELSESGRUPPER: Record<Ytelsegruppe, string[]> = {
   [Ytelsegruppe.Bidragsområdet]: [
     Ytelse.BidragsområdetBarnebidrag,
     Ytelse.BidragsområdetBarnebortføring,
@@ -101,6 +101,6 @@ export const YTELSEGRUPPER: Record<Ytelsegruppe, string[]> = {
   ],
 };
 
-const YTELSEGRUPPE_VALUES = Object.values(Ytelsegruppe);
+const YTELSESGRUPPE_VALUES = Object.values(Ytelsegruppe);
 
-export const isYtelsegruppe = (key: string): key is Ytelsegruppe => YTELSEGRUPPE_VALUES.some((v) => v === key);
+export const isYtelsegruppe = (key: string): key is Ytelsegruppe => YTELSESGRUPPE_VALUES.some((v) => v === key);

@@ -58,7 +58,7 @@ const getComparisonLabel = (value: ComparableQueryParams): string => {
       return 'Utfall';
     case ComparableQueryParams.VEDTAKSINSTANSGRUPPER:
       return 'Vedtaksinstansgrupper';
-    case ComparableQueryParams.YTELSEGRUPPER:
+    case ComparableQueryParams.YTELSESGRUPPER:
       return 'Ytelsegrupper';
     case ComparableQueryParams.YTELSER:
       return 'Ytelser';

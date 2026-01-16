@@ -2,7 +2,7 @@ import { Filter } from '@app/components/filters/common/filter';
 import { Hjemler } from '@app/components/filters/common/hjemler';
 import { QueryParams } from '@app/components/filters/filter-query-params';
 import { getYtelserFromYtelsegrupper } from '@app/components/statistikk/hooks/use-ytelser-query-filter';
-import { YTELSEGRUPPE_OPTIONS } from '@app/components/statistikk/types';
+import { YTELSESGRUPPE_OPTIONS } from '@app/components/statistikk/types';
 import type { IYtelse } from '@app/types/kodeverk';
 import { ChevronRightIcon } from '@navikt/aksel-icons';
 import { HStack } from '@navikt/ds-react';
@@ -68,10 +68,10 @@ export const YtelsegrupperFilter = ({ selected, setFilter }: YtelseFilterProps) 
     label="Ytelsegrupper"
     selected={selected}
     setSelected={(v) => {
-      setFilter(QueryParams.YTELSEGRUPPER, ...v);
+      setFilter(QueryParams.YTELSESGRUPPER, ...v);
       setFilter(QueryParams.HJEMLER, ...EMPTY);
     }}
-    filters={YTELSEGRUPPE_OPTIONS}
+    filters={YTELSESGRUPPE_OPTIONS}
   />
 );
 

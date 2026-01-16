@@ -49,7 +49,7 @@ export const Filters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
-  const selectedYtelsegrupper = useQueryFilters(QueryParams.YTELSEGRUPPER);
+  const selectedYtelsegrupper = useQueryFilters(QueryParams.YTELSESGRUPPER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedMangelfullt = useQueryFilters(QueryParams.MANGELFULLT);

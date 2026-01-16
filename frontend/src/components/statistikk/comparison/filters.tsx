@@ -60,7 +60,7 @@ export const Filters = () => {
   const selectedKlageenheter = useQueryFilters(QueryParams.KLAGEENHETER);
   const selectedTypes = useSakstypeFilter();
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
-  const selectedYtelsegrupper = useQueryFilters(QueryParams.YTELSEGRUPPER);
+  const selectedYtelsegrupper = useQueryFilters(QueryParams.YTELSESGRUPPER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedVedtaksinstansgrupper = useVedtaksinstansgruppeQueryFilter();

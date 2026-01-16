@@ -1,16 +1,16 @@
 import { QueryParams } from '@app/components/filters/filter-query-params';
 import { useQueryFilters } from '@app/components/filters/hooks/use-query-filter';
-import { isYtelsegruppe, YTELSEGRUPPER } from '@app/components/statistikk/types';
+import { isYtelsegruppe, YTELSESGRUPPER } from '@app/components/statistikk/types';
 
 export const useYtelserQueryFilter = () => {
   const ytelser = useQueryFilters(QueryParams.YTELSER);
-  const ytelsegrupper = useQueryFilters(QueryParams.YTELSEGRUPPER);
+  const ytelsesgrupper = useQueryFilters(QueryParams.YTELSESGRUPPER);
 
-  return getYtelserFromYtelsegrupper(ytelsegrupper, ytelser);
+  return getYtelserFromYtelsegrupper(ytelsesgrupper, ytelser);
 };
 
-export const getYtelserFromYtelsegrupper = (ytelsegrupper: string[], flatYtelser: string[]): string[] => {
-  const fromGrupper = ytelsegrupper.flatMap((gruppe) => (isYtelsegruppe(gruppe) ? YTELSEGRUPPER[gruppe] : []));
+export const getYtelserFromYtelsegrupper = (ytelsesgrupper: string[], flatYtelser: string[]): string[] => {
+  const fromGrupper = ytelsesgrupper.flatMap((gruppe) => (isYtelsegruppe(gruppe) ? YTELSESGRUPPER[gruppe] : []));
 
   return Array.from(new Set([...flatYtelser, ...fromGrupper]));
 };

@@ -1,5 +1,5 @@
 import { StaticDataContext } from '@app/components/app/static-data-context';
-import { YTELSEGRUPPE_OPTIONS } from '@app/components/statistikk/types';
+import { YTELSESGRUPPE_OPTIONS } from '@app/components/statistikk/types';
 import {
   useEnheter,
   useKlageenheter,
@@ -233,13 +233,13 @@ export const VedtaksinstansgrupperPills = ({ setFilter }: Props) => {
 };
 
 export const YtelsegrupperPills = ({ setFilter }: Props) => {
-  const selected = useQueryFilters(QueryParams.YTELSEGRUPPER);
+  const selected = useQueryFilters(QueryParams.YTELSESGRUPPER);
 
-  const c = 'ytelsegrupper';
-  const { YTELSEGRUPPER: Y } = QueryParams;
+  const c = 'ytelsesgrupper';
+  const { YTELSESGRUPPER: Y } = QueryParams;
 
   const pills = selected.map((id) => {
-    const label = YTELSEGRUPPE_OPTIONS.find((y) => y.id === id)?.label ?? id;
+    const label = YTELSESGRUPPE_OPTIONS.find((y) => y.id === id)?.label ?? id;
 
     return <Pill key={id} id={id} queryKey={Y} setFilter={setFilter} name={label} values={selected} category={c} />;
   });

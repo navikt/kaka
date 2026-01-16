@@ -50,7 +50,7 @@ export const Filters = () => {
 
   const selectedTypes = useSakstypeFilter();
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
-  const selectedYtelsegrupper = useQueryFilters(QueryParams.YTELSEGRUPPER);
+  const selectedYtelsegrupper = useQueryFilters(QueryParams.YTELSESGRUPPER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedTilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
