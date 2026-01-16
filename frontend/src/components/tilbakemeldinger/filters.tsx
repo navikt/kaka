@@ -35,7 +35,7 @@ import {
   KommentarerPills,
   MangelfulltPills,
   UtfallPills,
-  YtelsegrupperPills,
+  YtelsesgrupperPills,
   YtelserPills,
 } from '../filters/pills/pills';
 import { ResetDateButton } from '../filters/reset-date';
@@ -49,7 +49,7 @@ export const Filters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const selectedYtelser = useQueryFilters(QueryParams.YTELSER);
-  const selectedYtelsegrupper = useQueryFilters(QueryParams.YTELSESGRUPPER);
+  const selectedYtelsesgrupper = useQueryFilters(QueryParams.YTELSESGRUPPER);
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
   const selectedHjemler = useQueryFilters(QueryParams.HJEMLER);
   const selectedMangelfullt = useQueryFilters(QueryParams.MANGELFULLT);
@@ -160,7 +160,7 @@ export const Filters = () => {
 
       <YtelserAndHjemler
         selectedYtelser={selectedYtelser}
-        selectedYtelsegrupper={selectedYtelsegrupper}
+        selectedYtelsesgrupper={selectedYtelsesgrupper}
         selectedHjemler={selectedHjemler}
         setFilter={setFilter}
         ytelser={ytelser}
@@ -179,7 +179,7 @@ export const Filters = () => {
       <PillContainer>
         <UtfallPills setFilter={setFilter} />
         <YtelserPills setFilter={setFilter} />
-        <YtelsegrupperPills setFilter={setFilter} />
+        <YtelsesgrupperPills setFilter={setFilter} />
         <MangelfulltPills setFilter={setFilter} />
         <KommentarerPills setFilter={setFilter} />
         <HjemlerPills setFilter={setFilter} />

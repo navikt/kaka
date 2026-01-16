@@ -1,6 +1,6 @@
 import { filterHjemler } from '@app/components/statistikk/filters/filter-hjemler';
 import { useYtelserQueryFilter } from '@app/components/statistikk/hooks/use-ytelser-query-filter';
-import { isYtelsegruppe, YTELSESGRUPPER } from '@app/components/statistikk/types';
+import { isYtelsesgruppe, YTELSESGRUPPER } from '@app/components/statistikk/types';
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v2/use-statistics-total';
 import type { OptionValue } from '@app/types/statistics/common';
 import type { IComparedFullStatisticVurderingV2, IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
@@ -159,7 +159,7 @@ const getMatchedValue = (
     case ComparableQueryParams.UTFALL:
       return comparisonValues.find(([v]) => v === sak.utfallId);
     case ComparableQueryParams.YTELSESGRUPPER:
-      return comparisonValues.find(([v]) => (isYtelsegruppe(v) ? YTELSESGRUPPER[v].includes(sak.ytelseId) : []));
+      return comparisonValues.find(([v]) => (isYtelsesgruppe(v) ? YTELSESGRUPPER[v].includes(sak.ytelseId) : []));
     case ComparableQueryParams.YTELSER:
       return comparisonValues.find(([v]) => v === sak.ytelseId);
     case ComparableQueryParams.HJEMLER:

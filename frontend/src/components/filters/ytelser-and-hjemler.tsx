@@ -1,7 +1,7 @@
 import { Filter } from '@app/components/filters/common/filter';
 import { Hjemler } from '@app/components/filters/common/hjemler';
 import { QueryParams } from '@app/components/filters/filter-query-params';
-import { getYtelserFromYtelsegrupper } from '@app/components/statistikk/hooks/use-ytelser-query-filter';
+import { getYtelserFromYtelsesgrupper } from '@app/components/statistikk/hooks/use-ytelser-query-filter';
 import { YTELSESGRUPPE_OPTIONS } from '@app/components/statistikk/types';
 import type { IYtelse } from '@app/types/kodeverk';
 import { ChevronRightIcon } from '@navikt/aksel-icons';
@@ -10,7 +10,7 @@ import { useMemo } from 'react';
 
 interface Props {
   selectedYtelser: string[];
-  selectedYtelsegrupper: string[];
+  selectedYtelsesgrupper: string[];
   selectedHjemler: string[];
   setFilter: (key: QueryParams, ...values: string[]) => void;
   ytelser: IYtelse[];
@@ -20,22 +20,22 @@ export const YtelserAndHjemler = ({
   ytelser,
   selectedHjemler,
   selectedYtelser,
-  selectedYtelsegrupper,
+  selectedYtelsesgrupper,
   setFilter,
 }: Props) => {
   const relevantYtelser = useMemo(() => {
-    if (selectedYtelsegrupper.length === 0 && selectedYtelser.length === 0) {
+    if (selectedYtelsesgrupper.length === 0 && selectedYtelser.length === 0) {
       return ytelser;
     }
 
-    const fromGrupper = getYtelserFromYtelsegrupper(selectedYtelsegrupper, selectedYtelser);
+    const fromGrupper = getYtelserFromYtelsesgrupper(selectedYtelsesgrupper, selectedYtelser);
 
     return ytelser.filter((y) => fromGrupper.includes(y.id));
-  }, [selectedYtelsegrupper, selectedYtelser, ytelser]);
+  }, [selectedYtelsesgrupper, selectedYtelser, ytelser]);
 
   return (
     <>
-      <YtelsegrupperFilter selected={selectedYtelsegrupper} setFilter={setFilter} />
+      <YtelsesgrupperFilter selected={selectedYtelsesgrupper} setFilter={setFilter} />
       <YtelseFilter ytelser={ytelser} selected={selectedYtelser} setFilter={setFilter} />
 
       <SubFilter>
@@ -63,9 +63,9 @@ interface YtelseFilterProps {
   setFilter: (key: QueryParams, ...values: string[]) => void;
 }
 
-export const YtelsegrupperFilter = ({ selected, setFilter }: YtelseFilterProps) => (
+export const YtelsesgrupperFilter = ({ selected, setFilter }: YtelseFilterProps) => (
   <Filter
-    label="Ytelsegrupper"
+    label="Ytelsesgrupper"
     selected={selected}
     setSelected={(v) => {
       setFilter(QueryParams.YTELSESGRUPPER, ...v);

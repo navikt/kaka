@@ -232,7 +232,7 @@ export const VedtaksinstansgrupperPills = ({ setFilter }: Props) => {
   return <Chips>{pills}</Chips>;
 };
 
-export const YtelsegrupperPills = ({ setFilter }: Props) => {
+export const YtelsesgrupperPills = ({ setFilter }: Props) => {
   const selected = useQueryFilters(QueryParams.YTELSESGRUPPER);
 
   const c = 'ytelsesgrupper';

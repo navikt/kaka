@@ -26,7 +26,7 @@ export interface ComparisonPropsV2 {
   stats: DataSet[];
 }
 
-enum Ytelsegruppe {
+enum Ytelsesgruppe {
   Bidragsområdet = '1',
   Foreldrepenger = '2',
   Etterlatteytelser = '3',
@@ -38,16 +38,16 @@ enum Ytelsegruppe {
   Yrkesskade = '9',
 }
 
-const YTELSESGRUPPE_NAMES: Record<Ytelsegruppe, string> = {
-  [Ytelsegruppe.Bidragsområdet]: 'Bidragsområdet',
-  [Ytelsegruppe.Foreldrepenger]: 'Foreldrepenger',
-  [Ytelsegruppe.Etterlatteytelser]: 'Etterlatteytelser',
-  [Ytelsegruppe.GrunnOgHjelpestønad]: 'Grunn- og hjelpestønad',
-  [Ytelsegruppe.Hjelpemidler]: 'Hjelpemidler',
-  [Ytelsegruppe.Oppfølgingssak]: 'Oppfølgingssak',
-  [Ytelsegruppe.SupplerendeStønad]: 'Supplerende stønad',
-  [Ytelsegruppe.SykdomIFamilien]: 'Sykdom i familien',
-  [Ytelsegruppe.Yrkesskade]: 'Yrkesskade',
+const YTELSESGRUPPE_NAMES: Record<Ytelsesgruppe, string> = {
+  [Ytelsesgruppe.Bidragsområdet]: 'Bidragsområdet',
+  [Ytelsesgruppe.Foreldrepenger]: 'Foreldrepenger',
+  [Ytelsesgruppe.Etterlatteytelser]: 'Etterlatteytelser',
+  [Ytelsesgruppe.GrunnOgHjelpestønad]: 'Grunn- og hjelpestønad',
+  [Ytelsesgruppe.Hjelpemidler]: 'Hjelpemidler',
+  [Ytelsesgruppe.Oppfølgingssak]: 'Oppfølgingssak',
+  [Ytelsesgruppe.SupplerendeStønad]: 'Supplerende stønad',
+  [Ytelsesgruppe.SykdomIFamilien]: 'Sykdom i familien',
+  [Ytelsesgruppe.Yrkesskade]: 'Yrkesskade',
 };
 
 export const YTELSESGRUPPE_OPTIONS = Object.entries(YTELSESGRUPPE_NAMES).map(([key, label]) => ({
@@ -60,8 +60,8 @@ export const YTELSESGRUPPE_KODEVERK: IKodeverkSimpleValue[] = YTELSESGRUPPE_OPTI
   navn: label,
 }));
 
-export const YTELSESGRUPPER: Record<Ytelsegruppe, string[]> = {
-  [Ytelsegruppe.Bidragsområdet]: [
+export const YTELSESGRUPPER: Record<Ytelsesgruppe, string[]> = {
+  [Ytelsesgruppe.Bidragsområdet]: [
     Ytelse.BidragsområdetBarnebidrag,
     Ytelse.BidragsområdetBarnebortføring,
     Ytelse.BidragsområdetBidragsforskudd,
@@ -70,37 +70,37 @@ export const YTELSESGRUPPER: Record<Ytelsegruppe, string[]> = {
     Ytelse.BidragsområdetFarOgMorskap,
     Ytelse.BidragsområdetOppfostringsbidrag,
   ],
-  [Ytelsegruppe.Foreldrepenger]: [
+  [Ytelsesgruppe.Foreldrepenger]: [
     Ytelse.ForeldrepengerEngangsstønad,
     Ytelse.ForeldrepengerForeldrepenger,
     Ytelse.ForeldrepengerSvangerskapspenger,
   ],
-  [Ytelsegruppe.Etterlatteytelser]: [
+  [Ytelsesgruppe.Etterlatteytelser]: [
     Ytelse.EtterlatteYtelserGjenlevende,
     Ytelse.EtterlatteYtelserOmstillingsstønad,
     Ytelse.EtterlatteYtelserBarnepensjon,
   ],
-  [Ytelsegruppe.GrunnOgHjelpestønad]: [Ytelse.GrunnOgHjelpestønadGrunnstønad, Ytelse.GrunnOgHjelpestønadHjelpestønad],
-  [Ytelsegruppe.Hjelpemidler]: [
+  [Ytelsesgruppe.GrunnOgHjelpestønad]: [Ytelse.GrunnOgHjelpestønadGrunnstønad, Ytelse.GrunnOgHjelpestønadHjelpestønad],
+  [Ytelsesgruppe.Hjelpemidler]: [
     Ytelse.HjelpemidlerBilOgMotorkjøretøy,
     Ytelse.HjelpemidlerOrtopediske,
     Ytelse.HjelpemidlerTekniske,
   ],
-  [Ytelsegruppe.Oppfølgingssak]: [Ytelse.OppfølgingssakNavLoven14a, Ytelse.OppfølgingssakTiltaksplass],
-  [Ytelsegruppe.SupplerendeStønad]: [Ytelse.SupplerendeStønad, Ytelse.SupplerendeStønadTilUføreFlyktninger],
-  [Ytelsegruppe.SykdomIFamilien]: [
+  [Ytelsesgruppe.Oppfølgingssak]: [Ytelse.OppfølgingssakNavLoven14a, Ytelse.OppfølgingssakTiltaksplass],
+  [Ytelsesgruppe.SupplerendeStønad]: [Ytelse.SupplerendeStønad, Ytelse.SupplerendeStønadTilUføreFlyktninger],
+  [Ytelsesgruppe.SykdomIFamilien]: [
     Ytelse.SykdomIFamilienOmsorgspenger,
     Ytelse.SykdomIFamilienOpplæringspenger,
     Ytelse.SykdomIFamilienPleiepengerILivetsSluttfase,
     Ytelse.SykdomIFamilienPleiepengerSyktBarn,
   ],
-  [Ytelsegruppe.Yrkesskade]: [
+  [Ytelsesgruppe.Yrkesskade]: [
     Ytelse.YrkesskadeMenerstatning,
     Ytelse.YrkesskadeYrkesskade,
     Ytelse.YrkesskadeYrkessykdom,
   ],
 };
 
-const YTELSESGRUPPE_VALUES = Object.values(Ytelsegruppe);
+const YTELSESGRUPPE_VALUES = Object.values(Ytelsesgruppe);
 
-export const isYtelsegruppe = (key: string): key is Ytelsegruppe => YTELSESGRUPPE_VALUES.some((v) => v === key);
+export const isYtelsesgruppe = (key: string): key is Ytelsesgruppe => YTELSESGRUPPE_VALUES.some((v) => v === key);
