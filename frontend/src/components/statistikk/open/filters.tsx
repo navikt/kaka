@@ -28,7 +28,7 @@ import {
   useVersionQueryFilter,
 } from '../../filters/hooks/use-query-filter';
 import { useValidDateInterval } from '../../filters/hooks/use-valid-date-interval';
-import { SakstyperPills, UtfallPills, YtelsesgrupperPills, YtelserPills } from '../../filters/pills/pills';
+import { SakstyperPills, UtfallPills, YtelserPills, YtelsesgrupperPills } from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
 import { StatisticsVersionFilter } from '../../filters/statistics-version/statistics-version';
@@ -69,7 +69,7 @@ export const Filters = () => {
 
   const resetFilters = () =>
     setSearchParams({
-      [QueryParams.VERSION]: KvalitetsvurderingVersion.V2.toString(10),
+      [QueryParams.VERSION]: KvalitetsvurderingVersion.V3.toString(10),
       [QueryParams.FROM_DATE]: FORMATTED_START_OF_MONTH,
       [QueryParams.TO_DATE]: FORMATTED_NOW,
     });

@@ -35,8 +35,8 @@ import {
   KommentarerPills,
   MangelfulltPills,
   UtfallPills,
-  YtelsesgrupperPills,
   YtelserPills,
+  YtelsesgrupperPills,
 } from '../filters/pills/pills';
 import { ResetDateButton } from '../filters/reset-date';
 import { StatisticsVersionFilter } from '../filters/statistics-version/statistics-version';
@@ -83,7 +83,7 @@ export const Filters = () => {
 
   const resetFilters = () =>
     setSearchParams({
-      [QueryParams.VERSION]: KvalitetsvurderingVersion.V2.toString(10),
+      [QueryParams.VERSION]: KvalitetsvurderingVersion.V3.toString(10),
       [QueryParams.FROM_DATE]: FORMATTED_START_OF_MONTH,
       [QueryParams.TO_DATE]: FORMATTED_NOW,
     });
