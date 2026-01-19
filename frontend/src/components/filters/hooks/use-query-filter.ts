@@ -2,7 +2,7 @@ import {
   isVedtaksinstansgruppe,
   type Vedtaksinstansgruppe,
 } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { KVALITETSVURDERING_LATEST, KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { isSakstype, type SakstypeEnum } from '@app/types/sakstype';
 import { useSearchParams } from 'react-router-dom';
 import { QueryParams } from '../../filters/filter-query-params';
@@ -112,13 +112,13 @@ export const useVersionQueryFilter = (defaultVersion?: KvalitetsvurderingVersion
   const queryValue = useQueryFilter(QueryParams.VERSION);
 
   if (queryValue === null || queryValue.length === 0) {
-    return defaultVersion ?? KvalitetsvurderingVersion.V3;
+    return defaultVersion ?? KVALITETSVURDERING_LATEST;
   }
 
   const version = Number.parseInt(queryValue, 10);
 
   if (!isKvalitetsvurderingVersion(version)) {
-    return defaultVersion ?? KvalitetsvurderingVersion.V3;
+    return defaultVersion ?? KVALITETSVURDERING_LATEST;
   }
 
   return version;

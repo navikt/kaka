@@ -1,7 +1,7 @@
 import {
   FORMATTED_NOW,
   FORMATTED_START_OF_MONTH,
-  IS_BEFORE_FEBRUARY_2023,
+  IS_BEFORE_FEBRUARY_2026,
   MONTH_FORMAT,
   NOW,
 } from '@app/components/filters/date-presets/constants';
@@ -10,13 +10,13 @@ import { TilbakekrevingEnum } from '@app/components/filters/types';
 import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { useKlageenheter, useVedtaksenheter } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { KVALITETSVURDERING_LATEST, KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { format, subMonths } from 'date-fns';
 import { useMemo } from 'react';
 
-const DEFAULT_VERSION = `${QueryParams.VERSION}=${KvalitetsvurderingVersion.V3}`;
-const version = IS_BEFORE_FEBRUARY_2023 ? KvalitetsvurderingVersion.V1 : KvalitetsvurderingVersion.V3;
-const DEFAULT_VERSION_LEDER = `${QueryParams.VERSION}=${version}`;
+const DEFAULT_VERSION = `${QueryParams.VERSION}=${KVALITETSVURDERING_LATEST}`;
+
+const DEFAULT_VERSION_LEDER = `${QueryParams.VERSION}=${IS_BEFORE_FEBRUARY_2026 ? KvalitetsvurderingVersion.V2 : KVALITETSVURDERING_LATEST}`;
 
 export const useDefaultQueryAapen = () =>
   useMemo(() => {
