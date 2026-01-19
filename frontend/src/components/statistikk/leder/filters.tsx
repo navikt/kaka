@@ -38,8 +38,8 @@ import {
   SaksbehandlerPills,
   SakstyperPills,
   UtfallPills,
-  YtelsesgrupperPills,
   YtelserPills,
+  YtelsesgrupperPills,
 } from '../../filters/pills/pills';
 import { SaksbehandlerFilter } from '../../filters/saksbehandler';
 import { SakstypeFilter } from '../../filters/sakstyper';
