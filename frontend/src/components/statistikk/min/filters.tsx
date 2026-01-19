@@ -3,7 +3,7 @@ import { YtelserAndHjemler } from '@app/components/filters/ytelser-and-hjemler';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelserForKlageenhet } from '@app/hooks/use-kodeverk-value';
 import { useUser } from '@app/simple-api-state/use-user';
-import { KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { KVALITETSVURDERING_LATEST } from '@app/types/saksdata';
 import { Button, Label } from '@navikt/ds-react';
 import { format, parse } from 'date-fns';
 import { useSearchParams } from 'react-router-dom';
@@ -81,7 +81,7 @@ export const Filters = () => {
 
   const resetFilters = () =>
     setSearchParams({
-      [QueryParams.VERSION]: KvalitetsvurderingVersion.V3.toString(10),
+      [QueryParams.VERSION]: KVALITETSVURDERING_LATEST.toString(10),
       [QueryParams.FROM_DATE]: FORMATTED_START_OF_MONTH,
       [QueryParams.TO_DATE]: FORMATTED_NOW,
     });
