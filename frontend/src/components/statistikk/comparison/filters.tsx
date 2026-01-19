@@ -41,8 +41,8 @@ import {
   SakstyperPills,
   UtfallPills,
   VedtaksinstansgrupperPills,
-  YtelsesgrupperPills,
   YtelserPills,
+  YtelsesgrupperPills,
 } from '../../filters/pills/pills';
 import { ResetDateButton } from '../../filters/reset-date';
 import { SakstypeFilter } from '../../filters/sakstyper';
