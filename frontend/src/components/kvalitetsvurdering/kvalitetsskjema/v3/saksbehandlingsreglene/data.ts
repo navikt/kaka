@@ -177,7 +177,7 @@ export const SAKSBEHANDLINGSREGLENE_LABELS: Record<Fields, string> = {
 
   // Journalføringsplikten
   [JournalfoeringspliktenBoolean.saksbehandlingsreglerBruddPaaJournalfoeringsplikten]:
-    'Brudd på journalføringsplikten, arkivloven §§ 6 og 12 og forskrift §§ 9 følgende.',
+    'Brudd på journalføringsplikten, arkivloven §§ 5 og 6 og forskrift § 1 og §§ 14-15',
   [JournalfoeringspliktenBoolean.saksbehandlingsreglerJournalfoeringspliktenRelevanteOpplysningerErIkkeJournalfoert]:
     'Relevante opplysninger er ikke journalført på saken',
   [JournalfoeringspliktenBoolean.saksbehandlingsreglerJournalfoeringspliktenRelevanteOpplysningerHarIkkeGodNokTittelEllerDokumentkvalitet]:
