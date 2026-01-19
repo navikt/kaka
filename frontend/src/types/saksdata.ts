@@ -9,6 +9,8 @@ export enum KvalitetsvurderingVersion {
   V3 = 3,
 }
 
+export const KVALITETSVURDERING_LATEST = KvalitetsvurderingVersion.V3;
+
 export interface ISaksdataBase {
   id: UUID;
   created: string; // LocalDateTime;
