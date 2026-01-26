@@ -174,13 +174,13 @@ const LabelContainer = styled.span`
 `;
 
 const Tag2024 = () => (
-  <Tag title="Ny i 2024" variant="alt3-filled" size="xsmall" style={{ cursor: 'help' }}>
+  <Tag data-color="info" title="Ny i 2024" variant="strong" size="xsmall" style={{ cursor: 'help' }}>
     2024
   </Tag>
 );
 
 const Tag2023 = () => (
-  <Tag title="Fjernet i 2024" variant="warning-filled" size="xsmall" style={{ cursor: 'help' }}>
+  <Tag data-color="warning" title="Fjernet i 2024" variant="strong" size="xsmall" style={{ cursor: 'help' }}>
     2023
   </Tag>
 );
@@ -268,7 +268,7 @@ const getHjemlerCount = (dataset: DataSet, hjemmelListId: StatisticsVedtaketHjem
 
 const TitleWithExplainer = ({ children }: { children: ReactNode }) => (
   <Heading size="small">
-    <HStack gap="2" justify="center" align="center">
+    <HStack gap="space-8" justify="center" align="center">
       {children}
       <HelpText>
         En sak kan ha ett eller flere avvik. Prosenten er regnet ut fra totalt antall kvalitetsvurderte saker.

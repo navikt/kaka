@@ -63,7 +63,13 @@ export const SimpleComparisonItem = ({
         }}
       />
       <ColorPicker color={color} onChange={(newColor) => onChangeColor(value, newColor)} />
-      <Button onClick={() => onRemove(value)} size="small" icon={<TrashIcon aria-hidden />} variant="danger" />
+      <Button
+        data-color="danger"
+        onClick={() => onRemove(value)}
+        size="small"
+        icon={<TrashIcon aria-hidden />}
+        variant="primary"
+      />
     </StyledComparisonItem>
   );
 };

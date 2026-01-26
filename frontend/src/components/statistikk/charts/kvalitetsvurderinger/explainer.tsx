@@ -10,7 +10,7 @@ interface CardTitleWithExplainerProps extends Props, Pick<HelpTextProps, 'placem
 
 export const CardTitleWithExplainer = ({ children, helpText, placement }: CardTitleWithExplainerProps) => (
   <Heading size="medium" align="center">
-    <HStack gap="2" justify="center" align="center">
+    <HStack gap="space-8" justify="center" align="center">
       {children}
       <HelpText placement={placement}>{helpText}</HelpText>
     </HStack>

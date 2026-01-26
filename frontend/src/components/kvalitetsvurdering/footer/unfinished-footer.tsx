@@ -68,11 +68,17 @@ export const UnfinishedFooter = () => {
 
         <BackLink />
 
-        <Button size="small" variant="danger" onClick={deleteSaksdata} loading={isDeleting} data-testid="delete-button">
+        <Button
+          data-color="danger"
+          size="small"
+          variant="primary"
+          onClick={deleteSaksdata}
+          loading={isDeleting}
+          data-testid="delete-button"
+        >
           Slett
         </Button>
       </StyledButtons>
-
       <ValidationSummaryPopup hasErrors={hasErrors} />
     </Wrapper>
   );

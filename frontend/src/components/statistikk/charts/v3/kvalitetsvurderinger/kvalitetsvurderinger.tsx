@@ -91,7 +91,7 @@ export const KvalitetsvurderingerV3 = ({ datasets }: Props) => {
   return (
     <DynamicCard size={CardSize.LARGE}>
       <VStack>
-        <HStack align="center" justify="center" gap="2">
+        <HStack align="center" justify="center" gap="space-8">
           <Heading size="large">Kvalitetsvurderinger</Heading>
           <HelpText>
             Ved utregningen av hvor mange prosent av sakene som har mangler ved kvaliteten, er ikke saker med utfallene
@@ -293,7 +293,7 @@ const TitleWithExplainer = ({
   boolean?: keyof KvalitetsvurderingV3Boolean;
 }) => (
   <VStack>
-    <HStack align="center" justify="center" gap="2">
+    <HStack align="center" justify="center" gap="space-8">
       <Heading size="small">Avvik under «{children}»</Heading>
       <HelpText>
         En sak kan ha ett eller flere avvik. Prosenten er regnet ut fra totalt antall kvalitetsvurderte saker.

@@ -29,16 +29,16 @@ export const Filter = <T extends string | number>({ selected, setSelected, filte
     <ActionMenu>
       <ActionMenu.Trigger>
         <Button
+          data-color="neutral"
           size="small"
-          variant="secondary-neutral"
+          variant="secondary"
           icon={<ChevronDownIcon aria-hidden />}
           iconPosition="right"
-          className="!justify-between"
+          className="justify-between!"
         >
           {label} ({selectedOptions.length})
         </Button>
       </ActionMenu.Trigger>
-
       <ActionMenu.Content className="relative">
         <HStack wrap={false} className="sticky top-0 z-1 bg-ax-bg-default">
           <TextField
@@ -56,7 +56,13 @@ export const Filter = <T extends string | number>({ selected, setSelected, filte
             Velg alle
           </Button>
 
-          <Button onClick={() => setSelected([])} size="small" variant="danger" style={{ marginLeft: 8 }}>
+          <Button
+            data-color="danger"
+            onClick={() => setSelected([])}
+            size="small"
+            variant="primary"
+            style={{ marginLeft: 8 }}
+          >
             Fjern alle
           </Button>
         </HStack>

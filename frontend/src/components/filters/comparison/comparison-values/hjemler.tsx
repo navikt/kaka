@@ -90,7 +90,8 @@ const HjemmelSelect = ({ value, color }: { value: string; color: ColorToken }) =
       <ActionMenu>
         <ActionMenu.Trigger>
           <Button
-            variant="secondary-neutral"
+            data-color="neutral"
+            variant="secondary"
             icon={<ChevronDownIcon aria-hidden />}
             iconPosition="right"
             size="small"
@@ -100,7 +101,7 @@ const HjemmelSelect = ({ value, color }: { value: string; color: ColorToken }) =
           </Button>
         </ActionMenu.Trigger>
         <ActionMenu.Content>
-          <VStack gap="2">
+          <VStack gap="space-8">
             {options.map(({ sectionHeader, sectionOptions }) => (
               <VStack key={sectionHeader.id}>
                 <Heading size="small">{sectionHeader.name ?? 'Ukjent'}</Heading>
@@ -120,9 +121,14 @@ const HjemmelSelect = ({ value, color }: { value: string; color: ColorToken }) =
           </VStack>
         </ActionMenu.Content>
       </ActionMenu>
-
       <ColorPicker color={color} onChange={(newColor) => setColor(value, newColor)} />
-      <Button onClick={() => remove(value)} size="small" icon={<TrashIcon aria-hidden />} variant="danger" />
+      <Button
+        data-color="danger"
+        onClick={() => remove(value)}
+        size="small"
+        icon={<TrashIcon aria-hidden />}
+        variant="primary"
+      />
     </StyledComparisonItem>
   );
 };

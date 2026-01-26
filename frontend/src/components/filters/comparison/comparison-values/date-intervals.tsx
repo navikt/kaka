@@ -41,7 +41,6 @@ export const DateIntervals = () => {
                 size="small"
               />
             </div>
-
             <Buttons>
               <StyledColorPicker
                 type="color"
@@ -52,10 +51,11 @@ export const DateIntervals = () => {
               />
 
               <Button
+                data-color="danger"
                 onClick={() => removeIndex(index)}
                 size="small"
                 icon={<TrashIcon aria-hidden />}
-                variant="danger"
+                variant="primary"
               />
             </Buttons>
           </Container>

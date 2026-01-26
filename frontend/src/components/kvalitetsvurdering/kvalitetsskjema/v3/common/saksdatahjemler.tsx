@@ -138,7 +138,7 @@ const HjemmelCheckboxes = ({ hjemmelIdList }: HjemmelCheckboxesProps) => {
       ));
   }, [hjemmelIdList, registreringshjemlerMap]);
 
-  return <VStack gap="4">{children}</VStack>;
+  return <VStack gap="space-16">{children}</VStack>;
 };
 
 const hjemmelIdListsEquals = (a: string[] = [], b: string[] = []) => {
