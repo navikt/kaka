@@ -5,7 +5,7 @@ import { DEFAULT_COLORS } from '@app/components/statistikk/comparison/get-defaul
 import { getFontColor } from '@app/functions/get-font-color';
 import { useOnClickOutside } from '@app/hooks/use-on-click-outside';
 import { CheckmarkIcon } from '@navikt/aksel-icons';
-import { BoxNew, Button, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Box, Button, Heading, HStack, VStack } from '@navikt/ds-react';
 import { useRef, useState } from 'react';
 
 interface ColorPickerProps {
@@ -25,29 +25,28 @@ export const ColorPicker = ({ color, onChange }: ColorPickerProps) => {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         title="Velg farge"
-        className="!p-0 !border-2 !border-ax-bg-neutral-strong h-8 w-8"
+        className="h-8 w-8 border-2! border-ax-bg-neutral-strong! p-0!"
         style={{ backgroundColor: getColorFromTheme(color, theme) }}
       />
-
       {isOpen ? (
-        <BoxNew
+        <Box
           className="absolute right-0 z-10"
           background="raised"
           shadow="dialog"
-          padding="3"
-          borderRadius="medium"
+          padding="space-12"
+          borderRadius="4"
           borderColor="neutral"
           borderWidth="1"
         >
           <HStack justify="space-between" className="mb-3">
             <Heading size="small">Velg en farge</Heading>
-            <Button size="small" variant="secondary-neutral" onClick={() => setIsOpen(false)}>
+            <Button data-color="neutral" size="small" variant="secondary" onClick={() => setIsOpen(false)}>
               Lukk
             </Button>
           </HStack>
-          <HStack gap="1" wrap={false}>
+          <HStack gap="space-4" wrap={false}>
             {DEFAULT_COLORS.map((colorGroup) => (
-              <VStack key={colorGroup[0]} gap="1">
+              <VStack key={colorGroup[0]} gap="space-4">
                 {colorGroup.map((c) => {
                   const backgroundColor = getColorFromTheme(c, theme);
 
@@ -75,7 +74,7 @@ export const ColorPicker = ({ color, onChange }: ColorPickerProps) => {
               </VStack>
             ))}
           </HStack>
-        </BoxNew>
+        </Box>
       ) : null}
     </div>
   );

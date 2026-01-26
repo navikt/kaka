@@ -13,5 +13,9 @@ export const Ytelse = ({ ytelseId, ytelserVersion }: Props) => {
     typeof ytelseId !== 'string' ? skipToken : { ytelseId, version: ytelserVersion },
   );
 
-  return <Tag variant="alt3">{ytelse}</Tag>;
+  return (
+    <Tag data-color="info" variant="outline">
+      {ytelse}
+    </Tag>
+  );
 };

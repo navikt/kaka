@@ -2,7 +2,7 @@ import { Type } from '@app/components/common-table-components/type';
 import { useSakstypeFilter } from '@app/components/filters/hooks/use-query-filter';
 import { SakstypeEnum } from '@app/types/sakstype';
 import { InformationIcon } from '@navikt/aksel-icons';
-import { BodyShort, Heading, InfoCard, VStack } from '@navikt/ds-react';
+import { BodyShort, InfoCard, VStack } from '@navikt/ds-react';
 import { CardSize, DynamicCard } from '../../card/card';
 
 export const NoKvalitetsvurderingWarning = () => {
@@ -13,10 +13,10 @@ export const NoKvalitetsvurderingWarning = () => {
       <VStack align="center" justify="center" className="grow">
         <InfoCard data-color="info">
           <InfoCard.Header icon={<InformationIcon aria-hidden />}>
-            <Heading size="small">
+            <InfoCard.Title>
               Kvalitetsvurderingstatistikk er kun tilgjengelig for sakstyper <Type type={SakstypeEnum.KLAGE} /> og{' '}
               <Type type={SakstypeEnum.ANKE} />
-            </Heading>
+            </InfoCard.Title>
           </InfoCard.Header>
           <InfoCard.Content>
             <BodyShort>

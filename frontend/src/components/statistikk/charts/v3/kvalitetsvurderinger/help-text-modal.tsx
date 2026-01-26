@@ -60,7 +60,7 @@ export const KvalitetsvurderingModal = ({ focus }: { focus?: keyof Kvalitetsvurd
           element.scrollIntoView({ behavior: 'smooth', block: 'center' });
           element.style.transition = 'box-shadow 0.5s ease-in-out';
           element.style.boxShadow = '0 0 20px 10px var(--ax-border-danger)';
-          element.style.borderRadius = 'var(--ax-border-radius-large)';
+          element.style.borderRadius = 'var(--ax-radius-8)';
 
           setTimeout(() => {
             element.style.boxShadow = '';
@@ -70,7 +70,8 @@ export const KvalitetsvurderingModal = ({ focus }: { focus?: keyof Kvalitetsvurd
   return (
     <>
       <Button
-        variant="tertiary-neutral"
+        data-color="neutral"
+        variant="tertiary"
         size="small"
         onClick={onClick}
         icon={<BulletListIcon aria-hidden />}
@@ -118,7 +119,7 @@ const Content = ({ ref }: { ref: React.Ref<HTMLDialogElement> }) => {
           <ToggleGroup.Item value={SakstypeEnum.ANKE}>Anke</ToggleGroup.Item>
         </ToggleGroup>
 
-        <HStack gap="8">
+        <HStack gap="space-32">
           <section>
             <Heading size="small" spacing>
               {SÆRREGELVERKET_HEADER}
@@ -132,7 +133,7 @@ const Content = ({ ref }: { ref: React.Ref<HTMLDialogElement> }) => {
             </ReadOnlyCheckbox>
 
             <ReadOnlyRadioGroup mainReason={MainReason.Særregelverket}>
-              <VStack gap="2">
+              <VStack gap="space-8">
                 <Checkboxes checkboxes={SÆRREGELVERKET_CHECKBOXES} />
               </VStack>
             </ReadOnlyRadioGroup>
@@ -143,7 +144,7 @@ const Content = ({ ref }: { ref: React.Ref<HTMLDialogElement> }) => {
               {SAKSBEHANDLINGSREGLENE_HEADER}
             </Heading>
             <ReadOnlyRadioGroup mainReason={MainReason.Saksbehandlingsreglene}>
-              <VStack gap="2">
+              <VStack gap="space-8">
                 <Checkboxes checkboxes={getSaksbehandlingsregeleneCheckboxes(selectedType)} />
               </VStack>
             </ReadOnlyRadioGroup>
@@ -154,7 +155,7 @@ const Content = ({ ref }: { ref: React.Ref<HTMLDialogElement> }) => {
               {TRYGDEMEDISIN_HEADER}
             </Heading>
             <TrygdemedisinRadioGroup>
-              <VStack gap="2">
+              <VStack gap="space-8">
                 <Checkboxes checkboxes={TRYGDEMEDISIN_CHECKBOXES} />
               </VStack>
             </TrygdemedisinRadioGroup>
@@ -186,9 +187,9 @@ const ReadOnlyCheckbox = ({ children, helpText, checked = true }: ReadOnlyCheckb
 );
 
 const ReadOnlyRadioGroup = ({ mainReason, children }: { mainReason: MainReason; children: ReactNode }) => (
-  <VStack gap="2" id={mainReason} className="[&_*::after]:content-none!">
+  <VStack gap="space-8" id={mainReason} className="[&_*::after]:content-none!">
     <RadioGroup value={Radiovalg.MANGELFULLT} legend="Radiovalg" hideLegend aria-disabled>
-      <HStack gap="2">
+      <HStack gap="space-8">
         <Radio size="small" value={Radiovalg.BRA}>
           Riktig / ikke kvalitetsavvik
         </Radio>
@@ -203,17 +204,17 @@ const ReadOnlyRadioGroup = ({ mainReason, children }: { mainReason: MainReason; 
 );
 
 const TrygdemedisinRadioGroup = ({ children }: { children: ReactNode }) => (
-  <VStack gap="2" id={MainReason.Trygdemedisin} className="[&_*::after]:content-none!">
+  <VStack gap="space-8" id={MainReason.Trygdemedisin} className="[&_*::after]:content-none!">
     <RadioGroup value={Radiovalg.MANGELFULLT} legend="Radiovalg" hideLegend aria-disabled>
-      <HStack gap="2">
-        <HStack align="center" gap="1">
+      <HStack gap="space-8">
+        <HStack align="center" gap="space-4">
           <Radio size="small" value={RadiovalgExtended.IKKE_AKTUELT}>
             Ikke aktuelt for den konkrete saken
           </Radio>
           <HelpText>{TRYGDEMEDISIN_RADIO_HELP_TEXTS[RadiovalgExtended.IKKE_AKTUELT]}</HelpText>
         </HStack>
 
-        <HStack align="center" gap="1">
+        <HStack align="center" gap="space-4">
           <Radio size="small" value={RadiovalgExtended.BRA}>
             Riktig / ikke kvalitetsavvik
           </Radio>
@@ -240,15 +241,15 @@ const Checkboxes = ({ checkboxes }: { checkboxes: CheckboxParams[] }) => (
 
         {c.childList ? <Checkboxes checkboxes={c.childList.filter(isCheckbox)} /> : null}
         {c.saksdatahjemler ? (
-          <HStack align="center" gap="1" marginInline="7">
-            <Tag variant="alt1" size="xsmall">
+          <HStack align="center" gap="space-4" marginInline="space-28">
+            <Tag data-color="meta-purple" variant="outline" size="xsmall">
               <ParagraphIcon aria-hidden fontSize={24} /> Hjemler fra saksdata
             </Tag>
           </HStack>
         ) : null}
         {c.allRegistreringshjemler ? (
-          <HStack align="center" gap="1" marginInline="7">
-            <Tag variant="alt2" size="xsmall">
+          <HStack align="center" gap="space-4" marginInline="space-28">
+            <Tag data-color="meta-lime" variant="outline" size="xsmall">
               <GavelIcon aria-hidden fontSize={24} /> Alle hjemler
             </Tag>
           </HStack>

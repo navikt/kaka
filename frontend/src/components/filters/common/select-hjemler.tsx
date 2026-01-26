@@ -42,7 +42,6 @@ export const SelectHjemler = ({ relevantYtelser, selectedHjemler, setSelectedHje
   return (
     <ActionMenu>
       <ActionMenu.Trigger>{trigger}</ActionMenu.Trigger>
-
       <ActionMenu.Content className="relative">
         <HStack wrap={false} className="sticky top-0 z-1 bg-ax-bg-default">
           <TextField
@@ -60,14 +59,20 @@ export const SelectHjemler = ({ relevantYtelser, selectedHjemler, setSelectedHje
             Velg alle
           </Button>
 
-          <Button onClick={() => setSelectedHjemler([])} size="small" variant="danger" style={{ marginLeft: 8 }}>
+          <Button
+            data-color="danger"
+            onClick={() => setSelectedHjemler([])}
+            size="small"
+            variant="primary"
+            style={{ marginLeft: 8 }}
+          >
             Fjern alle
           </Button>
         </HStack>
 
         <ActionMenu.Divider />
 
-        <VStack gap="2">{filteredItems}</VStack>
+        <VStack gap="space-8">{filteredItems}</VStack>
       </ActionMenu.Content>
     </ActionMenu>
   );

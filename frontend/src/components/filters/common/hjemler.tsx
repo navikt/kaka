@@ -11,15 +11,16 @@ interface Props {
 }
 
 export const Hjemler = (props: Props) => (
-  <VStack gap="1" className="grow">
+  <VStack gap="space-4" className="grow">
     <HjemlerMode />
 
     <SelectHjemler
       {...props}
       trigger={
         <Button
+          data-color="neutral"
           size="small"
-          variant="secondary-neutral"
+          variant="secondary"
           icon={<ChevronDownIcon aria-hidden />}
           iconPosition="right"
           className="justify-between! grow"

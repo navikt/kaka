@@ -51,7 +51,7 @@ export const LovhjemmelSelect = ({
   }
 
   return (
-    <VStack gap="1">
+    <VStack gap="space-4">
       <SelectHjemler
         trigger={
           <Button variant={variant} icon={icon} size={size} data-testid={testId} id={id} disabled={disabled}>

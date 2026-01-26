@@ -9,7 +9,7 @@ export const HjemlerMode = () => {
   const mode = useHjemlerModeFilter(HjemlerModeFilter.INCLUDE_FOR_SOME);
 
   return (
-    <HStack wrap={false} gap="4">
+    <HStack wrap={false} gap="space-16">
       <ToggleGroup
         value={mode}
         onChange={(v) => {
@@ -18,7 +18,7 @@ export const HjemlerMode = () => {
         }}
         size="small"
         label={
-          <HStack gap="2" align="center">
+          <HStack gap="space-8" align="center">
             Treff
             <HelpText>
               <Heading level="1" size="xsmall">
