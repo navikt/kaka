@@ -36,6 +36,7 @@ enum Ytelsesgruppe {
   SupplerendeStønad = '7',
   SykdomIFamilien = '8',
   Yrkesskade = '9',
+  Tilleggstønader = '10',
 }
 
 const YTELSESGRUPPE_NAMES: Record<Ytelsesgruppe, string> = {
@@ -48,6 +49,7 @@ const YTELSESGRUPPE_NAMES: Record<Ytelsesgruppe, string> = {
   [Ytelsesgruppe.SupplerendeStønad]: 'Supplerende stønad',
   [Ytelsesgruppe.SykdomIFamilien]: 'Sykdom i familien',
   [Ytelsesgruppe.Yrkesskade]: 'Yrkesskade',
+  [Ytelsesgruppe.Tilleggstønader]: 'Tilleggstønader',
 };
 
 export const YTELSESGRUPPE_OPTIONS = Object.entries(YTELSESGRUPPE_NAMES).map(([key, label]) => ({
@@ -99,6 +101,7 @@ export const YTELSESGRUPPER: Record<Ytelsesgruppe, string[]> = {
     Ytelse.YrkesskadeYrkesskade,
     Ytelse.YrkesskadeYrkessykdom,
   ],
+  [Ytelsesgruppe.Tilleggstønader]: [Ytelse.Tilleggsstønad, Ytelse.TilleggstønadArbeiddsøker],
 };
 
 const YTELSESGRUPPE_VALUES = Object.values(Ytelsesgruppe);
