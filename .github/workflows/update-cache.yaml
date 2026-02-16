@@ -17,21 +17,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+
+      - name: Symlink bunfig to repo root
+        run: ln -s ${{ matrix.apps }}/bunfig.toml bunfig.toml
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.1.34
+          bun-version: latest
+          registries: |
+            @navikt:https://npm.pkg.github.com/|$BUN_AUTH_TOKEN
 
       - name: Install ${{ matrix.apps }} dependencies
         shell: bash
+        working-directory: ${{ matrix.apps }}
         env:
           BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: |
-          cd ${{ matrix.apps }}
-          echo -e "\n[install.scopes]\n\"@navikt\" = { token = \"$BUN_AUTH_TOKEN\", url = \"https://npm.pkg.github.com/\" }" >> bunfig.toml
-          bun install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Restore cache for ${{ matrix.apps }}
         uses: actions/cache/restore@v4
@@ -43,9 +46,8 @@ jobs:
 
       - name: Typecheck ${{ matrix.apps }}
         shell: bash
-        run: |
-          cd ${{ matrix.apps }}
-          bun run typecheck
+        working-directory: ${{ matrix.apps }}
+        run: bun run typecheck
 
       - name: Save shared cache for ${{ matrix.apps }}
         uses: actions/cache/save@v4

@@ -50,56 +50,54 @@ jobs:
       version: ${{ steps.version.outputs.version }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.1.34
+          bun-version: latest
+
+      - name: Configure @navikt registry
+        run: |
+          for app in frontend server; do
+            printf '\n[install.scopes]\n"@navikt" = { url = "https://npm.pkg.github.com/", token = "$BUN_AUTH_TOKEN" }\n' >> "$app/bunfig.toml"
+          done
 
       - name: Install frontend dependencies
         shell: bash
+        working-directory: frontend
         env:
           BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: |
-          cd frontend
-          echo -e "\n[install.scopes]\n\"@navikt\" = { token = \"$BUN_AUTH_TOKEN\", url = \"https://npm.pkg.github.com/\" }" >> bunfig.toml
-          bun install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Build frontend
         shell: bash
+        working-directory: frontend
         env:
           VERSION: ${{ github.sha }}
-        run: |
-          cd frontend
-          bun run build
+        run: bun run build
 
       - name: Test frontend
         shell: bash
-        run: |
-          cd frontend
-          bun test
+        working-directory: frontend
+        run: bun test
 
       - name: Install server dependencies
         shell: bash
+        working-directory: server
         env:
           BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: |
-          cd server
-          echo -e "\n[install.scopes]\n\"@navikt\" = { token = \"$BUN_AUTH_TOKEN\", url = \"https://npm.pkg.github.com/\" }" >> bunfig.toml
-          bun install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Test server
         shell: bash
-        run: |
-          cd server
-          bun test
+        working-directory: server
+        run: bun test
 
       - name: Build server
         shell: bash
-        run: |
-          cd server
-          bun run build
+        working-directory: server
+        run: bun run build
 
       - name: Generate version number
         id: version
@@ -131,7 +129,7 @@ jobs:
     needs: build
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Deploy to dev
         uses: nais/deploy/actions/deploy@v2
