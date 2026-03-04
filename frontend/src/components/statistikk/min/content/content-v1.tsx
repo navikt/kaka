@@ -1,9 +1,10 @@
 import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
 import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
-import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
+import { OMGJORT_HELP_TEXT_V1_V2 } from '@app/components/statistikk/texts';
 import { TypeWarning } from '@app/components/statistikk/type-warning';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
 import { ContentArea } from '@app/styled-components/filters-and-content';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import type { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { LoadingOverlay } from '../../../loader/overlay';
 import { CardSize, DynamicCard } from '../../card/card';
@@ -28,8 +29,8 @@ interface Props {
 }
 
 export const ContentV1 = ({ mine, rest, isLoading }: Props) => {
-  const relevantMine = useRelevantStatistics(mine);
-  const relevantRest = useRelevantStatistics(rest);
+  const relevantMine = useRelevantStatistics(mine, KvalitetsvurderingVersion.V1);
+  const relevantRest = useRelevantStatistics(rest, KvalitetsvurderingVersion.V1);
 
   const behandlingstidOverTime = useBehandlingstidOverTime(relevantMine);
 
@@ -44,9 +45,9 @@ export const ContentV1 = ({ mine, rest, isLoading }: Props) => {
       <LoadingOverlay isLoading={isLoading} />
       <FullWidthStickyContainer>
         <StatsContainer>
-          <Finished stats={mine} />
-          <TotalProcessed length={relevantMine.length} />
-          <Omgjort stats={relevantMine} label="Omgjort av meg" />
+          <Finished stats={mine} version={KvalitetsvurderingVersion.V1} />
+          <TotalProcessed length={relevantMine.length} version={KvalitetsvurderingVersion.V1} />
+          <Omgjort version={KvalitetsvurderingVersion.V1} stats={relevantMine} label="Omgjort av meg" />
           <Gjennomsnittstid stats={relevantMine} />
           <Processed weeks={12} stats={relevantMine} />
           <Processed weeks={15} stats={relevantMine} />
@@ -54,10 +55,10 @@ export const ContentV1 = ({ mine, rest, isLoading }: Props) => {
       </FullWidthStickyContainer>
 
       <DynamicCard size={CardSize.MEDIUM}>
-        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
+        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT_V1_V2} placement="bottom">
           Min omgjøringsprosent
         </CardTitleWithExplainer>
-        <Omgjoeringsprosent stats={datasets} />
+        <Omgjoeringsprosent stats={datasets} version={KvalitetsvurderingVersion.V1} />
       </DynamicCard>
 
       <DynamicCard size={CardSize.LARGE}>

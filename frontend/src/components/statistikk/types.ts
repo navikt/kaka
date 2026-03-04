@@ -22,7 +22,7 @@ interface DataSet {
   data: ISaksdata[];
 }
 
-export interface ComparisonPropsV2 {
+export interface ComparisonProps {
   stats: DataSet[];
 }
 

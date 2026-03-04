@@ -1,12 +1,13 @@
 import { UTFALL_COLOR_MAP } from '@app/colors/colors';
 import { useColorMap } from '@app/components/statistikk/colors/get-color';
+import { getOmgjortutfall } from '@app/components/statistikk/get-omgjortutfall';
 import { toPercent } from '@app/domain/number';
 import { useUtfall } from '@app/simple-api-state/use-utfall';
-import { UtfallEnum } from '@app/types/utfall';
+import type { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import type { ChartOptions } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { type GetAbsoluteValue, useBarTooltipText } from '../hooks/use-bar-tooltip-text';
-import type { ComparisonPropsV2 } from '../types';
+import type { ComparisonProps } from '../types';
 import { HorizontalBars } from './common/horizontal-bars';
 
 const UNIT = 'saker';
@@ -47,12 +48,14 @@ const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => 
   };
 };
 
-const useData = (stats: ComparisonPropsV2['stats']) => {
+const useData = (stats: ComparisonProps['stats'], version: KvalitetsvurderingVersion) => {
   const colorMap = useColorMap();
 
   const { data: utfallMap = [] } = useUtfall();
 
-  const datasets = [UtfallEnum.MEDHOLD, UtfallEnum.DELVIS_MEDHOLD, UtfallEnum.OPPHEVET].map((utfall) => {
+  const utfall = getOmgjortutfall(version);
+
+  const datasets = utfall.map((utfall) => {
     const { data, counts } = stats.reduce<{ data: number[]; counts: number[] }>(
       (acc, curr) => {
         const count = curr.data.filter(({ utfallId }) => utfallId === utfall).length;
@@ -89,8 +92,12 @@ const useData = (stats: ComparisonPropsV2['stats']) => {
   return { datasets, labels };
 };
 
-export const Omgjoeringsprosent = ({ stats }: ComparisonPropsV2) => {
-  const { datasets, labels } = useData(stats);
+interface Props extends ComparisonProps {
+  version: KvalitetsvurderingVersion;
+}
+
+export const Omgjoeringsprosent = ({ stats, version }: Props) => {
+  const { datasets, labels } = useData(stats, version);
 
   const getAbsoluteValue: GetAbsoluteValue = (datasetIndex, dataIndex) => {
     const count = datasets[datasetIndex]?.counts[dataIndex] ?? 0;

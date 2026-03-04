@@ -6,10 +6,11 @@ import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalit
 import { Omgjoeringsprosent } from '@app/components/statistikk/charts/omgjoeringsprosent';
 import { KvalitetsvurderingerV3 } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/kvalitetsvurderinger';
 import { filterIrrelevant } from '@app/components/statistikk/filters/relevant';
-import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
+import { OMGJORT_HELP_TEXT_V3 } from '@app/components/statistikk/texts';
 import { TypeWarning } from '@app/components/statistikk/type-warning';
 import { CardTitle } from '@app/styled-components/cards';
 import { ContentArea } from '@app/styled-components/filters-and-content';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import type { IComparedFullStatisticVurderingV3 } from '@app/types/statistics/v3';
 import { LoadingOverlay } from '../../../loader/overlay';
 
@@ -22,7 +23,7 @@ export const ContentV3 = ({ stats, isLoading }: Props) => {
   const datasets = stats.map(({ label, vurderinger, color }) => ({
     label,
     color,
-    data: filterIrrelevant(vurderinger),
+    data: filterIrrelevant(vurderinger, KvalitetsvurderingVersion.V3),
   }));
 
   return (
@@ -30,10 +31,10 @@ export const ContentV3 = ({ stats, isLoading }: Props) => {
       <LoadingOverlay isLoading={isLoading} />
 
       <DynamicCard size={CardSize.LARGE}>
-        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
+        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT_V3} placement="bottom">
           Omgjøringsprosent
         </CardTitleWithExplainer>
-        <Omgjoeringsprosent stats={datasets} />
+        <Omgjoeringsprosent stats={datasets} version={KvalitetsvurderingVersion.V3} />
       </DynamicCard>
 
       <TypeWarning />

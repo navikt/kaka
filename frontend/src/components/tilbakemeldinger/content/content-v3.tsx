@@ -1,9 +1,10 @@
 import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
 import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
-import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
+import { OMGJORT_HELP_TEXT_V3 } from '@app/components/statistikk/texts';
 import { TypeWarning } from '@app/components/statistikk/type-warning';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
 import { ContentArea } from '@app/styled-components/filters-and-content';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import type { IStatisticVurderingV3 } from '@app/types/statistics/v3';
 import { VurderingerTable } from '../../kvalitetsvurderinger/table';
 import { LoadingOverlay } from '../../loader/overlay';
@@ -23,8 +24,8 @@ interface Props extends TilbakemeldingerCommonProps {
 }
 
 export const ContentV3 = ({ mine, rest, statsIsLoading, saksdata, saksdataIsLoading }: Props) => {
-  const relevantMine = useRelevantStatistics(mine);
-  const relevantRest = useRelevantStatistics(rest);
+  const relevantMine = useRelevantStatistics(mine, KvalitetsvurderingVersion.V3);
+  const relevantRest = useRelevantStatistics(rest, KvalitetsvurderingVersion.V3);
 
   const datasets = [
     { label: 'Vår enhet', data: relevantMine },
@@ -38,17 +39,17 @@ export const ContentV3 = ({ mine, rest, statsIsLoading, saksdata, saksdataIsLoad
 
       <FullWidthStickyContainer>
         <StatsContainer>
-          <Finished stats={mine} />
-          <TotalProcessed length={relevantMine.length} />
-          <Omgjort stats={relevantMine} label="Omgjort av vår enhet" />
+          <Finished stats={mine} version={KvalitetsvurderingVersion.V3} />
+          <TotalProcessed length={relevantMine.length} version={KvalitetsvurderingVersion.V3} />
+          <Omgjort version={KvalitetsvurderingVersion.V3} stats={relevantMine} label="Omgjort av vår enhet" />
         </StatsContainer>
       </FullWidthStickyContainer>
 
       <DynamicCard size={CardSize.LARGE}>
-        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
+        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT_V3} placement="bottom">
           Vår enhets omgjøringsprosent
         </CardTitleWithExplainer>
-        <Omgjoeringsprosent stats={datasets} />
+        <Omgjoeringsprosent stats={datasets} version={KvalitetsvurderingVersion.V3} />
       </DynamicCard>
 
       <TypeWarning />

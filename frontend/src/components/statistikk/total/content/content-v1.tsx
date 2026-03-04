@@ -1,9 +1,10 @@
 import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
 import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
-import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
+import { OMGJORT_HELP_TEXT_V1_V2 } from '@app/components/statistikk/texts';
 import { TypeWarning } from '@app/components/statistikk/type-warning';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
 import { ContentArea } from '@app/styled-components/filters-and-content';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import type { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { LoadingOverlay } from '../../../loader/overlay';
 import { CardSize, DynamicCard } from '../../card/card';
@@ -27,7 +28,7 @@ interface Props {
 }
 
 export const ContentV1 = ({ rest, isLoading }: Props) => {
-  const relevantRest = useRelevantStatistics(rest);
+  const relevantRest = useRelevantStatistics(rest, KvalitetsvurderingVersion.V1);
   const behandlingstidOverTime = useBehandlingstidOverTime(relevantRest);
 
   const datasets = [{ label: 'Totalt', data: relevantRest }];
@@ -38,9 +39,9 @@ export const ContentV1 = ({ rest, isLoading }: Props) => {
 
       <FullWidthStickyContainer>
         <StatsContainer>
-          <Finished stats={rest} />
-          <TotalProcessed length={relevantRest.length} />
-          <Omgjort stats={relevantRest} label="Omgjort av klageinstansen" />
+          <Finished stats={rest} version={KvalitetsvurderingVersion.V1} />
+          <TotalProcessed length={relevantRest.length} version={KvalitetsvurderingVersion.V1} />
+          <Omgjort version={KvalitetsvurderingVersion.V1} stats={relevantRest} label="Omgjort av klageinstansen" />
           <Gjennomsnittstid stats={relevantRest} />
           <Processed weeks={12} stats={relevantRest} />
           <Processed weeks={15} stats={relevantRest} />
@@ -48,10 +49,10 @@ export const ContentV1 = ({ rest, isLoading }: Props) => {
       </FullWidthStickyContainer>
 
       <DynamicCard size={CardSize.LARGE}>
-        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
+        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT_V1_V2} placement="bottom">
           Omgjøringsprosent
         </CardTitleWithExplainer>
-        <Omgjoeringsprosent stats={datasets} />
+        <Omgjoeringsprosent stats={datasets} version={KvalitetsvurderingVersion.V1} />
       </DynamicCard>
 
       <DynamicCard size={CardSize.LARGE}>

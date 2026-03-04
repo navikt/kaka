@@ -20,7 +20,6 @@ export const KvalitetsskjemaV3 = () => {
     typeof saksdata === 'undefined' ||
     saksdata.utfallId === UtfallEnum.TRUKKET ||
     saksdata.utfallId === UtfallEnum.RETUR ||
-    saksdata.utfallId === UtfallEnum.UGUNST ||
     saksdata.utfallId === UtfallEnum.HENLAGT ||
     isError
   ) {
