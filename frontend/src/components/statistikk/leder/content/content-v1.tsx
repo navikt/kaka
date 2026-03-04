@@ -1,12 +1,13 @@
 import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
 import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
-import { OMGJORT_HELP_TEXT } from '@app/components/statistikk/texts';
+import { OMGJORT_HELP_TEXT_V1_V2 } from '@app/components/statistikk/texts';
 import { TypeWarning } from '@app/components/statistikk/type-warning';
 import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
 import { useUser } from '@app/simple-api-state/use-user';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
 import { ContentArea } from '@app/styled-components/filters-and-content';
+import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import type { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { useMemo } from 'react';
 import { QueryParams } from '../../../filters/filter-query-params';
@@ -46,7 +47,7 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
     () =>
       Object.entries(saksbehandlere).map(([navIdent, stats]) => ({
         label: saksbehandlerList.find((s) => s.navIdent === navIdent)?.navn ?? 'Laster...',
-        data: filterIrrelevant(stats),
+        data: filterIrrelevant(stats, KvalitetsvurderingVersion.V1),
       })),
     [saksbehandlerList, saksbehandlere],
   );
@@ -60,8 +61,8 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
     [saksbehandlerList, saksbehandlere],
   );
 
-  const relevantMine = useRelevantStatistics(mine);
-  const relevantRest = useRelevantStatistics(rest);
+  const relevantMine = useRelevantStatistics(mine, KvalitetsvurderingVersion.V1);
+  const relevantRest = useRelevantStatistics(rest, KvalitetsvurderingVersion.V1);
 
   const relevantData = useMemo(
     () => (selectedSaksbehandlere.length > 0 ? relevantSaksbehandlereStats.flatMap(({ data }) => data) : relevantMine),
@@ -102,9 +103,9 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
 
       <FullWidthStickyContainer>
         <StatsContainer>
-          <Finished stats={allData} />
-          <TotalProcessed length={relevantData.length} />
-          <Omgjort stats={relevantData} label="Omgjort av vår enhet" />
+          <Finished stats={allData} version={KvalitetsvurderingVersion.V1} />
+          <TotalProcessed length={relevantData.length} version={KvalitetsvurderingVersion.V1} />
+          <Omgjort version={KvalitetsvurderingVersion.V1} stats={relevantData} label="Omgjort av vår enhet" />
           <Gjennomsnittstid stats={relevantData} />
           <Processed weeks={12} stats={relevantData} />
           <Processed weeks={15} stats={relevantData} />
@@ -112,10 +113,10 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
       </FullWidthStickyContainer>
 
       <DynamicCard size={CardSize.LARGE}>
-        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT} placement="bottom">
+        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT_V1_V2} placement="bottom">
           Min enhets omgjøringsprosent
         </CardTitleWithExplainer>
-        <Omgjoeringsprosent stats={datasets} />
+        <Omgjoeringsprosent stats={datasets} version={KvalitetsvurderingVersion.V1} />
       </DynamicCard>
 
       <DynamicCard size={CardSize.LARGE}>

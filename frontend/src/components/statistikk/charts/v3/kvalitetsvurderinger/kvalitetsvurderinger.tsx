@@ -95,8 +95,8 @@ export const KvalitetsvurderingerV3 = ({ datasets }: Props) => {
           <Heading size="large">Kvalitetsvurderinger</Heading>
           <HelpText>
             Ved utregningen av hvor mange prosent av sakene som har mangler ved kvaliteten, er ikke saker med utfallene
-            «henlagt», «retur», «trukket» eller «ugunst (ugyldig)» med i grunnlaget. Klageinstansen gjør ikke
-            kvalitetsvurderinger i saker med disse utfallene.
+            «henlagt», «retur» eller «trukket» med i grunnlaget. Klageinstansen gjør ikke kvalitetsvurderinger i saker
+            med disse utfallene.
           </HelpText>
         </HStack>
         <KvalitetsvurderingModal />
