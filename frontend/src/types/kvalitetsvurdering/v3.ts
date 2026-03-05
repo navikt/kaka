@@ -3,6 +3,7 @@ import {
   BegrunnelsespliktenBoolean,
   BegrunnelsespliktenSaksdataHjemlerLists,
   ForeleggelsespliktenBoolean,
+  ForhåndsvarslingBoolean,
   JournalfoeringspliktenBoolean,
   KlageOgKlageforberedelsenBoolean,
   KlartSpraakBoolean,
@@ -39,6 +40,7 @@ interface LovenErTolketEllerAnvendtFeilIVedtaket {
 interface Saksbehandlingsreglene
   extends BruddPåVeiledningsplikten,
     BruddPåUtredningsplikten,
+    BruddPåRegleneOmForhåndsvarsling,
     BruddPåForeleggelsesplikten,
     BruddPåBegrunnelsesplikten,
     BruddPåRegleneOmKlageOgKlageforberedelse,
@@ -53,6 +55,13 @@ interface BruddPåVeiledningsplikten {
   [VeiledningspliktenBoolean.saksbehandlingsreglerBruddPaaVeiledningsplikten]: boolean;
   [VeiledningspliktenBoolean.saksbehandlingsreglerVeiledningspliktenPartenHarIkkeFaattSvarPaaHenvendelser]: boolean;
   [VeiledningspliktenBoolean.saksbehandlingsreglerVeiledningspliktenNavHarIkkeGittGodNokVeiledning]: boolean;
+}
+
+// Brudd på reglene om forhåndsvarsling
+interface BruddPåRegleneOmForhåndsvarsling {
+  [ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaForhandsvarsling]: boolean;
+  [ForhåndsvarslingBoolean.saksbehandlingsreglerForhandsvarslingPartenHarIkkeBlittVarslet]: boolean;
+  [ForhåndsvarslingBoolean.saksbehandlingsreglerForhandsvarslingPartenHarBlittVarsletMenInnholdetErMangelfullt]: boolean;
 }
 
 // Brudd på utredningsplikten
@@ -90,6 +99,7 @@ interface BruddPåRegleneOmKlageOgKlageforberedelse {
   [KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageKlagefristenEllerOppreisningErIkkeVurdertEllerFeilVurdert]: boolean;
   [KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageDetErIkkeSoergetForRettingAvFeilIKlagensFormEllerInnhold]: boolean;
   [KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageUnderKlageforberedelsenErDetIkkeUtredetEllerGjortUndersoekelser]: boolean;
+  [KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageRegleneForEnkeltvedtak]: boolean;
 }
 
 // Brudd på reglene om omgjøring utenfor ordinær klage- og ankesaksbehandling

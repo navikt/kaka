@@ -2,6 +2,7 @@ import {
   BegrunnelsespliktenBoolean,
   BegrunnelsespliktenSaksdataHjemlerLists,
   ForeleggelsespliktenBoolean,
+  ForhåndsvarslingBoolean,
   JournalfoeringspliktenBoolean,
   KlageOgKlageforberedelsenBoolean,
   KlartSpraakBoolean,
@@ -20,6 +21,11 @@ export const SAKSBEHANDLINGSREGLENE_TEXTS = {
     label: SAKSBEHANDLINGSREGLENE_LABELS[VeiledningspliktenBoolean.saksbehandlingsreglerBruddPaaVeiledningsplikten],
     helpText:
       SAKSBEHANDLINGSREGLENE_HELP_TEXTS[VeiledningspliktenBoolean.saksbehandlingsreglerBruddPaaVeiledningsplikten],
+  },
+  [ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaForhandsvarsling]: {
+    color: ColorToken.Warning400,
+    label: SAKSBEHANDLINGSREGLENE_LABELS[ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaForhandsvarsling],
+    helpText: SAKSBEHANDLINGSREGLENE_HELP_TEXTS[ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaForhandsvarsling],
   },
   [UtredningspliktenBoolean.saksbehandlingsreglerBruddPaaUtredningsplikten]: {
     color: ColorToken.Warning400,
