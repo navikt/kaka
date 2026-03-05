@@ -67,7 +67,10 @@ export const useDatePresets = (): IOption[] => {
       return presets;
     }
     case KvalitetsvurderingVersion.V3: {
-      const presets: IOption[] = [{ label: 'Denne måneden', fromDate: START_OF_MONTH, toDate: NOW }];
+      const presets: IOption[] = [
+        { label: 'Forrige måned', fromDate: START_OF_LAST_MONTH, toDate: END_OF_LAST_MONTH },
+        { label: 'Denne måneden', fromDate: START_OF_MONTH, toDate: NOW },
+      ];
 
       if (!IS_BEFORE_MAY_2026) {
         presets.push({ label: 'Siste tertial', ...getLastTertial(NOW) });
