@@ -11,6 +11,7 @@ const SAKSTYPER = [
   { id: SakstypeEnum.ANKE, label: 'Anke' },
   { id: SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET, label: 'Behandling etter Trygderetten opphevet' },
   { id: SakstypeEnum.OMGJØRINGSKRAV, label: 'Omgjøringskrav' },
+  { id: SakstypeEnum.BEGJÆRING_OM_GJENOPPTAK, label: 'Begjæring om gjenopptak' },
 ];
 
 export const SakstypeFilter = ({ selected, setSelected }: SakstypeFilterProps) => (

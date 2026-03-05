@@ -23,4 +23,6 @@ const VARIANT: Record<SakstypeEnum, TagProps['variant']> = {
   [SakstypeEnum.ANKE_I_TRYGDERETTEN]: 'error-filled',
   [SakstypeEnum.OMGJØRINGSKRAV]: 'info-filled',
   [SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET]: 'alt2-filled',
+  [SakstypeEnum.BEGJÆRING_OM_GJENOPPTAK]: 'warning-filled',
+  [SakstypeEnum.BEGJÆRING_OM_GJENOPPTAK_I_TR]: 'neutral-filled',
 };
