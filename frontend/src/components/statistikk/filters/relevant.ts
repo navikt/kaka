@@ -7,7 +7,8 @@ export const isRelevantSakstype = (sakstypeId: string): boolean =>
   sakstypeId === SakstypeEnum.KLAGE ||
   sakstypeId === SakstypeEnum.ANKE ||
   sakstypeId === SakstypeEnum.OMGJØRINGSKRAV ||
-  sakstypeId === SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET;
+  sakstypeId === SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET ||
+  sakstypeId === SakstypeEnum.BEGJÆRING_OM_GJENOPPTAK;
 
 const IRRELEVANT_UTFALL_COMMON = [UtfallEnum.RETUR, UtfallEnum.TRUKKET, UtfallEnum.HENLAGT];
 const IRRELEVANT_UTFALL_V1_V2 = [...IRRELEVANT_UTFALL_COMMON, UtfallEnum.UGUNST];
