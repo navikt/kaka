@@ -46,6 +46,11 @@ const DEFAULT_STAT: IStatisticVurderingV3 = {
   saksbehandlingsreglerVeiledningspliktenPartenHarIkkeFaattSvarPaaHenvendelser: false,
   saksbehandlingsreglerVeiledningspliktenNavHarIkkeGittGodNokVeiledning: false,
 
+  // Saksbehandlingsreglene - Forhåndsvarsling
+  saksbehandlingsreglerBruddPaaForhandsvarsling: false,
+  saksbehandlingsreglerForhandsvarslingPartenHarIkkeBlittVarslet: false,
+  saksbehandlingsreglerForhandsvarslingPartenHarBlittVarsletMenInnholdetErMangelfullt: false,
+
   // Saksbehandlingsreglene - Utredningsplikten
   saksbehandlingsreglerBruddPaaUtredningsplikten: false,
   saksbehandlingsreglerUtredningspliktenUtredningenAvMedisinskeForholdHarIkkeVaertGodNok: false,
@@ -74,6 +79,7 @@ const DEFAULT_STAT: IStatisticVurderingV3 = {
   saksbehandlingsreglerBruddPaaKlageKlagefristenEllerOppreisningErIkkeVurdertEllerFeilVurdert: false,
   saksbehandlingsreglerBruddPaaKlageDetErIkkeSoergetForRettingAvFeilIKlagensFormEllerInnhold: false,
   saksbehandlingsreglerBruddPaaKlageUnderKlageforberedelsenErDetIkkeUtredetEllerGjortUndersoekelser: false,
+  saksbehandlingsreglerBruddPaaKlageRegleneForEnkeltvedtak: false,
 
   // Saksbehandlingsreglene - Omgjøring
   saksbehandlingsreglerBruddPaaRegleneOmOmgjoeringUtenforKlageOgAnke: false,
