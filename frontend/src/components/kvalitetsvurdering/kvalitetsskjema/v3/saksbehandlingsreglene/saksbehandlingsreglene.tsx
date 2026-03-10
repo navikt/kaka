@@ -92,15 +92,14 @@ const DEFAULT_CHECKBOXES: CheckboxParams[] = [
 
   // Forhåndsvarsling
   getCheckbox({
-    field: ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaForhandsvarsling,
-    groupErrorField: SaksbehandlingsregleneErrorFields.saksbehandlingsreglerBruddPaaForhaandsvarslingGroup,
+    field: ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaRegleneOmForhaandsvarsling,
+    groupErrorField: SaksbehandlingsregleneErrorFields.saksbehandlingsreglerBruddPaaRegleneOmForhaandsvarslingGroup,
     childList: [
       getCheckbox({
-        field: ForhåndsvarslingBoolean.saksbehandlingsreglerForhandsvarslingPartenHarIkkeBlittVarslet,
+        field: ForhåndsvarslingBoolean.saksbehandlingsreglerForhaandsvarslingPartenIkkeVarsletFoerVedtak,
       }),
       getCheckbox({
-        field:
-          ForhåndsvarslingBoolean.saksbehandlingsreglerForhandsvarslingPartenHarBlittVarsletMenInnholdetErMangelfullt,
+        field: ForhåndsvarslingBoolean.saksbehandlingsreglerForhaandsvarslingPartenVarsletMangelfullt,
       }),
     ],
   }),
@@ -215,7 +214,8 @@ const KLAGE_OG_KLAGEFORBEREDELSE_CHECKBOXES = getCheckbox({
         KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageUnderKlageforberedelsenErDetIkkeUtredetEllerGjortUndersoekelser,
     }),
     getCheckbox({
-      field: KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageRegleneForEnkeltvedtak,
+      field:
+        KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageRegleneIkkeFulgtTilTrossForNyttEnkeltvedtak,
     }),
   ],
 });
