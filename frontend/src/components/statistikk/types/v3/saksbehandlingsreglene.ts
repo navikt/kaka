@@ -22,10 +22,14 @@ export const SAKSBEHANDLINGSREGLENE_TEXTS = {
     helpText:
       SAKSBEHANDLINGSREGLENE_HELP_TEXTS[VeiledningspliktenBoolean.saksbehandlingsreglerBruddPaaVeiledningsplikten],
   },
-  [ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaForhandsvarsling]: {
+  [ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaRegleneOmForhaandsvarsling]: {
     color: ColorToken.Warning400,
-    label: SAKSBEHANDLINGSREGLENE_LABELS[ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaForhandsvarsling],
-    helpText: SAKSBEHANDLINGSREGLENE_HELP_TEXTS[ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaForhandsvarsling],
+    label:
+      SAKSBEHANDLINGSREGLENE_LABELS[ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaRegleneOmForhaandsvarsling],
+    helpText:
+      SAKSBEHANDLINGSREGLENE_HELP_TEXTS[
+        ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaRegleneOmForhaandsvarsling
+      ],
   },
   [UtredningspliktenBoolean.saksbehandlingsreglerBruddPaaUtredningsplikten]: {
     color: ColorToken.Warning400,

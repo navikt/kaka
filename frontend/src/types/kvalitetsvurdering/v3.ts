@@ -59,9 +59,9 @@ interface BruddPåVeiledningsplikten {
 
 // Brudd på reglene om forhåndsvarsling
 interface BruddPåRegleneOmForhåndsvarsling {
-  [ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaForhandsvarsling]: boolean;
-  [ForhåndsvarslingBoolean.saksbehandlingsreglerForhandsvarslingPartenHarIkkeBlittVarslet]: boolean;
-  [ForhåndsvarslingBoolean.saksbehandlingsreglerForhandsvarslingPartenHarBlittVarsletMenInnholdetErMangelfullt]: boolean;
+  [ForhåndsvarslingBoolean.saksbehandlingsreglerBruddPaaRegleneOmForhaandsvarsling]: boolean;
+  [ForhåndsvarslingBoolean.saksbehandlingsreglerForhaandsvarslingPartenIkkeVarsletFoerVedtak]: boolean;
+  [ForhåndsvarslingBoolean.saksbehandlingsreglerForhaandsvarslingPartenVarsletMangelfullt]: boolean;
 }
 
 // Brudd på utredningsplikten
@@ -99,7 +99,7 @@ interface BruddPåRegleneOmKlageOgKlageforberedelse {
   [KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageKlagefristenEllerOppreisningErIkkeVurdertEllerFeilVurdert]: boolean;
   [KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageDetErIkkeSoergetForRettingAvFeilIKlagensFormEllerInnhold]: boolean;
   [KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageUnderKlageforberedelsenErDetIkkeUtredetEllerGjortUndersoekelser]: boolean;
-  [KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageRegleneForEnkeltvedtak]: boolean;
+  [KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageRegleneIkkeFulgtTilTrossForNyttEnkeltvedtak]: boolean;
 }
 
 // Brudd på reglene om omgjøring utenfor ordinær klage- og ankesaksbehandling
