@@ -204,7 +204,7 @@ export const Filters = () => {
 
       <StyledHr />
 
-      <ExcelExport />
+      <ExcelExport version={version} />
     </FilterPanelContainer>
   );
 };
