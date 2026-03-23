@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
   "root": true,
   "vcs": {
     "enabled": true,
@@ -14,7 +14,9 @@
         "organizeImports": {
           "level": "on",
           "options": {
-            "groups": ["**"]
+            "groups": [
+              "**"
+            ]
           }
         }
       }
@@ -99,7 +101,13 @@
           "level": "error",
           "fix": "unsafe",
           "options": {
-            "allow": ["debug", "info", "warn", "error", "[level]"]
+            "allow": [
+              "debug",
+              "info",
+              "warn",
+              "error",
+              "[level]"
+            ]
           }
         },
         "noReactSpecificProps": "off",
@@ -173,6 +181,9 @@
     }
   },
   "files": {
-    "includes": ["**", "!.bruno"]
+    "includes": [
+      "**",
+      "!.bruno"
+    ]
   }
 }
