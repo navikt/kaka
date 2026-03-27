@@ -1,8 +1,7 @@
 {
-  "$schema": "https://unpkg.com/knip@5/schema-jsonc.json",
-  "entry": ["src/index.tsx", "tailwind.config.js"],
+  "$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
+  "entry": ["tailwind.config.js"],
   "project": ["src/**"],
-  "ignore": ["**/*.test.ts", "src/bun-test-setup.ts"],
   "rules": {
     "duplicates": "off"
   }
