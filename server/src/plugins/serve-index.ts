@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { frontendDistDirectoryPath, PROXY_VERSION } from '@app/config/config';
+import { frontendDistDirectoryPath } from '@app/config/config';
 import { ENVIRONMENT } from '@app/config/env';
 import { getLogger } from '@app/logger';
 import type { RouteHandler } from 'fastify';
@@ -15,7 +15,7 @@ if (!existsSync(indexFilePath)) {
 }
 
 const indexFileContent = readFileSync(indexFilePath, { encoding: 'utf-8' });
-const indexFile = indexFileContent.replace('{{ENVIRONMENT}}', ENVIRONMENT).replace('{{VERSION}}', PROXY_VERSION);
+const indexFile = indexFileContent.replace('{{ENVIRONMENT}}', ENVIRONMENT);
 
 const serveIndexHandler: RouteHandler = async (_, reply) => {
   reply.header('content-type', 'text/html');
