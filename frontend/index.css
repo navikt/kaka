@@ -102,6 +102,7 @@
     from {
       transform: translateX(100%);
     }
+
     to {
       transform: translateX(0);
     }
@@ -113,6 +114,7 @@
     from {
       transform: translateX(0);
     }
+
     to {
       transform: translateX(calc(100% + var(--ax-space-8)));
     }
@@ -124,6 +126,7 @@
     from {
       transform: scaleX(100%);
     }
+
     to {
       transform: scaleX(0);
     }
@@ -132,12 +135,27 @@
 
 html {
   box-sizing: border-box;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  overflow-y: auto;
+  scroll-padding-top: 100px;
 }
 
 *,
 *::before,
 *::after {
   box-sizing: inherit;
+}
+
+html,
+body,
+#app {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 ::selection {

@@ -18,16 +18,16 @@
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.1",
-    "knip": "6.0.4",
+    "knip": "6.1.0",
     "typescript": "6.0.2",
-    "vite": "npm:rolldown-vite@7.3.1"
+    "vite": "8.0.3"
   },
   "dependencies": {
-    "@biomejs/biome": "2.4.8",
-    "@navikt/aksel-icons": "8.8.0",
-    "@navikt/ds-css": "8.8.0",
-    "@navikt/ds-react": "8.8.0",
-    "@navikt/ds-tailwind": "8.8.0",
+    "@biomejs/biome": "2.4.9",
+    "@navikt/aksel-icons": "8.9.0",
+    "@navikt/ds-css": "8.9.0",
+    "@navikt/ds-react": "8.9.0",
+    "@navikt/ds-tailwind": "8.9.0",
     "@reduxjs/toolkit": "2.11.2",
     "chart.js": "4.5.1",
     "date-fns": "4.1.0",

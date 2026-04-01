@@ -1,8 +1,0 @@
-{
-  "$schema": "https://unpkg.com/knip@6/schema-jsonc.json",
-  "entry": ["tailwind.config.js"],
-  "project": ["src/**"],
-  "rules": {
-    "duplicates": "off"
-  }
-}
