@@ -3,7 +3,6 @@ import {
   useDefaultQueryComparison,
   useDefaultQueryLeder,
   useDefaultQueryMin,
-  useDefaultQueryTilbakemeldinger,
   useDefaultQueryTotal,
 } from '@app/hooks/use-default-query-params';
 import { useUserAccess } from '@app/hooks/use-user-access';
@@ -24,7 +23,7 @@ export const Nav = () => {
   const defaultQueryLeder = useDefaultQueryLeder();
   const defaultQueryTotal = useDefaultQueryTotal();
   const defaultQueryMin = useDefaultQueryMin();
-  const defaultQueryTilbakemeldinger = useDefaultQueryTilbakemeldinger();
+  const defaultQueryTilbakemeldinger = useDefaultQueryMin();
   const defauleQueryComparison = useDefaultQueryComparison();
 
   const access = useUserAccess();
