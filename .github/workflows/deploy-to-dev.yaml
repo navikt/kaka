@@ -70,11 +70,15 @@ jobs:
           BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
         run: bun install --frozen-lockfile
 
+      - name: Generate version number
+        id: version
+        run: echo "version=$(TZ="Europe/Oslo" git show -s --format=%cd --date='format-local:%Y-%m-%dT%H:%M:%S')" >> "$GITHUB_OUTPUT"
+
       - name: Build frontend
         shell: bash
         working-directory: frontend
         env:
-          VERSION: ${{ github.sha }}
+          VERSION: ${{ steps.version.outputs.version }}
         run: bun run build
 
       - name: Test frontend
@@ -98,10 +102,6 @@ jobs:
         shell: bash
         working-directory: server
         run: bun run build
-
-      - name: Generate version number
-        id: version
-        run: echo "version=$(TZ="Europe/Oslo" git show -s --format=%cd --date='format-local:%Y-%m-%dT%H:%M:%S')" >> "$GITHUB_OUTPUT"
 
       - name: Upload frontend assets to CDN
         uses: nais/deploy/actions/cdn-upload/v2@master

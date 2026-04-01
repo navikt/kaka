@@ -27,5 +27,5 @@
     "tsBuildInfoFile": ".tsbuildinfo",
     "types": ["@navikt/ds-react/types/theme", "bun"]
   },
-  "include": ["src"]
+  "include": ["src", "vite-env.d.ts"]
 }

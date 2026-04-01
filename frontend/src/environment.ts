@@ -33,7 +33,7 @@ class Environment implements EnvironmentVariables {
 
   private init(): EnvironmentVariables {
     const environment = this.getEnvironment();
-    const version = this.getVersion();
+    const version = __APP_VERSION__;
     const isProduction = environment === EnvString.PROD;
     const isDevelopment = environment === EnvString.DEV;
     const isLocal = environment === EnvString.LOCAL;
@@ -50,16 +50,6 @@ class Environment implements EnvironmentVariables {
     }
 
     return EnvString.LOCAL;
-  }
-
-  private getVersion(): string {
-    const version = document.documentElement.getAttribute('data-version');
-
-    if (version === null || version === '{{VERSION}}') {
-      return EnvString.LOCAL;
-    }
-
-    return version;
   }
 }
 
