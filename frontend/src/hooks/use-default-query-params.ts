@@ -79,5 +79,3 @@ export const useDefaultQueryComparison = () => {
 
   return `${defaultQuery}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}&${defaultComparison}`;
 };
-
-export const useDefaultQueryTilbakemeldinger = useDefaultQueryMin;

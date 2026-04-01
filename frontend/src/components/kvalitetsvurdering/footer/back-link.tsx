@@ -1,4 +1,4 @@
-import { useDefaultQueryTilbakemeldinger } from '@app/hooks/use-default-query-params';
+import { useDefaultQueryMin } from '@app/hooks/use-default-query-params';
 import { useUserAccess } from '@app/hooks/use-user-access';
 import { Button } from '@navikt/ds-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 export const BackLink = () => {
   const location = useLocation();
   const access = useUserAccess();
-  const defaultQuery = useDefaultQueryTilbakemeldinger();
+  const defaultQuery = useDefaultQueryMin();
 
   if (typeof location.state === 'string' && location.state.startsWith('/')) {
     return (
