@@ -5,3 +5,4 @@ server/*
 !server/dist
 !server/package.json
 !server/node_modules
+frontend/dist/assets

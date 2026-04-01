@@ -12,7 +12,6 @@ import { httpLoggerPlugin } from '@app/plugins/http-logger';
 import { navIdentPlugin } from '@app/plugins/nav-ident';
 import { oboAccessTokenPlugin } from '@app/plugins/obo-token';
 import { proxyVersionPlugin } from '@app/plugins/proxy-version';
-import { serveAssetsPlugin } from '@app/plugins/serve-assets';
 import { serveIndexPlugin } from '@app/plugins/serve-index';
 import { serverTimingPlugin } from '@app/plugins/server-timing';
 import { tabIdPlugin } from '@app/plugins/tab-id';
@@ -55,7 +54,9 @@ fastify({ trustProxy: true, bodyLimit, routerOptions: { querystringParser } })
   .register(oboAccessTokenPlugin)
   .register(versionPlugin)
   .register(apiProxyPlugin, { appNames: API_CLIENT_IDS, prefix: '/api' })
-  .register(serveAssetsPlugin)
+  .register(async (app) => {
+    app.get('/assets/*', async (_, reply) => reply.code(404).send());
+  })
   .register(serveIndexPlugin)
   .register(httpLoggerPlugin)
 
