@@ -8,6 +8,9 @@ export default defineConfig(({ command }) => ({
   define: {
     __APP_VERSION__: JSON.stringify(process.env.VERSION ?? 'local'),
   },
+  resolve: {
+    tsconfigPaths: true,
+  },
   server: {
     port: 8062,
     proxy: {

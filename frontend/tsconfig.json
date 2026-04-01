@@ -19,9 +19,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     /* Paths */
-    "baseUrl": "./src",
     "paths": {
-      "@app/*": ["*"]
+      "@app/*": ["./src/*"]
     },
     "incremental": true,
     "tsBuildInfoFile": ".tsbuildinfo",
