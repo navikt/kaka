@@ -28,7 +28,6 @@ spec:
         - /isAlive
         - /isReady
         - /version
-        - /assets/*
         - /favicon/*
         - /site.webmanifest
         - /*.js
