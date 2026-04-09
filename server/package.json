@@ -15,19 +15,19 @@
     "knip": "knip"
   },
   "dependencies": {
-    "@biomejs/biome": "2.4.9",
+    "@biomejs/biome": "2.4.10",
     "@fastify/cors": "11.2.0",
     "@fastify/http-proxy": "11.4.3",
     "@navikt/oasis": "4.1.4",
-    "@types/node": "25.5.0",
+    "@types/node": "25.5.2",
     "fastify": "5.8.4",
-    "fastify-metrics": "12.1.0",
+    "fastify-metrics": "13.2.0",
     "fastify-plugin": "5.1.0",
     "prom-client": "15.1.3"
   },
   "devDependencies": {
     "@types/bun": "1.3.11",
-    "knip": "6.1.0",
+    "knip": "6.3.0",
     "typescript": "6.0.2"
   }
 }
