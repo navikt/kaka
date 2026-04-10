@@ -34,7 +34,7 @@ jobs:
         working-directory: ${{ matrix.apps }}
         env:
           BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile --ignore-scripts
 
       - name: Restore cache for ${{ matrix.apps }}
         uses: actions/cache/restore@v4
