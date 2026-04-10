@@ -68,7 +68,7 @@ jobs:
         working-directory: frontend
         env:
           BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile --ignore-scripts
 
       - name: Generate version number
         id: version
@@ -91,7 +91,7 @@ jobs:
         working-directory: server
         env:
           BUN_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: bun install --frozen-lockfile
+        run: bun install --frozen-lockfile --ignore-scripts
 
       - name: Test server
         shell: bash
