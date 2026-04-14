@@ -36,7 +36,7 @@ import {
   ToggleGroup,
   VStack,
 } from '@navikt/ds-react';
-import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { type ReactElement, type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 
 export const KvalitetsvurderingModal = ({ focus }: { focus?: keyof KvalitetsvurderingV3Boolean | MainReason }) => {
   const ref = useRef<HTMLDialogElement>(null);
@@ -168,7 +168,7 @@ const Content = ({ ref }: { ref: React.Ref<HTMLDialogElement> }) => {
 
 interface ReadOnlyCheckboxProps {
   children: string;
-  helpText?: string;
+  helpText?: string | ReactElement;
   checked?: boolean;
 }
 

@@ -7,10 +7,11 @@ import type {
   KvalitetsvurderingStrings,
   KvalitetsvurderingV3Boolean,
 } from '@app/types/kvalitetsvurdering/v3';
+import type { ReactElement } from 'react';
 
 interface BaseParams {
   label: string;
-  helpText?: string;
+  helpText?: string | ReactElement;
 }
 
 export type GroupErrorField = SærregelverketErrorFields | SaksbehandlingsregleneErrorFields | TrygdemedisinErrorFields;
