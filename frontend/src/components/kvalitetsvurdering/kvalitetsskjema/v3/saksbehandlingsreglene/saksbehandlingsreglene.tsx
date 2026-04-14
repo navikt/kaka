@@ -217,6 +217,10 @@ const KLAGE_OG_KLAGEFORBEREDELSE_CHECKBOXES = getCheckbox({
       field:
         KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageRegleneIkkeFulgtTilTrossForNyttEnkeltvedtak,
     }),
+    getCheckbox({
+      field:
+        KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageAlleRelevanteDokumenterIkkeOversendtKlageinstansen,
+    }),
   ],
 });
 
