@@ -359,6 +359,31 @@ export const KLAGE_OG_KLAGEFORBEREDELSEN_TEXTS = {
             .saksbehandlingsreglerBruddPaaKlageUnderKlageforberedelsenErDetIkkeUtredetEllerGjortUndersoekelser
         ],
     },
+  [KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageRegleneIkkeFulgtTilTrossForNyttEnkeltvedtak]: {
+    color: ColorToken.Warning800,
+    label:
+      SAKSBEHANDLINGSREGLENE_LABELS[
+        KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageRegleneIkkeFulgtTilTrossForNyttEnkeltvedtak
+      ],
+    helpText:
+      SAKSBEHANDLINGSREGLENE_HELP_TEXTS[
+        KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageRegleneIkkeFulgtTilTrossForNyttEnkeltvedtak
+      ],
+  },
+  [KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaKlageAlleRelevanteDokumenterIkkeOversendtKlageinstansen]:
+    {
+      color: ColorToken.Warning900,
+      label:
+        SAKSBEHANDLINGSREGLENE_LABELS[
+          KlageOgKlageforberedelsenBoolean
+            .saksbehandlingsreglerBruddPaaKlageAlleRelevanteDokumenterIkkeOversendtKlageinstansen
+        ],
+      helpText:
+        SAKSBEHANDLINGSREGLENE_HELP_TEXTS[
+          KlageOgKlageforberedelsenBoolean
+            .saksbehandlingsreglerBruddPaaKlageAlleRelevanteDokumenterIkkeOversendtKlageinstansen
+        ],
+    },
 };
 
 type KlageOgKlageforberedelsenReasonsTextsKeys = keyof typeof KLAGE_OG_KLAGEFORBEREDELSEN_TEXTS;

@@ -80,6 +80,7 @@ const DEFAULT_STAT: IStatisticVurderingV3 = {
   saksbehandlingsreglerBruddPaaKlageDetErIkkeSoergetForRettingAvFeilIKlagensFormEllerInnhold: false,
   saksbehandlingsreglerBruddPaaKlageUnderKlageforberedelsenErDetIkkeUtredetEllerGjortUndersoekelser: false,
   saksbehandlingsreglerBruddPaaKlageRegleneIkkeFulgtTilTrossForNyttEnkeltvedtak: false,
+  saksbehandlingsreglerBruddPaaKlageAlleRelevanteDokumenterIkkeOversendtKlageinstansen: false,
 
   // Saksbehandlingsreglene - Omgjøring
   saksbehandlingsreglerBruddPaaRegleneOmOmgjoeringUtenforKlageOgAnke: false,
