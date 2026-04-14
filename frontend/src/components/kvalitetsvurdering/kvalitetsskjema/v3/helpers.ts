@@ -29,6 +29,7 @@ import {
   type TrygdemedisinErrorFields,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/trygdemedisin/data';
 import { SakstypeEnum } from '@app/types/sakstype';
+import type { ReactElement } from 'react';
 
 type Booleans = TrygdemedisinBoolean | AllSaksbehandlingsregleneBoolean | SærregelverketBoolean;
 
@@ -77,7 +78,7 @@ const getLabel = (field: Booleans): string => {
   return field;
 };
 
-const getHelpText = (field: Booleans, sakstypeId?: SakstypeEnum): string | undefined => {
+const getHelpText = (field: Booleans, sakstypeId?: SakstypeEnum): string | ReactElement | undefined => {
   if (isSærregelverketField(field)) {
     return SÆRREGELVERKET_HELP_TEXTS[field];
   }
