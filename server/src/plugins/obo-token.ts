@@ -1,17 +1,20 @@
 import { KLAGE_KODEVERK_API, NAIS_CLUSTER_NAME } from '@app/config/config';
 import { isDeployed } from '@app/config/env';
 import { getDuration } from '@app/helpers/duration';
+import { getTraceContext } from '@app/helpers/trace-context';
 import { getLogger } from '@app/logger';
 import { ACCESS_TOKEN_PLUGIN_ID } from '@app/plugins/access-token';
 import { NAV_IDENT_PLUGIN_ID } from '@app/plugins/nav-ident';
 import { SERVER_TIMING_PLUGIN_ID } from '@app/plugins/server-timing';
 import { proxyRegister } from '@app/prometheus/types';
 import { requestOboToken, validateToken } from '@navikt/oasis';
+import { SpanStatusCode, trace } from '@opentelemetry/api';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import fastifyPlugin from 'fastify-plugin';
 import { Histogram } from 'prom-client';
 
 const log = getLogger('obo-token-plugin');
+const tracer = trace.getTracer('kaka-frontend-bff');
 
 declare module 'fastify' {
   interface FastifyRequest {
@@ -77,58 +80,75 @@ export const oboAccessTokenPlugin = fastifyPlugin(
 
 type GetOboToken = (appName: string, req: FastifyRequest, reply?: FastifyReply) => Promise<string | undefined>;
 
-const getOboToken: GetOboToken = async (appName, req, reply) => {
-  const { trace_id, span_id, accessToken, url, client_version, tab_id } = req;
-  const logParams = { trace_id, span_id, client_version, tab_id, data: { route: url } };
+const getOboToken: GetOboToken = (appName, req, reply) =>
+  tracer.startActiveSpan('obo-token-exchange', async (span) => {
+    const { accessToken, url, client_version, tab_id } = req;
+    const logParams = { ...getTraceContext(req), client_version, tab_id, data: { route: url } };
 
-  log.debug({ msg: `Getting OBO token for "${appName}".`, ...logParams });
+    span.setAttribute('app_name', appName);
 
-  if (accessToken.length === 0) {
-    log.warn({ msg: 'No access token provided.', ...logParams });
+    log.debug({ msg: `Getting OBO token for "${appName}".`, ...logParams });
 
-    return undefined;
-  }
-
-  const validation = await validateToken(accessToken);
-
-  if (!validation.ok) {
-    log.warn({ msg: 'Invalid access token.', ...logParams });
-
-    return undefined;
-  }
-
-  try {
-    const oboStart = performance.now();
-    const audience = `api://${NAIS_CLUSTER_NAME}.klage.${appName}/.default`;
-
-    log.debug({ msg: `Requesting OBO token for audience: ${audience}.`, ...logParams });
-
-    const oboAccessToken = await requestOboToken(accessToken, audience);
-
-    const duration = getDuration(oboStart);
-    oboRequestDuration.observe(duration);
-    reply?.addServerTiming('obo_token_middleware', duration, 'OBO Token Middleware');
-
-    if (!oboAccessToken.ok) {
-      log.warn({
-        msg: `Failed to get OBO token for audience: ${audience}: ${JSON.stringify(oboAccessToken.error)}`,
-        ...logParams,
-      });
+    if (accessToken.length === 0) {
+      log.warn({ msg: 'No access token provided.', ...logParams });
+      span.setStatus({ code: SpanStatusCode.ERROR, message: 'No access token provided' });
+      span.end();
 
       return undefined;
     }
 
-    log.debug({ msg: `OBO token for ${appName} received.`, ...logParams });
+    const validation = await validateToken(accessToken);
 
-    return oboAccessToken.token;
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    if (!validation.ok) {
+      log.warn({ msg: 'Invalid access token.', ...logParams });
+      span.setStatus({ code: SpanStatusCode.ERROR, message: 'Invalid access token' });
+      span.end();
 
-    log.error({ msg: `Failed to prepare request with OBO token: ${errorMessage}`, ...logParams });
+      return undefined;
+    }
 
-    return undefined;
-  }
-};
+    span.addEvent('token-validated');
+
+    try {
+      const oboStart = performance.now();
+      const audience = `api://${NAIS_CLUSTER_NAME}.klage.${appName}/.default`;
+      span.setAttribute('audience', audience);
+
+      log.debug({ msg: `Requesting OBO token for audience: ${audience}.`, ...logParams });
+
+      const oboAccessToken = await requestOboToken(accessToken, audience);
+
+      const duration = getDuration(oboStart);
+      oboRequestDuration.observe(duration);
+      reply?.addServerTiming('obo_token_middleware', duration, 'OBO Token Middleware');
+
+      if (!oboAccessToken.ok) {
+        log.warn({
+          msg: `Failed to get OBO token for audience: ${audience}: ${JSON.stringify(oboAccessToken.error)}`,
+          ...logParams,
+        });
+        span.setStatus({ code: SpanStatusCode.ERROR, message: 'OBO token request failed' });
+        span.end();
+
+        return undefined;
+      }
+
+      log.debug({ msg: `OBO token for ${appName} received.`, ...logParams });
+      span.setStatus({ code: SpanStatusCode.OK });
+      span.end();
+
+      return oboAccessToken.token;
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
+      log.error({ msg: `Failed to prepare request with OBO token: ${errorMessage}`, ...logParams });
+      span.setStatus({ code: SpanStatusCode.ERROR, message: errorMessage });
+      span.recordException(error instanceof Error ? error : new Error(errorMessage));
+      span.end();
+
+      return undefined;
+    }
+  });
 
 const oboRequestDuration = new Histogram({
   name: 'obo_request_duration',
