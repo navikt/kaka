@@ -1,4 +1,5 @@
 import { PROXY_VERSION, START_TIME } from '@app/config/config';
+import { getTraceContext } from '@app/helpers/trace-context';
 import { getLogger } from '@app/logger';
 import { proxyRegister } from '@app/prometheus/types';
 import type { FastifyRequest } from 'fastify';
@@ -41,10 +42,10 @@ export const resetClientsAndUniqueUsersMetrics = async () => {
 
 /** Parses the user ID from the JWT. */
 export const startUserSession = (req: FastifyRequest): (() => void) => {
-  const { navIdent, trace_id, span_id } = req;
+  const { navIdent } = req;
 
   if (navIdent.length === 0) {
-    log.warn({ msg: 'No NAV-ident related to the session', trace_id, span_id });
+    log.warn({ msg: 'No NAV-ident related to the session', ...getTraceContext(req) });
 
     return NOOP;
   }
@@ -63,8 +64,7 @@ const start = (nav_ident: string, req: FastifyRequest): EndFn => {
     up_to_date_client: req.client_version === PROXY_VERSION ? 'true' : 'false',
     start_time: Date.now().toString(10),
     app_start_time: START_TIME,
-    trace_id: req.trace_id,
-    span_id: req.span_id,
+    ...getTraceContext(req),
     domain: req.headers.host ?? 'UNKNOWN',
   };
 

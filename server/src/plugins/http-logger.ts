@@ -1,4 +1,5 @@
 import { getDuration } from '@app/helpers/duration';
+import { getTraceContext } from '@app/helpers/trace-context';
 import { type AnyObject, getLogger } from '@app/logger';
 import { PROXY_VERSION_PLUGIN_ID } from '@app/plugins/proxy-version';
 import { SERVE_INDEX_PLUGIN_ID } from '@app/plugins/serve-index';
@@ -16,7 +17,7 @@ export const httpLoggerPlugin = fastifyPlugin(
         return;
       }
 
-      const { trace_id, span_id, client_version, tab_id, startTime } = req;
+      const { client_version, tab_id, startTime } = req;
 
       const responseTime = getDuration(startTime);
 
@@ -24,8 +25,7 @@ export const httpLoggerPlugin = fastifyPlugin(
         method: req.method,
         url,
         status_code: res.statusCode,
-        trace_id,
-        span_id,
+        ...getTraceContext(req),
         client_version,
         tab_id,
         responseTime,
