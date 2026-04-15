@@ -10,7 +10,7 @@ interface Props {
 
 export const HeadingWithHelpText = ({ children, helpText, size = 'small', placement = 'right' }: Props) =>
   helpText === null ? (
-    <StyledHeading size="small">{children}</StyledHeading>
+    <StyledHeading size={size}>{children}</StyledHeading>
   ) : (
     <StyledHeading size={size} className="flex-row">
       {children}
