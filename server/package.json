@@ -15,10 +15,10 @@
     "knip": "knip"
   },
   "dependencies": {
-    "@biomejs/biome": "2.4.10",
+    "@biomejs/biome": "2.4.11",
     "@fastify/cors": "11.2.0",
     "@fastify/http-proxy": "11.4.3",
-    "@fastify/otel": "0.18.0",
+    "@fastify/otel": "0.18.1",
     "@navikt/oasis": "4.1.4",
     "@opentelemetry/api": "1.9.1",
     "@opentelemetry/exporter-trace-otlp-grpc": "0.214.0",
@@ -30,15 +30,15 @@
     "@opentelemetry/sdk-node": "0.214.0",
     "@opentelemetry/sdk-trace-node": "2.6.1",
     "@opentelemetry/semantic-conventions": "1.40.0",
-    "@types/node": "25.5.2",
+    "@types/node": "25.6.0",
     "fastify": "5.8.4",
     "fastify-metrics": "13.2.0",
     "fastify-plugin": "5.1.0",
     "prom-client": "15.1.3"
   },
   "devDependencies": {
-    "@types/bun": "1.3.11",
-    "knip": "6.3.0",
+    "@types/bun": "1.3.12",
+    "knip": "6.4.0",
     "typescript": "6.0.2"
   }
 }
