@@ -4,23 +4,22 @@ import { useStatisticsManager } from '@app/simple-api-state/statistics/v3/use-st
 import { useUser } from '@app/simple-api-state/use-user';
 import type { IFullStatisticVurderingV3 } from '@app/types/statistics/v3';
 import { useCallback, useMemo } from 'react';
-import { FORMATTED_END_OF_LAST_MONTH, FORMATTED_START_OF_LAST_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
-  useFromMonthQueryFilter,
+  useFromDateQueryFilter,
   useHjemlerModeFilter,
   useQueryFilters,
   useSakstypeFilter,
   useTilbakekrevingQueryFilter,
-  useToMonthQueryFilter,
+  useToDateQueryFilter,
 } from '../../../filters/hooks/use-query-filter';
 import { HjemlerModeFilter, TilbakekrevingEnum } from '../../../filters/types';
 import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
 
 const useStatistics = () => {
   const userData = useUser();
-  const fromMonth = useFromMonthQueryFilter(FORMATTED_START_OF_LAST_MONTH);
-  const toMonth = useToMonthQueryFilter(FORMATTED_END_OF_LAST_MONTH);
+  const fromMonth = useFromDateQueryFilter();
+  const toMonth = useToDateQueryFilter();
   const saksbehandlere = useQueryFilters(QueryParams.SAKSBEHANDLERE);
 
   return useStatisticsManager({ fromMonth, toMonth, saksbehandlere, enhetId: userData.ansattEnhet.id });
