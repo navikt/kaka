@@ -2,7 +2,6 @@ import { filterHjemler } from '@app/components/statistikk/filters/filter-hjemler
 import { useYtelserQueryFilter } from '@app/components/statistikk/hooks/use-ytelser-query-filter';
 import { useSaksdatalisteLederVedtaksinstans } from '@app/simple-api-state/statistics/v3/use-saksdataliste-leder-vedtaksinstans';
 import { useUser } from '@app/simple-api-state/use-user';
-import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../filters/date-presets/constants';
 import { QueryParams } from '../../filters/filter-query-params';
 import {
   useFromDateQueryFilter,
@@ -18,8 +17,8 @@ const useSaksdata = () => {
   const userData = useUser();
 
   // Dates
-  const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
-  const toDate = useToDateQueryFilter(FORMATTED_NOW);
+  const fromDate = useFromDateQueryFilter();
+  const toDate = useToDateQueryFilter();
 
   const mangelfullt = useQueryFilters(QueryParams.MANGELFULLT);
 

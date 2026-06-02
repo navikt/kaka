@@ -2,7 +2,6 @@ import { useYtelserQueryFilter } from '@app/components/statistikk/hooks/use-ytel
 import { useStatisticsOpen } from '@app/simple-api-state/statistics/v2/use-statistics-open';
 import type { IStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { useMemo } from 'react';
-import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
   useFromDateQueryFilter,
@@ -12,8 +11,8 @@ import {
 } from '../../../filters/hooks/use-query-filter';
 
 const useStatistics = () => {
-  const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
-  const toDate = useToDateQueryFilter(FORMATTED_NOW);
+  const fromDate = useFromDateQueryFilter();
+  const toDate = useToDateQueryFilter();
 
   return useStatisticsOpen({ fromDate, toDate });
 };

@@ -13,9 +13,7 @@ import { format } from 'date-fns';
 import { useSearchParams } from 'react-router-dom';
 import { FilterPanelContainer, StyledHr } from '../../filters/common/styled-components';
 import {
-  FORMATTED_END_OF_LAST_MONTH,
   FORMATTED_LAST_MONTH,
-  FORMATTED_START_OF_LAST_MONTH,
   IS_BEFORE_FEBRUARY_2023,
   MONTH_FORMAT,
   PRETTY_FORMAT,
@@ -24,11 +22,11 @@ import { DatePresets } from '../../filters/date-presets/date-presets';
 import { QueryParams } from '../../filters/filter-query-params';
 import { useDatePresetsLeder } from '../../filters/hooks/use-date-presets';
 import {
-  useFromMonthQueryFilter,
+  useFromDateQueryFilter,
   useQueryFilters,
   useSakstypeFilter,
   useTilbakekrevingQueryFilter,
-  useToMonthQueryFilter,
+  useToDateQueryFilter,
   useVersionQueryFilter,
 } from '../../filters/hooks/use-query-filter';
 import { MonthFilter } from '../../filters/month';
@@ -63,8 +61,8 @@ export const Filters = () => {
   const selectedTilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   // Dates
-  const fromMonth = useFromMonthQueryFilter(FORMATTED_START_OF_LAST_MONTH);
-  const toMonth = useToMonthQueryFilter(FORMATTED_END_OF_LAST_MONTH);
+  const fromMonth = useFromDateQueryFilter();
+  const toMonth = useToDateQueryFilter();
 
   const datePresets = useDatePresetsLeder();
 
