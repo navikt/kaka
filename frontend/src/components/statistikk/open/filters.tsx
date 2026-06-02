@@ -43,8 +43,8 @@ export const Filters = () => {
   const selectedUtfall = useQueryFilters(QueryParams.UTFALL);
 
   // Dates
-  const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
-  const toDate = useToDateQueryFilter(FORMATTED_NOW);
+  const fromDate = useFromDateQueryFilter();
+  const toDate = useToDateQueryFilter();
 
   const version = useVersionQueryFilter();
 
