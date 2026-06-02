@@ -182,8 +182,8 @@ const DEFAULT_DATE_INTERVAL: [string, string] = [FORMATTED_START_OF_MONTH, FORMA
 const useFromAndToDates = (): [string, string] => {
   const comparisonProp = useComparisonProp();
   const comparisonValues = useComparisonValues();
-  const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
-  const toDate = useToDateQueryFilter(FORMATTED_NOW);
+  const fromDate = useFromDateQueryFilter();
+  const toDate = useToDateQueryFilter();
 
   // For all other comparison props, use the dates from the query params.
   if (comparisonProp !== ComparableQueryParams.DATE_INTERVALS) {

@@ -6,7 +6,6 @@ import type { State } from '@app/simple-api-state/simple-api-state';
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v3/use-statistics-total';
 import type { IFullStatisticVurderingV3, IStatisticsResponseTotalV3 } from '@app/types/statistics/v3';
 import { useMemo } from 'react';
-import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
   useFromDateQueryFilter,
@@ -19,8 +18,8 @@ import {
 } from '../../../filters/hooks/use-query-filter';
 
 const useTotalStatistics = (): State<IStatisticsResponseTotalV3> => {
-  const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
-  const toDate = useToDateQueryFilter(FORMATTED_NOW);
+  const fromDate = useFromDateQueryFilter();
+  const toDate = useToDateQueryFilter();
 
   return useStatisticsTotal({ fromDate, toDate });
 };

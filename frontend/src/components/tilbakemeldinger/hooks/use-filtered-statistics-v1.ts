@@ -4,7 +4,6 @@ import { useStatisticsVedtaksinstansleder } from '@app/simple-api-state/statisti
 import { SakstypeEnum } from '@app/types/sakstype';
 import type { IStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { useCallback, useMemo } from 'react';
-import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../filters/date-presets/constants';
 import { QueryParams } from '../../filters/filter-query-params';
 import {
   useFromDateQueryFilter,
@@ -17,8 +16,8 @@ import { HjemlerModeFilter, TilbakekrevingEnum } from '../../filters/types';
 import { tilbakekrevingFilter } from '../../statistikk/filters/tilbakekreving';
 
 const useStatistics = () => {
-  const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
-  const toDate = useToDateQueryFilter(FORMATTED_NOW);
+  const fromDate = useFromDateQueryFilter();
+  const toDate = useToDateQueryFilter();
 
   const mangelfullt = useQueryFilters(QueryParams.MANGELFULLT);
   const kommentarer = useQueryFilters(QueryParams.KOMMENTARER);
