@@ -1,10 +1,16 @@
 import {
+  FORMATTED_END_OF_LAST_MONTH,
+  FORMATTED_NOW,
+  FORMATTED_START_OF_LAST_MONTH,
+  FORMATTED_START_OF_MONTH,
+} from '@app/components/filters/date-presets/constants';
+import {
   isVedtaksinstansgruppe,
   type Vedtaksinstansgruppe,
 } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
 import { KVALITETSVURDERING_LATEST, KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { isSakstype, type SakstypeEnum } from '@app/types/sakstype';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { QueryParams } from '../../filters/filter-query-params';
 import { HjemlerModeFilter, TilbakekrevingEnum } from '../types';
 
@@ -40,21 +46,29 @@ export const useVedtaksinstansgruppeQueryFilter = (): Vedtaksinstansgruppe[] => 
   return result;
 };
 
-export const useFromDateQueryFilter = (defaultDate: string): string => {
+const useLederstatistikkOpen = () => {
+  const location = useLocation();
+
+  return location.pathname === '/statistikk/leder';
+};
+
+export const useFromDateQueryFilter = (): string => {
   const queryValue = useQueryFilter(QueryParams.FROM_DATE);
+  const isLederstatistikk = useLederstatistikkOpen();
 
   if (queryValue === null || queryValue.length === 0) {
-    return defaultDate;
+    return isLederstatistikk ? FORMATTED_START_OF_LAST_MONTH : FORMATTED_START_OF_MONTH;
   }
 
   return queryValue;
 };
 
-export const useToDateQueryFilter = (defaultDate: string): string => {
+export const useToDateQueryFilter = (): string => {
   const queryValue = useQueryFilter(QueryParams.TO_DATE);
+  const isLederstatistikk = useLederstatistikkOpen();
 
   if (queryValue === null || queryValue.length === 0) {
-    return defaultDate;
+    return isLederstatistikk ? FORMATTED_END_OF_LAST_MONTH : FORMATTED_NOW;
   }
 
   return queryValue;
