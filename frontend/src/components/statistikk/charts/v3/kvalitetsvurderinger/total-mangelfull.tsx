@@ -1,65 +1,58 @@
+import { COMMON_BAR_CHART_PROPS } from '@app/components/echarts/common-chart-props';
+import { EChart } from '@app/components/echarts/echarts';
 import { MAIN_REASONS } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/data';
-import { HorizontalBars } from '@app/components/statistikk/charts/common/horizontal-bars';
 import type { MainReasonV3Dataset } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/types';
 import { useColorMap } from '@app/components/statistikk/colors/get-color';
 import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { toPercent } from '@app/domain/number';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
-import type { ChartOptions } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-
-const BAR_THICKNESS = 50;
-
-const useOptions = (): ChartOptions<'bar'> => ({
-  plugins: {
-    legend: { display: false },
-    tooltip: { enabled: false },
-  },
-  maintainAspectRatio: false,
-  indexAxis: 'y',
-  scales: {
-    x: {
-      beginAtZero: true,
-      max: 1,
-      ticks: { callback: (label) => (typeof label === 'number' ? `${label * 100} %` : label) },
-    },
-  },
-});
+import type { ReactNode } from 'react';
 
 interface Props {
   stats: MainReasonV3Dataset[];
+  title: string;
+  helpText?: ReactNode;
 }
 
-export const TotalMangelfull = ({ stats }: Props) => {
-  const data = useDataSets(stats);
-  const options = useOptions();
+export const TotalMangelfull = ({ stats, title, helpText }: Props) => {
+  const { values, labels } = useData(stats);
 
   return (
-    <HorizontalBars barCount={data.labels.length} chartOptions={options} barThickness={BAR_THICKNESS}>
-      <Bar data={data} options={options} />
-    </HorizontalBars>
+    <div className="h-75">
+      <EChart
+        title={title}
+        helpText={helpText}
+        option={{
+          ...COMMON_BAR_CHART_PROPS,
+          tooltip: { show: false },
+          yAxis: { type: 'category', data: labels },
+          xAxis: { type: 'value', max: 1, axisLabel: { formatter: (value: number) => `${value * 100} %` } },
+          series: [{ type: 'bar', data: values }],
+        }}
+      />
+    </div>
   );
 };
 
-const useDataSets = (stats: MainReasonV3Dataset[]) => {
+const useData = (stats: MainReasonV3Dataset[]) => {
   const colorMap = useColorMap();
 
-  const braBars = stats.flatMap(({ data, label }) => [
-    { label: `${label} - Riktig / ikke kvalitetsavvik`, data, radiovalg: Radiovalg.BRA, color: ColorToken.Success500 },
-  ]);
-
-  const mangefullBars = stats.flatMap(({ data, label }) => [
-    {
+  const bars = [
+    ...stats.map(({ data, label }) => ({
+      label: `${label} - Riktig / ikke kvalitetsavvik`,
+      data,
+      radiovalg: Radiovalg.BRA,
+      color: colorMap[ColorToken.Success500],
+    })),
+    ...stats.map(({ data, label }) => ({
       label: `${label} - Mangelfullt/kvalitetsavvik`,
       data,
       radiovalg: Radiovalg.MANGELFULLT,
-      color: ColorToken.Danger600,
-    },
-  ]);
+      color: colorMap[ColorToken.Danger600],
+    })),
+  ];
 
-  const bars = [...braBars, ...mangefullBars];
-
-  const calculatedData = bars.map(({ data, radiovalg }) => {
+  const calculated = bars.map(({ data, radiovalg }) => {
     const mangelfulleSaker = data.filter((stat) => MAIN_REASONS.some((r) => stat[r] === Radiovalg.MANGELFULLT)).length;
     const braNokSaker = data.length - mangelfulleSaker;
 
@@ -72,19 +65,17 @@ const useDataSets = (stats: MainReasonV3Dataset[]) => {
   });
 
   const labels = bars.map(({ label }, index) => {
-    const data = calculatedData[index];
-    const count = data?.count ?? 0;
-    const percent = toPercent(data?.percent ?? 0);
-    const length = data?.length ?? 0;
+    const { count = 0, percent = 0, length = 0 } = calculated[index] ?? {};
     const unit = length === 1 ? 'sak' : 'saker';
 
-    return `${label} (${percent} | ${count} av ${length} ${unit})`;
+    return `${label} (${toPercent(percent)} | ${count} av ${length} ${unit})`;
   });
 
-  const backgroundColor = bars.map(({ color }) => colorMap[color]);
+  const values = bars.map(({ color }, index) => ({
+    value: calculated[index]?.percent ?? 0,
+    itemStyle: { color },
+  }));
 
-  return {
-    datasets: [{ data: calculatedData.map(({ percent }) => percent), backgroundColor, barThickness: BAR_THICKNESS }],
-    labels,
-  };
+  // Echarts renders category axis items bottom-to-top, so reverse here to get the expected top-to-bottom order.
+  return { values: values.toReversed(), labels: labels.toReversed() };
 };

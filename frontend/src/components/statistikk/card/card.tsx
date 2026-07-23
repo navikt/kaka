@@ -1,33 +1,22 @@
-import { CardExtraSmall, CardLarge, CardMedium, CardSmall } from '@app/styled-components/cards';
-import { useMemo } from 'react';
-
-export enum CardSize {
-  EXTRA_SMALL = 0,
-  SMALL = 1,
-  MEDIUM = 2,
-  LARGE = 3,
-}
+import { Box } from '@navikt/ds-react';
 
 interface Props {
-  size?: CardSize;
   children: React.ReactNode;
+  span?: number;
+  colSpan?: number;
+  className?: string;
 }
 
-export const DynamicCard = ({ size, children }: Props) => {
-  const Card = useMemo(() => {
-    switch (size) {
-      case CardSize.EXTRA_SMALL:
-        return CardExtraSmall;
-      case CardSize.SMALL:
-        return CardSmall;
-      case CardSize.MEDIUM:
-        return CardMedium;
-      case CardSize.LARGE:
-        return CardLarge;
-      default:
-        return CardMedium;
-    }
-  }, [size]);
-
-  return <Card>{children}</Card>;
-};
+export const Card = ({ children, span = 2, className = '' }: Props) => (
+  <Box
+    padding="space-16"
+    shadow="dialog"
+    background="neutral-soft"
+    borderRadius="4"
+    position="relative"
+    style={{ gridRowEnd: `span ${span}` }}
+    className={`flex flex-col ${className}`}
+  >
+    {children}
+  </Box>
+);

@@ -4,18 +4,9 @@ import {
   UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_REASONS,
   UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS,
 } from '@app/components/statistikk/types/klageforberedelsen';
-import type { ChartData } from 'chart.js';
 import type { DataSet } from '../types';
 import { calculateReasons } from './helpers/reasons';
-
-type ReturnType = ChartData<'bar', number[], string>;
-
-interface StackedBarPieceCount {
-  label: string;
-  percentages: number[];
-}
-
-type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
+import type { StackedBarPiece } from './mangelfull-details';
 
 export const getUtredningenUnderKlageforberedelsenDatasets = (stats: DataSet[], unit: string, theme: AppTheme) => {
   const colorMap = getColorMap(theme);
@@ -35,7 +26,6 @@ export const getUtredningenUnderKlageforberedelsenDatasets = (stats: DataSet[], 
     percentages: stacks.map(({ data }) => (data[reasonId] ?? 0) * 100),
     data: stacks.map(({ count }) => count[reasonId] ?? 0),
     backgroundColor: colorMap[UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS[reasonId].color],
-    barThickness: BAR_THICKNESS,
   })).filter((dataset) => dataset.data.some((v) => v !== 0)); // Remove empty datasets.
 
   const labels = stacks.map(({ label }, index) => {
@@ -50,5 +40,3 @@ export const getUtredningenUnderKlageforberedelsenDatasets = (stats: DataSet[], 
 
   return { labels, datasets };
 };
-
-export const BAR_THICKNESS = 50;

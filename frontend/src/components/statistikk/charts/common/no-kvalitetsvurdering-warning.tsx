@@ -3,13 +3,13 @@ import { useSakstypeFilter } from '@app/components/filters/hooks/use-query-filte
 import { SakstypeEnum } from '@app/types/sakstype';
 import { InformationIcon } from '@navikt/aksel-icons';
 import { BodyShort, InfoCard, VStack } from '@navikt/ds-react';
-import { CardSize, DynamicCard } from '../../card/card';
+import { Card } from '../../card/card';
 
 export const NoKvalitetsvurderingWarning = () => {
   const types = useSakstypeFilter();
 
   return (
-    <DynamicCard size={CardSize.LARGE}>
+    <Card span={1}>
       <VStack align="center" justify="center" className="grow">
         <InfoCard data-color="info">
           <InfoCard.Header icon={<InformationIcon aria-hidden />}>
@@ -27,6 +27,6 @@ export const NoKvalitetsvurderingWarning = () => {
           </InfoCard.Content>
         </InfoCard>
       </VStack>
-    </DynamicCard>
+    </Card>
   );
 };

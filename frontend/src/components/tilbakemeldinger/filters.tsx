@@ -59,8 +59,8 @@ export const Filters = () => {
   const datePresets = useDatePresets();
 
   // Dates
-  const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
-  const toDate = useToDateQueryFilter(FORMATTED_NOW);
+  const fromDate = useFromDateQueryFilter();
+  const toDate = useToDateQueryFilter();
 
   const version = useVersionQueryFilter();
 

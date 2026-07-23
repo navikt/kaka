@@ -9,10 +9,14 @@ import {
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
 import { DatasetSelector } from '@app/components/statistikk/charts/common/dataset-selector';
 import { NoKvalitetsvurderingWarning } from '@app/components/statistikk/charts/common/no-kvalitetsvurdering-warning';
+import { Kvalitetsvurderinghjemler } from '@app/components/statistikk/charts/kvalitetsvurderinger/kvalitetsvurderinghjemler';
+import { MangelfullDetails } from '@app/components/statistikk/charts/kvalitetsvurderinger/mangelfull-details';
+import { getIkkeKonkretBegrunnelseDatasets } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/calculations/ikke-konkret-begrunnelse';
 import { getMangelfullDetailsDatasets } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/calculations/mangelfull-details';
+import { getSakensDokumenterDatasets } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/calculations/sakens-dokumenter';
+import { getUtredningenUnderKlageforberedelsenDatasets } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/calculations/utredningen-under-klageforberedelsen';
 import { TotalMangelfull } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/total-mangelfull';
 import type { DataSet } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';
-import { UtredningenUnderKlageforberedelsen } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/utredningen-under-klageforberedelsen';
 import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
 import { useCanShowKvalitetsvurderingStats } from '@app/components/statistikk/hooks/use-can-show-kvalitetsvurdering-stats';
 import { BRUK_AV_RAADGIVENDE_LEGE_TEXTS } from '@app/components/statistikk/types/bruk-av-raadgivende-lege';
@@ -28,24 +32,22 @@ import {
   type StatisticsVedtaketHjemlerListBoolean,
   VEDTAKET_TEXTS,
 } from '@app/components/statistikk/types/vedtaket';
-import { Heading, HelpText, HStack, Tag } from '@navikt/ds-react';
-import type { ReactNode } from 'react';
+import { Tag } from '@navikt/ds-react';
 import { styled } from 'styled-components';
 import { QueryParams } from '../../../../filters/filter-query-params';
-import { CardSize, DynamicCard } from '../../../card/card';
+import { Card } from '../../../card/card';
 import { useQueryParam } from '../../../hooks/use-query-param';
 import { HelpTexts } from '../../common/help-texts';
-import { Hjemler } from '../../common/hjemler';
-import { MangelfullDetails } from '../../common/mangelfull-details';
 import { CardTitleWithExplainer } from '../../kvalitetsvurderinger/explainer';
 import { ChartContainer, ChartTitle } from '../../styled-components';
-import { IkkeKonkretBegrunnelse } from './ikke-konkret-begrunnelse';
 import { Mangelfull } from './mangelfull';
-import { SakensDokumenter } from './sakens-dokumenter';
 
 interface Props {
   datasets: DataSet[];
 }
+
+const EXPLANATION_HELP_TEXT =
+  'En sak kan ha ett eller flere avvik. Prosenten er regnet ut fra totalt antall kvalitetsvurderte saker.';
 
 const MAIN_HELP_TEXTS = [
   {
@@ -89,45 +91,52 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
   }
 
   const mangellfullDetailsDatasets = getMangelfullDetailsDatasets(datasets, 'avvik', theme);
+  const sakensDokumenterDatasets = getSakensDokumenterDatasets(datasets, 'avvik', theme);
+  const utredningenDatasets = getUtredningenUnderKlageforberedelsenDatasets(datasets, 'avvik', theme);
+  const ikkeKonkretBegrunnelseDatasets = getIkkeKonkretBegrunnelseDatasets(datasets, 'avvik', theme);
 
   return (
-    <DynamicCard size={CardSize.LARGE}>
+    <Card span={16} className="flex flex-col gap-8">
       <CardTitleWithExplainer helpText="Ved utregningen av hvor mange prosent av sakene som har mangler ved kvaliteten, er ikke saker med utfallene «henlagt», «retur», «trukket» eller «ugunst (ugyldig)» med i grunnlaget. Klageinstansen gjør ikke kvalitetsvurderinger i saker med disse utfallene.">
         Kvalitetsvurderinger
       </CardTitleWithExplainer>
 
-      <TitleWithExplainer>Kvalitetsvurderte saker</TitleWithExplainer>
-      <TotalMangelfull stats={datasets} />
+      <TotalMangelfull stats={datasets} title="Kvalitetsvurderte saker" helpText={EXPLANATION_HELP_TEXT} />
 
       <HelpTexts helpTexts={KVALITETSVURDERING_HELP_TEXTS} />
 
-      <TitleWithExplainer>Andel mangelfulle saker av total per hovedkategori</TitleWithExplainer>
-      <Mangelfull datasets={datasets} />
+      <Mangelfull
+        stats={datasets}
+        title="Andel mangelfulle saker av total per hovedkategori"
+        helpText={EXPLANATION_HELP_TEXT}
+      />
 
-      <TitleWithExplainer>
-        Antall spesifikke avvik per underkategori (prosentandel av kvalitetsvurderte saker)
-      </TitleWithExplainer>
-      <MangelfullDetails {...mangellfullDetailsDatasets} />
+      <MangelfullDetails
+        datasets={mangellfullDetailsDatasets.datasets}
+        labels={mangellfullDetailsDatasets.labels}
+        title="Antall spesifikke avvik per underkategori (prosentandel av kvalitetsvurderte saker)"
+        helpText={EXPLANATION_HELP_TEXT}
+      />
       <HelpTexts helpTexts={MAIN_HELP_TEXTS} />
 
       <CategoryContainer>
         <ChartContainer $columns={3}>
-          <TitleWithExplainer>
-            Avvik under «{KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenSakensDokumenter.label}»
-          </TitleWithExplainer>
-
-          <SakensDokumenter stats={datasets} />
+          <MangelfullDetails
+            datasets={sakensDokumenterDatasets.datasets}
+            labels={sakensDokumenterDatasets.labels}
+            title={`Avvik under «${KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenSakensDokumenter.label}»`}
+            helpText={EXPLANATION_HELP_TEXT}
+          />
           <HelpTexts helpTexts={[{ texts: SAKENS_DOKUMENTER_TEXTS, key: 'SAKENS_DOKUMENTER_TEXTS' }]} />
         </ChartContainer>
 
         <ChartContainer $columns={3}>
-          <TitleWithExplainer>
-            <LabelContainer>
-              Avvik under «{KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenUtredningenUnderKlageforberedelsen.label}»
-              <Tag2024 />
-            </LabelContainer>
-          </TitleWithExplainer>
-          <UtredningenUnderKlageforberedelsen stats={datasets} />
+          <MangelfullDetails
+            datasets={utredningenDatasets.datasets}
+            labels={utredningenDatasets.labels}
+            title={`Avvik under «${KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenUtredningenUnderKlageforberedelsen.label}» (Ny i 2024)`}
+            helpText={EXPLANATION_HELP_TEXT}
+          />
           <HelpTexts
             helpTexts={[
               { texts: UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS, key: 'UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS' },
@@ -136,10 +145,12 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
         </ChartContainer>
 
         <ChartContainer $columns={3}>
-          <TitleWithExplainer>
-            Avvik under «{VEDTAKET_TEXTS.vedtaketIkkeKonkretIndividuellBegrunnelse.label}»
-          </TitleWithExplainer>
-          <IkkeKonkretBegrunnelse stats={datasets} />
+          <MangelfullDetails
+            datasets={ikkeKonkretBegrunnelseDatasets.datasets}
+            labels={ikkeKonkretBegrunnelseDatasets.labels}
+            title={`Avvik under «${VEDTAKET_TEXTS.vedtaketIkkeKonkretIndividuellBegrunnelse.label}»`}
+            helpText={EXPLANATION_HELP_TEXT}
+          />
         </ChartContainer>
       </CategoryContainer>
       <ChartTitle>Mest brukte hjemler</ChartTitle>
@@ -149,16 +160,19 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
       <HjemlerContainer>
         {HJEMLER_CHART_PROPS_LIST.map((params) => (
           <HjemlerSubContainer key={params.reasonId}>
-            <Hjemler
-              key={params.reasonId}
-              {...params}
-              hjemlerCount={getHjemlerCount(focusedDataset, params.hjemmelListId)}
-              backgroundColor={getColorFromTheme(VEDTAKET_TEXTS[params.reasonId].color, theme)}
-            />
+            <ChartTitle>{params.label}</ChartTitle>
+            <div style={{ height: 300 }}>
+              <Kvalitetsvurderinghjemler
+                hjemlerCount={getHjemlerCount(focusedDataset, params.hjemmelListId)}
+                title={VEDTAKET_TEXTS[params.reasonId].label}
+                hideTitle
+                backgroundColor={getColorFromTheme(VEDTAKET_TEXTS[params.reasonId].color, theme)}
+              />
+            </div>
           </HjemlerSubContainer>
         ))}
       </HjemlerContainer>
-    </DynamicCard>
+    </Card>
   );
 };
 
@@ -265,14 +279,3 @@ const getHjemlerCount = (dataset: DataSet, hjemmelListId: StatisticsVedtaketHjem
 
     return counts;
   }, {});
-
-const TitleWithExplainer = ({ children }: { children: ReactNode }) => (
-  <Heading size="small">
-    <HStack gap="space-8" justify="center" align="center">
-      {children}
-      <HelpText>
-        En sak kan ha ett eller flere avvik. Prosenten er regnet ut fra totalt antall kvalitetsvurderte saker.
-      </HelpText>
-    </HStack>
-  </Heading>
-);

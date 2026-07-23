@@ -18,14 +18,11 @@ import {
   SærregelverketSaksdataHjemlerList,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/særregelverket/data';
 import { DatasetSelector } from '@app/components/statistikk/charts/common/dataset-selector';
-import { Hjemler } from '@app/components/statistikk/charts/common/hjemler';
-import { MangelfullDetails } from '@app/components/statistikk/charts/common/mangelfull-details';
 import { NoKvalitetsvurderingWarning } from '@app/components/statistikk/charts/common/no-kvalitetsvurdering-warning';
+import { Kvalitetsvurderinghjemler } from '@app/components/statistikk/charts/kvalitetsvurderinger/kvalitetsvurderinghjemler';
+import { MangelfullDetails } from '@app/components/statistikk/charts/kvalitetsvurderinger/mangelfull-details';
 import { getMangelfullDetailsDatasets } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/calculations/mangelfull-details';
-import { Details } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/details';
 import { KvalitetsvurderingModal } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/help-text-modal';
-import { Mangelfull } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/mangelfull';
-import { TotalMangelfull } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/total-mangelfull';
 import type { DataSetV3 } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/types';
 import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
 import { useCanShowKvalitetsvurderingStats } from '@app/components/statistikk/hooks/use-can-show-kvalitetsvurdering-stats';
@@ -54,13 +51,14 @@ import {
   LOVEN_ER_TOLKET_ELLER_ANVENDT_FEIL_REASONS,
   SÆRREGELVERKET_TEXTS as SR_TEXTS,
 } from '@app/components/statistikk/types/v3/særregelverket';
-import type { KvalitetsvurderingV3Boolean } from '@app/types/kvalitetsvurdering/v3';
 import { SakstypeEnum } from '@app/types/sakstype';
-import { Heading, HelpText, HGrid, HStack, VStack } from '@navikt/ds-react';
-import type { ReactNode } from 'react';
+import { Heading, HelpText, HStack, VStack } from '@navikt/ds-react';
 import { QueryParams } from '../../../../filters/filter-query-params';
-import { CardSize, DynamicCard } from '../../../card/card';
+import { Card } from '../../../card/card';
 import { useQueryParam } from '../../../hooks/use-query-param';
+import { Details } from './details';
+import { Mangelfull } from './mangelfull';
+import { TotalMangelfull } from './total-mangelfull';
 
 interface Props {
   datasets: DataSetV3[];
@@ -89,7 +87,7 @@ export const KvalitetsvurderingerV3 = ({ datasets }: Props) => {
   const mangellfullDetailsDatasets = getMangelfullDetailsDatasets(datasets, types, 'avvik', theme);
 
   return (
-    <DynamicCard size={CardSize.LARGE}>
+    <Card span={20} className="flex flex-col gap-8">
       <VStack>
         <HStack align="center" justify="center" gap="space-8">
           <Heading size="large">Kvalitetsvurderinger</Heading>
@@ -102,24 +100,27 @@ export const KvalitetsvurderingerV3 = ({ datasets }: Props) => {
         <KvalitetsvurderingModal />
       </VStack>
 
-      <TitleWithExplainer>Kvalitetsvurderte saker</TitleWithExplainer>
-      <TotalMangelfull stats={datasets} />
+      <TotalMangelfull stats={datasets} title="Avvik under «Kvalitetsvurderte saker»" helpText={DEFAULT_HELP_TEXT} />
 
-      <TitleWithExplainer>Andel mangelfulle saker av total per hovedkategori</TitleWithExplainer>
-      <Mangelfull datasets={datasets} />
+      <Mangelfull
+        stats={datasets}
+        title="Avvik under «Andel mangelfulle saker av total per hovedkategori»"
+        helpText={DEFAULT_HELP_TEXT}
+      />
 
-      <TitleWithExplainer>
-        Antall spesifikke avvik per underkategori (prosentandel av kvalitetsvurderte saker)
-      </TitleWithExplainer>
-      <MangelfullDetails {...mangellfullDetailsDatasets} />
+      <MangelfullDetails
+        datasets={mangellfullDetailsDatasets.datasets}
+        labels={mangellfullDetailsDatasets.labels}
+        title="Avvik under «Antall spesifikke avvik per underkategori (prosentandel av kvalitetsvurderte saker)»"
+        helpText={DEFAULT_HELP_TEXT}
+      />
 
-      <TitleWithExplainer>
-        Avvik under «{SR_TEXTS[SærregelverketBoolean.saerregelverkLovenErTolketEllerAnvendtFeil].label}»
-      </TitleWithExplainer>
       <Details
         stats={datasets}
         reasonIds={LOVEN_ER_TOLKET_ELLER_ANVENDT_FEIL_REASONS}
         reasonTexts={FEIL_LOVTOLKNING_TEXTS}
+        title={`Avvik under «${SR_TEXTS[SærregelverketBoolean.saerregelverkLovenErTolketEllerAnvendtFeil].label}»`}
+        helpText={DEFAULT_HELP_TEXT}
       />
 
       <HStack justify="center">
@@ -128,151 +129,221 @@ export const KvalitetsvurderingerV3 = ({ datasets }: Props) => {
 
       <KvalitetsvurderingModal focus={MainReason.Særregelverket} />
 
-      <HGrid columns={3}>
-        <Hjemler
-          hjemlerCount={getHjemlerCount(
-            focusedDataset,
-            SærregelverketHjemlerFromYtelseList.saerregelverkVedtaketByggerPaaFeilHjemmelEllerLovtolkningHjemlerList,
-          )}
-          label={
-            FEIL_LOVTOLKNING_TEXTS[SærregelverketBoolean.saerregelverkVedtaketByggerPaaFeilHjemmelEllerLovtolkning]
+      <table>
+        <thead>
+          <tr>
+            <th scope="col" align="center">
+              {
+                FEIL_LOVTOLKNING_TEXTS[SærregelverketBoolean.saerregelverkVedtaketByggerPaaFeilHjemmelEllerLovtolkning]
+                  .label
+              }
+            </th>
+            <th scope="col" align="center">
+              {
+                FEIL_LOVTOLKNING_TEXTS[
+                  SærregelverketBoolean.saerregelverkVedtaketByggerPaaFeilKonkretRettsanvendelseEllerSkjoenn
+                ].label
+              }
+            </th>
+            <th scope="col" align="center">
+              {SR_TEXTS[SærregelverketBoolean.saerregelverkDetErLagtTilGrunnFeilFaktum].label}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td width="33.33%">
+              <Kvalitetsvurderinghjemler
+                hjemlerCount={getHjemlerCount(
+                  focusedDataset,
+                  SærregelverketHjemlerFromYtelseList.saerregelverkVedtaketByggerPaaFeilHjemmelEllerLovtolkningHjemlerList,
+                )}
+                title={
+                  FEIL_LOVTOLKNING_TEXTS[
+                    SærregelverketBoolean.saerregelverkVedtaketByggerPaaFeilHjemmelEllerLovtolkning
+                  ].label
+                }
+                hideTitle
+                backgroundColor={getColorFromTheme(
+                  SR_TEXTS[SærregelverketBoolean.saerregelverkLovenErTolketEllerAnvendtFeil].color,
+                  theme,
+                )}
+              />
+            </td>
+            <td width="33.33%">
+              <Kvalitetsvurderinghjemler
+                hjemlerCount={getHjemlerCount(
+                  focusedDataset,
+                  SærregelverketSaksdataHjemlerList.saerregelverkVedtaketByggerPaaFeilKonkretRettsanvendelseEllerSkjoennHjemlerList,
+                )}
+                title={
+                  FEIL_LOVTOLKNING_TEXTS[
+                    SærregelverketBoolean.saerregelverkVedtaketByggerPaaFeilKonkretRettsanvendelseEllerSkjoenn
+                  ].label
+                }
+                hideTitle
+                backgroundColor={getColorFromTheme(
+                  SR_TEXTS[SærregelverketBoolean.saerregelverkLovenErTolketEllerAnvendtFeil].color,
+                  theme,
+                )}
+              />
+            </td>
+            <td width="33.33%">
+              <Kvalitetsvurderinghjemler
+                hjemlerCount={getHjemlerCount(
+                  focusedDataset,
+                  SærregelverketSaksdataHjemlerList.saerregelverkDetErLagtTilGrunnFeilFaktumHjemlerList,
+                )}
+                title={SR_TEXTS[SærregelverketBoolean.saerregelverkDetErLagtTilGrunnFeilFaktum].label}
+                hideTitle
+                backgroundColor={getColorFromTheme(
+                  SR_TEXTS[SærregelverketBoolean.saerregelverkLovenErTolketEllerAnvendtFeil].color,
+                  theme,
+                )}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <Details
+        stats={datasets}
+        reasonIds={VEILEDNINGSPLIKTEN_REASONS}
+        reasonTexts={VEILEDNINGSPLIKTEN_TEXTS}
+        title={`Avvik under «${SBR_TEXTS[VeiledningspliktenBoolean.saksbehandlingsreglerBruddPaaVeiledningsplikten].label}»`}
+        helpText={DEFAULT_HELP_TEXT}
+      />
+      <Details
+        stats={datasets}
+        reasonIds={UTREDNINGSPLIKTEN_REASONS}
+        reasonTexts={UTREDNINGSPLIKTEN_TEXTS}
+        title={`Avvik under «${SBR_TEXTS[UtredningspliktenBoolean.saksbehandlingsreglerBruddPaaUtredningsplikten].label}»`}
+        helpText={DEFAULT_HELP_TEXT}
+      />
+      <Details
+        stats={datasets}
+        reasonIds={FORELEGGELSESPLIKTEN_REASONS}
+        reasonTexts={FORELEGGELSESPLIKTEN_TEXTS}
+        title={`Avvik under «${SBR_TEXTS[ForeleggelsespliktenBoolean.saksbehandlingsreglerBruddPaaForeleggelsesplikten].label}»`}
+        helpText={DEFAULT_HELP_TEXT}
+      />
+      <Details
+        stats={datasets}
+        reasonIds={BEGRUNNELSESPLIKTEN_REASONS}
+        reasonTexts={BP_TEXTS}
+        title={`Avvik under «${SBR_TEXTS[BPBoolean.saksbehandlingsreglerBruddPaaBegrunnelsesplikten].label}»`}
+        helpText={DEFAULT_HELP_TEXT}
+      />
+
+      <table>
+        <thead>
+          <tr>
+            <th scope="col" align="center">
+              {BP_TEXTS[BPBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenViserIkkeTilRegelverket].label}
+            </th>
+            <th scope="col" align="center">
+              {BP_TEXTS[BPBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeFaktum].label}
+            </th>
+            <th scope="col" align="center">
+              {
+                BP_TEXTS[BPBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeAvgjoerendeHensyn]
+                  .label
+              }
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td width="33.33%">
+              <Kvalitetsvurderinghjemler
+                hjemlerCount={getHjemlerCount(
+                  focusedDataset,
+                  BegrunnelsespliktenSaksdataHjemlerLists.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenViserIkkeTilRegelverketHjemlerList,
+                )}
+                title={
+                  BP_TEXTS[BPBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenViserIkkeTilRegelverket].label
+                }
+                hideTitle
+                backgroundColor={getColorFromTheme(
+                  SBR_TEXTS[BPBoolean.saksbehandlingsreglerBruddPaaBegrunnelsesplikten].color,
+                  theme,
+                )}
+              />
+            </td>
+            <td width="33.33%">
+              <Kvalitetsvurderinghjemler
+                hjemlerCount={getHjemlerCount(
+                  focusedDataset,
+                  BegrunnelsespliktenSaksdataHjemlerLists.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeFaktumHjemlerList,
+                )}
+                title={BP_TEXTS[BPBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeFaktum].label}
+                hideTitle
+                backgroundColor={getColorFromTheme(
+                  SBR_TEXTS[BPBoolean.saksbehandlingsreglerBruddPaaBegrunnelsesplikten].color,
+                  theme,
+                )}
+              />
+            </td>
+            <td width="33.33%">
+              <Kvalitetsvurderinghjemler
+                hjemlerCount={getHjemlerCount(
+                  focusedDataset,
+                  BegrunnelsespliktenSaksdataHjemlerLists.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeAvgjoerendeHensynHjemlerList,
+                )}
+                title={
+                  BP_TEXTS[BPBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeAvgjoerendeHensyn]
+                    .label
+                }
+                hideTitle
+                backgroundColor={getColorFromTheme(
+                  SBR_TEXTS[BPBoolean.saksbehandlingsreglerBruddPaaBegrunnelsesplikten].color,
+                  theme,
+                )}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      {showsOnlyAnke ? null : (
+        <Details
+          stats={datasets}
+          reasonIds={KLAGE_OG_KLAGEFORBEREDELSEN_REASONS}
+          reasonTexts={KLAGE_OG_KLAGEFORBEREDELSEN_TEXTS}
+          title={`Avvik under «${
+            SBR_TEXTS[KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaRegleneOmKlageOgKlageforberedelse]
               .label
-          }
-          backgroundColor={getColorFromTheme(
-            SR_TEXTS[SærregelverketBoolean.saerregelverkLovenErTolketEllerAnvendtFeil].color,
-            theme,
-          )}
+          }»`}
+          helpText={DEFAULT_HELP_TEXT}
         />
-
-        <Hjemler
-          hjemlerCount={getHjemlerCount(
-            focusedDataset,
-            SærregelverketSaksdataHjemlerList.saerregelverkVedtaketByggerPaaFeilKonkretRettsanvendelseEllerSkjoennHjemlerList,
-          )}
-          label={
-            FEIL_LOVTOLKNING_TEXTS[
-              SærregelverketBoolean.saerregelverkVedtaketByggerPaaFeilKonkretRettsanvendelseEllerSkjoenn
-            ].label
-          }
-          backgroundColor={getColorFromTheme(
-            SR_TEXTS[SærregelverketBoolean.saerregelverkLovenErTolketEllerAnvendtFeil].color,
-            theme,
-          )}
-        />
-
-        <Hjemler
-          hjemlerCount={getHjemlerCount(
-            focusedDataset,
-            SærregelverketSaksdataHjemlerList.saerregelverkDetErLagtTilGrunnFeilFaktumHjemlerList,
-          )}
-          label={SR_TEXTS[SærregelverketBoolean.saerregelverkDetErLagtTilGrunnFeilFaktum].label}
-          backgroundColor={getColorFromTheme(
-            SR_TEXTS[SærregelverketBoolean.saerregelverkLovenErTolketEllerAnvendtFeil].color,
-            theme,
-          )}
-        />
-      </HGrid>
-
-      <TitleWithExplainer boolean={VeiledningspliktenBoolean.saksbehandlingsreglerBruddPaaVeiledningsplikten}>
-        {SBR_TEXTS[VeiledningspliktenBoolean.saksbehandlingsreglerBruddPaaVeiledningsplikten].label}
-      </TitleWithExplainer>
-      <Details stats={datasets} reasonIds={VEILEDNINGSPLIKTEN_REASONS} reasonTexts={VEILEDNINGSPLIKTEN_TEXTS} />
-
-      <TitleWithExplainer boolean={UtredningspliktenBoolean.saksbehandlingsreglerBruddPaaUtredningsplikten}>
-        {SBR_TEXTS[UtredningspliktenBoolean.saksbehandlingsreglerBruddPaaUtredningsplikten].label}
-      </TitleWithExplainer>
-      <Details stats={datasets} reasonIds={UTREDNINGSPLIKTEN_REASONS} reasonTexts={UTREDNINGSPLIKTEN_TEXTS} />
-
-      <TitleWithExplainer boolean={ForeleggelsespliktenBoolean.saksbehandlingsreglerBruddPaaForeleggelsesplikten}>
-        {SBR_TEXTS[ForeleggelsespliktenBoolean.saksbehandlingsreglerBruddPaaForeleggelsesplikten].label}
-      </TitleWithExplainer>
-      <Details stats={datasets} reasonIds={FORELEGGELSESPLIKTEN_REASONS} reasonTexts={FORELEGGELSESPLIKTEN_TEXTS} />
-
-      <TitleWithExplainer boolean={BPBoolean.saksbehandlingsreglerBruddPaaBegrunnelsesplikten}>
-        {SBR_TEXTS[BPBoolean.saksbehandlingsreglerBruddPaaBegrunnelsesplikten].label}
-      </TitleWithExplainer>
-      <Details stats={datasets} reasonIds={BEGRUNNELSESPLIKTEN_REASONS} reasonTexts={BP_TEXTS} />
-
-      <HGrid columns={3}>
-        <Hjemler
-          hjemlerCount={getHjemlerCount(
-            focusedDataset,
-            BegrunnelsespliktenSaksdataHjemlerLists.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenViserIkkeTilRegelverketHjemlerList,
-          )}
-          label={BP_TEXTS[BPBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenViserIkkeTilRegelverket].label}
-          backgroundColor={getColorFromTheme(
-            SBR_TEXTS[BPBoolean.saksbehandlingsreglerBruddPaaBegrunnelsesplikten].color,
-            theme,
-          )}
-        />
-
-        <Hjemler
-          hjemlerCount={getHjemlerCount(
-            focusedDataset,
-            BegrunnelsespliktenSaksdataHjemlerLists.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeFaktumHjemlerList,
-          )}
-          label={BP_TEXTS[BPBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeFaktum].label}
-          backgroundColor={getColorFromTheme(
-            SBR_TEXTS[BPBoolean.saksbehandlingsreglerBruddPaaBegrunnelsesplikten].color,
-            theme,
-          )}
-        />
-
-        <Hjemler
-          hjemlerCount={getHjemlerCount(
-            focusedDataset,
-            BegrunnelsespliktenSaksdataHjemlerLists.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeAvgjoerendeHensynHjemlerList,
-          )}
-          label={
-            BP_TEXTS[BPBoolean.saksbehandlingsreglerBegrunnelsespliktenBegrunnelsenNevnerIkkeAvgjoerendeHensyn].label
-          }
-          backgroundColor={getColorFromTheme(
-            SBR_TEXTS[BPBoolean.saksbehandlingsreglerBruddPaaBegrunnelsesplikten].color,
-            theme,
-          )}
-        />
-      </HGrid>
-
-      {showsOnlyAnke ? null : (
-        <>
-          <TitleWithExplainer
-            boolean={KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaRegleneOmKlageOgKlageforberedelse}
-          >
-            {
-              SBR_TEXTS[KlageOgKlageforberedelsenBoolean.saksbehandlingsreglerBruddPaaRegleneOmKlageOgKlageforberedelse]
-                .label
-            }
-          </TitleWithExplainer>
-          <Details
-            stats={datasets}
-            reasonIds={KLAGE_OG_KLAGEFORBEREDELSEN_REASONS}
-            reasonTexts={KLAGE_OG_KLAGEFORBEREDELSEN_TEXTS}
-          />
-        </>
       )}
 
-      <TitleWithExplainer
-        boolean={OmgjoeringBoolean.saksbehandlingsreglerBruddPaaRegleneOmOmgjoeringUtenforKlageOgAnke}
-      >
-        {SBR_TEXTS[OmgjoeringBoolean.saksbehandlingsreglerBruddPaaRegleneOmOmgjoeringUtenforKlageOgAnke].label}
-      </TitleWithExplainer>
-      <Details stats={datasets} reasonIds={OMGJØRING_REASONS} reasonTexts={OMGJØRING_TEXTS} />
+      <Details
+        stats={datasets}
+        reasonIds={OMGJØRING_REASONS}
+        reasonTexts={OMGJØRING_TEXTS}
+        title={`Avvik under «${SBR_TEXTS[OmgjoeringBoolean.saksbehandlingsreglerBruddPaaRegleneOmOmgjoeringUtenforKlageOgAnke].label}»`}
+        helpText={DEFAULT_HELP_TEXT}
+      />
 
-      <TitleWithExplainer boolean={JournalfoeringspliktenBoolean.saksbehandlingsreglerBruddPaaJournalfoeringsplikten}>
-        {SBR_TEXTS[JournalfoeringspliktenBoolean.saksbehandlingsreglerBruddPaaJournalfoeringsplikten].label}
-      </TitleWithExplainer>
-      <Details stats={datasets} reasonIds={JOURNALFØRINGSPLIKTEN_REASONS} reasonTexts={JOURNALFØRINGSPLIKTEN_TEXTS} />
+      <Details
+        stats={datasets}
+        reasonIds={JOURNALFØRINGSPLIKTEN_REASONS}
+        reasonTexts={JOURNALFØRINGSPLIKTEN_TEXTS}
+        title={`Avvik under «${SBR_TEXTS[JournalfoeringspliktenBoolean.saksbehandlingsreglerBruddPaaJournalfoeringsplikten].label}»`}
+        helpText={DEFAULT_HELP_TEXT}
+      />
+
       {showsOnlyAnke ? null : (
-        <>
-          <TitleWithExplainer
-            boolean={KlartSpraakBoolean.saksbehandlingsreglerBruddPaaPliktTilAaKommuniserePaaEtKlartSpraak}
-          >
-            {SBR_TEXTS[KlartSpraakBoolean.saksbehandlingsreglerBruddPaaPliktTilAaKommuniserePaaEtKlartSpraak].label}
-          </TitleWithExplainer>
-          <Details stats={datasets} reasonIds={KLART_SPRÅK_REASONS} reasonTexts={KLART_SPRÅK_TEXTS} />
-        </>
+        <Details
+          stats={datasets}
+          reasonIds={KLART_SPRÅK_REASONS}
+          reasonTexts={KLART_SPRÅK_TEXTS}
+          title={`Avvik under «${SBR_TEXTS[KlartSpraakBoolean.saksbehandlingsreglerBruddPaaPliktTilAaKommuniserePaaEtKlartSpraak].label}»`}
+          helpText={DEFAULT_HELP_TEXT}
+        />
       )}
-    </DynamicCard>
+    </Card>
   );
 };
 
@@ -285,20 +356,5 @@ const getHjemlerCount = (dataset: DataSetV3, hjemmelListId: KvalitetsvurderingV3
     return counts;
   }, {});
 
-const TitleWithExplainer = ({
-  children,
-  boolean,
-}: {
-  children: ReactNode;
-  boolean?: keyof KvalitetsvurderingV3Boolean;
-}) => (
-  <VStack>
-    <HStack align="center" justify="center" gap="space-8">
-      <Heading size="small">Avvik under «{children}»</Heading>
-      <HelpText>
-        En sak kan ha ett eller flere avvik. Prosenten er regnet ut fra totalt antall kvalitetsvurderte saker.
-      </HelpText>
-    </HStack>
-    {boolean ? <KvalitetsvurderingModal focus={boolean} /> : null}
-  </VStack>
-);
+const DEFAULT_HELP_TEXT =
+  'En sak kan ha ett eller flere avvik. Prosenten er regnet ut fra totalt antall kvalitetsvurderte saker.';

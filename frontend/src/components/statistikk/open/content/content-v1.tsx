@@ -1,13 +1,12 @@
-import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
+import { ChartsWrapper } from '@app/components/statistikk/card/charts-wrapper';
 import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
 import { OMGJORT_HELP_TEXT_V1_V2 } from '@app/components/statistikk/texts';
 import { TypeWarning } from '@app/components/statistikk/type-warning';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
-import { ContentArea } from '@app/styled-components/filters-and-content';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import type { IStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { LoadingOverlay } from '../../../loader/overlay';
-import { CardSize, DynamicCard } from '../../card/card';
+import { Card } from '../../card/card';
 import { BehandlingstidHistogram } from '../../charts/behandlingstid-histogram';
 import { BehandlingstidOverTime } from '../../charts/behandlingstid-over-time';
 import { Hjemler } from '../../charts/hjemler';
@@ -32,7 +31,7 @@ export const ContentV1 = ({ stats, isLoading }: Props) => {
   const behandlingstidOverTime = useBehandlingstidOverTime(relevantStats);
 
   return (
-    <ContentArea>
+    <div className="lg:overflow-auto">
       <LoadingOverlay isLoading={isLoading} />
 
       <FullWidthStickyContainer>
@@ -46,36 +45,38 @@ export const ContentV1 = ({ stats, isLoading }: Props) => {
         </StatsContainer>
       </FullWidthStickyContainer>
 
-      <DynamicCard size={CardSize.LARGE}>
-        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT_V1_V2} placement="bottom">
-          Omgjøringsprosent
-        </CardTitleWithExplainer>
-        <Omgjoeringsprosent stats={[{ label: 'Totalt', data: relevantStats }]} version={KvalitetsvurderingVersion.V1} />
-      </DynamicCard>
+      <ChartsWrapper>
+        <Card span={2}>
+          <Omgjoeringsprosent
+            stats={[{ label: 'Totalt', data: relevantStats }]}
+            version={KvalitetsvurderingVersion.V1}
+            title="Omgjøringsprosent"
+            helpText={OMGJORT_HELP_TEXT_V1_V2}
+          />
+        </Card>
 
-      <DynamicCard size={CardSize.LARGE}>
-        <CardTitle>Kvalitetsvurderinger</CardTitle>
-        <TypeWarning />
-        <KvalitetsvurderingerV1 stats={relevantStats} />
-      </DynamicCard>
+        <Card span={4}>
+          <CardTitle>Kvalitetsvurderinger</CardTitle>
+          <TypeWarning />
+          <KvalitetsvurderingerV1 stats={relevantStats} />
+        </Card>
 
-      <DynamicCard size={CardSize.MEDIUM}>
-        <CardTitle>Utfall</CardTitle>
-        <UtfallGraph stats={stats} />
-      </DynamicCard>
+        <Card span={2}>
+          <UtfallGraph stats={stats} title="Utfall" />
+        </Card>
 
-      <DynamicCard size={CardSize.MEDIUM}>
-        <CardTitle>Hjemler</CardTitle>
-        <Hjemler stats={relevantStats} />
-      </DynamicCard>
+        <Card span={3}>
+          <Hjemler stats={relevantStats} title="Hjemler" />
+        </Card>
 
-      <DynamicCard size={CardSize.LARGE}>
-        <CardTitle>Behandlingstid</CardTitle>
-        <ToggleTotalOrKA />
-        <BehandlingstidHistogram stats={relevantStats} />
-      </DynamicCard>
+        <Card span={3}>
+          <BehandlingstidHistogram stats={relevantStats} title="Behandlingstid" headerContent={<ToggleTotalOrKA />} />
+        </Card>
 
-      <BehandlingstidOverTime stats={behandlingstidOverTime} />
-    </ContentArea>
+        <Card span={2}>
+          <BehandlingstidOverTime stats={behandlingstidOverTime} title="Behandlingstid" />
+        </Card>
+      </ChartsWrapper>
+    </div>
   );
 };

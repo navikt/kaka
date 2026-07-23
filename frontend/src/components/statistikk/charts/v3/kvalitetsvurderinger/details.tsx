@@ -1,80 +1,89 @@
 import { useAppTheme } from '@app/app-theme';
 import {
-  BAR_THICKNESS,
+  COMMMON_STACKED_BAR_CHART_SERIES_PROPS,
+  COMMON_STACKED_BAR_CHART_PROPS,
+} from '@app/components/echarts/common-chart-props';
+import { EChart } from '@app/components/echarts/echarts';
+import {
   getDatasets,
   type ReasonIds,
   type ReasonTexts,
 } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/calculations/get-datasets';
-import type { ChartOptions } from 'chart.js';
+import type { DataSetV3 } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/types';
+import { LOCALE } from '@app/domain/intl';
+import { toPercent } from '@app/domain/number';
+import type { CallbackDataParams } from 'echarts/types/src/util/types.js';
+import type { ReactNode } from 'react';
 import { useMemo } from 'react';
-import { Bar } from 'react-chartjs-2';
-import { type GetAbsoluteValue, useBarTooltipText } from '../../../hooks/use-bar-tooltip-text';
-import { HorizontalBars } from '../../common/horizontal-bars';
-import type { DataSetV3 } from './types';
 
 const UNIT = 'avvik';
-
-const useOptions = (getAbsoluteValue: GetAbsoluteValue): ChartOptions<'bar'> => {
-  const { renderBarText, tooltipCallback } = useBarTooltipText(getAbsoluteValue, UNIT);
-
-  return {
-    maintainAspectRatio: false,
-    indexAxis: 'y',
-    scales: {
-      y: { stacked: true },
-      x: {
-        beginAtZero: true,
-        stacked: true,
-        ticks: { callback: (label) => label },
-        title: { display: true, text: 'Antall' },
-      },
-    },
-    animation: {
-      onProgress() {
-        renderBarText(this.ctx);
-      },
-      onComplete() {
-        renderBarText(this.ctx);
-      },
-    },
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        callbacks: {
-          label: tooltipCallback,
-        },
-        xAlign: 'center',
-        yAlign: 'top',
-        caretPadding: 25,
-      },
-    },
-  };
-};
 
 interface Props {
   stats: DataSetV3[];
   reasonIds: ReasonIds;
   reasonTexts: ReasonTexts;
+  title: string;
+  helpText?: ReactNode;
 }
 
-export const Details = ({ stats, reasonIds, reasonTexts }: Props) => {
+export const Details = ({ stats, reasonIds, reasonTexts, title, helpText }: Props) => {
   const theme = useAppTheme();
   const { datasets, labels } = useMemo(
     () => getDatasets(stats, reasonIds, reasonTexts, UNIT, theme),
     [stats, theme, reasonIds, reasonTexts],
   );
 
-  const getAbsoluteValue: GetAbsoluteValue = (datasetIndex, dataIndex) => {
-    const count = datasets[datasetIndex]?.data[dataIndex] ?? 0;
-    const percent = datasets[datasetIndex]?.percentages[dataIndex] ?? 0;
+  // Echarts renders category axis items bottom-to-top, so reverse the order here to match the top-to-bottom label order.
+  const reversedLabels = labels.toReversed();
+  const reversedDatasets = datasets.map((dataset) => ({
+    ...dataset,
+    data: dataset.data.toReversed(),
+    percentages: dataset.percentages.toReversed(),
+  }));
 
-    return [count, percent];
-  };
-  const options = useOptions(getAbsoluteValue);
+  const series = reversedDatasets.map(({ label, data, percentages, backgroundColor }) => ({
+    ...COMMMON_STACKED_BAR_CHART_SERIES_PROPS,
+    name: label,
+    data,
+    itemStyle: { color: backgroundColor },
+    label: {
+      show: true,
+      formatter: (params: CallbackDataParams) => {
+        const count = typeof params.value === 'number' ? params.value : 0;
+
+        if (count === 0) {
+          return '';
+        }
+
+        const percent = percentages[params.dataIndex] ?? 0;
+
+        return `${toPercent(percent / 100)}\n${count.toLocaleString(LOCALE)} ${UNIT}`;
+      },
+    },
+  }));
 
   return (
-    <HorizontalBars barCount={labels.length} barThickness={BAR_THICKNESS} chartOptions={options}>
-      <Bar data={{ datasets, labels }} options={options} />
-    </HorizontalBars>
+    <div className="h-62.5">
+      <EChart
+        title={title}
+        helpText={helpText}
+        option={{
+          ...COMMON_STACKED_BAR_CHART_PROPS,
+          legend: { show: false },
+          yAxis: { type: 'category', data: reversedLabels },
+          xAxis: { type: 'value', name: 'Antall', nameLocation: 'middle', nameGap: 30 },
+          series,
+          tooltip: {
+            trigger: 'item',
+            formatter: (params: CallbackDataParams) => {
+              const count = typeof params.value === 'number' ? params.value : 0;
+              const percent = reversedDatasets[params.seriesIndex ?? -1]?.percentages[params.dataIndex] ?? 0;
+
+              return `${params.marker ?? ''}${params.seriesName ?? 'Ukjent'}: ${toPercent(percent / 100)} (${count.toLocaleString(LOCALE)} ${UNIT})`;
+            },
+          },
+        }}
+      />
+    </div>
   );
 };

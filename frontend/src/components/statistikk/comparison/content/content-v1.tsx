@@ -1,11 +1,9 @@
-import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
+import { ChartsWrapper } from '@app/components/statistikk/card/charts-wrapper';
 import { OMGJORT_HELP_TEXT_V1_V2 } from '@app/components/statistikk/texts';
-import { CardTitle } from '@app/styled-components/cards';
-import { ContentArea } from '@app/styled-components/filters-and-content';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import type { IComparedFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { LoadingOverlay } from '../../../loader/overlay';
-import { CardSize, DynamicCard } from '../../card/card';
+import { Card } from '../../card/card';
 import { BehandlingstidComparison } from '../../charts/comparison/behandlingstid';
 import { BehandlingstidOverTime } from '../../charts/comparison/behandlingstid-over-time';
 import { OmgjoeringsprosentOverTime } from '../../charts/comparison/omgjoeringsprosent-over-time';
@@ -25,27 +23,31 @@ export const ContentV1 = ({ stats, isLoading }: Props) => {
   }));
 
   return (
-    <ContentArea>
+    <div className="lg:overflow-auto">
       <LoadingOverlay isLoading={isLoading} />
 
-      <DynamicCard size={CardSize.LARGE}>
-        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT_V1_V2} placement="bottom">
-          Omgjøringsprosent
-        </CardTitleWithExplainer>
-        <Omgjoeringsprosent stats={datasets} version={KvalitetsvurderingVersion.V1} />
-      </DynamicCard>
+      <ChartsWrapper>
+        <Card span={2}>
+          <div className="h-100">
+            <Omgjoeringsprosent
+              stats={datasets}
+              version={KvalitetsvurderingVersion.V1}
+              title="Omgjøringsprosent"
+              helpText={OMGJORT_HELP_TEXT_V1_V2}
+            />
+          </div>
+        </Card>
 
-      <DynamicCard size={CardSize.LARGE}>
-        <CardTitle>Omgjøringsprosent per uke</CardTitle>
-        <OmgjoeringsprosentOverTime stats={datasets} />
-      </DynamicCard>
+        <Card span={2}>
+          <OmgjoeringsprosentOverTime stats={datasets} title="Omgjøringsprosent per uke" />
+        </Card>
 
-      <DynamicCard size={CardSize.LARGE}>
-        <CardTitle>Gjennomsnittlig behandlingstid</CardTitle>
-        <BehandlingstidComparison stats={datasets} />
-      </DynamicCard>
+        <Card span={2}>
+          <BehandlingstidComparison stats={datasets} title="Gjennomsnittlig behandlingstid" />
+        </Card>
 
-      <BehandlingstidOverTime datasets={datasets} />
-    </ContentArea>
+        <BehandlingstidOverTime datasets={datasets} />
+      </ChartsWrapper>
+    </div>
   );
 };

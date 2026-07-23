@@ -3,7 +3,6 @@ import { useYtelserQueryFilter } from '@app/components/statistikk/hooks/use-ytel
 import { useStatisticsTotal } from '@app/simple-api-state/statistics/v1/use-statistics-total';
 import type { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { useMemo } from 'react';
-import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../../../filters/date-presets/constants';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
   useFromDateQueryFilter,
@@ -18,8 +17,8 @@ import { HjemlerModeFilter, TilbakekrevingEnum } from '../../../filters/types';
 import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
 
 const useTotalStatistics = () => {
-  const fromDate = useFromDateQueryFilter(FORMATTED_START_OF_MONTH);
-  const toDate = useToDateQueryFilter(FORMATTED_NOW);
+  const fromDate = useFromDateQueryFilter();
+  const toDate = useToDateQueryFilter();
 
   return useStatisticsTotal({ fromDate, toDate });
 };

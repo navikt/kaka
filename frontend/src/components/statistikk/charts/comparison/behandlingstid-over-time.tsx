@@ -30,6 +30,8 @@ export const BehandlingstidOverTime = ({ datasets }: Props) => {
 
   return (
     <BehandlingstidOverTimeChart
+      title="Behandlingstid"
+      headerContent={<ToggleTotalOrKA />}
       stats={datasets.map((d) => ({
         ...d,
         data: d.data.map(({ [property]: behandlingstidDays, avsluttetAvSaksbehandler }) => ({
@@ -37,8 +39,6 @@ export const BehandlingstidOverTime = ({ datasets }: Props) => {
           avsluttetAvSaksbehandler,
         })),
       }))}
-    >
-      <ToggleTotalOrKA />
-    </BehandlingstidOverTimeChart>
+    />
   );
 };

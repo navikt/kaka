@@ -1,4 +1,5 @@
-import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
+import { ChartsWrapper } from '@app/components/statistikk/card/charts-wrapper';
+import { Hjemler } from '@app/components/statistikk/charts/hjemler';
 import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
 import { OMGJORT_HELP_TEXT_V1_V2 } from '@app/components/statistikk/texts';
@@ -6,17 +7,15 @@ import { TypeWarning } from '@app/components/statistikk/type-warning';
 import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';
 import { useUser } from '@app/simple-api-state/use-user';
 import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
-import { ContentArea } from '@app/styled-components/filters-and-content';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import type { IFullStatisticVurderingV1 } from '@app/types/statistics/v1';
 import { useMemo } from 'react';
 import { QueryParams } from '../../../filters/filter-query-params';
 import { useQueryFilters } from '../../../filters/hooks/use-query-filter';
 import { LoadingOverlay } from '../../../loader/overlay';
-import { CardSize, DynamicCard } from '../../card/card';
+import { Card } from '../../card/card';
 import { BehandlingstidHistogram } from '../../charts/behandlingstid-histogram';
 import { BehandlingstidOverTime } from '../../charts/behandlingstid-over-time';
-import { Hjemler } from '../../charts/hjemler';
 import { KvalitetsvurderingerV1 } from '../../charts/kvalitetsvurderinger/kvalitetsvurderinger';
 import { Omgjoeringsprosent } from '../../charts/omgjoeringsprosent';
 import { UtfallGraph } from '../../charts/utfall-graph';
@@ -98,7 +97,7 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
   );
 
   return (
-    <ContentArea>
+    <div className="lg:overflow-auto">
       <LoadingOverlay isLoading={isLoading} />
 
       <FullWidthStickyContainer>
@@ -112,36 +111,38 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
         </StatsContainer>
       </FullWidthStickyContainer>
 
-      <DynamicCard size={CardSize.LARGE}>
-        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT_V1_V2} placement="bottom">
-          Min enhets omgjøringsprosent
-        </CardTitleWithExplainer>
-        <Omgjoeringsprosent stats={datasets} version={KvalitetsvurderingVersion.V1} />
-      </DynamicCard>
+      <ChartsWrapper>
+        <Card span={2}>
+          <Omgjoeringsprosent
+            stats={datasets}
+            version={KvalitetsvurderingVersion.V1}
+            title="Min enhets omgjøringsprosent"
+            helpText={OMGJORT_HELP_TEXT_V1_V2}
+          />
+        </Card>
 
-      <DynamicCard size={CardSize.LARGE}>
-        <CardTitle>Kvalitetsvurderinger</CardTitle>
-        <TypeWarning />
-        <KvalitetsvurderingerV1 stats={relevantData} />
-      </DynamicCard>
+        <Card span={4}>
+          <CardTitle>Kvalitetsvurderinger</CardTitle>
+          <TypeWarning />
+          <KvalitetsvurderingerV1 stats={relevantData} />
+        </Card>
 
-      <DynamicCard size={CardSize.MEDIUM}>
-        <CardTitle>Utfall</CardTitle>
-        <UtfallGraph stats={allData} />
-      </DynamicCard>
+        <Card span={2}>
+          <UtfallGraph stats={allData} title="Utfall" />
+        </Card>
 
-      <DynamicCard size={CardSize.MEDIUM}>
-        <CardTitle>Hjemler</CardTitle>
-        <Hjemler stats={relevantData} />
-      </DynamicCard>
+        <Card span={3}>
+          <Hjemler stats={relevantData} title="Hjemler" />
+        </Card>
 
-      <DynamicCard size={CardSize.LARGE}>
-        <CardTitle>Behandlingstid</CardTitle>
-        <ToggleTotalOrKA />
-        <BehandlingstidHistogram stats={relevantData} />
-      </DynamicCard>
+        <Card span={3}>
+          <BehandlingstidHistogram stats={relevantData} title="Behandlingstid" headerContent={<ToggleTotalOrKA />} />
+        </Card>
 
-      <BehandlingstidOverTime stats={behandlingstidStats} />
-    </ContentArea>
+        <Card span={2}>
+          <BehandlingstidOverTime stats={behandlingstidStats} title="Behandlingstid" />
+        </Card>
+      </ChartsWrapper>
+    </div>
   );
 };
