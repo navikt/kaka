@@ -1,5 +1,4 @@
 import { useAppTheme } from '@app/app-theme';
-import { ScrollReset } from '@app/components/app/scroll-reset';
 import { NavHeader } from '@app/components/header/header';
 import { useIndexPath } from '@app/hooks/use-index-path';
 import { useUserAccess } from '@app/hooks/use-user-access';
@@ -117,7 +116,6 @@ const AppWrapper = () => {
   return (
     <Theme theme={theme} className="h-full w-full">
       <VStack height="100%" width="100%" overflow="hidden">
-        <ScrollReset />
         <NavHeader />
         <Outlet />
       </VStack>

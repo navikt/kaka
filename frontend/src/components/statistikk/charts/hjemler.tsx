@@ -1,34 +1,8 @@
-import { useColor } from '@app/components/statistikk/colors/get-color';
-import { ColorToken } from '@app/components/statistikk/colors/token-name';
+import { COMMON_BAR_CHART_PROPS } from '@app/components/echarts/common-chart-props';
+import { EChart } from '@app/components/echarts/echarts';
 import { useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
-import type { ChartOptions, TooltipCallbacks } from 'chart.js';
+import type { CallbackDataParams } from 'echarts/types/src/util/types.js';
 import { useMemo } from 'react';
-import { Bar } from 'react-chartjs-2';
-
-type TooltipCallback = TooltipCallbacks<'bar'>['label'];
-
-const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'bar'> => ({
-  indexAxis: 'y',
-  aspectRatio: 1,
-  scales: {
-    y: {
-      beginAtZero: true,
-      bounds: 'ticks',
-      min: 0,
-    },
-    x: { ticks: { stepSize: 1 } },
-  },
-  plugins: {
-    legend: {
-      display: false,
-      position: 'top' as const,
-    },
-    title: { display: false },
-    tooltip: {
-      callbacks: { label: tooltipCallback },
-    },
-  },
-});
 
 interface Stat {
   hjemmelIdList: string[];
@@ -36,52 +10,11 @@ interface Stat {
 
 interface Props {
   stats: Stat[];
+  title: string;
 }
 
-interface RegistreringshjemmelWithLabel {
-  id: string;
-  label: string;
-}
-
-interface RegistreringshjemmelWithTooltip {
-  id: string;
-  tooltip: string;
-}
-
-const useLabelledRegistreringshjemler = () => {
+export const Hjemler = ({ stats, title }: Props) => {
   const { data: hjemlerMap = {} } = useRegistreringshjemlerMap();
-
-  return useMemo(() => {
-    const withIdKey: Record<string, RegistreringshjemmelWithLabel> = {};
-    const withLabelKey: Record<string, RegistreringshjemmelWithTooltip> = {};
-
-    for (const key of Object.keys(hjemlerMap)) {
-      const found = hjemlerMap[key];
-
-      if (found) {
-        const label = `${found.hjemmelnavn} - ${found.lovkilde.beskrivelse}`;
-        const tooltip = `${found.hjemmelnavn} - ${found.lovkilde.navn}`;
-
-        withIdKey[key] = { id: key, label };
-        withLabelKey[label] = { id: key, tooltip };
-      }
-    }
-
-    return { withIdKey, withLabelKey };
-  }, [hjemlerMap]);
-};
-
-export const Hjemler = ({ stats }: Props) => {
-  const { withIdKey, withLabelKey } = useLabelledRegistreringshjemler();
-  const color = useColor(ColorToken.Accent500);
-
-  const tooltipCallback: TooltipCallback = ({ parsed, label }) => {
-    const found = withLabelKey[label];
-
-    return found ? `${found.tooltip}: ${parsed.x}` : `${label}: ${parsed.x}`;
-  };
-
-  const options = useOptions(tooltipCallback);
 
   const hjemmelStats = useMemo(
     () =>
@@ -89,38 +22,55 @@ export const Hjemler = ({ stats }: Props) => {
         for (const hjemmelId of stat.hjemmelIdList) {
           acc.set(hjemmelId, (acc.get(hjemmelId) ?? 0) + 1);
         }
-
         return acc;
       }, new Map<string, number>()),
     [stats],
   );
 
-  const barData = useMemo(() => {
+  const { data, labels, tooltips } = useMemo(() => {
     const top20 = Array.from(hjemmelStats.entries())
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 20);
+      .slice(0, 20)
+      .toReversed();
 
-    const labels = top20
-      .map(([key]) => key)
-      .map((hjemmelId) => {
-        const found = withIdKey[hjemmelId];
+    const labels: string[] = [];
+    const tooltips: string[] = [];
+    const values: number[] = [];
 
-        return found === undefined ? hjemmelId : found.label;
-      });
+    for (const [hjemmelId, count] of top20) {
+      const found = hjemlerMap[hjemmelId];
+      labels.push(found ? `${found.lovkilde.beskrivelse} - ${found.hjemmelnavn} - ` : hjemmelId);
+      tooltips.push(found ? `${found.lovkilde.navn} - ${found.hjemmelnavn} - ` : hjemmelId);
+      values.push(count);
+    }
 
-    const data = top20.map(([, value]) => value);
+    // Echarts renders category axis items bottom-to-top, so reverse here to get the expected top-to-bottom order.
+    return { data: values, labels: labels, tooltips: tooltips };
+  }, [hjemmelStats, hjemlerMap]);
 
-    return {
-      labels,
-      datasets: [
-        {
-          data,
-          backgroundColor: color,
-          borderColor: color,
+  return (
+    <EChart
+      title={title}
+      option={{
+        ...COMMON_BAR_CHART_PROPS,
+        yAxis: { type: 'category', data: labels },
+        series: [{ data, type: 'bar', name: 'Tildelte saker' }],
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { type: 'shadow' },
+          formatter: (params: CallbackDataParams | CallbackDataParams[]) => {
+            const [param] = Array.isArray(params) ? params : [params];
+
+            if (param === undefined) {
+              return '';
+            }
+
+            const tooltip = tooltips[param.dataIndex];
+
+            return tooltip === undefined ? `${param.name}: ${param.value}` : `${tooltip}: ${param.value}`;
+          },
         },
-      ],
-    };
-  }, [hjemmelStats, withIdKey, color]);
-
-  return <Bar options={options} data={barData} />;
+      }}
+    />
+  );
 };

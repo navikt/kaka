@@ -1,53 +1,10 @@
+import { COMMON_BAR_CHART_PROPS } from '@app/components/echarts/common-chart-props';
+import { EChart } from '@app/components/echarts/echarts';
 import { useColor } from '@app/components/statistikk/colors/get-color';
 import { ColorToken } from '@app/components/statistikk/colors/token-name';
-import type { ChartOptions } from 'chart.js';
 import { useMemo } from 'react';
-import { Bar } from 'react-chartjs-2';
 import { useBehandlingstidField } from '../hooks/use-behandlingstid-param';
 import { useBuckets } from '../hooks/use-buckets';
-
-const useOptions = (): ChartOptions<'bar'> => {
-  const neutral = useColor(ColorToken.Info500);
-  const warning = useColor(ColorToken.Warning500);
-  const danger = useColor(ColorToken.Danger900);
-
-  return {
-    aspectRatio: 3,
-    scales: {
-      y: {
-        title: { display: true, text: 'Antall' },
-        beginAtZero: true,
-        bounds: 'ticks',
-      },
-      x: {
-        title: { display: true, text: 'Innen uke' },
-        stacked: true,
-      },
-    },
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-    backgroundColor: (ctx) => {
-      const x = ctx?.parsed?.x;
-
-      if (typeof x === 'undefined' || x === null) {
-        return neutral;
-      }
-
-      if (x < 12) {
-        return neutral;
-      }
-
-      if (x > 15) {
-        return danger;
-      }
-
-      return warning;
-    },
-  };
-};
 
 interface Stat {
   kaBehandlingstidDays: number;
@@ -57,21 +14,37 @@ interface Stat {
 
 interface Props {
   stats: Stat[];
+  title: string;
+  headerContent?: React.ReactNode;
 }
 
-export const BehandlingstidHistogram = ({ stats }: Props) => {
+export const BehandlingstidHistogram = ({ stats, title, headerContent }: Props) => {
   const field = useBehandlingstidField();
   const fieldStats = useMemo(() => stats.map((stat) => stat[field]), [stats, field]);
-  const [labels, data] = useBuckets(fieldStats, 7, 104);
+  const [labels, values] = useBuckets(fieldStats, 7, 104);
 
-  const options = useOptions();
+  const neutral = useColor(ColorToken.Info500);
+  const warning = useColor(ColorToken.Warning500);
+  const danger = useColor(ColorToken.Danger900);
+
+  const data = useMemo(
+    () =>
+      values.map((value, index) => ({
+        value,
+        itemStyle: { color: index < 12 ? neutral : index > 15 ? danger : warning },
+      })),
+    [values, neutral, warning, danger],
+  );
 
   return (
-    <Bar
-      options={options}
-      data={{
-        labels,
-        datasets: [{ data, barPercentage: 0.95, categoryPercentage: 0.95 }],
+    <EChart
+      title={title}
+      headerContent={headerContent}
+      option={{
+        ...COMMON_BAR_CHART_PROPS,
+        xAxis: { type: 'category', data: labels, name: 'Innen uke', nameLocation: 'middle', nameGap: 30 },
+        yAxis: { type: 'value', name: 'Antall', nameLocation: 'middle', nameGap: 40 },
+        series: [{ data, type: 'bar' }],
       }}
     />
   );

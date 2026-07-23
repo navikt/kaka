@@ -82,6 +82,9 @@ const theme: ThemeOption = {
       barBorderWidth: 0,
       barBorderColor: 'var(--ax-border-neutral-subtle)',
     },
+    label: {
+      fontSize,
+    },
     emphasis: {
       label: {
         shadowBlur: 0,

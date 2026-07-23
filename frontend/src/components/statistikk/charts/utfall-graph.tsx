@@ -1,34 +1,17 @@
 import { UTFALL_COLOR_MAP } from '@app/colors/colors';
+import { COMMON_BAR_CHART_PROPS } from '@app/components/echarts/common-chart-props';
+import { EChart } from '@app/components/echarts/echarts';
 import { useSakstypeFilter } from '@app/components/filters/hooks/use-query-filter';
 import { useColorMap } from '@app/components/statistikk/colors/get-color';
 import { isRelevantSakstype } from '@app/components/statistikk/filters/relevant';
+import { toPercent } from '@app/domain/number';
 import { useSakstypeToUtfall } from '@app/simple-api-state/use-kodeverk';
 import { useSortedUtfall } from '@app/simple-api-state/use-utfall';
 import type { SakstypeEnum } from '@app/types/sakstype';
 import type { StatsDate } from '@app/types/statistics/common';
 import type { UtfallEnum } from '@app/types/utfall';
-import type { ChartOptions } from 'chart.js';
+import type { CallbackDataParams } from 'echarts/types/src/util/types.js';
 import { useMemo } from 'react';
-import { Bar } from 'react-chartjs-2';
-import { percent, tickCallback } from './formatting';
-
-const useOptions = (total = 1): ChartOptions<'bar'> => ({
-  indexAxis: 'y',
-  scales: {
-    y: { beginAtZero: true, bounds: 'ticks', min: 0 },
-    x: {
-      ticks: { callback: (value) => tickCallback(value, total) },
-      stacked: true,
-    },
-  },
-  plugins: {
-    legend: { display: false, position: 'top' as const },
-    title: { display: false },
-    tooltip: {
-      callbacks: { label: ({ parsed: { x }, label }) => `${label}: ${x === null ? 'Ukjent' : percent(x, total)}` },
-    },
-  },
-});
 
 interface Stat {
   utfallId: UtfallEnum;
@@ -38,6 +21,7 @@ interface Stat {
 
 interface Props {
   stats: Stat[];
+  title: string;
 }
 
 const useSelectedUtfall = () => {
@@ -54,7 +38,7 @@ const useSelectedUtfall = () => {
   }, [selectedSakstyper, sakstypeToUtfall, sortedUtfallKodeverk]);
 };
 
-export const UtfallGraph = ({ stats: allStats }: Props) => {
+export const UtfallGraph = ({ stats: allStats, title }: Props) => {
   const selectedUtfall = useSelectedUtfall();
   const colorMap = useColorMap();
 
@@ -67,36 +51,44 @@ export const UtfallGraph = ({ stats: allStats }: Props) => {
     [allStats],
   );
 
-  const stats = useMemo(
-    () =>
-      new Map<UtfallEnum, number>(
-        selectedUtfall.map(({ id }) => [id, relevantStats.filter(({ utfallId }) => utfallId === id).length]),
-      ),
-    [relevantStats, selectedUtfall],
-  );
+  const total = allStats.length;
 
-  const labels: string[] = selectedUtfall.map(({ navn }) => navn);
+  const { data, labels } = useMemo(() => {
+    const rows = selectedUtfall.map(({ id, navn }) => ({
+      label: navn,
+      value: relevantStats.filter(({ utfallId }) => utfallId === id).length,
+      color: colorMap[UTFALL_COLOR_MAP[id]],
+    }));
 
-  const backgroundColor: string[] = selectedUtfall.map(({ id }) => colorMap[UTFALL_COLOR_MAP[id]]);
+    // Echarts renders category axis items bottom-to-top, so reverse here to get the expected top-to-bottom order.
+    const reversed = rows.toReversed();
 
-  const values = Array.from(stats.values());
-
-  const options = useOptions(allStats?.length);
+    return {
+      data: reversed.map(({ value, color }) => ({ value, itemStyle: { color } })),
+      labels: reversed.map(({ label }) => label),
+    };
+  }, [selectedUtfall, relevantStats, colorMap]);
 
   return (
-    <Bar
-      options={options}
-      data={{
-        labels,
-        datasets: [
-          {
-            label: 'Utfall',
-            data: values,
-            backgroundColor,
-            barPercentage: 0.95,
-            categoryPercentage: 0.95,
+    <EChart
+      title={title}
+      option={{
+        ...COMMON_BAR_CHART_PROPS,
+        yAxis: { type: 'category', data: labels },
+        xAxis: { type: 'value', axisLabel: { formatter: (value: number) => toPercent(value / total) } },
+        series: [{ data, type: 'bar' }],
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { type: 'shadow' },
+          formatter: (params: CallbackDataParams | CallbackDataParams[]) => {
+            const [param] = Array.isArray(params) ? params : [params];
+            const value = typeof param?.value === 'number' ? param.value : undefined;
+
+            return value === undefined
+              ? `${param?.name}: Ukjent`
+              : `${param?.name}: ${toPercent(value / total)} (${value})`;
           },
-        ],
+        },
       }}
     />
   );

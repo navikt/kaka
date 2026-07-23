@@ -7,10 +7,6 @@ import { Type } from '../common-table-components/type';
 import { Utfall } from '../common-table-components/utfall';
 import { Ytelse } from '../common-table-components/ytelse';
 
-interface Props {
-  testId: string;
-}
-
 export const Row = ({
   id,
   sakstypeId,
@@ -18,10 +14,9 @@ export const Row = ({
   sakenGjelder,
   modified,
   utfallId,
-  testId,
   kvalitetsvurderingReference,
-}: Props & (ISaksdataIncomplete | ISaksdataComplete)) => (
-  <Table.Row data-testid={`${testId}-row`} data-saksdata-id={id}>
+}: ISaksdataIncomplete | ISaksdataComplete) => (
+  <Table.Row data-saksdata-id={id}>
     <Table.DataCell>
       <Type type={sakstypeId} />
     </Table.DataCell>

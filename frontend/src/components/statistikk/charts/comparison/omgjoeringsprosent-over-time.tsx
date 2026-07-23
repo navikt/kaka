@@ -1,18 +1,10 @@
-import { useAppTheme } from '@app/app-theme';
-import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
+import { EChart } from '@app/components/echarts/echarts';
+import { useColorMap } from '@app/components/statistikk/colors/get-color';
 import type { ColorToken } from '@app/components/statistikk/colors/token-name';
 import type { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { UtfallEnum } from '@app/types/utfall';
-import type { ChartOptions } from 'chart.js';
+import { getISOWeeksInYear } from 'date-fns';
 import { useMemo } from 'react';
-import { Line } from 'react-chartjs-2';
-
-const useOptions = (): ChartOptions<'line'> => ({
-  aspectRatio: 3,
-  scales: {
-    y: { title: { display: true, text: 'Omgjøringsprosent' } },
-  },
-});
 
 type MinimalVurdering = Pick<IFullStatisticVurderingV2, 'avsluttetAvSaksbehandler' | 'utfallId'>;
 
@@ -24,68 +16,122 @@ interface Stat {
 
 interface Props {
   stats: Stat[];
+  title: string;
 }
 
 const isOmjoering = (utfallId: UtfallEnum) =>
   utfallId === UtfallEnum.MEDHOLD || utfallId === UtfallEnum.DELVIS_MEDHOLD || utfallId === UtfallEnum.OPPHEVET;
 
-export const OmgjoeringsprosentOverTime = ({ stats }: Props) => {
-  const options = useOptions();
-  const theme = useAppTheme();
+const getYearAndWeekLabels = (stats: Stat[]): string[] => {
+  const flatData = stats.flatMap(({ data }) => data).filter((d) => d.avsluttetAvSaksbehandler !== null);
+  const [initial] = flatData;
 
-  const datasets = useMemo(
+  if (typeof initial === 'undefined' || initial.avsluttetAvSaksbehandler === null) {
+    return [];
+  }
+
+  let minWeek = initial.avsluttetAvSaksbehandler.weekNumber;
+  let minYear = initial.avsluttetAvSaksbehandler.year;
+  let maxWeek = initial.avsluttetAvSaksbehandler.weekNumber;
+  let maxYear = initial.avsluttetAvSaksbehandler.year;
+
+  for (const { avsluttetAvSaksbehandler } of flatData) {
+    if (avsluttetAvSaksbehandler === null) {
+      continue;
+    }
+
+    const { year, weekNumber } = avsluttetAvSaksbehandler;
+
+    if (year < minYear || (year === minYear && weekNumber < minWeek)) {
+      minYear = year;
+      minWeek = weekNumber;
+    }
+
+    if (year > maxYear || (year === maxYear && weekNumber > maxWeek)) {
+      maxYear = year;
+      maxWeek = weekNumber;
+    }
+  }
+
+  const yearAndWeekList: string[] = [];
+
+  for (let y = minYear; y <= maxYear; y++) {
+    const startWeek = y === minYear ? minWeek : 1;
+    const numberOfWeeks = y === maxYear ? maxWeek : getISOWeeksInYear(new Date(y, 0, 1));
+
+    for (let w = startWeek; w <= numberOfWeeks; w++) {
+      yearAndWeekList.push(`${y} uke ${w}`);
+    }
+  }
+
+  return yearAndWeekList;
+};
+
+export const OmgjoeringsprosentOverTime = ({ stats, title }: Props) => {
+  const colorMap = useColorMap();
+
+  const labels = useMemo(() => getYearAndWeekLabels(stats), [stats]);
+
+  const series = useMemo(
     () =>
-      stats.map((s) => {
-        const weekTotals = s.data.reduce((acc, stat) => {
+      stats.map(({ label, color, data }) => {
+        const weekTotals = data.reduce((acc, stat) => {
           if (stat.avsluttetAvSaksbehandler === null) {
             return acc;
           }
 
           const increment = isOmjoering(stat.utfallId) ? 1 : 0;
-
           const { weekNumber, year } = stat.avsluttetAvSaksbehandler;
-          const key = `${year}-${weekNumber}`;
+          const key = `${year} uke ${weekNumber}`;
           const existing = acc.get(key);
 
           if (typeof existing === 'undefined') {
-            acc.set(key, { count: increment, year, weekNumber, total: 1 });
+            acc.set(key, { count: increment, total: 1 });
           } else {
-            acc.set(key, { count: existing.count + increment, year, weekNumber, total: existing.total + 1 });
+            acc.set(key, { count: existing.count + increment, total: existing.total + 1 });
           }
 
           return acc;
-        }, new Map<string, { count: number; total: number; year: number; weekNumber: number }>());
+        }, new Map<string, { count: number; total: number }>());
 
-        const sortedEntries = [...weekTotals.entries()].sort((a, b) => {
-          const [, { year: aYear, weekNumber: aWeek }] = a;
-          const [, { year: bYear, weekNumber: bWeek }] = b;
-
-          if (aYear !== bYear) {
-            return aYear - bYear;
-          }
-
-          return aWeek - bWeek;
-        });
-
-        const labels = sortedEntries.map(([, { year, weekNumber }]) => `${year} uke ${weekNumber}`);
-
-        const data = sortedEntries.map((entry) => (entry[1].count / entry[1].total) * 100);
+        const c = colorMap[color];
 
         return {
-          label: s.label,
-          labels,
-          data,
-          backgroundColor: getColorFromTheme(s.color, theme),
-          borderColor: getColorFromTheme(s.color, theme),
+          name: label,
+          type: 'line' as const,
+          smooth: true,
+          connectNulls: true,
+          data: labels.map((l) => {
+            const entry = weekTotals.get(l);
+
+            return typeof entry === 'undefined' ? null : (entry.count / entry.total) * 100;
+          }),
+          itemStyle: { color: c },
+          lineStyle: { color: c, width: 2 },
         };
       }),
-    [stats, theme],
+    [stats, labels, colorMap],
   );
 
-  const [first] = datasets;
-  const labels = typeof first === 'undefined' ? [] : first.labels;
-
-  const data = { labels, datasets };
-
-  return <Line options={options} data={data} />;
+  return (
+    <div className="h-100">
+      <EChart
+        title={title}
+        option={{
+          grid: { bottom: 110 },
+          tooltip: { trigger: 'axis' },
+          legend: {},
+          xAxis: { type: 'category', data: labels, axisLabel: { rotate: 45 } },
+          yAxis: {
+            type: 'value',
+            name: 'Omgjøringsprosent',
+            nameLocation: 'middle',
+            nameGap: 40,
+            axisLabel: { formatter: '{value} %' },
+          },
+          series,
+        }}
+      />
+    </div>
+  );
 };

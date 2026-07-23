@@ -1,38 +1,24 @@
-import { useAppTheme } from '@app/app-theme';
 import {
   COMMMON_STACKED_BAR_CHART_SERIES_PROPS,
   COMMON_STACKED_BAR_CHART_PROPS,
 } from '@app/components/echarts/common-chart-props';
 import { EChart } from '@app/components/echarts/echarts';
-import {
-  getDatasets,
-  type ReasonIds,
-  type ReasonTexts,
-} from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/calculations/get-datasets';
-import type { DataSetV3 } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/types';
+import type { StackedBarPiece } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/calculations/mangelfull-details';
 import { LOCALE } from '@app/domain/intl';
 import { toPercent } from '@app/domain/number';
 import type { CallbackDataParams } from 'echarts/types/src/util/types.js';
 import type { ReactNode } from 'react';
-import { useMemo } from 'react';
 
 const UNIT = 'avvik';
 
 interface Props {
-  stats: DataSetV3[];
-  reasonIds: ReasonIds;
-  reasonTexts: ReasonTexts;
+  datasets: StackedBarPiece[];
+  labels: string[];
   title: string;
   helpText?: ReactNode;
 }
 
-export const Details = ({ stats, reasonIds, reasonTexts, title, helpText }: Props) => {
-  const theme = useAppTheme();
-  const { datasets, labels } = useMemo(
-    () => getDatasets(stats, reasonIds, reasonTexts, UNIT, theme),
-    [stats, theme, reasonIds, reasonTexts],
-  );
-
+export const MangelfullDetails = ({ datasets, labels, title, helpText }: Props) => {
   // Echarts renders category axis items bottom-to-top, so reverse the order here to match the top-to-bottom label order.
   const reversedLabels = labels.toReversed();
   const reversedDatasets = datasets.map((dataset) => ({
@@ -46,6 +32,7 @@ export const Details = ({ stats, reasonIds, reasonTexts, title, helpText }: Prop
     name: label,
     data,
     itemStyle: { color: backgroundColor },
+    labelLayout: { hideOverlap: true },
     label: {
       show: true,
       formatter: (params: CallbackDataParams) => {
@@ -63,14 +50,14 @@ export const Details = ({ stats, reasonIds, reasonTexts, title, helpText }: Prop
   }));
 
   return (
-    <div className="h-62.5">
+    <div className="h-100">
       <EChart
         title={title}
         helpText={helpText}
         option={{
           ...COMMON_STACKED_BAR_CHART_PROPS,
           legend: { show: false },
-          yAxis: { type: 'category', data: reversedLabels },
+          yAxis: { type: 'category', data: reversedLabels, axisLabel: { width: 300, overflow: 'break' } },
           xAxis: { type: 'value', name: 'Antall', nameLocation: 'middle', nameGap: 30 },
           series,
           tooltip: {

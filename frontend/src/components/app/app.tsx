@@ -4,7 +4,6 @@ import { StrictMode } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { Router } from '../routing/routes';
-import './chartjs-default-config';
 
 export const App = () => (
   <StrictMode>

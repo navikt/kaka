@@ -9,5 +9,5 @@ export const FullfoerteVurderingerTable = () => {
     saksbehandlerIdent: userData.ident,
   });
 
-  return <VurderingerTable data={data} testId="fullfoerte-vurderinger" />;
+  return <VurderingerTable data={data} />;
 };

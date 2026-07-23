@@ -72,6 +72,7 @@ export interface CommonChartProps {
   headerContent?: ReactNode;
   /** If true, numeric values are treated as decimals and formatted as percentages in the data table */
   isPercentage?: boolean;
+  hideTitle?: boolean;
 }
 
 interface EChartProps extends CommonChartProps {
@@ -86,6 +87,7 @@ export const EChart = ({
   helpText,
   headerContent,
   isPercentage,
+  hideTitle,
 }: EChartProps) => {
   const theme = useAppTheme();
   const fromDate = useFromDateQueryFilter();
@@ -178,48 +180,57 @@ export const EChart = ({
   return (
     <VStack height="100%" width="100%" gap="space-16">
       <VStack align="center" position="relative">
-        <HStack gap="space-8" align="center" paddingInline="space-24">
-          <Heading size="small" level="1" ref={titleRef}>
-            {title}
-          </Heading>
+        <HStack gap="space-8" paddingInline="space-24" justify="center">
+          <Heading size="small" align="center" level="1" ref={titleRef} className="flex items-start gap-1">
+            <span>
+              {hideTitle === true ? null : title}
 
-          {helpText !== undefined && <HelpText>{helpText}</HelpText>}
+              <span className="ml-2 inline-flex gap-2">
+                {helpText !== undefined && (
+                  <span className="[&_.aksel-help-text]:inline">
+                    <HelpText>{helpText}</HelpText>
+                  </span>
+                )}
+
+                <Tooltip content="Kopier som bilde" describesChild>
+                  <Button
+                    variant="tertiary-neutral"
+                    size="xsmall"
+                    onClick={() => copyChartAsPng(eChartsRef.current, titleRef.current, descriptionRef.current)}
+                    icon={<FilesIcon aria-hidden />}
+                  />
+                </Tooltip>
+
+                <Tooltip content="Last ned som bilde" describesChild>
+                  <Button
+                    variant="tertiary-neutral"
+                    size="xsmall"
+                    onClick={() =>
+                      downloadChartAsPng(eChartsRef.current, titleRef.current, descriptionRef.current, {
+                        fromDate,
+                        toDate,
+                      })
+                    }
+                    icon={<DownloadIcon aria-hidden />}
+                  />
+                </Tooltip>
+
+                <Tooltip content="Vis data som tabell" describesChild>
+                  <Button
+                    variant="tertiary-neutral"
+                    size="xsmall"
+                    onClick={() => modalRef.current?.showModal()}
+                    icon={<TableIcon aria-hidden />}
+                  />
+                </Tooltip>
+              </span>
+            </span>
+          </Heading>
         </HStack>
 
         <BodyLong size="small" ref={descriptionRef}>
           {description}
         </BodyLong>
-
-        <HStack gap="space-4" position="absolute" top="space-0" right="space-0">
-          <Tooltip content="Kopier som bilde" describesChild>
-            <Button
-              variant="tertiary-neutral"
-              size="xsmall"
-              onClick={() => copyChartAsPng(eChartsRef.current, titleRef.current, descriptionRef.current)}
-              icon={<FilesIcon aria-hidden />}
-            />
-          </Tooltip>
-
-          <Tooltip content="Last ned som bilde" describesChild>
-            <Button
-              variant="tertiary-neutral"
-              size="xsmall"
-              onClick={() =>
-                downloadChartAsPng(eChartsRef.current, titleRef.current, descriptionRef.current, { fromDate, toDate })
-              }
-              icon={<DownloadIcon aria-hidden />}
-            />
-          </Tooltip>
-
-          <Tooltip content="Vis data som tabell" describesChild>
-            <Button
-              variant="tertiary-neutral"
-              size="xsmall"
-              onClick={() => modalRef.current?.showModal()}
-              icon={<TableIcon aria-hidden />}
-            />
-          </Tooltip>
-        </HStack>
 
         {headerContent}
       </VStack>

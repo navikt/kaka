@@ -1,6 +1,7 @@
 const intFormatter = new Intl.NumberFormat('nb-NO', { maximumFractionDigits: 0 });
 const decimalFormatter = new Intl.NumberFormat('nb-NO', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
+/** @public */
 export const formatInt = intFormatter.format;
 export const formatDecimal = decimalFormatter.format;
 export const formatPercent = (value: number, decimals = 1) =>
