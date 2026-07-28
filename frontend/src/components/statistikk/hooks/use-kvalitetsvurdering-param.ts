@@ -1,5 +1,5 @@
 import type { RadiovalgField } from '@app/types/statistics/v1';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { QueryParams } from '../../filters/filter-query-params';
 import { isAllowedKey } from '../charts/kvalitetsvurderinger/kvalitetsvurdering-options';
 

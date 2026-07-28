@@ -1,5 +1,5 @@
 import { Select } from '@navikt/ds-react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { NONE_SELECTED, NoneSelected } from '../../none-selected';
 import { getDefaultColor } from '../../statistikk/comparison/get-default-color';
 import { FORMATTED_NOW, FORMATTED_START_OF_MONTH } from '../date-presets/constants';
