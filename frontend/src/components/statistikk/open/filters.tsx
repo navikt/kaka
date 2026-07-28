@@ -6,7 +6,7 @@ import { KVALITETSVURDERING_LATEST } from '@app/types/saksdata';
 import { ArrowUndoIcon } from '@navikt/aksel-icons';
 import { Button, Label } from '@navikt/ds-react';
 import { format, parse } from 'date-fns';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
 import { DateContainer, FilterPanelContainer, StyledHr } from '../../filters/common/styled-components';
 import {

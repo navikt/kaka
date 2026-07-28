@@ -4,7 +4,7 @@ import {
 } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
 import { KVALITETSVURDERING_LATEST, KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { isSakstype, type SakstypeEnum } from '@app/types/sakstype';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { QueryParams } from '../../filters/filter-query-params';
 import { HjemlerModeFilter, TilbakekrevingEnum } from '../types';
 

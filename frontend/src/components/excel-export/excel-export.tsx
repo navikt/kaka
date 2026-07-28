@@ -3,7 +3,7 @@ import type { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { Role } from '@app/types/user';
 import { DownloadIcon } from '@navikt/aksel-icons';
 import { Button, Heading } from '@navikt/ds-react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 interface Props {
   version: KvalitetsvurderingVersion;

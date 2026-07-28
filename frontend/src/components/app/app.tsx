@@ -2,7 +2,7 @@ import { StaticDataLoader } from '@app/components/app/static-data-context';
 import { reduxStore } from '@app/redux/configure-store';
 import { StrictMode } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 import { Router } from '../routing/routes';
 import './chartjs-default-config';
 

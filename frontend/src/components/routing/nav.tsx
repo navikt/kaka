@@ -15,7 +15,7 @@ import {
   PieChartIcon,
   TasklistIcon,
 } from '@navikt/aksel-icons';
-import { NavLink, type NavLinkProps } from 'react-router-dom';
+import { NavLink, type NavLinkProps } from 'react-router';
 import { styled } from 'styled-components';
 
 export const Nav = () => {

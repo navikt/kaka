@@ -10,7 +10,7 @@ import { useUser } from '@app/simple-api-state/use-user';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { Button, Select } from '@navikt/ds-react';
 import { format } from 'date-fns';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { FilterPanelContainer, StyledHr } from '../../filters/common/styled-components';
 import {
   FORMATTED_END_OF_LAST_MONTH,

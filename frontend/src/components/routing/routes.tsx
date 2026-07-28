@@ -13,7 +13,7 @@ import { StatistikkTotalPage } from '@app/pages/statistikk/total';
 import { TilbakemeldingerPage } from '@app/pages/tilbakemeldinger';
 import { Theme, VStack } from '@navikt/ds-react';
 import type { JSX } from 'react';
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from 'react-router';
 
 export const Router = () => {
   const access = useUserAccess();
