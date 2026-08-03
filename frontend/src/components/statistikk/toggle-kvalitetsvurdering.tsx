@@ -1,13 +1,13 @@
+import type { RadiovalgField } from '@app/types/statistics/v1';
 import { ToggleGroup } from '@navikt/ds-react';
 import { styled } from 'styled-components';
-import type { KvalitetsvurderingProps } from './charts/kvalitetsvurderinger/kvalitetsvurdering';
 import { isAllowedKey, KVALITETSVURDERING_OPTIONS } from './charts/kvalitetsvurderinger/kvalitetsvurdering-options';
 import { useKvalitetsvurderingParam } from './hooks/use-kvalitetsvurdering-param';
 
 export const ToggleKvalitetsvurdering = () => {
   const [field, setField] = useKvalitetsvurderingParam();
 
-  const setKvalitetsvurdering = (kvalitetsvurderingId: KvalitetsvurderingProps['field']) => {
+  const setKvalitetsvurdering = (kvalitetsvurderingId: RadiovalgField) => {
     setField(kvalitetsvurderingId);
   };
 

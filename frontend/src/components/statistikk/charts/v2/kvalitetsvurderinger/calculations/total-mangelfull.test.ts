@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test';
+import { AppTheme } from '@app/app-theme';
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
-import { type Dataset, useData } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/mangelfull';
+import { getTotalMangelfullDatasets } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/mangelfull';
 import { Radiovalg, RadiovalgExtended } from '@app/types/kvalitetsvurdering/radio';
 
 const BRA_VURDERING = {
@@ -23,12 +24,11 @@ describe('getTotalMangelfullDatasets', () => {
 
     const stats = [{ label: '', data: [BRA_VURDERING, MANGELFULL_VURDERING] }];
 
-    const result = useData(stats);
-    expect(result.datasets).toHaveLength(1);
-    const [onlyDataset] = result.datasets;
-    const { data, counts } = getCountsAndPercentages(onlyDataset);
+    const result = getTotalMangelfullDatasets(stats, AppTheme.LIGHT);
+    expect(result.values).toHaveLength(4);
+    const { percentages, counts } = getCountsAndPercentages(result.values);
 
-    const [klageforberedelsenPercentage, utredningenPercentage, vedtaketPercentage, brukAvRolPercentage] = data;
+    const [klageforberedelsenPercentage, utredningenPercentage, vedtaketPercentage, brukAvRolPercentage] = percentages;
     const [klageforberedelsenCount, utredningenCount, vedtaketCount, brukAvRolCount] = counts;
 
     expect(klageforberedelsenPercentage).toBe(0.5);
@@ -59,12 +59,11 @@ describe('getTotalMangelfullDatasets', () => {
         ],
       },
     ];
-    const result = useData(stats);
-    expect(result.datasets).toHaveLength(1);
-    const [onlyDataset] = result.datasets;
-    const { data, counts } = getCountsAndPercentages(onlyDataset);
+    const result = getTotalMangelfullDatasets(stats, AppTheme.LIGHT);
+    expect(result.values).toHaveLength(4);
+    const { percentages, counts } = getCountsAndPercentages(result.values);
 
-    const [klageforberedelsenPercentage, utredningenPercentage, vedtaketPercentage, brukAvRolPercentage] = data;
+    const [klageforberedelsenPercentage, utredningenPercentage, vedtaketPercentage, brukAvRolPercentage] = percentages;
     const [klageforberedelsenCount, utredningenCount, vedtaketCount, brukAvRolCount] = counts;
 
     expect(klageforberedelsenPercentage).toBe(0);
@@ -98,12 +97,11 @@ describe('getTotalMangelfullDatasets', () => {
       },
     ];
 
-    const result = useData(stats);
-    expect(result.datasets).toHaveLength(1);
-    const [onlyDataset] = result.datasets;
-    const { data, counts } = getCountsAndPercentages(onlyDataset);
+    const result = getTotalMangelfullDatasets(stats, AppTheme.LIGHT);
+    expect(result.values).toHaveLength(4);
+    const { percentages, counts } = getCountsAndPercentages(result.values);
 
-    const [klageforberedelsenPercentage, utredningenPercentage, vedtaketPercentage, brukAvRolPercentage] = data;
+    const [klageforberedelsenPercentage, utredningenPercentage, vedtaketPercentage, brukAvRolPercentage] = percentages;
     const [klageforberedelsenCount, utredningenCount, vedtaketCount, brukAvRolCount] = counts;
 
     expect(klageforberedelsenPercentage).toBe(0.25);
@@ -120,29 +118,25 @@ describe('getTotalMangelfullDatasets', () => {
 
 type FourNumbers = [number, number, number, number];
 
-const getCountsAndPercentages = (dataset: Dataset | undefined): { counts: FourNumbers; data: FourNumbers } => {
-  if (dataset === undefined) {
-    throw new Error('dataset is undefined');
-  }
-  const { data, counts } = dataset;
-  const [klageforberedelsenPercentage, utredningenPercentage, vedtaketPercentage, brukAvRolPercentage] = data;
-  const [klageforberedelsenCount, utredningenCount, vedtaketCount, brukAvRolCount] = counts;
+interface ValueWithCount {
+  value: number;
+  count: number;
+}
+
+const getCountsAndPercentages = (values: ValueWithCount[]): { counts: FourNumbers; percentages: FourNumbers } => {
+  const [klageforberedelsen, utredningen, vedtaket, brukAvRol] = values.toReversed();
 
   if (
-    klageforberedelsenPercentage === undefined ||
-    utredningenPercentage === undefined ||
-    vedtaketPercentage === undefined ||
-    brukAvRolPercentage === undefined ||
-    klageforberedelsenCount === undefined ||
-    utredningenCount === undefined ||
-    vedtaketCount === undefined ||
-    brukAvRolCount === undefined
+    klageforberedelsen === undefined ||
+    utredningen === undefined ||
+    vedtaket === undefined ||
+    brukAvRol === undefined
   ) {
     throw new Error('One of the values is undefined');
   }
 
   return {
-    data: [klageforberedelsenPercentage, utredningenPercentage, vedtaketPercentage, brukAvRolPercentage],
-    counts: [klageforberedelsenCount, utredningenCount, vedtaketCount, brukAvRolCount],
+    percentages: [klageforberedelsen.value, utredningen.value, vedtaket.value, brukAvRol.value],
+    counts: [klageforberedelsen.count, utredningen.count, vedtaket.count, brukAvRol.count],
   };
 };

@@ -31,23 +31,3 @@ export const FilterSection = styled.div`
     overflow-y: hidden;
   }
 `;
-
-const StyledContentArea = styled.div`
-  padding: var(--ax-space-16);
-  overflow-y: scroll;
-  flex-grow: 1;
-  position: relative;
-
-  @media (max-width: ${BREAK_POINT}px) {
-    margin-left: 0;
-    overflow-y: hidden;
-    height: auto;
-    width: 100%;
-  }
-`;
-
-export const ContentArea = ({ children }: { children: React.ReactNode }) => (
-  <StyledContentArea>
-    <div className="relative flex flex-wrap gap-4">{children}</div>
-  </StyledContentArea>
-);

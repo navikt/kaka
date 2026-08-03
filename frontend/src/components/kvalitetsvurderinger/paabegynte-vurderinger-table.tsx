@@ -9,5 +9,5 @@ export const PaabegynteVurderingerTable = () => {
     saksbehandlerIdent: userData.ident,
   });
 
-  return <VurderingerTable data={data} testId="paabegynte-vurderinger" />;
+  return <VurderingerTable data={data} />;
 };

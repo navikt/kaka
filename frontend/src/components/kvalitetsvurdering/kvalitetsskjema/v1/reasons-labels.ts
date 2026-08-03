@@ -134,12 +134,3 @@ export const utredningenReasons: ReasonLabel[] = [
       'Mangelfull veiledning i saken slik at bruker ikke får fremmet krav, krever feil ytelse eller ikke forstår hvilke opplysninger hen skal levere for at NAV skal kunne behandle saken.',
   },
 ];
-
-const ALL_REASONS = [
-  ...klageforberedelsenReasons,
-  ...brukAvRaadgivendeLegeReasons,
-  ...vedtaketReasons,
-  ...utredningenReasons,
-];
-
-export const getReasonLabel = (key: string): string => ALL_REASONS.find((reason) => reason.id === key)?.label ?? key;

@@ -7,7 +7,6 @@ import {
   MAIN_REASON_IDS,
   REASON_TO_SUBREASONS,
 } from '@app/components/statistikk/types/kvalitetsvurdering';
-import type { ChartData } from 'chart.js';
 import type { DataSet } from '../types';
 import { calculateReasons } from './helpers/reasons';
 
@@ -65,11 +64,11 @@ import { calculateReasons } from './helpers/reasons';
 
 const { Klageforberedelsen, BrukAvRaadgivendeLege, Utredningen, Vedtaket } = MainReason;
 
-type ReturnType = ChartData<'bar', number[], string>;
-
-interface StackedBarPieceCount {
+export interface StackedBarPiece {
   label: string;
   percentages: number[];
+  data: number[];
+  backgroundColor: string;
 }
 
 interface Stack {
@@ -77,8 +76,6 @@ interface Stack {
   data: Record<string, [number, number]>;
   label: string;
 }
-
-export type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
 
 export const getMangelfullDetailsDatasets = (
   stats: DataSet[],
@@ -119,7 +116,6 @@ export const getMangelfullDetailsDatasets = (
         percentages: stacks.map(({ data }) => (data[reasonId]?.[1] ?? 0) * 100),
         data: stacks.map(({ data }) => data[reasonId]?.[0] ?? 0),
         backgroundColor,
-        barThickness: BAR_THICKNESS,
       };
     }),
   ).filter((dataset) => dataset.data.some((v) => v !== 0)); // Remove empty datasets.
@@ -136,5 +132,3 @@ export const getMangelfullDetailsDatasets = (
 
   return { datasets, labels };
 };
-
-export const BAR_THICKNESS = 50;

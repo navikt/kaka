@@ -1,9 +1,8 @@
 import { useCreateSaksdataMutation } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';
 import { DocPencilIcon } from '@navikt/aksel-icons';
-import { Button } from '@navikt/ds-react';
+import { Button, Heading } from '@navikt/ds-react';
 import { useNavigate } from 'react-router';
-import { styled } from 'styled-components';
 import { FullfoerteVurderingerTable } from './fullfoerte-vurderinger-table';
 import { PaabegynteVurderingerTable } from './paabegynte-vurderinger-table';
 
@@ -21,33 +20,29 @@ export const Kvalitetsvurderinger = () => {
   };
 
   return (
-    <StyledKvalitetsvurderinger>
+    <div className="flex flex-col gap-8 overflow-y-auto p-8">
       <Button
         onClick={() => createNewSaksdata()}
         data-testid="new-kvalitetsvurdering-button"
         icon={<DocPencilIcon aria-hidden />}
+        className="w-fit"
       >
         Ny kvalitetsvurdering
       </Button>
 
-      <SubHeader>Påbegynte vurderinger</SubHeader>
-      <PaabegynteVurderingerTable />
+      <section aria-labelledby="paabegynte-vurderinger-heading">
+        <Heading size="small" id="paabegynte-vurderinger-heading">
+          Påbegynte vurderinger
+        </Heading>
+        <PaabegynteVurderingerTable />
+      </section>
 
-      <SubHeader>Fullførte vurderinger siste 7 dager</SubHeader>
-      <FullfoerteVurderingerTable />
-    </StyledKvalitetsvurderinger>
+      <section aria-labelledby="fullfoerte-vurderinger-heading">
+        <Heading size="small" id="fullfoerte-vurderinger-heading">
+          Fullførte vurderinger siste 7 dager
+        </Heading>
+        <FullfoerteVurderingerTable />
+      </section>
+    </div>
   );
 };
-
-const SubHeader = styled.h2`
-  font-size: 20px;
-  font-weight: 600;
-  margin-top: 3em;
-  margin-bottom: 0;
-`;
-
-const StyledKvalitetsvurderinger = styled.section`
-  padding: var(--ax-space-24);
-  width: 100%;
-  overflow-y: auto;
-`;
