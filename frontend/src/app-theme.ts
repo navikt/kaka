@@ -93,9 +93,7 @@ const getInitialTheme = (): AppTheme => {
   return USER_TO_APP_THEME[userTheme];
 };
 
-export const appThemeStore = new Observable<AppTheme>(getInitialTheme());
-
-export const getAppTheme = () => appThemeStore.get();
+const appThemeStore = new Observable<AppTheme>(getInitialTheme());
 
 userThemeStore.subscribe((userTheme) => {
   appThemeStore.set(userTheme === UserTheme.SYSTEM ? getSystemTheme() : USER_TO_APP_THEME[userTheme]);

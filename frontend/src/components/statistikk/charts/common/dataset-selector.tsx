@@ -13,7 +13,7 @@ export const DatasetSelector = ({ datasets, datasetIndexString, onChange }: Data
 
   if (datasets.length < 8) {
     return (
-      <ToggleGroup size="small" value={datasetIndexString} onChange={onChange}>
+      <ToggleGroup size="small" value={datasetIndexString} onChange={onChange} className="self-center">
         {datasets.map(({ label }, index) => (
           <ToggleGroup.Item key={label} value={index.toString(10)}>
             {label}
@@ -30,6 +30,7 @@ export const DatasetSelector = ({ datasets, datasetIndexString, onChange }: Data
       hideLabel
       value={datasetIndexString}
       onChange={({ target }) => onChange(target.value)}
+      className="self-center"
     >
       {datasets.map(({ label }, index) => (
         <option key={label} value={index.toString(10)}>

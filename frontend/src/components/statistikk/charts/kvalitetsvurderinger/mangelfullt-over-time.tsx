@@ -1,96 +1,97 @@
 import { useAppTheme } from '@app/app-theme';
+import { EChart } from '@app/components/echarts/echarts';
+import { percent } from '@app/components/echarts/format';
 import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
 import { ColorToken } from '@app/components/statistikk/colors/token-name';
-import { isNotUndefined } from '@app/functions/is-not';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import type { IKvalitetsvurderingBooleans } from '@app/types/kvalitetsvurdering/v1';
 import type { IStatisticVurderingV1, RadiovalgField } from '@app/types/statistics/v1';
-import type { ChartOptions, TooltipCallbacks } from 'chart.js';
+import type { CallbackDataParams } from 'echarts/types/src/util/types.js';
 import { useMemo } from 'react';
-import { Line } from 'react-chartjs-2';
-import { getReasonLabel, type ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
+import type { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
 import { useKvalitetsvurderingParam } from '../../hooks/use-kvalitetsvurdering-param';
 import type { StatisticsPropsV1 } from '../../types';
 import { KVALITETSVURDERING_OPTIONS } from './kvalitetsvurdering-options';
 
-type TooltipCallback = TooltipCallbacks<'line'>['label'];
-
-const useOptions = (tooltipCallback?: TooltipCallback): ChartOptions<'line'> => ({
-  aspectRatio: 5,
-  scales: {
-    y: {
-      min: 0,
-      max: 100,
-      title: { display: true, text: 'Antall' },
-      ticks: {
-        callback: (label) => `${label} %`,
-        stepSize: 1,
-      },
-    },
-  },
-  plugins: {
-    tooltip: { callbacks: { label: tooltipCallback } },
-    legend: { position: 'left', maxWidth: 500 },
-  },
-});
-
 const COLLATOR = new Intl.Collator(undefined, { numeric: true });
 
-export const MangelfulltOverTime = ({ stats }: StatisticsPropsV1) => {
+interface Props extends StatisticsPropsV1 {
+  title: string;
+}
+
+export const MangelfulltOverTime = ({ stats, title }: Props) => {
   const [field] = useKvalitetsvurderingParam();
   const theme = useAppTheme();
 
   const { relevantReasons } = KVALITETSVURDERING_OPTIONS[field];
 
   const mangelfulleSaker = useMangelfulleSaker(stats, field, relevantReasons);
-  const mangelfulleSakerArray = useMemo(() => Array.from(mangelfulleSaker.values()), [mangelfulleSaker]);
 
-  const tooltipCallback: TooltipCallback = ({ parsed: { y }, dataIndex, datasetIndex, label }) => {
-    const data = mangelfulleSakerArray[dataIndex];
+  const { labels, series, datasets, totals } = useMemo(() => {
+    const labels = Array.from(mangelfulleSaker.keys());
+    const periods = Array.from(mangelfulleSaker.values());
 
-    if (y === null) {
-      return `${label}: Ukjent`;
-    }
+    const datasets = relevantReasons.map(({ id, label }, i) => {
+      const color = getColorFromTheme(getColor(i) ?? ColorToken.Beige500, theme);
 
-    if (typeof data === 'undefined') {
-      return `${label}: ${y}%`;
-    }
+      return {
+        name: label,
+        data: periods.map((period) => period.get(id)?.percentage ?? null),
+        quantities: periods.map((period) => period.get(id)?.quantity ?? 0),
+        color,
+      };
+    });
 
-    const dataSet = Array.from(data.entries())[datasetIndex];
+    const totals = periods.map((period) => Array.from(period.values()).reduce((acc, stat) => acc + stat.quantity, 0));
 
-    if (typeof dataSet === 'undefined') {
-      return `${label}: ${y}%`;
-    }
+    const series = datasets.map(({ name, data, color }) => ({
+      name,
+      type: 'line' as const,
+      smooth: true,
+      connectNulls: true,
+      data,
+      itemStyle: { color },
+      lineStyle: { color, width: 2 },
+    }));
 
-    const [reasonId, { quantity }] = dataSet;
-    const reasonName = getReasonLabel(reasonId);
+    return { labels, series, datasets, totals };
+  }, [mangelfulleSaker, relevantReasons, theme]);
 
-    return `${reasonName}: ${Math.round(y * 100) / 100} % (${quantity})`;
-  };
+  return (
+    <div className="h-100">
+      <EChart
+        title={title}
+        option={{
+          grid: { left: 350 },
+          legend: { orient: 'vertical', left: 0, top: 'middle', textStyle: { width: 240, overflow: 'break' } },
+          tooltip: {
+            trigger: 'axis',
+            formatter: (paramsInput: CallbackDataParams | CallbackDataParams[]) => {
+              const list = Array.isArray(paramsInput) ? paramsInput : [paramsInput];
 
-  const options = useOptions(tooltipCallback);
+              return list
+                .map((param) => {
+                  const value = typeof param.value === 'number' ? param.value : null;
 
-  const labels = Array.from(mangelfulleSaker.keys());
-  const datasets = useMemo(
-    () => [
-      ...relevantReasons.map(({ id, label }, i) => {
-        const color = getColorFromTheme(getColor(i) ?? ColorToken.Beige500, theme);
+                  if (value === null) {
+                    return `${param.marker ?? ''}${param.seriesName ?? 'Ukjent'}: Ukjent`;
+                  }
 
-        return {
-          label,
-          data: Array.from(mangelfulleSaker.values())
-            .map((dataValues) => dataValues.get(id)?.percentage)
-            .filter(isNotUndefined),
-          backgroundColor: color,
-          borderColor: color,
-          borderWidth: 2,
-        };
-      }),
-    ],
-    [relevantReasons, mangelfulleSaker, theme],
+                  const quantity = datasets[param.seriesIndex ?? -1]?.quantities[param.dataIndex ?? -1] ?? 0;
+                  const total = totals[param.dataIndex ?? -1] ?? 0;
+
+                  return `${param.marker ?? ''}${param.seriesName ?? 'Ukjent'}: ${percent(quantity, total)} (${quantity})`;
+                })
+                .join('<br/>');
+            },
+          },
+          xAxis: { type: 'category', data: labels },
+          yAxis: { type: 'value', min: 0, max: 100, axisLabel: { formatter: '{value} %' } },
+          series,
+        }}
+      />
+    </div>
   );
-
-  return <Line options={options} data={{ datasets, labels }} />;
 };
 
 const COLORS = [

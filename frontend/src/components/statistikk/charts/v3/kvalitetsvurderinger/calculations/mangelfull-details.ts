@@ -1,5 +1,6 @@
 import type { AppTheme } from '@app/app-theme';
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/data';
+import type { StackedBarPiece } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/calculations/mangelfull-details';
 import { calculateReasons } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/calculations/helpers/reasons';
 import type { DataSetV3 } from '@app/components/statistikk/charts/v3/kvalitetsvurderinger/types';
 import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
@@ -10,24 +11,14 @@ import {
   REASON_TO_SUBREASONS,
 } from '@app/components/statistikk/types/v3/kvalitetsvurdering';
 import type { SakstypeEnum } from '@app/types/sakstype';
-import type { ChartData } from 'chart.js';
 
 const { Saksbehandlingsreglene, Særregelverket, Trygdemedisin } = MainReason;
-
-type ReturnType = ChartData<'bar', number[], string>;
-
-interface StackedBarPieceCount {
-  label: string;
-  percentages: number[];
-}
 
 interface Stack {
   mainReason: MainReason;
   data: Record<string, [number, number]>;
   label: string;
 }
-
-type StackedBarPiece = StackedBarPieceCount & ReturnType['datasets'][0];
 
 export const getMangelfullDetailsDatasets = (
   stats: DataSetV3[],
@@ -69,7 +60,6 @@ export const getMangelfullDetailsDatasets = (
         percentages: stacks.map(({ data }) => (data[reasonId]?.[1] ?? 0) * 100),
         data: stacks.map(({ data }) => data[reasonId]?.[0] ?? 0),
         backgroundColor,
-        barThickness: BAR_THICKNESS,
       };
     }),
   ).filter((dataset) => dataset.data.some((v) => v !== 0)); // Remove empty datasets.
@@ -86,5 +76,3 @@ export const getMangelfullDetailsDatasets = (
 
   return { datasets, labels };
 };
-
-const BAR_THICKNESS = 50;

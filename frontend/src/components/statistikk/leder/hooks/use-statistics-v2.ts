@@ -6,20 +6,20 @@ import type { IFullStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { useCallback, useMemo } from 'react';
 import { QueryParams } from '../../../filters/filter-query-params';
 import {
-  useFromDateQueryFilter,
+  useFromMonthQueryFilter,
   useHjemlerModeFilter,
   useQueryFilters,
   useSakstypeFilter,
   useTilbakekrevingQueryFilter,
-  useToDateQueryFilter,
+  useToMonthQueryFilter,
 } from '../../../filters/hooks/use-query-filter';
 import { HjemlerModeFilter, TilbakekrevingEnum } from '../../../filters/types';
 import { tilbakekrevingFilter } from '../../filters/tilbakekreving';
 
 const useStatistics = () => {
   const userData = useUser();
-  const fromMonth = useFromDateQueryFilter();
-  const toMonth = useToDateQueryFilter();
+  const fromMonth = useFromMonthQueryFilter();
+  const toMonth = useToMonthQueryFilter();
   const saksbehandlere = useQueryFilters(QueryParams.SAKSBEHANDLERE);
 
   return useStatisticsManager({ fromMonth, toMonth, saksbehandlere, enhetId: userData.ansattEnhet.id });

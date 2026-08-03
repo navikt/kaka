@@ -1,14 +1,12 @@
-import { CardTitleWithExplainer } from '@app/components/statistikk/charts/kvalitetsvurderinger/explainer';
 import { TotalProcessed } from '@app/components/statistikk/key-stats/kvalitetsvurderte-saker';
 import { OMGJORT_HELP_TEXT_V1_V2 } from '@app/components/statistikk/texts';
 import { TypeWarning } from '@app/components/statistikk/type-warning';
-import { CardTitle, FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
-import { ContentArea } from '@app/styled-components/filters-and-content';
+import { ChartsWrapper, StatisticsWrapper } from '@app/components/statistikk/wrappers/wrappers';
+import { FullWidthStickyContainer, StatsContainer } from '@app/styled-components/cards';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import type { IStatisticVurderingV2 } from '@app/types/statistics/v2';
 import { VurderingerTable } from '../../kvalitetsvurderinger/table';
 import { LoadingOverlay } from '../../loader/overlay';
-import { CardSize, DynamicCard } from '../../statistikk/card/card';
 import { Hjemler } from '../../statistikk/charts/hjemler';
 import { Omgjoeringsprosent } from '../../statistikk/charts/omgjoeringsprosent';
 import { UtfallGraph } from '../../statistikk/charts/utfall-graph';
@@ -16,6 +14,7 @@ import { KvalitetsvurderingerV2 } from '../../statistikk/charts/v2/kvalitetsvurd
 import { useRelevantStatistics } from '../../statistikk/hooks/use-relevant-statistics';
 import { Finished } from '../../statistikk/key-stats/finished';
 import { Omgjort } from '../../statistikk/key-stats/omgjort';
+import { Card } from '../../statistikk/wrappers/wrappers';
 import type { TilbakemeldingerCommonProps } from '../types';
 
 interface Props extends TilbakemeldingerCommonProps {
@@ -34,7 +33,7 @@ export const ContentV2 = ({ mine, rest, statsIsLoading, saksdata, saksdataIsLoad
   ];
 
   return (
-    <ContentArea>
+    <StatisticsWrapper>
       <LoadingOverlay isLoading={saksdataIsLoading || statsIsLoading} />
 
       <FullWidthStickyContainer>
@@ -45,29 +44,25 @@ export const ContentV2 = ({ mine, rest, statsIsLoading, saksdata, saksdataIsLoad
         </StatsContainer>
       </FullWidthStickyContainer>
 
-      <DynamicCard size={CardSize.LARGE}>
-        <CardTitleWithExplainer helpText={OMGJORT_HELP_TEXT_V1_V2} placement="bottom">
-          Vår enhets omgjøringsprosent
-        </CardTitleWithExplainer>
-        <Omgjoeringsprosent stats={datasets} version={KvalitetsvurderingVersion.V2} />
-      </DynamicCard>
+      <ChartsWrapper>
+        <Card rowSpan={2} colSpan={2}>
+          <Omgjoeringsprosent
+            stats={datasets}
+            version={KvalitetsvurderingVersion.V2}
+            title="Vår enhets omgjøringsprosent"
+            helpText={OMGJORT_HELP_TEXT_V1_V2}
+          />
+        </Card>
 
-      <TypeWarning />
-      <KvalitetsvurderingerV2 datasets={datasets} />
+        <TypeWarning />
+        <KvalitetsvurderingerV2 datasets={datasets} />
 
-      <DynamicCard size={CardSize.LARGE}>
-        <VurderingerTable data={saksdata} testId="fullfoerte-vurderinger" />
-      </DynamicCard>
-
-      <DynamicCard size={CardSize.MEDIUM}>
-        <CardTitle>Utfall</CardTitle>
-        <UtfallGraph stats={mine} />
-      </DynamicCard>
-
-      <DynamicCard size={CardSize.MEDIUM}>
-        <CardTitle>Hjemler</CardTitle>
-        <Hjemler stats={relevantMine} />
-      </DynamicCard>
-    </ContentArea>
+        <Card>
+          <VurderingerTable data={saksdata} />
+        </Card>
+        <UtfallGraph stats={mine} title="Utfall" />
+        <Hjemler stats={relevantMine} title="Hjemler" />
+      </ChartsWrapper>
+    </StatisticsWrapper>
   );
 };

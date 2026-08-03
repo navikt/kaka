@@ -8,19 +8,19 @@ import {
   VedtaketSaksdatahjemlerList,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
 import { DatasetSelector } from '@app/components/statistikk/charts/common/dataset-selector';
+import { Kvalitetsvurderinghjemler } from '@app/components/statistikk/charts/common/hjemler';
+import { MangelfullDetails } from '@app/components/statistikk/charts/common/mangelfull-details';
 import { NoKvalitetsvurderingWarning } from '@app/components/statistikk/charts/common/no-kvalitetsvurdering-warning';
+import { getIkkeKonkretBegrunnelseDatasets } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/calculations/ikke-konkret-begrunnelse';
 import { getMangelfullDetailsDatasets } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/calculations/mangelfull-details';
+import { getSakensDokumenterDatasets } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/calculations/sakens-dokumenter';
+import { getUtredningenUnderKlageforberedelsenDatasets } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/calculations/utredningen-under-klageforberedelsen';
 import { TotalMangelfull } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/total-mangelfull';
 import type { DataSet } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/types';
-import { UtredningenUnderKlageforberedelsen } from '@app/components/statistikk/charts/v2/kvalitetsvurderinger/utredningen-under-klageforberedelsen';
 import { getColorFromTheme } from '@app/components/statistikk/colors/get-color';
 import { useCanShowKvalitetsvurderingStats } from '@app/components/statistikk/hooks/use-can-show-kvalitetsvurdering-stats';
 import { BRUK_AV_RAADGIVENDE_LEGE_TEXTS } from '@app/components/statistikk/types/bruk-av-raadgivende-lege';
-import {
-  KLAGEFORBEREDELSEN_TEXTS,
-  SAKENS_DOKUMENTER_TEXTS,
-  UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS,
-} from '@app/components/statistikk/types/klageforberedelsen';
+import { KLAGEFORBEREDELSEN_TEXTS, SAKENS_DOKUMENTER_TEXTS } from '@app/components/statistikk/types/klageforberedelsen';
 import { KVALITETSVURDERING_HELP_TEXTS } from '@app/components/statistikk/types/kvalitetsvurdering';
 import { UTREDNINGEN_TEXTS } from '@app/components/statistikk/types/utredningen';
 import {
@@ -28,24 +28,21 @@ import {
   type StatisticsVedtaketHjemlerListBoolean,
   VEDTAKET_TEXTS,
 } from '@app/components/statistikk/types/vedtaket';
-import { Heading, HelpText, HStack, Tag } from '@navikt/ds-react';
-import type { ReactNode } from 'react';
-import { styled } from 'styled-components';
+import { Heading, HGrid, Tag, VStack } from '@navikt/ds-react';
+import { useMemo } from 'react';
 import { QueryParams } from '../../../../filters/filter-query-params';
-import { CardSize, DynamicCard } from '../../../card/card';
 import { useQueryParam } from '../../../hooks/use-query-param';
+import { Card } from '../../../wrappers/wrappers';
 import { HelpTexts } from '../../common/help-texts';
-import { Hjemler } from '../../common/hjemler';
-import { MangelfullDetails } from '../../common/mangelfull-details';
 import { CardTitleWithExplainer } from '../../kvalitetsvurderinger/explainer';
-import { ChartContainer, ChartTitle } from '../../styled-components';
-import { IkkeKonkretBegrunnelse } from './ikke-konkret-begrunnelse';
 import { Mangelfull } from './mangelfull';
-import { SakensDokumenter } from './sakens-dokumenter';
 
 interface Props {
   datasets: DataSet[];
 }
+
+const EXPLANATION_HELP_TEXT =
+  'En sak kan ha ett eller flere avvik. Prosenten er regnet ut fra totalt antall kvalitetsvurderte saker.';
 
 const MAIN_HELP_TEXTS = [
   {
@@ -80,6 +77,23 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
 
   const canShow = useCanShowKvalitetsvurderingStats();
 
+  const mangellfullDetailsDatasets = useMemo(
+    () => getMangelfullDetailsDatasets(datasets, 'avvik', theme),
+    [datasets, theme],
+  );
+  const sakensDokumenterDatasets = useMemo(
+    () => getSakensDokumenterDatasets(datasets, 'avvik', theme),
+    [datasets, theme],
+  );
+  const utredningenDatasets = useMemo(
+    () => getUtredningenUnderKlageforberedelsenDatasets(datasets, 'avvik', theme),
+    [datasets, theme],
+  );
+  const ikkeKonkretBegrunnelseDatasets = useMemo(
+    () => getIkkeKonkretBegrunnelseDatasets(datasets, 'avvik', theme),
+    [datasets, theme],
+  );
+
   if (!canShow) {
     return <NoKvalitetsvurderingWarning />;
   }
@@ -88,90 +102,89 @@ export const KvalitetsvurderingerV2 = ({ datasets }: Props) => {
     return null;
   }
 
-  const mangellfullDetailsDatasets = getMangelfullDetailsDatasets(datasets, 'avvik', theme);
-
   return (
-    <DynamicCard size={CardSize.LARGE}>
+    <Card className="flex flex-col gap-8" colSpan={2}>
       <CardTitleWithExplainer helpText="Ved utregningen av hvor mange prosent av sakene som har mangler ved kvaliteten, er ikke saker med utfallene «henlagt», «retur», «trukket» eller «ugunst (ugyldig)» med i grunnlaget. Klageinstansen gjør ikke kvalitetsvurderinger i saker med disse utfallene.">
         Kvalitetsvurderinger
       </CardTitleWithExplainer>
 
-      <TitleWithExplainer>Kvalitetsvurderte saker</TitleWithExplainer>
-      <TotalMangelfull stats={datasets} />
+      <VStack gap="space-1">
+        <TotalMangelfull stats={datasets} title="Kvalitetsvurderte saker" helpText={EXPLANATION_HELP_TEXT} />
+        <HelpTexts helpTexts={KVALITETSVURDERING_HELP_TEXTS} />
+      </VStack>
 
-      <HelpTexts helpTexts={KVALITETSVURDERING_HELP_TEXTS} />
+      <Mangelfull
+        stats={datasets}
+        title="Andel mangelfulle saker av total per hovedkategori"
+        helpText={EXPLANATION_HELP_TEXT}
+      />
 
-      <TitleWithExplainer>Andel mangelfulle saker av total per hovedkategori</TitleWithExplainer>
-      <Mangelfull datasets={datasets} />
+      <VStack gap="space-1">
+        <MangelfullDetails
+          datasets={mangellfullDetailsDatasets.datasets}
+          labels={mangellfullDetailsDatasets.labels}
+          title="Antall spesifikke avvik per underkategori (prosentandel av kvalitetsvurderte saker)"
+          helpText={EXPLANATION_HELP_TEXT}
+        />
+        <HelpTexts helpTexts={MAIN_HELP_TEXTS} />
+      </VStack>
 
-      <TitleWithExplainer>
-        Antall spesifikke avvik per underkategori (prosentandel av kvalitetsvurderte saker)
-      </TitleWithExplainer>
-      <MangelfullDetails {...mangellfullDetailsDatasets} />
-      <HelpTexts helpTexts={MAIN_HELP_TEXTS} />
-
-      <CategoryContainer>
-        <ChartContainer $columns={3}>
-          <TitleWithExplainer>
-            Avvik under «{KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenSakensDokumenter.label}»
-          </TitleWithExplainer>
-
-          <SakensDokumenter stats={datasets} />
-          <HelpTexts helpTexts={[{ texts: SAKENS_DOKUMENTER_TEXTS, key: 'SAKENS_DOKUMENTER_TEXTS' }]} />
-        </ChartContainer>
-
-        <ChartContainer $columns={3}>
-          <TitleWithExplainer>
-            <LabelContainer>
-              Avvik under «{KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenUtredningenUnderKlageforberedelsen.label}»
-              <Tag2024 />
-            </LabelContainer>
-          </TitleWithExplainer>
-          <UtredningenUnderKlageforberedelsen stats={datasets} />
-          <HelpTexts
-            helpTexts={[
-              { texts: UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS, key: 'UTREDNINGEN_UNDER_KLAGEFORBEREDELSEN_TEXTS' },
-            ]}
+      <HGrid columns={3}>
+        <div>
+          <MangelfullDetails
+            datasets={sakensDokumenterDatasets.datasets}
+            labels={sakensDokumenterDatasets.labels}
+            title={`Avvik under «${KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenSakensDokumenter.label}»`}
+            headingHeight={90}
+            helpText={EXPLANATION_HELP_TEXT}
           />
-        </ChartContainer>
+          <HelpTexts helpTexts={[{ texts: SAKENS_DOKUMENTER_TEXTS, key: 'SAKENS_DOKUMENTER_TEXTS' }]} />
+        </div>
+        <MangelfullDetails
+          datasets={utredningenDatasets.datasets}
+          labels={utredningenDatasets.labels}
+          title={`Avvik under «${KLAGEFORBEREDELSEN_TEXTS.klageforberedelsenUtredningenUnderKlageforberedelsen.label}»`}
+          extraTitleContent={<Tag2024 />}
+          headingHeight={90}
+          helpText={EXPLANATION_HELP_TEXT}
+        />
+        <MangelfullDetails
+          datasets={ikkeKonkretBegrunnelseDatasets.datasets}
+          labels={ikkeKonkretBegrunnelseDatasets.labels}
+          title={`Avvik under «${VEDTAKET_TEXTS.vedtaketIkkeKonkretIndividuellBegrunnelse.label}»`}
+          headingHeight={90}
+          helpText={EXPLANATION_HELP_TEXT}
+        />
+      </HGrid>
 
-        <ChartContainer $columns={3}>
-          <TitleWithExplainer>
-            Avvik under «{VEDTAKET_TEXTS.vedtaketIkkeKonkretIndividuellBegrunnelse.label}»
-          </TitleWithExplainer>
-          <IkkeKonkretBegrunnelse stats={datasets} />
-        </ChartContainer>
-      </CategoryContainer>
-      <ChartTitle>Mest brukte hjemler</ChartTitle>
-      <Container>
-        <DatasetSelector datasets={datasets} onChange={setDatasetIndex} datasetIndexString={datasetIndexString} />
-      </Container>
-      <HjemlerContainer>
+      <Heading size="small" align="center">
+        Mest brukte hjemler
+      </Heading>
+
+      <DatasetSelector datasets={datasets} onChange={setDatasetIndex} datasetIndexString={datasetIndexString} />
+
+      <HGrid columns={3}>
         {HJEMLER_CHART_PROPS_LIST.map((params) => (
-          <HjemlerSubContainer key={params.reasonId}>
-            <Hjemler
-              key={params.reasonId}
-              {...params}
-              hjemlerCount={getHjemlerCount(focusedDataset, params.hjemmelListId)}
-              backgroundColor={getColorFromTheme(VEDTAKET_TEXTS[params.reasonId].color, theme)}
-            />
-          </HjemlerSubContainer>
+          <Kvalitetsvurderinghjemler
+            key={params.reasonId}
+            hjemlerCount={getHjemlerCount(focusedDataset, params.hjemmelListId)}
+            title={params.title}
+            extraTitleContent={params.extraTitleContent}
+            backgroundColor={getColorFromTheme(VEDTAKET_TEXTS[params.reasonId].color, theme)}
+            headingHeight={90}
+          />
         ))}
-      </HjemlerContainer>
-    </DynamicCard>
+      </HGrid>
+    </Card>
   );
 };
 
 interface HjemlerChartProps {
   hjemmelListId: StatisticsVedtaketHjemlerList;
   reasonId: StatisticsVedtaketHjemlerListBoolean;
-  label: React.ReactNode;
+  title: string;
+  extraTitleContent?: React.ReactNode;
 }
-const LabelContainer = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: var(--ax-space-4);
-`;
 
 const Tag2024 = () => (
   <Tag data-color="info" title="Ny i 2024" variant="strong" size="xsmall" style={{ cursor: 'help' }}>
@@ -189,73 +202,37 @@ const HJEMLER_CHART_PROPS_LIST: HjemlerChartProps[] = [
   {
     reasonId: VedtaketHjemlerListBoolean.vedtaketBruktFeilHjemmel,
     hjemmelListId: VedtaketAllregistreringshjemlerList.vedtaketBruktFeilHjemmelHjemlerList,
-    label: (
-      <LabelContainer>
-        {VEDTAKET_TEXTS.vedtaketBruktFeilHjemmel.label}
-        <Tag2024 />
-      </LabelContainer>
-    ),
+    title: VEDTAKET_TEXTS.vedtaketBruktFeilHjemmel.label,
+    extraTitleContent: <Tag2024 />,
   },
   {
     reasonId: VedtaketHjemlerListBoolean.vedtaketAlleRelevanteHjemlerErIkkeVurdert,
     hjemmelListId: VedtaketSaksdatahjemlerList.vedtaketAlleRelevanteHjemlerErIkkeVurdertHjemlerList,
-    label: (
-      <LabelContainer>
-        {VEDTAKET_TEXTS.vedtaketAlleRelevanteHjemlerErIkkeVurdert.label}
-        <Tag2024 />
-      </LabelContainer>
-    ),
+    title: VEDTAKET_TEXTS.vedtaketAlleRelevanteHjemlerErIkkeVurdert.label,
+    extraTitleContent: <Tag2024 />,
   },
   {
     reasonId: LegacyVedtaketBoolean.vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert,
     hjemmelListId: LegacyVedtaketHjemlerList.vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdertHjemlerList,
-    label: (
-      <LabelContainer>
-        {VEDTAKET_TEXTS.vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert.label}
-        <Tag2023 />
-      </LabelContainer>
-    ),
+    title: VEDTAKET_TEXTS.vedtaketBruktFeilHjemmelEllerAlleRelevanteHjemlerErIkkeVurdert.label,
+    extraTitleContent: <Tag2023 />,
   },
   {
     reasonId: VedtaketHjemlerListBoolean.vedtaketLovbestemmelsenTolketFeil,
     hjemmelListId: VedtaketSaksdatahjemlerList.vedtaketLovbestemmelsenTolketFeilHjemlerList,
-    label: VEDTAKET_TEXTS.vedtaketLovbestemmelsenTolketFeil.label,
+    title: VEDTAKET_TEXTS.vedtaketLovbestemmelsenTolketFeil.label,
   },
   {
     reasonId: VedtaketHjemlerListBoolean.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet,
     hjemmelListId: VedtaketSaksdatahjemlerList.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevetHjemlerList,
-    label: VEDTAKET_TEXTS.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet.label,
+    title: VEDTAKET_TEXTS.vedtaketInnholdetIRettsregleneErIkkeTilstrekkeligBeskrevet.label,
   },
   {
     reasonId: VedtaketHjemlerListBoolean.vedtaketFeilKonkretRettsanvendelse,
     hjemmelListId: VedtaketSaksdatahjemlerList.vedtaketFeilKonkretRettsanvendelseHjemlerList,
-    label: VEDTAKET_TEXTS.vedtaketFeilKonkretRettsanvendelse.label,
+    title: VEDTAKET_TEXTS.vedtaketFeilKonkretRettsanvendelse.label,
   },
 ];
-
-const CategoryContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-`;
-
-const HjemlerContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  row-gap: 16px;
-  column-gap: 0;
-  width: 100%;
-`;
-
-const HjemlerSubContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`;
 
 const getHjemlerCount = (dataset: DataSet, hjemmelListId: StatisticsVedtaketHjemlerList): Record<string, number> =>
   dataset.data.reduce<Record<string, number>>((counts, sak) => {
@@ -265,14 +242,3 @@ const getHjemlerCount = (dataset: DataSet, hjemmelListId: StatisticsVedtaketHjem
 
     return counts;
   }, {});
-
-const TitleWithExplainer = ({ children }: { children: ReactNode }) => (
-  <Heading size="small">
-    <HStack gap="space-8" justify="center" align="center">
-      {children}
-      <HelpText>
-        En sak kan ha ett eller flere avvik. Prosenten er regnet ut fra totalt antall kvalitetsvurderte saker.
-      </HelpText>
-    </HStack>
-  </Heading>
-);

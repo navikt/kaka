@@ -7,8 +7,6 @@ import {
   vedtaketReasons,
 } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
 
-// import { KvalitetsvurderingProps } from './kvalitetsvurdering';
-
 interface IOption {
   title: string;
   relevantReasons: ReasonLabel[];
