@@ -100,18 +100,21 @@ const useMonths = (year: number) => {
   return MONTHS.filter((month) => month.value < CURRENT_MONTH);
 };
 
-const useYears = () => {
+const useYears = (): number[] => {
   const version = useVersionQueryFilter();
 
   return useMemo(() => {
-    if (version === KvalitetsvurderingVersion.V1) {
-      return [2022];
+    switch (version) {
+      case KvalitetsvurderingVersion.V1: {
+        return [2022];
+      }
+      case KvalitetsvurderingVersion.V2: {
+        return generateYears(2023, 2025);
+      }
+      case KvalitetsvurderingVersion.V3: {
+        return generateYears(2026, MAX_YEAR);
+      }
     }
-    if (version === KvalitetsvurderingVersion.V2) {
-      return generateYears(2023, MAX_YEAR);
-    }
-
-    return [];
   }, [version]);
 };
 

@@ -10,7 +10,7 @@ import {
 } from '@app/components/statistikk/total/vedtaksinstansgruppe-filter';
 import { KVALITETSVURDERING_LATEST, KvalitetsvurderingVersion } from '@app/types/saksdata';
 import { isSakstype, type SakstypeEnum } from '@app/types/sakstype';
-import { useLocation, useSearchParams } from 'react-router';
+import { useSearchParams } from 'react-router';
 import { QueryParams } from '../../filters/filter-query-params';
 import { HjemlerModeFilter, TilbakekrevingEnum } from '../types';
 
@@ -46,18 +46,11 @@ export const useVedtaksinstansgruppeQueryFilter = (): Vedtaksinstansgruppe[] => 
   return result;
 };
 
-const useLederstatistikkOpen = () => {
-  const location = useLocation();
-
-  return location.pathname === '/statistikk/leder';
-};
-
 export const useFromDateQueryFilter = (): string => {
   const queryValue = useQueryFilter(QueryParams.FROM_DATE);
-  const isLederstatistikk = useLederstatistikkOpen();
 
   if (queryValue === null || queryValue.length === 0) {
-    return isLederstatistikk ? FORMATTED_START_OF_LAST_MONTH : FORMATTED_START_OF_MONTH;
+    return FORMATTED_START_OF_MONTH;
   }
 
   return queryValue;
@@ -65,30 +58,29 @@ export const useFromDateQueryFilter = (): string => {
 
 export const useToDateQueryFilter = (): string => {
   const queryValue = useQueryFilter(QueryParams.TO_DATE);
-  const isLederstatistikk = useLederstatistikkOpen();
 
   if (queryValue === null || queryValue.length === 0) {
-    return isLederstatistikk ? FORMATTED_END_OF_LAST_MONTH : FORMATTED_NOW;
+    return FORMATTED_NOW;
   }
 
   return queryValue;
 };
 
-export const useFromMonthQueryFilter = (defaultDate: string): string => {
+export const useFromMonthQueryFilter = (): string => {
   const queryValue = useQueryFilter(QueryParams.FROM_MONTH);
 
   if (queryValue === null || queryValue.length === 0) {
-    return defaultDate;
+    return FORMATTED_START_OF_LAST_MONTH;
   }
 
   return queryValue;
 };
 
-export const useToMonthQueryFilter = (defaultDate: string): string => {
+export const useToMonthQueryFilter = (): string => {
   const queryValue = useQueryFilter(QueryParams.TO_MONTH);
 
   if (queryValue === null || queryValue.length === 0) {
-    return defaultDate;
+    return FORMATTED_END_OF_LAST_MONTH;
   }
 
   return queryValue;

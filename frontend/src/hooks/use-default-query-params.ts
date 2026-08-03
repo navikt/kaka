@@ -11,6 +11,7 @@ import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { useKlageenheter, useVedtaksenheter } from '@app/simple-api-state/use-kodeverk';
 import { useUser } from '@app/simple-api-state/use-user';
 import { KVALITETSVURDERING_LATEST, KvalitetsvurderingVersion } from '@app/types/saksdata';
+import { SakstypeEnum } from '@app/types/sakstype';
 import { format, subMonths } from 'date-fns';
 import { useMemo } from 'react';
 
@@ -68,6 +69,12 @@ export const useDefaultQueryMin = () => {
   const tilbakekreving = TilbakekrevingEnum.INCLUDE;
 
   return `${defaultQuery}&${QueryParams.TILBAKEKREVING}=${tilbakekreving}`;
+};
+
+export const useDefaultQueryTilbakemeldinger = () => {
+  const defaultQuery = useDefaultQueryMin();
+
+  return `${defaultQuery}&${QueryParams.TYPES}=${SakstypeEnum.KLAGE}`;
 };
 
 export const useDefaultQueryComparison = () => {

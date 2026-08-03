@@ -22,11 +22,11 @@ import { DatePresets } from '../../filters/date-presets/date-presets';
 import { QueryParams } from '../../filters/filter-query-params';
 import { useDatePresetsLeder } from '../../filters/hooks/use-date-presets';
 import {
-  useFromDateQueryFilter,
+  useFromMonthQueryFilter,
   useQueryFilters,
   useSakstypeFilter,
   useTilbakekrevingQueryFilter,
-  useToDateQueryFilter,
+  useToMonthQueryFilter,
   useVersionQueryFilter,
 } from '../../filters/hooks/use-query-filter';
 import { MonthFilter } from '../../filters/month';
@@ -61,8 +61,8 @@ export const Filters = () => {
   const selectedTilbakekreving = useTilbakekrevingQueryFilter(TilbakekrevingEnum.INCLUDE);
 
   // Dates
-  const fromMonth = useFromDateQueryFilter();
-  const toMonth = useToDateQueryFilter();
+  const fromMonth = useFromMonthQueryFilter();
+  const toMonth = useToMonthQueryFilter();
 
   const datePresets = useDatePresetsLeder();
 

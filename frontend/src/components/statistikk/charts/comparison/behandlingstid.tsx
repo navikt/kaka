@@ -1,24 +1,14 @@
+import {
+  COMMON_STACKED_BAR_CHART_PROPS,
+  COMMON_STACKED_BAR_CHART_SERIES_PROPS,
+} from '@app/components/echarts/common-chart-props';
+import { EChart } from '@app/components/echarts/echarts';
+import { BAR_WITH_TEXT_HEIGHT, getBarChartHeight } from '@app/components/statistikk/charts/common/constants';
 import { useColor } from '@app/components/statistikk/colors/get-color';
 import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import type { ISaksdata } from '@app/types/statistics/common';
-import type { ChartOptions } from 'chart.js';
+import type { CallbackDataParams } from 'echarts/types/src/util/types.js';
 import { useMemo } from 'react';
-import { Bar } from 'react-chartjs-2';
-import { HorizontalBars } from '../common/horizontal-bars';
-
-const BAR_THICKNESS = 50;
-
-const useOptions = (): ChartOptions<'bar'> => ({
-  maintainAspectRatio: false,
-  aspectRatio: 3,
-  indexAxis: 'y',
-  scales: {
-    y: { stacked: true },
-    x: {
-      title: { display: true, text: 'Behandlingstid (dager)' },
-    },
-  },
-});
 
 type Data = Pick<
   ISaksdata,
@@ -33,14 +23,14 @@ interface Stat {
 
 interface Props {
   stats: Stat[];
+  title: string;
 }
 
-export const BehandlingstidComparison = ({ stats }: Props) => {
-  const options = useOptions();
+export const BehandlingstidComparison = ({ stats, title }: Props) => {
   const vedtaksinstansColor = useColor(ColorToken.Info500);
   const klageinstansColor = useColor(ColorToken.Purple500);
 
-  const [vedtaksinstansData, klageinstansData] = useMemo(() => {
+  const { labels, vedtaksinstansData, klageinstansData } = useMemo(() => {
     const vedtaksinstans: number[] = [];
     const klageinstans: number[] = [];
 
@@ -61,32 +51,51 @@ export const BehandlingstidComparison = ({ stats }: Props) => {
       klageinstans.push(noData || zeroKlageSum ? 0 : Math.round(klageSum / data.length));
     }
 
-    return [vedtaksinstans, klageinstans];
+    const unreversedLabels = stats.map(
+      (stat, i) => `${stat.label} (totalt ${(vedtaksinstans[i] ?? 0) + (klageinstans[i] ?? 0)})`,
+    );
+
+    // Echarts renders category axis items bottom-to-top, so reverse here to get the expected top-to-bottom order.
+    return {
+      labels: unreversedLabels.toReversed(),
+      vedtaksinstansData: vedtaksinstans.toReversed(),
+      klageinstansData: klageinstans.toReversed(),
+    };
   }, [stats]);
 
-  const labels = useMemo(
-    () => stats.map((stat, i) => `${stat.label} (totalt ${(vedtaksinstansData[i] ?? 0) + (klageinstansData[i] ?? 0)})`),
-    [klageinstansData, stats, vedtaksinstansData],
-  );
-
-  const datasets = [
-    {
-      label: 'Vedtaksinstans',
-      data: vedtaksinstansData,
-      backgroundColor: vedtaksinstansColor,
-      borderColor: vedtaksinstansColor,
-    },
-    {
-      label: 'Klageinstans',
-      data: klageinstansData,
-      backgroundColor: klageinstansColor,
-      borderColor: klageinstansColor,
-    },
-  ];
-
   return (
-    <HorizontalBars barCount={labels.length} barThickness={BAR_THICKNESS} chartOptions={options}>
-      <Bar options={options} data={{ datasets, labels }} />
-    </HorizontalBars>
+    <EChart
+      title={title}
+      chartHeight={getBarChartHeight({ textInBar: true, barCount: labels.length, xAxisLabel: true }) + SPACE_BOTTOM}
+      option={{
+        ...COMMON_STACKED_BAR_CHART_PROPS,
+        grid: { bottom: SPACE_BOTTOM },
+        yAxis: { type: 'category', data: labels },
+        xAxis: { type: 'value', name: 'Behandlingstid (dager)', nameLocation: 'middle', nameGap: 30 },
+        series: [
+          {
+            ...COMMON_STACKED_BAR_CHART_SERIES_PROPS,
+            name: 'Vedtaksinstans',
+            data: vedtaksinstansData,
+            itemStyle: { color: vedtaksinstansColor },
+            barWidth: BAR_WITH_TEXT_HEIGHT,
+            label: { show: true, formatter: hideZeroLabel },
+          },
+          {
+            ...COMMON_STACKED_BAR_CHART_SERIES_PROPS,
+            name: 'Klageinstans',
+            data: klageinstansData,
+            itemStyle: { color: klageinstansColor },
+            barWidth: BAR_WITH_TEXT_HEIGHT,
+            label: { show: true, formatter: hideZeroLabel },
+          },
+        ],
+      }}
+    />
   );
 };
+
+const SPACE_BOTTOM = 100;
+
+// Don't show a "rogue" 0-label floating around when there is no bar piece to show
+const hideZeroLabel = (params: CallbackDataParams) => (params.value === 0 ? '' : String(params.value));

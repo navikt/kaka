@@ -131,6 +131,9 @@
       transform: scaleX(0);
     }
   }
+
+  --breakpoint-charts-lg: 3000px;
+  --breakpoint-charts-md: 2000px;
 }
 
 html {
