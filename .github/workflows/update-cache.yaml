@@ -29,6 +29,10 @@ jobs:
           registries: |
             @navikt:https://npm.pkg.github.com/|$BUN_AUTH_TOKEN
 
+      - name: Install common dependencies
+        shell: bash
+        run: bun install --frozen-lockfile --ignore-scripts
+
       - name: Install ${{ matrix.apps }} dependencies
         shell: bash
         working-directory: ${{ matrix.apps }}
