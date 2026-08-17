@@ -110,7 +110,7 @@ export const ContentV1 = ({ mine, rest, saksbehandlere, isLoading }: Props) => {
       </FullWidthStickyContainer>
 
       <ChartsWrapper>
-        <Card rowSpan={2} colSpan={2}>
+        <Card colSpan={2}>
           <Omgjoeringsprosent
             stats={datasets}
             version={KvalitetsvurderingVersion.V1}
