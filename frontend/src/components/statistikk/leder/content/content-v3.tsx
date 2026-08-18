@@ -8,8 +8,6 @@ import { FullWidthStickyContainer, StatsContainer } from '@app/styled-components
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
 import type { IFullStatisticVurderingV3 } from '@app/types/statistics/v3';
 import { useMemo } from 'react';
-import { QueryParams } from '../../../filters/filter-query-params';
-import { useQueryFilters } from '../../../filters/hooks/use-query-filter';
 import { LoadingOverlay } from '../../../loader/overlay';
 import { BehandlingstidHistogram } from '../../charts/behandlingstid-histogram';
 import { BehandlingstidOverTime } from '../../charts/behandlingstid-over-time';
@@ -30,18 +28,17 @@ import { Card, ChartsWrapper, StatisticsWrapper } from '../../wrappers/wrappers'
 type SaksbehandlerStats = Record<string, IFullStatisticVurderingV3[]>;
 
 interface Props {
-  mine: IFullStatisticVurderingV3[];
-  rest: IFullStatisticVurderingV3[];
+  myEnhet: IFullStatisticVurderingV3[];
+  otherEnheter: IFullStatisticVurderingV3[];
   saksbehandlere: SaksbehandlerStats;
   isLoading: boolean;
 }
 
-export const ContentV3 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
+export const ContentV3 = ({ myEnhet, otherEnheter, isLoading, saksbehandlere }: Props) => {
   const userData = useUser();
   const { data: saksbehandlerList = [] } = useSaksbehandlere(userData.ansattEnhet.id);
-  const selectedSaksbehandlere = useQueryFilters(QueryParams.SAKSBEHANDLERE);
 
-  const relevantSaksbehandlereStats = useMemo(
+  const relevantSelectedSaksbehandlereStats = useMemo(
     () =>
       Object.entries(saksbehandlere).map(([navIdent, stats]) => ({
         label: saksbehandlerList.find((s) => s.navIdent === navIdent)?.navn ?? 'Laster...',
@@ -50,36 +47,25 @@ export const ContentV3 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
     [saksbehandlerList, saksbehandlere],
   );
 
-  const allSaksbehandlereStats = useMemo(
+  const relevantMyEnhet = useRelevantStatistics(myEnhet, KvalitetsvurderingVersion.V3);
+  const relevantOtherEnheter = useRelevantStatistics(otherEnheter, KvalitetsvurderingVersion.V3);
+
+  const relevantSelected = useMemo(
     () =>
-      Object.entries(saksbehandlere).map(([navIdent, stats]) => ({
-        label: saksbehandlerList.find((s) => s.navIdent === navIdent)?.navn ?? 'Laster...',
-        data: stats,
-      })),
-    [saksbehandlerList, saksbehandlere],
-  );
-
-  const relevantMine = useRelevantStatistics(mine, KvalitetsvurderingVersion.V3);
-  const relevantRest = useRelevantStatistics(rest, KvalitetsvurderingVersion.V3);
-
-  const relevantData = useMemo(
-    () => (selectedSaksbehandlere.length > 0 ? relevantSaksbehandlereStats.flatMap(({ data }) => data) : relevantMine),
-    [relevantMine, relevantSaksbehandlereStats, selectedSaksbehandlere.length],
-  );
-
-  const allData = useMemo(
-    () => (selectedSaksbehandlere.length > 0 ? allSaksbehandlereStats.flatMap(({ data }) => data) : mine),
-    [allSaksbehandlereStats, mine, selectedSaksbehandlere.length],
+      Object.keys(saksbehandlere).length > 0
+        ? Object.values(saksbehandlere).flatMap((stats) => filterIrrelevant(stats, KvalitetsvurderingVersion.V3))
+        : relevantMyEnhet,
+    [saksbehandlere, relevantMyEnhet],
   );
 
   const datasets = useMemo(
     () => [
-      { label: 'Vår enhet', data: relevantMine },
-      { label: 'Andre enheter', data: relevantRest },
-      { label: 'Alle enheter', data: [...relevantMine, ...relevantRest] },
-      ...relevantSaksbehandlereStats,
+      { label: 'Vår enhet', data: relevantMyEnhet },
+      { label: 'Andre enheter', data: relevantOtherEnheter },
+      { label: 'Alle enheter', data: [...relevantMyEnhet, ...relevantOtherEnheter] },
+      ...relevantSelectedSaksbehandlereStats,
     ],
-    [relevantMine, relevantRest, relevantSaksbehandlereStats],
+    [relevantMyEnhet, relevantOtherEnheter, relevantSelectedSaksbehandlereStats],
   );
 
   const behandlingstidStats = useMemo(
@@ -101,12 +87,12 @@ export const ContentV3 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
 
       <FullWidthStickyContainer>
         <StatsContainer>
-          <Finished stats={allData} version={KvalitetsvurderingVersion.V3} />
-          <TotalProcessed length={relevantData.length} version={KvalitetsvurderingVersion.V3} />
-          <Omgjort version={KvalitetsvurderingVersion.V3} stats={relevantData} label="Omgjort av vår enhet" />
-          <Gjennomsnittstid stats={relevantData} />
-          <Processed weeks={12} stats={relevantData} />
-          <Processed weeks={15} stats={relevantData} />
+          <Finished stats={myEnhet} version={KvalitetsvurderingVersion.V3} />
+          <TotalProcessed length={relevantMyEnhet.length} version={KvalitetsvurderingVersion.V3} />
+          <Omgjort version={KvalitetsvurderingVersion.V3} stats={relevantMyEnhet} label="Omgjort av vår enhet" />
+          <Gjennomsnittstid stats={relevantMyEnhet} />
+          <Processed weeks={12} stats={relevantMyEnhet} />
+          <Processed weeks={15} stats={relevantMyEnhet} />
         </StatsContainer>
       </FullWidthStickyContainer>
 
@@ -122,9 +108,9 @@ export const ContentV3 = ({ mine, rest, isLoading, saksbehandlere }: Props) => {
 
         <TypeWarning />
         <KvalitetsvurderingerV3 datasets={datasets} />
-        <UtfallGraph stats={allData} title="Utfall" />
-        <Hjemler stats={relevantData} title="Hjemler" />
-        <BehandlingstidHistogram stats={relevantData} title="Behandlingstid" headerContent={<ToggleTotalOrKA />} />
+        <UtfallGraph stats={relevantSelected} title="Utfall" />
+        <Hjemler stats={relevantSelected} title="Hjemler" />
+        <BehandlingstidHistogram stats={relevantSelected} title="Behandlingstid" headerContent={<ToggleTotalOrKA />} />
         <BehandlingstidOverTime stats={behandlingstidStats} title="Behandlingstid" />
       </ChartsWrapper>
     </StatisticsWrapper>

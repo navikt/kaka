@@ -33,8 +33,8 @@ const EMPTY_SAKSBEHANDLERE: Record<string, IFullStatisticVurderingV1[]> = {};
 export const useFilteredManagerStatisticsV1 = () => {
   const { data } = useStatistics();
 
-  const mine = useMemo(() => data?.mine ?? EMPTY_ARRAY, [data]);
-  const rest = useMemo(() => data?.rest ?? EMPTY_ARRAY, [data]);
+  const myEnhet = useMemo(() => data?.myEnhet ?? EMPTY_ARRAY, [data]);
+  const otherEnheter = useMemo(() => data?.otherEnheter ?? EMPTY_ARRAY, [data]);
   const saksbehandlere = useMemo(() => data?.saksbehandlere ?? EMPTY_SAKSBEHANDLERE, [data]);
 
   const types = useSakstypeFilter();
@@ -56,8 +56,8 @@ export const useFilteredManagerStatisticsV1 = () => {
 
   return useMemo(
     () => ({
-      mine: mine.filter(filter),
-      rest: rest.filter(filter),
+      myEnhet: myEnhet.filter(filter),
+      otherEnheter: otherEnheter.filter(filter),
       saksbehandlere: Object.entries(saksbehandlere).reduce<Record<string, IFullStatisticVurderingV1[]>>(
         (acc, [saksbehandler, vurderinger]) => {
           acc[saksbehandler] = vurderinger.filter(filter);
@@ -66,6 +66,6 @@ export const useFilteredManagerStatisticsV1 = () => {
         {},
       ),
     }),
-    [mine, filter, rest, saksbehandlere],
+    [myEnhet, filter, otherEnheter, saksbehandlere],
   );
 };

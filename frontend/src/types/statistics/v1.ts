@@ -98,8 +98,8 @@ export interface IStatisticsResponseMyV1 {
 
 export interface IStatisticsResponseManagerV1 {
   saksbehandlere: Record<string, IFullStatisticVurderingV1[]>;
-  mine: IFullStatisticVurderingV1[]; // Klageinstansleders enhet
-  rest: IFullStatisticVurderingV1[]; // Other klageenheter
+  myEnhet: IFullStatisticVurderingV1[];
+  otherEnheter: IFullStatisticVurderingV1[];
 }
 
 export interface IStatisticsResponseTotalV1 {

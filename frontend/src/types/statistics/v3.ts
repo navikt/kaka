@@ -52,8 +52,8 @@ export interface IStatisticsResponseMyV3 {
 
 export interface IStatisticsResponseManagerV3 {
   saksbehandlere: Record<string, IFullStatisticVurderingV3[]>;
-  mine: IFullStatisticVurderingV3[]; // Klageinstansleders enhet
-  rest: IFullStatisticVurderingV3[]; // Other klageenheter
+  myEnhet: IFullStatisticVurderingV3[];
+  otherEnheter: IFullStatisticVurderingV3[];
 }
 
 export interface IStatisticsResponseTotalV3 {
