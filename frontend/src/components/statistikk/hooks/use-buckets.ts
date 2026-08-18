@@ -10,7 +10,8 @@ export const useBuckets = (data: number[], bucketSize: number, restBucket?: numb
 
     const labels = buckets.map((bucket) => `${bucket}`);
 
-    const normalizedData = data.map((value) => Math.ceil(value / bucketSize));
+    // Clamp to 1 so a value of 0 lands in the first bucket instead of matching none
+    const normalizedData = data.map((value) => Math.max(1, Math.ceil(value / bucketSize)));
 
     const values = buckets.map((bucket) => normalizedData.filter((v) => v <= bucket && v > bucket - 1).length);
 
