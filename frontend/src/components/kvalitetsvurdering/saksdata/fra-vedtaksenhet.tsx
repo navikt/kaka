@@ -9,7 +9,6 @@ import type { ISaksdataComplete, ISaksdataIncomplete } from '@app/types/saksdata
 import { SakstypeEnum } from '@app/types/sakstype';
 import { Label, UNSAFE_Combobox } from '@navikt/ds-react';
 import { useEffect, useMemo, useState } from 'react';
-import { styled } from 'styled-components';
 import { ErrorMessage } from '../../error-message/error-message';
 
 export const FraVedtaksenhet = () => {
@@ -64,12 +63,12 @@ const FraVedtaksenhetLoaded = ({ saksdata }: { saksdata: ISaksdataComplete | ISa
   if (!canEdit) {
     return (
       <div>
-        <StyledLabel size="medium" spacing>
+        <Label className="block" size="medium" spacing>
           Fra vedtaksenhet
-        </StyledLabel>
-        <SelectedEnhet data-testid="selected-vedtaksenhet" data-value={saksdata.vedtaksinstansEnhet}>
+        </Label>
+        <section className="relative z-5" data-testid="selected-vedtaksenhet" data-value={saksdata.vedtaksinstansEnhet}>
           {selectedEnhetName ?? 'Ingen enhet'}
-        </SelectedEnhet>
+        </section>
         <ErrorMessage error={validationError} />
       </div>
     );
@@ -78,10 +77,12 @@ const FraVedtaksenhetLoaded = ({ saksdata }: { saksdata: ISaksdataComplete | ISa
   if (saksdata.ytelseId === null) {
     return (
       <div>
-        <StyledLabel size="medium" spacing>
+        <Label className="block" size="medium" spacing>
           Fra vedtaksenhet
-        </StyledLabel>
-        <SelectedEnhet data-testid="selected-vedtaksenhet">Velg ytelse</SelectedEnhet>
+        </Label>
+        <section className="relative z-5" data-testid="selected-vedtaksenhet">
+          Velg ytelse
+        </section>
         <ErrorMessage error={validationError} />
       </div>
     );
@@ -92,10 +93,12 @@ const FraVedtaksenhetLoaded = ({ saksdata }: { saksdata: ISaksdataComplete | ISa
   if (noEnheter) {
     return (
       <div>
-        <StyledLabel size="medium" spacing>
+        <Label className="block" size="medium" spacing>
           Fra vedtaksenhet
-        </StyledLabel>
-        <SelectedEnhet data-testid="selected-vedtaksenhet">Ingen enheter</SelectedEnhet>
+        </Label>
+        <section className="relative z-5" data-testid="selected-vedtaksenhet">
+          Ingen enheter
+        </section>
         <ErrorMessage error={validationError} />
       </div>
     );
@@ -135,12 +138,3 @@ const useEnhetName = (options: IKodeverkSimpleValue[], enhetsNummer: string | nu
 
     return `${enhet.id} - ${enhet.navn}`;
   }, [options, enhetsNummer]);
-
-const SelectedEnhet = styled.section`
-  position: relative;
-  z-index: 5;
-`;
-
-const StyledLabel = styled(Label)`
-  display: block;
-`;

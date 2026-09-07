@@ -1,7 +1,6 @@
 import { Tilbakekreving } from '@app/components/kvalitetsvurdering/saksdata/tilbakekreving';
 import { useSaksdata } from '@app/hooks/use-saksdata';
-import { Heading, Loader } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { Heading, Loader, VStack } from '@navikt/ds-react';
 import { FraVedtaksenhet } from './fra-vedtaksenhet';
 import { Lovhjemmel } from './lovhjemmel/lovhjemmel';
 import { MottattKlageinstans } from './mottatt-klageinstans';
@@ -19,7 +18,7 @@ export const Saksdata = () => {
   }
 
   return (
-    <StyledSaksdata>
+    <VStack as="section" gap="space-32">
       <Heading level="1" size="medium">
         Saksdata
       </Heading>
@@ -32,12 +31,6 @@ export const Saksdata = () => {
       <UtfallResultat />
       <Lovhjemmel />
       <Tilbakekreving />
-    </StyledSaksdata>
+    </VStack>
   );
 };
-
-const StyledSaksdata = styled.section`
-  display: flex;
-  flex-direction: column;
-  row-gap: 32px;
-`;

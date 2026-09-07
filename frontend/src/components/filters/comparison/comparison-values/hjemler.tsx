@@ -1,14 +1,13 @@
 import { AddOptionButton } from '@app/components/filters/comparison/comparison-values/add-option-button';
 import { ColorPicker } from '@app/components/filters/comparison/comparison-values/color-picker';
 import { DEFAULT_OPTIONS } from '@app/components/filters/comparison/comparison-values/default-options';
-import { StyledComparisonItem } from '@app/components/filters/comparison/comparison-values/styled-components';
 import { useOnchange } from '@app/components/filters/comparison/comparison-values/use-onchange';
 import type { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { useLovkildeToRegistreringshjemler, useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
 import type { IKodeverkSimpleValue } from '@app/types/kodeverk';
 import type { OptionValue } from '@app/types/statistics/common';
 import { ChevronDownIcon, TrashIcon } from '@navikt/aksel-icons';
-import { ActionMenu, Button, Heading, VStack } from '@navikt/ds-react';
+import { ActionMenu, Button, Heading, HStack, VStack } from '@navikt/ds-react';
 import { useMemo } from 'react';
 
 const useNextOption = (data: IKodeverkSimpleValue[]): string | undefined => {
@@ -86,7 +85,7 @@ const HjemmelSelect = ({ value, color }: { value: string; color: ColorToken }) =
   const label = hjemler[value]?.hjemmelnavn ?? DEFAULT_OPTIONS.find(({ id }) => id === value)?.navn ?? value;
 
   return (
-    <StyledComparisonItem>
+    <HStack wrap={false} align="center" gap="space-8">
       <ActionMenu>
         <ActionMenu.Trigger>
           <Button
@@ -129,6 +128,6 @@ const HjemmelSelect = ({ value, color }: { value: string; color: ColorToken }) =
         icon={<TrashIcon aria-hidden />}
         variant="primary"
       />
-    </StyledComparisonItem>
+    </HStack>
   );
 };

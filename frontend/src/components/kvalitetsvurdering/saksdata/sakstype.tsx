@@ -4,8 +4,7 @@ import { useValidationError } from '@app/hooks/use-validation-error';
 import { useSetSakstypeMutation } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';
 import { SakstypeEnum } from '@app/types/sakstype';
-import { Radio, RadioGroup } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { HStack, Radio, RadioGroup } from '@navikt/ds-react';
 
 const SAKSTYPER = [
   { id: SakstypeEnum.KLAGE, navn: 'Klage' },
@@ -28,7 +27,7 @@ export const Sakstype = () => {
 
   return (
     <RadioGroup id="sakstypeId" legend="Sakstype" error={validationError} size="medium" value={saksdata.sakstypeId}>
-      <HorizontalRadios>
+      <HStack gap="space-16">
         {SAKSTYPER.map(({ id, navn }) => (
           <Radio
             id={id}
@@ -42,12 +41,7 @@ export const Sakstype = () => {
             {navn}
           </Radio>
         ))}
-      </HorizontalRadios>
+      </HStack>
     </RadioGroup>
   );
 };
-
-const HorizontalRadios = styled.div`
-  display: flex;
-  column-gap: 16px;
-`;

@@ -4,9 +4,8 @@ import { useSaksdataId } from '@app/hooks/use-saksdata-id';
 import { useValidationError } from '@app/hooks/use-validation-error';
 import { useSetMottattVedtaksinstansMutation } from '@app/redux-api/saksdata';
 import { SakstypeEnum } from '@app/types/sakstype';
-import { HelpText } from '@navikt/ds-react';
+import { HelpText, HStack } from '@navikt/ds-react';
 import { parse, subDays } from 'date-fns';
-import { styled } from 'styled-components';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
 import { CENTURY_NUMBER } from '../../filters/date-presets/constants';
 
@@ -27,13 +26,13 @@ export const MottattVedtaksinstans = () => {
   return (
     <DatepickerWithValidation
       label={
-        <StyledLabel>
+        <HStack wrap={false} align="center" gap="space-8">
           Mottatt vedtaksinstans
           <HelpText title="Hvor viktig er dette?" placement="right">
             Kaka gir ingen offisiell statistikk på saksbehandlingstiden. Det skal derfor ikke tas en større vurdering av
             hva korrekt dato er. Benytt gjerne journalføringsdatoen.
           </HelpText>
-        </StyledLabel>
+        </HStack>
       }
       disabled={!canEdit}
       onChange={(mottattVedtaksinstans) => setMottattVedtaksinstans({ id, mottattVedtaksinstans })}
@@ -47,10 +46,3 @@ export const MottattVedtaksinstans = () => {
     />
   );
 };
-
-const StyledLabel = styled.span`
-  display: flex;
-  flex-direction: row;
-  column-gap: 8px;
-  align-items: center;
-`;

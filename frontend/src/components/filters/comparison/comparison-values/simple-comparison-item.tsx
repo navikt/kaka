@@ -1,10 +1,8 @@
 import { ColorPicker } from '@app/components/filters/comparison/comparison-values/color-picker';
-import { StyledComparisonItem } from '@app/components/filters/comparison/comparison-values/styled-components';
 import type { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { TrashIcon } from '@navikt/aksel-icons';
-import { Button, UNSAFE_Combobox } from '@navikt/ds-react';
+import { Button, HStack, UNSAFE_Combobox } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
-import { styled } from 'styled-components';
 
 interface Option {
   value: string;
@@ -46,8 +44,9 @@ export const SimpleComparisonItem = ({
   const selected = localValue === null ? [] : options.filter((option) => option.value === localValue);
 
   return (
-    <StyledComparisonItem>
-      <StyledCombobox
+    <HStack wrap={false} align="center" gap="space-8">
+      <UNSAFE_Combobox
+        className="grow"
         size="small"
         label={selectedLabel}
         shouldAutocomplete
@@ -70,10 +69,6 @@ export const SimpleComparisonItem = ({
         icon={<TrashIcon aria-hidden />}
         variant="primary"
       />
-    </StyledComparisonItem>
+    </HStack>
   );
 };
-
-const StyledCombobox = styled(UNSAFE_Combobox)`
-  flex-grow: 1;
-`;

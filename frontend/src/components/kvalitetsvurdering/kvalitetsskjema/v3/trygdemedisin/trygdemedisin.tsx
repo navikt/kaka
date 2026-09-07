@@ -1,7 +1,6 @@
 import { ContainerWithHelpText } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/container-with-helptext';
 import {
   RadioButtonsRow,
-  StyledHeading,
   StyledRadioGroup,
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/styled-components';
 import { useIsRolYtelse } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/use-is-rol-ytelse';
@@ -19,7 +18,7 @@ import {
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/trygdemedisin/data';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { RadiovalgExtended } from '@app/types/kvalitetsvurdering/radio';
-import { Radio } from '@navikt/ds-react';
+import { Heading, Radio } from '@navikt/ds-react';
 
 export const Trygdemedisin = () => {
   const { isLoading, kvalitetsvurdering, update, saksdata } = useKvalitetsvurderingV3();
@@ -38,7 +37,7 @@ export const Trygdemedisin = () => {
 
   return (
     <section>
-      <StyledHeading size="small">{HEADER}</StyledHeading>
+      <Heading size="small">{HEADER}</Heading>
       <StyledRadioGroup
         legend={HEADER}
         hideLegend

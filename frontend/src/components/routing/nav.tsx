@@ -16,8 +16,8 @@ import {
   PieChartIcon,
   TasklistIcon,
 } from '@navikt/aksel-icons';
+import { HStack } from '@navikt/ds-react';
 import { NavLink, type NavLinkProps } from 'react-router';
-import { styled } from 'styled-components';
 
 export const Nav = () => {
   const defaultQueryAapen = useDefaultQueryAapen();
@@ -30,8 +30,16 @@ export const Nav = () => {
   const access = useUserAccess();
 
   return (
-    <StyledNav aria-label="Meny" data-testid="kaka-nav">
-      <StyledNavLinkList>
+    <nav aria-label="Meny" data-testid="kaka-nav" className="sticky top-0 z-10 bg-ax-bg-default pt-4">
+      <HStack
+        as="ul"
+        wrap={false}
+        align="center"
+        gap="space-16"
+        marginBlock="space-0"
+        marginInline="space-16"
+        className="list-none border-ax-border-neutral border-b p-0"
+      >
         <NavItem to={`/statistikk/aapen?${defaultQueryAapen}`} testId="statistikk-aapen-nav-link" hasAccess>
           <BarChartIcon aria-hidden /> Åpen statistikk
         </NavItem>
@@ -83,8 +91,8 @@ export const Nav = () => {
         >
           <TasklistIcon aria-hidden /> Tilbakemeldinger
         </NavItem>
-      </StyledNavLinkList>
-    </StyledNav>
+      </HStack>
+    </nav>
   );
 };
 
@@ -99,58 +107,16 @@ const NavItem = ({ hasAccess, testId, ...props }: NavItemProps) => {
   }
 
   return (
-    <StyledNavListItem>
-      <StyledNavLink {...props} data-testid={testId} />
-    </StyledNavListItem>
+    <li className="text-center">
+      <NavLink
+        {...props}
+        data-testid={testId}
+        className={({ isActive }) =>
+          `m-0 flex w-full items-center justify-center gap-2 whitespace-nowrap break-keep border-b-[5px] px-4 py-1 font-bold text-[1.2em] no-underline hover:border-ax-border-accent hover:text-ax-text-accent-subtle ${
+            isActive ? 'border-ax-border-accent text-ax-text-accent-subtle' : 'border-transparent text-ax-text-neutral'
+          }`
+        }
+      />
+    </li>
   );
 };
-
-const StyledNav = styled.nav`
-  padding-top: 16px;
-  position: sticky;
-  top: 0;
-  background-color: var(--ax-bg-default);
-  z-index: 10;
-`;
-
-const StyledNavLinkList = styled.ul`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  list-style: none;
-  padding: 0;
-  padding-top: 0;
-  margin: 0 1em;
-  border-bottom: 1px solid var(--ax-border-neutral);
-`;
-
-const StyledNavListItem = styled.li`
-  text-align: center;
-`;
-
-const StyledNavLink = styled(NavLink)`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: center;
-  width: 100%;
-  font-size: 1.2em;
-  font-weight: bold;
-  text-decoration: none;
-  color: var(--ax-text-neutral);
-  border-bottom: 5px solid transparent;
-  margin: 0;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 16px;
-  padding-right: 16px;
-  word-break: keep-all;
-  white-space: nowrap;
-
-  &.active,
-  &:hover {
-    text-decoration: none;
-    color: var(--ax-text-accent-subtle);
-    border-bottom: 5px solid var(--ax-border-accent)
-  }
-`;

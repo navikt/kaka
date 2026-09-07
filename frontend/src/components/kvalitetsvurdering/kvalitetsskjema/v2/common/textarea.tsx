@@ -5,9 +5,8 @@ import { useValidationError } from '@app/components/kvalitetsvurdering/kvalitets
 import { SavedStatus } from '@app/components/saved-status/saved-status';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import type { IKvalitetsvurderingBooleans } from '@app/types/kvalitetsvurdering/v2';
-import { BodyLong, Label, Textarea } from '@navikt/ds-react';
+import { BodyLong, HStack, Label, Textarea } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
-import { styled } from 'styled-components';
 
 interface Props extends TextParams {
   parentKey?: keyof IKvalitetsvurderingBooleans;
@@ -29,7 +28,9 @@ export const KvalitetsskjemaTextarea = (props: Props) => {
         <ContainerWithHelpText helpText={helpText}>
           <Label htmlFor={field}>{label}</Label>
         </ContainerWithHelpText>
-        <StyledBodyLong id={field}>{kvalitetsvurdering[field]}</StyledBodyLong>
+        <BodyLong id={field} className="mt-1 border-ax-border-neutral-subtle border-l-2 pl-2">
+          {kvalitetsvurdering[field]}
+        </BodyLong>
       </div>
     );
   }
@@ -86,22 +87,9 @@ const KvalitetsskjemaTextareaInternal = ({
         description={description}
         error={error}
       />
-      <StatusContainer>
+      <HStack justify="end" align="center" className="mt-1">
         <SavedStatus {...updateStatus} />
-      </StatusContainer>
+      </HStack>
     </>
   );
 };
-
-const StatusContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: 4px;
-`;
-
-const StyledBodyLong = styled(BodyLong)`
-  border-left: 2px solid var(--ax-border-neutral-subtle);
-  padding-left: 8px;
-  margin-top: 4px;
-`;

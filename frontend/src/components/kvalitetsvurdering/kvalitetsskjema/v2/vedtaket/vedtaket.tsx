@@ -11,9 +11,9 @@ import {
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/vedtaket/data';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
-import { Alert, Checkbox, Radio } from '@navikt/ds-react';
+import { Alert, Checkbox, Heading, Radio } from '@navikt/ds-react';
 import { ContainerWithHelpText } from '../../common/container-with-helptext';
-import { RadioButtonsRow, StyledHeading, StyledRadioGroup } from '../../common/styled-components';
+import { RadioButtonsRow, StyledRadioGroup } from '../../common/styled-components';
 import { Checkboxes } from '../common/checkboxes';
 import type { CheckboxParams } from '../common/types';
 import { useKvalitetsvurderingV2 } from '../common/use-kvalitetsvurdering-v2';
@@ -38,7 +38,7 @@ export const Vedtaket = () => {
 
   return (
     <section>
-      <StyledHeading size="small">{HEADER}</StyledHeading>
+      <Heading size="small">{HEADER}</Heading>
 
       {vedtaketAutomatiskVedtak === true ? <Alert variant="info">{vedtaketAutomatiskVedtakhelpText}</Alert> : null}
       <ContainerWithHelpText helpText={vedtaketAutomatiskVedtakhelpText}>

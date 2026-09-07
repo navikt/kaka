@@ -7,7 +7,6 @@ import type {
 import { useFieldName } from '@app/hooks/use-field-name';
 import { useSectionTitle } from '@app/hooks/use-section-title';
 import { Alert, Link } from '@navikt/ds-react';
-import { styled } from 'styled-components';
 
 interface Props {
   sections: IValidationSection[];
@@ -24,56 +23,28 @@ export const ValidationSummary = ({ sections }: Props) => {
 
   return (
     <Alert variant="warning">
-      <StyledHeader>Kan ikke fullføre vurdering. Dette mangler:</StyledHeader>
-      <ValidationSummaryContainer>{errorMessages}</ValidationSummaryContainer>
+      <h3 className="mt-0 text-base">Kan ikke fullføre vurdering. Dette mangler:</h3>
+      <article className="m-0 mt-2.5 p-0">{errorMessages}</article>
     </Alert>
   );
 };
 
 const Section = ({ properties, section }: IValidationSection) => (
-  <StyledSection>
-    <SectionTitle>{useSectionTitle(section)}</SectionTitle>
-    <StyledFieldList>
+  <section className="mt-2.5">
+    <h1 className="m-0 text-lg">{useSectionTitle(section)}</h1>
+    <ul className="m-0 p-0 pl-4">
       {properties.map((p) => (
         <Field key={`${p.field}-${p.reason}`} {...p} />
       ))}
-    </StyledFieldList>
-  </StyledSection>
+    </ul>
+  </section>
 );
 
 const Field = ({ field, reason }: IValidationErrorV3 | IValidationErrorV2 | IValidationErrorV1) => (
   <li>
     <strong>{`${useFieldName(field)}: `}</strong>
-    <InlineLink href={`#${field}`}>{reason}</InlineLink>
+    <Link href={`#${field}`} className="inline">
+      {reason}
+    </Link>
   </li>
 );
-
-const ValidationSummaryContainer = styled.article`
-  margin: 0;
-  margin-top: 10px;
-  padding: 0;
-`;
-
-const StyledFieldList = styled.ul`
-  margin: 0;
-  padding: 0;
-  padding-left: 1em;
-`;
-
-const SectionTitle = styled.h1`
-  margin: 0;
-  font-size: 18px;
-`;
-
-const StyledSection = styled.section`
-  margin-top: 10px;
-`;
-
-const StyledHeader = styled.h3`
-  margin-top: 0;
-  font-size: 16px;
-`;
-
-const InlineLink = styled(Link)`
-  display: inline;
-`;

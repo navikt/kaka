@@ -1,5 +1,4 @@
-import { StyledHeading } from '@app/components/kvalitetsvurdering/kvalitetsskjema/common/styled-components';
-import { type HeadingProps, HelpText, type HelpTextProps } from '@navikt/ds-react';
+import { Heading, type HeadingProps, HelpText, type HelpTextProps, HStack } from '@navikt/ds-react';
 
 interface Props {
   children: string;
@@ -10,10 +9,12 @@ interface Props {
 
 export const HeadingWithHelpText = ({ children, helpText, size = 'small', placement = 'right' }: Props) =>
   helpText === null ? (
-    <StyledHeading size={size}>{children}</StyledHeading>
+    <Heading size={size}>{children}</Heading>
   ) : (
-    <StyledHeading size={size} className="flex-row">
-      {children}
-      <HelpText placement={placement}>{helpText}</HelpText>
-    </StyledHeading>
+    <Heading size={size}>
+      <HStack as="span" align="center" gap="space-8">
+        {children}
+        <HelpText placement={placement}>{helpText}</HelpText>
+      </HStack>
+    </Heading>
   );

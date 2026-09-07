@@ -6,8 +6,7 @@ import { useSetUtfallMutation } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';
 import { useUtfallFromSakstype } from '@app/simple-api-state/use-utfall';
 import { isUtfall, UtfallEnum } from '@app/types/utfall';
-import { Alert, Select } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { Alert, Select, VStack } from '@navikt/ds-react';
 import { EmptyOption } from './empty-option';
 
 export const UtfallResultat = () => {
@@ -35,7 +34,7 @@ export const UtfallResultat = () => {
   ));
 
   return (
-    <Container>
+    <VStack gap="space-12">
       <Select
         error={validationError}
         label="Utfall/resultat"
@@ -57,12 +56,6 @@ export const UtfallResultat = () => {
           avgjørelse og gjøres svært sjelden.
         </Alert>
       ) : null}
-    </Container>
+    </VStack>
   );
 };
-
-const Container = styled.div`
-  display: flex ;
-  flex-direction: column;
-  gap: var(--ax-space-12);
-`;

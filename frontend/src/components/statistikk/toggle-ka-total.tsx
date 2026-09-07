@@ -1,5 +1,4 @@
-import { ToggleGroup } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { HStack, ToggleGroup } from '@navikt/ds-react';
 import { useBehandlingstidParam } from './hooks/use-behandlingstid-param';
 import { BehandlingstidEnum, isBehandlingstidEnum } from './types';
 
@@ -7,7 +6,7 @@ export const ToggleTotalOrKA = () => {
   const [behandlingstid, setBehandlingstid] = useBehandlingstidParam();
 
   return (
-    <Container>
+    <HStack justify="center">
       <ToggleGroup
         size="small"
         value={behandlingstid}
@@ -21,11 +20,6 @@ export const ToggleTotalOrKA = () => {
         <ToggleGroup.Item value={BehandlingstidEnum.KA}>Klageinstans</ToggleGroup.Item>
         <ToggleGroup.Item value={BehandlingstidEnum.TOTAL}>Total</ToggleGroup.Item>
       </ToggleGroup>
-    </Container>
+    </HStack>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`;

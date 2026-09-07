@@ -1,5 +1,5 @@
 import { Nav } from '@app/components/routing/nav';
-import { styled } from 'styled-components';
+import { HStack, VStack } from '@navikt/ds-react';
 
 interface Props {
   children: React.ReactNode;
@@ -8,36 +8,17 @@ interface Props {
 export const StatisticsPageWrapper = ({ children }: Props) => (
   <>
     <Nav />
-    <StyledPageWrapper>
-      <StyledPagePadding>{children}</StyledPagePadding>
-    </StyledPageWrapper>
+    <VStack as="article" position="relative" className="grow overflow-auto">
+      <HStack wrap={false} className="grow overflow-hidden">
+        {children}
+      </HStack>
+    </VStack>
   </>
 );
 
-const StyledPageWrapper = styled.article`
-  position: relative;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-`;
-
-const StyledPagePadding = styled.div`
-  flex-grow: 1;
-  display: flex;
-  overflow: hidden;
-`;
-
 export const KvalitetsvurderingPageWrapper = ({ children }: Props) => (
-  <StyledKvalitetsvurderingPage>
+  <VStack as="section" className="grow overflow-y-hidden">
     <Nav />
     {children}
-  </StyledKvalitetsvurderingPage>
+  </VStack>
 );
-
-const StyledKvalitetsvurderingPage = styled.section`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: hidden;
-`;

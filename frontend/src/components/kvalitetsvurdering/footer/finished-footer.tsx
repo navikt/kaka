@@ -3,15 +3,15 @@ import { useGetSaksdataQuery, useReopenSaksdataMutation } from '@app/redux-api/s
 import { useUser } from '@app/simple-api-state/use-user';
 import { Button } from '@navikt/ds-react';
 import { BackLink } from './back-link';
-import { StyledButtons, StyledFinishedFooter } from './styled-components';
+import { Footer, StyledButtons } from './styled-components';
 
 export const FinishedFooter = () => (
-  <StyledFinishedFooter data-testid="finished-vurdering-footer">
+  <Footer className="border-ax-border-success bg-ax-bg-success-moderate" data-testid="finished-vurdering-footer">
     <StyledButtons>
       <Reopen />
       <BackLink />
     </StyledButtons>
-  </StyledFinishedFooter>
+  </Footer>
 );
 
 const Reopen = () => {

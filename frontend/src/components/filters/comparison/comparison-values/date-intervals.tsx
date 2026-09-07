@@ -1,8 +1,7 @@
 import { ColorToken, isToken } from '@app/components/statistikk/colors/token-name';
 import { TrashIcon } from '@navikt/aksel-icons';
-import { Button } from '@navikt/ds-react';
+import { Button, HStack } from '@navikt/ds-react';
 import { parse } from 'date-fns';
-import { styled } from 'styled-components';
 import { DatepickerWithValidation } from '../../../date-picker/date-picker';
 import { FORMAT } from '../../date-presets/constants';
 import { AddOptionButton } from './add-option-button';
@@ -23,7 +22,7 @@ export const DateIntervals = () => {
           .map((date) => (date === 'null' ? null : date));
 
         return (
-          <Container key={`${stringInterval}-${color}`}>
+          <HStack key={`${stringInterval}-${color}`} wrap={false} align="center" justify="space-between">
             <div>
               <DatepickerWithValidation
                 label="Fra og med"
@@ -41,9 +40,10 @@ export const DateIntervals = () => {
                 size="small"
               />
             </div>
-            <Buttons>
-              <StyledColorPicker
+            <HStack wrap={false} gap="space-8">
+              <input
                 type="color"
+                className="w-7.5 min-w-7.5"
                 value={color}
                 onChange={({ target }) =>
                   setColor(stringInterval, isToken(target.value) ? target.value : ColorToken.Beige500)
@@ -57,26 +57,10 @@ export const DateIntervals = () => {
                 icon={<TrashIcon aria-hidden />}
                 variant="primary"
               />
-            </Buttons>
-          </Container>
+            </HStack>
+          </HStack>
         );
       })}
     </>
   );
 };
-
-const StyledColorPicker = styled.input`
-  width: 30px;
-  min-width: 30px;
-`;
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  gap: 8px;
-`;

@@ -1,6 +1,5 @@
 import type { HelpTextContainer } from '@app/components/statistikk/types/common';
-import { BodyShort, Heading, Label, ReadMore } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { BodyShort, Heading, Label, ReadMore, VStack } from '@navikt/ds-react';
 
 interface Props {
   helpTexts: HelpTextContainer[];
@@ -42,7 +41,11 @@ const ShowHelpTexts = ({ show, helpTexts }: ShowHelpTextsProps) => {
     );
   });
 
-  return <HelpTextsWrapper>{children}</HelpTextsWrapper>;
+  return (
+    <VStack as="section" gap="space-16">
+      {children}
+    </VStack>
+  );
 };
 
 const HelpText = ({ texts }: Pick<HelpTextContainer, 'texts'>) => {
@@ -63,9 +66,3 @@ const HelpText = ({ texts }: Pick<HelpTextContainer, 'texts'>) => {
 
   return <>{children}</>;
 };
-
-const HelpTextsWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;

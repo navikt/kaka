@@ -1,33 +1,13 @@
-import { styled } from 'styled-components';
-import { BREAK_POINT } from './constants';
+import type { PropsWithChildren } from 'react';
 
-export const FiltersAndContentContainer = styled.div`
-  flex-grow: 1;
-  width: 100%;
-  display: flex;
+export const FiltersAndContentContainer = ({ children }: PropsWithChildren) => (
+  <div className="flex w-full grow max-[1100px]:block max-[1100px]:flex-col max-[1100px]:overflow-y-auto">
+    {children}
+  </div>
+);
 
-  @media (max-width: ${BREAK_POINT}px) {
-    flex-direction: column;
-    overflow-y: auto;
-    display: block;
-  }
-`;
-
-export const FilterSection = styled.div`
-  padding: var(--ax-space-16);
-  display: flex;
-  flex-direction: column;
-  row-gap: 16px;
-  flex-shrink: 0;
-  border-right: 1px solid var(--ax-border-neutral-subtle);
-  width: 420px;
-  height: 100%;
-  overflow-y: auto;
-
-  @media (max-width: ${BREAK_POINT}px) {
-    width: 100%;
-    border-right: none;
-    height: fit-content;
-    overflow-y: hidden;
-  }
-`;
+export const FilterSection = ({ children }: PropsWithChildren) => (
+  <div className="flex h-full w-105 shrink-0 flex-col gap-4 overflow-y-auto border-ax-border-neutral-subtle border-r p-4 max-[1100px]:h-fit max-[1100px]:w-full max-[1100px]:overflow-y-hidden max-[1100px]:border-r-0">
+    {children}
+  </div>
+);

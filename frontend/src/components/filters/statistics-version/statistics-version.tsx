@@ -1,9 +1,8 @@
 import { IS_BEFORE_2026 } from '@app/components/filters/date-presets/constants';
 import { ENVIRONMENT } from '@app/environment';
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
-import { HelpText, List, ToggleGroup } from '@navikt/ds-react';
+import { HelpText, HStack, List, ToggleGroup } from '@navikt/ds-react';
 import { useSearchParams } from 'react-router';
-import { styled } from 'styled-components';
 import { QueryParams } from '../filter-query-params';
 import { useVersionQueryFilter } from '../hooks/use-query-filter';
 import { DEFAULT_PARAMS_V1, DEFAULT_PARAMS_V2, DEFAULT_PARAMS_V3, type DefaultParams } from './default-params';
@@ -48,7 +47,7 @@ export const StatisticsVersionFilter = ({ defaultParams = DEFAULT_PARAMS }: Prop
 };
 
 const Label = () => (
-  <StyledLabel>
+  <HStack wrap={false} align="center" gap="space-8">
     Statistikkversjon
     {IS_BEFORE_2026 && ENVIRONMENT.isProduction ? (
       <HelpText placement="right">
@@ -66,14 +65,8 @@ const Label = () => (
         </List>
       </HelpText>
     )}
-  </StyledLabel>
+  </HStack>
 );
-
-const StyledLabel = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
 
 const getDefaultParams = (version: KvalitetsvurderingVersion, params: DefaultParamsMap): DefaultParams => {
   switch (version) {

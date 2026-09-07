@@ -1,30 +1,14 @@
-import { Loader } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { Loader, VStack } from '@navikt/ds-react';
 
 interface Props {
   text: string;
 }
 
 export const AppLoader = ({ text }: Props) => (
-  <LoaderWrapper>
-    <Content>
+  <VStack height="100vh" width="100vw" align="center" justify="center" className="bg-ax-bg-default">
+    <VStack align="center">
       <Loader size="2xlarge" variant="neutral" transparent title={text} />
       <span>{text}</span>
-    </Content>
-  </LoaderWrapper>
+    </VStack>
+  </VStack>
 );
-
-const LoaderWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: var(--ax-bg-default);
-`;
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
