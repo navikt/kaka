@@ -1,19 +1,12 @@
-import { Loader } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { HStack, Loader } from '@navikt/ds-react';
 
 interface LoaderProps {
   children: string;
 }
 
 export const RowLoader = ({ children }: LoaderProps) => (
-  <Container>
+  <HStack align="center" gap="space-8">
     <Loader />
     <span>{children}</span>
-  </Container>
+  </HStack>
 );
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;

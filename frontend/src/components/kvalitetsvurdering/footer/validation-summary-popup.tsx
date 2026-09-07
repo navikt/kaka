@@ -3,9 +3,8 @@ import { useKvalitetsvurderingIsFinished } from '@app/hooks/use-kvalitetsvurderi
 import { useSaksdataId } from '@app/hooks/use-saksdata-id';
 import { useFullfoerMutation } from '@app/redux-api/saksdata';
 import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
-import { Alert } from '@navikt/ds-react';
+import { Alert, Box, HStack } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
-import { styled } from 'styled-components';
 import { ValidationSummary } from './validation-summary';
 
 interface Props {
@@ -49,51 +48,26 @@ export const ValidationSummaryPopup = ({ hasErrors }: Props) => {
 
   return (
     <>
-      <StyledButton onClick={toggleOpen}>
+      <button type="button" onClick={toggleOpen} className="cursor-pointer whitespace-nowrap border-0 bg-transparent">
         <Alert variant={statusType} inline>
-          <StyledAlertStripeText>
-            <StyledStatusText>{statusText}</StyledStatusText>
+          <HStack wrap={false} align="center">
+            <span className="mr-4">{statusText}</span>
             <Icon />
-          </StyledAlertStripeText>
+          </HStack>
         </Alert>
-      </StyledButton>
+      </button>
       {open && (
-        <StyledPopup>
-          <StyledIconButton onClick={toggleOpen}>
+        <Box position="absolute" bottom="space-64" right="space-16" width="400px">
+          <button
+            type="button"
+            onClick={toggleOpen}
+            className="absolute right-0 cursor-pointer whitespace-nowrap border-0 bg-transparent p-4"
+          >
             <Icon />
-          </StyledIconButton>
+          </button>
           <ValidationSummary sections={error.data.sections} />
-        </StyledPopup>
+        </Box>
       )}
     </>
   );
 };
-
-const StyledAlertStripeText = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const StyledPopup = styled.div`
-  position: absolute;
-  bottom: 4em;
-  right: 1em;
-  width: 400px;
-`;
-
-const StyledButton = styled.button`
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  white-space: nowrap;
-`;
-
-const StyledStatusText = styled.span`
-  margin-right: 1em;
-`;
-
-const StyledIconButton = styled(StyledButton)`
-  position: absolute;
-  right: 0;
-  padding: 1em;
-`;

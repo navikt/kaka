@@ -5,8 +5,7 @@ import { Særregelverket } from '@app/components/kvalitetsvurdering/kvalitetsskj
 import { Trygdemedisin } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/trygdemedisin/trygdemedisin';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { UtfallEnum } from '@app/types/utfall';
-import { Heading, Loader } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { Heading, Loader, VStack } from '@navikt/ds-react';
 
 export const KvalitetsskjemaV3 = () => {
   const { data: saksdata, isLoading, isError } = useSaksdata();
@@ -27,7 +26,7 @@ export const KvalitetsskjemaV3 = () => {
   }
 
   return (
-    <StyledKvalitetsskjema data-testid="kvalitetsskjema">
+    <VStack as="section" gap="space-32" data-testid="kvalitetsskjema">
       <Heading level="1" size="medium">
         Kvalitetsvurdering
       </Heading>
@@ -35,12 +34,6 @@ export const KvalitetsskjemaV3 = () => {
       <Saksbehandlingsreglene />
       <Trygdemedisin />
       <Annet />
-    </StyledKvalitetsskjema>
+    </VStack>
   );
 };
-
-const StyledKvalitetsskjema = styled.section`
-  display: flex;
-  flex-direction: column;
-  row-gap: 32px;
-`;

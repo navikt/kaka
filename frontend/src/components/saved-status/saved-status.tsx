@@ -1,8 +1,8 @@
 import { type ErrorMessage, getErrorData } from '@app/components/saved-status/get-error-data';
-import { Loader, Tooltip } from '@navikt/ds-react';
+import { HStack, Loader, Tooltip } from '@navikt/ds-react';
 import type { SerializedError } from '@reduxjs/toolkit';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { styled } from 'styled-components';
+import type { PropsWithChildren } from 'react';
 import { CheckmarkCircleFillIconColored, XMarkOctagonFillIconColored } from '../colored-icons/colored-icons';
 
 interface SavedStatusProps {
@@ -15,35 +15,35 @@ interface SavedStatusProps {
 export const SavedStatus = ({ isLoading, isSuccess, isError, error }: SavedStatusProps) => {
   if (isLoading) {
     return (
-      <Container>
+      <HStack wrap={false} align="center" gap="space-4" height="19px">
         <StatusText>Lagrer...</StatusText>
 
         <Tooltip content="Lagrer..." delay={0}>
           <Loader size="xsmall" />
         </Tooltip>
-      </Container>
+      </HStack>
     );
   }
 
   if (isSuccess) {
     return (
-      <Container>
+      <HStack wrap={false} align="center" gap="space-4" height="19px">
         <Tooltip content="Lagret!" delay={0}>
           <CheckmarkCircleFillIconColored />
         </Tooltip>
-      </Container>
+      </HStack>
     );
   }
 
   if (isError) {
     return (
-      <Container>
+      <HStack wrap={false} align="center" gap="space-4" height="19px">
         <StatusText>Feil ved lagring</StatusText>
 
         <Tooltip content={`Feil ved lagring:\n${formatErrorMessage(getErrorData(error))}`} delay={0}>
           <XMarkOctagonFillIconColored />
         </Tooltip>
-      </Container>
+      </HStack>
     );
   }
 
@@ -57,15 +57,6 @@ const formatErrorMessage = (error: ErrorMessage) => {
   return message;
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 4px;
-  height: 19px;
-`;
-
-const StatusText = styled.span`
-  color: var(--ax-text-neutral-subtle);
-  font-size: var(--ax-font-size-small);
-`;
+const StatusText = ({ children }: PropsWithChildren) => (
+  <span className="text-ax-text-neutral-subtle text-sm">{children}</span>
+);

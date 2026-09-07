@@ -1,6 +1,5 @@
-import { BodyShort, Button, Label } from '@navikt/ds-react';
+import { BodyShort, Button, HStack, Label } from '@navikt/ds-react';
 import { Fragment, useMemo, useState } from 'react';
-import { styled } from 'styled-components';
 import type { ReasonLabel } from '../../../kvalitetsvurdering/kvalitetsskjema/v1/reasons-labels';
 
 interface Props {
@@ -19,9 +18,11 @@ export const HelpTexts = ({ relevantReasons }: Props) => {
 
   return (
     <div>
-      <ToggleButton onClick={() => setIsOpen(!isOpen)} disabled={!hasHelpTexts} size="small" iconPosition="right">
-        {getButtonPrefix(isOpen, hasHelpTexts)} hjelpetekster
-      </ToggleButton>
+      <Button onClick={() => setIsOpen(!isOpen)} disabled={!hasHelpTexts} size="small" iconPosition="right">
+        <HStack as="span" gap="space-8">
+          {getButtonPrefix(isOpen, hasHelpTexts)} hjelpetekster
+        </HStack>
+      </Button>
       <ShowHelpTexts isOpen={isOpen} relevantReasons={relevantReasonHelpTexts} />
     </div>
   );
@@ -58,8 +59,3 @@ const ShowHelpTexts = ({ isOpen, relevantReasons }: ShowProps) => {
 
   return <dl>{descriptions}</dl>;
 };
-
-const ToggleButton = styled(Button)`
-  display: flex;
-  gap: 8px;
-`;

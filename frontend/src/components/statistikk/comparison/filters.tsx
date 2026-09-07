@@ -3,10 +3,9 @@ import { YtelserAndHjemler } from '@app/components/filters/ytelser-and-hjemler';
 import { isNotNull } from '@app/functions/is-not';
 import { useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { ArrowUndoIcon } from '@navikt/aksel-icons';
-import { Button, HelpText, Label } from '@navikt/ds-react';
+import { Button, HelpText, HStack, Label, VStack } from '@navikt/ds-react';
 import { format, parse } from 'date-fns';
 import { useSearchParams } from 'react-router';
-import { styled } from 'styled-components';
 import { DatepickerWithValidation } from '../../date-picker/date-picker';
 import { DateContainer, FilterPanelContainer, StyledHr } from '../../filters/common/styled-components';
 import { ComparisonProp } from '../../filters/comparison/comparison-prop';
@@ -113,8 +112,8 @@ export const Filters = () => {
 
       <StyledHr />
 
-      <StyledDate>
-        <DatepickerAndPresets>
+      <HStack wrap={false} align="center" justify="space-between">
+        <VStack gap="space-8">
           <DatepickerWithValidation
             label={
               <DateContainer>
@@ -166,9 +165,9 @@ export const Filters = () => {
             prettyFormat={PRETTY_FORMAT}
             disabled={mainDatepickerDisabled}
           />
-        </DatepickerAndPresets>
+        </VStack>
         <DatepickerDisabledWarning mainDatepickerDisabled={mainDatepickerDisabled} />
-      </StyledDate>
+      </HStack>
 
       <KlageenheterFilter
         selected={selectedKlageenheter}
@@ -229,15 +228,3 @@ const DatepickerDisabledWarning = ({ mainDatepickerDisabled }: DatepickerDisable
 
   return <HelpText>Dato kan ikke settes da dette er overstyrt av sammenlikning på tvers.</HelpText>;
 };
-
-const StyledDate = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const DatepickerAndPresets = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 8px;
-`;

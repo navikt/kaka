@@ -2,10 +2,9 @@ import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useKvalitetsvurdering } from '@app/hooks/use-kvalitetsvurdering';
 import { useUpdateKvalitetsvurderingMutation } from '@app/redux-api/kvalitetsvurdering/v1';
 import type { IKvalitetsvurderingTexts } from '@app/types/kvalitetsvurdering/v1';
-import { Checkbox, CheckboxGroup, HelpText } from '@navikt/ds-react';
+import { Checkbox, CheckboxGroup, HelpText, HStack } from '@navikt/ds-react';
 import { Fragment, forwardRef } from 'react';
 import { CommentField } from './comment-field';
-import { StyledCheckboxContainer } from './styled-components';
 import type { Reason } from './types';
 
 export interface CheckboxesProps {
@@ -40,7 +39,7 @@ export const Checkboxes = forwardRef<HTMLDivElement, CheckboxesProps>(({ reasons
 
             return (
               <Fragment key={reason.id}>
-                <StyledCheckboxContainer>
+                <HStack gap="space-8" width="100%" align="center">
                   <Checkbox
                     value={reason.id}
                     onChange={({ target }) => updateKvalitetsvurdering({ id, [reason.id]: target.checked })}
@@ -49,7 +48,7 @@ export const Checkboxes = forwardRef<HTMLDivElement, CheckboxesProps>(({ reasons
                     {reason.label}
                   </Checkbox>
                   <HjelpetekstDisplay helpText={reason.helpText} />
-                </StyledCheckboxContainer>
+                </HStack>
                 <CommentFieldDisplay textareaId={reason.textareaId} show={showTextArea} />
               </Fragment>
             );

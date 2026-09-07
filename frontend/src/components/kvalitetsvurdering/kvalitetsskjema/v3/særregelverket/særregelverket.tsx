@@ -11,9 +11,9 @@ import {
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/særregelverket/data';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
-import { Alert, Checkbox, Radio } from '@navikt/ds-react';
+import { Alert, Checkbox, Heading, Radio } from '@navikt/ds-react';
 import { ContainerWithHelpText } from '../../common/container-with-helptext';
-import { RadioButtonsRow, StyledHeading, StyledRadioGroup } from '../../common/styled-components';
+import { RadioButtonsRow, StyledRadioGroup } from '../../common/styled-components';
 import { Checkboxes } from '../common/checkboxes';
 import type { CheckboxParams } from '../common/types';
 import { useKvalitetsvurderingV3 } from '../common/use-kvalitetsvurdering-v3';
@@ -35,7 +35,7 @@ export const Særregelverket = () => {
 
   return (
     <section>
-      <StyledHeading size="small">{HEADER}</StyledHeading>
+      <Heading size="small">{HEADER}</Heading>
 
       {saerregelverkAutomatiskVedtak === true ? (
         <Alert variant="info">{SÆRREGELVERKET_HELP_TEXTS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}</Alert>

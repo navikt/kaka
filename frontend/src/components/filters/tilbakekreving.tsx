@@ -1,5 +1,4 @@
-import { BodyShort, HelpText, Label, ToggleGroup } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { BodyShort, HelpText, HStack, Label, ToggleGroup } from '@navikt/ds-react';
 import { TilbakekrevingEnum } from './types';
 
 interface Props {
@@ -30,7 +29,7 @@ const isTilbakekrevingEnum = (value: string): value is TilbakekrevingEnum =>
   TILBAKEKREVING_VALUES.some((v) => v === value);
 
 const ToggleGroupLabel = () => (
-  <StyledLabel>
+  <HStack wrap={false} align="center" gap="space-8">
     Tilbakekreving
     <HelpText placement="right">
       <Label>Med tilbakekreving</Label>
@@ -40,11 +39,5 @@ const ToggleGroupLabel = () => (
       <Label>Kun tilbakekreving</Label>
       <BodyShort spacing>Vis kun saker som er registrert som tilbakekrevingssak.</BodyShort>
     </HelpText>
-  </StyledLabel>
+  </HStack>
 );
-
-const StyledLabel = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;

@@ -5,10 +5,10 @@ import { useValidationError } from '@app/hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '@app/redux-api/kvalitetsvurdering/v1';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import { SakstypeEnum } from '@app/types/sakstype';
-import { HelpText, Radio, RadioGroup } from '@navikt/ds-react';
+import { Heading, HelpText, HStack, Radio, RadioGroup } from '@navikt/ds-react';
 import { Reasons } from './reasons';
 import { klageforberedelsenReasons } from './reasons-labels';
-import { RadioButtonsRow, StyledHeading } from './styled-components';
+import { RadioButtonsRow } from './styled-components';
 import type { Reason } from './types';
 import { useKvalitetsvurderingV1FieldName } from './use-field-name';
 
@@ -40,13 +40,15 @@ export const Klageforberedelsen = () => {
 
   return (
     <section>
-      <StyledHeading size="small">
-        {header}
-        <HelpText placement="right">
-          Vedtaksinstansen skal gjøre en ny prøving av eget vedtak, vise klagers argumenter og begrunne hvorfor vedtaket
-          blir fastholdt.
-        </HelpText>
-      </StyledHeading>
+      <Heading size="small">
+        <HStack as="span" align="center" gap="space-8">
+          {header}
+          <HelpText placement="right">
+            Vedtaksinstansen skal gjøre en ny prøving av eget vedtak, vise klagers argumenter og begrunne hvorfor
+            vedtaket blir fastholdt.
+          </HelpText>
+        </HStack>
+      </Heading>
 
       <RadioGroup
         legend={header}

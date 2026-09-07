@@ -5,7 +5,6 @@ import { useRegistreringshjemlerMap } from '@app/simple-api-state/use-kodeverk';
 import type { IKvalitetsvurderingBooleans, IKvalitetsvurderingSaksdataHjemler } from '@app/types/kvalitetsvurdering/v2';
 import { BodyShort, Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import { useEffect } from 'react';
-import { styled } from 'styled-components';
 import { useKvalitetsvurderingV2 } from './use-kvalitetsvurdering-v2';
 import { useValidationError } from './use-validation-error';
 
@@ -93,7 +92,7 @@ const HjemmelCheckboxes = ({ hjemmelIdList }: HjemmelCheckboxesProps) => {
   const { data: registreringshjemlerMap, isLoading } = useRegistreringshjemlerMap();
 
   if (hjemmelIdList.length === 0 || isLoading || typeof registreringshjemlerMap === 'undefined') {
-    return <ItalicBodyShort>Ingen hjemler valgt under saksdata.</ItalicBodyShort>;
+    return <BodyShort className="italic">Ingen hjemler valgt under saksdata.</BodyShort>;
   }
 
   return (
@@ -114,7 +113,3 @@ const hjemmelIdListsEquals = (a: string[] = [], b: string[] = []) => {
 
   return a.every((id) => b.includes(id));
 };
-
-const ItalicBodyShort = styled(BodyShort)`
-  font-style: italic;
-`;

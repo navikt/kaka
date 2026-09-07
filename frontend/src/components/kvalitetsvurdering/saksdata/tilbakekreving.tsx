@@ -2,8 +2,7 @@ import { TILBAKEKREVING_IDS } from '@app/domain/tilbakekreving-ids';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { useSetTilbakekrevingMutation } from '@app/redux-api/saksdata';
-import { Alert, BodyShort, Checkbox, CheckboxGroup, Heading, HelpText } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { Alert, BodyShort, Checkbox, CheckboxGroup, Heading, HelpText, HStack } from '@navikt/ds-react';
 
 const PARTSINNSYN_YTELSE_ID = '53';
 
@@ -30,7 +29,7 @@ export const Tilbakekreving = () => {
   const showWarning = !tilbakekreving && TILBAKEKREVING_IDS.some((id) => hjemmelIdList.includes(id));
 
   const legend = (
-    <LegendContainer>
+    <HStack align="center" gap="space-8">
       Velg om det gjelder en tilbakekrevingssak
       <HelpText>
         Du skal huke av for at det gjelder en tilbakekrevingssak uavhengig av ytelse eller hjemmel for tilbakekreving.
@@ -38,7 +37,7 @@ export const Tilbakekreving = () => {
         går videre til spørsmålet om tilbakekreving, eller om tilbakekrevingssaken for eksempel gjelder klage- eller
         ankefrist.
       </HelpText>
-    </LegendContainer>
+    </HStack>
   );
 
   return (
@@ -62,9 +61,3 @@ const Warning = () => (
     at dette er riktig?
   </Alert>
 );
-
-const LegendContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;

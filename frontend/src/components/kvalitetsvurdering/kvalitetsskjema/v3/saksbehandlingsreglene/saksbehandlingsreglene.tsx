@@ -18,8 +18,8 @@ import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
 import { SakstypeEnum } from '@app/types/sakstype';
-import { Radio } from '@navikt/ds-react';
-import { RadioButtonsRow, StyledHeading, StyledRadioGroup } from '../../common/styled-components';
+import { Heading, Radio } from '@navikt/ds-react';
+import { RadioButtonsRow, StyledRadioGroup } from '../../common/styled-components';
 import { Checkboxes } from '../common/checkboxes';
 import type { CheckboxParams } from '../common/types';
 import { useKvalitetsvurderingV3 } from '../common/use-kvalitetsvurdering-v3';
@@ -42,7 +42,7 @@ export const Saksbehandlingsreglene = () => {
 
   return (
     <section>
-      <StyledHeading size="small">{HEADER}</StyledHeading>
+      <Heading size="small">{HEADER}</Heading>
 
       <StyledRadioGroup
         legend={HEADER}

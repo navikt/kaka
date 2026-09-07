@@ -3,10 +3,10 @@ import { useKvalitetsvurdering } from '@app/hooks/use-kvalitetsvurdering';
 import { useValidationError } from '@app/hooks/use-validation-error';
 import { useUpdateKvalitetsvurderingMutation } from '@app/redux-api/kvalitetsvurdering/v1';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
-import { HelpText, Radio, RadioGroup } from '@navikt/ds-react';
+import { Heading, HelpText, HStack, Radio, RadioGroup } from '@navikt/ds-react';
 import { Reasons } from './reasons';
 import { utredningenReasons } from './reasons-labels';
-import { RadioButtonsRow, StyledHeading } from './styled-components';
+import { RadioButtonsRow } from './styled-components';
 import type { Reason } from './types';
 import { useKvalitetsvurderingV1FieldName } from './use-field-name';
 
@@ -33,14 +33,16 @@ export const Utredningen = () => {
 
   return (
     <section>
-      <StyledHeading size="small">
-        {header}
-        <HelpText placement="right">
-          Gjelder kvaliteten på utredningen i perioden frem til og med oversendelse til klageinstansen. Er det kommet
-          nye opplysninger etter at saken er oversendt klageinstansen, som vedtaksinstansen burde innhentet, skal dette
-          også registreres her.
-        </HelpText>
-      </StyledHeading>
+      <Heading size="small">
+        <HStack as="span" align="center" gap="space-8">
+          {header}
+          <HelpText placement="right">
+            Gjelder kvaliteten på utredningen i perioden frem til og med oversendelse til klageinstansen. Er det kommet
+            nye opplysninger etter at saken er oversendt klageinstansen, som vedtaksinstansen burde innhentet, skal
+            dette også registreres her.
+          </HelpText>
+        </HStack>
+      </Heading>
 
       <RadioGroup
         legend={header}

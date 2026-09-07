@@ -1,5 +1,4 @@
-import { Loader } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { HStack, Loader } from '@navikt/ds-react';
 
 interface Props {
   isLoading: boolean;
@@ -8,27 +7,20 @@ interface Props {
 export const LoadingOverlay = ({ isLoading }: Props) => {
   if (isLoading) {
     return (
-      <Overlay>
+      <HStack
+        position="absolute"
+        justify="center"
+        align="start"
+        width="100%"
+        height="100%"
+        className="top-0 left-0 z-5 bg-ax-bg-neutral-moderate-pressedA backdrop-blur-[2px]"
+      >
         <div className="sticky top-[30vh]">
           <Loader size="3xlarge" variant="inverted" />
         </div>
-      </Overlay>
+      </HStack>
     );
   }
 
   return null;
 };
-
-const Overlay = styled.div`
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 5;
-  background-color: var(--ax-bg-neutral-moderate-pressedA);
-  backdrop-filter: blur(2px);
-  align-items: flex-start;
-`;

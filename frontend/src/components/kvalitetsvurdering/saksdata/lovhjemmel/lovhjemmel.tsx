@@ -5,8 +5,7 @@ import { useValidationError } from '@app/hooks/use-validation-error';
 import { useSetHjemlerMutation } from '@app/redux-api/saksdata';
 import { useUser } from '@app/simple-api-state/use-user';
 import { MagnifyingGlassIcon } from '@navikt/aksel-icons';
-import { HelpText, Label } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { HelpText, HStack, Label } from '@navikt/ds-react';
 import { LovhjemmelSelect } from './lovhjemmel-select';
 import { SelectedHjemlerList } from './selected-hjemler-list';
 
@@ -53,18 +52,14 @@ export const Lovhjemmel = () => {
   );
 };
 
-const StyledLabel = styled(Label)`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
 const LabelWithHelpText = () => (
-  <StyledLabel size="medium" spacing>
-    Utfallet er basert på lovhjemmel:
-    <HelpText placement="right">
-      Hjemlene skal i utgangspunktet være de samme som i klagevedtaket. Dersom saken har flere klagetemaer og kvaliteten
-      er bra nok på det ene og mangelfull på det andre, velger du de hjemlene kvalitetsavviket gjelder.
-    </HelpText>
-  </StyledLabel>
+  <Label size="medium" spacing>
+    <HStack as="span" align="center" gap="space-8">
+      Utfallet er basert på lovhjemmel:
+      <HelpText placement="right">
+        Hjemlene skal i utgangspunktet være de samme som i klagevedtaket. Dersom saken har flere klagetemaer og
+        kvaliteten er bra nok på det ene og mangelfull på det andre, velger du de hjemlene kvalitetsavviket gjelder.
+      </HelpText>
+    </HStack>
+  </Label>
 );

@@ -1,6 +1,5 @@
 import type { RadiovalgField } from '@app/types/statistics/v1';
-import { ToggleGroup } from '@navikt/ds-react';
-import { styled } from 'styled-components';
+import { HStack, ToggleGroup } from '@navikt/ds-react';
 import { isAllowedKey, KVALITETSVURDERING_OPTIONS } from './charts/kvalitetsvurderinger/kvalitetsvurdering-options';
 import { useKvalitetsvurderingParam } from './hooks/use-kvalitetsvurdering-param';
 
@@ -12,7 +11,7 @@ export const ToggleKvalitetsvurdering = () => {
   };
 
   return (
-    <Container>
+    <HStack justify="center">
       <ToggleGroup
         size="small"
         value={field}
@@ -28,11 +27,6 @@ export const ToggleKvalitetsvurdering = () => {
           </ToggleGroup.Item>
         ))}
       </ToggleGroup>
-    </Container>
+    </HStack>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-`;

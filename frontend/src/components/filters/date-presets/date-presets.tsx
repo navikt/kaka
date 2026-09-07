@@ -1,6 +1,5 @@
-import { Button } from '@navikt/ds-react';
+import { Button, HGrid } from '@navikt/ds-react';
 import { format } from 'date-fns';
-import { styled } from 'styled-components';
 import type { IOption } from './types';
 
 interface Props {
@@ -22,7 +21,7 @@ export const DatePresets = ({
   setPreset,
   disabled = false,
 }: Props) => (
-  <StyledPresetsList>
+  <HGrid as="ul" columns={2} gap="space-8" className="m-0 mb-4 list-none p-0">
     {options.map(({ label, fromDate, toDate }) => {
       const title = `${format(fromDate, prettyFormat)} - ${format(toDate, prettyFormat)}`;
 
@@ -34,7 +33,7 @@ export const DatePresets = ({
       const onClick = () => setPreset(fromDate, toDate);
 
       return (
-        <StyledLi key={label}>
+        <li key={label} className="grid w-full">
           <Button
             variant={isSelected ? 'primary' : 'secondary'}
             size="small"
@@ -45,23 +44,8 @@ export const DatePresets = ({
           >
             {label}
           </Button>
-        </StyledLi>
+        </li>
       );
     })}
-  </StyledPresetsList>
+  </HGrid>
 );
-
-const StyledPresetsList = styled.ul`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 16px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const StyledLi = styled.li`
-  display: grid;
-  width: 100%;
-`;

@@ -7,7 +7,7 @@ import { useUser } from '@app/simple-api-state/use-user';
 import { Button } from '@navikt/ds-react';
 import { useNavigate } from 'react-router';
 import { BackLink } from './back-link';
-import { StyledButtons, StyledUnfinishedErrorFooter, StyledUnfinishedFooter } from './styled-components';
+import { Footer, StyledButtons } from './styled-components';
 import { ValidationSummaryPopup } from './validation-summary-popup';
 
 export const UnfinishedFooter = () => {
@@ -50,10 +50,12 @@ export const UnfinishedFooter = () => {
     );
   }
 
-  const Wrapper = hasErrors ? StyledUnfinishedErrorFooter : StyledUnfinishedFooter;
+  const className = hasErrors
+    ? 'border-ax-border-warning bg-ax-bg-warning-moderate'
+    : 'border-ax-border-info bg-ax-bg-info-moderate';
 
   return (
-    <Wrapper>
+    <Footer className={className}>
       <StyledButtons>
         <Button
           size="small"
@@ -80,6 +82,6 @@ export const UnfinishedFooter = () => {
         </Button>
       </StyledButtons>
       <ValidationSummaryPopup hasErrors={hasErrors} />
-    </Wrapper>
+    </Footer>
   );
 };

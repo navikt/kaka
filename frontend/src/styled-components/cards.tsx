@@ -1,39 +1,19 @@
 import { Heading } from '@navikt/ds-react';
-import { styled } from 'styled-components';
-import { BREAK_POINT, GAP } from './constants';
+import type { ComponentProps, PropsWithChildren } from 'react';
 
-const BaseCard = styled.section`
-  padding: 16px;
-  border-radius: 4px;
-  box-shadow: var(--ax-shadow-dialog);
-`;
+const BaseCard = ({ className, ...props }: ComponentProps<'section'>) => (
+  <section className={`rounded p-4 shadow-ax-dialog ${className ?? ''}`} {...props} />
+);
 
-const StickyContainer = styled.div`
-  position: sticky;
-  top: 0px;
-  z-index: 3;
-`;
+export const FullWidthStickyContainer = ({ children }: PropsWithChildren) => (
+  <div className="sticky top-0 z-3 w-full">{children}</div>
+);
 
-export const FullWidthStickyContainer = styled(StickyContainer)`
-  width: 100%;
-`;
-
-export const StatsContainer = styled(BaseCard)`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: ${GAP * 2}px;
-  justify-content: center;
-  background-color: var(--ax-bg-default);
-  height: fit-content;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-
-  @media (max-width: ${BREAK_POINT}px) {
-    position: static;
-  }
-`;
+export const StatsContainer = ({ children }: PropsWithChildren) => (
+  <BaseCard className="mx-auto flex h-fit w-fit flex-row flex-wrap justify-center gap-8 bg-ax-bg-default max-[1100px]:static">
+    {children}
+  </BaseCard>
+);
 
 export const CardTitle = ({ children }: { children: React.ReactNode }) => (
   <Heading size="medium" align="center">

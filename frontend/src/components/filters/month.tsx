@@ -1,7 +1,6 @@
 import { KvalitetsvurderingVersion } from '@app/types/saksdata';
-import { Select } from '@navikt/ds-react';
+import { HGrid, Select } from '@navikt/ds-react';
 import { useMemo } from 'react';
-import { styled } from 'styled-components';
 import { useVersionQueryFilter } from './hooks/use-query-filter';
 
 const MONTH_REGEX = /^\d{4}-\d{2}$/;
@@ -73,7 +72,7 @@ export const MonthFilter = ({ label, value, onChange }: Props) => {
     onChange(`${selectedYear}-${target.value}`);
 
   return (
-    <Container>
+    <HGrid columns="4fr 6fr" gap="space-8">
       <Select label={`${label} år`} value={selectedYear} onChange={handleYearChange} size="small">
         {years.map((year) => (
           <option key={year} value={year}>
@@ -88,7 +87,7 @@ export const MonthFilter = ({ label, value, onChange }: Props) => {
           </option>
         ))}
       </Select>
-    </Container>
+    </HGrid>
   );
 };
 
@@ -117,9 +116,3 @@ const useYears = (): number[] => {
     }
   }, [version]);
 };
-
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: 4fr 6fr;
-  grid-gap: 8px;
-`;

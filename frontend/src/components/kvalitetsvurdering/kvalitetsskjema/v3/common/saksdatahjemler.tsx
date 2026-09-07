@@ -10,7 +10,6 @@ import type {
 } from '@app/types/kvalitetsvurdering/v3';
 import { BodyShort, Checkbox, CheckboxGroup, Heading, VStack } from '@navikt/ds-react';
 import { useEffect, useMemo } from 'react';
-import { styled } from 'styled-components';
 import { useValidationError } from './use-validation-error';
 
 const EMPTY_ARRAY: string[] = [];
@@ -98,7 +97,7 @@ const HjemmelCheckboxes = ({ hjemmelIdList }: HjemmelCheckboxesProps) => {
 
   const children = useMemo(() => {
     if (hjemmelIdList.length === 0) {
-      return <ItalicBodyShort>Ingen hjemler valgt under saksdata.</ItalicBodyShort>;
+      return <BodyShort className="italic">Ingen hjemler valgt under saksdata.</BodyShort>;
     }
 
     const map: Record<string, { hjemler: { id: string; label: string }[]; lovkildeLabel: string }> = {};
@@ -148,9 +147,5 @@ const hjemmelIdListsEquals = (a: string[] = [], b: string[] = []) => {
 
   return a.every((id) => b.includes(id));
 };
-
-const ItalicBodyShort = styled(BodyShort)`
-  font-style: italic;
-`;
 
 const UNKNOWN = 'UNKNOWN';

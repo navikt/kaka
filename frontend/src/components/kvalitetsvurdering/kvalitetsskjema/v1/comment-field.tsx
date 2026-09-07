@@ -4,7 +4,6 @@ import { useUpdateKvalitetsvurderingMutation } from '@app/redux-api/kvalitetsvur
 import type { IKvalitetsvurderingTexts, IKvalitetsvurderingV1 } from '@app/types/kvalitetsvurdering/v1';
 import { Textarea } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
-import { styled } from 'styled-components';
 
 interface Props {
   textareaId: keyof IKvalitetsvurderingTexts;
@@ -45,7 +44,8 @@ const CommentFieldContent = ({ textareaId, kvalitetsvurdering }: CommentFieldCon
   }, [comment, kvalitetsvurdering, textareaId, updateKvalitetsvurdering]);
 
   return (
-    <StyledTextarea
+    <Textarea
+      className="ml-8"
       label="Oppsummert i stikkord"
       value={comment ?? ''}
       placeholder="NB: Ingen personopplysninger"
@@ -55,7 +55,3 @@ const CommentFieldContent = ({ textareaId, kvalitetsvurdering }: CommentFieldCon
     />
   );
 };
-
-const StyledTextarea = styled(Textarea)`
-  margin-left: 32px;
-`;
