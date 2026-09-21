@@ -26,10 +26,10 @@ import { BulletListIcon, GavelIcon, ParagraphIcon } from '@navikt/aksel-icons';
 import {
   Button,
   Checkbox,
+  Dialog,
   Heading,
   HelpText,
   HStack,
-  Modal,
   Radio,
   RadioGroup,
   Tag,
@@ -39,54 +39,7 @@ import {
 import { type ReactElement, type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 
 export const KvalitetsvurderingModal = ({ focus }: { focus?: keyof KvalitetsvurderingV3Boolean | MainReason }) => {
-  const ref = useRef<HTMLDialogElement>(null);
-
-  const onClick =
-    focus === undefined
-      ? () => ref.current?.showModal()
-      : () => {
-          if (ref.current == null) {
-            return;
-          }
-
-          ref.current.showModal();
-
-          const element = ref.current.querySelector(`#${focus}`);
-
-          if (!(element instanceof HTMLElement)) {
-            return;
-          }
-
-          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          element.style.transition = 'box-shadow 0.5s ease-in-out';
-          element.style.boxShadow = '0 0 20px 10px var(--ax-border-danger)';
-          element.style.borderRadius = 'var(--ax-radius-8)';
-
-          setTimeout(() => {
-            element.style.boxShadow = '';
-          }, 3000);
-        };
-
-  return (
-    <>
-      <Button
-        data-color="neutral"
-        variant="tertiary"
-        size="small"
-        onClick={onClick}
-        icon={<BulletListIcon aria-hidden />}
-        className="w-min self-center whitespace-nowrap"
-      >
-        Se info om struktur og hjelpetekster
-      </Button>
-      <Content ref={ref} />
-    </>
-  );
-};
-
-const isKlageOrAnke = (value: string) => value === SakstypeEnum.KLAGE || value === SakstypeEnum.ANKE;
-
-const Content = ({ ref }: { ref: React.Ref<HTMLDialogElement> }) => {
+  const popupRef = useRef<HTMLDivElement>(null);
   const types = useSakstypeFilter();
   const showsOnlyAnke = useMemo(() => types.length === 1 && types[0] === SakstypeEnum.ANKE, [types]);
   const [selectedType, setSelectedType] = useState<SakstypeEnum.KLAGE | SakstypeEnum.ANKE>(
@@ -97,74 +50,116 @@ const Content = ({ ref }: { ref: React.Ref<HTMLDialogElement> }) => {
     setSelectedType(showsOnlyAnke ? SakstypeEnum.ANKE : SakstypeEnum.KLAGE);
   }, [showsOnlyAnke]);
 
+  const scrollToFocus = () => {
+    if (focus === undefined || popupRef.current === null) {
+      return;
+    }
+
+    const element = popupRef.current.querySelector(`#${focus}`);
+
+    if (!(element instanceof HTMLElement)) {
+      return;
+    }
+
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    element.style.transition = 'box-shadow 0.5s ease-in-out';
+    element.style.boxShadow = '0 0 20px 10px var(--ax-border-danger)';
+    element.style.borderRadius = 'var(--ax-radius-8)';
+
+    setTimeout(() => {
+      element.style.boxShadow = '';
+    }, 3000);
+  };
+
   return (
-    <Modal
-      ref={ref}
-      header={{ heading: 'Struktur og hjelpetekster i kvalitetsvurdering' }}
-      width="1000px"
-      closeOnBackdropClick
+    <Dialog
+      onOpenChangeComplete={(isOpen) => {
+        if (isOpen) {
+          scrollToFocus();
+        }
+      }}
     >
-      <Modal.Body className="flex flex-col gap-6">
-        <ToggleGroup
-          className="self-center"
+      <Dialog.Trigger>
+        <Button
+          data-color="neutral"
+          variant="tertiary"
           size="small"
-          value={selectedType}
-          onChange={(v) => {
-            if (isKlageOrAnke(v)) {
-              setSelectedType(v);
-            }
-          }}
+          icon={<BulletListIcon aria-hidden />}
+          className="w-min self-center whitespace-nowrap"
         >
-          <ToggleGroup.Item value={SakstypeEnum.KLAGE}>Klage</ToggleGroup.Item>
-          <ToggleGroup.Item value={SakstypeEnum.ANKE}>Anke</ToggleGroup.Item>
-        </ToggleGroup>
+          Se info om struktur og hjelpetekster
+        </Button>
+      </Dialog.Trigger>
 
-        <HStack gap="space-32">
-          <section>
-            <Heading size="small" spacing>
-              {SÆRREGELVERKET_HEADER}
-            </Heading>
+      <Dialog.Popup ref={popupRef} width="1000px">
+        <Dialog.Header>
+          <Dialog.Title>Struktur og hjelpetekster i kvalitetsvurdering</Dialog.Title>
+        </Dialog.Header>
 
-            <ReadOnlyCheckbox
-              checked={false}
-              helpText={SÆRREGELVERKET_HELP_TEXTS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}
-            >
-              {SÆRREGELVERKET_LABELS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}
-            </ReadOnlyCheckbox>
+        <Dialog.Body className="flex flex-col gap-6">
+          <ToggleGroup
+            className="self-center"
+            size="small"
+            value={selectedType}
+            onChange={(v) => {
+              if (isKlageOrAnke(v)) {
+                setSelectedType(v);
+              }
+            }}
+          >
+            <ToggleGroup.Item value={SakstypeEnum.KLAGE}>Klage</ToggleGroup.Item>
+            <ToggleGroup.Item value={SakstypeEnum.ANKE}>Anke</ToggleGroup.Item>
+          </ToggleGroup>
 
-            <ReadOnlyRadioGroup mainReason={MainReason.Særregelverket}>
-              <VStack gap="space-8">
-                <Checkboxes checkboxes={SÆRREGELVERKET_CHECKBOXES} />
-              </VStack>
-            </ReadOnlyRadioGroup>
-          </section>
+          <HStack gap="space-32">
+            <section>
+              <Heading size="small" spacing>
+                {SÆRREGELVERKET_HEADER}
+              </Heading>
 
-          <section>
-            <Heading size="small" spacing>
-              {SAKSBEHANDLINGSREGLENE_HEADER}
-            </Heading>
-            <ReadOnlyRadioGroup mainReason={MainReason.Saksbehandlingsreglene}>
-              <VStack gap="space-8">
-                <Checkboxes checkboxes={getSaksbehandlingsregeleneCheckboxes(selectedType)} />
-              </VStack>
-            </ReadOnlyRadioGroup>
-          </section>
+              <ReadOnlyCheckbox
+                checked={false}
+                helpText={SÆRREGELVERKET_HELP_TEXTS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}
+              >
+                {SÆRREGELVERKET_LABELS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}
+              </ReadOnlyCheckbox>
 
-          <section>
-            <Heading size="small" spacing>
-              {TRYGDEMEDISIN_HEADER}
-            </Heading>
-            <TrygdemedisinRadioGroup>
-              <VStack gap="space-8">
-                <Checkboxes checkboxes={TRYGDEMEDISIN_CHECKBOXES} />
-              </VStack>
-            </TrygdemedisinRadioGroup>
-          </section>
-        </HStack>
-      </Modal.Body>
-    </Modal>
+              <ReadOnlyRadioGroup mainReason={MainReason.Særregelverket}>
+                <VStack gap="space-8">
+                  <Checkboxes checkboxes={SÆRREGELVERKET_CHECKBOXES} />
+                </VStack>
+              </ReadOnlyRadioGroup>
+            </section>
+
+            <section>
+              <Heading size="small" spacing>
+                {SAKSBEHANDLINGSREGLENE_HEADER}
+              </Heading>
+              <ReadOnlyRadioGroup mainReason={MainReason.Saksbehandlingsreglene}>
+                <VStack gap="space-8">
+                  <Checkboxes checkboxes={getSaksbehandlingsregeleneCheckboxes(selectedType)} />
+                </VStack>
+              </ReadOnlyRadioGroup>
+            </section>
+
+            <section>
+              <Heading size="small" spacing>
+                {TRYGDEMEDISIN_HEADER}
+              </Heading>
+              <TrygdemedisinRadioGroup>
+                <VStack gap="space-8">
+                  <Checkboxes checkboxes={TRYGDEMEDISIN_CHECKBOXES} />
+                </VStack>
+              </TrygdemedisinRadioGroup>
+            </section>
+          </HStack>
+        </Dialog.Body>
+      </Dialog.Popup>
+    </Dialog>
   );
 };
+
+const isKlageOrAnke = (value: string) => value === SakstypeEnum.KLAGE || value === SakstypeEnum.ANKE;
 
 interface ReadOnlyCheckboxProps {
   children: string;
