@@ -11,18 +11,18 @@ export const Type = ({ type }: Props) => {
   const name = useKodeverkSakstype(type ?? skipToken)?.navn;
 
   return (
-    <Tag variant={VARIANT[type]} className="truncate">
+    <Tag variant="strong" data-color={COLOR[type]} className="truncate">
       {name}
     </Tag>
   );
 };
 
-const VARIANT: Record<SakstypeEnum, TagProps['variant']> = {
-  [SakstypeEnum.KLAGE]: 'alt1-filled',
-  [SakstypeEnum.ANKE]: 'success-filled',
-  [SakstypeEnum.ANKE_I_TRYGDERETTEN]: 'error-filled',
-  [SakstypeEnum.OMGJØRINGSKRAV]: 'info-filled',
-  [SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET]: 'alt2-filled',
-  [SakstypeEnum.BEGJÆRING_OM_GJENOPPTAK]: 'warning-filled',
-  [SakstypeEnum.BEGJÆRING_OM_GJENOPPTAK_I_TR]: 'neutral-filled',
+const COLOR: Record<SakstypeEnum, TagProps['data-color']> = {
+  [SakstypeEnum.KLAGE]: 'meta-purple',
+  [SakstypeEnum.ANKE]: 'success',
+  [SakstypeEnum.ANKE_I_TRYGDERETTEN]: 'danger',
+  [SakstypeEnum.OMGJØRINGSKRAV]: 'info',
+  [SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET]: 'meta-lime',
+  [SakstypeEnum.BEGJÆRING_OM_GJENOPPTAK]: 'success',
+  [SakstypeEnum.BEGJÆRING_OM_GJENOPPTAK_I_TR]: 'neutral',
 };

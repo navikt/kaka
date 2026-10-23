@@ -25,7 +25,7 @@ export const Row = ({
     </Table.DataCell>
     <Table.DataCell>
       {sakenGjelder === null ? null : (
-        <CopyButton size="small" variant="neutral" copyText={sakenGjelder} text={formatId(sakenGjelder)} />
+        <CopyButton size="small" data-color="neutral" copyText={sakenGjelder} text={formatId(sakenGjelder)} />
       )}
     </Table.DataCell>
     <Table.DataCell>{isoDateTimeToPrettyDate(modified)}</Table.DataCell>

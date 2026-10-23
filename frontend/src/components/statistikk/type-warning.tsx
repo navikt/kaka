@@ -1,7 +1,7 @@
 import { useSakstypeFilter } from '@app/components/filters/hooks/use-query-filter';
+import { InfoBox } from '@app/components/info-box/info-box';
 import { useSakstyper } from '@app/simple-api-state/use-kodeverk';
 import { SakstypeEnum } from '@app/types/sakstype';
-import { Alert } from '@navikt/ds-react';
 
 const uncapitalize = (str: string) => str.charAt(0).toLowerCase() + str.slice(1);
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
@@ -32,11 +32,11 @@ export const TypeWarning = () => {
   const noKvalitetsvurderingNames = noKvalitetsvurdering.map(sakstypeToName).join(' og ');
 
   return (
-    <Alert variant="warning" size="small">
+    <InfoBox variant="warning">
       Du har valgt å kombinere statistikk for <b>{kvalitetsvurderingNames}</b> sammen med{' '}
       <b>{noKvalitetsvurderingNames}</b>. {capitalize(kvalitetsvurderingNames)} <i>har</i> kvalitetsvurderinger, mens{' '}
       {noKvalitetsvurderingNames} <i>ikke</i> har det. Derfor vil kun {kvalitetsvurderingNames} bli tatt med i
       kvalitetsvurderingstatistikken.
-    </Alert>
+    </InfoBox>
   );
 };

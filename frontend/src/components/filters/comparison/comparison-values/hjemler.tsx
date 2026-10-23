@@ -107,7 +107,8 @@ const HjemmelSelect = ({ value, color }: { value: string; color: ColorToken }) =
                 {sectionOptions.map(({ value: hjemmelId, label: hjemmelLabel }) => (
                   <Button
                     size="small"
-                    variant={value === hjemmelId ? 'primary-neutral' : 'tertiary-neutral'}
+                    data-color="neutral"
+                    variant={value === hjemmelId ? 'primary' : 'tertiary'}
                     className="justify-start! flex"
                     key={hjemmelId}
                     onClick={() => setId(value, hjemmelId)}

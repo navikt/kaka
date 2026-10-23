@@ -1,5 +1,6 @@
+import { InfoBox } from '@app/components/info-box/info-box';
 import { isoDateToPretty } from '@app/domain/date';
-import { Alert, DatePicker } from '@navikt/ds-react';
+import { DatePicker } from '@navikt/ds-react';
 import { addYears, format, isAfter, isBefore, isValid, parse, subDays, subYears } from 'date-fns';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FORMAT, PRETTY_FORMAT } from '../filters/date-presets/constants';
@@ -168,7 +169,6 @@ export const DatepickerWithValidation = ({
       defaultSelected={selected}
       selected={selected}
       onSelect={onDateChange}
-      locale="nb"
       dropdownCaption
       month={month}
       onMonthChange={setMonth}
@@ -222,8 +222,8 @@ const Warning = ({ date, threshhold }: WarningProps) => {
   }
 
   return (
-    <Alert variant="warning" size="small" className="mt-2">
+    <InfoBox variant="warning" className="mt-2">
       Du har satt en dato som ligger langt tilbake i tid. Er du sikker på at du har fylt ut riktig dato?
-    </Alert>
+    </InfoBox>
   );
 };

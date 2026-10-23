@@ -15,9 +15,7 @@ export const DatasetSelector = ({ datasets, datasetIndexString, onChange }: Data
     return (
       <ToggleGroup size="small" value={datasetIndexString} onChange={onChange} className="self-center">
         {datasets.map(({ label }, index) => (
-          <ToggleGroup.Item key={label} value={index.toString(10)}>
-            {label}
-          </ToggleGroup.Item>
+          <ToggleGroup.Item key={label} value={index.toString(10)} label={label} />
         ))}
       </ToggleGroup>
     );

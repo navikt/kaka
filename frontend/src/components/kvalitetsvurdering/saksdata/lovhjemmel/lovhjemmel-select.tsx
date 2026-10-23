@@ -2,7 +2,7 @@ import { ErrorMessage } from '@app/components/error-message/error-message';
 import { SelectHjemler } from '@app/components/filters/common/select-hjemler';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { useYtelserLatest } from '@app/simple-api-state/use-kodeverk';
-import { Alert, Button, type ButtonProps, VStack } from '@navikt/ds-react';
+import { Button, type ButtonProps, InlineMessage, VStack } from '@navikt/ds-react';
 import { useMemo } from 'react';
 
 interface LovhjemmelSelectProps {
@@ -43,11 +43,7 @@ export const LovhjemmelSelect = ({
   }
 
   if (ytelse === undefined) {
-    return (
-      <Alert inline variant="warning">
-        Velg en ytelse for å se hjemler
-      </Alert>
-    );
+    return <InlineMessage status="warning">Velg en ytelse for å se hjemler</InlineMessage>;
   }
 
   return (

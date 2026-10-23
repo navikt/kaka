@@ -1,8 +1,9 @@
+import { InfoBox } from '@app/components/info-box/info-box';
 import { TILBAKEKREVING_IDS } from '@app/domain/tilbakekreving-ids';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { useSaksdata } from '@app/hooks/use-saksdata';
 import { useSetTilbakekrevingMutation } from '@app/redux-api/saksdata';
-import { Alert, BodyShort, Checkbox, CheckboxGroup, Heading, HelpText, HStack } from '@navikt/ds-react';
+import { BodyShort, Checkbox, CheckboxGroup, Heading, HelpText, HStack } from '@navikt/ds-react';
 
 const PARTSINNSYN_YTELSE_ID = '53';
 
@@ -56,8 +57,8 @@ export const Tilbakekreving = () => {
 };
 
 const Warning = () => (
-  <Alert variant="warning">
+  <InfoBox variant="warning">
     Saken inneholder hjemler som er knyttet til tilbakekreving, men tilbakekreving er ikke huket av for. Er du sikker på
     at dette er riktig?
-  </Alert>
+  </InfoBox>
 );

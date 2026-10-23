@@ -1,3 +1,4 @@
+import { InfoBox } from '@app/components/info-box/info-box';
 import type {
   IValidationErrorV1,
   IValidationErrorV2,
@@ -6,7 +7,7 @@ import type {
 } from '@app/functions/error-type-guard';
 import { useFieldName } from '@app/hooks/use-field-name';
 import { useSectionTitle } from '@app/hooks/use-section-title';
-import { Alert, Link } from '@navikt/ds-react';
+import { Link } from '@navikt/ds-react';
 
 interface Props {
   sections: IValidationSection[];
@@ -22,10 +23,10 @@ export const ValidationSummary = ({ sections }: Props) => {
   ));
 
   return (
-    <Alert variant="warning">
+    <InfoBox variant="warning">
       <h3 className="mt-0 text-base">Kan ikke fullføre vurdering. Dette mangler:</h3>
       <article className="m-0 mt-2.5 p-0">{errorMessages}</article>
-    </Alert>
+    </InfoBox>
   );
 };
 

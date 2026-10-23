@@ -1,9 +1,13 @@
+import {
+  ExclamationmarkTriangleFillIconColored,
+  InformationSquareFillIconColored,
+} from '@app/components/colored-icons/colored-icons';
 import { isReduxValidationResponse } from '@app/functions/error-type-guard';
 import { useKvalitetsvurderingIsFinished } from '@app/hooks/use-kvalitetsvurdering-is-finished';
 import { useSaksdataId } from '@app/hooks/use-saksdata-id';
 import { useFullfoerMutation } from '@app/redux-api/saksdata';
 import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons';
-import { Alert, Box, HStack } from '@navikt/ds-react';
+import { Box, Button, HStack, InlineMessage } from '@navikt/ds-react';
 import { useEffect, useState } from 'react';
 import { ValidationSummary } from './validation-summary';
 
@@ -29,9 +33,9 @@ export const ValidationSummaryPopup = ({ hasErrors }: Props) => {
 
   if (isFullfoert) {
     return (
-      <Alert variant="success" inline>
+      <InlineMessage status="success" className="whitespace-nowrap">
         Fullført kvalitetsvurdering
-      </Alert>
+      </InlineMessage>
     );
   }
 
@@ -41,21 +45,28 @@ export const ValidationSummaryPopup = ({ hasErrors }: Props) => {
 
   const toggleOpen = () => setOpen(!open);
 
-  const Icon = open ? ChevronDownIcon : ChevronUpIcon;
-
-  const statusText = hasErrors ? 'Feil i utfyllingen' : 'Under utfylling';
-  const statusType = hasErrors ? 'warning' : 'info';
+  const ChevronIcon = open ? ChevronDownIcon : ChevronUpIcon;
 
   return (
     <>
-      <button type="button" onClick={toggleOpen} className="cursor-pointer whitespace-nowrap border-0 bg-transparent">
-        <Alert variant={statusType} inline>
-          <HStack wrap={false} align="center">
-            <span className="mr-4">{statusText}</span>
-            <Icon />
-          </HStack>
-        </Alert>
-      </button>
+      <Button
+        onClick={toggleOpen}
+        variant="tertiary"
+        icon={
+          hasErrors ? (
+            <ExclamationmarkTriangleFillIconColored aria-hidden />
+          ) : (
+            <InformationSquareFillIconColored aria-hidden />
+          )
+        }
+        className={`+ whitespace-nowrap ${hasErrors ? 'text-ax-warning-1000' : 'text-ax-info-1000'}`}
+      >
+        <HStack wrap={false} align="center" gap="space-8">
+          {hasErrors ? 'Feil i utfyllingen' : 'Under utfylling'}
+          <ChevronIcon />
+        </HStack>
+      </Button>
+
       {open && (
         <Box position="absolute" bottom="space-64" right="space-16" width="400px">
           <button
@@ -63,7 +74,7 @@ export const ValidationSummaryPopup = ({ hasErrors }: Props) => {
             onClick={toggleOpen}
             className="absolute right-0 cursor-pointer whitespace-nowrap border-0 bg-transparent p-4"
           >
-            <Icon />
+            <ChevronIcon />
           </button>
           <ValidationSummary sections={error.data.sections} />
         </Box>

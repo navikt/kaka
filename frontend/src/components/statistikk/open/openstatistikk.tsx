@@ -1,10 +1,10 @@
+import { InfoBox } from '@app/components/info-box/info-box';
 import { ContentV3 } from '@app/components/statistikk/open/content/content-v3';
 import {
   useFilteredStatisticsV3,
   useOpenStatisticsV3IsLoading,
 } from '@app/components/statistikk/open/hooks/use-statistics-v3';
 import { FilterSection, FiltersAndContentContainer } from '@app/styled-components/filters-and-content';
-import { Alert } from '@navikt/ds-react';
 import { useVersionQueryFilter } from '../../filters/hooks/use-query-filter';
 import { ContentLoader } from '../content-loader';
 import { ContentV1 } from './content/content-v1';
@@ -19,10 +19,10 @@ export const OpenStatistikk = () => {
   return (
     <FiltersAndContentContainer>
       <FilterSection>
-        <Alert variant="info" size="medium" fullWidth>
+        <InfoBox variant="info">
           Denne statistikken baserer seg på resultater av klage- og ankebehandlinger som er fullført i klageinstansen.
           Statistikken kan derfor avvike fra offisiell statistikk på området.
-        </Alert>
+        </InfoBox>
         <Filters />
       </FilterSection>
       <ContentLoader version={version} V1Content={<V1Content />} V2Content={<V2Content />} V3Content={<V3Content />} />
