@@ -22,9 +22,7 @@ export const ToggleKvalitetsvurdering = () => {
         }}
       >
         {Object.entries(KVALITETSVURDERING_OPTIONS).map(([key, value]) => (
-          <ToggleGroup.Item key={key} value={key}>
-            {value.title}
-          </ToggleGroup.Item>
+          <ToggleGroup.Item key={key} value={key} label={value.title} />
         ))}
       </ToggleGroup>
     </HStack>

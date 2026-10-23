@@ -1,3 +1,4 @@
+import { InfoBox } from '@app/components/info-box/info-box';
 import { MainReason } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/data';
 import { getCheckbox } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/helpers';
 import {
@@ -11,7 +12,7 @@ import {
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v3/særregelverket/data';
 import { useCanEdit } from '@app/hooks/use-can-edit';
 import { Radiovalg } from '@app/types/kvalitetsvurdering/radio';
-import { Alert, Checkbox, Heading, Radio } from '@navikt/ds-react';
+import { Checkbox, Heading, Radio } from '@navikt/ds-react';
 import { ContainerWithHelpText } from '../../common/container-with-helptext';
 import { RadioButtonsRow, StyledRadioGroup } from '../../common/styled-components';
 import { Checkboxes } from '../common/checkboxes';
@@ -38,7 +39,9 @@ export const Særregelverket = () => {
       <Heading size="small">{HEADER}</Heading>
 
       {saerregelverkAutomatiskVedtak === true ? (
-        <Alert variant="info">{SÆRREGELVERKET_HELP_TEXTS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}</Alert>
+        <InfoBox variant="info">
+          {SÆRREGELVERKET_HELP_TEXTS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}
+        </InfoBox>
       ) : null}
       <ContainerWithHelpText helpText={SÆRREGELVERKET_HELP_TEXTS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}>
         <Checkbox

@@ -205,7 +205,8 @@ export const EChart = ({
 
                 <Tooltip content="Kopier som bilde" describesChild>
                   <Button
-                    variant="tertiary-neutral"
+                    data-color="neutral"
+                    variant="tertiary"
                     size="xsmall"
                     onClick={() => copyChartAsPng(eChartsRef.current, titleRef.current, descriptionRef.current)}
                     icon={<FilesIcon aria-hidden />}
@@ -214,7 +215,8 @@ export const EChart = ({
 
                 <Tooltip content="Last ned som bilde" describesChild>
                   <Button
-                    variant="tertiary-neutral"
+                    data-color="neutral"
+                    variant="tertiary"
                     size="xsmall"
                     onClick={() =>
                       downloadChartAsPng(eChartsRef.current, titleRef.current, descriptionRef.current, {
@@ -229,7 +231,7 @@ export const EChart = ({
                 <Dialog>
                   <Tooltip content="Vis data som tabell" describesChild>
                     <Dialog.Trigger>
-                      <Button variant="tertiary-neutral" size="xsmall" icon={<TableIcon aria-hidden />} />
+                      <Button data-color="neutral" variant="tertiary" size="xsmall" icon={<TableIcon aria-hidden />} />
                     </Dialog.Trigger>
                   </Tooltip>
 

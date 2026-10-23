@@ -16,9 +16,9 @@ export const ToggleTotalOrKA = () => {
           }
         }}
       >
-        <ToggleGroup.Item value={BehandlingstidEnum.VEDTAKSINSTANS}>Vedtaksinstans</ToggleGroup.Item>
-        <ToggleGroup.Item value={BehandlingstidEnum.KA}>Klageinstans</ToggleGroup.Item>
-        <ToggleGroup.Item value={BehandlingstidEnum.TOTAL}>Total</ToggleGroup.Item>
+        <ToggleGroup.Item value={BehandlingstidEnum.VEDTAKSINSTANS} label="Vedtaksinstans" />
+        <ToggleGroup.Item value={BehandlingstidEnum.KA} label="Klageinstans" />
+        <ToggleGroup.Item value={BehandlingstidEnum.TOTAL} label="Total" />
       </ToggleGroup>
     </HStack>
   );

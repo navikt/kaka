@@ -37,10 +37,10 @@ export const StatisticsVersionFilter = ({ defaultParams = DEFAULT_PARAMS }: Prop
 
   return (
     <ToggleGroup onChange={onChange} value={version.toString(10)} size="small" label={<Label />}>
-      <ToggleGroup.Item value={KvalitetsvurderingVersion.V1.toString(10)}>t.o.m. 2022</ToggleGroup.Item>
-      <ToggleGroup.Item value={KvalitetsvurderingVersion.V2.toString(10)}>2023-2025</ToggleGroup.Item>
+      <ToggleGroup.Item value={KvalitetsvurderingVersion.V1.toString(10)} label="t.o.m. 2022" />
+      <ToggleGroup.Item value={KvalitetsvurderingVersion.V2.toString(10)} label="2023-2025" />
       {IS_BEFORE_2026 && ENVIRONMENT.isProduction ? null : (
-        <ToggleGroup.Item value={KvalitetsvurderingVersion.V3.toString(10)}>f.o.m. 2026</ToggleGroup.Item>
+        <ToggleGroup.Item value={KvalitetsvurderingVersion.V3.toString(10)} label="f.o.m. 2026" />
       )}
     </ToggleGroup>
   );

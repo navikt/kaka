@@ -107,8 +107,8 @@ export const KvalitetsvurderingModal = ({ focus }: { focus?: keyof Kvalitetsvurd
               }
             }}
           >
-            <ToggleGroup.Item value={SakstypeEnum.KLAGE}>Klage</ToggleGroup.Item>
-            <ToggleGroup.Item value={SakstypeEnum.ANKE}>Anke</ToggleGroup.Item>
+            <ToggleGroup.Item value={SakstypeEnum.KLAGE} label="Klage" />
+            <ToggleGroup.Item value={SakstypeEnum.ANKE} label="Anke" />
           </ToggleGroup>
 
           <HStack gap="space-32">

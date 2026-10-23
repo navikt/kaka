@@ -17,9 +17,9 @@ export const TilbakekrevingFilter = ({ selected, setSelected }: Props) => (
     size="small"
     label={<ToggleGroupLabel />}
   >
-    <ToggleGroup.Item value={TilbakekrevingEnum.INCLUDE}>Med tilbakekreving</ToggleGroup.Item>
-    <ToggleGroup.Item value={TilbakekrevingEnum.EXCLUDE}>Uten tilbakekreving</ToggleGroup.Item>
-    <ToggleGroup.Item value={TilbakekrevingEnum.ONLY}>Kun tilbakekreving</ToggleGroup.Item>
+    <ToggleGroup.Item value={TilbakekrevingEnum.INCLUDE} label="Med tilbakekreving" />
+    <ToggleGroup.Item value={TilbakekrevingEnum.EXCLUDE} label="Uten tilbakekreving" />
+    <ToggleGroup.Item value={TilbakekrevingEnum.ONLY} label="Kun tilbakekreving" />
   </ToggleGroup>
 );
 
