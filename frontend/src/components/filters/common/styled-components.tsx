@@ -13,4 +13,4 @@ export const DateContainer = ({ children }: PropsWithChildren) => (
   </HStack>
 );
 
-export const StyledHr = () => <hr className="h-px w-full text-ax-border-neutral-subtle" />;
+export const StyledHr = () => <hr className="text-ax-border-neutral-subtle h-px w-full" />;

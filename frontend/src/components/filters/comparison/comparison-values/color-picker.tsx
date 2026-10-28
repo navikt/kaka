@@ -25,7 +25,7 @@ export const ColorPicker = ({ color, onChange }: ColorPickerProps) => {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         title="Velg farge"
-        className="h-8 w-8 border-2! border-ax-bg-neutral-strong! p-0!"
+        className="border-ax-bg-neutral-strong! h-8 w-8 border-2! p-0!"
         style={{ backgroundColor: getColorFromTheme(color, theme) }}
       />
       {isOpen ? (
@@ -56,7 +56,7 @@ export const ColorPicker = ({ color, onChange }: ColorPickerProps) => {
                     <button
                       type="button"
                       key={c}
-                      className={`flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm outline-3 outline-ax-text-accent hover:outline-solid ${isSelected ? 'outline-solid' : 'outline-none'}`}
+                      className={`outline-ax-text-accent flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm outline-3 hover:outline-solid ${isSelected ? 'outline-solid' : 'outline-none'}`}
                       style={{ backgroundColor }}
                       onClick={() => {
                         onChange(c);

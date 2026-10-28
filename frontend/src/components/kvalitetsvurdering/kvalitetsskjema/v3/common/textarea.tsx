@@ -28,7 +28,7 @@ export const KvalitetsskjemaTextarea = (props: Props) => {
         <ContainerWithHelpText helpText={helpText}>
           <Label htmlFor={field}>{label}</Label>
         </ContainerWithHelpText>
-        <BodyLong id={field} className="mt-1 border-ax-border-neutral-subtle border-l-[3px] pl-2">
+        <BodyLong id={field} className="border-ax-border-neutral-subtle mt-1 border-l-[3px] pl-2">
           {kvalitetsvurdering[field]}
         </BodyLong>
       </div>

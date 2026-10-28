@@ -13,7 +13,7 @@ export const LoadingOverlay = ({ isLoading }: Props) => {
         align="start"
         width="100%"
         height="100%"
-        className="top-0 left-0 z-5 bg-ax-bg-neutral-moderate-pressedA backdrop-blur-[2px]"
+        className="bg-ax-bg-neutral-moderate-pressedA top-0 left-0 z-5 backdrop-blur-[2px]"
       >
         <div className="sticky top-[30vh]">
           <Loader size="3xlarge" variant="inverted" />
