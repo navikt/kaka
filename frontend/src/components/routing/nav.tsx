@@ -30,7 +30,7 @@ export const Nav = () => {
   const access = useUserAccess();
 
   return (
-    <nav aria-label="Meny" data-testid="kaka-nav" className="sticky top-0 z-10 bg-ax-bg-default pt-4">
+    <nav aria-label="Meny" data-testid="kaka-nav" className="bg-ax-bg-default sticky top-0 z-10 pt-4">
       <HStack
         as="ul"
         wrap={false}
@@ -38,7 +38,7 @@ export const Nav = () => {
         gap="space-16"
         marginBlock="space-0"
         marginInline="space-16"
-        className="list-none border-ax-border-neutral border-b p-0"
+        className="border-ax-border-neutral list-none border-b p-0"
       >
         <NavItem to={`/statistikk/aapen?${defaultQueryAapen}`} testId="statistikk-aapen-nav-link" hasAccess>
           <BarChartIcon aria-hidden /> Åpen statistikk

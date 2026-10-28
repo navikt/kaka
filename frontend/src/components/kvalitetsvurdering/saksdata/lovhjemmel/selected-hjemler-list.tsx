@@ -27,7 +27,7 @@ export const SelectedHjemlerList = ({ selected }: Props) => {
   return (
     <VStack
       gap="space-16"
-      className="mt-2.5 border-ax-border-neutral-subtle border-l-2 pl-4"
+      className="border-ax-border-neutral-subtle mt-2.5 border-l-2 pl-4"
       data-testid="selected-hjemler-list"
     >
       <SelectedChildren registreringshjemmelIdList={list} />
@@ -41,7 +41,7 @@ const SelectedChildren = ({
   registreringshjemmelIdList: ILovKildeToRegistreringshjemmel[];
 }) => {
   if (registreringshjemmelIdList.length === 0) {
-    return <p className="m-0 text-ax-text-neutral-subtle">Ingen valgte hjemler</p>;
+    return <p className="text-ax-text-neutral-subtle m-0">Ingen valgte hjemler</p>;
   }
 
   return (
@@ -50,7 +50,7 @@ const SelectedChildren = ({
         .toSorted((a, b) => sortWithOrdinals(a.lovkilde.navn, b.lovkilde.navn))
         .map(({ lovkilde, registreringshjemler }) => (
           <div key={lovkilde.id}>
-            <h3 className="mt-0 mb-1 font-bold text-base">{lovkilde.navn}</h3>
+            <h3 className="mt-0 mb-1 text-base font-bold">{lovkilde.navn}</h3>
 
             <VStack as="ul" gap="space-4" className="m-0 list-none pl-2.5">
               {registreringshjemler

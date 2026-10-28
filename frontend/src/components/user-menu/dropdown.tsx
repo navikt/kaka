@@ -19,7 +19,7 @@ export const UserDropdown = (): React.JSX.Element | null => {
           as="a"
           href="/oauth2/logout"
           data-testid="logout-link"
-          className="cursor-pointer text-ax-text-danger"
+          className="text-ax-text-danger cursor-pointer"
           variant="danger"
           icon={<LeaveIcon />}
         >

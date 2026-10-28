@@ -5,13 +5,13 @@ export const KeyContent = ({ children }: PropsWithChildren) => <div className="t
 
 export const KeyNumber = ({ children }: PropsWithChildren) => (
   <KeyContent>
-    <span className="font-bold text-[32px]">{children}</span>
+    <span className="text-[32px] font-bold">{children}</span>
   </KeyContent>
 );
 
 export const RedKeyNumber = ({ children }: PropsWithChildren) => (
   <KeyContent>
-    <span className="font-bold text-[32px] text-ax-text-danger-subtle">{children}</span>
+    <span className="text-ax-text-danger-subtle text-[32px] font-bold">{children}</span>
   </KeyContent>
 );
 

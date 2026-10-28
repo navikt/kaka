@@ -64,7 +64,7 @@ const CardDynamicHeight = ({ children, className, colSpan }: CardDynamicHeightPr
 export const ChartsWrapper = ({ children }: { children: React.ReactNode }) => (
   <div
     style={{ gap: `${GAP}px`, gridAutoRows: `${ROW_HEIGHT}px` }}
-    className={'grid h-max w-full charts-lg:grid-cols-3 charts-md:grid-cols-2 grid-cols-1 p-6'}
+    className={'charts-lg:grid-cols-3 charts-md:grid-cols-2 grid h-max w-full grid-cols-1 p-6'}
   >
     {children}
   </div>

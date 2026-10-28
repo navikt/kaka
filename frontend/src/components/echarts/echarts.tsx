@@ -235,7 +235,7 @@ export const EChart = ({
                     </Dialog.Trigger>
                   </Tooltip>
 
-                  <Dialog.Popup className="w-fit min-w-xl max-w-[95vw]">
+                  <Dialog.Popup className="w-fit max-w-[95vw] min-w-xl">
                     <Dialog.Header>
                       <Dialog.Title>{title}</Dialog.Title>
                     </Dialog.Header>

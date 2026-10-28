@@ -59,7 +59,7 @@ export const ValidationSummaryPopup = ({ hasErrors }: Props) => {
             <InformationSquareFillIconColored aria-hidden />
           )
         }
-        className={`+ whitespace-nowrap ${hasErrors ? 'text-ax-warning-1000' : 'text-ax-info-1000'}`}
+        className={`whitespace-nowrap ${hasErrors ? 'text-ax-warning-1000' : 'text-ax-info-1000'}`}
       >
         <HStack wrap={false} align="center" gap="space-8">
           {hasErrors ? 'Feil i utfyllingen' : 'Under utfylling'}
@@ -72,7 +72,7 @@ export const ValidationSummaryPopup = ({ hasErrors }: Props) => {
           <button
             type="button"
             onClick={toggleOpen}
-            className="absolute right-0 cursor-pointer whitespace-nowrap border-0 bg-transparent p-4"
+            className="absolute right-0 cursor-pointer border-0 bg-transparent p-4 whitespace-nowrap"
           >
             <ChevronIcon />
           </button>

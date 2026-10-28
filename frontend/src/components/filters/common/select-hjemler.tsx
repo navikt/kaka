@@ -43,7 +43,7 @@ export const SelectHjemler = ({ relevantYtelser, selectedHjemler, setSelectedHje
     <ActionMenu>
       <ActionMenu.Trigger>{trigger}</ActionMenu.Trigger>
       <ActionMenu.Content className="relative">
-        <HStack wrap={false} className="sticky top-0 z-1 bg-ax-bg-default">
+        <HStack wrap={false} className="bg-ax-bg-default sticky top-0 z-1">
           <TextField
             size="small"
             autoFocus

@@ -94,7 +94,7 @@ const HjemmelSelect = ({ value, color }: { value: string; color: ColorToken }) =
             icon={<ChevronDownIcon aria-hidden />}
             iconPosition="right"
             size="small"
-            className="justify-between! flex grow"
+            className="flex grow justify-between!"
           >
             {label}
           </Button>
@@ -109,7 +109,7 @@ const HjemmelSelect = ({ value, color }: { value: string; color: ColorToken }) =
                     size="small"
                     data-color="neutral"
                     variant={value === hjemmelId ? 'primary' : 'tertiary'}
-                    className="justify-start! flex"
+                    className="flex justify-start!"
                     key={hjemmelId}
                     onClick={() => setId(value, hjemmelId)}
                   >

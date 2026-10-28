@@ -7,7 +7,7 @@ export const FiltersAndContentContainer = ({ children }: PropsWithChildren) => (
 );
 
 export const FilterSection = ({ children }: PropsWithChildren) => (
-  <div className="flex h-full w-105 shrink-0 flex-col gap-4 overflow-y-auto border-ax-border-neutral-subtle border-r p-4 max-[1100px]:h-fit max-[1100px]:w-full max-[1100px]:overflow-y-hidden max-[1100px]:border-r-0">
+  <div className="border-ax-border-neutral-subtle flex h-full w-105 shrink-0 flex-col gap-4 overflow-y-auto border-r p-4 max-[1100px]:h-fit max-[1100px]:w-full max-[1100px]:overflow-y-hidden max-[1100px]:border-r-0">
     {children}
   </div>
 );

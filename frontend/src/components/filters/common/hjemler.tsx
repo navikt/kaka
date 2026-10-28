@@ -23,7 +23,7 @@ export const Hjemler = (props: Props) => (
           variant="secondary"
           icon={<ChevronDownIcon aria-hidden />}
           iconPosition="right"
-          className="justify-between! grow"
+          className="grow justify-between!"
         >
           Hjemler ({props.selectedHjemler.length})
         </Button>
