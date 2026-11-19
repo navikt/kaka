@@ -1,10 +1,10 @@
 import { StaticDataContext } from '@app/components/app/static-data-context';
 import { YTELSESGRUPPE_OPTIONS } from '@app/components/statistikk/types';
+import { useSakstyper } from '@app/hooks/use-kodeverk-value';
 import {
   useEnheter,
   useKlageenheter,
   useRegistreringshjemlerMap,
-  useSakstyper,
   useYtelser,
 } from '@app/simple-api-state/use-kodeverk';
 import { useSaksbehandlere } from '@app/simple-api-state/use-saksbehandlere';

@@ -1,6 +1,6 @@
 import { useSakstypeFilter } from '@app/components/filters/hooks/use-query-filter';
 import { InfoBox } from '@app/components/info-box/info-box';
-import { useSakstyper } from '@app/simple-api-state/use-kodeverk';
+import { useSakstyper } from '@app/hooks/use-kodeverk-value';
 import { SakstypeEnum } from '@app/types/sakstype';
 
 const uncapitalize = (str: string) => str.charAt(0).toLowerCase() + str.slice(1);
