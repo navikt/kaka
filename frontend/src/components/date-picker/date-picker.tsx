@@ -185,7 +185,7 @@ export const DatepickerWithValidation = ({
         onBlur={onInputChange}
         size={size}
       />
-      <Warning date={selected} threshhold={warningThreshhold} />
+      {disabled ? null : <Warning date={selected} threshhold={warningThreshhold} />}
     </DatePicker>
   );
 };
