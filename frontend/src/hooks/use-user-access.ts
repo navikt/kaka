@@ -10,6 +10,7 @@ const INITIAL_ACCESS: Access = {
   [Role.KAKA_KVALITETSVURDERING]: false,
   [Role.KAKA_TOTALSTATISTIKK]: false,
   [Role.KAKA_LEDERSTATISTIKK]: false,
+  // TODO: Remove this access when 2027 is reached
   [Role.KAKA_KVALITETSTILBAKEMELDINGER]: false,
   [Role.KAKA_ADMIN]: false,
   [Role.EGEN_ANSATT]: false,

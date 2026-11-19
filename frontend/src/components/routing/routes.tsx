@@ -13,6 +13,7 @@ import { TilbakemeldingerPage } from '@app/pages/tilbakemeldinger';
 import { Theme, VStack } from '@navikt/ds-react';
 import type { JSX } from 'react';
 import { Navigate, Outlet, Route, Routes } from 'react-router';
+import { IS_2027_OR_LATER } from '../filters/date-presets/constants';
 
 export const Router = () => {
   const access = useUserAccess();
@@ -65,20 +66,32 @@ export const Router = () => {
             </HasAccess>
           }
         />
+
+        {/* TODO: Remove this route when 2027 is reached */}
         <Route
           path="tilbakemeldinger"
           element={
-            <HasAccess hasAccess={access.KAKA_KVALITETSTILBAKEMELDINGER}>
-              <TilbakemeldingerPage />
-            </HasAccess>
+            IS_2027_OR_LATER ? (
+              <Navigate to={indexPath} />
+            ) : (
+              <HasAccess hasAccess={access.KAKA_KVALITETSTILBAKEMELDINGER}>
+                <TilbakemeldingerPage />
+              </HasAccess>
+            )
           }
         />
+
+        {/* TODO: Remove this route when 2027 is reached */}
         <Route
           path="tilbakemeldinger/:saksdataId"
           element={
-            <HasAccess hasAccess={access.KAKA_KVALITETSTILBAKEMELDINGER}>
-              <KvalitetsvurderingPage />
-            </HasAccess>
+            IS_2027_OR_LATER ? (
+              <Navigate to={indexPath} />
+            ) : (
+              <HasAccess hasAccess={access.KAKA_KVALITETSTILBAKEMELDINGER}>
+                <KvalitetsvurderingPage />
+              </HasAccess>
+            )
           }
         />
         <Route

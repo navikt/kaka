@@ -18,6 +18,7 @@ import {
 } from '@navikt/aksel-icons';
 import { HStack } from '@navikt/ds-react';
 import { NavLink, type NavLinkProps } from 'react-router';
+import { IS_2027_OR_LATER } from '../filters/date-presets/constants';
 
 export const Nav = () => {
   const defaultQueryAapen = useDefaultQueryAapen();
@@ -84,13 +85,16 @@ export const Nav = () => {
           <BulletListIcon aria-hidden /> Kvalitetsvurderinger
         </NavItem>
 
-        <NavItem
-          to={`/tilbakemeldinger?${defaultQueryTilbakemeldinger}`}
-          testId="tilbakemeldinger-nav-link"
-          hasAccess={access.KAKA_KVALITETSTILBAKEMELDINGER}
-        >
-          <TasklistIcon aria-hidden /> Tilbakemeldinger
-        </NavItem>
+        {/* TODO: Remove this link when 2027 is reached */}
+        {IS_2027_OR_LATER ? null : (
+          <NavItem
+            to={`/tilbakemeldinger?${defaultQueryTilbakemeldinger}`}
+            testId="tilbakemeldinger-nav-link"
+            hasAccess={access.KAKA_KVALITETSTILBAKEMELDINGER}
+          >
+            <TasklistIcon aria-hidden /> Tilbakemeldinger
+          </NavItem>
+        )}
       </HStack>
     </nav>
   );
