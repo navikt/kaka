@@ -38,7 +38,7 @@ export const Særregelverket = () => {
     <section>
       <Heading size="small">{HEADER}</Heading>
 
-      {saerregelverkAutomatiskVedtak === true ? (
+      {saerregelverkAutomatiskVedtak && canEdit ? (
         <InfoBox variant="info">
           {SÆRREGELVERKET_HELP_TEXTS[SærregelverketBoolean.saerregelverkAutomatiskVedtak]}
         </InfoBox>
