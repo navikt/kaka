@@ -1,3 +1,4 @@
+import { IS_2027_OR_LATER } from '@app/components/filters/date-presets/constants';
 import { useMemo } from 'react';
 import {
   useDefaultQueryAapen,
@@ -16,7 +17,8 @@ export const useIndexPath = () => {
   const access = useUserAccess();
 
   return useMemo(() => {
-    if (access.KAKA_KVALITETSTILBAKEMELDINGER) {
+    // TODO: Remove this link when 2027 is reached
+    if (!IS_2027_OR_LATER && access.KAKA_KVALITETSTILBAKEMELDINGER) {
       return `/tilbakemeldinger?${defaultQueryTilbakemeldinger}`;
     }
 

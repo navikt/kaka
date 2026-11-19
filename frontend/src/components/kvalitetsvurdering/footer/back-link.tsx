@@ -1,3 +1,4 @@
+import { IS_2027_OR_LATER } from '@app/components/filters/date-presets/constants';
 import { useDefaultQueryMin } from '@app/hooks/use-default-query-params';
 import { useUserAccess } from '@app/hooks/use-user-access';
 import { Button } from '@navikt/ds-react';
@@ -16,7 +17,8 @@ export const BackLink = () => {
     );
   }
 
-  if (access.KAKA_KVALITETSTILBAKEMELDINGER) {
+  // TODO: Remove this link when 2027 is reached
+  if (!IS_2027_OR_LATER && access.KAKA_KVALITETSTILBAKEMELDINGER) {
     return (
       <Button to={`/tilbakemeldinger?${defaultQuery}`} as={Link} size="small" variant="secondary">
         Tilbakemeldinger
