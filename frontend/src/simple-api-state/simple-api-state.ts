@@ -5,8 +5,10 @@ import { useEffect, useState } from 'react';
 export interface State<T> {
   data: T | undefined;
   isLoading: boolean;
+  isFetching: boolean;
   isUninitialized: boolean;
   isError: boolean;
+  isSuccess: boolean;
   error: Error | undefined;
 }
 
@@ -20,8 +22,10 @@ type Listener<T> = (state: State<T>) => void;
 export class SimpleApiState<T> {
   private data: T | undefined = undefined;
   private isLoading = false;
+  private isFetching = false;
   private isUninitialized = true;
   private isError = false;
+  private isSuccess = false;
   private error: Error | undefined = undefined;
   private listeners: Listener<T>[] = [];
   private options: Options = {
@@ -43,8 +47,16 @@ export class SimpleApiState<T> {
   }
 
   private fetchData = async () => {
+    if (this.isFetching) {
+      return;
+    }
+
+    clearTimeout(this.retryTimeout);
+    this.isLoading = this.isUninitialized && this.data === undefined;
     this.isUninitialized = false;
-    this.isLoading = true;
+    this.isFetching = true;
+    this.isError = false;
+    this.isSuccess = false;
     this.onChange();
 
     try {
@@ -55,10 +67,12 @@ export class SimpleApiState<T> {
       }
 
       this.data = (await response.json()) as T;
+      this.isSuccess = true;
+      this.error = undefined;
       this.retryCount = 0;
     } catch (e) {
-      this.data = undefined;
       this.isError = true;
+      this.isSuccess = false;
 
       if (e instanceof Error) {
         this.error = e;
@@ -74,6 +88,7 @@ export class SimpleApiState<T> {
     }
 
     this.isLoading = false;
+    this.isFetching = false;
 
     this.onChange();
   };
@@ -88,8 +103,10 @@ export class SimpleApiState<T> {
   public getState = (): State<T> => ({
     data: this.data,
     isLoading: this.isLoading,
+    isFetching: this.isFetching,
     isUninitialized: this.isUninitialized,
     isError: this.isError,
+    isSuccess: this.isSuccess,
     error: this.error,
   });
 
@@ -101,7 +118,7 @@ export class SimpleApiState<T> {
       listener(this.getState());
     }
 
-    if (!(this.options.prefetch || this.isLoading) && typeof this.data === 'undefined') {
+    if (!(this.options.prefetch || this.isFetching) && typeof this.data === 'undefined') {
       this.fetchData();
     }
   };
@@ -122,6 +139,8 @@ export class SimpleApiState<T> {
     this.data = undefined;
     this.error = undefined;
     this.isError = false;
+    this.isSuccess = false;
+    this.isUninitialized = !this.isFetching;
     this.onChange();
   };
 }
@@ -129,8 +148,10 @@ export class SimpleApiState<T> {
 const SKIP_STATE = {
   data: undefined,
   isLoading: false,
-  isUninitialized: false,
+  isFetching: false,
+  isUninitialized: true,
   isError: false,
+  isSuccess: false,
   error: undefined,
 };
 
