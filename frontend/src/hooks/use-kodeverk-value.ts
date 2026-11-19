@@ -1,9 +1,9 @@
 import type { State } from '@app/simple-api-state/simple-api-state';
-import { useKlageenheter, useSakstyper, useYtelser } from '@app/simple-api-state/use-kodeverk';
+import { useAllSakstyper, useKlageenheter, useYtelser } from '@app/simple-api-state/use-kodeverk';
 import { useSortedUtfall } from '@app/simple-api-state/use-utfall';
 import type { IKlageenhet, IKodeverkSimpleValue, ILovKildeToRegistreringshjemmel, IYtelse } from '@app/types/kodeverk';
 import type { KvalitetsvurderingVersion } from '@app/types/saksdata';
-import type { SakstypeEnum } from '@app/types/sakstype';
+import { RELEVANT_SAKSTYPER, type SakstypeEnum } from '@app/types/sakstype';
 import type { UtfallEnum } from '@app/types/utfall';
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useSaksdata } from './use-saksdata';
@@ -121,4 +121,17 @@ export const useYtelserForKlageenhet = (
   }
 
   return ytelser.filter(({ klageenheter }) => klageenheter.some(({ id }) => id === enhetId));
+};
+
+export const useSakstyper = (): State<IKodeverkSimpleValue<SakstypeEnum>[]> => {
+  const state = useAllSakstyper();
+
+  if (typeof state.data === 'undefined') {
+    return state;
+  }
+
+  return {
+    ...state,
+    data: state.data.filter((sakstype) => RELEVANT_SAKSTYPER.includes(sakstype.id)),
+  };
 };

@@ -1,6 +1,9 @@
+import type { ReactNode } from 'react';
+
 export interface FilterType<T extends string | number = string> {
   id: T;
   label: string;
+  children?: ReactNode;
 }
 
 export enum TilbakekrevingEnum {

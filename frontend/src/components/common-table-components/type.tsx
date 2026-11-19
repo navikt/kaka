@@ -20,9 +20,13 @@ export const Type = ({ type }: Props) => {
 const COLOR: Record<SakstypeEnum, TagProps['data-color']> = {
   [SakstypeEnum.KLAGE]: 'meta-purple',
   [SakstypeEnum.ANKE]: 'success',
+  [SakstypeEnum.ANKE_AFTER_2027]: 'brand-magenta',
   [SakstypeEnum.ANKE_I_TRYGDERETTEN]: 'danger',
+  [SakstypeEnum.ANKE_I_TR_AFTER_2027]: 'brand-beige',
   [SakstypeEnum.OMGJØRINGSKRAV]: 'info',
   [SakstypeEnum.BEHANDLING_ETTER_TR_OPPHEVET]: 'meta-lime',
   [SakstypeEnum.BEGJÆRING_OM_GJENOPPTAK]: 'success',
   [SakstypeEnum.BEGJÆRING_OM_GJENOPPTAK_I_TR]: 'neutral',
+  [SakstypeEnum.BEGJÆRING_OM_GJENOPPTAK_AFTER_2027]: 'brand-magenta',
+  [SakstypeEnum.BEGJÆRING_OM_GJENOPPTAK_I_TR_AFTER_2027]: 'warning',
 };

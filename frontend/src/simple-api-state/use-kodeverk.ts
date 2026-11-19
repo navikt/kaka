@@ -1,9 +1,9 @@
 import type { IKlageenhet, IKodeverkSimpleValue, IKodeverkValue, IYtelse } from '@app/types/kodeverk';
 import type { KvalitetsvurderingVersion } from '@app/types/saksdata';
-import { SakstypeEnum } from '@app/types/sakstype';
+import type { SakstypeEnum } from '@app/types/sakstype';
 import type { UtfallEnum } from '@app/types/utfall';
 import { skipToken } from '@reduxjs/toolkit/query';
-import { SimpleApiState, type State, useSimpleApiState } from './simple-api-state';
+import { SimpleApiState, useSimpleApiState } from './simple-api-state';
 
 export const API_PREFIX = '/api/klage-kodeverk-api/kodeverk';
 
@@ -45,18 +45,5 @@ export const useRegistreringshjemlerMap = () => useSimpleApiState(registreringsh
 export const useKlageenheter = () => useSimpleApiState(klageenheter);
 export const useEnheter = () => useSimpleApiState(enheter);
 export const useSakstypeToUtfall = () => useSimpleApiState(sakstypeToUtfall);
-
+export const useAllSakstyper = () => useSimpleApiState(sakstyper);
 export const useVedtaksenheter = () => useSimpleApiState(vedtaksenheter);
-
-export const useSakstyper = (): State<IKodeverkSimpleValue<SakstypeEnum>[]> => {
-  const state = useSimpleApiState(sakstyper);
-
-  if (typeof state.data === 'undefined') {
-    return state;
-  }
-
-  return {
-    ...state,
-    data: state.data.filter((sakstype) => sakstype.id !== SakstypeEnum.ANKE_I_TRYGDERETTEN),
-  };
-};
