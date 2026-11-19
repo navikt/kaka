@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import {
   useDefaultQueryAapen,
   useDefaultQueryLeder,
-  useDefaultQueryMin,
+  useDefaultQueryTilbakemeldinger,
   useDefaultQueryTotal,
 } from './use-default-query-params';
 import { useUserAccess } from './use-user-access';
@@ -12,7 +12,7 @@ export const useIndexPath = () => {
   const defaultQueryAapen = useDefaultQueryAapen();
   const defaultQueryLeder = useDefaultQueryLeder();
   const defaultQueryTotal = useDefaultQueryTotal();
-  const defaultQueryTilbakemeldinger = useDefaultQueryMin();
+  const defaultQueryTilbakemeldinger = useDefaultQueryTilbakemeldinger();
 
   const access = useUserAccess();
 

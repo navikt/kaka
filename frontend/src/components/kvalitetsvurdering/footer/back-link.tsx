@@ -1,5 +1,5 @@
 import { IS_2027_OR_LATER } from '@app/components/filters/date-presets/constants';
-import { useDefaultQueryMin } from '@app/hooks/use-default-query-params';
+import { useDefaultQueryTilbakemeldinger } from '@app/hooks/use-default-query-params';
 import { useUserAccess } from '@app/hooks/use-user-access';
 import { Button } from '@navikt/ds-react';
 import { Link, useLocation } from 'react-router';
@@ -7,7 +7,7 @@ import { Link, useLocation } from 'react-router';
 export const BackLink = () => {
   const location = useLocation();
   const access = useUserAccess();
-  const defaultQuery = useDefaultQueryMin();
+  const defaultQuery = useDefaultQueryTilbakemeldinger();
 
   if (typeof location.state === 'string' && location.state.startsWith('/')) {
     return (
