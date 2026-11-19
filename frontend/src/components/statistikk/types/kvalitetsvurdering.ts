@@ -5,7 +5,6 @@ import {
 } from '@app/components/kvalitetsvurdering/kvalitetsskjema/v2/data';
 import { ColorToken } from '@app/components/statistikk/colors/token-name';
 import { ANNET_TEXTS } from '@app/components/statistikk/types/annet';
-import { AUTOMATISK_VEDTAK_TEXTS } from '@app/components/statistikk/types/automatisk-vedtak';
 import { BRUK_AV_RAADGIVENDE_LEGE_TEXTS } from '@app/components/statistikk/types/bruk-av-raadgivende-lege';
 import type { HelpTextContainer } from '@app/components/statistikk/types/common';
 import { KLAGEFORBEREDELSEN_TEXTS, SAKENS_DOKUMENTER_TEXTS } from '@app/components/statistikk/types/klageforberedelsen';
@@ -91,7 +90,6 @@ export const KVALITETSVURDERING_V2_TEXTS = {
   ...UTREDNINGEN_TEXTS,
   ...VEDTAKET_TEXTS,
   ...VEDTAKET_HJEMLER_LIST_TEXTS,
-  ...AUTOMATISK_VEDTAK_TEXTS,
   ...IKKE_KONKRET_BEGRUNNELSE_TEXTS,
   ...BRUK_AV_RAADGIVENDE_LEGE_TEXTS,
   ...ANNET_TEXTS,
